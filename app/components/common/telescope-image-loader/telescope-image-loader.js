@@ -148,7 +148,7 @@ class TelescopeImageLoader extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.unmountHandler);
-    this.unmountHandler();
+    this.detachSSE();
   }
 
   unmountHandler = () => {

@@ -40,8 +40,24 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     dateFilter: activeDateFilter,
   } = selectedFilters;
 
+  const resetFilters = () => {
+    onChange({
+      pierNumber: null,
+      observatoryId: null,
+      filterType: null,
+      timeFilter: null,
+      dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
+    });
+  };
+
   const open = () => setOpen(true);
-  const close = () => setOpen(false);
+  const close = () => {
+    resetFilters();
+    setOpen(false);
+  };
 
   const isTelescopeSelected = (observatoryId, pierNumber) => {
     const {
@@ -55,16 +71,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
 
   const handleReset = () => {
     // reset all filters
-    onChange({
-      pierNumber: null,
-      observatoryId: null,
-      filterType: null,
-      timeFilter: null,
-      dateFilter: null,
-      missionSystemTags: [],
-      missionUserTags: [],
-      pictureUserTags: [],
-    });
+    resetFilters();
     onApply();
     close();
   };
@@ -189,7 +196,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             <Button
               onClick={() => {
                 onApply();
-                close();
+                setOpen(false);
               }}
             >
               apply filters

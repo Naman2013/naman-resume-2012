@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const addImageToGallery = ({
   at,
@@ -7,7 +7,7 @@ export const addImageToGallery = ({
   galleryId,
   customerImageId,
 }) => (
-  axios.post('/api/images/addImageToGallery', {
+  API.post('/api/images/addImageToGallery', {
     at,
     cid,
     token,

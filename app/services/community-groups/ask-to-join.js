@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /** V4 ask to join a group
 
@@ -23,7 +23,7 @@ export const askToJoin = ({
   ver,
   lang,
 }) => (
-  axios.post('/api/discussiongroups/askToJoin', {
+  API.post('/api/discussiongroups/askToJoin', {
     cid,
     at,
     token,

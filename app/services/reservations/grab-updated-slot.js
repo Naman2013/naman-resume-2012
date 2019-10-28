@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function grabUpdatedSlot({
   cid,
@@ -23,7 +23,7 @@ export default function grabUpdatedSlot({
   uniqueId,
   targetName,
 }) {
-  return axios.post('/api/reservation/grabUpdatedSlot', {
+  return API.post('/api/reservation/grabUpdatedSlot', {
     cid,
     at,
     token,

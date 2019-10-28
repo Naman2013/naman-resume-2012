@@ -146,60 +146,65 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        {this.props.pageMeta.canSeeGroupContent && <ResponsiveTwoColumnContainer
-          renderNavigationComponent={navProps => (
-            <TwoTabbedNav
-              firstTitle={intl.formatMessage(messages.NavTitle)}
-              secondTitle={intl.formatMessage(messages.NavSecondTitle)}
-              firstTabIsActive={navProps.showMainContainer}
-              firstTabOnClick={navProps.onShowMainContainer}
-              secondTabIsActive={navProps.showAsideContainer}
-              secondTabOnClick={navProps.onShowAsideContainer}
-            />
-          )}
-          renderAsideContent={() =>
-            !isEditMode && this.props.pageMeta.canSeeGroupContent && (
-              <div>
-                <TopThreads
-                  topicId={pageMeta.topicId}
-                  isDesktop={context.isDesktop}
-                  discussionGroupId={discussionGroupId}
-                />
-                <MembersList
-                  membersSort={membersSort}
-                  membersList={membersList}
-                  membersCount={membersCount}
-                  leadersList={leadersList}
-                  discussionGroupId={discussionGroupId}
-                  fetchGroupMembers={actions.fetchGroupMembers}
-                  isDesktop={context.isDesktop}
-                />
-              </div>
-            )
-          }
-          isScreenSize={context.isScreenLarge}
-          renderMainContent={() =>
-            !isEditMode && pageMeta.canSeeGroupContent === true && (
-              <div className="discuss-container">
-                <DiscussionsBoard
-                  errorMessage={intl.formatMessage(messages.FetchingListError)}
-                  topicId={pageMeta.topicId}
-                  forumId={pageMeta.forumId}
-                  callSource="groups"
-                  createThread={actions.createActivity}
-                  createThreadFormParams={createThreadFormParams}
-                  user={user}
-                  validateResponseAccess={actions.validateResponseAccess}
-                  discussionGroupId={discussionGroupId}
-                  jumpToThreadId={jumpToThreadId}
-		              canSeeGroupContent={pageMeta.canSeeGroupContent}
-                  isClub
-                />
-              </div>
-            )
-          }
-        />
-      }
+        {this.props.pageMeta.canSeeGroupContent && (
+          <ResponsiveTwoColumnContainer
+            renderNavigationComponent={navProps => (
+              <TwoTabbedNav
+                firstTitle={intl.formatMessage(messages.NavTitle)}
+                secondTitle={intl.formatMessage(messages.NavSecondTitle)}
+                firstTabIsActive={navProps.showMainContainer}
+                firstTabOnClick={navProps.onShowMainContainer}
+                secondTabIsActive={navProps.showAsideContainer}
+                secondTabOnClick={navProps.onShowAsideContainer}
+              />
+            )}
+            renderAsideContent={() =>
+              !isEditMode &&
+              this.props.pageMeta.canSeeGroupContent && (
+                <div>
+                  <TopThreads
+                    topicId={pageMeta.topicId}
+                    isDesktop={context.isDesktop}
+                    discussionGroupId={discussionGroupId}
+                  />
+                  <MembersList
+                    membersSort={membersSort}
+                    membersList={membersList}
+                    membersCount={membersCount}
+                    leadersList={leadersList}
+                    discussionGroupId={discussionGroupId}
+                    fetchGroupMembers={actions.fetchGroupMembers}
+                    isDesktop={context.isDesktop}
+                  />
+                </div>
+              )
+            }
+            isScreenSize={context.isScreenLarge}
+            renderMainContent={() =>
+              !isEditMode &&
+              pageMeta.canSeeGroupContent === true && (
+                <div className="discuss-container">
+                  <DiscussionsBoard
+                    errorMessage={intl.formatMessage(
+                      messages.FetchingListError
+                    )}
+                    topicId={pageMeta.topicId}
+                    forumId={pageMeta.forumId}
+                    callSource="groups"
+                    createThread={actions.createActivity}
+                    createThreadFormParams={createThreadFormParams}
+                    user={user}
+                    validateResponseAccess={actions.validateResponseAccess}
+                    discussionGroupId={discussionGroupId}
+                    jumpToThreadId={jumpToThreadId}
+                    canSeeGroupContent={pageMeta.canSeeGroupContent}
+                    isClub
+                  />
+                </div>
+              )
+            }
+          />
+        )}
 
         <style jsx>
           {`

@@ -42,7 +42,7 @@ class AboutContent extends Component {
   };
 
   render() {
-    const { content, showAboutCurriculum, aboutCurriculumText } = this.props;
+    const { content } = this.props;
     const { contentLength, buttonText } = this.state;
     return (
       <Fragment>
@@ -63,11 +63,6 @@ class AboutContent extends Component {
                   {buttonText}
                 </button>
               </p>
-              {showAboutCurriculum ? (
-                <div className="show-about-curriculum">
-                  {aboutCurriculumText}
-                </div>
-              ) : null}
             </>
           ) : (
             <span

@@ -2,33 +2,37 @@
 @import '../../styles/variables/colors';
 @import '../../styles/mixins/utilities';
 
-$headerSize: 1rem;
+$headerSize: 1.2rem;
 
 .RichTextEditor {
   font-family: $secondary-font;
   font-weight: normal;
   min-width: 100%;
 
-  .DraftEditor-root {
-    border: 1px solid #ced2d8;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: left;
-    border-radius: .25rem;
-    background-color: #f2f2f2;
-    color: #415671;
+  .RichEditor-editor {
+    font-size: 16px;
 
-    .public-DraftEditor-content {
-      min-height: 220px;
+    .DraftEditor-root {
+      border: 1px solid $shadows;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: left;
+      border-radius: .25rem;
+      background-color: $seashell;
+      color: $astronaut;
+
+      .public-DraftEditor-content {
+        min-height: 220px;
+      }
     }
   }
 
   .RichEditor-controls-container {
     padding-top: 5px;
-    border: 1px solid #ced2d8;
+    border: 1px solid $shadows;
     border-bottom: 0;
     text-align: center;
-    background-color: #f2f2f2;
+    background-color: $seashell;
   }
 
   .buttons, .urlInputContainer {
@@ -46,7 +50,7 @@ $headerSize: 1rem;
   }
 
   .editor {
-    border: 1px solid #ced2d8;
+    border: 1px solid $shadows;
     cursor: text;
     min-height: 80px;
     padding: 10px;
@@ -82,18 +86,19 @@ $headerSize: 1rem;
   }
 
   .RichEditor-styleButton {
-    color: #415671;
+    color: $astronaut;
     cursor: pointer;
     margin-right: 16px;
     padding: 2px 0;
     display: inline-block;
+    font-size: 1.2rem;
   }
 
   .RichEditor-activeButton {
-    color: #ffde00;
+    color: $golden_yellow;
   }
 
   .RichEditor-horizontalRule {
-    border-top: 1px solid #415671;
+    border-top: 1px solid $astronaut;
   }
 }

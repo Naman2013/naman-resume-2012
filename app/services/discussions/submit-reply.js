@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const submitReply = ({
   at,
@@ -17,7 +17,7 @@ export const submitReply = ({
   topicId,
   ver,
 }) => {
-  return axios.post('/api/forum/submitReply', {
+  return API.post('/api/forum/submitReply', {
     at,
     callSource,
     cid,

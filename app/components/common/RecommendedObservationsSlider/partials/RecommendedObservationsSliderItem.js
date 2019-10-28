@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { API } from 'app/api';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { IMAGE_DETAILS } from 'app/services/image-details';
@@ -15,7 +15,7 @@ class RecommendedObservationsItem extends Component {
   componentDidMount() {
     const { customerImageId, user } = this.props;
     const { token, at, cid } = user;
-    return axios
+    return API
       .post(IMAGE_DETAILS, {
         cid,
         at,
@@ -58,7 +58,7 @@ class RecommendedObservationsItem extends Component {
   handleLike = () => {
     const { user, customerImageId } = this.props;
     const { token, at, cid } = user;
-    axios
+    API
       .post(LIKE, {
         cid,
         at,
@@ -70,7 +70,7 @@ class RecommendedObservationsItem extends Component {
           ...res.data,
         });
       });
-    return axios
+    return API
       .post(IMAGE_DETAILS, {
         cid,
         at,

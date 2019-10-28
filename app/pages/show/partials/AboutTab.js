@@ -64,6 +64,8 @@ class AboutTab extends Component {
       likeResultHandler,
       likePrompt,
       likesCount,
+      likedByMe,
+      likeTooltip,
       showId,
       showInfoTiles,
       showInfoTileDirection,
@@ -81,6 +83,8 @@ class AboutTab extends Component {
           likeResultHandler={likeResultHandler}
           likeHandler={like}
           likesCount={likesCount}
+          likedByMe={likedByMe}
+          likeTooltip={likeTooltip}
           likePrompt={likePrompt}
           likeParams={likeParams}
           showLikePrompt={showLikePrompt}

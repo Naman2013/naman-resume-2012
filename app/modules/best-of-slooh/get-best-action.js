@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_BEST_START = 'FETCH_BEST_START';
 export const FETCH_BEST_SUCCESS = 'FETCH_BEST_SUCCESS';
@@ -9,7 +9,7 @@ export const fetchBest = (id) => (dispatch, getState) => {
     
   dispatch(fetchBestStart());
   
-  return axios.post('/api/content/getBestOf', {
+  return API.post('/api/content/getBestOf', {
     cid
   })
     .then(result => dispatch(fetchBestSuccess(result.data)))

@@ -21,7 +21,7 @@
   lang optional API language
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchMissionSlot({
   cid,
@@ -33,7 +33,7 @@ export default function fetchMissionSlot({
   reservationDate,
   type,
 }) {
-  return axios.post('/api/reservation/getMissionSlot', {
+  return API.post('/api/reservation/getMissionSlot', {
     cid,
     at,
     token,

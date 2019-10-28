@@ -8,7 +8,7 @@
 import { withHandleRedirect } from 'app/modules/quests/hoc/with-handle-redirect';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -64,8 +64,7 @@ export class ConnectedQuestDetails extends Component {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
     this.startLoading();
-    return axios
-      .post(START_QUEST, {
+    return API.post(START_QUEST, {
         at,
         cid,
         token,

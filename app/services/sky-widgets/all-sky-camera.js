@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchAllSkyCamera({ obsId, AllskyWidgetId }) {
-  return axios.post('/api/widget/allSkyCamera', {
+  return API.post('/api/widget/allSkyCamera', {
     obsId,
     widgetUniqueId: AllskyWidgetId,
   });

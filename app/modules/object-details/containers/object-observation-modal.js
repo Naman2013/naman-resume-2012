@@ -15,6 +15,7 @@ import { WriteObservationModal } from '../components/write-observation-modal';
 import { setObservationTags } from '../../image-details/thunks';
 import { makeUserSelector } from '../../user/selectors';
 import { shareMemberPicture } from '../../share-member-photo/actions';
+import { makeShareMemberPhotoDataSelector } from '../../share-member-photo/selectors';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeObjectObservationIsFetchingSelector(),
@@ -22,6 +23,7 @@ const mapStateToProps = createStructuredSelector({
   objectDetails: makeObjectDetailsDataSelector(),
   imageDetails: makeObjectImageDetailsSelector(),
   user: makeUserSelector(),
+  shareMemberPhotoData: makeShareMemberPhotoDataSelector(),
 });
 
 const mapDispatchToProps = {

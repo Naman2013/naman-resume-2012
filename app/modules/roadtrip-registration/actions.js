@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { SubmissionError, reset } from 'redux-form';
 import { captureErrorState } from '../authorization/actions';
 
@@ -25,8 +25,8 @@ export const authenticateRegistrationPage = (pathname, replace, callback) => (
   getState
 ) => {
   const { cid, at, token } = getState().user;
-  return axios
-    .post('/api/users/accessRoadtripForm', {
+  return API
+      .post('/api/users/accessRoadtripForm', {
       cid,
       at,
       token,
@@ -85,8 +85,8 @@ export const sendRoadtripForm = contactFormValues => (dispatch, getState) => {
   } = contactFormValues;
   const { cid, at, token } = getState().user;
   dispatch(sendRoadtripFormStart());
-  return axios
-    .post('/api/app/sendRoadtripForm', {
+  return API
+      .post('/api/app/sendRoadtripForm', {
       cid,
       at,
       token,

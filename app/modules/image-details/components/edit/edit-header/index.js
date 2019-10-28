@@ -5,6 +5,8 @@ import { getGalleries } from 'app/modules/image-details/thunks';
 import React, { useState } from 'react';
 import { downloadFile } from 'app/utils/downloadFile';
 import { Button, Col, Row } from 'react-bootstrap';
+import { Modal } from 'app/components/modal';
+import { WriteObservationStep3 } from 'app/modules/object-details/components/write-observation-step3';
 import './styles.scss';
 
 export const EditHeader = props => {
@@ -16,6 +18,7 @@ export const EditHeader = props => {
     canShareFlag,
     observationLog,
     refetchData,
+    shareMemberPhotoData,
   } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
@@ -33,9 +36,9 @@ export const EditHeader = props => {
       customerImageId,
     } = props;
 
-    shareMemberPicture({ customerImageId }).then(
-      data => typeof refetchData === 'function' && refetchData()
-    );
+    shareMemberPicture({ customerImageId }).then(data => {
+      setShareOpen(true);
+    });
   };
 
   const onWriteObservation = () =>
@@ -43,6 +46,11 @@ export const EditHeader = props => {
       0,
       document.getElementById('img-details-obs-form').offsetTop
     );
+
+  const onShareModalClose = () => {
+    refetchData();
+    setShareOpen(false);
+  };
 
   return (
     <Row className="edit-header">
@@ -80,6 +88,12 @@ export const EditHeader = props => {
 
           <GalleryBtn {...props} />
 
+          <Modal show={isShareOpen} onHide={onShareModalClose}>
+            <WriteObservationStep3
+              onHide={onShareModalClose}
+              shareMemberPhotoData={shareMemberPhotoData}
+            />
+          </Modal>
           {/*<BtnWithPopover
             isOpen={isShareOpen}
             setOpen={setShareOpen}

@@ -20,6 +20,8 @@ const MainContainer = ({
   fileData,
   showLikePrompt,
   likePrompt,
+  likedByMe,
+  likeTooltip,
   likesCount,
   observationLog,
   observationTimeDisplay,
@@ -31,14 +33,17 @@ const MainContainer = ({
   user,
   validateResponseAccess,
   refetchData,
+  shareMemberPhotoData,
+  iconFileData,
 }) => {
-  const [isEditMode, setEditMode] = useState(!observationLog);
+  const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState('');
   const [observation, setObservation] = useState('');
 
-  const isFormVisible = () => canEditFlag && isEditMode;
+  const isFormVisible = () =>
+    (canEditFlag && isEditMode) || (!isEditMode && !observationLog);
 
-  const isLogVisible = () => !isEditMode;
+  const isLogVisible = () => !isEditMode && observationLog;
 
   return (
     <div className="image-main-container">
@@ -48,8 +53,11 @@ const MainContainer = ({
             canLikeFlag={canLikeFlag}
             customerImageId={customerImageId}
             fileData={fileData}
+            iconFileData={iconFileData}
             likesCount={likesCount}
+            likedByMe={likedByMe}
             likePrompt={likePrompt}
+            likeTooltip={likeTooltip}
             showLikePrompt={showLikePrompt}
             observationLog={observationLog}
             observationTimeDisplay={observationTimeDisplay}
@@ -65,6 +73,7 @@ const MainContainer = ({
               setObservation(observationLog);
             }}
             refetchData={refetchData}
+            shareMemberPhotoData={shareMemberPhotoData}
           />
           <br />
         </>

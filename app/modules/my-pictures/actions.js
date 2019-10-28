@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import getMissionFits from '../../services/pictures/get-mission-fits';
 import {
   fetchGalleriesCount,
@@ -61,7 +61,7 @@ export const fetchMorePhotoroll = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
-  return axios.post('/api/images/getMyPictures', {
+  return API.post('/api/images/getMyPictures', {
     at,
     cid,
     token,
@@ -84,7 +84,7 @@ export const fetchMoreMissions = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
-  return axios.post('/api/images/getMissionImages', {
+  return API.post('/api/images/getMissionImages', {
     token,
     at,
     cid,
@@ -150,7 +150,7 @@ export const fetchMissionPhotos = ({
   dispatch(fetchMissionCount()); // for deeplinking
   dispatch(fetchMyPicturesCount());// for deeplinking
   dispatch(fetchGalleriesCount());// for deeplinking
-  return axios.post('/api/images/getMyPictures', {
+  return API.post('/api/images/getMyPictures', {
     at,
     cid,
     token,
@@ -188,7 +188,7 @@ export const fetchMissions = ({
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMissionsStart());
 
-  return axios.post('/api/images/getMissionImages', {
+  return API.post('/api/images/getMissionImages', {
     token,
     at,
     cid,
@@ -230,7 +230,7 @@ export const fetchPhotoRoll = ({
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchPhotoRollStart());
 
-  return axios.post('/api/images/getMyPictures', {
+  return API.post('/api/images/getMyPictures', {
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
@@ -316,7 +316,7 @@ export const fetchMyPicturesCount = ({ customerUUID }) => (dispatch, getState) =
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMyPicturesCountStart());
 
-  return axios.post('/api/images/getMyPicturesCount', {
+  return API.post('/api/images/getMyPicturesCount', {
     at,
     cid,
     token,
@@ -348,7 +348,7 @@ export const fetchObservationCount = ({ customerUUID }) => (dispatch, getState) 
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchObservationsCountStart());
 
-  return axios.post('/api/images/getMyPicturesCount', {
+  return API.post('/api/images/getMyPicturesCount', {
     at,
     cid,
     token,
@@ -381,7 +381,7 @@ export const fetchMissionPhotosCount = ({ scheduledMissionId }) => (dispatch, ge
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMissionPhotosCountStart());
 
-  return axios.post('/api/images/getMyPicturesCount', {
+  return API.post('/api/images/getMyPicturesCount', {
     at,
     cid,
     token,
@@ -413,7 +413,7 @@ export const fetchMissionCount = ({ customerUUID }) => (dispatch, getState) => {
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMissionCountStart());
 
-  return axios.post('/api/images/getMissionCount', {
+  return API.post('/api/images/getMissionCount', {
     at,
     cid,
     token,

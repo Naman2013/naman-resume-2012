@@ -15,7 +15,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'app/services/classroom/classroom';
 import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'app/services/registration/registration';
 import Request from 'app/components/common/network/Request';
-import axios from 'axios';
+import { API } from 'app/api';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
 import messages from './DiscussionBoard.messages';
@@ -102,8 +102,8 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
     }
 
     if (isFormComplete === true) {
-      const setInviteCompleteResult = axios
-        .post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
+      const setInviteCompleteResult = API
+      .post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
           cid: user.cid,
           at: user.at,
           token: user.token,

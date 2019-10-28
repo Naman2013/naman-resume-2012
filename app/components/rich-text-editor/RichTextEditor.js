@@ -2,7 +2,7 @@ import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import cx from 'classnames';
 
 import AddDividerBlock from './divider-block/AddDividerBlock';
 import DividerBlock from './divider-block/DividerBlock';
@@ -10,66 +10,135 @@ import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 
 import 'draft-js/dist/Draft.css';
-import styles from './RichTextEditor.scss';
+import './RichTextEditor.scss';
+
+function getBlockStyle(block) {
+  switch (block.getType()) {
+    case 'blockquote':
+      return 'RichEditor-blockquote';
+    case 'atomic':
+      return 'RichEditor-horizontalRule';
+    default:
+      return null;
+  }
+}
+
+function findLinkEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(character => {
+    const entityKey = character.getEntity();
+    return (
+      entityKey !== null &&
+      contentState.getEntity(entityKey).getType() === 'LINK'
+    );
+  }, callback);
+}
+
+const Link = ({ contentState, entityKey, children }) => {
+  const { url } = contentState.getEntity(entityKey).getData();
+  return (
+    <a href={url} className="link" target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+};
+
+const editorStateDecorator = new CompositeDecorator([
+  {
+    strategy: findLinkEntities,
+    component: Link,
+  },
+]);
 
 class RichTextEditor extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link,
-      },
-    ]);
-
     this.state = {
-      editorState: EditorState.createEmpty(decorator),
+      editorState: EditorState.createEmpty(editorStateDecorator),
       showURLInput: false,
       urlValue: '',
     };
   }
 
-  onChange = (editorState) => {
-    const {
-      onChange,
-    } = this.props;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { editorValue } = nextProps;
+    const { editorState } = prevState;
+
+    return {
+      editorState:
+        !editorValue && editorState.getCurrentContent().hasText()
+          ? EditorState.createEmpty(editorStateDecorator)
+          : editorState,
+    };
+  }
+
+  onChange = editorState => {
+    const { onChange } = this.props;
     this.setState({
       editorState,
     });
     const content = editorState.getCurrentContent();
-    const threadContent = content.getPlainText().trim() && convertToHTML({
-      blockToHTML: (block) => {
-        if (block.type === 'atomic') {
-          return {
-            start: '<hr>',
-            end: '</hr>'
-          };
-        }
-        if (block.text === '') {
-          return <p><br/></p>;
-        }
-      },
-      entityToHTML: (entity, originalText) => {
-        if (entity.type === 'LINK') {
-          return <a href={entity.data.url} target="_blank" rel="noopener noreferrer">{originalText}</a>;
-        }
-        return originalText;
-      }
-    })(content);
+    const threadContent =
+      content.getPlainText().trim() &&
+      convertToHTML({
+        blockToHTML: block => {
+          if (block.type === 'atomic') {
+            return {
+              start: '<hr>',
+              end: '</hr>',
+            };
+          }
+          if (block.text === '') {
+            return (
+              <p>
+                <br />
+              </p>
+            );
+          }
+        },
+        entityToHTML: (entity, originalText) => {
+          if (entity.type === 'LINK') {
+            return (
+              <a
+                href={entity.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {originalText}
+              </a>
+            );
+          }
+          return originalText;
+        },
+      })(content);
     onChange(threadContent);
-  }
+  };
 
-  onTab = (e) => { // sets tab spacing (i.e.: ul)
+  onTab = e => {
+    const { editorState } = this.state;
+    // sets tab spacing (i.e.: ul)
     const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-  }
+    this.onChange(RichUtils.onTab(e, editorState, maxDepth));
+  };
 
-  handleKeyCommand = (command) => { // allows ctl+b ctl+i like commands
+  onURLChange = e => {
+    this.setState({
+      urlValue: e.target.value,
+    });
+  };
+
+  onLinkInputKeyDown = e => {
+    if (e.which === 13) {
+      this.confirmLink(e);
+    }
+  };
+
+  handleKeyCommand = command => {
+    // allows ctl+b ctl+i like commands
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -77,31 +146,23 @@ class RichTextEditor extends React.Component {
       return true;
     }
     return false;
-  }
+  };
 
   // "BlockType" is the top line of tools on the editor,
   // block elements affect all text on that line of the editor
-  toggleBlockType = (blockType) => {
-    this.onChange(
-      RichUtils.toggleBlockType(
-        this.state.editorState,
-        blockType,
-      )
-    );
-  }
+  toggleBlockType = blockType => {
+    const { editorState } = this.state;
+    this.onChange(RichUtils.toggleBlockType(editorState, blockType));
+  };
 
   // "inline styles" (second line of the editor) styles will not affect the whole line of text,
   // just what is highlighted
-  toggleInlineStyle = (inlineStyle) => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(
-        this.state.editorState,
-        inlineStyle
-      )
-    );
-  }
+  toggleInlineStyle = inlineStyle => {
+    const { editorState } = this.state;
+    this.onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
+  };
 
-  promptForLink = (e) => {
+  promptForLink = e => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ urlValue: '' });
@@ -113,52 +174,50 @@ class RichTextEditor extends React.Component {
       const startOffset = editorState.getSelection().getStartOffset();
       const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
       const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+      const url = linkKey ? contentState.getEntity(linkKey).getData().url : '';
 
-      let url = '';
-      if (linkKey) {
-        const linkInstance = contentState.getEntity(linkKey);
-        url = linkInstance.getData().url;
-      }
-      this.setState({
-        showURLInput: true,
-        urlValue: url,
-      }, () => {
-        this.urlInput.focus();
-      });
+      this.setState(
+        {
+          showURLInput: true,
+          urlValue: url,
+        },
+        () => {
+          this.urlInput.focus();
+        }
+      );
     }
-  }
+  };
 
-  confirmLink = (e) => {
+  confirmLink = e => {
     e.preventDefault();
     const { editorState, urlValue } = this.state;
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
-     'LINK',
-     'MUTABLE',
-     { url: urlValue }
+      'LINK',
+      'MUTABLE',
+      { url: urlValue }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
-    this.setState({
-      editorState: RichUtils.toggleLink(
-        newEditorState,
-        newEditorState.getSelection(),
-        entityKey
-      ),
-      showURLInput: false,
-      urlValue: '',
-    }, () => {
-      this.editor.focus();
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity,
     });
-  }
+    this.setState(
+      {
+        editorState: RichUtils.toggleLink(
+          newEditorState,
+          newEditorState.getSelection(),
+          entityKey
+        ),
+        showURLInput: false,
+        urlValue: '',
+      },
+      () => {
+        this.editor.focus();
+      }
+    );
+  };
 
-  onLinkInputKeyDown = (e) => {
-    if (e.which === 13) {
-      this.confirmLink(e);
-    }
-  }
-
-  removeLink = (e) => {
+  removeLink = e => {
     e.preventDefault();
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -167,13 +226,7 @@ class RichTextEditor extends React.Component {
         editorState: RichUtils.toggleLink(editorState, selection, null),
       });
     }
-  }
-
-  onURLChange = (e) => {
-    this.setState({
-      urlValue: e.target.value
-    })
-  }
+  };
 
   blockRenderer(block) {
     const { editorState } = this.state;
@@ -202,41 +255,50 @@ class RichTextEditor extends React.Component {
   }
 
   render() {
-    const { editorState, showURLInput } = this.state;
-    const linkClass = classnames('RichEditor-styleButton', {
+    const { editorState, showURLInput, urlValue } = this.state;
+    const { className } = this.props;
+    const linkClass = cx('RichEditor-styleButton', {
       'RichEditor-activeButton': showURLInput,
     });
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor';
+    let editorClassName = 'RichEditor-editor';
     const contentState = editorState.getCurrentContent();
     let urlInput;
     if (showURLInput) {
       urlInput = (
-        <div className={styles.urlInputContainer}>
+        <div className="urlInputContainer">
           <input
             onChange={this.onURLChange}
-            className={styles.urlInput}
+            className="urlInput"
             type="text"
-            value={this.state.urlValue}
+            value={urlValue}
             onKeyDown={this.onLinkInputKeyDown}
             placeholder="http://"
-            ref={(input) => { this.urlInput = input; }}
+            ref={input => {
+              this.urlInput = input;
+            }}
           />
-          <button onMouseDown={this.confirmLink}>
+          <button type="button" onMouseDown={this.confirmLink}>
             Add
           </button>
-        </div>);
+        </div>
+      );
     }
     if (!contentState.hasText()) {
-      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-        className += ' RichEditor-hidePlaceholder';
+      if (
+        contentState
+          .getBlockMap()
+          .first()
+          .getType() !== 'unstyled'
+      ) {
+        editorClassName += ' RichEditor-hidePlaceholder';
       }
     }
 
     return (
-      <div className={`RichEditor-root ${styles.RichTextEditor}`}>
+      <div className={cx(['RichEditor-root', 'RichTextEditor', className])}>
         <div className="RichEditor-controls-container">
           <BlockStyleControls
             className="RichEditor-controls"
@@ -250,9 +312,18 @@ class RichTextEditor extends React.Component {
           <div className="RichEditor-controls">
             <span
               className={`fa fa-link ${linkClass}`}
+              role="button"
+              tabIndex="0"
               onClick={this.promptForLink}
+              onKeyPress={this.promptForLink}
             />
-            <span className="fa fa-chain-broken RichEditor-styleButton" onClick={this.removeLink} />
+            <span
+              className="fa fa-chain-broken RichEditor-styleButton"
+              role="button"
+              tabIndex="0"
+              onClick={this.removeLink}
+              onKeyPress={this.removeLink}
+            />
             <AddDividerBlock
               editorState={editorState}
               onChange={this.onChange}
@@ -260,7 +331,7 @@ class RichTextEditor extends React.Component {
           </div>
           {urlInput}
         </div>
-        <div className={className}>
+        <div className={editorClassName}>
           <Editor
             id="rich-editor"
             blockStyleFn={getBlockStyle}
@@ -269,43 +340,14 @@ class RichTextEditor extends React.Component {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             onTab={this.onTab}
-            ref={(input) => { this.editor = input; }}
+            ref={input => {
+              this.editor = input;
+            }}
           />
         </div>
       </div>
     );
   }
-
 }
-
-function getBlockStyle(block) {
-  switch (block.getType()) {
-    case 'blockquote': return 'RichEditor-blockquote';
-    case 'atomic': return 'RichEditor-horizontalRule';
-    default: return null;
-  }
-}
-
-function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity();
-      return (
-        entityKey !== null &&
-        contentState.getEntity(entityKey).getType() === 'LINK'
-      );
-    },
-    callback
-  );
-}
-
-const Link = (props) => {
-  const { url } = props.contentState.getEntity(props.entityKey).getData();
-  return (
-    <a href={url} className={styles.link} target="_blank" rel="noopener noreferrer">
-      {props.children}
-    </a>
-  );
-};
 
 export default RichTextEditor;

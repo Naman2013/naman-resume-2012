@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 const DEFAULT_LANG = 'en';
 const DEFAULT_STATUS = 'live';
@@ -12,7 +12,7 @@ export default function fetchObservatoryList({
   token,
   callSource,
 }) {
-  return axios.post('/api/obs/list', {
+  return API.post('/api/obs/list', {
     at,
     cid,
     token,

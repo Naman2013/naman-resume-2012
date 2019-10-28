@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_USER_PUBLIC_GALLERIES_START = 'FETCH_USER_PUBLIC_GALLERIES_START';
 export const FETCH_USER_PUBLIC_GALLERIES_SUCCESS = 'FETCH_USER_PUBLIC_GALLERIES_SUCCESS';
@@ -26,7 +26,7 @@ export const fetchUserPublicGalleries = ({
   cid,
 }) => (dispatch, getState) => {
   dispatch(fetchUserPublicGalleriesStart());
-  return axios.post('/api/images/getPublicGalleryList', {
+  return API.post('/api/images/getPublicGalleryList', {
     cid,
     pagingMode,
     maxGalleryCount: maxImageCount,

@@ -70,6 +70,8 @@ class MainContainerWithDiscussions extends Component {
       hasDiscussionThread,
       likePrompt,
       likesCount,
+      likedByMe,
+      likeTooltip,
       serverTime,
       startDate,
       showId,
@@ -87,6 +89,8 @@ class MainContainerWithDiscussions extends Component {
         <LikeSomethingButton
           likeHandler={like}
           likesCount={likesCount}
+          likedByMe={likedByMe}
+          likeTooltip={likeTooltip}
           likePrompt={likePrompt}
           likeParams={likeParams}
           showLikePrompt={showLikePrompt}

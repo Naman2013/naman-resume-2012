@@ -8,12 +8,13 @@ import { shareMemberPicture } from 'app/modules/share-member-photo/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-const mapStateToProps = ({ user, imageDetails }) => {
+const mapStateToProps = ({ user, imageDetails, shareMemberPhoto }) => {
   return {
     user,
     observationTagsError: imageDetails.observationTagsError,
     imageDetailsData: imageDetails.data,
     isFetching: imageDetails.isFetching,
+    shareMemberPhotoData: shareMemberPhoto.shareMemberPhotoData,
   };
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import UpgradeModal from '../../containers/upgrade-modal';
 
 const IssueWithUserAccount = props => {
@@ -8,10 +9,14 @@ const IssueWithUserAccount = props => {
     isModalVisible,
     subscriptionPlansCallSource,
   } = props;
+  const onHideModal = () => {
+    hideIssueWithUserAccountModal();
+    browserHistory.goBack();
+  }
   return isModalVisible ? (
     <UpgradeModal
       show={isModalVisible}
-      onHide={hideIssueWithUserAccountModal}
+      onHide={onHideModal}
       errorData={errorData}
       subscriptionPlansCallSource={subscriptionPlansCallSource}
     />

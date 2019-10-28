@@ -9,18 +9,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
-import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  profilePhotoStyle,
+  aspectRatio,
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 import {
   astronaut,
   shadows,
   romance,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import {
-  aspectRatio,
-  backgroundImageCover,
-  dropShadowContainer,
-} from '../../../../styles/mixins/utilities';
+
 import { screenMedium } from 'app/styles/variables/breakpoints';
 
 const { arrayOf, bool, shape, string } = PropTypes;
@@ -48,10 +49,12 @@ const ObserverInfo = ({
     <div className="observer-info-container">
       {!isDesktop ? <div className="title">Observer:</div> : null}
       <div className="flex-item">
-        <span
-          className="name"
-          dangerouslySetInnerHTML={{ __html: displayName }}
-        />
+        <Link to={observerData?.linkUrl}>
+          <span
+            className="name"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
+        </Link>
         <span
           className="gravity-desc"
           dangerouslySetInnerHTML={{ __html: gravityRankLabel }}
@@ -59,21 +62,29 @@ const ObserverInfo = ({
       </div>
       <div className="avatar-container flex-item">
         <div className="observer-avatar-container">
-          <div className="observer-avatar" style={{backgroundImage: `url("${observerData ? observerData.iconUrl : avatarURL}")`}} />
+          <div
+            className="observer-avatar"
+            style={{
+              backgroundImage: `url("${
+                observerData ? observerData.iconUrl : avatarURL
+              }")`,
+            }}
+          />
         </div>
         <div className="avatar-line" />
       </div>
     </div>
 
-    <style jsx>{`
-      .root {
-        background-color: ${romance};
-        ${dropShadowContainer}
-      }
-      
-      .component-container {
-        margin: 25px;
-      }
+    <style jsx>
+      {`
+        .root {
+          background-color: ${romance};
+          ${dropShadowContainer}
+        }
+
+        .component-container {
+          margin: 25px;
+        }
 
         .title-container {
           text-transform: uppercase;

@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
-import axios from 'axios';
+import { API } from 'app/api';
 import { FormattedMessage } from 'react-intl';
 import {
   resetLogIn,
@@ -84,10 +84,10 @@ class JoinStep3 extends Component {
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
-      console.log(paymentMessageData);
+      //console.log(paymentMessageData);
       var paymentDataString = paymentMessageData.split('!952bccf9afe8e4c04306f70f7bed6610');
 
-      console.log(paymentDataString);
+      //console.log(paymentDataString);
       /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
@@ -134,8 +134,8 @@ class JoinStep3 extends Component {
           billingAddressString: paymentDataString[3],
         };
 //add string aboc to this //ADD THIS BACK AFTER TESTING
-            axios
-          .post(
+            API
+      .post(
             JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
             activatePendingCustomerData
           )
@@ -146,6 +146,11 @@ class JoinStep3 extends Component {
                 const { actions } = this.props;
 
                 //Cleanup local localStorage
+
+		//cleanup any hidden plan that was accessed now that a plan was redeemed.
+		window.localStorage.removeItem('enableHiddenPlanHashCode');
+
+		//cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('selectedSchoolId');
@@ -164,7 +169,7 @@ class JoinStep3 extends Component {
                     pwd: window.localStorage.password,
                   };
 
-                  /* cleanup local storage */ 
+                  /* cleanup local storage */
                   window.localStorage.removeItem('accountCreationType');
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
@@ -182,7 +187,7 @@ class JoinStep3 extends Component {
                   browserHistory.push('/');
                 }
               } else {
-                /* process / display error to user */ 
+                /* process / display error to user */
 		document.getElementById('embeddedHostedPaymentForm').contentWindow.captureActivationError(res);
               }
             }
@@ -192,7 +197,7 @@ class JoinStep3 extends Component {
           });
       }
     }
-  }; 
+  };
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
   handleJoinPageServiceResponse = result => {
@@ -258,7 +263,12 @@ class JoinStep3 extends Component {
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId, cid: window.localStorage.getItem('pending_cid') }}
+          requestBody={{ 
+		callSource: 'providePaymentDetails', 
+		selectedPlanId, 
+		cid: window.localStorage.getItem('pending_cid'),
+		enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+	  }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>

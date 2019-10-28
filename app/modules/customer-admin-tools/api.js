@@ -1,6 +1,6 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
-export const getApi = data => axios.post('/api/', data);
+export const getApi = data => API.post('/api/', data);
 
 export const getCustomerAdminToolsApi = data =>
-  axios.post('/api/page/customerAdminTools', data);
+  API.post('/api/page/customerAdminTools', data);

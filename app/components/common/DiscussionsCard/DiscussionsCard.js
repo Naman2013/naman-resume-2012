@@ -7,6 +7,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
@@ -53,6 +54,8 @@ class DiscussionsCard extends PureComponent {
       likeParams,
       likePrompt,
       likesCount,
+      likedByMe,
+      likeTooltip,
       openModal,
       renderChildReplies,
       replyToponlyCount,
@@ -67,6 +70,7 @@ class DiscussionsCard extends PureComponent {
       user,
       showTitle,
       flagParams,
+      authorInfo,
     } = this.props;
 
     return (
@@ -79,10 +83,12 @@ class DiscussionsCard extends PureComponent {
           <div className="user-info-container">
             <div className="user-info">
               <div style={profPic(avatarURL)} />
-              <div
-                className="display-name"
-                dangerouslySetInnerHTML={{ __html: displayName }}
-              />
+              <Link to={authorInfo?.linkUrl}>
+                <div
+                  className="display-name"
+                  dangerouslySetInnerHTML={{ __html: displayName }}
+                />
+              </Link>
             </div>
             <span className="date">{moment.utc(modified).fromNow()}</span>
           </div>
@@ -104,6 +110,8 @@ class DiscussionsCard extends PureComponent {
             </div>
             <div className="explainantion-item">
               <FormattedMessage {...messages.Likes} />: {likesCount}{' '}
+            </div>
+            <div className="explainantion-item">
               <FormattedMessage {...messages.Comments} />: {replyToponlyCount}
             </div>
           </div>
@@ -112,6 +120,8 @@ class DiscussionsCard extends PureComponent {
               <LikeSomethingButton
                 likeHandler={likeHandler}
                 likesCount={likesCount}
+                likedByMe={likedByMe}
+                likeTooltip={likeTooltip}
                 likePrompt={likePrompt}
                 likeParams={likeParams}
                 openModal={openModal}
@@ -127,7 +137,7 @@ class DiscussionsCard extends PureComponent {
                 />
               ) : null}
               {/*{S3Files.length > 0 ? (*/}
-                {/*<ViewImagesButton images={S3Files} />*/}
+              {/*<ViewImagesButton images={S3Files} />*/}
               {/*) : null}*/}
             </div>
             <div className="action-right">

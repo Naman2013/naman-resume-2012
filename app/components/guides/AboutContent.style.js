@@ -29,11 +29,6 @@ export default css`
     outline: none;
   }
 
-  .show-about-curriculum {
-    font-family: ${secondaryFont};
-    font-style: italic;
-    font-size: 18px;
-  }
   @media ${screenLarge} {
     .__html-content__ {
       display: inline-block;

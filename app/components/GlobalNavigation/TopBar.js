@@ -1,4 +1,5 @@
 import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
+import { LiveActivityLoadable } from 'app/modules/live-activity';
 import React, { Fragment } from 'react';
 import { browserHistory, Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
@@ -11,7 +12,16 @@ import CenterBar from './CenterBar';
 import Button from './Button';
 import messages from './TopBar.messages';
 
+const SEARCH_LABEL = 'SEARCH';
+
 function isActive(menuName, activeMenu) {
+  if (menuName === SEARCH_LABEL) {
+    document.body.classList.add('hide-overflow');
+    document.documentElement.classList.add('hide-overflow');
+  } else {
+    document.body.classList.remove('hide-overflow');
+    document.documentElement.classList.remove('hide-overflow');
+  }
   return menuName === activeMenu;
 }
 
@@ -20,6 +30,14 @@ const TopBar = ({
   activeMenu,
   handleNotificationClick,
   closeAllMenus,
+  totalViewersCount,
+  allLivecastsInProgress,
+  activityFeedMessages,
+  pubnubConnection,
+  pubnubActivityFeedChannelName,
+  userDisplayName,
+  isChatEnabled,
+  scrollActivityFeedToBottom,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -113,20 +131,32 @@ const TopBar = ({
                   </Button>
                 </li> */}
                 {user.isAuthorized ? (
-                  <li>
-                    <Livecast user={user} onClick={closeAllMenus} />
-                  </li>
-                ) : null}
-                {user.isAuthorized ? (
-                  <li>
-                    <Button
-                      mod="no-border"
-                      isActive={alertsIsActive}
-                      handleClick={alerts}
-                    >
-                      <AlertsIcon isActive={alertsIsActive} />
-                    </Button>
-                  </li>
+                  <>
+                    <li>
+                      <LiveActivityLoadable
+                        totalViewersCount={totalViewersCount}
+			activityFeedMessages={activityFeedMessages}
+			pubnubConnection={pubnubConnection}
+			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+			userDisplayName={userDisplayName}
+			isChatEnabled={isChatEnabled}
+                        onClick={closeAllMenus}
+			scrollActivityFeedToBottom={scrollActivityFeedToBottom}
+                      />
+                    </li>
+                    <li>
+                      <Livecast user={user} allLivecastsInProgress={allLivecastsInProgress} onClick={closeAllMenus} />
+                    </li>
+                    <li>
+                      <Button
+                        mod="no-border"
+                        isActive={alertsIsActive}
+                        handleClick={alerts}
+                      >
+                        <AlertsIcon isActive={alertsIsActive} />
+                      </Button>
+                    </li>
+                  </>
                 ) : null}
                 <li>
                   <Button
@@ -155,7 +185,20 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center">
-			    <div style={{marginTop: "-3px"}}><Link className="button text" to="/about/memberships"><span style={{color: "#415671"}} className="text">Join now for FREE!</span></Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</div>
+                            <div style={{ marginTop: '-3px' }}>
+                              <Link
+                                className="button text"
+                                to="/about/memberships"
+                              >
+                                <span
+                                  style={{ color: '#415671' }}
+                                  className="text"
+                                >
+                                  Join now for FREE!
+                                </span>
+                              </Link>
+                              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            </div>
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>

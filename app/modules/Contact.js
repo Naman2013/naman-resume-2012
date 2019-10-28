@@ -1,5 +1,5 @@
 import { SubmissionError } from 'redux-form';
-import axios from 'axios';
+import { API } from 'app/api';
 import { reset } from 'redux-form';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
@@ -35,7 +35,7 @@ export const contact = contactFormValues => (dispatch, getState) => {
 
   dispatch(send());
 
-  return axios.post('/api/app/sendContactForm', {
+  return API.post('/api/app/sendContactForm', {
     firstName,
     lastName,
     emailAddress,
