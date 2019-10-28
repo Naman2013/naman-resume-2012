@@ -44,7 +44,6 @@ module.exports = {
     'prettier/prettier': ['error'],
     camelcase: ['off'],
     'jsx-a11y/label-has-for': ['off'],
-    'jsx-a11y/click-events-have-key-events': 0,
     'no-nested-ternary': 'off',
     'react/no-this-in-sfc': 'off',
     'no-param-reassign': 'off',
