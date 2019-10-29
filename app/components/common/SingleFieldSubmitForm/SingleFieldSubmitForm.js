@@ -1,18 +1,18 @@
 /***********************************
-* V4 Single Submit Fort
+ * V4 Single Submit Fort
 
-You must pass a submit function, then we will pass a callback to the submit function
-the callback function can be called to handle clearing the form & showing a response message.
+ You must pass a submit function, then we will pass a callback to the submit function
+ the callback function can be called to handle clearing the form & showing a response message.
 
-callback (error (string), message (string)); If error is null, the component will display message and clear form
+ callback (error (string), message (string)); If error is null, the component will display message and clear form
 
-if you do not want to use this components modal, set useModal to false and do not use callback
-***********************************/
+ if you do not want to use this components modal, set useModal to false and do not use callback
+ ***********************************/
 import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import Modal from 'react-modal';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -23,10 +23,9 @@ import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './SingleFieldSubmitForm.style';
-import messages from './SingleFieldSubmitForm.messages';
 
 const { bool, func, number, shape, string } = PropTypes;
-
+@withTranslation()
 class SingleFieldSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
@@ -42,7 +41,6 @@ class SingleFieldSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -55,17 +53,22 @@ class SingleFieldSubmitForm extends Component {
     uuid: null,
   };
 
-  state = {
-    formText: '',
-    formTitle: '',
-    showPopup: false,
-    responseMessage: null,
-    uploadError: null,
-    uploadLoading: false,
-    S3URLs: [],
-    fileRef: React.createRef(),
-    uuid: this.props.uuid,
-  };
+  constructor(props) {
+    super(props);
+    const { uuid } = props;
+
+    this.state = {
+      formText: '',
+      formTitle: '',
+      showPopup: false,
+      responseMessage: null,
+      uploadError: null,
+      uploadLoading: false,
+      S3URLs: [],
+      fileRef: React.createRef(),
+      uuid,
+    };
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.uuid === null) {
@@ -89,17 +92,17 @@ class SingleFieldSubmitForm extends Component {
   submitForm = e => {
     e.preventDefault();
     const { formText, S3URLs, formTitle } = this.state;
-
-    this.props.submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+    const { toggleInfo, submitForm } = this.props;
+    submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+    toggleInfo(e);
   };
 
   handleSubmit = (error, message) => {
-    const { intl, user } = this.props;
+    const { t, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        responseMessage:
-          message || intl.formatMessage(messages.ResponceSubmittedText),
+        responseMessage: message || t('Alerts.ResponceSubmittedText'),
         formText: '',
         formTitle: '',
         S3URLs: [],
@@ -119,7 +122,7 @@ class SingleFieldSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        responseMessage: message || intl.formatMessage(messages.FormIssueText),
+        responseMessage: message || t('Alerts.FormIssueText'),
       });
     }
     setTimeout(this.closeModal, 1000);
@@ -131,14 +134,15 @@ class SingleFieldSubmitForm extends Component {
     });
   };
 
-  handleUploadImage = async event => {
+  handleUploadImage = event => {
     event.preventDefault();
     const { files } = event.target;
-    const { cid, token, at } = this.props.user;
+    const { user } = this.props;
+    const { cid, token, at } = user;
     const { imageClass } = this.props;
     const { uuid } = this.state;
     this.setState({ uploadLoading: true });
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i += 1) {
       const data = new FormData();
       data.append('cid', cid);
       data.append('token', token);
@@ -151,7 +155,7 @@ class SingleFieldSubmitForm extends Component {
         uploadError: null,
       });
 
-      await setPostImages(data)
+      setPostImages(data)
         .then(res => this.handleUploadImageResponse(res.data))
         .catch(err =>
           this.setState({
@@ -168,8 +172,8 @@ class SingleFieldSubmitForm extends Component {
       return;
     }
 
-    const { cid, token, at } = this.props.user;
-    const { uuid } = this.props;
+    const { uuid, user } = this.props;
+    const { cid, token, at } = user;
     const imageClass = 'discussion';
     this.setState({ uploadLoading: true });
     deletePostImage({
@@ -295,4 +299,4 @@ class SingleFieldSubmitForm extends Component {
   }
 }
 
-export default injectIntl(SingleFieldSubmitForm);
+export default SingleFieldSubmitForm;

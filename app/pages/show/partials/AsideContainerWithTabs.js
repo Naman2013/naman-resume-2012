@@ -8,16 +8,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { injectIntl, intlShape } from 'react-intl';
-import BigBoxInfoContainer from './BigBoxInfoContainer';
+import { withTranslation } from 'react-i18next';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import BigBoxInfoContainer from './BigBoxInfoContainer';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerWithTabs.style';
-import messages from '../Show.messages';
 
 const {
   any,
@@ -29,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class AsideContainerWithTabs extends Component {
   static propTypes = {
     aboutIsActive: bool.isRequired,
@@ -44,7 +43,6 @@ class AsideContainerWithTabs extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -68,7 +66,7 @@ class AsideContainerWithTabs extends Component {
       showComments,
       showDetails,
       headerTitle,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -80,9 +78,9 @@ class AsideContainerWithTabs extends Component {
         <div className="full-width">
           {hasDiscussionThread ? (
             <ThreeTabbedNav
-              firstTitle={intl.formatMessage(messages.About)}
-              secondTitle={intl.formatMessage(messages.Comments)}
-              thirdTitle={intl.formatMessage(messages.Details)}
+              firstTitle={t('Shows.About')}
+              secondTitle={t('Shows.Comments')}
+              thirdTitle={t('Shows.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={commentsIsActive}
@@ -92,8 +90,8 @@ class AsideContainerWithTabs extends Component {
             />
           ) : (
             <TwoTabbedNav
-              firstTitle={intl.formatMessage(messages.About)}
-              secondTitle={intl.formatMessage(messages.Details)}
+              firstTitle={t('Shows.About')}
+              secondTitle={t('Shows.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={detailsIsActive}
@@ -111,4 +109,4 @@ class AsideContainerWithTabs extends Component {
   }
 }
 
-export default injectIntl(AsideContainerWithTabs);
+export default AsideContainerWithTabs;

@@ -10,11 +10,13 @@ $msgOwnBg: lighten($golda, 25%);
   .feed-data {
     margin-bottom: 5px;
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
 
     &-date {
-      color: lighten($lightHeadedAstronaut, 20%);
-      margin: 0 5px;
+      color: $lightHeadedAstronaut;
+      margin: 5 2px;
+      font-weight: bold;
+      font-size: .90em;
     }
 
     &-user {
@@ -24,15 +26,16 @@ $msgOwnBg: lighten($golda, 25%);
 
   .feed-msg {
     background-color: $msgBg;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 10px 15px;
     border-radius: 10px;
     width: 80%;
     margin-right: auto;
     font-size: 16px;
     position: relative;
+
+    .feed-msg-text {
+      word-wrap: break-word;
+    }
   }
 
   /* CURRENT USER */

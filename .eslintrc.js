@@ -5,6 +5,7 @@ module.exports = {
     'airbnb',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
     'prettier/react',
     'plugin:@typescript-eslint/recommended',
@@ -50,6 +51,8 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/no-this-in-sfc': 'off',
     'no-param-reassign': 'off',
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/sort-comp': [
       1,
       {
@@ -117,5 +120,5 @@ module.exports = {
       },
     },
   },
-  plugins: ['@typescript-eslint', 'prettier', 'import', 'react-hooks'],
+  plugins: ['prettier', 'import', 'react-hooks'],
 };

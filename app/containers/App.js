@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -49,38 +49,40 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     return (
-      <div
-        style={{ overflow: 'hidden' }}
-        className={`wrapper ${isLanding ? 'is-landing' : null}`}
-      >
-        <DeviceProvider>
-          <PageMetaManagement />
+      <Suspense fallback={<div>Loading</div>}>
+        <div
+          style={{ overflow: 'hidden' }}
+          className={`wrapper ${isLanding ? 'is-landing' : null}`}
+        >
+          <DeviceProvider>
+            <PageMetaManagement />
 
-          <IssueWithUserAccount />
+            <IssueWithUserAccount />
 
-          <nav className="navigation">
-            <GlobalNavigation />
-          </nav>
+            <nav className="navigation">
+              <GlobalNavigation />
+            </nav>
 
-          <section className="app-content-container clearfix v4">
-            <div className="clearfix">{this.props.children}</div>
-          </section>
-          <Footer />
-        </DeviceProvider>
-        <style jsx>
-          {`
-            .v4 {
-              margin-top: 60px !important;
-              position: relative;
-              z-index: 1;
-            }
-            .navigation {
-              position: relative;
-              z-index: 10;
-            }
-          `}
-        </style>
-      </div>
+            <section className="app-content-container clearfix v4">
+              <div className="clearfix">{this.props.children}</div>
+            </section>
+            <Footer />
+          </DeviceProvider>
+          <style jsx>
+            {`
+              .v4 {
+                margin-top: 60px !important;
+                position: relative;
+                z-index: 1;
+              }
+              .navigation {
+                position: relative;
+                z-index: 10;
+              }
+            `}
+          </style>
+        </div>
+      </Suspense>
     );
   }
 }

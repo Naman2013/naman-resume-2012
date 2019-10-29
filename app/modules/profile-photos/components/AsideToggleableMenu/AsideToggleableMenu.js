@@ -5,14 +5,12 @@
 import { AddTagsAsideMenu } from 'app/modules/profile-photos/components/add-tags-aside-menu';
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
+import { useTranslation } from 'react-i18next';
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
 import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove-gallery-image';
 
 import styles from './AsideToggleableMenu.style';
-import messages from './AsideToggleableMenu.messages';
 
 const AsideToggleableMenu = props => {
   const {
@@ -34,6 +32,7 @@ const AsideToggleableMenu = props => {
     galleryId,
     typeGallery,
   } = props;
+  const { t } = useTranslation();
 
   return (
     <div
@@ -42,7 +41,7 @@ const AsideToggleableMenu = props => {
       onClick={e => e.stopPropagation()}
     >
       <div style={{ opacity: visible ? 1 : 0 }} className="heading">
-        <FormattedMessage {...messages.MoreOptions} />
+        {t('Photos.CardMenu.MenuTitle')}
         <i
           className="fa fa-close"
           aria-hidden="true"
@@ -55,7 +54,10 @@ const AsideToggleableMenu = props => {
           if (option.action === 'removeFromGallery') {
             return typeGallery ? (
               <div className="action-menu-container option">
-                <div className="remove-gallery-image" style={{ opacity: visible ? 1 : 0 }}>
+                <div
+                  className="remove-gallery-image"
+                  style={{ opacity: visible ? 1 : 0 }}
+                >
                   <RemoveGalleryImageBtn
                     label={option.label}
                     galleryId={galleryId}

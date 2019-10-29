@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import GroupTiles from 'app/components/groups-hub/group-tiles';
 import RequestGroupForm from 'app/components/community-groups/request-group-form';
 import PromptWithClose from 'app/components/community-groups/prompt-with-close';
@@ -19,7 +19,7 @@ import BarHeader from 'app/components/common/form-sections/bar-header';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { requestGroup } from 'app/services/community-groups/request-group';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
@@ -36,14 +36,13 @@ import {
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 import Button from 'app/components/common/style/buttons/Button';
-import { Link } from 'react-router';
+
 import { faintShadow } from 'app/styles/variables/shadows';
 import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style3 from './GroupCreate.style';
-import messages from './Groups.messages';
 import './group-import-google-classrooms.scss';
 
 const COUNT = 9;
@@ -56,7 +55,7 @@ const groupsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation()
 class GroupImportGoogleClassrooms extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -64,7 +63,6 @@ class GroupImportGoogleClassrooms extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -118,7 +116,7 @@ class GroupImportGoogleClassrooms extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user, intl } = this.props;
+    const { actions, user, t } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -143,7 +141,7 @@ class GroupImportGoogleClassrooms extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={intl.formatMessage(messages.errorSubmitting)}
+              promptText={t('Alerts.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />
@@ -222,13 +220,15 @@ class GroupImportGoogleClassrooms extends Component {
     let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
     forceReloadStrData = Math.floor(Math.random() * 100000);
 
-    const importGoogleClassroomsResult = API
-      .post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
+    const importGoogleClassroomsResult = API.post(
+      GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
+      {
         googleClassrooms: this.state.googleClassrooms,
         cid: user.cid,
         at: user.at,
         token: user.token,
-      })
+      }
+    )
       .then(response => {
         const res = response.data;
         if (res.apiError == false) {
@@ -314,15 +314,11 @@ class GroupImportGoogleClassrooms extends Component {
                                               return (
                                                 <div
                                                   className="classroom-item"
-                                                  key={`googleClassroomRow_${
-                                                    item.googleClassroomId
-                                                  }`}
+                                                  key={`googleClassroomRow_${item.googleClassroomId}`}
                                                 >
                                                   <div
                                                     className="classroom-title"
-                                                    key={`importName_${
-                                                      item.googleClassroomId
-                                                    }`}
+                                                    key={`importName_${item.googleClassroomId}`}
                                                   >
                                                     {item.hasDiscussionGroup ? (
                                                       <Link
@@ -343,12 +339,8 @@ class GroupImportGoogleClassrooms extends Component {
                                                           style={{
                                                             marginLeft: '0px',
                                                           }}
-                                                          key={`importAction_${
-                                                            item.googleClassroomId
-                                                          }`}
-                                                          name={`importAction_${
-                                                            item.googleClassroomId
-                                                          }`}
+                                                          key={`importAction_${item.googleClassroomId}`}
+                                                          name={`importAction_${item.googleClassroomId}`}
                                                           type="checkbox"
                                                           className="form-field"
                                                           component={InputField}
@@ -378,9 +370,7 @@ class GroupImportGoogleClassrooms extends Component {
                                                     </div>
                                                     <div
                                                       className="classroom-status"
-                                                      key={`importStatus_${
-                                                        item.googleClassroomId
-                                                      }`}
+                                                      key={`importStatus_${item.googleClassroomId}`}
                                                     >
                                                       {item.hasDiscussionGroup
                                                         ? 'Active'
@@ -448,6 +438,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(
-    injectIntl(GroupImportGoogleClassrooms)
+    GroupImportGoogleClassrooms
   )
 );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import GuideExcerptTile from 'app/components/common/tiles/guide-excerpt-tile';
@@ -45,7 +44,13 @@ class GuideTiles extends Component {
   };
 
   render() {
-    const { guides, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
+    const {
+      guides,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>

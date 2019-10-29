@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
 import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
 import { reserveCommunityMission } from 'app/modules/telescope/thunks';
@@ -30,7 +29,6 @@ import DashNav from './nav/DashboardNav';
 import DashHero from './hero/DashboardHero';
 import DashHeroMobile from './hero/DashboardHeroMobile';
 import styles from './BootstrappedDashboard.style';
-import messages from './BootstrappedDashboard.messages';
 // import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
@@ -100,7 +98,6 @@ class BootstrappedDashboard extends Component {
     }),
     subheading: string,
     userIsLoggedIn: bool,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -176,7 +173,6 @@ class BootstrappedDashboard extends Component {
     let {
       promoPanel: { promoArray, promoPanelShow },
       user,
-      intl,
       recommendedObjects,
       reserveCommunityMission,
       reservedCommunityMission,
@@ -290,4 +286,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(BootstrappedDashboard));
+)(BootstrappedDashboard);

@@ -1,9 +1,9 @@
 import Card from 'app/modules/ask-astronomer/components/Card';
 import SubmitAnswerReplyButton from 'app/modules/ask-astronomer/components/SubmitAnswerReplyButton';
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { likeReply } from '../../../services/discussions/like';
-import messages from './answer-list-item.messages';
+
 import AnswerReplyList from './answer-reply-list';
 
 const AnswerListItem = props => {
@@ -25,15 +25,13 @@ const AnswerListItem = props => {
     toggleAllAnswerReplies,
     topicId,
     user,
-    intl,
     updateQuestionsList,
   } = props;
+  const { t } = useTranslation();
   return (
     <div className="answer-list-item">
       {isTopAnswer && (
-        <div className="top-answer">
-          {intl.formatMessage(messages.TopAnswer)}
-        </div>
+        <div className="top-answer">{t('AskAnAstronomer.TopAnswer')}</div>
       )}
       <Card
         {...answer}
@@ -45,7 +43,7 @@ const AnswerListItem = props => {
         likeHandler={likeReply}
         likeParams={likeParams}
         modalActions={modalActions}
-        commentText={intl.formatMessage(messages.Replies)}
+        commentText={t('AskAnAstronomer.Replies')}
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
@@ -57,7 +55,7 @@ const AnswerListItem = props => {
             replyTo={answer.replyId}
             submitForm={submitReply}
             modalActions={modalActions}
-            replyButtonText={intl.formatMessage(messages.Reply)}
+            replyButtonText={t('AskAnAstronomer.Reply')}
             user={user}
             topicId={topicId}
             objectId={objectId}
@@ -108,4 +106,4 @@ AnswerListItem.defaultProps = {
   isTopAnswer: false,
 };
 
-export default injectIntl(AnswerListItem);
+export default AnswerListItem;

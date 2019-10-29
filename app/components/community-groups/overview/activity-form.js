@@ -1,40 +1,22 @@
-/***********************************
- * V4 Community Group Activity Form
- *
- *
- *
- ***********************************/
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
-import FullActivityForm from './full-activity-form';
-import SmallActivityForm from './small-activity-form';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
-import {
-  romance,
-  seashell,
-  shadows,
-} from 'app/styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'app/styles/variables/fonts';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
-import messages from './activity-form.messages';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import FullActivityForm from './full-activity-form';
+import SmallActivityForm from './small-activity-form';
 
-const { bool, number, shape, string } = PropTypes;
+const { bool, number, string } = PropTypes;
 
+@withTranslation()
 class ActivityForm extends Component {
   static propTypes = {
     topicId: number,
     forumId: number,
     canPost: bool,
     placeholder: string,
-    user: shape({
-      at: string,
-      token: string,
-      cid: string,
-    }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -42,21 +24,15 @@ class ActivityForm extends Component {
     forumId: 0,
     canPost: false,
     placeholder: '',
-    user: {
-      at: '',
-      token: '',
-      cid: '',
-    },
   };
 
   state = {
     uuid: null,
-    showSmallActivityForm: false,
     showInfo: false,
   };
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user = { at: '', token: '', cid: '' } } = this.props;
 
     prepareThread({
       at: user.at,
@@ -80,12 +56,11 @@ class ActivityForm extends Component {
   };
 
   render() {
-    const { isDesktop, topicId, forumId, intl, placeholder } = this.props;
+    const { isDesktop, placeholder, t } = this.props;
 
     const { uuid, showInfo } = this.state;
 
-    const formPlaceholder =
-      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="root">
@@ -132,4 +107,4 @@ class ActivityForm extends Component {
   }
 }
 
-export default injectIntl(ActivityForm);
+export default ActivityForm;
