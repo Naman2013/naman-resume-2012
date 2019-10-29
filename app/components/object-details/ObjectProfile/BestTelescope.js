@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { browserHistory } from 'react-router';
-import { intlShape, injectIntl } from 'react-intl';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './BestTelescope.style';
@@ -70,4 +69,4 @@ class BestTelescope extends Component {
   }
 }
 
-export default injectIntl(BestTelescope);
+export default BestTelescope;

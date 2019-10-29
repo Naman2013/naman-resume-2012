@@ -6,13 +6,11 @@
  ********************************** */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
-
+import { withTranslation } from 'react-i18next';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
-import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;
-
+@withTranslation()
 class SmallActivityForm extends Component {
   static propTypes = {
     topicId: number,
@@ -20,7 +18,6 @@ class SmallActivityForm extends Component {
     canPost: bool,
     placeholder: string,
     uuid: string,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -34,7 +31,7 @@ class SmallActivityForm extends Component {
   state = {};
 
   submitForm = (content, S3URLs, title, callback) => {
-    const { topicId, forumId, intl } = this.props;
+    const { topicId, forumId, t } = this.props;
 
     this.props
       .createThread({
@@ -46,16 +43,15 @@ class SmallActivityForm extends Component {
       })
       .then(data => {
         const message = data.apiError
-          ? intl.formatMessage(messages.SubmitPostError)
-          : intl.formatMessage(messages.PostSubmitted);
+          ? t('Clubs.SubmitPostError')
+          : t('Clubs.PostSubmitted');
         callback(data.apiError, message);
       });
   };
 
   render() {
-    const { placeholder, intl, isClub } = this.props;
-    const formPlaceholder =
-      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const { placeholder, t, isClub } = this.props;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="root">
@@ -70,4 +66,4 @@ class SmallActivityForm extends Component {
   }
 }
 
-export default injectIntl(SmallActivityForm);
+export default SmallActivityForm;

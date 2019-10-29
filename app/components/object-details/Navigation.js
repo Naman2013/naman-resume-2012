@@ -4,46 +4,48 @@
  ********************************** */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import SubPageNavigation from '../common/sub-page-navigation';
-import messages from './Navigation.messages';
 
-const generateNavItems = objectId => [
+const generateNavItems = (objectId, t) => [
   {
-    title: <FormattedMessage {...messages.Overview} />,
+    title: t('Objects.Overview'),
     link: `/object-details/${objectId}/overview`,
   },
   {
-    title: <FormattedMessage {...messages.Missions} />,
+    title: t('Objects.Missions'),
     link: `/object-details/${objectId}/missions`,
   },
   {
-    title: <FormattedMessage {...messages.Quests} />,
+    title: t('Objects.Quests'),
     link: `/object-details/${objectId}/quests`,
   },
   {
-    title: <FormattedMessage {...messages.Ask} />,
+    title: t('Objects.Ask'),
     link: `/object-details/${objectId}/ask`,
   },
   {
-    title: <FormattedMessage {...messages.Observations} />,
+    title: t('Objects.Observations'),
     link: `/object-details/${objectId}/observations`,
   },
   {
-    title: <FormattedMessage {...messages.Shows} />,
+    title: t('Objects.Shows'),
     link: `/object-details/${objectId}/shows`,
   },
   {
-    title: <FormattedMessage {...messages.Stories} />,
+    title: t('Objects.Stories'),
     link: `/object-details/${objectId}/stories`,
   },
 ];
 
-const Navigation = ({ items, objectId }) => (
-  <div className="navigation-root">
-    <SubPageNavigation items={generateNavItems(objectId)} />
-  </div>
-);
+const Navigation = ({ items, objectId }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="navigation-root">
+      <SubPageNavigation items={generateNavItems(objectId, t)} />
+    </div>
+  );
+};
 
 Navigation.defaultProps = {};
 

@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -20,7 +20,6 @@ import MainContainerWithDiscussions from './partials/MainContainerWithDiscussion
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
 
 import styles from './Show.style';
-import messages from './Show.messages';
 
 const {
   any,
@@ -33,6 +32,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation()
 class RecentShow extends Component {
   static propTypes = {
     isDesktop: bool.isRequired,
@@ -44,7 +44,6 @@ class RecentShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -104,9 +103,9 @@ class RecentShow extends Component {
       showStreamURL,
       title,
       tagLine,
-      intl,
+      t,
     } = this.props;
-    
+
     const {
       aboutIsActive,
       commentsIsActive,
@@ -156,9 +155,9 @@ class RecentShow extends Component {
                 <div className="full-width">
                   {hasDiscussionThread ? (
                     <ThreeTabbedNav
-                      firstTitle={intl.formatMessage(messages.About)}
-                      secondTitle={intl.formatMessage(messages.Comments)}
-                      thirdTitle={intl.formatMessage(messages.Details)}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Comments')}
+                      thirdTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={commentsIsActive}
@@ -168,8 +167,8 @@ class RecentShow extends Component {
                     />
                   ) : (
                     <TwoTabbedNav
-                      firstTitle={intl.formatMessage(messages.About)}
-                      secondTitle={intl.formatMessage(messages.Details)}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={detailsIsActive}
@@ -201,4 +200,4 @@ class RecentShow extends Component {
   }
 }
 
-export default injectIntl(RecentShow);
+export default RecentShow;

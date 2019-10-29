@@ -57,6 +57,12 @@ export default css`
     font-weight: light;
   }
 
+  .plan-cost-small {
+    font-family: ${primaryFont};
+    font-size: 12px;
+    font-weight: light;
+  }
+
   .border-bottom {
     border-bottom: 1px solid ${shadows};
   }

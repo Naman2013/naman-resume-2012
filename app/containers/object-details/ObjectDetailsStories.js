@@ -6,9 +6,9 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import GenericLoadingBox from 'app/components/common/loading-screens/generic-loading-box';
 import DeviceProvider from 'providers/DeviceProvider';
 import has from 'lodash/has';
@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'app/modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 
 const mapStateToProps = ({
   objectDetails,
@@ -52,14 +51,14 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Stories extends Component {
   render() {
     const {
       params: { objectId },
       objectDetails,
       slugLookupId,
-      actions: {},
-      intl,
+      t,
     } = this.props;
 
     const sId = slugLookupId;
@@ -71,8 +70,8 @@ class Stories extends Component {
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedStories)}
+            title={`${objectDetails.objectTitle}'s`}
+            subTitle={t('Objects.RelatedStories')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
@@ -98,10 +97,9 @@ class Stories extends Component {
                   ))
                 ) : (
                   <p>
-                    <FormattedMessage
-                      {...messages.NoStories}
-                      values={{ objectTitle: objectDetails.objectTitle }}
-                    />
+                    {t('Objects.NoStories', {
+                      objectTitle: objectDetails.objectTitle,
+                    })}
                   </p>
                 )}
               </div>
@@ -119,8 +117,4 @@ class Stories extends Component {
   }
 }
 
-Stories.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(Stories);
+export default Stories;

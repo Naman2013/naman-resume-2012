@@ -1,10 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
-
-import messages from './RecommendedObjectsSlider.message';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -36,7 +32,8 @@ export const getSliderProps = (
   slideList = [],
   reservationModalShow,
   reservedButtonCaption,
-  optionsButtonCaption
+  optionsButtonCaption,
+  t
 ) =>
   Object.assign(
     {
@@ -49,6 +46,6 @@ export const getSliderProps = (
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

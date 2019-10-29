@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
 import Button from '../../style/buttons/Button';
 
 import styles from './RecommendedObjectsSliderItem.style';
-import messages from './RecommendedObjectsSliderItem.messages';
 
 const getIconStyle = iconURL => ({
   backgroundImage: `url(${iconURL})`,
@@ -16,7 +14,6 @@ const { string, arrayOf, shape, bool } = PropTypes;
 
 const RecommendedObjectsItem = ({
   object,
-  intl,
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,
@@ -79,8 +76,4 @@ const RecommendedObjectsItem = ({
   );
 };
 
-RecommendedObjectsItem.propTypes = {
-  intl: shape({}).isRequired,
-};
-
-export default injectIntl(RecommendedObjectsItem);
+export default RecommendedObjectsItem;

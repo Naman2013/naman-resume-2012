@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import StoryTile from 'app/components/common/tiles/story-tile';
 import StoryExcerptTile from 'app/components/common/tiles/story-excerpt-tile';
@@ -47,7 +46,13 @@ class StoriesTiles extends Component {
   };
 
   render() {
-    const { stories, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
+    const {
+      stories,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return stories.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>

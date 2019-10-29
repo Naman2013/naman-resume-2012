@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { browserHistory } from 'react-router';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Button } from 'react-bootstrap';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import UpgradeModal from '../../containers/upgrade-modal';
-import { Button } from 'react-bootstrap';
 
 const AccountType = props => {
   const {
@@ -48,9 +47,16 @@ const AccountType = props => {
         <Btn mod="circle" onClick={goToPlanInfoUrl}>
           <Icon i="info" />
         </Btn>
-        {isUpgradeAvailable === true && <Button onClick={() => setModalOpen(true)}>{upgradeButtonLabel}</Button>}
-        {isUpgradeAvailable === false && <Button style={{backgroundColor: '#D3D3D3'}}>{upgradeButtonLabel}</Button>}
-
+        {isUpgradeAvailable === true && (
+          <Button onClick={() => setModalOpen(true)}>
+            {upgradeButtonLabel}
+          </Button>
+        )}
+        {isUpgradeAvailable === false && (
+          <Button style={{ backgroundColor: '#D3D3D3' }}>
+            {upgradeButtonLabel}
+          </Button>
+        )}
       </div>
     );
   };
@@ -84,9 +90,12 @@ const AccountType = props => {
                     <hr className="hr" />
                     <ul className="list-with-params">
                       <li>
-                        <h5 className="h-5 font-weight-normal">
-                          {priceDisplayLabel}
-                        </h5>
+                        <h5
+                          className="h-5 font-weight-normal"
+                          dangerouslySetInnerHTML={{
+                            __html: priceDisplayLabel,
+                          }}
+                        />
                       </li>
                       <li>
                         <h5 className="h-5 font-weight-normal">
@@ -116,7 +125,11 @@ const AccountType = props => {
       </DeviceContext.Consumer>
 
       {isModalOpen && (
-        <UpgradeModal subscriptionPlansCallSource="upgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
+        <UpgradeModal
+          subscriptionPlansCallSource="upgrade"
+          show={isModalOpen}
+          onHide={() => setModalOpen(false)}
+        />
       )}
     </>
   );

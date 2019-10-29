@@ -1,10 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import defaultSliderConfiguration from '../Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
-
-import messages from './RecommendedObservationsSlider.messages';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -54,14 +50,14 @@ const getRecommendedObservationsItems = (imageList = []) => {
   });
 };
 
-export const getSliderProps = (slideList = []) => {
+export const getSliderProps = (slideList = [], t) => {
   return Object.assign(
     {
       slideList: getRecommendedObservationsItems(slideList),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );
 };

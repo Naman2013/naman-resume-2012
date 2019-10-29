@@ -7,10 +7,10 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 
 import DeviceProvider from 'app/providers/DeviceProvider';
@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'app/modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 
 const { number } = PropTypes;
 
@@ -54,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Shows extends Component {
   static defaultProps = {
     actions: {},
@@ -75,15 +75,15 @@ class Shows extends Component {
       pages,
       count,
       objectDetails,
-      intl,
+      t,
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedShows)}
+            title={`${objectDetails.objectTitle}'s`}
+            subTitle={t('Objects.RelatedShows')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
@@ -110,10 +110,9 @@ class Shows extends Component {
                   ))
                 ) : (
                   <p>
-                    <FormattedMessage
-                      {...messages.NoShows}
-                      values={{ objectTitle: objectDetails.objectTitle }}
-                    />
+                    {t('Objects.NoShows', {
+                      objectTitle: objectDetails.objectTitle,
+                    })}
                   </p>
                 )}
               </div>
@@ -133,8 +132,6 @@ class Shows extends Component {
   }
 }
 
-Shows.propTypes = {
-  intl: intlShape.isRequired,
-};
+Shows.propTypes = {};
 
-export default injectIntl(Shows);
+export default Shows;

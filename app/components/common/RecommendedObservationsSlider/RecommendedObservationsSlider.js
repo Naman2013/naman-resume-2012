@@ -9,6 +9,7 @@ import take from 'lodash/take';
 
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import SloohSlider from 'app/components/common/Slider/ObservationsSlider';
+import { useTranslation } from 'react-i18next';
 import MobileSwiper from './partials/MobileSwiper';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
 
@@ -17,10 +18,11 @@ const Observations = props => {
   const getImages = images => {
     return Object.values(images).filter(im => im.customerImageId);
   };
+  const { t } = useTranslation();
   const images = getImages(imageList);
   const [imagesCount, addImage] = useState(5);
   const longList = take(images, imagesCount) || [];
-  const sliderProps = images ? getSliderProps(longList) : {};
+  const sliderProps = images ? getSliderProps(longList, t) : {};
   const shortList = take(images, 4) || [];
   const sliderChange = index => {
     if (index > imagesCount - 2) {

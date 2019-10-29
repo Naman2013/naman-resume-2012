@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GroupTile from 'app/components/common/tiles/GroupTile';
 import GroupExcerptTile from 'app/components/common/tiles/group-excerpt-tile';
@@ -10,6 +10,7 @@ import { askToJoin } from 'app/services/community-groups/ask-to-join';
 import { toggleJoinGroup } from 'app/services/community-groups/toggle-join-group';
 import style from './group-tiles.style';
 
+@withTranslation()
 class GroupTiles extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
@@ -71,6 +72,7 @@ class GroupTiles extends Component {
       filterType,
       updateGroupItemInfo,
       updatePrompt,
+      t,
     } = this.props;
     const { activeId } = this.state;
     return groups && groups.length ? (
@@ -113,7 +115,7 @@ class GroupTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noGroups" />
+      t('Hubs.noGroups')
     );
   }
 }
