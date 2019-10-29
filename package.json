@@ -84,6 +84,7 @@
     "enumify": "^1.0.4",
     "event-source-polyfill": "^1.0.5",
     "exenv": "^1.2.2",
+    "fabric": "^3.4.0",
     "fast-deep-equal": "^1.0.0",
     "fast-json-stable-stringify": "^2.0.0",
     "gsap": "^2.1.2",

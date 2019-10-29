@@ -91,7 +91,7 @@ const submitMessage = (
 type TLiveActivity = {
   totalViewersCount: number;
   activityFeedMessages: Array<any>;
-  pubnubConnection: Object;
+  pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
   isChatEnabled: boolean;

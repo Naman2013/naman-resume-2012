@@ -14,6 +14,8 @@ import {
   getQuestGuidePanelApi,
   getCustomerQuestsApi,
   setQuestCompletedApi,
+  getAnimationApi,
+  getAnimationFramesApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
@@ -257,3 +259,34 @@ export const getCustomerQuests = data => (dispatch, getState) => {
     .then(result => dispatch(ACTION.getCustomerQuestsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCustomerQuestsError(error)));
 };
+
+// QUEST ANIMATION MODULE
+export const getAnimation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAnimation());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getAnimationApi({ ...opts })
+    .then(result => dispatch(ACTION.getAnimationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAnimationError(error)));
+};
+
+export const getAnimationFrames = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAnimationFrames());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getAnimationFramesApi({ ...opts })
+    .then(result => dispatch(ACTION.getAnimationFramesSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAnimationFramesError(error)));
+};
+
+// END: QUEST ANIMATION MODULE

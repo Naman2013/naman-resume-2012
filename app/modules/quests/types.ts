@@ -127,3 +127,87 @@ export declare interface StepsInQuest {
     stepIsLocked: boolean;
   }[];
 }
+
+export declare interface IQuestAnimation extends StandardResponse {
+  editAnimationButtonCaption: string;
+  editButtonCaption: string;
+  fastButtonCaption: string;
+  finishButtonCaption: string;
+  frameCaption: string;
+  gravityEarnedInThisRequest: boolean;
+  magnificationDefault: number;
+  magnificationMax: number;
+  magnificationMin: number;
+  magnificationStep: number;
+  magnificationUnitsCaption: string;
+  mediumButtonCaption: string;
+  moduleId: number;
+  moduleIdIsValid: boolean;
+  moduleUUID: string;
+  offsetReference: string;
+  outputHeading: string;
+  outputSubheading: string;
+  playButtonCaption: string;
+  previewHeading: string;
+  previewSubheading: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  showTutorial: boolean;
+  slowButtonCaption: string;
+  xOffsetDefault: number;
+  xOffsetLargeStep: number;
+  xOffsetMax: number;
+  xOffsetMin: number;
+  xOffsetSmallStep: number;
+  yOffsetDefault: number;
+  yOffsetLargeStep: number;
+  yOffsetMax: number;
+  yOffsetMin: number;
+  yOffsetSmallStep: number;
+}
+
+export declare interface IAnimationFrame {
+  base: boolean;
+  caption: string;
+  checkAlignment: boolean;
+  dcId: number;
+  empty: boolean;
+  frameExplanation: string;
+  frameId: number;
+  frameIndex: number;
+  iconURL: string;
+  ignore: boolean;
+  imageURL: string;
+  infoArray: {
+    objectName: string;
+    imageDate: string;
+    imageTime: string;
+    telescopeName: string;
+    instrumentName: string;
+  };
+  invalid: boolean;
+  negative: boolean;
+  objectId: number;
+  offsetReference: string;
+  serializedFrame: any;
+  touched: boolean;
+  xOffset: number;
+  yOffset: number;
+}
+
+export declare interface IQuestAnimationFrames extends StandardResponse {
+  animationId: number;
+  animationUserId: number;
+  frameCount: number;
+  frameIndexOriginal: number;
+  frameList: Array<IAnimationFrame>;
+  gravityEarnedInThisRequest: boolean;
+  moduleId: number;
+  moduleIdIsValid: any;
+  moduleUUID: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  requestType: string;
+}
