@@ -62,19 +62,26 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ) => {
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
-    const { frameIndex, imageURL, xOffset, yOffset } = frameList[
-      frameIndexToLoad
-    ];
+    const {
+      frameIndex,
+      imageURL,
+      xOffset,
+      yOffset,
+      offsetReference,
+    } = frameList[frameIndexToLoad];
 
     const imgAttrs = {
+      centeredScaling: offsetReference === 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      cursor: 'auto',
+      hoverCursor: 'auto',
       left: xOffset,
       top: yOffset,
       opacity: frameIndex > 1 ? 0.5 : 1,
+      originX: offsetReference === 'center' ? offsetReference : 'left',
+      originY: offsetReference === 'center' ? offsetReference : 'top',
+      scaleX: 1,
+      scaleY: 1,
       visible: !(frameIndex > 1),
     };
 
@@ -82,8 +89,8 @@ export class AnimationModule extends React.PureComponent<
       imageURL,
       (img: any): void => {
         // add image onto canvas (it also re-render the canvas)
-        img.scaleToWidth(canvasContainerWidth - 2); // 2px border
-        this.canvas.add(img).centerObject(img);
+        //img.scaleToWidth(canvasContainerWidth - 2); // 2px border
+        this.canvas.add(img);
 
         if (frameIndexToLoad + 1 < frameList.length) {
           this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
