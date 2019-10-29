@@ -3,20 +3,20 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
+
 import Request from 'app/components/common/network/Request';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
+import { getUserInfo } from 'app/modules/User';
 import JoinHeader from './partials/JoinHeader';
 import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
-import { getUserInfo } from 'app/modules/User';
 
 import styles from './JoinStep1.style';
 
@@ -48,13 +48,9 @@ class JoinStep1 extends Component {
     window.localStorage.removeItem('invitationCodeAlt');
     window.localStorage.removeItem('inviteeEmailAddress');
 
-    if (
-	(getUserInfo().cid) &&
-	(getUserInfo().at) &&
-	(getUserInfo().token)
-    ) {
-	//user is already logged in, redirect to dashboard/homepage
-	browserHistory.push("/");
+    if (getUserInfo().cid && getUserInfo().at && getUserInfo().token) {
+      //user is already logged in, redirect to dashboard/homepage
+      browserHistory.push('/');
     }
   }
 
@@ -102,7 +98,7 @@ class JoinStep1 extends Component {
                               ? serviceResponse.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
-			  showLogin={true}
+                          showLogin
                         />
                         <div className="step-root">
                           <div className="section-heading">
@@ -110,10 +106,12 @@ class JoinStep1 extends Component {
                           </div>
                           <Request
                             serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                            requestBody={{ 
-				callSource: 'join', 
-				enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
-			    }}
+                            requestBody={{
+                              callSource: 'join',
+                              enableHiddenPlanHashCode: window.localStorage.getItem(
+                                'enableHiddenPlanHashCode'
+                              ),
+                            }}
                             render={({
                               fetchingContent,
                               serviceResponse: serviceRes,
@@ -124,9 +122,7 @@ class JoinStep1 extends Component {
                                     {serviceRes.subscriptionPlans.map(
                                       subscriptionPlan => (
                                         <li
-                                          key={`subscriptionplan-tile-${
-                                            subscriptionPlan.planID
-                                          }`}
+                                          key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
                                           className="subscription-plans-list-item"
                                         >
                                           <SubscriptionPlanCard

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import styles from './ObservationsForm.style';
@@ -20,7 +20,6 @@ class ObservationsForm extends Component {
       token: oneOfType([number, string]).isRequired,
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
-
   };
 
   static defaultProps = {

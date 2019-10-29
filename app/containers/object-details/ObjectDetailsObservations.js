@@ -239,7 +239,9 @@ class Observations extends Component {
 
         {!imageCount && !isFetching && (
           <p>
-            {t('Objects.NoObservations', { objectTitle: objectDetails.objectTitle })}
+            {t('Objects.NoObservations', {
+              objectTitle: objectDetails.objectTitle,
+            })}
           </p>
         )}
 
@@ -256,8 +258,6 @@ class Observations extends Component {
   }
 }
 
-Observations.propTypes = {
-
-};
+Observations.propTypes = {};
 
 export default Observations;

@@ -6,7 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
@@ -17,7 +17,6 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
-
 
 const {
   arrayOf,
@@ -57,7 +56,6 @@ class ReplyForm extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-
   };
 
   constructor(props) {

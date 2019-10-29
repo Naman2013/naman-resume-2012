@@ -43,7 +43,13 @@ class ShowTiles extends Component {
   };
 
   render() {
-    const { shows, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
+    const {
+      shows,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return shows.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>

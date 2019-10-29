@@ -168,42 +168,45 @@ class GlobalNavigation extends Component {
   }
 
   scrollActivityFeedToBottom() {
-	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
-	if (liveActivityWindowBodyFeedObj != null) {
-		//console.log("found the activity window to be open....");
+    let liveActivityWindowBodyFeedObj = document.getElementById(
+      'live-activity-window-body-feed'
+    );
+    if (liveActivityWindowBodyFeedObj != null) {
+      //console.log("found the activity window to be open....");
 
-		liveActivityWindowBodyFeedObj.scrollIntoView(false);
+      liveActivityWindowBodyFeedObj.scrollIntoView(false);
 
-		//console.log("scrolling to bottom.....");
-		return true;
-	}
-	else {
-		return false;
-	}
+      //console.log("scrolling to bottom.....");
+      return true;
+    }
+
+    return false;
   }
 
   checkActivityWindowScroll() {
     //console.log("checking scroll function....");
 
-	if (this.state.activityWindowHasBeenScrolledToBottom == false) {
-		//console.log("activity window has not been scrolled yet....");
+    if (this.state.activityWindowHasBeenScrolledToBottom == false) {
+      //console.log("activity window has not been scrolled yet....");
 
-		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
-		if (liveActivityWindowBodyFeedObj != null) {
-			//scroll the activity feed to the bottom
-			if (this.scrollActivityFeedToBottom() == true) {
-				this.setState({ activityWindowHasBeenScrolledToBottom: true });
-			}
-		}
-	}
+      let liveActivityWindowBodyFeedObj = document.getElementById(
+        'live-activity-window-body-feed'
+      );
+      if (liveActivityWindowBodyFeedObj != null) {
+        //scroll the activity feed to the bottom
+        if (this.scrollActivityFeedToBottom() == true) {
+          this.setState({ activityWindowHasBeenScrolledToBottom: true });
+        }
+      }
+    }
   }
 
   buildFeedMessage(message, appendFlag) {
     try {
       //console.log(message);
 
-		//messages are in JSON format
-		let messageJSONObj = message;
+      //messages are in JSON format
+      let messageJSONObj = message;
 
       //console.log(messageJSON.message_by_locale.en);
 
@@ -369,13 +372,13 @@ class GlobalNavigation extends Component {
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
             totalViewersCount={totalViewersCount}
-	    allLivecastsInProgress={allLivecastsInProgress}
-	    activityFeedMessages={activityFeedMessages}
-	    pubnubConnection={this.pubnub}
-	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
-	    userDisplayName={displayName}
-	    isChatEnabled={isChatEnabled}
-  	    scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
+            allLivecastsInProgress={allLivecastsInProgress}
+            activityFeedMessages={activityFeedMessages}
+            pubnubConnection={this.pubnub}
+            pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+            userDisplayName={displayName}
+            isChatEnabled={isChatEnabled}
+            scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
           />
         </div>
 

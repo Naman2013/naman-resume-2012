@@ -14,7 +14,6 @@ import {
   CONTENT_RELATED_SHOWS,
 } from 'app/services/content';
 
-
 const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const MAX_COUNT = 3;
@@ -88,7 +87,6 @@ const AsideContainer = ({
 
 AsideContainer.propTypes = {
   isDesktop: bool,
-
 };
 
 AsideContainer.defaultProps = {

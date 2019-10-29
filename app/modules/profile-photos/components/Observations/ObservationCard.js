@@ -8,7 +8,6 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 
-
 import style from './ObservationCard.style';
 
 export default ({ index, isDesktop, currentItem: observation }) => {

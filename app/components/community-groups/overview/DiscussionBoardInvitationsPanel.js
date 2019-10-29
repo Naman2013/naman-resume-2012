@@ -43,7 +43,6 @@ const mapStateToProps = ({ user }) => ({
 class DiscussionBoardInvitationsPanel extends Component {
   static propTypes = {
     pageMeta: shape({}),
-
   };
 
   static defaultProps = {

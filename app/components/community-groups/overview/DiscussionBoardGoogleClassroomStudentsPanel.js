@@ -44,7 +44,6 @@ const mapStateToProps = ({ user }) => ({
 class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   static propTypes = {
     pageMeta: shape({}),
-
   };
 
   static defaultProps = {

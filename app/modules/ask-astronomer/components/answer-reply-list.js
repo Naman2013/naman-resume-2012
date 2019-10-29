@@ -12,7 +12,6 @@ import {
 import styles from './answer-list.style';
 import AnswerReplyListItem from './answer-reply-list-item';
 
-
 const mapStateToProps = ({ astronomerAnswers, astronomerDiscuss, user }) => ({
   paginationCount: astronomerDiscuss.paginationCount,
   submitId: astronomerDiscuss.submitId,

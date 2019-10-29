@@ -15,7 +15,6 @@ import ContentCategorySelector from './partials/content-category-selector';
 import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 import FormFeedbackActions from './partials/form-feedback-actions';
 
-
 @withTranslation()
 class CreateStoryForm extends Component {
   static propTypes = {
@@ -31,7 +30,6 @@ class CreateStoryForm extends Component {
       }),
     }),
     submitLabel: PropTypes.string.isRequired,
-
 
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
@@ -198,11 +196,15 @@ class CreateStoryForm extends Component {
       }
 
       if (!selectedContentCategory) {
-        missingFields.push(`<li>${t('Stories.contentCategoryErrorMessage')}</li>`);
+        missingFields.push(
+          `<li>${t('Stories.contentCategoryErrorMessage')}</li>`
+        );
       }
 
       if (!selectedObjectCategory) {
-        missingFields.push(`<li>${t('Stories.objectCategoryErrorMessage')}</li>`);
+        missingFields.push(
+          `<li>${t('Stories.objectCategoryErrorMessage')}</li>`
+        );
       }
 
       actions.setAndOpenModal({

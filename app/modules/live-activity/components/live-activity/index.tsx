@@ -91,7 +91,7 @@ const submitMessage = (
 type TLiveActivity = {
   totalViewersCount: number;
   activityFeedMessages: Array<any>;
-  pubnubConnection: Object;
+  pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
   isChatEnabled: boolean;
@@ -147,7 +147,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             enableResizing={
               isFullscreen || isMobile ? disableResizing : enableResizing
             }
-            dragHandleClassName='live-activity-window-header'
+            dragHandleClassName="live-activity-window-header"
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">

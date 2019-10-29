@@ -19,7 +19,6 @@ import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import './styles.scss';
 
-
 const {
   any,
   arrayOf,
@@ -230,7 +229,9 @@ class SubmitQuestionForm extends PureComponent {
             <Button onClick={this.cancel} className="mr-3">
               {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
+            <Button onClick={this.submitForm}>
+              {t('AskAnAstronomer.Submit')}
+            </Button>
           </div>
         </div>
       </form>

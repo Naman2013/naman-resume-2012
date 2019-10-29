@@ -25,7 +25,6 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
   static propTypes = {
     discussionGroupId: string,
     newInvitationComplete: func.isRequired,
-
   };
 
   static defaultProps = {

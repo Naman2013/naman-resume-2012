@@ -17,7 +17,6 @@ import FullpageForm from './Modals/FullpageForm';
 import SubmitAnswerForm from './Modals/SubmitAnswerForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 
-
 const {
   arrayOf,
   any,
@@ -80,13 +79,7 @@ class SubmitAnswerButton extends Component {
   };
 
   setFullpageAnswerModal = () => {
-    const {
-      modalActions,
-      user,
-      authorInfo,
-      freshness,
-      content,
-    } = this.props;
+    const { modalActions, user, authorInfo, freshness, content } = this.props;
     modalActions.setModal({
       promptComponent: (
         <FullpageForm
@@ -165,7 +158,10 @@ class SubmitAnswerButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <Button text={t('AskAnAstronomer.SubmitAnswer')} onClickEvent={this.setAnswerModal} />
+        <Button
+          text={t('AskAnAstronomer.SubmitAnswer')}
+          onClickEvent={this.setAnswerModal}
+        />
         {/*<DisplayAtBreakpoint screenSmall>
           <Button
             text={t('AskAnAstronomer.SubmitAnswer')}

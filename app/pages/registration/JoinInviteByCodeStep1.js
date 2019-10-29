@@ -31,7 +31,6 @@ class JoinByInviteCodeStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-
   };
 
   static defaultProps = {

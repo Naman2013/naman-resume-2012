@@ -44,7 +44,13 @@ class GuideTiles extends Component {
   };
 
   render() {
-    const { guides, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
+    const {
+      guides,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>

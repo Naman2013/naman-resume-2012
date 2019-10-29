@@ -143,7 +143,7 @@ const TopBar = ({
                         userDisplayName={userDisplayName}
                         isChatEnabled={isChatEnabled}
                         onClick={closeAllMenus}
-			scrollActivityFeedToBottom={scrollActivityFeedToBottom}
+                        scrollActivityFeedToBottom={scrollActivityFeedToBottom}
                       />
                     </li>
                     <li>

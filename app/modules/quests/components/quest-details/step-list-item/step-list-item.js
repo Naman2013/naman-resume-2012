@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './step-list-item.style';
@@ -65,10 +65,7 @@ const StepListItem = ({
           >
             <span className="action-message">{stepActionMsg}</span>
             <div className="arrow-container">
-              <img
-                alt={t('Quests.GoTo')}
-                src={horizontalArrow}
-              />
+              <img alt={t('Quests.GoTo')} src={horizontalArrow} />
             </div>
           </div>
         )}
@@ -89,7 +86,6 @@ StepListItem.propTypes = {
   stepStatusMsg: PropTypes.string.isRequired,
   stepActionMsg: PropTypes.string.isRequired,
   goToStep: PropTypes.func.isRequired,
-
 };
 
 StepListItem.defaultProps = {};

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes, { array, string, bool } from 'prop-types';
 import findIndex from 'lodash/findIndex';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import DropDown from 'app/components/common/DropDown';
 import styles from './question-filter.style';
-
 
 const { func, shape } = PropTypes;
 

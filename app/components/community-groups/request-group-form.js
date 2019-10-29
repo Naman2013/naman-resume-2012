@@ -18,7 +18,6 @@ class RequestGroupForm extends Component {
   static propTypes = {
     closeForm: func.isRequired,
     submitForm: func.isRequired,
-
   };
 
   static defaultProps = {};
@@ -112,7 +111,10 @@ class RequestGroupForm extends Component {
           </div>
           <div className="actions">
             <Button onClickEvent={closeForm} text={t('Clubs.Cancel')} />
-            <Button onClickEvent={this.submitRequestForm} text={t('Clubs.Submit')} />
+            <Button
+              onClickEvent={this.submitRequestForm}
+              text={t('Clubs.Submit')}
+            />
           </div>
         </div>
         <style jsx>{styles}</style>
