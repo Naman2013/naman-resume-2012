@@ -118,14 +118,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
                 } else if (selectedPlan.isAstronomyClub == true) {
-                      setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
-                    }
-                    else if (selectedPlan.isClassroom == true) {
-                      setStep('CLASSROOM_SELECT_SCHOOL');
-                    }
-                    else {
-                      setStep('PAYMENT');
-                    }
+                  setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
+                } else if (selectedPlan.isClassroom == true) {
+                  setStep('CLASSROOM_SELECT_SCHOOL');
+                } else {
+                  setStep('PAYMENT');
                 }
               }}
               setSelectedPlan={setSelectedPlan}
