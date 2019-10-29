@@ -1,7 +1,12 @@
 import React from 'react';
 import { fabric } from 'fabric';
 import { Button } from 'react-bootstrap';
-import { IQuestStepModule, IQuestAnimation } from 'app/modules/quests/types';
+import {
+  IQuestStepModule,
+  IQuestAnimation,
+  IQuestAnimationFrames,
+  IAnimationFrame,
+} from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import './styles.scss';
 
@@ -18,14 +23,10 @@ type AnimationModuleProps = {
   activeFrame: any;
   setActiveFrame: Function;
   questAnimation: IQuestAnimation;
+  questAnimationFrames: IQuestAnimationFrames;
 };
 
-type AnimationModuleState = {
-  // prevStepId: string;
-  // nextStepId: string;
-  // stepKey: string;
-  // stepId: string;
-};
+type AnimationModuleState = {};
 
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
@@ -38,55 +39,58 @@ export class AnimationModule extends React.PureComponent<
   // }
 
   componentDidMount(): void {
+    this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
     window.addEventListener('resize', this.onPageRezise);
-    const canvas = new fabric.Canvas('c');
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
-    canvas.selection = false; // disable group selection
-
-    const imgAttrs = {
-      crossOrigin: 'anonymous',
-      selectable: false,
-      cursor: 'auto',
-    };
-
-    fabric.Image.fromURL(
-      'https://juno.slooh.com/dev101/2019/10/16c7/8aff/pluto3.jpg',
-      (img: any): void => {
-        // add image onto canvas (it also re-render the canvas)
-        //img.set('selectable', false); // make img unselectable
-
-        img.scaleToWidth(canvasContainerWidth - 2); // 2px border
-        canvas.add(img); //.centerObject(img);
-        //img.setCoords();
-        canvas.renderAll();
-      },
-      imgAttrs
-    );
-
-    // fabric.Image.fromURL(
-    //   'https://juno.slooh.com/dev101/2019/10/8bc8/ff97/pluto1.jpg',
-    //   function(img) {
-    //     // add image onto canvas (it also re-render the canvas)
-    //     img.set('selectable', false); // make img unselectable
-
-    //     img.set({ opacity: 0.5 });
-    //     //img.scaleToWidth(620);
-    //     canvas.add(img);//.centerObject(img);
-    //     //img.setCoords();
-    //     canvas.renderAll();
-    //   },
-    //   { crossOrigin: 'anonymous' }
-    // );
-    this.canvas = canvas;
-    this.onPageRezise();
   }
 
   componentWillUnmount(): void {
     window.removeEventListener('resize', this.onPageRezise);
   }
+
+  initCanvas = (): void => {
+    this.canvas = new fabric.Canvas('c');
+    this.canvas.selection = false; // disable group selection
+    this.onPageRezise();
+  };
+
+  initFramesImages = (frameList: Array<IAnimationFrame>): void => {
+    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
+      .width;
+
+    frameList.reverse().map(
+      (frame: IAnimationFrame): IAnimationFrame => {
+        const { frameIndex, imageURL, xOffset, yOffset } = frame;
+
+        const imgAttrs = {
+          crossOrigin: 'anonymous',
+          selectable: false,
+          cursor: 'auto',
+          left: xOffset,
+          top: yOffset,
+          opacity: frameIndex > 1 ? 0.5 : 1,
+          visible: !(frameIndex > 1),
+        };
+
+        fabric.Image.fromURL(
+          imageURL,
+          (img: any): void => {
+            // add image onto canvas (it also re-render the canvas)
+
+            img.scaleToWidth(canvasContainerWidth - 2); // 2px border
+            this.canvas.add(img).centerObject(img);
+            //img.setCoords();
+          },
+          imgAttrs
+        );
+
+        return frame;
+      }
+    );
+
+    this.canvas.renderAll();
+  };
 
   moveTop = (): void => {
     const item = this.canvas.item(0);
@@ -156,30 +160,39 @@ export class AnimationModule extends React.PureComponent<
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getAnimationFrames({ questId, questUUID, moduleId, moduleUUID });
+      getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
+        ({ payload }: any): void => this.initFramesImages(payload.frameList)
+      );
     }
   };
 
+  setActiveFrame = (frame: IAnimationFrame) => {
+    const { setActiveFrame, activeFrame } = this.props;
+    const { frameIndex } = activeFrame;
+    console.log(frameIndex, frame.frameIndex);
+    if (frameIndex !== 1) {
+      this.canvas.item(frameIndex).set({ visible: false });
+    }
+
+    this.canvas.item(frame.frameIndex).set({ visible: true });
+    this.canvas.renderAll();
+
+    setActiveFrame(frame);
+  };
+
   render() {
-    const { activeFrame, setActiveFrame, questAnimation } = this.props;
-    const { caption } = activeFrame;
+    const { activeFrame, questAnimation, questAnimationFrames } = this.props;
+    const { caption, infoArray } = activeFrame;
+    const { objectName, imageDate, imageTime } = infoArray;
     const { magnificationUnitsCaption } = questAnimation;
-    const frameList = [
-      { frameId: 1, caption: 'FRAME 1' },
-      { frameId: 2, caption: 'FRAME 2' },
-      { frameId: 3, caption: 'FRAME 3' },
-      { frameId: 4, caption: 'FRAME 4' },
-      { frameId: 5, caption: 'FRAME 5' },
-    ];
-    // if(this.canvas) {
-    //   console.log(this.canvas.getWidth());
-    //   this.canvas.set({ height: this.canvas.getWidth() });
-    // }
+    const { frameList } = questAnimationFrames;
+
+    console.log('activeFrame', frameList);
     return (
       <div className="animation-module">
         <div className="animation-box">
           <h6>{caption}</h6>
-          <h4>Pluto Oct 28, 2018 00:35 UTC</h4>
+          <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
           <div className="vertical-line" />
           <div
             id="animationCanvasContainer"
@@ -245,12 +258,15 @@ export class AnimationModule extends React.PureComponent<
         <FrameList
           frameList={frameList}
           activeFrame={activeFrame}
-          setActiveFrame={setActiveFrame}
+          setActiveFrame={this.setActiveFrame}
         />
 
         <br />
         <Button onClick={() => console.log(JSON.stringify(this.canvas))}>
           get json
+        </Button>
+        <Button onClick={() => console.log(this.canvas.getObjects())}>
+          get objects
         </Button>
       </div>
     );

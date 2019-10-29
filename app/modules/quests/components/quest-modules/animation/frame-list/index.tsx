@@ -80,11 +80,6 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
                 active: frameId === frame.frameId,
               })}
               onClick={() => setActiveFrame(frame)}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  setActiveFrame(frame);
-                }
-              }}
               tabIndex={0}
               role="button"
             >

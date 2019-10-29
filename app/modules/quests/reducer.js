@@ -60,8 +60,8 @@ const initialState = {
   questGuidePanel: {},
 
   questAnimation: {},
-  questAnimationFrames: {},
-  activeFrame: { frameId: 1, caption: 'FRAME 1' },
+  questAnimationFrames: { frameList: [] },
+  activeFrame: { frameId: 1, caption: 'FRAME 1', infoArray: {} },
 };
 
 function start(state = initialState) {
@@ -293,12 +293,14 @@ function getAnimationSuccess(state, { payload }) {
 }
 
 function getAnimationFramesSuccess(state, { payload }) {
+  const firstFrame = payload.frameList[0] || {};
   return {
     ...state,
     isFetching: false,
     questAnimationFrames: {
       ...payload,
     },
+    activeFrame: { ...firstFrame },
   };
 }
 

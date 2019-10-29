@@ -166,3 +166,48 @@ export declare interface IQuestAnimation extends StandardResponse {
   yOffsetMin: number;
   yOffsetSmallStep: number;
 }
+
+export declare interface IAnimationFrame {
+  base: boolean;
+  caption: string;
+  checkAlignment: boolean;
+  dcId: number;
+  empty: boolean;
+  frameExplanation: string;
+  frameId: number;
+  frameIndex: number;
+  iconURL: string;
+  ignore: boolean;
+  imageURL: string;
+  infoArray: {
+    objectName: string;
+    imageDate: string;
+    imageTime: string;
+    telescopeName: string;
+    instrumentName: string;
+  };
+  invalid: boolean;
+  negative: boolean;
+  objectId: number;
+  offsetReference: string;
+  serializedFrame: any;
+  touched: boolean;
+  xOffset: number;
+  yOffset: number;
+}
+
+export declare interface IQuestAnimationFrames extends StandardResponse {
+  animationId: number;
+  animationUserId: number;
+  frameCount: number;
+  frameIndexOriginal: number;
+  frameList: Array<IAnimationFrame>;
+  gravityEarnedInThisRequest: boolean;
+  moduleId: number;
+  moduleIdIsValid: any;
+  moduleUUID: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  requestType: string;
+}
