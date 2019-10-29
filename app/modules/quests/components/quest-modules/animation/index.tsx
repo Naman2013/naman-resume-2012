@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { fabric } from 'fabric';
 import { Button } from 'react-bootstrap';
 import {
@@ -32,11 +32,9 @@ export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
   AnimationModuleState
 > {
-  // constructor(props: AnimationModuleProps) {
-  //   super(props);
+  canvas: any;
 
-  //   this.canvas = new fabric.Canvas('c');
-  // }
+  canvasContainer: HTMLDivElement;
 
   componentDidMount(): void {
     this.initCanvas();
@@ -80,6 +78,7 @@ export class AnimationModule extends React.PureComponent<
 
             img.scaleToWidth(canvasContainerWidth - 2); // 2px border
             this.canvas.add(img).centerObject(img);
+            //.renderAll();
             //img.setCoords();
           },
           imgAttrs
@@ -91,6 +90,8 @@ export class AnimationModule extends React.PureComponent<
 
     this.canvas.renderAll();
   };
+
+  loadImageFromUrl = () => {};
 
   moveTop = (): void => {
     const item = this.canvas.item(0);
@@ -161,7 +162,8 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void => this.initFramesImages(payload.frameList)
+        ({ payload }: any): void =>
+          this.initFramesImages([...payload.frameList])
       );
     }
   };
@@ -171,10 +173,10 @@ export class AnimationModule extends React.PureComponent<
     const { frameIndex } = activeFrame;
     console.log(frameIndex, frame.frameIndex);
     if (frameIndex !== 1) {
-      this.canvas.item(frameIndex).set({ visible: false });
+      this.canvas.item(frameIndex - 1).set({ visible: false });
     }
 
-    this.canvas.item(frame.frameIndex).set({ visible: true });
+    this.canvas.item(frame.frameIndex - 1).set({ visible: true });
     this.canvas.renderAll();
 
     setActiveFrame(frame);
