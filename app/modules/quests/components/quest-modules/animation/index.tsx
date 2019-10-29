@@ -54,44 +54,44 @@ export class AnimationModule extends React.PureComponent<
   };
 
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
-
-    frameList.reverse().map(
-      (frame: IAnimationFrame): IAnimationFrame => {
-        const { frameIndex, imageURL, xOffset, yOffset } = frame;
-
-        const imgAttrs = {
-          crossOrigin: 'anonymous',
-          selectable: false,
-          cursor: 'auto',
-          left: xOffset,
-          top: yOffset,
-          opacity: frameIndex > 1 ? 0.5 : 1,
-          visible: !(frameIndex > 1),
-        };
-
-        fabric.Image.fromURL(
-          imageURL,
-          (img: any): void => {
-            // add image onto canvas (it also re-render the canvas)
-
-            img.scaleToWidth(canvasContainerWidth - 2); // 2px border
-            this.canvas.add(img).centerObject(img);
-            //.renderAll();
-            //img.setCoords();
-          },
-          imgAttrs
-        );
-
-        return frame;
-      }
-    );
-
+    this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
   };
 
-  loadImageFromUrl = () => {};
+  loadImageFromUrl = (
+    frameIndexToLoad: number,
+    frameList: Array<IAnimationFrame>
+  ) => {
+    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
+      .width;
+    const { frameIndex, imageURL, xOffset, yOffset } = frameList[
+      frameIndexToLoad
+    ];
+
+    const imgAttrs = {
+      crossOrigin: 'anonymous',
+      selectable: false,
+      cursor: 'auto',
+      left: xOffset,
+      top: yOffset,
+      opacity: frameIndex > 1 ? 0.5 : 1,
+      visible: !(frameIndex > 1),
+    };
+
+    fabric.Image.fromURL(
+      imageURL,
+      (img: any): void => {
+        // add image onto canvas (it also re-render the canvas)
+        img.scaleToWidth(canvasContainerWidth - 2); // 2px border
+        this.canvas.add(img).centerObject(img);
+
+        if (frameIndexToLoad + 1 < frameList.length) {
+          this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
+        }
+      },
+      imgAttrs
+    );
+  };
 
   moveTop = (): void => {
     const item = this.canvas.item(0);
@@ -162,8 +162,7 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void =>
-          this.initFramesImages([...payload.frameList])
+        ({ payload }: any): void => this.initFramesImages(payload.frameList)
       );
     }
   };
