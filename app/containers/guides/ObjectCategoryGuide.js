@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
 import InAppNavigation from 'app/components/common/InAppNavigation';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -16,7 +16,6 @@ import {
   GUIDE_ENDPOINT_URL,
   GUIDE_OBJECTS_ENDPOINT_URL,
 } from 'app/services/guides/guide-data';
-import messages from './ObjectCategoryGuide.messages';
 
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
@@ -59,8 +58,8 @@ const guidePageModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: <FormattedMessage {...messages.SterlingTitle} />,
-      subTitle: <FormattedMessage {...messages.SterlingSubtitle} />,
+      title: 'Objects within this guide',
+      subTitle: 'Select an Object for more information',
     },
     guideTopicsProps: {
       list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
@@ -92,6 +91,7 @@ const guideObjectsModel = {
   }),
 };
 
+@withTranslation()
 export default class Guides extends React.Component {
   static propTypes = {
     params: PropTypes.shape({

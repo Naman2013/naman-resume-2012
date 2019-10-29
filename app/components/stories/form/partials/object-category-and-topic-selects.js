@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import SelectList from 'app/components/common/form-sections/select-list';
-import messages from './object-category-and-topic-selects.messages';
+
 import styles from './object-category-and-topic-selects.style';
 
 const { arrayOf, func, shape, string } = PropTypes;
@@ -15,13 +15,12 @@ const ObjectCategoryAndTopicSelects = props => {
     selectedObjectCategory,
     selectedObjectTopic,
   } = props;
+  const { t } = useTranslation();
   return (
     <div className="root">
       {formattedObjectCategories.length ? (
         <div className="select-container">
-          <div className="title-text">
-            <FormattedMessage {...messages.objectCategories} />
-          </div>
+          <div className="title-text">{t('objectCategories')}</div>
           <SelectList
             handleSelectChange={onSelectObjectCategory}
             options={formattedObjectCategories}
@@ -33,9 +32,7 @@ const ObjectCategoryAndTopicSelects = props => {
 
       {formattedCategoryTopics.length ? (
         <div className="select-container">
-          <div className="title-text">
-            <FormattedMessage {...messages.objectTopics} />
-          </div>
+          <div className="title-text">{t('Stories.objectTopics')}</div>
           <SelectList
             handleSelectChange={onSelectObjectTopic}
             options={formattedCategoryTopics}

@@ -7,10 +7,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import take from 'lodash/take';
 import uniqueId from 'lodash/uniqueId';
-import { intlShape, injectIntl } from 'react-intl';
 import BlueLineDrop from 'app/components/common/BlueLineDrop';
 import ShowMoreFullSet from 'app/components/common/ShowMoreFullSet';
 import MembersListSort from './members-list-sort';
@@ -18,17 +18,15 @@ import MembersCardList from './members-list-card-list';
 import MemberListCard from './members-list-card';
 import { profPic } from '../styles';
 import styles from './members-list.style';
-import messages from './members-list.messages';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
-
+@withTranslation()
 class GroupMemberList extends Component {
   static propTypes = {
     fetchGroupMembers: func.isRequired,
     membersCount: number.isRequired,
     membersList: arrayOf(shape({})).isRequired,
     count: number,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -95,7 +93,7 @@ class GroupMemberList extends Component {
       fetchGroupMembers,
       renderToggle,
       theme,
-      intl,
+      t,
     } = this.props;
 
     const { members, displayedMembers, page } = this.state;
@@ -103,7 +101,7 @@ class GroupMemberList extends Component {
     return (
       <div className="members-list" style={theme}>
         <BlueLineDrop
-          title={intl.formatMessage(messages.GroupMembers, { membersCount })}
+          title={t('Clubs.GroupMembers', { membersCount })}
           isDesktop={isDesktop}
           render={() => (
             <div className="members-container">
@@ -127,10 +125,7 @@ class GroupMemberList extends Component {
                     totalCount={members.length}
                     page={page}
                     idField="customerId"
-                    buttonText={[
-                      intl.formatMessage(messages.MoreMember),
-                      intl.formatMessage(messages.MoreMembers),
-                    ]}
+                    buttonText={[t('Clubs.MoreMember'), t('Clubs.MoreMembers')]}
                   />
                 )}
                 {renderToggle ? renderToggle() : null}
@@ -145,4 +140,4 @@ class GroupMemberList extends Component {
   }
 }
 
-export default injectIntl(GroupMemberList);
+export default GroupMemberList;

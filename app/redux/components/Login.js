@@ -1,12 +1,12 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import InputField from 'app/components/form/InputField';
@@ -35,7 +35,6 @@ import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
-import messages from './Login.messages';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -43,11 +42,11 @@ const propTypes = {
     resetLogIn: PropTypes.func.isRequired,
     logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 const defaultProps = {};
 
+@withTranslation()
 class Login extends Component {
   static propTypes = propTypes;
 
@@ -88,10 +87,11 @@ class Login extends Component {
 
   startForgotPassword = () => {
     const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { t } = this.props;
 
     if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = this.props.intl.formatMessage(
-        messages.ForgotPasswordError
+      newLoginFormData.loginEmailAddress.errorText = t(
+        'Dashboard.ForgotPasswordError'
       );
 
       this.setState(() => ({
@@ -101,16 +101,12 @@ class Login extends Component {
     } else {
       this.setState(() => ({
         inForgotPasswordMode: true,
-        forgotPasswordStatusMessage: this.props.intl.formatMessage(
-          messages.ForgotPasswordRequest
-        ),
+        forgotPasswordStatusMessage: t('Dashboard.ForgotPasswordRequest'),
       }));
 
-      API
-      .post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
-          loginEmailAddress: this.state.loginFormDetails.loginEmailAddress
-            .value,
-        })
+      API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
+        loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
+      })
         .then(response => {
           const { actions } = this.props;
 
@@ -171,10 +167,9 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = API
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    const googleSSOResult = API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const { actions } = this.props;
 
@@ -209,7 +204,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginFailed, intl } = this.props;
+    const { loginFailed, t } = this.props;
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
@@ -242,7 +237,7 @@ class Login extends Component {
                     color: romance,
                     border: 0,
                   }}
-                  text={intl.formatMessage(messages.Close)}
+                  text={t('Dashboard.Close')}
                   onClickEvent={this.closeForgotPassword}
                 />
               </div>
@@ -255,9 +250,7 @@ class Login extends Component {
             onSubmit={this.props.handleSubmit(this.handleSubmit)}
           >
             {loginFailed ? (
-              <div className="field-error">
-                <FormattedMessage {...messages.LoginFailed} />
-              </div>
+              <div className="field-error">{t('Dashboard.LoginFailed')}</div>
             ) : null}
             {this.state.loginFormDetails.loginEmailAddress.errorText.length >
               0 && (
@@ -271,7 +264,7 @@ class Login extends Component {
             <Field
               name="username"
               type="email"
-              label={intl.formatMessage(messages.Email)}
+              label={t('Dashboard.Email')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -284,7 +277,7 @@ class Login extends Component {
             <Field
               name="pwd"
               type="password"
-              label={intl.formatMessage(messages.Password)}
+              label={t('Dashboard.Password')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -306,11 +299,11 @@ class Login extends Component {
             <Button
               theme={{ margin: '0 auto', color: astronaut }}
               type="submit"
-              text={intl.formatMessage(messages.SignWithEmail)}
+              text={t('Dashboard.SignWithEmail')}
               onClickEvent={this.clearCurrentErrors}
             />
             <div className="or-container">
-              <div className="or-text">{intl.formatMessage(messages.Or)}</div>
+              <div className="or-text">{t('Dashboard.Or')}</div>
               {/*<div className="or-line" />*/}
             </div>
             <Request
@@ -364,7 +357,7 @@ class Login extends Component {
 
             <div className="register-container">
               <span className="title-link">
-                {intl.formatMessage(messages.DontHaveAccount)}
+                {t('Dashboard.DontHaveAccount')}
               </span>
               <Link to="/about/memberships">
                 <LargeButtonWithRightIcon
@@ -375,13 +368,13 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.JoinSloohToday)}
+                  text={t('Dashboard.JoinSloohToday')}
                 />
               </Link>
             </div>
             <div className="register-container">
               <span className="title-link">
-                {intl.formatMessage(messages.HaveAnInvintationCode)}
+                {t('Dashboard.HaveAnInvintationCode')}
               </span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
@@ -392,7 +385,7 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.RedeemInvitationCode)}
+                  text={t('Dashboard.RedeemInvitationCode')}
                 />
               </Link>
             </div>
@@ -429,6 +422,4 @@ const loginValidation = createValidator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  reduxForm({ form: 'loginForm', validate: loginValidation })(injectIntl(Login))
-);
+)(reduxForm({ form: 'loginForm', validate: loginValidation })(Login));

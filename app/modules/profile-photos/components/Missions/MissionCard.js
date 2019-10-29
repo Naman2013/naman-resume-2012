@@ -5,23 +5,24 @@
 // @flow
 import React, { PureComponent, Fragment } from 'react';
 import cn from 'classnames';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
 import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './MissionCard.messages';
+
 import style from './MissionCard.style';
 import './fitsData.scss';
 
 type TMissionCard = {
   isDesktop: boolean,
   isMobile: boolean,
-  currentItem: Object,
+  currentItem: Record<string, any>;
 };
 
+@withTranslation()
 class MissionCard extends PureComponent<TMissionCard> {
   state = {
     menuIsVisible: false,
@@ -68,7 +69,10 @@ class MissionCard extends PureComponent<TMissionCard> {
     this.showModal();
   };
 
-  onDownloadFile = (e,url, name) => {e.preventDefault();downloadFile(url, name);}
+  onDownloadFile = (e, url, name) => {
+    e.preventDefault();
+    downloadFile(url, name);
+  };
 
   setModal = modalComponent => {
     this.setState(state => ({
@@ -134,10 +138,10 @@ class MissionCard extends PureComponent<TMissionCard> {
                   return (
                     <li key={`${imageId}-${imageTitle}`}>
                       <a
-                      href={imageURL}
-                      download
+                        href={imageURL}
+                        download
                         className="cursor-pointer link"
-                        onClick={(e) => onDownloadFile(e,imageURL, imageTitle)}
+                        onClick={e => onDownloadFile(e, imageURL, imageTitle)}
                       >
                         {imageTitle}
                       </a>
@@ -163,6 +167,7 @@ class MissionCard extends PureComponent<TMissionCard> {
       isMobile,
       fitsData,
       currentItem: mission,
+      t,
     } = this.props;
     const inCenter = index % 3 === 1;
     const { menuIsVisible, width } = this.state;
@@ -204,7 +209,7 @@ class MissionCard extends PureComponent<TMissionCard> {
                 {displayDate}
               </div>
               <div className="mission-details-tile mission-details-images">
-                {missionImageCount} <FormattedMessage {...messages.Images} />
+                {missionImageCount} {t('Photos.Images')}
               </div>
             </div>
             <div
