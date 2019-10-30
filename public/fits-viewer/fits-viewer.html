@@ -24,8 +24,8 @@
   };
 
   const loadFitsImage = () => {
-      const interval = setInterval(myTimer, 300);
-      function myTimer() {
+      const interval = setInterval(loadFitsImageTimer, 300);
+      function loadFitsImageTimer() {
           if (window.JS9.readied){
               clearInterval(interval)  ;
               displayUrl();
