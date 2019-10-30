@@ -305,9 +305,15 @@ function getAnimationFramesSuccess(state, { payload }) {
 }
 
 function setActiveFrame(state, { payload }) {
+  const { frameList } = state.questAnimationFrames;
+  frameList[payload.frameIndex - 1] = { ...payload };
   return {
     ...state,
     activeFrame: payload,
+    questAnimationFrames: {
+      ...state.questAnimationFrames,
+      frameList: [...frameList],
+    },
   };
 }
 // END: ANIMATION MODULE
