@@ -7,7 +7,7 @@ import React, { PureComponent, Fragment } from 'react';
 import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link, withRouter } from 'react-router';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
 import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
@@ -19,7 +19,7 @@ import './fitsData.scss';
 type TMissionCard = {
   isDesktop: boolean,
   isMobile: boolean,
-  currentItem: Object,
+  currentItem: Record<string, any>,
 };
 
 @withTranslation()
@@ -45,7 +45,8 @@ class MissionCard extends PureComponent<TMissionCard> {
   }
 
   onToggleMenuVisibility = () => {
-    this.setState({ menuIsVisible: !this.state.menuIsVisible });
+    const { menuIsVisible } = this.state;
+    this.setState({ menuIsVisible: !menuIsVisible });
   };
 
   onOpenMission = () => {
@@ -92,6 +93,10 @@ class MissionCard extends PureComponent<TMissionCard> {
     }));
   };
 
+  generateFitsViewerUrl = (imageUrl, fileName) => {
+    return `${fileName}?url=${imageUrl}`;
+  };
+
   renderModalComponent = data => {
     const {
       popupTitleText,
@@ -100,16 +105,15 @@ class MissionCard extends PureComponent<TMissionCard> {
       missionObsName,
       missionPierName,
       missionDateTime,
-      ownerMembershipType,
       takenByText,
       ownerAvatarURL,
-      ownerFirstName,
-      ownerMemberSince,
       groupList,
       buttonText,
       ownerDisplayName,
     } = data;
-    const { closeModal, onDownloadFile } = this;
+
+    const { closeModal, onDownloadFile, generateFitsViewerUrl } = this;
+    const url = `/fits-viewer.html`;
     return (
       <div className="fitsData">
         <h2>{popupTitleText}</h2>
@@ -145,6 +149,15 @@ class MissionCard extends PureComponent<TMissionCard> {
                       >
                         {imageTitle}
                       </a>
+                      <Link
+                        to={generateFitsViewerUrl(imageURL, url)}
+                        target="_blank"
+                        className="astronomical-viewer"
+                      >
+                        <Button onClick={() => {}} className="btn-primary">
+                          View
+                        </Button>
+                      </Link>
                     </li>
                   );
                 })}
@@ -269,4 +282,4 @@ class MissionCard extends PureComponent<TMissionCard> {
   }
 }
 
-export default MissionCard;
+export default withRouter(MissionCard);
