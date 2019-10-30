@@ -8,10 +8,9 @@
   text-align: center;
   font-family: $primary-font;
 
-  .link{
-  color: $lightHeadedAstronaut;
-
-}
+  .link {
+    color: $lightHeadedAstronaut;
+  }
 
   h2 {
     margin-bottom: 20px;
@@ -61,5 +60,11 @@
 
   button {
     margin: 30px auto 0;
+  }
+
+  .fits-image-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }

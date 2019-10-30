@@ -93,8 +93,8 @@ class MissionCard extends PureComponent<TMissionCard> {
     }));
   };
 
-  generateFitsViewerUrl = (imageUrl, fileName) => {
-    return `${fileName}?url=${imageUrl}`;
+  generateFitsViewerUrl = imageUrl => {
+    return `/fits-viewer.html?url=${imageUrl}`;
   };
 
   renderModalComponent = data => {
@@ -113,7 +113,6 @@ class MissionCard extends PureComponent<TMissionCard> {
     } = data;
 
     const { closeModal, onDownloadFile, generateFitsViewerUrl } = this;
-    const url = `/fits-viewer.html`;
     return (
       <div className="fitsData">
         <h2>{popupTitleText}</h2>
@@ -140,7 +139,10 @@ class MissionCard extends PureComponent<TMissionCard> {
                 <h5>{groupName}</h5>
                 {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
                   return (
-                    <li key={`${imageId}-${imageTitle}`}>
+                    <li
+                      key={`${imageId}-${imageTitle}`}
+                      className="fits-image-item"
+                    >
                       <a
                         href={imageURL}
                         download
@@ -149,15 +151,13 @@ class MissionCard extends PureComponent<TMissionCard> {
                       >
                         {imageTitle}
                       </a>
-                      <Link
-                        to={generateFitsViewerUrl(imageURL, url)}
+                      <a
+                        href={generateFitsViewerUrl(imageURL)}
                         target="_blank"
-                        className="astronomical-viewer"
+                        className="astronomical-viewer btn btn-primary"
                       >
-                        <Button onClick={() => {}} className="btn-primary">
-                          View
-                        </Button>
-                      </Link>
+                        View
+                      </a>
                     </li>
                   );
                 })}

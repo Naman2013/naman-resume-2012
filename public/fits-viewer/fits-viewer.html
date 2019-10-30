@@ -23,16 +23,10 @@
       window.JS9.Load(imageUrl);
   };
 
-  const loadFitsImage = () => {
-      const interval = setInterval(loadFitsImageTimer, 300);
-      function loadFitsImageTimer() {
-          if (window.JS9.readied){
-              clearInterval(interval)  ;
-              displayUrl();
-          }
-      }
-  };
-  loadFitsImage();
+  $(document).on("JS9:ready", function(){
+      displayUrl();
+  });
+
 </script>
 </body>
 </html>
