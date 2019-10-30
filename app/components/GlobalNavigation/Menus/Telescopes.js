@@ -98,8 +98,6 @@ const Telescopes = () => {
   );
 };
 
-Telescopes.propTypes = {
-
-};
+Telescopes.propTypes = {};
 
 export default Telescopes;

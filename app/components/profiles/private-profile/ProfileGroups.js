@@ -5,7 +5,7 @@
 
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import ReactModal from 'react-modal';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
@@ -33,7 +33,6 @@ class ProfileGroups extends Component {
       groupsCount: number.isRequired,
       groupsList: arrayOf(shape({})).isRequired,
     }),
-
   };
 
   state = {

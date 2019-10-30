@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './form-feedback-actions.style';
 
-
 const { func, string } = PropTypes;
 const FormFeedbackActions = props => {
   const { closeResponseFeedback, submitButtonCaption } = props;

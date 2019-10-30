@@ -17,7 +17,6 @@ import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
 
-
 const {
   arrayOf,
   any,
@@ -58,7 +57,6 @@ class SubmitReplyReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-
   };
 
   setCommentModal = () => {
@@ -160,7 +158,10 @@ class SubmitReplyReplyButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <Button text={t('AskAnAstronomer.Reply')} onClickEvent={this.setCommentModal} />
+        <Button
+          text={t('AskAnAstronomer.Reply')}
+          onClickEvent={this.setCommentModal}
+        />
       </div>
     );
   }

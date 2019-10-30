@@ -14,7 +14,6 @@ import Btn from 'app/atoms/Btn';
 
 import styles from './JoinHeader.style';
 
-
 const { boolean, string, arrayOf, shape } = PropTypes;
 
 @withTranslation()

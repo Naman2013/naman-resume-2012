@@ -8,7 +8,6 @@ import { envelope, phone } from '../../styles/variables/iconURLs';
 import submitPartnershipForm from '../../services/about/submit-partnership-form';
 import style from './PartnershipOpportunitiesSection.style';
 
-
 const customModalStyles = {
   content: {
     top: '50%',
@@ -75,10 +74,7 @@ class PartnershipOpportunitiesSection extends Component {
       response,
     } = this.state;
 
-    const {
-      data,
-      t,
-    } = this.props;
+    const { data, t } = this.props;
     const {
       sectionHeading,
       sectionHeading2,

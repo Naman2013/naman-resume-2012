@@ -13,8 +13,9 @@ import SloohSlider from 'app/components/common/Slider';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import BigGuideTile from 'app/components/common/tiles/BigGuideTile/BigGuideTile';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { getSliderProps } from './recommendedGuidesConfiguration';
+
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
 const Guides = ({ recommendedGuidesList }) => {

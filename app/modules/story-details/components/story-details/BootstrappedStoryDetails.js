@@ -117,7 +117,6 @@ BootstrappedStoryDetails.propTypes = {
     token: oneOfType([number, string]),
     cid: oneOfType([number, string]),
   }).isRequired,
-
 };
 
 BootstrappedStoryDetails.defaultProps = {

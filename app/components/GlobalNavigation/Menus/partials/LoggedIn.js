@@ -102,7 +102,6 @@ LoggedIn.propTypes = {
       link: PropTypes.string,
     })
   ),
-
 };
 
 LoggedIn.defaultProps = {};

@@ -67,7 +67,6 @@ class RelatedObject extends Component {
       cid: string,
       token: string,
     }).isRequired,
-
   };
 
   static defaultProps = {

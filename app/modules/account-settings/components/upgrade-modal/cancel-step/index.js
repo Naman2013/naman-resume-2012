@@ -3,9 +3,7 @@
 import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import {
-  CANCEL_CUSTOMER_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+import { CANCEL_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { browserHistory } from 'react-router';
@@ -21,10 +19,9 @@ export const cancelStepClose = props => {
   props.onHide();
   browserHistory.push('/account-settings/account-details');
   window.location.reload();
-}
+};
 
-export const CancelStep = (props) => {
-
+export const CancelStep = props => {
   const user = getUserInfo();
 
   return (
@@ -38,27 +35,31 @@ export const CancelStep = (props) => {
               <DeviceContext.Consumer>
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
-      		          <h1 className="modal-h">{cancelPageRes.pageHeading1}</h1>
+                    <h1 className="modal-h">{cancelPageRes.pageHeading1}</h1>
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
                         screenXLarge
+                      ></DisplayAtBreakpoint>
+                      <br />
+                      <br />
+                      <p className="modal-p mb-5">
+                        {cancelPageRes.statusMessage}
+                      </p>
+                      <br />
+                      <Btn
+                        className="white-button"
+                        onClick={() => cancelStepClose(props)}
                       >
-
-                      </DisplayAtBreakpoint>
-                      <br/>
-                      <br/>
-                      <p className="modal-p mb-5">{cancelPageRes.statusMessage}</p>
-                      <br/>
-                      <Btn className='white-button' onClick={() => cancelStepClose(props)}>Close</Btn>
-
+                        Close
+                      </Btn>
                     </div>
                   </Fragment>
                 )}
               </DeviceContext.Consumer>
             )}
-	          <style jsx>{styles}</style>
+            <style jsx>{styles}</style>
           </Fragment>
         )}
       />

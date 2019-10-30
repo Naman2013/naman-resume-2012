@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import noop from 'lodash/noop';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import QuestTiles from 'app/components/quests-hub/quest-tiles';
@@ -135,9 +135,7 @@ class Quests extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{t('Hubs.loading')}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <QuestTiles
                               updateReadingListInfo={

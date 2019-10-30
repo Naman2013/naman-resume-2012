@@ -19,7 +19,18 @@ export const ModalImg = props => {
       dialogClassName={customClassName}
     >
       <Modal.Body>
-        <Magnifier imageSrc={imageURL} className={magnifierClassName} />
+        <Magnifier
+          className={magnifierClassName}
+          imageSrc={imageURL}
+          onImageLoad={({
+            currentTarget,
+            currentTarget: { width, height, naturalWidth, naturalHeight },
+          }) => {
+            if (width < naturalWidth || height < naturalHeight) {
+              currentTarget.parentNode.style.cursor = 'zoom-in';
+            }
+          }}
+        />
       </Modal.Body>
     </Modal>
   );

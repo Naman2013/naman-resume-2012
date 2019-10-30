@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
-import ViewOurGuide from '../view-our-guide';
 import { RISE_SET_TIMES } from 'app/services/objects';
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
+import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfile.style';
-
 
 import { DEFAULT_OBSID } from './constants';
 
@@ -166,7 +165,10 @@ class ObjectVisibilityProfile extends Component {
                               : riseSet.rise}
                           </p>
                         </StaticCell>
-                        <StaticCell title={riseSet.transitLabel} hasBorderScale={[true]}>
+                        <StaticCell
+                          title={riseSet.transitLabel}
+                          hasBorderScale={[true]}
+                        >
                           <p>
                             {fetchingContent
                               ? `${t('Objects.Loading')}...`
@@ -213,7 +215,6 @@ class ObjectVisibilityProfile extends Component {
 }
 
 ObjectVisibilityProfile.propTypes = {
-
   defaultObsId: PropTypes.string.isRequired,
 };
 

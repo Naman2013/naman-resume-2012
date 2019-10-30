@@ -7,7 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
@@ -82,7 +82,7 @@ class Shows extends Component {
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
+            title={`${objectDetails.objectTitle}'s`}
             subTitle={t('Objects.RelatedShows')}
           />
         </DeviceProvider>
@@ -110,7 +110,9 @@ class Shows extends Component {
                   ))
                 ) : (
                   <p>
-                    {t('Objects.NoShows', { objectTitle: objectDetails.objectTitle })}
+                    {t('Objects.NoShows', {
+                      objectTitle: objectDetails.objectTitle,
+                    })}
                   </p>
                 )}
               </div>
@@ -130,8 +132,6 @@ class Shows extends Component {
   }
 }
 
-Shows.propTypes = {
-
-};
+Shows.propTypes = {};
 
 export default Shows;

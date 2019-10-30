@@ -19,7 +19,6 @@ import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import './styles.scss';
 
-
 const { func, shape, string } = PropTypes;
 @withTranslation()
 class SubmitAnswerForm extends PureComponent {
@@ -36,7 +35,6 @@ class SubmitAnswerForm extends PureComponent {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
-
   };
 
   static defaultProps = {};
@@ -232,7 +230,9 @@ class SubmitAnswerForm extends PureComponent {
             <Button onClick={this.closeModal} className="mr-3">
               {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
+            <Button onClick={this.submitForm}>
+              {t('AskAnAstronomer.Submit')}
+            </Button>
           </div>
         </div>
       </form>

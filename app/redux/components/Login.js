@@ -42,7 +42,6 @@ const propTypes = {
     resetLogIn: PropTypes.func.isRequired,
     logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
-
 };
 
 const defaultProps = {};
@@ -91,7 +90,9 @@ class Login extends Component {
     const { t } = this.props;
 
     if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = t('Dashboard.ForgotPasswordError');
+      newLoginFormData.loginEmailAddress.errorText = t(
+        'Dashboard.ForgotPasswordError'
+      );
 
       this.setState(() => ({
         loginFormDetails: newLoginFormData,
@@ -355,7 +356,9 @@ class Login extends Component {
             />
 
             <div className="register-container">
-              <span className="title-link">{t('Dashboard.DontHaveAccount')}</span>
+              <span className="title-link">
+                {t('Dashboard.DontHaveAccount')}
+              </span>
               <Link to="/about/memberships">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -370,7 +373,9 @@ class Login extends Component {
               </Link>
             </div>
             <div className="register-container">
-              <span className="title-link">{t('Dashboard.HaveAnInvintationCode')}</span>
+              <span className="title-link">
+                {t('Dashboard.HaveAnInvintationCode')}
+              </span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -417,6 +422,4 @@ const loginValidation = createValidator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  reduxForm({ form: 'loginForm', validate: loginValidation })(Login)
-);
+)(reduxForm({ form: 'loginForm', validate: loginValidation })(Login));
