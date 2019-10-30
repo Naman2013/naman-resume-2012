@@ -94,7 +94,7 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   generateFitsViewerUrl = imageUrl => {
-    return `/fits-viewer.html?url=${imageUrl}`;
+    return `fits-viewer/fits-viewer.html?url=${imageUrl}`;
   };
 
   renderModalComponent = data => {
