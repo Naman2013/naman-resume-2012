@@ -5,12 +5,10 @@
  *
  ********************************** */
 import React, { Component } from 'react';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
-import messages from './DashboardNav.messages';
-import styles from './DashboardNav.style';
 import {
   missions,
   guides,
@@ -19,9 +17,11 @@ import {
   stories,
   groups,
 } from 'app/styles/variables/iconURLs';
+import styles from './DashboardNav.style';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
+@withTranslation()
 class DashboardNav extends Component {
   static propTypes = {};
 
@@ -30,7 +30,7 @@ class DashboardNav extends Component {
   state = {};
 
   render() {
-    const {} = this.props;
+    const { t } = this.props;
 
     return (
       <div className="root">
@@ -38,9 +38,7 @@ class DashboardNav extends Component {
           <Link to="/missions">
             <div className="link-container">
               <img alt="missions" src={missions} />
-              <div className="title-item">
-                <FormattedMessage {...messages.missions} />
-              </div>
+              <div className="title-item">{t('Dashboard.missions')}</div>
             </div>
           </Link>
         </div>
@@ -48,9 +46,7 @@ class DashboardNav extends Component {
           <Link to="/guides/all">
             <div className="link-container">
               <img alt="guides" src={guides} />
-              <div className="title-item">
-                <FormattedMessage {...messages.guides} />
-              </div>
+              <div className="title-item">{t('Dashboard.guides')}</div>
             </div>
           </Link>
         </div>
@@ -58,9 +54,7 @@ class DashboardNav extends Component {
           <Link to="/quests">
             <div className="link-container">
               <img alt="quests" src={quests} />
-              <div className="title-item">
-                <FormattedMessage {...messages.quests} />
-              </div>
+              <div className="title-item">{t('Dashboard.quests')}</div>
             </div>
           </Link>
         </div>
@@ -68,9 +62,7 @@ class DashboardNav extends Component {
           <Link to="/shows">
             <div className="link-container">
               <img alt="shows" src={shows} />
-              <div className="title-item">
-                <FormattedMessage {...messages.shows} />
-              </div>
+              <div className="title-item">{t('Dashboard.shows')}</div>
             </div>
           </Link>
         </div>
@@ -78,9 +70,7 @@ class DashboardNav extends Component {
           <Link to="/stories">
             <div className="link-container">
               <img alt="stories" src={stories} />
-              <div className="title-item">
-                <FormattedMessage {...messages.stories} />
-              </div>
+              <div className="title-item">{t('Dashboard.stories')}</div>
             </div>
           </Link>
         </div>
@@ -88,9 +78,7 @@ class DashboardNav extends Component {
           <Link to="/groups">
             <div className="link-container">
               <img alt="clubs" src={groups} />
-              <div className="title-item">
-                <FormattedMessage {...messages.clubs} />
-              </div>
+              <div className="title-item">{t('Dashboard.clubs')}</div>
             </div>
           </Link>
         </div>

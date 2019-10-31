@@ -3,12 +3,12 @@
  ********************************************************************/
 
 import React, { PureComponent, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import TextareaField from 'app/components/form/TextareaField';
 import Button from 'app/components/common/style/buttons/Button';
@@ -18,15 +18,13 @@ import Request from 'app/components/common/network/Request';
 import { API } from 'app/api';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
-import messages from './DiscussionBoard.messages';
 
 const { any, bool, func, number, shape, string } = PropTypes;
-
+@withTranslation()
 class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
   static propTypes = {
     discussionGroupId: string,
     newInvitationComplete: func.isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -54,7 +52,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
 
   /* Submit the Form and perform any validations as needed */
   handleSubmit = formValues => {
-    const { discussionGroupId, user, intl } = this.props;
+    const { discussionGroupId, user, t } = this.props;
 
     const inviteFormData = cloneDeep(this.state.inviteFormDetails);
 
@@ -62,25 +60,21 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
 
     if (!formValues.firstName || formValues.firstName.value === '') {
       isFormComplete = false;
-      inviteFormData.firstName.errorText = intl.formatMessage(
-        messages.FirstName
-      );
+      inviteFormData.firstName.errorText = t('Clubs.FirstName');
     } else {
       inviteFormData.firstName.errorText = '';
     }
 
     if (!formValues.lastName || formValues.lastName.value === '') {
       isFormComplete = false;
-      inviteFormData.lastName.errorText = intl.formatMessage(messages.LastName);
+      inviteFormData.lastName.errorText = t('Clubs.LastName');
     } else {
       inviteFormData.lastName.errorText = '';
     }
 
     if (!formValues.emailAddress || formValues.emailAddress.value === '') {
       isFormComplete = false;
-      inviteFormData.emailAddress.errorText = intl.formatMessage(
-        messages.EmailAddress
-      );
+      inviteFormData.emailAddress.errorText = t('Clubs.EmailAddress');
     } else {
       inviteFormData.emailAddress.errorText = '';
     }
@@ -89,21 +83,22 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
       formValues.emailAddressVerification === ''
     ) {
       isFormComplete = false;
-      inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-        messages.ConfirmEmailAddress
+      inviteFormData.emailAddressVerification.errorText = t(
+        '.ConfirmEmailAddress'
       );
     } else if (formValues.emailAddress != formValues.emailAddressVerification) {
       isFormComplete = false;
-      inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-        messages.EmailsDontMatch
+      inviteFormData.emailAddressVerification.errorText = t(
+        'Clubs.EmailsDontMatch'
       );
     } else {
       inviteFormData.emailAddressVerification.errorText = '';
     }
 
     if (isFormComplete === true) {
-      const setInviteCompleteResult = API
-      .post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
+      const setInviteCompleteResult = API.post(
+        CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL,
+        {
           cid: user.cid,
           at: user.at,
           token: user.token,
@@ -113,7 +108,8 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
             lastName: formValues.lastName,
             emailAddress: formValues.emailAddress,
           },
-        })
+        }
+      )
         .then(({ data }) => {
           if (data.status !== 'failed') {
             const { reset, newInvitationComplete } = this.props;
@@ -274,5 +270,5 @@ export default connect(
   reduxForm({
     form: 'discussionBoardInviteNewMemberToSloohForm',
     enableReinitialize: true,
-  })(injectIntl(DiscussionBoardInviteNewMemberToSlooh))
+  })(DiscussionBoardInviteNewMemberToSlooh)
 );

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Swiper from 'react-slick';
-import { FormattedMessage } from 'react-intl';
-
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
-import messages from './MobileViewSwiper.messages';
 
 const { arrayOf, shape } = PropTypes;
 
@@ -28,6 +26,7 @@ const sliderConfig = {
   dots: true,
 };
 
+@withTranslation()
 class MobileViewSwiper extends Component {
   state = {
     ...emptyState,
@@ -64,7 +63,7 @@ class MobileViewSwiper extends Component {
   };
 
   render() {
-    const { imagesList } = this.props;
+    const { imagesList, t } = this.props;
     const {
       title,
       author,
@@ -93,11 +92,7 @@ class MobileViewSwiper extends Component {
           </div>
         ) : (
           <div className="top">
-            {!error ? (
-              `${<FormattedMessage {...messages.Loading} />}...`
-            ) : (
-              <FormattedMessage {...messages.ErrorWhileLoading} />
-            )}
+            {!error ? `${t('Dashboard.Loading')}...` : t('Dashboard.ErrorWhileLoading')}
           </div>
         )}
         <div className="swiper-container">
@@ -133,7 +128,7 @@ class MobileViewSwiper extends Component {
               {commentsCount}
             </div>
             <a href={linkUrl} className="button details">
-              <FormattedMessage {...messages.Details} />
+              {t('Dashboard.Details')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"

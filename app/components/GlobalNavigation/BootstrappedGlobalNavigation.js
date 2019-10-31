@@ -1,3 +1,4 @@
+import { projectPubnubConf } from 'app/config/project-config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -74,8 +75,8 @@ class GlobalNavigation extends Component {
     isRightOpen: false,
     showUpsellModal: false,
     isMobile: false,
-    pubnubActivityFeedChannelName: `${process.env.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
-    pubnubLiveEventsChannelName: `${process.env.PUBNUB_CHANNEL_PREFIX}.system.liveevents`,
+    pubnubActivityFeedChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
+    pubnubLiveEventsChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.liveevents`,
   };
 
   state = {
@@ -102,9 +103,9 @@ class GlobalNavigation extends Component {
     this.pubnub = new PubNubReact({
       ssl: true,
       uuid: getUserInfo().cid,
-      publishKey: process.env.PUBNUB_FEEDS_PUBKEY,
-      subscribeKey: process.env.PUBNUB_FEEDS_SUBKEY,
-      secretKey: process.env.PUBNUB_FEEDS_SECRETKEY,
+      publishKey: projectPubnubConf.PUBNUB_FEEDS_PUBKEY,
+      subscribeKey: projectPubnubConf.PUBNUB_FEEDS_SUBKEY,
+      secretKey: projectPubnubConf.PUBNUB_FEEDS_SECRETKEY,
     });
 
     this.pubnub.addListener({
@@ -120,13 +121,19 @@ class GlobalNavigation extends Component {
             },
             (status, response) => {
               let historyMessages = response.messages;
+          this.pubnub.history(
+            {
+              channel: this.props.pubnubActivityFeedChannelName,
+              count: 50,
+              stringifiedTimeToken: false,
+              reverse: false,
+            },
+            (status, response) => {
+              let historyMessages = response.messages;
 
               historyMessages.forEach(historyMessage => {
-                //console.log(historyMessage);
                 this.buildFeedMessage(historyMessage.entry, true);
               });
-
-              //console.log(response);
 
               setInterval(() => this.checkActivityWindowScroll(), 5000);
             }
@@ -140,10 +147,7 @@ class GlobalNavigation extends Component {
         //what is the message??
         const { message } = msg;
 
-        //console.log(message);
-
         if (channel === pubnubLiveEventsChannelName) {
-          //console.log(message);
 
           if (message.messageType) {
             if (message.messageType === 'livecast') {
@@ -163,7 +167,7 @@ class GlobalNavigation extends Component {
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
-      },
+      }
     });
 
     this.pubnub.init(this);
@@ -261,7 +265,7 @@ class GlobalNavigation extends Component {
         id: messageJSONObj.messageID,
         user: messageJSONObj.displayName,
         currentUser: isMessageFromCurrentUser,
-        date: '00/00/0000 12:00 UTC',
+        date: messageJSONObj.displayTimestamp,
         text: messageJSONObj.message_by_locale.en,
       };
 
@@ -356,6 +360,10 @@ class GlobalNavigation extends Component {
     const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name];
 
     let displayName = '';
+    if (userMenu && userMenu.userInfo) {
+      displayName = userMenu.userInfo.displayName;
+    }
+
     let isChatEnabled = true;
 
     if (userMenu && userMenu.userInfo) {

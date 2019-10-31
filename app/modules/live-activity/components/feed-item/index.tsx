@@ -33,7 +33,9 @@ export const FeedItem = (props: TFeedItem) => {
       })}
     >
       <div className="feed-data">
-        {/* <span className="feed-data-date">{props.item.date}</span> */}
+        {props.item.date && (
+          <span className="feed-data-date">{props.item.date}</span>
+        )}
         {/* <span className="feed-data-user">{props.item.user}</span> */}
       </div>
 

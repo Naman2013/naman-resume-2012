@@ -1,8 +1,8 @@
 import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
 import { LiveActivityLoadable } from 'app/modules/live-activity';
 import React, { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import { browserHistory, Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
 import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
@@ -10,7 +10,6 @@ import { primaryFont } from 'app/styles/variables/fonts';
 import MENU_INTERFACE from './Menus/MenuInterface';
 import CenterBar from './CenterBar';
 import Button from './Button';
-import messages from './TopBar.messages';
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -54,6 +53,7 @@ const TopBar = ({
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
   const alerts = () => handleNotificationClick(MENU_INTERFACE.ALERTS.name);
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
+  const { t } = useTranslation();
   // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
 
   return (
@@ -206,7 +206,7 @@ const TopBar = ({
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                             </div>
                             <span className="text">
-                              <FormattedMessage {...messages.SignIn} />
+                              {t('Navigation.SignIn')}
                             </span>
                             <i className="top-nav-icon i-user-astronaut" />
                           </div>

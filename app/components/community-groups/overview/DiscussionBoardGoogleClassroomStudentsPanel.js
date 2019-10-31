@@ -4,10 +4,10 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import FormSectionHeader from 'app/components/common/form-sections/section-header';
 import Request from 'app/components/common/network/Request';
 import BarHeader from 'app/components/common/form-sections/bar-header';
@@ -19,11 +19,9 @@ import {
   GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL,
 } from 'app/services/classroom/classroom';
 
-import { romance, astronaut } from '../../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenLarge } from 'app/styles/variables/breakpoints';
 
-import messages from './DiscussionBoard.messages';
 import {
   Container,
   Row,
@@ -31,6 +29,7 @@ import {
   ListGroup,
   ListGroupItem,
 } from 'react-bootstrap';
+import { romance, astronaut } from '../../../styles/variables/colors_tiles_v4';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ user }) => ({
@@ -41,10 +40,10 @@ const mapStateToProps = ({ user }) => ({
   mapStateToProps,
   null
 )
+@withTranslation()
 class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   static propTypes = {
     pageMeta: shape({}),
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -54,9 +53,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   state = {
     refreshModeStr: 'false',
     importStudentErrorText: '',
-    panelLoadingMessage: this.props.intl.formatMessage(
-      messages.LoadingStudentsList
-    ),
+    panelLoadingMessage: '',
   };
 
   addStudentToDiscussionGroup = (
@@ -67,13 +64,13 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   ) => {
     //console.log(firstName + " : " + lastName + " : " + emailAddress + " : " + googleProfileId);
 
-    const { user, discussionGroupId, refreshHeader } = this.props;
+    const { user, discussionGroupId, refreshHeader, t } = this.props;
 
     const studentAccountDetails = {
-      googleProfileId: googleProfileId,
-      firstName: firstName,
-      lastName: lastName,
-      emailAddress: emailAddress,
+      googleProfileId,
+      firstName,
+      lastName,
+      emailAddress,
     };
 
     //reset importStudentErrorText
@@ -82,14 +79,16 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
     }));
 
     //make an axios call out to create the student account or assign the existing student customer to this Google Classroom.
-    const googleClassroomImportStudentResult = API
-      .post(GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL, {
+    const googleClassroomImportStudentResult = API.post(
+      GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL,
+      {
         cid: user.cid,
         at: user.at,
         token: user.token,
-        studentAccountDetails: studentAccountDetails,
+        studentAccountDetails,
         groupId: discussionGroupId,
-      })
+      }
+    )
       .then(response => {
         const res = response.data;
         if (res.apiError == false) {
@@ -107,12 +106,10 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
           //force reload the Student List Panel.
           refreshHeader();
           this.setState(() => ({
-            panelLoadingMessage: `${this.props.intl.formatMessage(
-              messages.RefreshingStudentsList
-            )}....`,
-            refreshModeStr:
-              'googleClassroomStudentListPanel_' +
-              Math.floor(Math.random() * 500000 + 1),
+            panelLoadingMessage: `${t('Clubs.RefreshingStudentsList')}....`,
+            refreshModeStr: `googleClassroomStudentListPanel_${Math.floor(
+              Math.random() * 500000 + 1
+            )}`,
           }));
         }
       })
@@ -122,7 +119,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   };
 
   render() {
-    const { actions, pageMeta, user, discussionGroupId, intl } = this.props;
+    const { actions, pageMeta, user, discussionGroupId, t } = this.props;
 
     const { refreshModeStr } = this.state;
 
@@ -196,30 +193,37 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                                   </Card.Subtitle>
                                 </Card.Body>
                                 <ListGroup>
-				   {x.showInvitationCode == true && <ListGroupItem className="list-card-item">
-                                     <b>Invitation Code: </b>
-                                     {x.invitationcode}
-                                  </ListGroupItem>
-				  }
+                                  {x.showInvitationCode == true && (
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Invitation Code: </b>
+                                      {x.invitationcode}
+                                    </ListGroupItem>
+                                  )}
                                   <ListGroupItem className="list-card-item">
                                     <b>Account status: </b>
                                     {x.status}
                                   </ListGroupItem>
                                   <ListGroupItem className="listy-card-item">
-                                    {x.showAddButton == true && <Button
-                                      type="button"
-                                      text={x.invitationPrompt}
-                                      onClickEvent={() =>
-                                        this.addStudentToDiscussionGroup(
-                                          x.firstname,
-                                          x.lastname,
-                                          x.emailaddress,
-                                          x.googleprofileid
-                                        )
-                                      }
-                                    />
-                                    }
-                                    {x.showClubStatus == true && <span><b>Club status: </b>{x.clubStatus}</span>}
+                                    {x.showAddButton == true && (
+                                      <Button
+                                        type="button"
+                                        text={x.invitationPrompt}
+                                        onClickEvent={() =>
+                                          this.addStudentToDiscussionGroup(
+                                            x.firstname,
+                                            x.lastname,
+                                            x.emailaddress,
+                                            x.googleprofileid
+                                          )
+                                        }
+                                      />
+                                    )}
+                                    {x.showClubStatus == true && (
+                                      <span>
+                                        <b>Club status: </b>
+                                        {x.clubStatus}
+                                      </span>
+                                    )}
                                   </ListGroupItem>
                                 </ListGroup>
 
@@ -233,9 +237,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                             )
                           )
                         ) : (
-                          <p>
-                            <FormattedMessage {...messages.NoInvitations} />
-                          </p>
+                          <p>{t('Clubs.NoInvitations')}</p>
                         )}
                         {serviceResponse.customerLinksData
                           .hasStudentsToInvite && (
@@ -247,8 +249,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                               fontStyle: 'italic',
                             }}
                           >
-                            <br />*{' '}
-                            <FormattedMessage {...messages.AddStudentNote} /> *
+                            <br />* {t('Clubs.AddStudentNote')} *
                             <br />
                             <br />
                           </p>
@@ -305,4 +306,4 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   }
 }
 
-export default injectIntl(DiscussionBoardGoogleClassroomStudentsPanel);
+export default DiscussionBoardGoogleClassroomStudentsPanel;

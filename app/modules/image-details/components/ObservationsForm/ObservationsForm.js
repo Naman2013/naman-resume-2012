@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import styles from './ObservationsForm.style';
-import messages from './ObservationsForm.messages';
 import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
-
+@withTranslation()
 class ObservationsForm extends Component {
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,
@@ -21,7 +20,6 @@ class ObservationsForm extends Component {
       token: oneOfType([number, string]).isRequired,
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -47,12 +45,12 @@ class ObservationsForm extends Component {
       actions: { setObservationTags },
       customerImageId,
       scheduledMissionId,
-      intl,
+      t,
       title,
       observation,
     } = this.props;
     if (!title || !observation) {
-      window.alert(intl.formatMessage(messages.MissingRequired));
+      window.alert(t('Alerts.MissingRequired'));
     } else {
       setObservationTags(
         customerImageId,
@@ -107,10 +105,6 @@ class ObservationsForm extends Component {
           <h2 className="h2-bigger">
             Earn Gravity, and Inspire the Slooh Community!
           </h2>
-          <p className="p-19">
-            Share your observation with the community and tell them what makes
-            it special.
-          </p>
           <input
             type="text"
             value={title}
@@ -152,4 +146,4 @@ class ObservationsForm extends Component {
   }
 }
 
-export default injectIntl(ObservationsForm);
+export default ObservationsForm;

@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
@@ -15,7 +15,6 @@ import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
 import styles from './Show.style';
-import messages from './Show.messages';
 
 const {
   any,
@@ -28,6 +27,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation()
 class LiveShow extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(shape({})),
@@ -37,7 +37,6 @@ class LiveShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -89,7 +88,7 @@ class LiveShow extends Component {
       isScreenLarge,
       isDesktop,
       hasDiscussionThread,
-      intl,
+      t,
       user,
     } = this.props;
 
@@ -100,17 +99,8 @@ class LiveShow extends Component {
       selectedTab,
     } = this.state;
 
-    const headerLabel = intl.formatMessage(messages.AiringNow);
-    const showLiveChatURL =
-      window.location.protocol +
-      '//' +
-      window.location.host +
-      '/getHostedShowChat.php?show_id=' +
-      this.props.showId +
-      '&customer_uuid=' +
-      user.customerUUID +
-      '&customer_token=' +
-      user.token;
+    const headerLabel = t('Shows.AiringNow');
+    const showLiveChatURL = `${window.location.protocol}//${window.location.host}/getHostedShowChat.php?show_id=${this.props.showId}&customer_uuid=${user.customerUUID}&customer_token=${user.token}`;
 
     return (
       <div className="root live-show">
@@ -126,9 +116,9 @@ class LiveShow extends Component {
               <div className="full-width">
                 {hasDiscussionThread ? (
                   <ThreeTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Comments)}
-                    thirdTitle={intl.formatMessage(messages.Details)}
+                    firstTitle={t('Shows.About')}
+                    secondTitle={t('Shows.Comments')}
+                    thirdTitle={t('Shows.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={commentsIsActive}
@@ -138,8 +128,8 @@ class LiveShow extends Component {
                   />
                 ) : (
                   <TwoTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Details)}
+                    firstTitle={t('Shows.About')}
+                    secondTitle={t('Shows.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={detailsIsActive}
@@ -151,7 +141,7 @@ class LiveShow extends Component {
             renderAsideContent={() => (
               <AsideContainerWithTabs
                 {...this.props}
-                headerTitle={`Slooh ${intl.formatMessage(messages.LiveShow)}`}
+                headerTitle={`Slooh ${t('Shows.LiveShow')}`}
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}
@@ -181,4 +171,4 @@ class LiveShow extends Component {
   }
 }
 
-export default injectIntl(LiveShow);
+export default LiveShow;
