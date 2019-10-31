@@ -124,7 +124,8 @@ export const LiveActivity = (props: TLiveActivity) => {
       document.body.classList.remove('disable-overflow');
       document.documentElement.classList.remove('disable-overflow');
     }
-  }, [isFullscreen, isMobile, isOpen]);
+    if (isOpen) setMessageIdToLocalStorage(lastMessageId);
+  }, [isFullscreen, isMobile, isOpen, lastMessageId]);
 
   return (
     <div
@@ -142,7 +143,9 @@ export const LiveActivity = (props: TLiveActivity) => {
       <span
         role="presentation"
         className={
-          lastMessageId !== lastStorageMessageId && !lastMessageFromCurrentUser
+          lastMessageId !== lastStorageMessageId &&
+          !lastMessageFromCurrentUser &&
+          !isOpen
             ? 'message-identifier'
             : ''
         }
