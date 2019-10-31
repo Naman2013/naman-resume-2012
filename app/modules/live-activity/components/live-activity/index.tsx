@@ -88,7 +88,6 @@ const submitMessage = (
 };
 
 type TLiveActivity = {
-  totalViewersCount: number;
   activityFeedMessages: Array<any>;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
@@ -99,7 +98,6 @@ type TLiveActivity = {
 
 export const LiveActivity = (props: TLiveActivity) => {
   const {
-    totalViewersCount,
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
@@ -115,6 +113,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastMessageId = activityFeedMessage.id
     ? activityFeedMessage.id
     : 'null';
+  const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -143,7 +142,9 @@ export const LiveActivity = (props: TLiveActivity) => {
       <span
         role="presentation"
         className={
-          lastMessageId !== lastStorageMessageId ? 'message-identifier' : ''
+          lastMessageId !== lastStorageMessageId && !lastMessageFromCurrentUser
+            ? 'message-identifier'
+            : ''
         }
         onClick={() => {
           setOpen(!isOpen);

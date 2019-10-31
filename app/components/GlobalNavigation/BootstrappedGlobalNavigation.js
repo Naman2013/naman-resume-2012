@@ -111,7 +111,6 @@ class GlobalNavigation extends Component {
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
-          //console.log('Pubnub is connected....');
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
@@ -121,9 +120,11 @@ class GlobalNavigation extends Component {
             },
             (status, response) => {
               let historyMessages = response.messages;
+            }
+          );
           this.pubnub.history(
             {
-              channel: this.props.pubnubActivityFeedChannelName,
+              channel: pubnubActivityFeedChannelName,
               count: 50,
               stringifiedTimeToken: false,
               reverse: false,
@@ -148,7 +149,6 @@ class GlobalNavigation extends Component {
         const { message } = msg;
 
         if (channel === pubnubLiveEventsChannelName) {
-
           if (message.messageType) {
             if (message.messageType === 'livecast') {
               if (message.action === 'broadcastUpdate') {
@@ -167,7 +167,7 @@ class GlobalNavigation extends Component {
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
-      }
+      },
     });
 
     this.pubnub.init(this);
