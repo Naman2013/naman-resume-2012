@@ -2,6 +2,7 @@ import * as React from 'react';
 import { questModuleType } from 'app/modules/quests/data';
 import { IQuestStepModule } from 'app/modules/quests/types';
 import AnimationModule from 'app/modules/quests/containers/quest-modules/animation';
+import RichTextModule from 'app/modules/quests/containers/quest-modules/rich-text-input';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
 import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
@@ -99,6 +100,18 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             questId={routeParams.questId}
             key={module.moduleId}
             readOnly={readOnly}
+          />
+        );
+
+      case questModuleType.textinput:
+        return (
+          <RichTextModule
+            module={module}
+            moduleId={module.moduleId}
+            questId={routeParams.questId}
+            key={module.moduleId}
+            readOnly={readOnly}
+            refreshQuestStep={refreshQuestStep}
           />
         );
 

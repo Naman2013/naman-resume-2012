@@ -12,6 +12,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 0,
+    '@typescript-eslint/no-use-before-define': 0,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'linebreak-style': 0,

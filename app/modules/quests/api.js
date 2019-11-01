@@ -42,3 +42,9 @@ export const getAnimationApi = data =>
 export const getAnimationFramesApi = data =>
   axios.post('/api/quests/getAnimationFrames', data);
 // END: QUEST ANIMATION MODULE
+
+// RICH TEXT INPUT MODULE
+export const getRichTextInputModuleApi = data =>
+  axios.post('/api/quests/getTextInput', data);
+export const setRichTextInputModuleApi = data =>
+  axios.post('/api/quests/setTextInput', data);
