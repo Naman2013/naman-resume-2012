@@ -1,8 +1,14 @@
 const isEmpty = value => value === undefined || value === null || value === '';
-const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
+const join = rules => (value, data) =>
+  rules
+    .map(rule => rule(value, data))
+    .filter(error => !!error)[0 /* first error */];
 
 export function email(value) {
-  if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  if (
+    !isEmpty(value) &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+  ) {
     return 'Invalid email address';
   }
 }
@@ -56,7 +62,7 @@ export function match(field) {
 export function createValidator(rules) {
   return (data = {}) => {
     const errors = {};
-    Object.keys(rules).forEach((key) => {
+    Object.keys(rules).forEach(key => {
       const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
       const error = rule(data[key], data);
       if (error) {
