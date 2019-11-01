@@ -25,6 +25,7 @@ type AnimationModuleProps = {
   questAnimation: IQuestAnimation;
   questAnimationFrames: IQuestAnimationFrames;
   setAnimation: Function;
+  setAnimationData: Function;
 };
 
 type AnimationModuleState = {};
@@ -87,8 +88,8 @@ export class AnimationModule extends React.PureComponent<
       opacity: frameIndex > 1 ? 0.5 : 1,
       originX: offsetReference === 'center' ? offsetReference : 'left',
       originY: offsetReference === 'center' ? offsetReference : 'top',
-      scaleX: magnificationDefault / 100,
-      scaleY: magnificationDefault / 100,
+      // scaleX: magnificationDefault / 100,
+      // scaleY: magnificationDefault / 100,
       visible: !(frameIndex > 1),
     };
 
@@ -275,12 +276,45 @@ export class AnimationModule extends React.PureComponent<
     setActiveFrame({ ...activeFrame, scale: Math.round(scale * 100) });
   };
 
+  zoomInCanvas = (): void => {
+    const { questAnimation, setAnimationData } = this.props;
+    const { magnificationMax, magnificationStep } = questAnimation;
+
+    console.log('zoom', this.canvas.getZoom());
+    let newZoom = this.canvas.getZoom() + magnificationStep / 100;
+
+    if (newZoom * 100 >= magnificationMax) {
+      newZoom = magnificationMax / 100;
+    }
+
+    newZoom = Math.round(newZoom * 10) / 10;
+    this.canvas.setZoom(newZoom).renderAll();
+    setAnimationData({ zoom: Math.round(newZoom * 100) });
+  };
+
+  zoomOutCanvas = (): void => {
+    const { questAnimation, setAnimationData } = this.props;
+    const { magnificationMin, magnificationStep } = questAnimation;
+
+    console.log('zoom', this.canvas.getZoom());
+    let newZoom = this.canvas.getZoom() - magnificationStep / 100;
+
+    if (newZoom * 100 <= magnificationMin) {
+      newZoom = magnificationMin / 100;
+    }
+
+    newZoom = Math.round(newZoom * 10) / 10;
+    this.canvas.setZoom(newZoom).renderAll();
+    setAnimationData({ zoom: Math.round(newZoom * 100) });
+  };
+
   onPageRezise = (): void => {
     const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
       .width;
 
     this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
     this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
+    this.canvas.renderAll();
   };
 
   getActiveCanvasItem = (): any => {
@@ -294,7 +328,10 @@ export class AnimationModule extends React.PureComponent<
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getAnimation({ questId, questUUID, moduleId, moduleUUID });
+      getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
+        ({ payload }: any): void =>
+          this.canvas.setZoom(payload.magnificationDefault / 100)
+      );
     }
   };
 
@@ -343,8 +380,14 @@ export class AnimationModule extends React.PureComponent<
   };
 
   render() {
-    const { activeFrame, questAnimation, questAnimationFrames } = this.props;
-    const { caption, infoArray, xOffset, yOffset, scale } = activeFrame;
+    const {
+      activeFrame,
+      questAnimation,
+      questAnimationFrames,
+      questAnimationData,
+    } = this.props;
+    const { caption, infoArray, xOffset, yOffset } = activeFrame;
+    const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const { magnificationUnitsCaption, magnificationDefault } = questAnimation;
     const { frameList } = questAnimationFrames;
@@ -416,15 +459,15 @@ export class AnimationModule extends React.PureComponent<
 
             <div className="controls-block">
               <div className="buttons-block">
-                <Button className="zoom-btn" onClick={this.zoomIn}>
+                <Button className="zoom-btn" onClick={this.zoomInCanvas}>
                   <div className="icon icon-plus" />
                 </Button>
-                <Button className="zoom-btn" onClick={this.zoomOut}>
+                <Button className="zoom-btn" onClick={this.zoomOutCanvas}>
                   <div className="icon icon-minus" />
                 </Button>
               </div>
               <p>
-                {scale || magnificationDefault}
+                {zoom || magnificationDefault}
                 {magnificationUnitsCaption}
               </p>
             </div>

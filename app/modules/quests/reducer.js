@@ -32,6 +32,7 @@ export const TYPE = constants('quests', [
   '~GET_ANIMATION_FRAMES',
   'SET_ACTIVE_FRAME',
   '~SET_ANIMATION',
+  'SET_ANIMATION_DATA',
 
   '~GET_RICH_TEXT_INPUT_MODULE',
   '~SET_RICH_TEXT_INPUT_MODULE',
@@ -66,6 +67,7 @@ const initialState = {
   questAnimation: {},
   questAnimationFrames: { frameList: [] },
   activeFrame: { frameId: 1, caption: 'FRAME 1', infoArray: {} },
+  questAnimationData: { zoom: null },
 
   richTextInputModules: {},
 };
@@ -421,6 +423,16 @@ function setActiveFrame(state, { payload }) {
     questAnimationFrames: {
       ...state.questAnimationFrames,
       frameList: [...frameList],
+    },
+  };
+}
+
+function setAnimationData(state, { payload }) {
+  return {
+    ...state,
+    questAnimationData: {
+      ...state.questAnimationData,
+      ...payload,
     },
   };
 }
