@@ -20,7 +20,7 @@ class About extends Component {
   }
 
   render() {
-    const { children, aboutData } = this.props;
+    const { children, aboutData, location } = this.props;
 
     return (
       <div>
@@ -31,7 +31,10 @@ class About extends Component {
               title={aboutData.aboutSloohPageHeading1}
             />
 
-            <Navigation aboutSloohSectionsList={aboutData.aboutSloohSectionsList} />
+            <Navigation
+              aboutSloohSectionsList={aboutData.aboutSloohSectionsList}
+              locationPath={location.pathname}
+            />
 
             {cloneElement(children)}
           </Fragment>
@@ -50,5 +53,5 @@ const mapDispatchToProps = { fetchAboutDataAction };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(About);
