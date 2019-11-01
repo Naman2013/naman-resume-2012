@@ -20,7 +20,7 @@
   const displayUrl = () => {
       const url = new URL(window.location.href);
       const imageUrl = url.searchParams.get("url");
-      window.JS9.Load(imageUrl);
+      window.JS9.Load(imageUrl, {zoom: 'tofit'});
   };
 
   $(document).on("JS9:ready", function(){
