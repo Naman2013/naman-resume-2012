@@ -31,6 +31,7 @@ export const TYPE = constants('quests', [
   '~GET_ANIMATION',
   '~GET_ANIMATION_FRAMES',
   'SET_ACTIVE_FRAME',
+  '~SET_ANIMATION',
 ]);
 
 export const ACTION = actions(TYPE);
