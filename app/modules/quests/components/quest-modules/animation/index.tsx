@@ -24,6 +24,7 @@ type AnimationModuleProps = {
   setActiveFrame: Function;
   questAnimation: IQuestAnimation;
   questAnimationFrames: IQuestAnimationFrames;
+  setAnimation: Function;
 };
 
 type AnimationModuleState = {};
@@ -35,6 +36,10 @@ export class AnimationModule extends React.PureComponent<
   canvas: any;
 
   canvasContainer: HTMLDivElement;
+
+  moveButtonPressTimer: ReturnType<typeof setTimeout>;
+
+  moveButtonPressInterval: ReturnType<typeof setInterval>;
 
   componentDidMount(): void {
     this.initCanvas();
@@ -54,89 +59,220 @@ export class AnimationModule extends React.PureComponent<
   };
 
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
+    this.loadImageFromUrl(0, frameList);
+    this.canvas.renderAll();
+  };
 
-    frameList.reverse().map(
-      (frame: IAnimationFrame): IAnimationFrame => {
-        const { frameIndex, imageURL, xOffset, yOffset } = frame;
+  loadImageFromUrl = (
+    frameIndexToLoad: number,
+    frameList: Array<IAnimationFrame>
+  ) => {
+    const {
+      frameIndex,
+      imageURL,
+      xOffset,
+      yOffset,
+      offsetReference,
+    } = frameList[frameIndexToLoad];
+    const { questAnimation } = this.props;
+    const { magnificationDefault } = questAnimation;
 
-        const imgAttrs = {
-          crossOrigin: 'anonymous',
-          selectable: false,
-          cursor: 'auto',
-          left: xOffset,
-          top: yOffset,
-          opacity: frameIndex > 1 ? 0.5 : 1,
-          visible: !(frameIndex > 1),
-        };
+    const imgAttrs = {
+      centeredScaling: offsetReference === 'center',
+      crossOrigin: 'anonymous',
+      selectable: false,
+      hoverCursor: 'auto',
+      left: xOffset,
+      top: -yOffset,
+      opacity: frameIndex > 1 ? 0.5 : 1,
+      originX: offsetReference === 'center' ? offsetReference : 'left',
+      originY: offsetReference === 'center' ? offsetReference : 'top',
+      scaleX: magnificationDefault / 100,
+      scaleY: magnificationDefault / 100,
+      visible: !(frameIndex > 1),
+    };
 
-        fabric.Image.fromURL(
-          imageURL,
-          (img: any): void => {
-            // add image onto canvas (it also re-render the canvas)
+    fabric.Image.fromURL(
+      imageURL,
+      (img: any): void => {
+        // add image onto canvas (it also re-render the canvas)
+        this.canvas.add(img);
 
-            img.scaleToWidth(canvasContainerWidth - 2); // 2px border
-            this.canvas.add(img).centerObject(img);
-            //.renderAll();
-            //img.setCoords();
-          },
-          imgAttrs
-        );
-
-        return frame;
-      }
+        if (frameIndexToLoad + 1 < frameList.length) {
+          this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
+        }
+      },
+      imgAttrs
     );
-
-    this.canvas.renderAll();
   };
 
-  loadImageFromUrl = () => {};
+  moveTop = (stepSize: number): IAnimationFrame => {
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { yOffsetMax } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    const newOffset = -item.get('top') + stepSize;
+    const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
 
-  moveTop = (): void => {
-    const item = this.canvas.item(0);
-    item.set({ top: item.get('top') - 10 });
+    item.set({ top: -yOffset });
     this.canvas.renderAll();
+    const newFrame = { ...activeFrame, yOffset };
+    setActiveFrame(newFrame);
+    return newFrame;
   };
 
-  moveDown = (): void => {
-    const item = this.canvas.item(0);
-    item.set({ top: item.get('top') + 10 });
-    this.canvas.renderAll();
+  moveTopPress = (): void => {
+    const { questAnimation } = this.props;
+    const { yOffsetLargeStep } = questAnimation;
+    this.moveButtonPressTimer = setTimeout(() => {
+      this.moveButtonPressInterval = setInterval(
+        () => this.moveTop(yOffsetLargeStep),
+        100
+      );
+    }, 300);
   };
 
-  moveLeft = (): void => {
-    const item = this.canvas.item(0);
-    item.set({ left: item.get('left') - 10 });
-    this.canvas.renderAll();
+  moveTopRelease = (): void => {
+    const { questAnimation } = this.props;
+    const { yOffsetSmallStep } = questAnimation;
+    clearTimeout(this.moveButtonPressTimer);
+    clearInterval(this.moveButtonPressInterval);
+    const frame = this.moveTop(yOffsetSmallStep);
+    this.setAnimation(frame);
   };
 
-  moveRigth = (): void => {
-    const item = this.canvas.item(0);
-    item.set({ left: item.get('left') + 10 });
+  moveDown = (stepSize: number): IAnimationFrame => {
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { yOffsetMin } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    const newOffset = -item.get('top') - stepSize;
+    const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
+
+    item.set({ top: -yOffset });
     this.canvas.renderAll();
+    const newFrame = { ...activeFrame, yOffset };
+    setActiveFrame(newFrame);
+    return newFrame;
+  };
+
+  moveDownPress = (): void => {
+    const { questAnimation } = this.props;
+    const { yOffsetLargeStep } = questAnimation;
+    this.moveButtonPressTimer = setTimeout(() => {
+      this.moveButtonPressInterval = setInterval(
+        () => this.moveDown(yOffsetLargeStep),
+        100
+      );
+    }, 300);
+  };
+
+  moveDownRelease = (): void => {
+    const { questAnimation } = this.props;
+    const { yOffsetSmallStep } = questAnimation;
+    clearTimeout(this.moveButtonPressTimer);
+    clearInterval(this.moveButtonPressInterval);
+    const frame = this.moveDown(yOffsetSmallStep);
+    this.setAnimation(frame);
+  };
+
+  moveLeft = (stepSize: number): IAnimationFrame => {
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { xOffsetMin } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    const newOffset = item.get('left') - stepSize;
+    const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
+
+    item.set({ left: xOffset });
+    this.canvas.renderAll();
+    const newFrame = { ...activeFrame, xOffset };
+    setActiveFrame(newFrame);
+    return newFrame;
+  };
+
+  moveLeftPress = (): void => {
+    const { questAnimation } = this.props;
+    const { xOffsetLargeStep } = questAnimation;
+    this.moveButtonPressTimer = setTimeout(() => {
+      this.moveButtonPressInterval = setInterval(
+        () => this.moveLeft(xOffsetLargeStep),
+        100
+      );
+    }, 300);
+  };
+
+  moveLeftRelease = (): void => {
+    const { questAnimation } = this.props;
+    const { xOffsetSmallStep } = questAnimation;
+    clearTimeout(this.moveButtonPressTimer);
+    clearInterval(this.moveButtonPressInterval);
+    const frame = this.moveLeft(xOffsetSmallStep);
+    this.setAnimation(frame);
+  };
+
+  moveRigth = (stepSize: number): IAnimationFrame => {
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { xOffsetMax } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    const newOffset = item.get('left') + stepSize;
+    const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
+
+    item.set({ left: xOffset });
+    this.canvas.renderAll();
+    const newFrame = { ...activeFrame, xOffset };
+    setActiveFrame(newFrame);
+    return newFrame;
+  };
+
+  moveRigthPress = (): void => {
+    const { questAnimation } = this.props;
+    const { xOffsetLargeStep } = questAnimation;
+    this.moveButtonPressTimer = setTimeout(() => {
+      this.moveButtonPressInterval = setInterval(
+        () => this.moveRigth(xOffsetLargeStep),
+        100
+      );
+    }, 300);
+  };
+
+  moveRigthRelease = (): void => {
+    const { questAnimation } = this.props;
+    const { xOffsetSmallStep } = questAnimation;
+    clearTimeout(this.moveButtonPressTimer);
+    clearInterval(this.moveButtonPressInterval);
+    const frame = this.moveRigth(xOffsetSmallStep);
+    this.setAnimation(frame);
   };
 
   zoomIn = (): void => {
-    //const item = this.canvas;
-    const item = this.canvas.item(0);
-    item.scale(0.75);
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { magnificationMax, magnificationStep } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    let scale = item.get('scaleX') + magnificationStep / 100;
+
+    if (scale * 100 >= magnificationMax) {
+      scale = magnificationMax / 100;
+    }
+
+    scale = Math.round(scale * 10) / 10;
+    item.scale(scale);
+
     this.canvas.renderAll();
-    //const zoom = item.scale(1 + 0.1);
-    // zoom = zoom + 1;
-    // if (zoom < 1) zoom = 1;
-    //item.setZoom(zoom);
+    setActiveFrame({ ...activeFrame, scale: Math.round(scale * 100) });
   };
 
   zoomOut = (): void => {
-    // const item = this.canvas;
-    // const zoom = item.getZoom() - 0.1;
-    // // zoom = zoom + 1;
-    // // if (zoom < 1) zoom = 1;
-    // item.setZoom(zoom);
-    const item = this.canvas.item(0);
-    item.scale(0.25);
+    const { questAnimation, activeFrame, setActiveFrame } = this.props;
+    const { magnificationMin, magnificationStep } = questAnimation;
+    const item = this.getActiveCanvasItem();
+    let scale = item.get('scaleX') - magnificationStep / 100;
+
+    if (scale * 100 <= magnificationMin) {
+      scale = magnificationMin / 100;
+    }
+
+    scale = Math.round(scale * 10) / 10;
+    item.scale(scale);
     this.canvas.renderAll();
+    setActiveFrame({ ...activeFrame, scale: Math.round(scale * 100) });
   };
 
   onPageRezise = (): void => {
@@ -145,6 +281,12 @@ export class AnimationModule extends React.PureComponent<
 
     this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
     this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
+  };
+
+  getActiveCanvasItem = (): any => {
+    const { activeFrame } = this.props;
+    const { frameIndex } = activeFrame;
+    return this.canvas.item(frameIndex - 1);
   };
 
   getAnimation = (): void => {
@@ -162,16 +304,15 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void =>
-          this.initFramesImages([...payload.frameList])
+        ({ payload }: any): void => this.initFramesImages(payload.frameList)
       );
     }
   };
 
-  setActiveFrame = (frame: IAnimationFrame) => {
+  setActiveFrame = (frame: IAnimationFrame): void => {
     const { setActiveFrame, activeFrame } = this.props;
     const { frameIndex } = activeFrame;
-    console.log(frameIndex, frame.frameIndex);
+
     if (frameIndex !== 1) {
       this.canvas.item(frameIndex - 1).set({ visible: false });
     }
@@ -182,14 +323,33 @@ export class AnimationModule extends React.PureComponent<
     setActiveFrame(frame);
   };
 
+  setAnimation = (frame: IAnimationFrame): void => {
+    const { setAnimation, module, questId } = this.props;
+    const { moduleId } = module;
+    const { offsetReference, frameIndex, xOffset, yOffset } = frame;
+    console.log(JSON.stringify(this.canvas));
+    const data = {
+      questId,
+      moduleId,
+      requestType: 'frame',
+      action: 'submit',
+      frameIndex,
+      xOffset,
+      yOffset,
+      offsetReference,
+      serializedFramesAll: JSON.stringify(this.canvas),
+    };
+    setAnimation(data);
+  };
+
   render() {
     const { activeFrame, questAnimation, questAnimationFrames } = this.props;
-    const { caption, infoArray } = activeFrame;
+    const { caption, infoArray, xOffset, yOffset, scale } = activeFrame;
     const { objectName, imageDate, imageTime } = infoArray;
-    const { magnificationUnitsCaption } = questAnimation;
+    const { magnificationUnitsCaption, magnificationDefault } = questAnimation;
     const { frameList } = questAnimationFrames;
 
-    console.log('activeFrame', frameList);
+    console.log('activeFrame', activeFrame);
     return (
       <div className="animation-module">
         <div className="animation-box">
@@ -210,33 +370,48 @@ export class AnimationModule extends React.PureComponent<
               <div className="buttons-block">
                 <Button
                   className="move-btn move-btn-left"
-                  onClick={this.moveLeft}
+                  onTouchStart={this.moveLeftPress}
+                  onTouchEnd={this.moveLeftRelease}
+                  onMouseDown={this.moveLeftPress}
+                  onMouseUp={this.moveLeftRelease}
                 >
                   <div className="icon icon-slider-left" />
                 </Button>
                 <Button
                   className="move-btn move-btn-right"
-                  onClick={this.moveRigth}
+                  onTouchStart={this.moveRigthPress}
+                  onTouchEnd={this.moveRigthRelease}
+                  onMouseDown={this.moveRigthPress}
+                  onMouseUp={this.moveRigthRelease}
                 >
                   <div className="icon icon-slider-right" />
                 </Button>
               </div>
-              <p>X - 0000</p>
+              <p>X: {xOffset}</p>
             </div>
 
             <div className="controls-block">
               <div className="buttons-block">
-                <Button className="move-btn move-btn-up" onClick={this.moveTop}>
+                <Button
+                  className="move-btn move-btn-up"
+                  onTouchStart={this.moveTopPress}
+                  onTouchEnd={this.moveTopRelease}
+                  onMouseDown={this.moveTopPress}
+                  onMouseUp={this.moveTopRelease}
+                >
                   <div className="icon icon-slider-left" />
                 </Button>
                 <Button
                   className="move-btn move-btn-down"
-                  onClick={this.moveDown}
+                  onTouchStart={this.moveDownPress}
+                  onTouchEnd={this.moveDownRelease}
+                  onMouseDown={this.moveDownPress}
+                  onMouseUp={this.moveDownRelease}
                 >
                   <div className="icon icon-slider-right" />
                 </Button>
               </div>
-              <p>Y - 0000</p>
+              <p>Y: {yOffset}</p>
             </div>
 
             <div className="controls-block">
@@ -248,7 +423,10 @@ export class AnimationModule extends React.PureComponent<
                   <div className="icon icon-minus" />
                 </Button>
               </div>
-              <p>100{magnificationUnitsCaption}</p>
+              <p>
+                {scale || magnificationDefault}
+                {magnificationUnitsCaption}
+              </p>
             </div>
 
             <div className="controls-block">
@@ -262,14 +440,6 @@ export class AnimationModule extends React.PureComponent<
           activeFrame={activeFrame}
           setActiveFrame={this.setActiveFrame}
         />
-
-        <br />
-        <Button onClick={() => console.log(JSON.stringify(this.canvas))}>
-          get json
-        </Button>
-        <Button onClick={() => console.log(this.canvas.getObjects())}>
-          get objects
-        </Button>
       </div>
     );
   }

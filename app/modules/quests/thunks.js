@@ -16,6 +16,7 @@ import {
   setQuestCompletedApi,
   getAnimationApi,
   getAnimationFramesApi,
+  setAnimationApi,
   getRichTextInputModuleApi,
   setRichTextInputModuleApi,
 } from 'app/modules/quests/api';
@@ -291,6 +292,19 @@ export const getAnimationFrames = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getAnimationFramesError(error)));
 };
 
+export const setAnimation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setAnimation());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setAnimationApi({ ...opts })
+    .then(result => dispatch(ACTION.setAnimationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setAnimationError(error)));
+};
 // END: QUEST ANIMATION MODULE
 
 // Rich Text MODULE
