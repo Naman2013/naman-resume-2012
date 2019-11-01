@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
 import style from './ObjectProfile.style';
-import messages from './ObjectProfile.messages';
 
 const ObjectProfile = ({
   scienceName,
@@ -68,7 +66,11 @@ const ObjectProfile = ({
             {visibilitySeason.show && (
               <StaticCell
                 title={visibilitySeason.title}
-                theme={{ padding: '0px', paddingBottom: '20px', marginBottom: '20px' }}
+                theme={{
+                  padding: '0px',
+                  paddingBottom: '20px',
+                  marginBottom: '20px',
+                }}
                 hasBottomBorder={midnightCulmination.show}
               >
                 {visibilitySeason.observatories}
@@ -140,4 +142,4 @@ ObjectProfile.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(ObjectProfile);
+export default ObjectProfile;

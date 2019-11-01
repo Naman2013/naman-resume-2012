@@ -7,23 +7,21 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { intlShape, injectIntl } from 'react-intl';
-import { astronaut } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from 'app/styles/variables/breakpoints';
-import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
-import { TopThreads } from '../../../modules/clubs';
 
-import MembersList from './members-list';
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
-import messages from './activity-form.messages';
+import MembersList from './members-list';
+import { TopThreads } from '../../../modules/clubs';
+import { createActivity } from '../../../modules/community-group-activity-list/actions';
+import './full-information-style.scss';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
@@ -46,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class FullInformationOverview extends Component {
   static propTypes = {
     description: string,
@@ -69,7 +68,7 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
-    intl: intlShape.isRequired,
+
     jumpToThreadId: number,
   };
 
@@ -112,7 +111,7 @@ class FullInformationOverview extends Component {
       showJoinPrompt,
       refreshHeader,
       user,
-      intl,
+      t,
       isEditMode,
       jumpToThreadId,
     } = this.props;
@@ -150,8 +149,8 @@ class FullInformationOverview extends Component {
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps => (
               <TwoTabbedNav
-                firstTitle={intl.formatMessage(messages.NavTitle)}
-                secondTitle={intl.formatMessage(messages.NavSecondTitle)}
+                firstTitle={t('Clubs.NavTitle')}
+                secondTitle={t('Clubs.NavSecondTitle')}
                 firstTabIsActive={navProps.showMainContainer}
                 firstTabOnClick={navProps.onShowMainContainer}
                 secondTabIsActive={navProps.showAsideContainer}
@@ -162,11 +161,13 @@ class FullInformationOverview extends Component {
               !isEditMode &&
               this.props.pageMeta.canSeeGroupContent && (
                 <div>
-                  <TopThreads
-                    topicId={pageMeta.topicId}
-                    isDesktop={context.isDesktop}
-                    discussionGroupId={discussionGroupId}
-                  />
+                  <div className="popular-discussion-wrapper">
+                    <TopThreads
+                      topicId={pageMeta.topicId}
+                      isDesktop={context.isDesktop}
+                      discussionGroupId={discussionGroupId}
+                    />
+                  </div>
                   <MembersList
                     membersSort={membersSort}
                     membersList={membersList}
@@ -185,9 +186,7 @@ class FullInformationOverview extends Component {
               pageMeta.canSeeGroupContent === true && (
                 <div className="discuss-container">
                   <DiscussionsBoard
-                    errorMessage={intl.formatMessage(
-                      messages.FetchingListError
-                    )}
+                    errorMessage={t('Clubs.FetchingListError')}
                     topicId={pageMeta.topicId}
                     forumId={pageMeta.forumId}
                     callSource="groups"
@@ -205,20 +204,9 @@ class FullInformationOverview extends Component {
             }
           />
         )}
-
-        <style jsx>
-          {`
-            .root {
-            }
-
-            .discuss-container {
-              margin-top: 15px;
-            }
-          `}
-        </style>
       </div>
     );
   }
 }
 
-export default injectIntl(FullInformationOverview);
+export default FullInformationOverview;

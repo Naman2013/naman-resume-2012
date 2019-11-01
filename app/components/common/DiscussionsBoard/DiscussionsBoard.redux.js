@@ -51,13 +51,12 @@ class DiscussionsBoard extends Component {
     threadsCount: 0,
     commentsList: {},
     displayedComments: {},
-    discussionKey: Date.now(),
     page: this.props.page,
   };
 
   updateThreadsProps = (threadsList, threadsCount, displayed) => {
     const newThreadsList = threadsList || this.state.threadsList;
-    const newThreadsCount = threadsCount || this.state.threadsCount;
+    const newThreadsCount = Number(threadsCount) || this.state.threadsCount;
     const displayedThreads = displayed || this.state.displayedThreads;
     const displayedComments = Object.keys(this.state.displayedComments);
     const commentsList = Object.keys(this.state.commentsList);
@@ -82,7 +81,6 @@ class DiscussionsBoard extends Component {
       threadsCount: newThreadsCount,
       displayedThreads,
       commentsList: newCommentsList,
-      discussionKey: Date.now(),
     });
   };
 
@@ -97,53 +95,51 @@ class DiscussionsBoard extends Component {
     } = this.props;
     const { commentsList, page } = this.state;
 
-    API
-      .post(THREAD_REPLIES, {
-        callSource,
-        topicId,
-        threadId,
-        forumId,
-        replyTo: replyTo || threadId,
-        page: 1,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-      })
-      .then(res => {
-        validateResponseAccess(res);
-        if (!res.data.apiError) {
-          const { replies } = res.data;
-          const newReplies = replies.map((reply, index) => {
-            const currentReply = Object.assign({}, reply);
-            currentReply.page = 1;
-            if (
-              commentsList[threadId] &&
-              commentsList[threadId][index]?.replyId === currentReply.replyId
-            ) {
-              currentReply.showComments =
-                commentsList[threadId][index].showComments;
-            }
-            if (
-              replyTo === currentReply.replyId ||
-              threadId === currentReply.replyId
-            ) {
-              currentReply.showComments = true;
-            }
-            currentReply.key = currentReply.replyId;
-            return currentReply;
-          });
-          const displayedComments = take([].concat(replies), count).map(
-            reply => reply.replyId
-          );
+    API.post(THREAD_REPLIES, {
+      callSource,
+      topicId,
+      threadId,
+      forumId,
+      replyTo: replyTo || threadId,
+      page: 1,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      validateResponseAccess(res);
+      if (!res.data.apiError) {
+        const { replies } = res.data;
+        const newReplies = replies.map((reply, index) => {
+          const currentReply = Object.assign({}, reply);
+          currentReply.page = 1;
+          if (
+            commentsList[threadId] &&
+            commentsList[threadId][index]?.replyId === currentReply.replyId
+          ) {
+            currentReply.showComments =
+              commentsList[threadId][index].showComments;
+          }
+          if (
+            replyTo === currentReply.replyId ||
+            threadId === currentReply.replyId
+          ) {
+            currentReply.showComments = true;
+          }
+          currentReply.key = currentReply.replyId;
+          return currentReply;
+        });
+        const displayedComments = take([].concat(replies), count).map(
+          reply => reply.replyId
+        );
 
-          this.updateCommentsProps(
-            replyTo || threadId,
-            newReplies,
-            displayedComments,
-            page
-          );
-        }
-      });
+        this.updateCommentsProps(
+          replyTo || threadId,
+          newReplies,
+          displayedComments,
+          page
+        );
+      }
+    });
   };
 
   updateCommentsProps = (id, comments, displayed, newPage) => {

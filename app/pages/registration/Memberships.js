@@ -26,7 +26,7 @@ class Memberships extends Component {
     isAstronomyClubFlag,
     isClassroomFlag,
     triggerUpgradeFlow,
-    selectedPlan,
+    selectedPlan
   ) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
@@ -47,8 +47,7 @@ class Memberships extends Component {
     }
   }
 
-  setUpgradeModalOpen = selectedPlan =>
-    this.setState({ selectedPlan });
+  setUpgradeModalOpen = selectedPlan => this.setState({ selectedPlan });
 
   viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
@@ -62,9 +61,9 @@ class Memberships extends Component {
   render() {
     const { selectedPlan } = this.state;
 
-    let subscriptionPlansCallSource = "join";
-    if ((selectedPlan) && (selectedPlan.triggerUpgradeFlow === true)) {
-      subscriptionPlansCallSource = "upgrade";
+    let subscriptionPlansCallSource = 'join';
+    if (selectedPlan && selectedPlan.triggerUpgradeFlow === true) {
+      subscriptionPlansCallSource = 'upgrade';
     }
 
     return (
@@ -80,7 +79,12 @@ class Memberships extends Component {
 
         <Request
           serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-          requestBody={{ callSource: 'membershipspage' }}
+          requestBody={{
+            callSource: 'membershipspage',
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
+          }}
           render={({
             fetchingContent,
             serviceResponse: subscriptionResponse,
@@ -92,9 +96,7 @@ class Memberships extends Component {
                     {subscriptionResponse.subscriptionPlans.map(
                       subscriptionPlan => (
                         <li
-                          key={`subscriptionplan-tile-${
-                            subscriptionPlan.planID
-                          }`}
+                          key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
                           className="subscription-plans-list-item"
                         >
                           <SubscriptionPlanCardSmall
@@ -112,7 +114,7 @@ class Memberships extends Component {
                                 subscriptionPlan.isAstronomyClub,
                                 subscriptionPlan.isClassroom,
                                 subscriptionPlan.triggerUpgradeFlow,
-                                subscriptionPlan,
+                                subscriptionPlan
                               )
                             }
                           />

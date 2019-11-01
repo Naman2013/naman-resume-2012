@@ -5,10 +5,11 @@ module.exports = {
     'airbnb',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
     'prettier/react',
+    'plugin:@typescript-eslint/recommended',
   ],
-  parser: 'babel-eslint',
   rules: {
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
@@ -47,6 +48,8 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/no-this-in-sfc': 'off',
     'no-param-reassign': 'off',
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/sort-comp': [
       1,
       {
@@ -64,20 +67,9 @@ module.exports = {
       },
     ],
   },
-  overrides: {
-    files: ['*.{ts,tsx}'],
-    parser: 'babel-eslint',
-    rules: {
-      'no-undef': 'off',
-    },
-  },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module',
-    ecmaFeatures: {
-      spread: true,
-      legacyDecorators: true,
-    },
+    project: './tsconfig.json',
   },
   globals: {
     global: true,
@@ -125,5 +117,5 @@ module.exports = {
       },
     },
   },
-  plugins: ['prettier', 'import', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'prettier', 'import', 'react-hooks'],
 };

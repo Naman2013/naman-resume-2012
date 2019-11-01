@@ -4,7 +4,7 @@ import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
 
-import SETTINGS from '../config';
+import SETTINGS from '../config/config';
 
 const LOGIN_SHOW = 'LOGIN_SHOW';
 const LOGIN_HIDE = 'LOGIN_HIDE';
@@ -35,11 +35,10 @@ export const login = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return API
-      .post('/api/users/login', {
-      username,
-      passwd,
-    })
+  return API.post('/api/users/login', {
+    username,
+    passwd,
+  })
     .then(result => {
       const { apiError } = result.data;
       if (apiError) {
@@ -71,11 +70,10 @@ export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return API
-      .post('/api/users/login', {
-      username,
-      passwd,
-    })
+  return API.post('/api/users/login', {
+    username,
+    passwd,
+  })
     .then(result => {
       const { apiError } = result.data;
 
