@@ -103,3 +103,9 @@ export const makeQuestAnimationActiveFrameSelector = () =>
     state => state.activeFrame
   );
 // END: QUEST ANIMATION MODULE
+
+export const richTextInputModulesSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.richTextInputModules
+  );

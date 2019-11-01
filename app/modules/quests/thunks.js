@@ -17,6 +17,8 @@ import {
   getAnimationApi,
   getAnimationFramesApi,
   setAnimationApi,
+  getRichTextInputModuleApi,
+  setRichTextInputModuleApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
@@ -304,3 +306,31 @@ export const setAnimation = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.setAnimationError(error)));
 };
 // END: QUEST ANIMATION MODULE
+
+// Rich Text MODULE
+export const getRichTextInputModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getRichTextInputModule());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getRichTextInputModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.getRichTextInputModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getRichTextInputModuleError(error)));
+};
+export const setRichTextInputModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setRichTextInputModule(data));
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setRichTextInputModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.setRichTextInputModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setRichTextInputModuleError(error)));
+};

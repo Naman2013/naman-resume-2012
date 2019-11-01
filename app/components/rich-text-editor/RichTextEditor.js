@@ -1,4 +1,11 @@
-import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
+import {
+  CompositeDecorator,
+  Editor,
+  EditorState,
+  RichUtils,
+  convertFromHTML,
+  ContentState,
+} from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -42,12 +49,51 @@ const Link = ({ contentState, entityKey, children }) => {
   );
 };
 
+function findImageEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(character => {
+    const entityKey = character.getEntity();
+    return (
+      entityKey !== null &&
+      contentState.getEntity(entityKey).getType() === 'IMAGE'
+    );
+  }, callback);
+}
+
+const Image = props => {
+  const { height, src, width } = props.contentState
+    .getEntity(props.entityKey)
+    .getData();
+
+  return <img src={src} height={height} width={width} />;
+};
+
 const editorStateDecorator = new CompositeDecorator([
   {
     strategy: findLinkEntities,
     component: Link,
   },
 ]);
+
+const decorator = new CompositeDecorator([
+  {
+    strategy: findLinkEntities,
+    component: Link,
+  },
+  {
+    strategy: findImageEntities,
+    component: Image,
+  },
+]);
+
+export const getEditorStateFromHtml = html => {
+  const blocksFromHTML = convertFromHTML(html);
+  const state = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap
+  );
+
+  return EditorState.createWithContent(state, decorator);
+};
 
 class RichTextEditor extends React.Component {
   static propTypes = {
@@ -65,8 +111,14 @@ class RichTextEditor extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { editorValue } = nextProps;
+    const { editorValue, value } = nextProps;
     const { editorState } = prevState;
+
+    if (value) {
+      return {
+        editorState: value,
+      };
+    }
 
     return {
       editorState:
@@ -115,7 +167,7 @@ class RichTextEditor extends React.Component {
           return originalText;
         },
       })(content);
-    onChange(threadContent);
+    onChange(threadContent, editorState);
   };
 
   onTab = e => {
@@ -256,7 +308,7 @@ class RichTextEditor extends React.Component {
 
   render() {
     const { editorState, showURLInput, urlValue } = this.state;
-    const { className } = this.props;
+    const { className, readOnly } = this.props;
     const linkClass = cx('RichEditor-styleButton', {
       'RichEditor-activeButton': showURLInput,
     });
@@ -299,7 +351,11 @@ class RichTextEditor extends React.Component {
 
     return (
       <div className={cx(['RichEditor-root', 'RichTextEditor', className])}>
-        <div className="RichEditor-controls-container">
+        <div
+          className={cx('RichEditor-controls-container', {
+            readonly: readOnly,
+          })}
+        >
           <BlockStyleControls
             className="RichEditor-controls"
             editorState={editorState}
@@ -333,6 +389,7 @@ class RichTextEditor extends React.Component {
         </div>
         <div className={editorClassName}>
           <Editor
+            readOnly={readOnly}
             id="rich-editor"
             blockStyleFn={getBlockStyle}
             blockRenderFn={this.blockRenderer}

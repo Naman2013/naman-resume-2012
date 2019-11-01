@@ -78,7 +78,6 @@
     "cookie": "^0.3.1",
     "draft-convert": "^2.0.1",
     "draft-js": "^0.10.0",
-    "draft-js-export-html": "^0.5.2",
     "ducks-helpers": "^1.0.8",
     "encodeurl": "^1.0.1",
     "enumify": "^1.0.4",

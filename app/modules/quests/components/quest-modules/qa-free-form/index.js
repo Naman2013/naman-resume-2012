@@ -3,7 +3,7 @@ import { QuestQaHeader } from '../../quest-qa/quest-qa-header';
 import { QuestQaAnswerForm } from '../../quest-qa/quest-qa-answer-form';
 import './styles.scss';
 
-const ACTIVITY_STATES = {
+export const ACTIVITY_STATES = {
   complete: 'complete',
   incomplete: 'incomplete',
 };

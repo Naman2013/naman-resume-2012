@@ -230,6 +230,7 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
               >
                 {modules.map(module =>
                   <QuestStepModule
+                    key={module.moduleId}
                     module={module}
                     readOnly={readOnly}
                     routeParams={routeParams}
