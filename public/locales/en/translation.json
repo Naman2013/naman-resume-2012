@@ -254,7 +254,7 @@
     "Sorry, there are no missions available for {{objectTitle}} at this time.",
     "NoObservations":
     "Sorry, there are no images available for {{objectTitle}} at this time.",
-    "FeaturedObservation": "Featured Observation",
+    "FeaturedObservation": "Most Recent Observation",
     "CommunityObservation": "Community Observation",
     "MVPAstronomers": "MVP Astronomers",
     "MostActive": "Most Active on {{objectTitle}}",
