@@ -78,7 +78,7 @@ export class AnimationModule extends React.PureComponent<
       offsetReference,
     } = frameList[frameIndexToLoad];
     const { questAnimation } = this.props;
-    const { magnificationDefault } = questAnimation;
+    //const { magnificationDefault } = questAnimation;
 
     const imgAttrs = {
       centeredScaling: offsetReference === 'center',
@@ -388,7 +388,11 @@ export class AnimationModule extends React.PureComponent<
     const { caption, infoArray, xOffset, yOffset } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
-    const { magnificationUnitsCaption, magnificationDefault } = questAnimation;
+    const {
+      magnificationUnitsCaption,
+      magnificationDefault,
+      playButtonCaption,
+    } = questAnimation;
     const { frameList } = questAnimationFrames;
 
     return (
@@ -471,7 +475,7 @@ export class AnimationModule extends React.PureComponent<
             </div>
 
             <div className="controls-block">
-              <Button onClick={() => {}}>Play</Button>
+              <Button onClick={() => {}}>{playButtonCaption}</Button>
             </div>
           </div>
         </div>
