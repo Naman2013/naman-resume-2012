@@ -161,7 +161,9 @@ export default handleActions(
     [TYPE.GET_ANIMATION_FRAMES]: start,
     [TYPE.GET_ANIMATION_FRAMES_SUCCESS]: getAnimationFramesSuccess,
     [TYPE.GET_ANIMATION_FRAMES_ERROR]: error,
+
     [TYPE.SET_ACTIVE_FRAME]: setActiveFrame,
+    [TYPE.SET_ANIMATION_DATA]: setAnimationData,
     // END: ANIMATION MODULE
 
     [TYPE.GET_RICH_TEXT_INPUT_MODULE]: start,
