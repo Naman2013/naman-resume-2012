@@ -6,6 +6,7 @@ import {
   IQuestAnimation,
   IQuestAnimationFrames,
   IAnimationFrame,
+  IQuestAnimationData,
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import './styles.scss';
@@ -26,6 +27,7 @@ type AnimationModuleProps = {
   questAnimationFrames: IQuestAnimationFrames;
   setAnimation: Function;
   setAnimationData: Function;
+  questAnimationData: IQuestAnimationData;
 };
 
 type AnimationModuleState = {};
@@ -279,8 +281,6 @@ export class AnimationModule extends React.PureComponent<
   zoomInCanvas = (): void => {
     const { questAnimation, setAnimationData } = this.props;
     const { magnificationMax, magnificationStep } = questAnimation;
-
-    console.log('zoom', this.canvas.getZoom());
     let newZoom = this.canvas.getZoom() + magnificationStep / 100;
 
     if (newZoom * 100 >= magnificationMax) {
@@ -296,7 +296,6 @@ export class AnimationModule extends React.PureComponent<
     const { questAnimation, setAnimationData } = this.props;
     const { magnificationMin, magnificationStep } = questAnimation;
 
-    console.log('zoom', this.canvas.getZoom());
     let newZoom = this.canvas.getZoom() - magnificationStep / 100;
 
     if (newZoom * 100 <= magnificationMin) {
@@ -364,7 +363,7 @@ export class AnimationModule extends React.PureComponent<
     const { setAnimation, module, questId } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
-    console.log(JSON.stringify(this.canvas));
+
     const data = {
       questId,
       moduleId,
@@ -392,7 +391,6 @@ export class AnimationModule extends React.PureComponent<
     const { magnificationUnitsCaption, magnificationDefault } = questAnimation;
     const { frameList } = questAnimationFrames;
 
-    console.log('activeFrame', activeFrame);
     return (
       <div className="animation-module">
         <div className="animation-box">

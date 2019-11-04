@@ -267,3 +267,7 @@ export interface RichTextInputModuleResponse extends StandardResponse {
   textInputPlaceholder: string;
   textInputReadOnly: boolean;
 }
+
+export declare interface IQuestAnimationData {
+  zoom: number;
+}
