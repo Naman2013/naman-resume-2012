@@ -1,6 +1,14 @@
 @import '~app/styles/bootstrap/common';
 
 .animation-module {
+  .animation-edit {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
   .animation-box {
     display: flex;
     flex-direction: column;
