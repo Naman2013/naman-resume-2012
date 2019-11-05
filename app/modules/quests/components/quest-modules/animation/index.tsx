@@ -10,6 +10,8 @@ import {
   IQuestAnimationData,
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
+import { QuestStepModuleHeader } from '../../quest-step-module-header';
+import { AnimationCompleted } from './animation-completed';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -54,7 +56,7 @@ export class AnimationModule extends React.PureComponent<
   moveButtonPressInterval: ReturnType<typeof setInterval>;
 
   state = {
-    activeAnimationStep: ANIMATION_STEPS.EDIT,
+    activeAnimationStep: ANIMATION_STEPS.COMPLETED,
   };
 
   componentDidMount(): void {
@@ -412,6 +414,11 @@ export class AnimationModule extends React.PureComponent<
 
     return (
       <div className="animation-module">
+        <QuestStepModuleHeader
+          title="activityTitle"
+          completed
+          sequenceText="activitySequenceText"
+        />
         <div
           className={cx('animation-edit', {
             visible: activeAnimationStep === ANIMATION_STEPS.EDIT,
@@ -505,6 +512,13 @@ export class AnimationModule extends React.PureComponent<
             activeFrame={activeFrame}
             setActiveFrame={this.setActiveFrame}
           />
+        </div>
+        <div
+          className={cx('animation-completed', {
+            visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
+          })}
+        >
+          <AnimationCompleted questAnimation={questAnimation} />
         </div>
       </div>
     );
