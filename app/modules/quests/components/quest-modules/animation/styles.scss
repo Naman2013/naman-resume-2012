@@ -2,7 +2,8 @@
 
 .animation-module {
   .animation-edit,
-  .animation-play {
+  .animation-play,
+  .animation-completed {
     display: none;
 
     &.visible {
