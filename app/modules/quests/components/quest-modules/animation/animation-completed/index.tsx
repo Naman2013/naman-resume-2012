@@ -6,12 +6,13 @@ import './styles.scss';
 
 type AnimationCompletedProps = {
   questAnimation: IQuestAnimation;
+  onEdit: () => void;
 };
 const onDownloadClick = (): void => {};
 
 export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
   props => {
-    const { questAnimation } = props;
+    const { questAnimation, onEdit } = props;
     const {
       outputHeading,
       outputSubheading,
@@ -39,7 +40,7 @@ export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
               distance={10}
               position="top"
             >
-              <Button className="dc-slot-card-find-btn" onClick={() => {}}>
+              <Button className="dc-slot-card-find-btn" onClick={onEdit}>
                 {editAnimationButtonCaption}
               </Button>
             </Tooltip>

@@ -37,16 +37,9 @@
       line-height: 29px;
     }
 
-    .vertical-line {
-      width: 2px;
-      height: 22px;
-      border: dashed 1px $raven;
-      background-color: $black;
-    }
-
     #animationCanvasContainer {
       width: calc(100% - 144px);
-      margin: 0 74px;
+      margin: 20px 74px 0;
       border: dashed 1px $raven;
     }
 

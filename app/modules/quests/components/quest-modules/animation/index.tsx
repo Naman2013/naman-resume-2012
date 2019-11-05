@@ -10,6 +10,7 @@ import {
   IQuestAnimationData,
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
+import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
 import { QuestStepModuleHeader } from '../../quest-step-module-header';
 import { AnimationCompleted } from './animation-completed';
@@ -57,7 +58,7 @@ export class AnimationModule extends React.PureComponent<
   moveButtonPressInterval: ReturnType<typeof setInterval>;
 
   state = {
-    activeAnimationStep: ANIMATION_STEPS.COMPLETED,
+    activeAnimationStep: ANIMATION_STEPS.EDIT,
   };
 
   componentDidMount(): void {
@@ -406,13 +407,7 @@ export class AnimationModule extends React.PureComponent<
     const { caption, infoArray, xOffset, yOffset } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
-    const {
-      magnificationUnitsCaption,
-      magnificationDefault,
-      playButtonCaption,
-      previewHeading,
-      previewSubheading,
-    } = questAnimation;
+    const { previewHeading, previewSubheading } = questAnimation;
     const { frameList } = questAnimationFrames;
 
     return (
@@ -434,7 +429,6 @@ export class AnimationModule extends React.PureComponent<
               <>
                 <h6>{caption}</h6>
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
-                <div className="vertical-line" />
               </>
             )}
 
@@ -455,89 +449,27 @@ export class AnimationModule extends React.PureComponent<
             </div>
 
             {activeAnimationStep === ANIMATION_STEPS.EDIT && (
-              <div className="animation-controls">
-                <div className="controls-block">
-                  <div className="buttons-block">
-                    <Button
-                      className="btn-white move-btn move-btn-left"
-                      onTouchStart={this.moveLeftPress}
-                      onTouchEnd={this.moveLeftRelease}
-                      onMouseDown={this.moveLeftPress}
-                      onMouseUp={this.moveLeftRelease}
-                    >
-                      <div className="icon icon-slider-left" />
-                    </Button>
-                    <Button
-                      className="btn-white move-btn move-btn-right"
-                      onTouchStart={this.moveRigthPress}
-                      onTouchEnd={this.moveRigthRelease}
-                      onMouseDown={this.moveRigthPress}
-                      onMouseUp={this.moveRigthRelease}
-                    >
-                      <div className="icon icon-slider-right" />
-                    </Button>
-                  </div>
-                  <p>X: {xOffset}</p>
-                </div>
-
-                <div className="controls-block">
-                  <div className="buttons-block">
-                    <Button
-                      className="btn-white move-btn move-btn-up"
-                      onTouchStart={this.moveTopPress}
-                      onTouchEnd={this.moveTopRelease}
-                      onMouseDown={this.moveTopPress}
-                      onMouseUp={this.moveTopRelease}
-                    >
-                      <div className="icon icon-slider-left" />
-                    </Button>
-                    <Button
-                      className="btn-white move-btn move-btn-down"
-                      onTouchStart={this.moveDownPress}
-                      onTouchEnd={this.moveDownRelease}
-                      onMouseDown={this.moveDownPress}
-                      onMouseUp={this.moveDownRelease}
-                    >
-                      <div className="icon icon-slider-right" />
-                    </Button>
-                  </div>
-                  <p>Y: {yOffset}</p>
-                </div>
-
-                <div className="controls-block">
-                  <div className="buttons-block">
-                    <Button
-                      className="btn-white zoom-btn"
-                      onClick={this.zoomInCanvas}
-                    >
-                      <div className="icon icon-plus" />
-                    </Button>
-                    <Button
-                      className="btn-white zoom-btn"
-                      onClick={this.zoomOutCanvas}
-                    >
-                      <div className="icon icon-minus" />
-                    </Button>
-                  </div>
-                  <p>
-                    {zoom || magnificationDefault}
-                    {magnificationUnitsCaption}
-                  </p>
-                </div>
-
-                <div className="controls-block">
-                  <Button
-                    className="btn-white"
-                    onClick={(): void =>
-                      this.setState({
-                        activeAnimationStep: ANIMATION_STEPS.PLAY,
-                      })
-                    }
-                  >
-                    {playButtonCaption}
-                  </Button>
-                </div>
-              </div>
+              <EditAnimationControls
+                questAnimation={questAnimation}
+                xOffset={xOffset}
+                yOffset={yOffset}
+                zoom={zoom}
+                moveLeftPress={this.moveLeftPress}
+                moveLeftRelease={this.moveLeftRelease}
+                moveRigthPress={this.moveRigthPress}
+                moveRigthRelease={this.moveRigthRelease}
+                moveDownPress={this.moveDownPress}
+                moveDownRelease={this.moveDownRelease}
+                moveTopPress={this.moveTopPress}
+                moveTopRelease={this.moveTopRelease}
+                zoomInCanvas={this.zoomInCanvas}
+                zoomOutCanvas={this.zoomOutCanvas}
+                onPlay={(): void =>
+                  this.setState({
+                    activeAnimationStep: ANIMATION_STEPS.PLAY,
+                  })
+                }
+              />
             )}
 
             {activeAnimationStep === ANIMATION_STEPS.PLAY && (
@@ -555,34 +487,26 @@ export class AnimationModule extends React.PureComponent<
             )}
           </div>
 
-          <FrameList
-            frameList={frameList}
-            activeFrame={activeFrame}
-            setActiveFrame={this.setActiveFrame}
-          />
+          {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+            <FrameList
+              frameList={frameList}
+              activeFrame={activeFrame}
+              setActiveFrame={this.setActiveFrame}
+            />
+          )}
         </div>
 
-        {/* <div
-          className={cx('animation-play', {
-            visible: activeAnimationStep === ANIMATION_STEPS.PLAY,
-          })}
-        >
-          <ViewAnimation
-            questAnimation={questAnimation}
-            onEdit={() =>
-              this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT })
-            }
-            onFinish={() =>
-              this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED })
-            }
-          />
-        </div> */}
         <div
           className={cx('animation-completed', {
             visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
           })}
         >
-          <AnimationCompleted questAnimation={questAnimation} />
+          <AnimationCompleted
+            questAnimation={questAnimation}
+            onEdit={(): void =>
+              this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT })
+            }
+          />
         </div>
       </div>
     );
