@@ -70,7 +70,7 @@ export class AnimationModule extends React.PureComponent<
   }
 
   initCanvas = (): void => {
-    this.canvas = new fabric.Canvas('c');
+    this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.onPageRezise();
   };
@@ -78,6 +78,7 @@ export class AnimationModule extends React.PureComponent<
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
+    this.onPageRezise();
   };
 
   loadImageFromUrl = (
@@ -112,7 +113,7 @@ export class AnimationModule extends React.PureComponent<
     fabric.Image.fromURL(
       imageURL,
       (img: any): void => {
-        // add image onto canvas (it also re-render the canvas)
+        // add image onto canvas
         this.canvas.add(img);
 
         if (frameIndexToLoad + 1 < frameList.length) {
@@ -324,7 +325,6 @@ export class AnimationModule extends React.PureComponent<
   onPageRezise = (): void => {
     const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
       .width;
-
     this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
     this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
     this.canvas.renderAll();
@@ -342,8 +342,9 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void =>
-          this.canvas.setZoom(payload.magnificationDefault / 100)
+        ({ payload }: any): void => {
+          this.canvas.setZoom(payload.magnificationDefault / 100);
+        }
       );
     }
   };
@@ -410,13 +411,6 @@ export class AnimationModule extends React.PureComponent<
     } = questAnimation;
     const { frameList } = questAnimationFrames;
 
-    const moveBtnEvents = {
-      onTouchStart: this.moveDownPress,
-      onTouchEnd: this.moveDownRelease,
-      onMouseDown: this.moveDownPress,
-      onMouseUp: this.moveDownRelease,
-    };
-
     return (
       <div className="animation-module">
         <QuestStepModuleHeader
@@ -439,18 +433,27 @@ export class AnimationModule extends React.PureComponent<
                 this.canvasContainer = node;
               }}
             >
-              <canvas id="c" />
+              <canvas id="animation-canvas" />
             </div>
 
             <div className="animation-controls">
               <div className="controls-block">
                 <div className="buttons-block">
-                  <Button className="move-btn move-btn-left" {...moveBtnEvents}>
+                  <Button
+                    className="move-btn move-btn-left"
+                    onTouchStart={this.moveLeftPress}
+                    onTouchEnd={this.moveLeftRelease}
+                    onMouseDown={this.moveLeftPress}
+                    onMouseUp={this.moveLeftRelease}
+                  >
                     <div className="icon icon-slider-left" />
                   </Button>
                   <Button
                     className="move-btn move-btn-right"
-                    {...moveBtnEvents}
+                    onTouchStart={this.moveRigthPress}
+                    onTouchEnd={this.moveRigthRelease}
+                    onMouseDown={this.moveRigthPress}
+                    onMouseUp={this.moveRigthRelease}
                   >
                     <div className="icon icon-slider-right" />
                   </Button>
@@ -460,10 +463,22 @@ export class AnimationModule extends React.PureComponent<
 
               <div className="controls-block">
                 <div className="buttons-block">
-                  <Button className="move-btn move-btn-up" {...moveBtnEvents}>
+                  <Button
+                    className="move-btn move-btn-up"
+                    onTouchStart={this.moveTopPress}
+                    onTouchEnd={this.moveTopRelease}
+                    onMouseDown={this.moveTopPress}
+                    onMouseUp={this.moveTopRelease}
+                  >
                     <div className="icon icon-slider-left" />
                   </Button>
-                  <Button className="move-btn move-btn-down" {...moveBtnEvents}>
+                  <Button
+                    className="move-btn move-btn-down"
+                    onTouchStart={this.moveDownPress}
+                    onTouchEnd={this.moveDownRelease}
+                    onMouseDown={this.moveDownPress}
+                    onMouseUp={this.moveDownRelease}
+                  >
                     <div className="icon icon-slider-right" />
                   </Button>
                 </div>
