@@ -21,7 +21,7 @@ export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
       'https://polaris2.slooh.com/teide/4/highmag/2019/06/14/2230_2pallas/2pallas_20190614_223009_0_k8aksn_l.png';
 
     return (
-      <div className="animation-completed">
+      <>
         <div className="animation-completed__card">
           <div className="animation-completed__card-image">
             <img src={imageURL} alt="" />
@@ -57,7 +57,7 @@ export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
             </Tooltip>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 );
