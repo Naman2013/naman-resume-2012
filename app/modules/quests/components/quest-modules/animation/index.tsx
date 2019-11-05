@@ -69,7 +69,7 @@ export class AnimationModule extends React.PureComponent<
   }
 
   initCanvas = (): void => {
-    this.canvas = new fabric.Canvas('c');
+    this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.onPageRezise();
   };
@@ -112,7 +112,7 @@ export class AnimationModule extends React.PureComponent<
     fabric.Image.fromURL(
       imageURL,
       (img: any): void => {
-        // add image onto canvas (it also re-render the canvas)
+        // add image onto canvas
         this.canvas.add(img);
 
         if (frameIndexToLoad + 1 < frameList.length) {
@@ -427,7 +427,7 @@ export class AnimationModule extends React.PureComponent<
                 this.canvasContainer = node;
               }}
             >
-              <canvas id="c" />
+              <canvas id="animation-canvas" />
             </div>
 
             <div className="animation-controls">
