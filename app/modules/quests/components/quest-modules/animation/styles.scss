@@ -1,7 +1,7 @@
 @import '~app/styles/bootstrap/common';
 
 .animation-module {
-  .animation-edit {
+  .animation-edit, .animation-completed {
     display: none;
 
     &.visible {

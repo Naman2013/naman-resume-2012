@@ -38,7 +38,7 @@
     }
   }
 
-  &__navigation {
+  &__actions {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,27 +52,20 @@
     }
 
     &-download {
-      .download {
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        font-size: 18px;
-        border: 1px dashed $lightHeadedAstronaut;
-        border-radius: 50%;
-        padding-top: 7px;
-        cursor: pointer;
-
-        .icon-download:before {
-          font-weight: 700 !important;
-          line-height: 22px;
-          font-size: 18px;
+      > div {
+        > .btn-circle {
+          > .icon-download:before {
+            font-weight: 700;
+            line-height: 22px;
+            font-size: 18px;
+          }
         }
       }
     }
   }
 
   @include sm-low {
-    .animation-completed__navigation-download {
+    .animation-completed__actions-download {
       > div {
         button {
           padding: 15px 18px;

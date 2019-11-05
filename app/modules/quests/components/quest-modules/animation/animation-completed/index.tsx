@@ -31,8 +31,8 @@ export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
             {outputSubheading}
           </div>
         </div>
-        <div className="animation-completed__navigation">
-          <div className="animation-completed__navigation-edit">
+        <div className="animation-completed__actions">
+          <div className="animation-completed__actions-edit">
             <Tooltip
               theme="dark"
               title="Tooltip text will be there soon"
@@ -44,16 +44,16 @@ export const AnimationCompleted: React.FC<AnimationCompletedProps> = React.memo(
               </Button>
             </Tooltip>
           </div>
-          <div className="animation-completed__navigation-separator" />
-          <div className="animation-completed__navigation-download">
+          <div className="animation-completed__actions-separator" />
+          <div className="animation-completed__actions-download">
             <Tooltip
               title="Tooltip text will be there soon"
               distance={10}
               position="top"
             >
-              <div onClick={onDownloadClick} className="download">
+              <Button className="btn-circle" onClick={onDownloadClick}>
                 <span className="icon-download" />
-              </div>
+              </Button>
             </Tooltip>
           </div>
         </div>

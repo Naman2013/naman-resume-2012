@@ -11,7 +11,7 @@ import {
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import { QuestStepModuleHeader } from '../../quest-step-module-header';
-import { AnimationCompleted } from './animation-complete';
+import { AnimationCompleted } from './animation-completed';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -514,7 +514,7 @@ export class AnimationModule extends React.PureComponent<
           />
         </div>
         <div
-          className={cx('animation-edit', {
+          className={cx('animation-completed', {
             visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
           })}
         >
