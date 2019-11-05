@@ -11,6 +11,7 @@ import {
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import { QuestStepModuleHeader } from '../../quest-step-module-header';
+import { AnimationCompleted } from './animation-complete';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -517,7 +518,7 @@ export class AnimationModule extends React.PureComponent<
             visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
           })}
         >
-          <h5>ccdccc</h5>
+          <AnimationCompleted questAnimation={questAnimation} />
         </div>
       </div>
     );
