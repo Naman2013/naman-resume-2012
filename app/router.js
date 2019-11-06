@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
@@ -37,6 +38,7 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
   ProfileActivity,
   ProfileDashboardContainer,
@@ -149,6 +151,8 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"

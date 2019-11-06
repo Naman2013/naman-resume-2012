@@ -84,3 +84,15 @@ interface ProfileMissions extends StandardResponse {
   recentMissionList: Mission[];
   recentMissionListHeading: string;
 }
+
+interface IGettingStarted {
+  heading1: string;
+  heading2: string;
+  questsList: IQuestItem[];
+}
+
+interface IQuestItem {
+  questId: number;
+  questTitle: string;
+  briefDescription: string;
+}
