@@ -45,7 +45,7 @@
       width: 50px;
       height: 50px;
       transform: translate(0, -50%);
-      color: #ffffff;
+      color: $romance;
       cursor: default !important;
       border-radius: 50%;
       z-index: 9;
@@ -93,19 +93,27 @@
     background-size: contain;
     background-color: black;
     height: calc(100vh - 220px);
+    & > div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      & > img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
   }
 
   .slick-arrow-btn {
     width: 50px;
     height: 50px;
     transform: translate(0, -50%);
-    color: #ffffff;
+    color: $romance;
     cursor: default !important;
-    border: solid 2px #e2b979;
+    border: solid 2px $romance;
     border-radius: 50%;
     z-index: 9;
     background-color: transparent;
-    border-color: white;
   }
 
   .slick-arrow-btn:before {
@@ -148,7 +156,7 @@
   }
 
   .modal-img-wrapper {
-    background-color: #fff;
+    background-color: $romance;
     padding: 50px;
     padding-top: 25px;
     margin: auto;

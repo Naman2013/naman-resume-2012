@@ -128,7 +128,9 @@ const GroupsHeader = ({
       {!condensed ? (
         <div className="info-container">
           <div className="info-inner-container">
-            <div className="groups-header-subtitle">{t('Clubs.CommunityGroup')}</div>
+            <div className="groups-header-subtitle">
+              {t('Clubs.CommunityGroup')}
+            </div>
             <div
               className="groups-header-title"
               dangerouslySetInnerHTML={{ __html: title }}

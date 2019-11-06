@@ -35,11 +35,10 @@ export const login = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return API
-      .post('/api/users/login', {
-      username,
-      passwd,
-    })
+  return API.post('/api/users/login', {
+    username,
+    passwd,
+  })
     .then(result => {
       const { apiError } = result.data;
       if (apiError) {
@@ -71,11 +70,10 @@ export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return API
-      .post('/api/users/login', {
-      username,
-      passwd,
-    })
+  return API.post('/api/users/login', {
+    username,
+    passwd,
+  })
     .then(result => {
       const { apiError } = result.data;
 

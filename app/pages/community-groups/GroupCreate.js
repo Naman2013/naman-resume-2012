@@ -27,7 +27,6 @@ import style from 'app/containers/groups-hub/groups-hub.style';
 import style2 from 'app/pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
 
-
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
 
@@ -46,7 +45,6 @@ class GroupCreate extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
-
   };
 
   static defaultProps = {

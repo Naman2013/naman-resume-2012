@@ -31,7 +31,6 @@ class DiscussionBoardDescription extends Component {
     groupId: string,
     description: string,
     canEdit: bool,
-
   };
 
   static defaultProps = {

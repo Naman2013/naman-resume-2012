@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import deleteTag from 'app/services/tags/delete-tag';
 import setTag from 'app/services/tags/set-tag';
 import GenericButton from 'app/components/common/style/buttons/Button';

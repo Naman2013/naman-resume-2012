@@ -9,7 +9,7 @@ import take from 'lodash/take';
 
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import SloohSlider from 'app/components/common/Slider/ObservationsSlider';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import MobileSwiper from './partials/MobileSwiper';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
 

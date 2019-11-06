@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
@@ -44,7 +44,6 @@ class UpcomingShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-
   };
 
   static defaultProps = {

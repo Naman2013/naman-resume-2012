@@ -19,7 +19,7 @@ import './fitsData.scss';
 type TMissionCard = {
   isDesktop: boolean,
   isMobile: boolean,
-  currentItem: Object,
+  currentItem: Record<string, any>;
 };
 
 @withTranslation()

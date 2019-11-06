@@ -7,7 +7,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SubPageNavigation from '../common/sub-page-navigation';
 
-
 const generateNavItems = (objectId, t) => [
   {
     title: t('Objects.Overview'),

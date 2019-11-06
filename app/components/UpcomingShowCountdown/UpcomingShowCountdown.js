@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import CountdownCircleTimer from 'app/components/common/CountdownCircleTimer';
 import styles from './UpcomingShowCountdown.style';
 
@@ -103,9 +103,7 @@ export default class UpcomingShowCountdown extends PureComponent {
     if (eventStartTime) {
       return (
         <div className="root">
-          <span className="countdown-title">
-            {t('Shows.CountdownToShow')}
-          </span>
+          <span className="countdown-title">{t('Shows.CountdownToShow')}</span>
           <CountdownCircleTimer
             lineWidth={5}
             size={100}

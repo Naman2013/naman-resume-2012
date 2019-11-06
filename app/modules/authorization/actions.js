@@ -141,14 +141,14 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const user = getUserInfo();
 
   /*****************************************
-	* POSSIBLE HTTP RESPONSE CODES....
-	*	401 - Unauthorized, Login Issues
-	*	402 - Credentials Required to verify account access
-	* 418 - Expired
-	* 421 - Expired Recently
-	*	419 - Forced Slooh Crew
-	*	420 - Upsell Flow
-	*****************************************/
+   * POSSIBLE HTTP RESPONSE CODES....
+   *	401 - Unauthorized, Login Issues
+   *	402 - Credentials Required to verify account access
+   * 418 - Expired
+   * 421 - Expired Recently
+   *	419 - Forced Slooh Crew
+   *	420 - Upsell Flow
+   *****************************************/
 
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
@@ -164,7 +164,10 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
-  if ( statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE ) {
+  if (
+    statusCode === UNAUTHORIZED_STATUS_CODE ||
+    statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE
+  ) {
     //login issues....send the user to a screen that requires login....
     triggerUserAccountIssueModal = false;
     /* send the user to the login screen */
@@ -184,20 +187,16 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     //    isNotificationMenuOpen: false,
     //  })
     //);
-  }
-  else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
+  } else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
     subscriptionPlansCallSource = 'forcedsloohcrew';
     triggerUserAccountIssueModal = true;
-  }
-  else if (statusCode === UPSELL_STATUS_CODE) {
+  } else if (statusCode === UPSELL_STATUS_CODE) {
     subscriptionPlansCallSource = 'upsell';
     triggerUserAccountIssueModal = true;
-  }
-  else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+  } else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expired';
     triggerUserAccountIssueModal = true;
-  }
-  else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
+  } else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expiredrecently';
     triggerUserAccountIssueModal = true;
   }
@@ -205,8 +204,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   if (triggerUserAccountIssueModal == true) {
     if (SETTINGS.isHashHistory()) {
       dispatch(setSignInReturnURL(window.location.hash));
-    }
-    else {
+    } else {
       dispatch(setSignInReturnURL(window.location.pathname));
     }
     dispatch(
@@ -218,7 +216,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       })
     );
 
-    dispatch(showIssueWithUserAccountModal( subscriptionPlansCallSource, user ));
+    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource, user));
     return false;
   }
 

@@ -12,7 +12,7 @@ import {
   customModalStylesV4,
 } from 'app/styles/mixins/utilities';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { screenMedium } from 'app/styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -127,6 +127,14 @@ export default css`
     white-space: nowrap;
   }
 
+  .popular-discussion {
+    display: block;
+  }
+
+  :global(.popular-discussion .top-discussions-wr) {
+    margin-left: 0;
+  }
+
   :global(.discussions-pagination .pagination-root) {
     margin: 10px auto;
   }
@@ -140,6 +148,12 @@ export default css`
     .comments-bar .comments-search {
       margin-top: 0;
       margin-left: 15px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .popular-discussion {
+      display: none;
     }
   }
 `;

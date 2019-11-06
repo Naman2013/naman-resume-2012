@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -44,7 +44,6 @@ class RecentShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-
   };
 
   static defaultProps = {

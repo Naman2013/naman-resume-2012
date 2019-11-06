@@ -1,16 +1,15 @@
-
 import React, { Component, useState, Fragment } from 'react';
 import EditHeader from 'app/modules/image-details/containers/edit-header';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
-import MainContainer from '../partials/MainContainer';
-import AsideContainer from '../partials/AsideContainer';
 import {
   CALLSOURCE_PHOTOVIEW,
   USE_SHARE_TOKEN_TRUE,
 } from 'app/modules/image-details/components/imageDetailsConfiguration';
+import MainContainer from '../partials/MainContainer';
+import AsideContainer from '../partials/AsideContainer';
 
 type TProfileActivityProps = {
   getImageDetails: (data: any) => Promise<any>;
@@ -69,7 +68,7 @@ export class ImageDetails extends Component<
 > {
   state = {
     isOpenModal: false,
-  }
+  };
 
   componentDidMount(): void {
     this.fetchData();
@@ -107,6 +106,7 @@ export class ImageDetails extends Component<
       imageDownloadURL,
       observationLog,
       shareMemberPhotoData,
+      observationTitle,
     } = this.props;
     const { isOpenModal } = this.state;
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -138,7 +138,9 @@ export class ImageDetails extends Component<
                     <h3 className="text-center">AN OBSERVATION OF</h3>
                     <div
                       className="obs-img-subheader text-center"
-                      dangerouslySetInnerHTML={{ __html: imageTitle }}
+                      dangerouslySetInnerHTML={{
+                        __html: observationTitle || imageTitle,
+                      }}
                     />
                   </Fragment>
                 )}
@@ -149,6 +151,7 @@ export class ImageDetails extends Component<
                   src={imageURL}
                   style={{ cursor: 'pointer' }}
                   onClick={() => this.setState({ isOpenModal: true })}
+                  alt=""
                 />
                 <ModalImg
                   isOpen={isOpenModal}
