@@ -73,13 +73,12 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
         className={cx({ 'arrows-visible': isArrowsVisible })}
       >
         {frameList.map(frame => (
-          <div>
+          <div key={frame.frameId}>
             <div
-              key={frame.frameId}
               className={cx('frame-list-item', {
                 active: frameId === frame.frameId,
               })}
-              onClick={() => setActiveFrame(frame)}
+              onClick={(): void => setActiveFrame(frame)}
               tabIndex={0}
               role="button"
             >

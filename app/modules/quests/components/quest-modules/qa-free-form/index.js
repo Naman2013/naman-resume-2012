@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { QuestQaHeader } from '../../quest-qa/quest-qa-header';
+import { QuestStepModuleHeader } from '../../quest-step-module-header';
 import { QuestQaAnswerForm } from '../../quest-qa/quest-qa-answer-form';
 import './styles.scss';
 
@@ -68,7 +68,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
 
     return (
       <div className="quest-qa-free-form">
-        <QuestQaHeader
+        <QuestStepModuleHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
           sequenceText={activitySequenceText}

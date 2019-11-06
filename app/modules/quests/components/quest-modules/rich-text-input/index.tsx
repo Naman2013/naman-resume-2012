@@ -4,7 +4,7 @@ import {
   RichTextInputModuleResponse,
 } from 'app/modules/quests/types';
 import './styles.scss';
-import { QuestQaHeader } from 'app/modules/quests/components/quest-qa/quest-qa-header';
+import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
 
@@ -76,7 +76,7 @@ export class RichTextInput extends React.PureComponent<RichTextInputProps> {
 
     return (
       <div className="rich-text-module quest-qa-free-form">
-        <QuestQaHeader
+        <QuestStepModuleHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
           sequenceText={activitySequenceText}
