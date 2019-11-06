@@ -15,7 +15,7 @@ const ACTIONS = {
   CANCEL: 'cancel',
 };
 
-export const QuestQaAnswerForm = React.memo(props => {
+export const QuestQaAnswerForm = props => {
   const {
     moduleData,
     onClick,
@@ -210,4 +210,4 @@ export const QuestQaAnswerForm = React.memo(props => {
       </div>
     </div>
   );
-});
+};
