@@ -8,6 +8,18 @@ body {
   min-height: 90vh;
   padding: 4vh 0;
 }
+
 .JS9-wrapper > .JS9 > .JS9Container {
   left: 3px;
+}
+
+.JS9-wrapper > .JS9PluginContainer > .JS9Menubar,
+.JS9-wrapper > .JS9PluginContainer > .JS9Toolbar,
+.JS9-wrapper > .JS9PluginContainer > .JS9Colorbar {
+  min-width: 50vw !important;
+}
+
+.JS9-wrapper > .JS9 {
+  min-width: 50vw !important;
+  min-height: calc(90vh - 112px) !important;
 }
