@@ -1,6 +1,5 @@
 import React from 'react';
 import { fabric } from 'fabric';
-import { Button } from 'react-bootstrap';
 import cx from 'classnames';
 import {
   IQuestStepModule,
@@ -37,6 +36,7 @@ type AnimationModuleProps = {
 
 type AnimationModuleState = {
   activeAnimationStep: string;
+  activePreviewImage: number;
 };
 
 const ANIMATION_STEPS = {
@@ -57,8 +57,11 @@ export class AnimationModule extends React.PureComponent<
 
   moveButtonPressInterval: ReturnType<typeof setInterval>;
 
+  previewAnimationInterval: ReturnType<typeof setInterval>;
+
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
+    activePreviewImage: 0,
   };
 
   componentDidMount(): void {
@@ -333,10 +336,88 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
   };
 
+  onPlay = (): void => {
+    this.setState({
+      activeAnimationStep: ANIMATION_STEPS.PLAY,
+    });
+
+    const canvasObjects = this.canvas.getObjects();
+
+    canvasObjects.map((item: any): any => {
+      item.set({ visible: false, opacity: 1 });
+      return item;
+    });
+    this.canvas.renderAll();
+    this.previewAnimationStart(1500);
+  };
+
+  changeActivePreviewImage = (prevIndex: number, nextIndex: number): void => {
+    this.canvas.item(prevIndex).set({ visible: false });
+    this.canvas.item(nextIndex).set({ visible: true });
+    this.setState({ activePreviewImage: nextIndex });
+    this.canvas.renderAll();
+  };
+
+  previewAnimationStart = (speed: number): void => {
+    const canvasObjects = this.canvas.getObjects();
+    const { activePreviewImage } = this.state;
+
+    this.previewAnimationStop();
+    this.changeActivePreviewImage(activePreviewImage, 0);
+
+    this.previewAnimationInterval = setInterval((): void => {
+      const { activePreviewImage } = this.state;
+
+      switch (activePreviewImage) {
+        case 0: {
+          this.changeActivePreviewImage(0, 1);
+          break;
+        }
+        case canvasObjects.length - 1: {
+          this.changeActivePreviewImage(canvasObjects.length - 1, 0);
+          break;
+        }
+        default: {
+          this.changeActivePreviewImage(
+            activePreviewImage,
+            activePreviewImage + 1
+          );
+          break;
+        }
+      }
+    }, speed);
+  };
+
+  previewAnimationStop = (): void => {
+    clearInterval(this.previewAnimationInterval);
+  };
+
   getActiveCanvasItem = (): any => {
     const { activeFrame } = this.props;
     const { frameIndex } = activeFrame;
     return this.canvas.item(frameIndex - 1);
+  };
+
+  onEdit = (): any => {
+    const { activeFrame } = this.props;
+    const { frameIndex } = activeFrame;
+
+    this.previewAnimationStop();
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+    const canvasObjects = this.canvas.getObjects();
+
+    canvasObjects.map((item: any): any => {
+      item.set({ visible: false, opacity: 0.5 });
+      return item;
+    });
+    this.canvas.item(0).set({ visible: true, opacity: 1 });
+    this.canvas.item(frameIndex - 1).set({ visible: true });
+    this.canvas.renderAll();
+  };
+
+  onFinish = (): any => {
+    this.previewAnimationStop();
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED });
   };
 
   getAnimation = (): void => {
@@ -464,25 +545,16 @@ export class AnimationModule extends React.PureComponent<
                 moveTopRelease={this.moveTopRelease}
                 zoomInCanvas={this.zoomInCanvas}
                 zoomOutCanvas={this.zoomOutCanvas}
-                onPlay={(): void =>
-                  this.setState({
-                    activeAnimationStep: ANIMATION_STEPS.PLAY,
-                  })
-                }
+                onPlay={this.onPlay}
               />
             )}
 
             {activeAnimationStep === ANIMATION_STEPS.PLAY && (
               <PreviewAnimationControls
                 questAnimation={questAnimation}
-                onEdit={(): void =>
-                  this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT })
-                }
-                onFinish={(): void =>
-                  this.setState({
-                    activeAnimationStep: ANIMATION_STEPS.COMPLETED,
-                  })
-                }
+                onEdit={this.onEdit}
+                onFinish={this.onFinish}
+                onSpeedChange={this.previewAnimationStart}
               />
             )}
           </div>
@@ -503,9 +575,7 @@ export class AnimationModule extends React.PureComponent<
         >
           <AnimationCompleted
             questAnimation={questAnimation}
-            onEdit={(): void =>
-              this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT })
-            }
+            onEdit={this.onEdit}
           />
         </div>
       </div>
