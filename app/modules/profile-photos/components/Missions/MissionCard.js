@@ -10,7 +10,7 @@ import Modal from 'react-modal';
 import { browserHistory, Link, withRouter } from 'react-router';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
-import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
+import { customModalStylesFitDeviceScrollable } from 'app/styles/mixins/utilities';
 import AsideToggleableMenu from '../AsideToggleableMenu';
 
 import style from './MissionCard.style';
@@ -29,7 +29,7 @@ class MissionCard extends PureComponent<TMissionCard> {
     width: null,
     showPrompt: false,
     modalComponent: null,
-    modalStyles: customModalStylesFitDevice,
+    modalStyles: customModalStylesFitDeviceScrollable,
   };
 
   optionsList = [
@@ -57,11 +57,10 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   onDownloadFitsData = () => {
-    const { currentItem, getFitsData } = this.props;
-    if (
-      currentItem.scheduledMissionId !==
-      this.props.fitsData.data.scheduledMissionId
-    ) {
+    const { currentItem, getFitsData, fitsData } = this.props;
+    const { data } = fitsData;
+    const { scheduledMissionId } = data;
+    if (currentItem.scheduledMissionId !== scheduledMissionId) {
       getFitsData(currentItem.scheduledMissionId).then(() => {
         const { fitsData } = this.props;
         this.setModal(fitsData);
@@ -135,7 +134,10 @@ class MissionCard extends PureComponent<TMissionCard> {
           groupList.length &&
           groupList.map(({ groupIndex, groupName, groupImageList }) => {
             return (
-              <ul key={`${groupIndex}-${groupName}`}>
+              <ul
+                key={`${groupIndex}-${groupName}`}
+                className="fits-image-list"
+              >
                 <h5>{groupName}</h5>
                 {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
                   return (
@@ -143,29 +145,30 @@ class MissionCard extends PureComponent<TMissionCard> {
                       key={`${imageId}-${imageTitle}`}
                       className="fits-image-item"
                     >
-                      <a
-                        href={imageURL}
-                        download
-                        className="cursor-pointer link"
-                        onClick={e => onDownloadFile(e, imageURL, imageTitle)}
-                      >
-                        {imageTitle}
-                      </a>
-                      <a
-                        href={generateFitsViewerUrl(imageURL)}
-                        target="_blank"
-                        className="astronomical-viewer btn btn-primary"
-                      >
-                        View
-                      </a>
+                      <div className="fits-item-title">{imageTitle}</div>
+                      <div className="fits-item-action">
+                        <a
+                          href={generateFitsViewerUrl(imageURL)}
+                          target="_blank"
+                          className="astronomical-view-btn btn btn-primary"
+                        >
+                          View in JS9
+                        </a>
+                        <Button
+                          mod="astronomical-download-btn btn-circle"
+                          onClickEvent={e =>
+                            onDownloadFile(e, imageURL, imageTitle)
+                          }
+                        >
+                          <span className="icon-download" />
+                        </Button>
+                      </div>
                     </li>
                   );
                 })}
               </ul>
             );
           })}
-
-        <p className="top-bot-20">Click links above to download</p>
         <Button onClickEvent={closeModal} mod="auto">
           {buttonText}
         </Button>

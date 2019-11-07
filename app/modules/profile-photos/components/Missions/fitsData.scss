@@ -43,7 +43,8 @@
   }
 
   ul {
-    margin: 40px 0;
+    margin: 25px 0;
+    padding-left: 20px;
     text-align: left;
     list-style: none;
 
@@ -54,7 +55,7 @@
     }
 
     li {
-      margin: 5px 0;
+      margin: 10px 0;
     }
   }
 
@@ -66,5 +67,38 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .fits-item-title {
+      width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fits-item-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 165px;
+      margin-left: 15px;
+
+      .astronomical-view-btn {
+        padding: 12px 18px;
+      }
+
+      .astronomical-download-btn {
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        color: $lightHeadedAstronaut;
+
+        .icon-download {
+          line-height: 40px;
+          font-size: 15px;
+        }
+      }
+    }
+
   }
 }
