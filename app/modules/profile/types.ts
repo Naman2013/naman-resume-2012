@@ -92,7 +92,22 @@ interface IGettingStarted {
 }
 
 interface IQuestItem {
-  questId: number;
-  questTitle: string;
+  // questId: number;
+  // questTitle: string;
   briefDescription: string;
+  sequenceDescription: string;
+
+  AboutText: string;
+  AboutTitle: string;
+  BadgeName: string;
+  BadgeTitle: string;
+  Difficulty: string;
+  IconUrl: string;
+  LinkLabel: string;
+  LinkURL: string;
+  QuestId: number;
+  QuestTitle: string;
+  QuestType: string;
+  QuestUUID: string;
+  Status: string;
 }
