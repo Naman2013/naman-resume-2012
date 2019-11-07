@@ -202,6 +202,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
+        <Redirect from="purchaseConfirmation(/:tab)" to="/profile/private/gettingstarted" />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
