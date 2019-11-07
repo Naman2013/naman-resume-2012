@@ -124,19 +124,6 @@ export class AnimationModule extends React.PureComponent<
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
     });
-
-    // fabric.Image.fromURL(
-    //   imageURL,
-    //   (img: any): void => {
-    //     // add image onto canvas
-    //     this.canvas.add(img);
-
-    //     if (frameIndexToLoad + 1 < frameList.length) {
-    //       this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
-    //     }
-    //   },
-    //   imgAttrs
-    // );
   };
 
   moveTop = (stepSize: number): IAnimationFrame => {
@@ -155,13 +142,17 @@ export class AnimationModule extends React.PureComponent<
 
   moveTopPress = (): void => {
     const { questAnimation } = this.props;
-    const { yOffsetLargeStep } = questAnimation;
+    const {
+      yOffsetLargeStep,
+      largeStepDelay,
+      largeStepRepeat,
+    } = questAnimation;
     this.moveButtonPressTimer = setTimeout(() => {
       this.moveButtonPressInterval = setInterval(
         () => this.moveTop(yOffsetLargeStep),
-        100
+        largeStepRepeat
       );
-    }, 300);
+    }, largeStepDelay);
   };
 
   moveTopRelease = (): void => {
@@ -189,13 +180,17 @@ export class AnimationModule extends React.PureComponent<
 
   moveDownPress = (): void => {
     const { questAnimation } = this.props;
-    const { yOffsetLargeStep } = questAnimation;
+    const {
+      yOffsetLargeStep,
+      largeStepDelay,
+      largeStepRepeat,
+    } = questAnimation;
     this.moveButtonPressTimer = setTimeout(() => {
       this.moveButtonPressInterval = setInterval(
         () => this.moveDown(yOffsetLargeStep),
-        100
+        largeStepRepeat
       );
-    }, 300);
+    }, largeStepDelay);
   };
 
   moveDownRelease = (): void => {
@@ -223,13 +218,17 @@ export class AnimationModule extends React.PureComponent<
 
   moveLeftPress = (): void => {
     const { questAnimation } = this.props;
-    const { xOffsetLargeStep } = questAnimation;
+    const {
+      xOffsetLargeStep,
+      largeStepDelay,
+      largeStepRepeat,
+    } = questAnimation;
     this.moveButtonPressTimer = setTimeout(() => {
       this.moveButtonPressInterval = setInterval(
         () => this.moveLeft(xOffsetLargeStep),
-        100
+        largeStepRepeat
       );
-    }, 300);
+    }, largeStepDelay);
   };
 
   moveLeftRelease = (): void => {
@@ -257,13 +256,17 @@ export class AnimationModule extends React.PureComponent<
 
   moveRigthPress = (): void => {
     const { questAnimation } = this.props;
-    const { xOffsetLargeStep } = questAnimation;
+    const {
+      xOffsetLargeStep,
+      largeStepDelay,
+      largeStepRepeat,
+    } = questAnimation;
     this.moveButtonPressTimer = setTimeout(() => {
       this.moveButtonPressInterval = setInterval(
         () => this.moveRigth(xOffsetLargeStep),
-        100
+        largeStepRepeat
       );
-    }, 300);
+    }, largeStepDelay);
   };
 
   moveRigthRelease = (): void => {
@@ -346,6 +349,9 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPlay = (): void => {
+    const { questAnimation } = this.props;
+    const { previewDelaySlow, previewZoomLevel } = questAnimation;
+
     this.setState({
       activeAnimationStep: ANIMATION_STEPS.PLAY,
     });
@@ -356,8 +362,11 @@ export class AnimationModule extends React.PureComponent<
       item.set({ visible: false, opacity: 1 });
       return item;
     });
+    if (previewZoomLevel === 'default') {
+      this.canvas.setZoom(previewZoomLevel);
+    }
     this.canvas.renderAll();
-    this.previewAnimationStart(1500);
+    this.previewAnimationStart(previewDelaySlow);
   };
 
   changeActivePreviewImage = (prevIndex: number, nextIndex: number): void => {
@@ -408,8 +417,9 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onEdit = (): any => {
-    const { activeFrame } = this.props;
+    const { activeFrame, questAnimationData } = this.props;
     const { frameIndex } = activeFrame;
+    const { zoom } = questAnimationData;
 
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
@@ -421,6 +431,7 @@ export class AnimationModule extends React.PureComponent<
     });
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
+    this.canvas.setZoom(zoom / 100);
     this.canvas.renderAll();
   };
 

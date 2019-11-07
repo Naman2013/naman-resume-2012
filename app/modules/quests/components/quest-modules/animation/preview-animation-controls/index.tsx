@@ -10,22 +10,11 @@ type PreviewAnimationControlsProps = {
   onSpeedChange: (speed: number) => void;
 };
 
-type TAnimationSpeeds = {
-  type: string;
-  speed: number;
-};
-
 const ANIMATION_SPEEDS = {
-  SLOW: { type: 'SLOW', speed: 1500 },
-  MED: { type: 'MED', speed: 1000 },
-  FAST: { type: 'FAST', speed: 500 },
+  SLOW: 'SLOW',
+  MED: 'MED',
+  FAST: 'FAST',
 };
-
-// const ANIMATION_SPEEDS = {
-//   SLOW: 'SLOW',
-//   MED: 'MED',
-//   FAST: 'FAST',
-// };
 
 export const PreviewAnimationControls: React.FC<
   PreviewAnimationControlsProps
@@ -37,13 +26,14 @@ export const PreviewAnimationControls: React.FC<
     slowButtonCaption,
     editButtonCaption,
     finishButtonCaption,
+    previewDelaySlow,
+    previewDelayMedium,
+    previewDelayFast,
   } = questAnimation;
 
-  const [animationSpeed, setAnimationSpeed] = useState(
-    ANIMATION_SPEEDS.SLOW.type
-  );
+  const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEEDS.SLOW);
 
-  const onSpeedBtnClick = ({ type, speed }: TAnimationSpeeds): void => {
+  const onSpeedBtnClick = (type: string, speed: number): void => {
     setAnimationSpeed(type);
     onSpeedChange(speed);
   };
@@ -54,30 +44,30 @@ export const PreviewAnimationControls: React.FC<
         <div className="buttons-block">
           <Button
             className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.SLOW.type,
+              'btn-active': animationSpeed === ANIMATION_SPEEDS.SLOW,
             })}
             onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.SLOW);
+              onSpeedBtnClick(ANIMATION_SPEEDS.SLOW, previewDelaySlow);
             }}
           >
             {slowButtonCaption}
           </Button>
           <Button
             className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.MED.type,
+              'btn-active': animationSpeed === ANIMATION_SPEEDS.MED,
             })}
             onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.MED);
+              onSpeedBtnClick(ANIMATION_SPEEDS.MED, previewDelayMedium);
             }}
           >
             {mediumButtonCaption}
           </Button>
           <Button
             className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.FAST.type,
+              'btn-active': animationSpeed === ANIMATION_SPEEDS.FAST,
             })}
             onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.FAST);
+              onSpeedBtnClick(ANIMATION_SPEEDS.FAST, previewDelayFast);
             }}
           >
             {fastButtonCaption}
