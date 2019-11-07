@@ -171,7 +171,7 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('password');
 
                   actions.logUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  browserHistory.push('/join/purchaseConfirmation/join');
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
@@ -180,7 +180,7 @@ class JoinStep3 extends Component {
 
                   window.localStorage.removeItem('accountCreationType');
                   actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  browserHistory.push('/join/purchaseConfirmation/join');
                 }
               } else {
                 /* process / display error to user */
