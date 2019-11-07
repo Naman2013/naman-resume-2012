@@ -116,18 +116,27 @@ export class AnimationModule extends React.PureComponent<
       visible: !(frameIndex > 1),
     };
 
-    fabric.Image.fromURL(
-      imageURL,
-      (img: any): void => {
-        // add image onto canvas
-        this.canvas.add(img);
+    fabric.util.loadImage(imageURL, (img: any): void => {
+      var fab_image = new fabric.Image(img, imgAttrs);
+      this.canvas.add(fab_image);
+      this.canvas.renderAll();
+      if (frameIndexToLoad + 1 < frameList.length) {
+        this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
+      }
+    });
 
-        if (frameIndexToLoad + 1 < frameList.length) {
-          this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
-        }
-      },
-      imgAttrs
-    );
+    // fabric.Image.fromURL(
+    //   imageURL,
+    //   (img: any): void => {
+    //     // add image onto canvas
+    //     this.canvas.add(img);
+
+    //     if (frameIndexToLoad + 1 < frameList.length) {
+    //       this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
+    //     }
+    //   },
+    //   imgAttrs
+    // );
   };
 
   moveTop = (stepSize: number): IAnimationFrame => {
