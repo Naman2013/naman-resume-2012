@@ -12,8 +12,6 @@ interface GettingStartedProps {
 
 export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
   (props: GettingStartedProps) => {
-    console.log(props.data.gettingStartedData);
-
     const { data } = props;
     const { gettingStartedData } = data;
     const { heading1, heading2, questsList } = gettingStartedData;

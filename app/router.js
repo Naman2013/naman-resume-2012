@@ -492,7 +492,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
-          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -501,7 +500,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
-          <IndexRedirect to="activity" />
         </Route>
       </Route>
 
