@@ -109,7 +109,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             module={module}
             moduleId={module.moduleId}
             questId={routeParams.questId}
-            key={module.moduleId}
+            key={`rich-text-module-input-${module.moduleId}`}
             readOnly={readOnly}
             refreshQuestStep={refreshQuestStep}
           />

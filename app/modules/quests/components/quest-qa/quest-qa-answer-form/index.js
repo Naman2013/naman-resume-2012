@@ -52,11 +52,12 @@ export const QuestQaAnswerForm = props => {
     EditorState.createEmpty()
   );
 
-  const [richTextHtml, setRichTextHtml] = React.useState('');
+  const [richTextHtml, setRichTextHtml] = React.useState(answerText);
 
   React.useEffect(() => {
     if (answerText) {
       setRichTextVal(getEditorStateFromHtml(answerText));
+      setRichTextHtml(answerText);
     } else {
       setRichTextVal(EditorState.createEmpty());
     }

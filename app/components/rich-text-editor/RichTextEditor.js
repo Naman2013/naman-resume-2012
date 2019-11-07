@@ -1,12 +1,11 @@
+/* eslint-disable */
 import {
   CompositeDecorator,
   Editor,
   EditorState,
   RichUtils,
-  convertFromHTML,
-  ContentState,
 } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
+import { convertToHTML, convertFromHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -49,24 +48,6 @@ const Link = ({ contentState, entityKey, children }) => {
   );
 };
 
-function findImageEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(character => {
-    const entityKey = character.getEntity();
-    return (
-      entityKey !== null &&
-      contentState.getEntity(entityKey).getType() === 'IMAGE'
-    );
-  }, callback);
-}
-
-const Image = props => {
-  const { height, src, width } = props.contentState
-    .getEntity(props.entityKey)
-    .getData();
-
-  return <img src={src} height={height} width={width} />;
-};
-
 const editorStateDecorator = new CompositeDecorator([
   {
     strategy: findLinkEntities,
@@ -74,26 +55,7 @@ const editorStateDecorator = new CompositeDecorator([
   },
 ]);
 
-const decorator = new CompositeDecorator([
-  {
-    strategy: findLinkEntities,
-    component: Link,
-  },
-  {
-    strategy: findImageEntities,
-    component: Image,
-  },
-]);
-
-export const getEditorStateFromHtml = html => {
-  const blocksFromHTML = convertFromHTML(html);
-  const state = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
-  );
-
-  return EditorState.createWithContent(state, decorator);
-};
+export const getEditorStateFromHtml = html => EditorState.createWithContent(convertFromHTML(html));
 
 class RichTextEditor extends React.Component {
   static propTypes = {
