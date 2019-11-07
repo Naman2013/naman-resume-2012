@@ -25,12 +25,12 @@ export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
               {questsList.map(quest => (
                 <div className="quest-list-item">
                   <div>
-                    <div
+                    {quest.sequenceDescription && <div
                       className="quest-help-text"
                       dangerouslySetInnerHTML={{
                         __html: quest.sequenceDescription,
                       }}
-                    />
+                    />}
                     <QuestCard
                       linkUrl={quest.LinkURL}
                       questType={quest.QuestType}
@@ -39,12 +39,12 @@ export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
                       title={quest.QuestTitle}
                       linkLabel={quest.LinkLabel}
                     />
-                    <div
+                    {quest.briefDescription && <div
                       className="quest-help-text"
                       dangerouslySetInnerHTML={{
                         __html: quest.briefDescription,
                       }}
-                    />
+                    />}
                   </div>
                 </div>
               ))}
