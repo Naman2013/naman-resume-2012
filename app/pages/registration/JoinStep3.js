@@ -74,7 +74,6 @@ class JoinStep3 extends Component {
   }
 
   handleIframeTask = e => {
-    debugger; // todo
     /* Verify there is data in this event) */
     if (e.data) {
       const paymentMessageData = `${e.data}`;
