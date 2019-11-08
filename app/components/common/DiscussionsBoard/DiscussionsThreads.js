@@ -6,7 +6,7 @@
  ***********************************/
 
 import React, { Component } from 'react';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
@@ -20,7 +20,6 @@ import { TopThreads } from 'app/modules/clubs';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
-
 
 const {
   any,
@@ -331,7 +330,13 @@ class DiscussionsThreads extends Component {
             this.threadsContainer = node;
           }}
         >
-          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span>{t('AskAnAstronomer.Comments')} ({threadsCount})</span>}
+          {showSearchTermResultHeading ? (
+            <span>{searchTermResultHeading}</span>
+          ) : (
+            <span>
+              {t('AskAnAstronomer.Comments')} ({threadsCount})
+            </span>
+          )}
 
           <div className="comments-search">
             <input
@@ -366,15 +371,9 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        {fetching && (
-          <div>
-            {t('AskAnAstronomer.Loading')}
-          </div>
-        )}
+        {fetching && <div>{t('AskAnAstronomer.Loading')}</div>}
         {!fetching && threadsCount === 0 ? (
-          <div>
-            {t('AskAnAstronomer.NoThreads')}
-          </div>
+          <div>{t('AskAnAstronomer.NoThreads')}</div>
         ) : null}
         {!fetching && threadsCount > 0 && (
           <div>
