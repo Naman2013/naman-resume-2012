@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { withRouter } from 'react-router';
 import xorBy from 'lodash/xorBy';
 import { primaryFont } from 'app/styles/variables/fonts';
+import { getRelativePath } from 'app/utils/urlParser';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import AlertTile from './AlertTile';
@@ -55,13 +57,17 @@ class TimedNotifications extends Component<TTimedNotifications> {
   }
 
   createTimers = alerts => {
-    const { updateNotificationsCount } = this.props;
+    const {
+      updateNotificationsCount,
+      location: { pathname },
+    } = this.props;
     const timers = [];
     alerts.map(_alert => {
       if (!_alert.active) {
         timers.push(
           setTimeout(() => {
-            const latestAlerts = this.state.alerts;
+            const { alerts } = this.state;
+            const latestAlerts = alerts;
             const newAlerts = latestAlerts.map(_storedAlert => {
               const { notificationsCount } = this.props;
               if (_storedAlert.eventId === _alert.eventId) {
@@ -70,7 +76,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
                   count: notificationsCount + 1,
                 });
                 this.setState(() => ({
-                  showPrompt: true,
+                  showPrompt: getRelativePath(_alert.linkUrl) !== pathname,
                   promptText: (
                     <div>
                       <AlertTile
@@ -99,37 +105,35 @@ class TimedNotifications extends Component<TTimedNotifications> {
   };
 
   dismissAlert = eventId => {
-    this.props
-      .dismissNotification({
-        eventId,
-      })
-      .then(res => {
-        if (res.successFlag) {
-          const dismissedAlerts = [].concat(
-            this.state.dismissedAlerts,
-            eventId
-          );
-          const newAlerts = this.state.alerts.filter(
-            _storedAlert => _storedAlert.eventId !== eventId
-          );
-          this.setState(() => ({
-            alerts: newAlerts,
-            dismissedAlerts,
-          }));
-        }
+    const { dismissNotification } = this.props;
+    const { alerts, dismissedAlerts: dismissedAlertsFromState } = this.state;
 
-        if (!res.error) {
-          this.setState({
-            showPrompt: res.showResponse,
-            promptText: res.response,
-          });
-        } else {
-          this.setState({
-            showPrompt: true,
-            promptText: 'There was an error.',
-          });
-        }
-      });
+    dismissNotification({
+      eventId,
+    }).then(res => {
+      if (res.successFlag) {
+        const dismissedAlerts = [].concat(dismissedAlertsFromState, eventId);
+        const newAlerts = alerts.filter(
+          _storedAlert => _storedAlert.eventId !== eventId
+        );
+        this.setState(() => ({
+          alerts: newAlerts,
+          dismissedAlerts,
+        }));
+      }
+
+      if (!res.error) {
+        this.setState({
+          showPrompt: res.showResponse,
+          promptText: res.response,
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: 'There was an error.',
+        });
+      }
+    });
   };
 
   closeModal = () => {
@@ -192,4 +196,4 @@ class TimedNotifications extends Component<TTimedNotifications> {
   }
 }
 
-export default TimedNotifications;
+export default withRouter(TimedNotifications);
