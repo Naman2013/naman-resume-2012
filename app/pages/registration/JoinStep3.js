@@ -74,6 +74,7 @@ class JoinStep3 extends Component {
   }
 
   handleIframeTask = e => {
+    debugger; // todo
     /* Verify there is data in this event) */
     if (e.data) {
       const paymentMessageData = `${e.data}`;
@@ -172,7 +173,7 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('password');
 
                   actions.logUserIn(loginDataPayload).then(() => {
-                    browserHistory.push('/');
+                    browserHistory.push('/join/purchaseConfirmation/join');
                   });
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
@@ -181,8 +182,9 @@ class JoinStep3 extends Component {
                   };
 
                   window.localStorage.removeItem('accountCreationType');
-                  actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/join/purchaseConfirmation/join');
+                  actions.logGoogleUserIn(loginDataPayload).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 }
               } else {
                 /* process / display error to user */
@@ -274,7 +276,7 @@ class JoinStep3 extends Component {
                                   .planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />
@@ -293,7 +295,7 @@ class JoinStep3 extends Component {
                                   .planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />

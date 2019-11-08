@@ -649,7 +649,7 @@ class JoinStep2 extends Component {
                                   .planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />
@@ -668,7 +668,7 @@ class JoinStep2 extends Component {
                                   .planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />

@@ -207,7 +207,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                                 .planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
+                                ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
                       />
@@ -228,7 +228,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                                 .planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
+                                ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
                       />
