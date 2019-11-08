@@ -269,10 +269,10 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
                                   ?.planSelectedBackgroundImageUrl_Tablet
@@ -288,10 +288,10 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
                                   ?.planSelectedBackgroundImageUrl_Tablet
