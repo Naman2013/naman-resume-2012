@@ -1,6 +1,7 @@
 /** ********************************************
  * V4 Join - Step 3 - Collect Payment Details
  ********************************************** */
+/* eslint-disable */
 
 import React, { Component, Fragment } from 'react';
 import { browserHistory } from 'react-router';
@@ -170,8 +171,9 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
-                  actions.logUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logUserIn(loginDataPayload).then(() => {
+                    browserHistory.push('/');
+                  });
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
