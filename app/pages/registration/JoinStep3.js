@@ -171,7 +171,7 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
-                  actions.logUserIn(loginDataPayload).then(() => {
+                  actions.logUserIn(loginDataPayload, {reload: false}).then(() => {
                     browserHistory.push('/join/purchaseConfirmation/join');
                   });
                 } else if (accountCreationType === 'googleaccount') {
@@ -181,7 +181,7 @@ class JoinStep3 extends Component {
                   };
 
                   window.localStorage.removeItem('accountCreationType');
-                  actions.logGoogleUserIn(loginDataPayload).then(() => {
+                  actions.logGoogleUserIn(loginDataPayload, {reload: false}).then(() => {
                     browserHistory.push('/join/purchaseConfirmation/join');
                   });
                 }
