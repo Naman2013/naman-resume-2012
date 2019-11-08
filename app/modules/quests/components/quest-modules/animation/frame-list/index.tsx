@@ -1,10 +1,11 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Slider from 'react-slick';
+import { IAnimationFrame } from 'app/modules/quests/types';
 import './styles.scss';
 
 type FrameListProps = {
-  frameList: Array<any>;
+  frameList: Array<IAnimationFrame>;
   activeFrame: any;
   setActiveFrame: Function;
 };
@@ -72,7 +73,7 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
         arrows={isArrowsVisible}
         className={cx({ 'arrows-visible': isArrowsVisible })}
       >
-        {frameList.map(frame => (
+        {frameList.map((frame: IAnimationFrame) => (
           <div key={frame.frameId}>
             <div
               className={cx('frame-list-item', {

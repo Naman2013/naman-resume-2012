@@ -504,7 +504,7 @@ export class AnimationModule extends React.PureComponent<
       questAnimationFrames,
       questAnimationData,
     } = this.props;
-    const { activeAnimationStep } = this.state;
+    const { activeAnimationStep, activePreviewImage } = this.state;
     const { caption, infoArray, xOffset, yOffset } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
@@ -537,6 +537,15 @@ export class AnimationModule extends React.PureComponent<
               <>
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
+                <div className="animation-lines">
+                  {frameList.map(({ frameIndex }: IAnimationFrame) => (
+                    <div
+                      className={cx('animation-line', {
+                        active: frameIndex - 1 === activePreviewImage,
+                      })}
+                    />
+                  ))}
+                </div>
               </>
             )}
 

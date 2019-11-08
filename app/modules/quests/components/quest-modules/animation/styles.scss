@@ -37,6 +37,26 @@
       line-height: 29px;
     }
 
+    .animation-lines {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      margin: 20px 0 10px;
+
+      .animation-line {
+        flex: 1;
+        max-width: 40px;
+        height: 2px;
+        margin: 0 5px;
+        background-color: $hawkesBlue;
+        opacity: 0.35;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+
     #animationCanvasContainer {
       width: calc(100% - 144px);
       margin: 20px 74px 0;
