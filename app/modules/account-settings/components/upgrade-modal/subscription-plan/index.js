@@ -28,21 +28,32 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     teaserContent,
   } = plan;
 
-  const planCostDisplay = planCostPrefix + planCost;  
+  const planCostDisplay = planCostPrefix + planCost;
 
   return (
     <div className="subscription-plan">
-      {planHeading && <Fragment><span className="header">{planHeading}</span><hr /></Fragment>}
+      {planHeading && (
+        <Fragment>
+          <span className="header">{planHeading}</span>
+          <hr />
+        </Fragment>
+      )}
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
-	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostDisplay}} />
+        <span
+          className="plan-cost"
+          dangerouslySetInnerHTML={{ __html: planCostDisplay }}
+        />
       </div>
 
       <hr />
 
       <div className="d-flex justify-content-between">
-        <span className="header" dangerouslySetInnerHTML={{__html: teaserContent}}/>
+        <span
+          className="header"
+          dangerouslySetInnerHTML={{ __html: teaserContent }}
+        />
         <span className="header">{planCostPostfix}</span>
       </div>
 
@@ -58,14 +69,24 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
           </Button>
           {!isDetailsExpanded && (
             <Fragment>
-              {isPlanActionEnabled && <Button className="animated fadeIn faster" onClick={() => onSelect(plan)}>
-                {selectButtonText} <span className="icon-arrow-right" />
-              </Button>
-              }
-              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan)}>
-                {selectButtonText}
-              </Button>
-              }
+              {isPlanActionEnabled && (
+                <Button
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText} <span className="icon-arrow-right" />
+                </Button>
+              )}
+              {!isPlanActionEnabled && (
+                <Button
+                  disabled
+                  style={{ backgroundColor: '#D3D3D3' }}
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText}
+                </Button>
+              )}
             </Fragment>
           )}
         </div>
@@ -91,14 +112,21 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
             <Fragment>
-              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan)}>
-                {selectButtonText}
-              </Button>
-              }
-              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan)}>
-                {selectButtonText}
-              </Button>
-              }
+              {isPlanActionEnabled && (
+                <Button className="btn-active" onClick={() => onSelect(plan)}>
+                  {selectButtonText}
+                </Button>
+              )}
+              {!isPlanActionEnabled && (
+                <Button
+                  disabled
+                  style={{ backgroundColor: '#D3D3D3' }}
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText}
+                </Button>
+              )}
             </Fragment>
           </div>
         </div>

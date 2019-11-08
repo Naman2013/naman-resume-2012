@@ -39,6 +39,7 @@ export default css`
     font-family: ${secondaryFont};
     font-size: 16px;
     font-weight: 0;
+    text-transform: capitalize;
   }
 
   .sub-title {

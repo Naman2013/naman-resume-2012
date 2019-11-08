@@ -2,7 +2,6 @@ import React from 'react';
 import defaultSliderConfiguration from '../Slider/sliderConfig';
 import BigShowTile from '../tiles/BigShowTile';
 
-
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 2,

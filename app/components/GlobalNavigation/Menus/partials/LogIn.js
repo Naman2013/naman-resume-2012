@@ -10,7 +10,10 @@ const LogIn = ({ avatarURL }) => {
   const { t } = useTranslation();
   return (
     <div className="root">
-      <MenuTitleBar title={t('Dashboard.SignIn')} iconURL={avatarURL || userAstronaut} />
+      <MenuTitleBar
+        title={t('Dashboard.SignIn')}
+        iconURL={avatarURL || userAstronaut}
+      />
       <Login />
       <style jsx>
         {`

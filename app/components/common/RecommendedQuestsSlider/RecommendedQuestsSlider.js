@@ -8,9 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import {useTranslation} from 'react-i18next';
-import SloohSlider from '../../../components/common/Slider';
-import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import { useTranslation } from 'react-i18next';
+import SloohSlider from '../Slider';
+import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedQuestsSliderConfiguration';
 import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
 
@@ -41,7 +41,7 @@ const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
           }
         }
       `}</style>
-      </div>
+    </div>
   );
 };
 

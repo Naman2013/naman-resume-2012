@@ -16,7 +16,6 @@ import DropDown from 'app/components/common/DropDown';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Button from 'app/components/common/style/buttons/Button';
 
-
 import style from './PhotoHubNavigation.style';
 
 const getFilterDropdownOptions = t => [

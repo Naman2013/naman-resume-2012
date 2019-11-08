@@ -6,7 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Button from 'app/components/common/style/buttons/Button';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 import {
@@ -16,7 +16,6 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-
 
 const {
   arrayOf,
@@ -59,7 +58,6 @@ class ReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-
   };
 
   preparePostUID() {

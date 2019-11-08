@@ -37,7 +37,6 @@ class LiveShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-
   };
 
   static defaultProps = {

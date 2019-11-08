@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { screenLarge } from 'app/styles/variables/breakpoints';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -22,7 +21,7 @@ import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/communit
 import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
-import { astronaut } from '../../../styles/variables/colors_tiles_v4';
+import './full-information-style.scss';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
@@ -162,11 +161,13 @@ class FullInformationOverview extends Component {
               !isEditMode &&
               this.props.pageMeta.canSeeGroupContent && (
                 <div>
-                  <TopThreads
-                    topicId={pageMeta.topicId}
-                    isDesktop={context.isDesktop}
-                    discussionGroupId={discussionGroupId}
-                  />
+                  <div className="popular-discussion-wrapper">
+                    <TopThreads
+                      topicId={pageMeta.topicId}
+                      isDesktop={context.isDesktop}
+                      discussionGroupId={discussionGroupId}
+                    />
+                  </div>
                   <MembersList
                     membersSort={membersSort}
                     membersList={membersList}
@@ -203,17 +204,6 @@ class FullInformationOverview extends Component {
             }
           />
         )}
-
-        <style jsx>
-          {`
-            .root {
-            }
-
-            .discuss-container {
-              margin-top: 15px;
-            }
-          `}
-        </style>
       </div>
     );
   }

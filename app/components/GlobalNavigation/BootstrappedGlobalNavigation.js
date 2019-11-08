@@ -11,7 +11,7 @@ import {
   toggleGlobalNavNotificationMenu,
 } from 'app/modules/global-navigation/actions';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
-import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 import debounce from 'lodash/debounce';
 
 //integrate with Pubnub
@@ -61,6 +61,8 @@ class GlobalNavigation extends Component {
     routeKey: PropTypes.string,
     showUpsellModal: PropTypes.bool,
     isMobile: PropTypes.bool,
+    pubnubActivityFeedChannelName: PropTypes.string,
+    pubnubLiveEventsChannelName: PropTypes.string,
   };
 
   static defaultProps = {
@@ -87,7 +89,10 @@ class GlobalNavigation extends Component {
   constructor(params) {
     super(params);
 
-    this.checkActivityWindowScroll.bind(this);
+    const {
+      pubnubActivityFeedChannelName,
+      pubnubLiveEventsChannelName,
+    } = this.props;
 
     this.debouncedCloseAll = debounce(this.closeAll, 500, {
       leading: true,
@@ -106,10 +111,20 @@ class GlobalNavigation extends Component {
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
-          //console.log('Pubnub is connected....');
           this.pubnub.history(
             {
-              channel: this.props.pubnubActivityFeedChannelName,
+              channel: pubnubActivityFeedChannelName,
+              count: 50,
+              stringifiedTimeToken: false,
+              reverse: false,
+            },
+            (status, response) => {
+              let historyMessages = response.messages;
+            }
+          );
+          this.pubnub.history(
+            {
+              channel: pubnubActivityFeedChannelName,
               count: 50,
               stringifiedTimeToken: false,
               reverse: false,
@@ -118,11 +133,8 @@ class GlobalNavigation extends Component {
               let historyMessages = response.messages;
 
               historyMessages.forEach(historyMessage => {
-                //console.log(historyMessage);
                 this.buildFeedMessage(historyMessage.entry, true);
               });
-
-              //console.log(response);
 
               setInterval(() => this.checkActivityWindowScroll(), 5000);
             }
@@ -136,29 +148,23 @@ class GlobalNavigation extends Component {
         //what is the message??
         const { message } = msg;
 
-        //console.log(message);
-
-        if (channel == this.props.pubnubLiveEventsChannelName) {
-          //console.log(message);
-
+        if (channel === pubnubLiveEventsChannelName) {
           if (message.messageType) {
-            if (message.messageType == 'livecast') {
-              if (message.action == 'broadcastUpdate') {
+            if (message.messageType === 'livecast') {
+              if (message.action === 'broadcastUpdate') {
                 //update the livecasts in progress
                 this.setState({ allLivecastsInProgress: message.livecasts });
               }
             }
           }
-        } else if (channel == this.props.pubnubActivityFeedChannelName) {
+        } else if (channel === pubnubActivityFeedChannelName) {
           this.buildFeedMessage(message, true);
         }
       },
       presence: presenceEvent => {
         // handle presence (users that have joined or left the channel)
-        //console.log(presenceEvent.channel);
-        //console.log(presenceEvent);
 
-        if (presenceEvent.channel == this.props.pubnubActivityFeedChannelName) {
+        if (presenceEvent.channel === pubnubActivityFeedChannelName) {
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
       },
@@ -167,48 +173,91 @@ class GlobalNavigation extends Component {
     this.pubnub.init(this);
   }
 
-  scrollActivityFeedToBottom() {
-	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
-	if (liveActivityWindowBodyFeedObj != null) {
-		//console.log("found the activity window to be open....");
+  componentWillMount() {
+    const {
+      pubnubActivityFeedChannelName,
+      pubnubLiveEventsChannelName,
+    } = this.props;
 
-		liveActivityWindowBodyFeedObj.scrollIntoView(false);
-
-		//console.log("scrolling to bottom.....");
-		return true;
-	}
-	else {
-		return false;
-	}
+    this.pubnub.subscribe({
+      channels: [
+        pubnubActivityFeedChannelName,
+        pubnubLiveEventsChannelName,
+        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
+      ],
+      withPresence: true,
+    });
   }
 
-  checkActivityWindowScroll() {
-    //console.log("checking scroll function....");
-
-	if (this.state.activityWindowHasBeenScrolledToBottom == false) {
-		//console.log("activity window has not been scrolled yet....");
-
-		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
-		if (liveActivityWindowBodyFeedObj != null) {
-			//scroll the activity feed to the bottom
-			if (this.scrollActivityFeedToBottom() == true) {
-				this.setState({ activityWindowHasBeenScrolledToBottom: true });
-			}
-		}
-	}
+  componentDidMount() {
+    const { isMobile } = this.props;
+    if (!isMobile) {
+      window.addEventListener('scroll', this.debouncedCloseAll);
+    }
   }
 
-  buildFeedMessage(message, appendFlag) {
+  componentWillReceiveProps(nextProps) {
+    const { routeKey } = this.props;
+    if (nextProps.routeKey !== routeKey) {
+      this.debouncedCloseAll();
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.debouncedCloseAll);
+
+    const {
+      pubnubActivityFeedChannelName,
+      pubnubLiveEventsChannelName,
+    } = this.props;
+
+    //unmount pubnub
+    this.pubnub.unsubscribe({
+      channels: [
+        pubnubActivityFeedChannelName,
+        pubnubLiveEventsChannelName,
+        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
+      ],
+    });
+  }
+
+  scrollActivityFeedToBottom = () => {
+    let liveActivityWindowBodyFeedObj = document.getElementById(
+      'live-activity-window-body-feed'
+    );
+    if (liveActivityWindowBodyFeedObj != null) {
+      liveActivityWindowBodyFeedObj.scrollIntoView(false);
+
+      return true;
+    }
+
+    return false;
+  };
+
+  checkActivityWindowScroll = () => {
+    const { activityWindowHasBeenScrolledToBottom } = this.state;
+
+    if (activityWindowHasBeenScrolledToBottom === false) {
+      let liveActivityWindowBodyFeedObj = document.getElementById(
+        'live-activity-window-body-feed'
+      );
+      if (liveActivityWindowBodyFeedObj != null) {
+        //scroll the activity feed to the bottom
+        if (this.scrollActivityFeedToBottom() === true) {
+          this.setState({ activityWindowHasBeenScrolledToBottom: true });
+        }
+      }
+    }
+  };
+
+  buildFeedMessage = (message, appendFlag) => {
+    const { activityFeedMessages: activityFeedMessagesState } = this.state;
     try {
-      //console.log(message);
-
-		//messages are in JSON format
-		let messageJSONObj = message;
-
-      //console.log(messageJSON.message_by_locale.en);
+      //messages are in JSON format
+      let messageJSONObj = message;
 
       let isMessageFromCurrentUser = false;
-      if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
+      if (messageJSONObj.customerUUID === getUserInfo().customerUUID) {
         isMessageFromCurrentUser = true;
       }
 
@@ -221,9 +270,9 @@ class GlobalNavigation extends Component {
       };
 
       if (appendFlag === true) {
-        this.setState(state => {
+        this.setState(() => {
           const activityFeedMessages = [
-            ...this.state.activityFeedMessages,
+            ...activityFeedMessagesState,
             newMessage,
           ];
           return {
@@ -231,60 +280,20 @@ class GlobalNavigation extends Component {
           };
         });
       } else {
-        this.setState(state => {
+        this.setState(() => {
           const activityFeedMessages = [
             newMessage,
-            ...this.state.activityFeedMessages,
+            ...activityFeedMessagesState,
           ];
           return {
             activityFeedMessages,
           };
         });
       }
-      //console.log(this.state.activityFeedMessages);
     } catch (e) {
       //do nothing, ignore this message....
     }
-  }
-
-  componentWillMount() {
-    this.pubnub.subscribe({
-      channels: [
-        this.props.pubnubActivityFeedChannelName,
-        this.props.pubnubLiveEventsChannelName,
-        `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.customer.${
-          getUserInfo().cid
-        }`,
-      ],
-      withPresence: true,
-    });
-  }
-
-  componentDidMount() {
-    if (!this.props.isMobile) {
-      window.addEventListener('scroll', this.debouncedCloseAll);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.routeKey !== this.props.routeKey) {
-      this.debouncedCloseAll();
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.debouncedCloseAll);
-    //unmount pubnub
-    this.pubnub.unsubscribe({
-      channels: [
-        this.props.pubnubActivityFeedChannelName,
-        this.props.pubnubLiveEventsChannelName,
-        `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.customer.${
-          getUserInfo().cid
-        }`,
-      ],
-    });
-  }
+  };
 
   closeAll = () => {
     const { actions } = this.props;
@@ -297,7 +306,7 @@ class GlobalNavigation extends Component {
   };
 
   handleMenuClick = menuName => {
-    const { activeMenu, actions } = this.props;
+    const { activeMenu, actions, activeLeft, activeRight } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = sameMenu ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = menuName === MENU_INTERFACE.DEFAULT.name;
@@ -307,8 +316,8 @@ class GlobalNavigation extends Component {
       activeMenu: nextMenu,
       isLeftOpen: isLeftUpdate,
       isRightOpen: isRightUpdate,
-      activeLeft: isLeftUpdate ? menuName : this.props.activeLeft,
-      activeRight: isRightUpdate ? menuName : this.props.activeRight,
+      activeLeft: isLeftUpdate ? menuName : activeLeft,
+      activeRight: isRightUpdate ? menuName : activeRight,
       isNotificationMenuOpen: false,
     });
   };
@@ -356,8 +365,15 @@ class GlobalNavigation extends Component {
     }
 
     let isChatEnabled = true;
+
     if (userMenu && userMenu.userInfo) {
-      isChatEnabled = userMenu.userInfo.isChatEnabled;
+      const { userInfo } = userMenu;
+      const {
+        displayName: userInfoName,
+        isChatEnabled: userInfoIsChatEnabled,
+      } = userInfo;
+      isChatEnabled = userInfoIsChatEnabled;
+      displayName = userInfoName;
     }
 
     return (
@@ -369,13 +385,13 @@ class GlobalNavigation extends Component {
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
             totalViewersCount={totalViewersCount}
-	    allLivecastsInProgress={allLivecastsInProgress}
-	    activityFeedMessages={activityFeedMessages}
-	    pubnubConnection={this.pubnub}
-	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
-	    userDisplayName={displayName}
-	    isChatEnabled={isChatEnabled}
-  	    scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
+            allLivecastsInProgress={allLivecastsInProgress}
+            activityFeedMessages={activityFeedMessages}
+            pubnubConnection={this.pubnub}
+            pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+            userDisplayName={displayName}
+            isChatEnabled={isChatEnabled}
+            scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
           />
         </div>
 

@@ -3,9 +3,7 @@
 import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import {
-  UPGRADE_CUSTOMER_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+import { UPGRADE_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { browserHistory } from 'react-router';
@@ -21,10 +19,9 @@ export const downgradeStepClose = props => {
   props.onHide();
   browserHistory.push('/account-settings/account-details');
   window.location.reload();
-}
+};
 
-export const DowngradeStep = (props) => {
-
+export const DowngradeStep = props => {
   const user = getUserInfo();
 
   return (
@@ -36,34 +33,39 @@ export const DowngradeStep = (props) => {
           at: user.at,
           token: user.token,
           conditionType: props.conditionType,
-          selectedPlanId: props.selectedPlan.planID }}
+          selectedPlanId: props.selectedPlan.planID,
+        }}
         render={({ fetchingContent, serviceResponse: downgradePageRes }) => (
           <Fragment>
             {!fetchingContent && (
               <DeviceContext.Consumer>
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
-      		          <h1 className="modal-h">{downgradePageRes.pageHeading1}</h1>
+                    <h1 className="modal-h">{downgradePageRes.pageHeading1}</h1>
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
                         screenXLarge
+                      ></DisplayAtBreakpoint>
+                      <br />
+                      <br />
+                      <p className="modal-p mb-5">
+                        {downgradePageRes.statusMessage}
+                      </p>
+                      <br />
+                      <Btn
+                        className="white-button"
+                        onClick={() => downgradeStepClose(props)}
                       >
-
-                      </DisplayAtBreakpoint>
-                      <br/>
-                      <br/>
-                      <p className="modal-p mb-5">{downgradePageRes.statusMessage}</p>
-                      <br/>
-                      <Btn className='white-button' onClick={() => downgradeStepClose(props)}>Close</Btn>
-
+                        Close
+                      </Btn>
                     </div>
                   </Fragment>
                 )}
               </DeviceContext.Consumer>
             )}
-	          <style jsx>{styles}</style>
+            <style jsx>{styles}</style>
           </Fragment>
         )}
       />

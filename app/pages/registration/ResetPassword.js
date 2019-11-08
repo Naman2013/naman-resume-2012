@@ -30,7 +30,6 @@ import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import JoinHeader from './partials/JoinHeader';
 
-
 import styles from './JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
@@ -39,7 +38,6 @@ const { string } = PropTypes;
 class ResetPassword extends Component {
   static propTypes = {
     pathname: string,
-
   };
 
   static defaultProps = {
@@ -136,7 +134,9 @@ class ResetPassword extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (passwordFormData.password.value === '') {
-      passwordFormData.password.errorText = t('Ecommerce.PasswordRequierMessage');
+      passwordFormData.password.errorText = t(
+        'Ecommerce.PasswordRequierMessage'
+      );
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */

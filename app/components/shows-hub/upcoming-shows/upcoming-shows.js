@@ -4,7 +4,7 @@ import { API } from 'app/api';
 import noop from 'lodash/noop';
 import { SHOWS_UPCOMING_ENDPOINT_URL } from 'app/services/shows';
 import SloohSlider from 'app/components/common/Slider';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { getSliderProps } from './upcomingShowsConfig';
 import style from './upcoming-shows.style';
 

@@ -7,7 +7,6 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import MVPAstronomerList from 'app/components/common/MVPAstronomer/MVPAstronomerList';
 import styles from '../AskAstronomer.style';
 
-
 const AsideContainer = ({
   modalActions,
   objectSpecialists,
@@ -38,7 +37,9 @@ const AsideContainer = ({
         {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
           <MVPAstronomerList {...objectSpecialists} />
         ) : (
-          <div className="card-container__specialists">{t('AskAnAstronomer.NoMVP')}</div>
+          <div className="card-container__specialists">
+            {t('AskAnAstronomer.NoMVP')}
+          </div>
         )}
       </div>
       <style jsx>{styles}</style>

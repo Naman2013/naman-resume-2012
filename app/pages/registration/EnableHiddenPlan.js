@@ -3,18 +3,18 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
-import JoinHeader from './partials/JoinHeader';
-import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
+
 import Request from 'app/components/common/network/Request';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { getUserInfo } from 'app/modules/User';
+import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
+import JoinHeader from './partials/JoinHeader';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep1.style';
@@ -25,6 +25,7 @@ class EnableHiddenPlan extends Component {
   static propTypes = {
     pathname: string,
   };
+
   static defaultProps = {
     pathname: 'endablePlan',
   };
@@ -36,8 +37,8 @@ class EnableHiddenPlan extends Component {
   handleSubscriptionPlanResponse = result => {
     if (result.selectedSubscriptionPlan) {
       const selectedPlanId = result.selectedSubscriptionPlan.planId;
-      const isAstronomyClub = result.selectedSubscriptionPlan.isAstronomyClub;
-      const isClassroom = result.selectedSubscriptionPlan.isClassroom;
+      const { isAstronomyClub } = result.selectedSubscriptionPlan;
+      const { isClassroom } = result.selectedSubscriptionPlan;
 
       //We have received a valid response, hand off to setSelectedPlan...
       this.setSelectedPlan(selectedPlanId, isAstronomyClub, isClassroom);
@@ -45,11 +46,14 @@ class EnableHiddenPlan extends Component {
   };
 
   setSelectedPlan = (subscriptionPlanId, isAstronomyClub, isClassroom) => {
-    window.localStorage.setItem('enableHiddenPlanHashCode', this.props.params.subscriptionPlanHashCode);
+    window.localStorage.setItem(
+      'enableHiddenPlanHashCode',
+      this.props.params.subscriptionPlanHashCode
+    );
 
     /* move to the products page */
     browserHistory.push('/about/memberships');
-  }
+  };
 
   render() {
     const { pathname } = this.props;
@@ -60,10 +64,10 @@ class EnableHiddenPlan extends Component {
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
           requestBody={{
             callSource: 'enableHiddenPlan',
-	    selectedPlanHashCode: this.props.params.subscriptionPlanHashCode,
+            selectedPlanHashCode: this.props.params.subscriptionPlanHashCode,
             cid: getUserInfo().cid,
-	    at: getUserInfo().at,
-	    token: getUserInfo().token,
+            at: getUserInfo().at,
+            token: getUserInfo().token,
           }}
           serviceResponseHandler={this.handleSubscriptionPlanResponse}
           render={({ fetchingContent, serviceResponse }) => (

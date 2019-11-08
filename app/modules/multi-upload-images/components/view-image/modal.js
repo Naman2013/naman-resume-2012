@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'app/components/modal';
 import './styles.scss';
+import { Magnifier } from 'react-image-magnifiers';
 
 export const ViewImageModal = ({
   showModal,
@@ -16,28 +17,39 @@ export const ViewImageModal = ({
     customClass="view-uploaded-image-modal"
   >
     <div className="text-center">
-      {!!(images.length > 1) && (
+      {images.length > 1 && (
         <button
+          type="button"
           onClick={onClickPrev}
           disabled={currentImageIndex === 0}
           className="slick-arrow-btn slick-prev"
-        ></button>
+        />
       )}
       <div className="modal-img-wrapper">
         <div className="view-uploaded-image-title">
           {currentImageIndex + 1} OF {images.length}
         </div>
-        <div
+
+        <Magnifier
           className="modal-img"
-          style={{ backgroundImage: `url("${images[currentImageIndex]}")` }}
+          imageSrc={images[currentImageIndex]}
+          onImageLoad={({
+            currentTarget,
+            currentTarget: { width, height, naturalWidth, naturalHeight },
+          }) => {
+            if (width < naturalWidth || height < naturalHeight) {
+              currentTarget.parentNode.style.cursor = 'zoom-in';
+            }
+          }}
         />
       </div>
-      {!!(images.length > 1) && (
+      {images.length > 1 && (
         <button
+          type="button"
           onClick={onClickNext}
           disabled={currentImageIndex === images.length - 1}
           className="slick-arrow-btn slick-next"
-        ></button>
+        />
       )}
     </div>
   </Modal>

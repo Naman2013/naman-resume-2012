@@ -262,7 +262,9 @@ class AskAstronomer extends Component {
                       <TwoTabbedNav
                         firstTitle={t('AskAnAstronomer.Questions')}
                         secondTitle={
-                          context.isMobile ? t('AskAnAstronomer.AskNow') : t('AskAnAstronomer.MVPAstronomers')
+                          context.isMobile
+                            ? t('AskAnAstronomer.AskNow')
+                            : t('AskAnAstronomer.MVPAstronomers')
                         }
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}

@@ -111,8 +111,6 @@ class Quests extends Component {
   }
 }
 
-Quests.propTypes = {
-
-};
+Quests.propTypes = {};
 
 export default Quests;

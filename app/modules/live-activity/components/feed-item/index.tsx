@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import './index.scss';
 import * as cx from 'classnames';
 import { browserHistory } from 'react-router';
+import { isEnter } from 'app/modules/utils/keyIdentifier.tsx';
 
 type TFeedItem = {
   item: any;
@@ -15,22 +16,31 @@ const contentClickHandler = (e: any) => {
   }
 };
 
+const onKeyPressed = (e: KeyboardEvent<HTMLInputElement>) => {
+  if (isEnter(e)) {
+    contentClickHandler(e);
+  }
+};
+
 export const FeedItem = (props: TFeedItem) => {
   const { item } = props;
+  const { currentUser, text } = item;
 
   return (
     <div
       className={cx('feed-item', {
-        'feed-item-current-user': item.currentUser,
+        'feed-item-current-user': currentUser,
       })}
     >
       <div className="feed-data">
-	{props.item.date && <span className="feed-data-date">{props.item.date}</span>}
+        {props.item.date && (
+          <span className="feed-data-date">{props.item.date}</span>
+        )}
         {/* <span className="feed-data-user">{props.item.user}</span> */}
       </div>
 
       <div className="feed-msg">
-        {item.currentUser ? (
+        {currentUser ? (
           <div className="arrow-left" />
         ) : (
           <div className="arrow-right" />
@@ -39,7 +49,9 @@ export const FeedItem = (props: TFeedItem) => {
         <span
           className="feed-msg-text"
           onClick={contentClickHandler}
-          dangerouslySetInnerHTML={{ __html: item.text }}
+          onKeyDown={onKeyPressed}
+          dangerouslySetInnerHTML={{ __html: text }}
+          tabIndex={0}
           role="button"
         />
       </div>

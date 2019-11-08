@@ -40,7 +40,6 @@ class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-
   };
 
   static defaultProps = {
@@ -359,7 +358,9 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = t('Ecommerce.PasswordRequierMessage');
+      accountFormDetailsData.password.errorText = t(
+        'Ecommerce.PasswordRequierMessage'
+      );
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -622,7 +623,9 @@ class JoinStep2 extends Component {
             callSource: 'setupCredentials',
             selectedPlanId,
             selectedSchoolId,
-	    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
