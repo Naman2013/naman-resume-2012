@@ -182,7 +182,7 @@ class JoinStep3 extends Component {
 
                   window.localStorage.removeItem('accountCreationType');
                   actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  browserHistory.push('/join/purchaseConfirmation/join');
                 }
               } else {
                 /* process / display error to user */

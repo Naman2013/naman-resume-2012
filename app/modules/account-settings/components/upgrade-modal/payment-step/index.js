@@ -136,8 +136,6 @@ const handleIframeTaskUpgrade = e => {
                 at: res.newAccountTypeNbr,
               });
 
-              window.location.reload();
-
               //actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
               window.location.reload();
