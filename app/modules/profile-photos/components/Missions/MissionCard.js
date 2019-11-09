@@ -152,7 +152,7 @@ class MissionCard extends PureComponent<TMissionCard> {
                           target="_blank"
                           className="astronomical-view-btn btn btn-primary"
                         >
-                          View in JS9
+                          View FITS
                         </a>
                         <Button
                           mod="astronomical-download-btn btn-circle"
