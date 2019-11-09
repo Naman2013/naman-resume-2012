@@ -36,7 +36,6 @@ function getFieldsFromObj(obj, fields) {
   return result;
 }
 
-
 const POST = 'POST';
 const GET = 'GET';
 
@@ -137,12 +136,19 @@ class Request extends Component {
   };
 
   componentDidMount() {
-    this.fetchServiceContent();
+    const { serviceURL } = this.props;
+    if (serviceURL) {
+      this.fetchServiceContent();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { user, requestBody } = this.props;
-    if (!isMatch(requestBody, nextProps.requestBody) || !isMatch(user, nextProps.user)) {
+    const { user, requestBody, serviceURL } = this.props;
+    if (
+      (!isMatch(requestBody, nextProps.requestBody) ||
+        !isMatch(user, nextProps.user)) &&
+      serviceURL
+    ) {
       this.fetchServiceContent(nextProps.requestBody, nextProps.user);
     }
   }
@@ -187,7 +193,7 @@ class Request extends Component {
 
     // TODO: this should go...
     //if (authorizationRedirect) {
-      actions.validateResponseAccess(result);
+    actions.validateResponseAccess(result);
     //}
 
     // this is part of the reduce refactor suggested from earlier
@@ -248,33 +254,29 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
-    const { cid, at, token, } = nextUser || user;
+    const { cid, at, token } = nextUser || user;
     let resultedUserParams = nextUser || user;
 
     if (userParams.length > 0)
       resultedUserParams = getFieldsFromObj(nextUser || user, userParams);
 
     if (method === POST) {
-      API
-      .post(
-          serviceURL,
-          Object.assign(
-            {
-              cancelToken: this.source.token,
-            },
-            validatedRequestBody,
-            withoutUser ? { cid, at, token } : resultedUserParams
-          )
+      API.post(
+        serviceURL,
+        Object.assign(
+          {
+            cancelToken: this.source.token,
+          },
+          validatedRequestBody,
+          withoutUser ? { cid, at, token } : resultedUserParams
         )
-        .then(result => this.handleServiceResponse(result.data));
+      ).then(result => this.handleServiceResponse(result.data));
     }
 
     if (method === GET) {
-      API
-      .get(serviceURL, {
-          params: Object.assign({}, validatedRequestBody),
-        })
-        .then(result => this.handleServiceResponse(result.data));
+      API.get(serviceURL, {
+        params: Object.assign({}, validatedRequestBody),
+      }).then(result => this.handleServiceResponse(result.data));
     }
   }
 
