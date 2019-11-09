@@ -136,12 +136,10 @@ const handleIframeTaskUpgrade = e => {
                 at: res.newAccountTypeNbr,
               });
 
-              window.location.reload();
-
               //actions.logUserIn(loginDataPayload);
-              browserHistory.push('/');
-              window.location.reload();
-            }
+
+	      let confirmationPageURL = '/join/purchaseConfirmation/' + paymentDataString[2];
+              browserHistory.push( confirmationPageURL );
           }
         })
         .catch(err => {
