@@ -66,7 +66,7 @@ export class MissionCard extends PureComponent {
               </div>
             </div>
 
-            <div className="mission-status">{missionStatusText}</div>
+            <div className="mission-status" dangerouslySetInnerHTML={{ __html: missionStatusText }}/>
           </div>
         </div>
 
