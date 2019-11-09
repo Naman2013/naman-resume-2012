@@ -138,8 +138,9 @@ const handleIframeTaskUpgrade = e => {
 
               //actions.logUserIn(loginDataPayload);
 
-	      let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-              browserHistory.push( confirmationPageURL );
+	      //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+              //browserHistory.push( confirmationPageURL );
+		browserHistory.push('/');
           }
         })
         .catch(err => {
