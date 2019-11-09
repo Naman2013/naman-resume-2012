@@ -36,7 +36,7 @@ class ProfileLists extends Component {
 
   render() {
     const { data, params, profileLists } = this.props;
-    const hubFilters = data.profileMenuList.find(el => el.name === 'Lists')
+    const hubFilters = data?.profileMenuList?.find(el => el.name === 'Lists')
       .subMenus;
     const formatedHubFilter = hubFilters.map(filter => ({
       title: filter.name,
