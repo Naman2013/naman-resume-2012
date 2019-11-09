@@ -16,8 +16,8 @@ export const initialState = {
   isLoaded: false,
   serverError: null,
 
-  publicProfileData: null,
-  privateProfileData: null,
+  publicProfileData: {},
+  privateProfileData: {},
   profileLists: null,
 
   profileMissionsData: {},
