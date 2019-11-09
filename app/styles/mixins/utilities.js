@@ -108,6 +108,20 @@ export const customModalStylesFitDevice = {
   },
 };
 
+export const customModalStylesFitDeviceScrollable = {
+  content: {
+    ...defaultModalContent,
+    maxWidth: '90vw',
+    minWidth: '300px',
+    maxHeight: '95vh',
+    border: 0,
+    padding: '50px 25px',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .7)',
+  },
+};
+
 export const modalStyleFullPage = {
   content: {
     top: 0,
