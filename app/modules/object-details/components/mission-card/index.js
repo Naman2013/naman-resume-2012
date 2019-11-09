@@ -96,7 +96,7 @@ export class MissionCard extends PureComponent {
             <span>{telescopeName || telescopePierName}</span>
           </div>
 
-          <div className="mission-status">{missionStatusText}</div>
+          <div className="mission-status" dangerouslySetInnerHTML={{ __html: missionStatusText }}/>
         </div>
       </div>
     );
