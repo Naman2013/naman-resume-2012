@@ -12,11 +12,17 @@ const PublicProfile = props => {
     location,
     router,
   } = props;
+  const { customerUUID } = params;
 
   if (!publicProfileData) return null;
 
+  const indexRoute = `/profile/public/${customerUUID}`;
+
   // if index route
-  if (router.location.pathname === '/profile/public') {
+  if (
+    router.location.pathname === indexRoute ||
+    router.location.pathname === `${indexRoute}/`
+  ) {
     // go to first menu item
     browserHistory.push(publicProfileData.profileMenuList[0].linkUrl);
   }

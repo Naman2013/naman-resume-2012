@@ -12,10 +12,14 @@ const PrivateProfile = props => {
     location,
     router,
   } = props;
+
   if (!privateProfileData) return null;
 
   // if index route
-  if (router.location.pathname === '/profile/private') {
+  if (
+    router.location.pathname === '/profile/private' ||
+    router.location.pathname === '/profile/private/'
+  ) {
     // go to first menu item
     browserHistory.push(privateProfileData.profileMenuList[0].linkUrl);
   }
