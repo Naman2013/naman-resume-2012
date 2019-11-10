@@ -52,11 +52,6 @@ class ProfileActivity extends React.Component<
 
   missionTimer: ReturnType<typeof setTimeout> = null;
 
-  isPrivateProfile = (): boolean => {
-    const { privateProfileData } = this.props;
-    return !_isEmpty(privateProfileData);
-  };
-
   componentDidMount(): void {
     this.fetchMissions().then(() => this.setupRefreshMissionsInterval());
   }
@@ -73,7 +68,7 @@ class ProfileActivity extends React.Component<
     } = this.props;
     const { customerUUID } = params;
 
-    if (this.isPrivateProfile()) {
+    if (params.private) {
       return getPrivateProfileMissions();
     }
     return getPublicProfileMissions({ customerUUID });
