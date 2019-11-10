@@ -11,7 +11,7 @@ export class Dashboard extends Component {
     const { embed, router, user } = this.props;
     // Redirect user to /profile/dashboard from / if user is authenticated
     if (!embed && user.isAuthorized) {
-      router.push('/profile/private/dashboard');
+      router.push('/profile/private');
     }
   }
 

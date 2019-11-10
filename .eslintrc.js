@@ -53,6 +53,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/interface-name-prefix': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
+    '@typescript-eslint/interface-name-prefix': 0,
     'react/sort-comp': [
       1,
       {
