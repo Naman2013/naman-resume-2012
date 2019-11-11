@@ -91,18 +91,14 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ): void => {
-    const {
-      frameIndex,
-      imageURL,
-      xOffset,
-      yOffset,
-      offsetReference,
-    } = frameList[frameIndexToLoad];
-    //const { questAnimation } = this.props;
-    //const { magnificationDefault } = questAnimation;
+    const { frameIndex, imageURL, xOffset, yOffset } = frameList[
+      frameIndexToLoad
+    ];
+    const { questAnimation } = this.props;
+    const { offsetReference } = questAnimation;
 
     const imgAttrs = {
-      centeredScaling: offsetReference === 'center',
+      centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
       hoverCursor: 'auto',
@@ -117,9 +113,15 @@ export class AnimationModule extends React.PureComponent<
     };
 
     fabric.util.loadImage(imageURL, (img: any): void => {
-      var fab_image = new fabric.Image(img, imgAttrs);
-      this.canvas.add(fab_image);
+      //load image to fabric
+      let fabricImage = new fabric.Image(img, imgAttrs);
+      //scale to canvas width
+      fabricImage.scaleToWidth(this.canvas.getWidth());
+      //then add it to canvas
+      this.canvas.add(fabricImage);
       this.canvas.renderAll();
+
+      //if doesn't end of frame list -> load next image
       if (frameIndexToLoad + 1 < frameList.length) {
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
@@ -341,10 +343,26 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPageRezise = (): void => {
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
-    this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
-    this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+
+    const canvasZoom = this.canvas.getZoom();
+    //set zoom to 1 before canvas rezise
+    this.canvas.setZoom(1);
+
+    this.canvas.setWidth(newCanvasContainerWidth); // 2px border
+    this.canvas.setHeight(newCanvasContainerWidth); // 2px border
+
+    const canvasObjects = this.canvas.getObjects();
+    canvasObjects.map((item: any): any => {
+      //scale all images to new canvas width
+      item.scaleToWidth(newCanvasContainerWidth);
+      return item;
+    });
+
+    //reset zoom after canvas rezise
+    this.canvas.setZoom(canvasZoom);
+
     this.canvas.renderAll();
   };
 
@@ -538,8 +556,9 @@ export class AnimationModule extends React.PureComponent<
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
                 <div className="animation-lines">
-                  {frameList.map(({ frameIndex }: IAnimationFrame) => (
+                  {frameList.map(({ frameIndex, frameId }: IAnimationFrame) => (
                     <div
+                      key={`animation-line-${frameId}`}
                       className={cx('animation-line', {
                         active: frameIndex - 1 === activePreviewImage,
                       })}
