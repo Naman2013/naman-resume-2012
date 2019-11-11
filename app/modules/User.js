@@ -33,6 +33,14 @@ export function storeUserNewAT({ at }) {
     expires: futureDate,
     path: COOKIE_PATH,
   });
+  // update redux store
+  return dispatch => {
+    dispatch(
+      set({
+        at,
+      })
+    );
+  };
 }
 
 export function store({

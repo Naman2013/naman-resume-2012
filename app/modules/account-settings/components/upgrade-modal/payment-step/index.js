@@ -15,7 +15,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
-import { getUserInfo, storeUserNewAT } from 'app/modules/User';
+import { getUserInfo } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
 
@@ -132,16 +132,15 @@ const handleIframeTaskUpgrade = (e, props) => {
 
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              storeUserNewAT({
+              props.storeUserNewAT({
                 at: res.newAccountTypeNbr,
-              });
-
-              console.log('NEW VALID VALUE IS ',res.newAccountTypeNbr);
-
-              window.setTimeout(() => {
+              }).then(() => {
+                console.log('NEW VALID VALUE IS ',res.newAccountTypeNbr);
                 props.closeModal();
                 browserHistory.push('/');
-              }, 3000);
+              });
+
+
 
               //actions.logUserIn(loginDataPayload);
 
@@ -314,5 +313,4 @@ export const PaymentStep = (props: TPaymentStep) => {
     </>
   );
 };
-
 /* eslint-enable */
