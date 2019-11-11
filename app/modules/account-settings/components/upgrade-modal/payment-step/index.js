@@ -134,15 +134,12 @@ const handleIframeTaskUpgrade = (e, props) => {
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
               props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
                 props.closeModal(true);
-                browserHistory.push('/');
+
+               let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+               browserHistory.push( confirmationPageURL );
+
+               //browserHistory.push('/');
               });
-
-              //actions.logUserIn(loginDataPayload);
-
-              //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-              //browserHistory.push( confirmationPageURL );
-
-              // closing modal on success
             }
           }
         })
