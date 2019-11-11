@@ -35,7 +35,7 @@ export function storeUserNewAT({ at }) {
   });
   // update redux store
   return dispatch => {
-    dispatch(
+    return dispatch(
       set({
         at,
       })
