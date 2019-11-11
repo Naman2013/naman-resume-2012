@@ -17,11 +17,11 @@ import '../../styles.scss';
 import React, { useEffect, useState } from 'react';
 
 type TUpgradeModal = {
-  show: boolean;
-  onHide: Function;
-  getSubscriptionPlans: Function;
-  subscriptionPlansData: any;
-  selectedPlan?: Shape;
+  show: boolean,
+  onHide: Function,
+  getSubscriptionPlans: Function,
+  subscriptionPlansData: any,
+  selectedPlan?: Shape,
   isFetching: boolean,
 };
 
@@ -62,6 +62,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     errorData, // errors from issue with user account modal
     disableGoBack,
     preSelectedPlan,
+    storeUserNewAT,
   } = props;
 
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -167,6 +168,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           <PaymentStep
             conditionType={props.subscriptionPlansCallSource}
             selectedPlan={selectedPlan}
+            closeModal={onHide}
+            storeUserNewAT={storeUserNewAT}
           />
         )}
 
