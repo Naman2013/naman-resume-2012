@@ -49,7 +49,7 @@ const CountdownExpiredComplete = () => {
   window.location.reload();
 };
 
-const handleIframeTaskUpgrade = e => {
+const handleIframeTaskUpgrade = (e, props) => {
   /* Verify there is data in this event) */
   if (e.data) {
     const paymentMessageData = `${e.data}`;
@@ -140,10 +140,9 @@ const handleIframeTaskUpgrade = e => {
 
 	      //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
               //browserHistory.push( confirmationPageURL );
-              this.props.closeModal();
+              props.closeModal();
 		          browserHistory.push('/');
 		          // closing modal on success
-
 	     }
           }
         })
@@ -165,8 +164,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', (e) => handleIframeTaskUpgrade(e));
-  window.addEventListener('message', (e) => handleIframeTaskUpgrade(e));
+  window.removeEventListener('message', (e) => handleIframeTaskUpgrade(e, props));
+  window.addEventListener('message', (e) => handleIframeTaskUpgrade(e, props));
 
   return (
     <>
