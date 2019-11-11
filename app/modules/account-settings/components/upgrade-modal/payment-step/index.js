@@ -132,19 +132,18 @@ const handleIframeTaskUpgrade = (e, props) => {
 
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              props.storeUserNewAT(res.newAccountTypeNbr);
-              props.closeModal();
-              browserHistory.push('/');
-
-
+              props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
+                props.closeModal(true);
+                browserHistory.push('/');
+              });
 
               //actions.logUserIn(loginDataPayload);
 
-	      //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+              //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
               //browserHistory.push( confirmationPageURL );
 
-		          // closing modal on success
-	     }
+              // closing modal on success
+            }
           }
         })
         .catch(err => {
@@ -165,8 +164,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', (e) => handleIframeTaskUpgrade(e, props));
-  window.addEventListener('message', (e) => handleIframeTaskUpgrade(e, props));
+  window.removeEventListener('message', e => handleIframeTaskUpgrade(e, props));
+  window.addEventListener('message', e => handleIframeTaskUpgrade(e, props));
 
   return (
     <>
@@ -179,11 +178,11 @@ export const PaymentStep = (props: TPaymentStep) => {
           token: user.token,
           selectedPlanId,
           conditionType,
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+          isAstronomyClub:
+            window.localStorage.getItem('isAstronomyClub') === 'true',
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver: window.localStorage.getItem(
-            'astronomyClub18AndOver'
-          ) === 'true',
+          astronomyClub18AndOver:
+            window.localStorage.getItem('astronomyClub18AndOver') === 'true',
           isClassroom: window.localStorage.getItem('isClassroom') === 'true',
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         }}

@@ -9,10 +9,12 @@ const IssueWithUserAccount = props => {
     isModalVisible,
     subscriptionPlansCallSource,
   } = props;
-  const onHideModal = () => {
+  const onHideModal = onlyCloseModal => {
     hideIssueWithUserAccountModal();
-    browserHistory.goBack();
-  }
+    if (!onlyCloseModal) {
+      browserHistory.goBack();
+    }
+  };
   return isModalVisible ? (
     <UpgradeModal
       show={isModalVisible}

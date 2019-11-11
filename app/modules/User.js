@@ -26,21 +26,15 @@ export const removeUser = createAction(REMOVE_USER);
 const cookieD = projectCookieDomain || 'localhost';
 const cookieSecure = !!projectCookieDomain;
 
-export function storeUserNewAT({ at }) {
+export async function storeUserNewAT({ at }) {
   window.document.cookie = cookie.serialize('at', at, {
     domain: cookieD,
     secure: cookieSecure,
     expires: futureDate,
     path: COOKIE_PATH,
   });
-  // update redux store
-  return dispatch => {
-    return dispatch(
-      set({
-        at,
-      })
-    );
-  };
+
+  return at;
 }
 
 export function store({

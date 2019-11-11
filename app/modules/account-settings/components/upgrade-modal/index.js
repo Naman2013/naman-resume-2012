@@ -17,11 +17,11 @@ import '../../styles.scss';
 import React, { useEffect, useState } from 'react';
 
 type TUpgradeModal = {
-  show: boolean;
-  onHide: Function;
-  getSubscriptionPlans: Function;
-  subscriptionPlansData: any;
-  selectedPlan?: Shape;
+  show: boolean,
+  onHide: Function,
+  getSubscriptionPlans: Function,
+  subscriptionPlansData: any,
+  selectedPlan?: Shape,
   isFetching: boolean,
 };
 
@@ -168,7 +168,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           <PaymentStep
             conditionType={props.subscriptionPlansCallSource}
             selectedPlan={selectedPlan}
-            closeModal={onCloseFunc}
+            closeModal={onHide}
             storeUserNewAT={storeUserNewAT}
           />
         )}

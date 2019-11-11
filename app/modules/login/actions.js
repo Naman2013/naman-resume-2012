@@ -1,6 +1,6 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import { API } from 'app/api';
-import { store as storeUser, storeUserNewAT } from 'app/modules/User';
+import { store as storeUser, storeUserNewAT, set } from 'app/modules/User';
 
 export const LOGIN_USER_START = 'LOGIN_USER_START';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
@@ -34,7 +34,15 @@ export const resetLogIn = () => ({
   type: RESET_LOGIN_USER,
 });
 
-export const updateUserAt = at => dispatch => dispatch(storeUserNewAT({ at }));
+export const updateUserAt = at => dispatch => {
+  return storeUserNewAT({ at }).then(() => {
+    dispatch(
+      set({
+        at,
+      })
+    );
+  });
+};
 
 export const logUserIn = (loginForm, reloadOpts = {}) => dispatch => {
   const { username, pwd } = loginForm;
