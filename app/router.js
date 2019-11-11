@@ -152,7 +152,6 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
-    <Route path="groups" component={ProfileGroups} />
     <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
@@ -188,7 +187,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
     </Route>
 
     <Route path="/" component={App}>
-      <IndexRedirect to="/profile/private" onEnter={validateUser} />
+      <IndexRoute component={Dashboard} onEnter={validateUser} />
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />

@@ -1,7 +1,9 @@
 import * as React from 'react';
+import {Fragment} from 'react';
 import CenterColumn from 'app/components/common/CenterColumn';
 import { ContainerWithTitle } from 'app/components/common/ContainerWithTitle';
 import QuestCard from 'app/components/common/tiles/Quest-card';
+import { browserHistory } from 'react-router';
 import './index.scss';
 
 interface GettingStartedProps {
@@ -14,15 +16,15 @@ export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
   (props: GettingStartedProps) => {
     const { data } = props;
     const { gettingStartedData } = data;
-    const { heading1, heading2, questsList } = gettingStartedData;
 
     return (
-      <div className="getting-started-wrapper container">
+      <Fragment>
+        {gettingStartedData && <div className="getting-started-wrapper container">
         <CenterColumn>
-          <ContainerWithTitle title={heading1}>
-            <h3 className="my-5">{heading2}</h3>
+          <ContainerWithTitle title={gettingStartedData.heading1}>
+            <h3 className="my-5">{gettingStartedData.heading2}</h3>
             <div className="quest-list ">
-              {questsList.map(quest => (
+              {gettingStartedData.questsList.map(quest => (
                 <div className="quest-list-item">
                   <div>
                     {quest.sequenceDescription && (
@@ -55,7 +57,8 @@ export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
             </div>
           </ContainerWithTitle>
         </CenterColumn>
-      </div>
+      </div>}
+      </Fragment>
     );
   }
 );
