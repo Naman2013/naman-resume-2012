@@ -132,11 +132,9 @@ const handleIframeTaskUpgrade = (e, props) => {
 
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-                console.log('NEW VALID VALUE IS ',res.newAccountTypeNbr);
-                props.closeModal();
-                browserHistory.push('/');
-              });
+              props.storeUserNewAT(res.newAccountTypeNbr);
+              props.closeModal();
+              browserHistory.push('/');
 
 
 
