@@ -62,7 +62,7 @@ const submitMessage = (
       displayName: userDisplayName,
       customerUUID: getUserInfo().customerUUID,
       date: '',
-      message_by_locale: {
+      messageByLocale: {
         en: `<a href="/profile/public/${
           getUserInfo().customerUUID
         }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
@@ -170,6 +170,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             }}
             minWidth={300}
             minHeight={300}
+            size={{ width: 300, height: 500 }}
             disableDragging={isFullscreen || isMobile}
             enableResizing={
               isFullscreen || isMobile ? disableResizing : enableResizing
