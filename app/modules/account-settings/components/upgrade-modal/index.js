@@ -167,6 +167,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           <PaymentStep
             conditionType={props.subscriptionPlansCallSource}
             selectedPlan={selectedPlan}
+            closeModal={onCloseFunc}
           />
         )}
 

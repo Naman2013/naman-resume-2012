@@ -140,7 +140,10 @@ const handleIframeTaskUpgrade = e => {
 
 	      //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
               //browserHistory.push( confirmationPageURL );
-		browserHistory.push('/');
+              this.props.closeModal();
+		          browserHistory.push('/');
+		          // closing modal on success
+
 	     }
           }
         })
@@ -162,8 +165,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', handleIframeTaskUpgrade);
-  window.addEventListener('message', handleIframeTaskUpgrade);
+  window.removeEventListener('message', () => handleIframeTaskUpgrade());
+  window.addEventListener('message', () => handleIframeTaskUpgrade());
 
   return (
     <>
