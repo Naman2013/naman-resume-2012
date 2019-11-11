@@ -203,10 +203,10 @@ export const PaymentStep = (props: TPaymentStep) => {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
+                                ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
+                                ?.planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
                                 ?.planSelectedBackgroundImageUrl_Tablet
@@ -224,10 +224,10 @@ export const PaymentStep = (props: TPaymentStep) => {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
+                                ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
+                                ?.planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
                                 ?.planSelectedBackgroundImageUrl_Tablet
