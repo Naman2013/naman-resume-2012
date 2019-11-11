@@ -136,12 +136,18 @@ const handleIframeTaskUpgrade = (e, props) => {
                 at: res.newAccountTypeNbr,
               });
 
+              console.log('NEW VALID VALUE IS ',res.newAccountTypeNbr);
+
+              window.setTimeout(() => {
+                props.closeModal();
+                browserHistory.push('/');
+              }, 3000);
+
               //actions.logUserIn(loginDataPayload);
 
 	      //let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
               //browserHistory.push( confirmationPageURL );
-              props.closeModal();
-		          browserHistory.push('/');
+
 		          // closing modal on success
 	     }
           }
