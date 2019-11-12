@@ -8,6 +8,7 @@ export default css`
     display: flex;
     align-items: center;
     border-bottom: 5px solid ${lightHeadedAstronaut};
+    min-height: 100px;
   }
 
   .module-header.with-icon {
@@ -17,7 +18,7 @@ export default css`
 
   .title {
     margin: 0;
-    padding: 40px;
+    padding: 0 40px;
     font-size: 12px;
     font-family: ${primaryFont};
     color: ${lightHeadedAstronaut};
