@@ -8,6 +8,8 @@ export const TYPE = constants('profile', [
 
   '~GET_PRIVATE_PROFILE_MISSIONS',
   '~GET_PUBLIC_PROFILE_MISSIONS',
+
+  'CLEAR_PROFILE_DATA',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -16,8 +18,8 @@ export const initialState = {
   isLoaded: false,
   serverError: null,
 
-  publicProfileData: {},
-  privateProfileData: {},
+  publicProfileData: null,
+  privateProfileData: null,
   profileLists: null,
 
   profileMissionsData: {},
@@ -40,9 +42,15 @@ export default handleActions(
     [TYPE.GET_PRIVATE_PROFILE_MISSIONS_SUCCESS]: setProfileMissions,
     [TYPE.GET_PUBLIC_PROFILE_MISSIONS_SUCCESS]: setProfileMissions,
     [TYPE.GET_PRIVATE_PROFILE_MISSIONS_ERROR]: setServerError,
+
+    [TYPE.CLEAR_PROFILE_DATA]: clearProfileData,
   },
   initialState
 );
+
+function clearProfileData(state) {
+  return { ...state, publicProfileData: null, privateProfileData: null };
+}
 
 function setFetching(state) {
   return { ...state, isFetching: true, isLoaded: false };

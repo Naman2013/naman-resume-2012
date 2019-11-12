@@ -39,6 +39,7 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
   ProfileActivity,
   ProfileDashboardContainer,
@@ -151,6 +152,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
@@ -200,6 +202,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
+        <Redirect
+          from="purchaseConfirmation(/:tab)"
+          to="/profile/private/gettingstarted"
+        />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
@@ -489,7 +495,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
-          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -498,7 +503,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
-          <IndexRedirect to="activity" />
         </Route>
       </Route>
 

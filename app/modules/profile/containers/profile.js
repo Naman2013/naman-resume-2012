@@ -6,11 +6,13 @@ import {
   getProfile,
   getPublicProfile,
 } from 'app/modules/profile/thunks';
+import { ACTION } from '../reducer';
 
 const mapDispatchToProps = {
   getPrivateProfile,
   getPublicProfile,
   getProfile,
+  clearProfileData: ACTION.clearProfileData,
 };
 
 export default compose(
