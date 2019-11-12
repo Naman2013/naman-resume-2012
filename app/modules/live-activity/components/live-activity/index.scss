@@ -6,12 +6,34 @@
 $headerSize: 54px;
 $screenHeaderSize: 110px;
 
+@keyframes smallAnimatedCircle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bigAnimatedCircle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @mixin live-feed-full-screen-mode {
   position: static;
-
   .live-activity-window-wrapper {
     position: static;
-
     .react-draggable {
       transform: translate(0) !important;
       top: calc(#{$headerSize} + 6px) !important;
@@ -49,6 +71,44 @@ $screenHeaderSize: 110px;
     cursor: pointer;
   }
 
+  .message-identifier {
+    position: absolute;
+    top: 17px;
+    width: 8px;
+    height: 8px;
+    margin-left: 9px;
+    border-radius: 50%;
+    background-color: $red;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      z-index: 2;
+      width: 16px;
+      height: 16px;
+      background: $red;
+      opacity: 0.3;
+      border-radius: 100%;
+      animation: bigAnimatedCircle 2s infinite;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      z-index: 3;
+      width: 20px;
+      height: 20px;
+      background: $red;
+      opacity: 0.2;
+      border-radius: 100%;
+      animation: smallAnimatedCircle 2s infinite;
+    }
+  }
 
   .live-activity-window-wrapper {
     position: absolute;
@@ -58,7 +118,6 @@ $screenHeaderSize: 110px;
     &.live-activity-window-wrapper-mobile {
       left: -195px;
     }
-
 
     .live-activity-window {
       // todo make common
@@ -70,7 +129,6 @@ $screenHeaderSize: 110px;
       border-bottom: 6px solid $lightHeadedAstronaut;
       display: flex;
       flex-direction: column;
-
 
       &-header {
         cursor: move;
@@ -90,7 +148,7 @@ $screenHeaderSize: 110px;
             height: 27px;
             color: $lightHeadedAstronaut;
             margin-right: 10px;
-          };
+          }
         }
 
         .h4-custom {
@@ -110,7 +168,7 @@ $screenHeaderSize: 110px;
       &-footer {
         padding: 10px 20px 10px 20px;
         border-top: 1px solid $hawkesBlue;
-	margin-bottom: 25px;
+        margin-bottom: 25px;
 
         input {
           // TODO COMMON
@@ -134,7 +192,8 @@ $screenHeaderSize: 110px;
             outline: none;
           }
 
-          &:hover, &:focus {
+          &:hover,
+          &:focus {
             border: 1px solid $hawkesBlue;
           }
         }
@@ -151,10 +210,7 @@ $screenHeaderSize: 110px;
           flex: 1;
         }
       }
-
     }
-
-
   }
 
   // resize handler

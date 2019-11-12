@@ -1,6 +1,7 @@
 /** ********************************************
  * V4 Join - Step 3 - Collect Payment Details
  ********************************************** */
+/* eslint-disable */
 
 import React, { Component, Fragment } from 'react';
 import { browserHistory } from 'react-router';
@@ -170,8 +171,9 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
-                  actions.logUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
@@ -179,8 +181,9 @@ class JoinStep3 extends Component {
                   };
 
                   window.localStorage.removeItem('accountCreationType');
-                  actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logGoogleUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 }
               } else {
                 /* process / display error to user */
@@ -266,13 +269,13 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />
@@ -285,13 +288,13 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />

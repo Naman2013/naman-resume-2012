@@ -16,6 +16,7 @@ import { submitReply } from 'app/services/discussions/submit-reply';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import { THREAD_LIST, THREAD_REPLIES } from 'app/services/discussions';
 import pageMeta from 'app/modules/quest-details/actions/pageMeta';
+import { TopThreads } from 'app/modules/clubs';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
@@ -355,6 +356,14 @@ class DiscussionsThreads extends Component {
               </Button>
             )}
           </div>
+        </div>
+        <div className="popular-discussion">
+          <TopThreads
+            topicId={topicId}
+            isDesktop={isDesktop}
+            discussionGroupId={discussionGroupId}
+            className="popular-discussion"
+          />
         </div>
         {CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,

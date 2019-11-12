@@ -15,7 +15,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
-import { getUserInfo, storeUserNewAT } from 'app/modules/User';
+import { getUserInfo } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
 
@@ -49,7 +49,7 @@ const CountdownExpiredComplete = () => {
   window.location.reload();
 };
 
-const handleIframeTaskUpgrade = e => {
+const handleIframeTaskUpgrade = (e, props) => {
   /* Verify there is data in this event) */
   if (e.data) {
     const paymentMessageData = `${e.data}`;
@@ -132,15 +132,14 @@ const handleIframeTaskUpgrade = e => {
 
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              storeUserNewAT({
-                at: res.newAccountTypeNbr,
+              props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
+                props.closeModal(true);
+
+               let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+               browserHistory.push( confirmationPageURL );
+
+               //browserHistory.push('/');
               });
-
-              window.location.reload();
-
-              //actions.logUserIn(loginDataPayload);
-              browserHistory.push('/');
-              window.location.reload();
             }
           }
         })
@@ -162,8 +161,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', handleIframeTaskUpgrade);
-  window.addEventListener('message', handleIframeTaskUpgrade);
+  window.removeEventListener('message', e => handleIframeTaskUpgrade(e, props));
+  window.addEventListener('message', e => handleIframeTaskUpgrade(e, props));
 
   return (
     <>
@@ -176,11 +175,11 @@ export const PaymentStep = (props: TPaymentStep) => {
           token: user.token,
           selectedPlanId,
           conditionType,
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+          isAstronomyClub:
+            window.localStorage.getItem('isAstronomyClub') === 'true',
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver: window.localStorage.getItem(
-            'astronomyClub18AndOver'
-          ) === 'true',
+          astronomyClub18AndOver:
+            window.localStorage.getItem('astronomyClub18AndOver') === 'true',
           isClassroom: window.localStorage.getItem('isClassroom') === 'true',
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         }}
@@ -203,13 +202,13 @@ export const PaymentStep = (props: TPaymentStep) => {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
+                                ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
+                                ?.planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
+                                ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
                       />
@@ -224,13 +223,13 @@ export const PaymentStep = (props: TPaymentStep) => {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
+                                ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
+                                ?.planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
+                                ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
                       />
@@ -306,5 +305,4 @@ export const PaymentStep = (props: TPaymentStep) => {
     </>
   );
 };
-
 /* eslint-enable */

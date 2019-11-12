@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { projectLocale, projectProductId } from 'app/config/project-config';
 import axios from 'axios';
 

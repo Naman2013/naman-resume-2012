@@ -28,6 +28,7 @@ module.exports = {
     'no-shadow': 0,
     'arrow-body-style': 0,
     'quote-props': 0,
+    'react/button-has-type': 0,
     'no-unused-vars': 1,
     'consistent-return': 0,
     'max-len': 0,
@@ -53,7 +54,10 @@ module.exports = {
     'react/no-this-in-sfc': 'off',
     'no-param-reassign': 'off',
     'jsx-a11y/click-events-have-key-events': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/interface-name-prefix': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
+    '@typescript-eslint/interface-name-prefix': 0,
     'react/sort-comp': [
       1,
       {
@@ -101,8 +105,8 @@ module.exports = {
     browser: true,
   },
   settings: {
-    'import/extensions': ['.js', '.jsx'],
-    'import/parser': 'babel-eslint',
+    // 'import/extensions': ['.js', '.jsx'],
+    // 'import/parser': 'babel-eslint',
     'import/resolver': {
       // You can use only webpack but with this approach webstorm doesn't show
       // any red highlight for alias imports

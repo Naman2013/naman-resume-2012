@@ -26,13 +26,17 @@ const getResizableBoxConfigs = () => {
   const isMobile = isMobileDevice();
   const defaultWidth = 500;
   const defaultHeight = 450;
-  const width = isMobile ? screen.availWidth : defaultWidth;
-  const height = isMobile ? screen.availHeight - 53 : defaultHeight;
+  const width = isMobile ? window.screen.availWidth : defaultWidth;
+  const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
 
   return {
     width,
     height,
   };
+};
+
+const setMessageIdToLocalStorage = (id: any) => {
+  window.localStorage.setItem('newMessageId', id);
 };
 
 const submitMessage = (
@@ -45,14 +49,9 @@ const submitMessage = (
   event.preventDefault();
 
   if (event.keyCode === 13) {
-    //DO SOMETHING
-    //console.log(event.target.value);
-    //console.log(pubnubConnection);
-    //console.log(getUserInfo());
-
     let tmpUserDisplayName = userDisplayName;
 
-    if (userDisplayName == '') {
+    if (userDisplayName === '') {
       tmpUserDisplayName = '...';
     }
 
@@ -69,6 +68,7 @@ const submitMessage = (
         }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
       },
     };
+    setMessageIdToLocalStorage(null);
 
     //publish the message
     pubnubConnection.publish({
@@ -77,7 +77,6 @@ const submitMessage = (
       sendByPost: false, // true to send via post
       storeInHistory: true, //override default storage options
     });
-
     myTextInputField.value = '';
     setTimeout(function() {
       let liveActivityWindowBodyFeedObj = document.getElementById(
@@ -89,7 +88,6 @@ const submitMessage = (
 };
 
 type TLiveActivity = {
-  totalViewersCount: number;
   activityFeedMessages: Array<any>;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
@@ -99,11 +97,23 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
+  const {
+    scrollActivityFeedToBottom,
+    isChatEnabled,
+    activityFeedMessages,
+  } = props;
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
-
   const [isFullscreen, setFullscreen] = useState(false);
+  const lastStorageMessageId = window.localStorage.getItem('newMessageId');
+  const activityFeedMessage =
+    activityFeedMessages[activityFeedMessages.length - 1] || {};
+
+  const lastMessageId = activityFeedMessage.id
+    ? activityFeedMessage.id
+    : 'null';
+  const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -114,7 +124,8 @@ export const LiveActivity = (props: TLiveActivity) => {
       document.body.classList.remove('disable-overflow');
       document.documentElement.classList.remove('disable-overflow');
     }
-  }, [isFullscreen, isMobile, isOpen]);
+    if (isOpen) setMessageIdToLocalStorage(lastMessageId);
+  }, [isFullscreen, isMobile, isOpen, lastMessageId]);
 
   return (
     <div
@@ -124,9 +135,25 @@ export const LiveActivity = (props: TLiveActivity) => {
       <span
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
-        onClick={() => setOpen(!isOpen)}
+        onClick={() => {
+          setOpen(!isOpen);
+          setMessageIdToLocalStorage(lastMessageId);
+        }}
       />
-
+      <span
+        role="presentation"
+        className={
+          lastMessageId !== lastStorageMessageId &&
+          !lastMessageFromCurrentUser &&
+          !isOpen
+            ? 'message-identifier'
+            : ''
+        }
+        onClick={() => {
+          setOpen(!isOpen);
+          setMessageIdToLocalStorage(lastMessageId);
+        }}
+      />
       {/* WINDOW */}
       {isOpen && (
         <div
@@ -183,7 +210,9 @@ export const LiveActivity = (props: TLiveActivity) => {
                     marginRight: 'auto',
                     cursor: 'pointer',
                   }}
-                  onClick={props.scrollActivityFeedToBottom}
+                  onClick={scrollActivityFeedToBottom}
+                  onKeyDown={scrollActivityFeedToBottom}
+                  aria-hidden
                 >
                   jump to newest
                 </p>
@@ -192,13 +221,13 @@ export const LiveActivity = (props: TLiveActivity) => {
                   id="live-activity-window-body-feed"
                   className="live-activity-window-body-feed"
                 >
-                  {props.activityFeedMessages.map(feedItem => (
+                  {activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
                   ))}
                 </div>
               </div>
 
-              {props.isChatEnabled == true && (
+              {isChatEnabled === true && (
                 <div className="live-activity-window-footer">
                   <input
                     type="text"
