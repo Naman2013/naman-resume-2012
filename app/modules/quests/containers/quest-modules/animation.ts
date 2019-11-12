@@ -12,6 +12,7 @@ import {
   makeQuestAnimationFramesSelector,
   makeQuestsStepDataSelector,
   makeQuestAnimationActiveFrameSelector,
+  makeQuestAnimationDataSelector,
 } from 'app/modules/quests/selectors';
 import { ACTION } from '../../reducer';
 
@@ -20,6 +21,7 @@ const mapStateToProps = createStructuredSelector({
   questAnimationFrames: makeQuestAnimationFramesSelector(),
   stepData: makeQuestsStepDataSelector(),
   activeFrame: makeQuestAnimationActiveFrameSelector(),
+  questAnimationData: makeQuestAnimationDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -27,6 +29,7 @@ const mapDispatchToProps = {
   getAnimationFrames,
   setActiveFrame: ACTION.setActiveFrame,
   setAnimation,
+  setAnimationData: ACTION.setAnimationData,
 };
 
 export default compose(

@@ -32,6 +32,7 @@ module.exports = {
     'no-unused-vars': 1,
     'consistent-return': 0,
     'max-len': 0,
+    eqeqeq: [1, 'smart'],
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'no-use-before-define': ['error', { functions: false, classes: true }],

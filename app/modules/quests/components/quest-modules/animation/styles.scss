@@ -1,6 +1,16 @@
 @import '~app/styles/bootstrap/common';
 
 .animation-module {
+  .animation-edit,
+  .animation-play,
+  .animation-completed {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
   .animation-box {
     display: flex;
     flex-direction: column;
@@ -27,16 +37,9 @@
       line-height: 29px;
     }
 
-    .vertical-line {
-      width: 2px;
-      height: 22px;
-      border: dashed 1px $raven;
-      background-color: $black;
-    }
-
     #animationCanvasContainer {
       width: calc(100% - 144px);
-      margin: 0 74px;
+      margin: 20px 74px 0;
       border: dashed 1px $raven;
     }
 
@@ -68,12 +71,11 @@
       }
 
       button {
-        border-color: $romance;
-        color: $romance;
         font-family: $primary-font;
 
         &.move-btn,
-        &.zoom-btn {
+        &.zoom-btn,
+        &.animation-view-btn {
           padding: 15px;
           margin-right: 10px;
 
@@ -85,9 +87,15 @@
           }
         }
 
+        &.move-btn,
+        &.zoom-btn {
+          height: 40px;
+          width: 40px;
+          padding: 13px;
+        }
+
         div {
           font-size: 11px;
-          width: 11px;
         }
       }
     }

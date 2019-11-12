@@ -45,11 +45,11 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
     if (stepData.stepMenuList?.length) {
       const prevStepIndex =
         stepData.stepMenuList.findIndex(
-          (item: any) => item.stepModuleId === routeParams.step
+          (item: any) => item.stepModuleId == routeParams.step
         ) - 1;
       const nextStepIndex =
         stepData.stepMenuList.findIndex(
-          (item: any) => item.stepModuleId === routeParams.step
+          (item: any) => item.stepModuleId == routeParams.step
         ) + 1;
       return {
         prevStepId:

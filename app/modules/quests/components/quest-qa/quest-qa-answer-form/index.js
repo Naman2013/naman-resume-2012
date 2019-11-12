@@ -15,7 +15,7 @@ const ACTIONS = {
   CANCEL: 'cancel',
 };
 
-export const QuestQaAnswerForm = React.memo(props => {
+export const QuestQaAnswerForm = props => {
   const {
     moduleData,
     onClick,
@@ -143,14 +143,12 @@ export const QuestQaAnswerForm = React.memo(props => {
               className={`qa-multiple-choice-answer${
                 moduleReadOnly ? ' disabled' : ''
               }`}
-              onClick={() =>
-                onClick(answer.answerIndex, richTextHtml, answer.answerLetter)
-              }
+              onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
               disabled={moduleReadOnly}
             >
               <div className="qa-multiple-choice-answer-item-container">
                 <div className="qa-multiple-choice-answer-label">
-                  <img src={answer.answerIconURL} />
+                  <img src={answer.answerIconURL} alt="Answer" />
                 </div>
                 <div className="qa-multiple-choice-answer-text">
                   {answer.answerText}
@@ -210,4 +208,4 @@ export const QuestQaAnswerForm = React.memo(props => {
       </div>
     </div>
   );
-});
+};
