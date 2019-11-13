@@ -507,7 +507,7 @@ export class AnimationModule extends React.PureComponent<
       this.canvas.item(frameIndex - 1).set({ visible: false });
     }
 
-    if (frameList[frameIndex - 1].empty) {
+    if (frameList[frameIndex - 1].empty && !frame.empty) {
       this.canvas.setZoom(zoom / 100);
     }
 
