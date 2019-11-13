@@ -43,6 +43,7 @@ export const GettingStarted: React.FC<GettingStartedProps> = React.memo(
                           questDifficulty={quest.Difficulty}
                           title={quest.QuestTitle}
                           linkLabel={quest.LinkLabel}
+                          questAuthor={false}
                         />
                         {quest.briefDescription && (
                           <div
