@@ -37,6 +37,7 @@ type AnimationModuleProps = {
 type AnimationModuleState = {
   activeAnimationStep: string;
   activePreviewImage: number;
+  previewFrameList: Array<any>;
 };
 
 const ANIMATION_STEPS = {
@@ -62,6 +63,7 @@ export class AnimationModule extends React.PureComponent<
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
     activePreviewImage: 0,
+    previewFrameList: [{}],
   };
 
   componentDidMount(): void {
@@ -91,7 +93,7 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ): void => {
-    const { frameIndex, imageURL, xOffset, yOffset } = frameList[
+    const { frameIndex, imageURL, xOffset, yOffset, empty } = frameList[
       frameIndexToLoad
     ];
     const { questAnimation } = this.props;
@@ -102,13 +104,12 @@ export class AnimationModule extends React.PureComponent<
       crossOrigin: 'anonymous',
       selectable: false,
       hoverCursor: 'auto',
-      left: xOffset,
-      top: -yOffset,
-      opacity: frameIndex > 1 ? 0.5 : 1,
-      originX: offsetReference === 'center' ? offsetReference : 'left',
-      originY: offsetReference === 'center' ? offsetReference : 'top',
-      // scaleX: magnificationDefault / 100,
-      // scaleY: magnificationDefault / 100,
+      left: empty ? 0 : xOffset,
+      top: empty ? 0 : -yOffset,
+      opacity: frameIndex > 1 && !empty ? 0.5 : 1,
+      originX:
+        offsetReference === 'center' && !empty ? offsetReference : 'left',
+      originY: offsetReference === 'center' && !empty ? offsetReference : 'top',
       visible: !(frameIndex > 1),
     };
 
@@ -367,11 +368,16 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPlay = (): void => {
-    const { questAnimation } = this.props;
+    const { questAnimation, questAnimationFrames } = this.props;
     const { previewDelaySlow, previewZoomLevel } = questAnimation;
+    const { frameList } = questAnimationFrames;
+    const previewFrameList = frameList.filter(
+      ({ empty }: IAnimationFrame): any => !empty
+    );
 
     this.setState({
       activeAnimationStep: ANIMATION_STEPS.PLAY,
+      previewFrameList,
     });
 
     const canvasObjects = this.canvas.getObjects();
@@ -395,8 +401,7 @@ export class AnimationModule extends React.PureComponent<
   };
 
   previewAnimationStart = (speed: number): void => {
-    const canvasObjects = this.canvas.getObjects();
-    const { activePreviewImage } = this.state;
+    const { activePreviewImage, previewFrameList } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
@@ -409,8 +414,8 @@ export class AnimationModule extends React.PureComponent<
           this.changeActivePreviewImage(0, 1);
           break;
         }
-        case canvasObjects.length - 1: {
-          this.changeActivePreviewImage(canvasObjects.length - 1, 0);
+        case previewFrameList.length - 1: {
+          this.changeActivePreviewImage(previewFrameList.length - 1, 0);
           break;
         }
         default: {
@@ -435,21 +440,26 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onEdit = (): any => {
-    const { activeFrame, questAnimationData } = this.props;
+    const {
+      activeFrame,
+      questAnimationData,
+      questAnimationFrames,
+    } = this.props;
     const { frameIndex } = activeFrame;
     const { zoom } = questAnimationData;
+    const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
     const canvasObjects = this.canvas.getObjects();
 
-    canvasObjects.map((item: any): any => {
-      item.set({ visible: false, opacity: 0.5 });
+    canvasObjects.map((item: any, index: number): any => {
+      item.set({ visible: false, opacity: frameList[index].empty ? 1 : 0.5 });
       return item;
     });
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(zoom / 100);
+    this.canvas.setZoom(activeFrame.empty ? 1 : zoom / 100);
     this.canvas.renderAll();
   };
 
@@ -483,11 +493,26 @@ export class AnimationModule extends React.PureComponent<
   };
 
   setActiveFrame = (frame: IAnimationFrame): void => {
-    const { setActiveFrame, activeFrame } = this.props;
+    const {
+      setActiveFrame,
+      activeFrame,
+      questAnimationData,
+      questAnimationFrames,
+    } = this.props;
     const { frameIndex } = activeFrame;
+    const { zoom } = questAnimationData;
+    const { frameList } = questAnimationFrames;
 
     if (frameIndex !== 1) {
       this.canvas.item(frameIndex - 1).set({ visible: false });
+    }
+
+    if (frameList[frameIndex - 1].empty) {
+      this.canvas.setZoom(zoom / 100);
+    }
+
+    if (frame.empty) {
+      this.canvas.setZoom(1);
     }
 
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
@@ -522,8 +547,12 @@ export class AnimationModule extends React.PureComponent<
       questAnimationFrames,
       questAnimationData,
     } = this.props;
-    const { activeAnimationStep, activePreviewImage } = this.state;
-    const { caption, infoArray, xOffset, yOffset } = activeFrame;
+    const {
+      activeAnimationStep,
+      activePreviewImage,
+      previewFrameList,
+    } = this.state;
+    const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const { previewHeading, previewSubheading } = questAnimation;
@@ -556,14 +585,16 @@ export class AnimationModule extends React.PureComponent<
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
                 <div className="animation-lines">
-                  {frameList.map(({ frameIndex, frameId }: IAnimationFrame) => (
-                    <div
-                      key={`animation-line-${frameId}`}
-                      className={cx('animation-line', {
-                        active: frameIndex - 1 === activePreviewImage,
-                      })}
-                    />
-                  ))}
+                  {previewFrameList.map(
+                    ({ frameIndex, frameId }: IAnimationFrame) => (
+                      <div
+                        key={`animation-line-${frameId}`}
+                        className={cx('animation-line', {
+                          active: frameIndex - 1 === activePreviewImage,
+                        })}
+                      />
+                    )
+                  )}
                 </div>
               </>
             )}
@@ -594,6 +625,8 @@ export class AnimationModule extends React.PureComponent<
                 zoomInCanvas={this.zoomInCanvas}
                 zoomOutCanvas={this.zoomOutCanvas}
                 onPlay={this.onPlay}
+                disabledZoom={empty}
+                disabledMove={empty || activeFrame.frameIndex === 1}
               />
             )}
 

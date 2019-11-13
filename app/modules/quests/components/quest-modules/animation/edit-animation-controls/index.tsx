@@ -19,6 +19,8 @@ type EditAnimationControlsProps = {
   zoomInCanvas: () => void;
   zoomOutCanvas: () => void;
   onPlay: () => void;
+  disabledZoom: boolean;
+  disabledMove: boolean;
 };
 
 export const EditAnimationControls: React.FC<
@@ -40,6 +42,8 @@ export const EditAnimationControls: React.FC<
     moveTopRelease,
     zoomInCanvas,
     zoomOutCanvas,
+    disabledZoom,
+    disabledMove,
   } = props;
   const {
     magnificationDefault,
@@ -57,6 +61,7 @@ export const EditAnimationControls: React.FC<
             onTouchEnd={moveLeftRelease}
             onMouseDown={moveLeftPress}
             onMouseUp={moveLeftRelease}
+            disabled={disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -66,6 +71,7 @@ export const EditAnimationControls: React.FC<
             onTouchEnd={moveRigthRelease}
             onMouseDown={moveRigthPress}
             onMouseUp={moveRigthRelease}
+            disabled={disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -81,6 +87,7 @@ export const EditAnimationControls: React.FC<
             onTouchEnd={moveDownRelease}
             onMouseDown={moveDownPress}
             onMouseUp={moveDownRelease}
+            disabled={disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -90,6 +97,7 @@ export const EditAnimationControls: React.FC<
             onTouchEnd={moveTopRelease}
             onMouseDown={moveTopPress}
             onMouseUp={moveTopRelease}
+            disabled={disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -99,10 +107,18 @@ export const EditAnimationControls: React.FC<
 
       <div className="controls-block">
         <div className="buttons-block">
-          <Button className="btn-white zoom-btn" onClick={zoomInCanvas}>
+          <Button
+            className="btn-white zoom-btn"
+            onClick={zoomInCanvas}
+            disabled={disabledZoom}
+          >
             <div className="icon icon-plus" />
           </Button>
-          <Button className="btn-white zoom-btn" onClick={zoomOutCanvas}>
+          <Button
+            className="btn-white zoom-btn"
+            onClick={zoomOutCanvas}
+            disabled={disabledZoom}
+          >
             <div className="icon icon-minus" />
           </Button>
         </div>
