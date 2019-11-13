@@ -147,9 +147,15 @@ export declare interface IQuestAnimation extends StandardResponse {
   offsetReference: string;
   outputHeading: string;
   outputSubheading: string;
+  largeStepDelay: number;
+  largeStepRepeat: number;
   playButtonCaption: string;
   previewHeading: string;
   previewSubheading: string;
+  previewDelaySlow: number;
+  previewDelayMedium: number;
+  previewDelayFast: number;
+  previewZoomLevel: string;
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
