@@ -48,7 +48,7 @@ export class QuestQaAnswerForm extends PureComponent {
         {moduleBaseImageURL && (
           <div className="quest-qa-answer-image">
             <ImageClickHandler imageUrl={moduleBaseImageURL}>
-              <img src={moduleBaseThumbnailURL} />
+              <img src={moduleBaseThumbnailURL} alt="" />
             </ImageClickHandler>
           </div>
         )}
@@ -111,11 +111,12 @@ export class QuestQaAnswerForm extends PureComponent {
                   moduleReadOnly ? ' disabled' : ''
                 }`}
                 onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
+                role="button"
                 disabled={moduleReadOnly}
               >
                 <div className="qa-multiple-choice-answer-item-container">
                   <div className="qa-multiple-choice-answer-label">
-                    <img src={answer.answerIconURL} />
+                    <img src={answer.answerIconURL} alt="" />
                   </div>
                   <div className="qa-multiple-choice-answer-text">
                     {answer.answerText}
@@ -146,7 +147,12 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showEditButton && (
-            <Tooltip theme="light" title={editButtonTooltipText} position="top" distance={20}>
+            <Tooltip
+              theme="light"
+              title={editButtonTooltipText}
+              position="top"
+              distance={20}
+            >
               <Button
                 className="quest-qa-answer-edit-btn"
                 onClick={() => onClick(ACTIONS.EDIT)}
@@ -157,7 +163,11 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showCancelButton && (
-            <Tooltip theme="light" title={cancelButtonTooltipText} position="top">
+            <Tooltip
+              theme="light"
+              title={cancelButtonTooltipText}
+              position="top"
+            >
               <Button
                 className="quest-qa-answer-cancel-btn"
                 onClick={() => onClick(ACTIONS.CANCEL)}

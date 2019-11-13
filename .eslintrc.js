@@ -49,6 +49,7 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/no-this-in-sfc': 'off',
     'no-param-reassign': 'off',
+    'jsx-a11y/mouse-events-have-key-events': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/interface-name-prefix': 0,
