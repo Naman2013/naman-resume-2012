@@ -1,6 +1,8 @@
+@import "~app/styles/variables/colors.scss";
+
 .allskytimelapse-video {
   max-width: 100%;
-  height: auto;
+  height: 202px;
   min-height: auto;
   max-height: auto;
 
@@ -20,4 +22,6 @@
 .live-allskytimelapse {
   display: block;
   line-height: 1; // to clear an empty space after <video>
+  margin-top: 20px;
+  background-color: $light-black;
 }
