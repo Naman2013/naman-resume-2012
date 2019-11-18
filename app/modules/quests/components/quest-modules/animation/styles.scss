@@ -1,4 +1,5 @@
 @import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
 
 .animation-module {
   .animation-edit,
@@ -90,7 +91,7 @@
 
         .buttons-block {
           border-right: 1px solid $dark-border;
-          padding-right: 10px;
+          padding-right: 15px;
           margin-right: 20px;
         }
 
@@ -111,7 +112,7 @@
         &.zoom-btn,
         &.animation-view-btn {
           padding: 15px;
-          margin-right: 10px;
+          margin: 0 5px;
 
           &.move-btn-up,
           &.move-btn-down {
@@ -144,6 +145,43 @@
         margin-right: 10px;
         width: calc(100% - 16px);
       }
+
+      .animation-controls {
+        margin-top: 20px;
+
+        &.edit-controls {
+          justify-content: space-around;
+
+          .controls-block {
+            flex: 1 0 50%;
+          }
+        }
+
+        .controls-block {
+          margin-bottom: 10px;
+
+          .buttons-block {
+            border: none;
+            margin: 0;
+            padding: 0;
+          }
+
+          p {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include xsm {
+  .animation-module {
+    margin: 0 -20px;
+    padding-top: 20px;
+
+    .animation-box {
+      padding: 15px;
     }
   }
 }
