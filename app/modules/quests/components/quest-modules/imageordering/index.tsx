@@ -5,6 +5,7 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
+import { PreviewModal } from 'app/modules/quests/components/quest-modules/imageordering/preview-modal';
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
 
@@ -23,6 +24,10 @@ type ImageorderingProps = {
 };
 
 export class Imageordering extends React.PureComponent<ImageorderingProps> {
+  state = {
+    previewModalVisible: true,
+  };
+
   componentDidMount(): void {
     const { module, questId, stepData } = this.props;
     const { questUUID } = stepData;
@@ -65,7 +70,16 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
     // });
   };
 
+  showPreviewModal = () => {
+    this.setState({ previewModalVisible: false });
+  };
+
+  closePreviewModal = () => {
+    this.setState({ previewModalVisible: false });
+  };
+
   render() {
+    const { previewModalVisible } = this.state;
     const { module, readOnly } = this.props;
     // const {
     //   activityTitle,
@@ -84,6 +98,10 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
         />
 
         <div className="quest-qa-instructions">activityInstructions</div>
+
+        {previewModalVisible && (
+          <PreviewModal show completed onHide={this.closePreviewModal} />
+        )}
 
         {/*<QuestQaAnswerForm
           moduleData={{}}

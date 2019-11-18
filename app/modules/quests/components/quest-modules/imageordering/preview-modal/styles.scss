@@ -1,0 +1,46 @@
+@import '~app/styles/variables/colors';
+@import '~app/styles/variables/media-queries';
+
+.montage-preview-modal {
+  color: $white;
+  text-align: center;
+
+  .montage-preview-header {
+    h2 {
+      margin-top: 10px;
+    }
+
+    h6 {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  }
+
+  .montage-preview-body {
+    margin-top: 54px;
+
+    .montage-preview-img {
+      max-width: 100%;
+    }
+  }
+
+  .montage-preview-footer {
+    margin-top: 60px;
+
+    .finish-btn {
+      margin-right: 60px;
+    }
+  }
+
+  @media (max-width: $screen-sm-min) {
+    .montage-preview-footer {
+      display: flex;
+      justify-content: space-between;
+
+      .finish-btn {
+        margin-right: 0;
+      }
+    }
+  }
+}
