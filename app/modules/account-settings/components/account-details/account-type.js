@@ -82,7 +82,7 @@ const AccountType = props => {
                         {accountTypeHeading}
                       </h4>
                       <hr className="hr" />
-                      <h2 className="h-2 h-2-lg h-2-dark pad-top-15 pad-bot-10">
+                      <h2 className="h-2 h-2-lg h-2-dark pad-top-15 pad-bot-10 text-capitalize">
                         {planName}
                       </h2>
                       <hr className="hr" />
