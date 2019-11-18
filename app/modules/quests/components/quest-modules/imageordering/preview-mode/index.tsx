@@ -11,9 +11,10 @@ type PreviewModeProps = {
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
   const { goToEdit, goToFinish, completed } = props;
+
   return (
     <Modal show onHide={goToEdit} goBackText="GO BACK" disableGoBack={false}>
-      <div className="montage-preview-modal">
+      <div className="montage-preview-mode">
         <div className="montage-preview-header">
           <h6>Your montage progress</h6>
           <h2>Almost there, keep up the good work!</h2>

@@ -8,8 +8,8 @@ import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit';
-import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish';
-import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview';
+import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
+import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
 
 type ImageorderingProps = {
   module: IQuestStepModule;
@@ -107,7 +107,7 @@ export class Imageordering extends React.PureComponent<
     // } = richTextInputModule;
 
     return (
-      <div className="rich-text-module quest-qa-free-form">
+      <div className="montage-module">
         <h1>Imageordering</h1>
         <QuestStepModuleHeader
           title="activityTitle"
@@ -120,6 +120,7 @@ export class Imageordering extends React.PureComponent<
         {mode === Mode.edit && <EditMode goToPreview={this.goToPreviewMode} />}
         {mode === Mode.preview && (
           <PreviewMode
+            completed
             goToEdit={this.goToEditMode}
             goToFinish={this.goToFinishMode}
           />
