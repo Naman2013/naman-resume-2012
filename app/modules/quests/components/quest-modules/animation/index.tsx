@@ -115,7 +115,7 @@ export class AnimationModule extends React.PureComponent<
 
     fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
-      let fabricImage = new fabric.Image(img, imgAttrs);
+      const fabricImage = new fabric.Image(img, imgAttrs);
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
@@ -375,22 +375,25 @@ export class AnimationModule extends React.PureComponent<
       ({ empty }: IAnimationFrame): any => !empty
     );
 
-    this.setState({
-      activeAnimationStep: ANIMATION_STEPS.PLAY,
-      previewFrameList,
-    });
+    this.setState(
+      {
+        activeAnimationStep: ANIMATION_STEPS.PLAY,
+        previewFrameList,
+      },
+      () => {
+        const canvasObjects = this.canvas.getObjects();
 
-    const canvasObjects = this.canvas.getObjects();
-
-    canvasObjects.map((item: any): any => {
-      item.set({ visible: false, opacity: 1 });
-      return item;
-    });
-    if (previewZoomLevel === 'default') {
-      this.canvas.setZoom(previewZoomLevel);
-    }
-    this.canvas.renderAll();
-    this.previewAnimationStart(previewDelaySlow);
+        canvasObjects.map((item: any): any => {
+          item.set({ visible: false, opacity: 1 });
+          return item;
+        });
+        if (previewZoomLevel === 'default') {
+          this.canvas.setZoom(previewZoomLevel);
+        }
+        this.canvas.renderAll();
+        this.previewAnimationStart(previewDelaySlow);
+      }
+    );
   };
 
   changeActivePreviewImage = (prevIndex: number, nextIndex: number): void => {
@@ -442,24 +445,30 @@ export class AnimationModule extends React.PureComponent<
   onEdit = (): any => {
     const {
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+
     const canvasObjects = this.canvas.getObjects();
 
     canvasObjects.map((item: any, index: number): any => {
       item.set({ visible: false, opacity: frameList[index].empty ? 1 : 0.5 });
       return item;
     });
+
+    const newZoom = zoom || magnificationDefault;
+
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : zoom / 100);
+    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
     this.canvas.renderAll();
   };
 
