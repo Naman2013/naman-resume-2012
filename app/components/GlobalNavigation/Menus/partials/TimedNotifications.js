@@ -61,8 +61,8 @@ class TimedNotifications extends Component<TTimedNotifications> {
       if (!_alert.active) {
         timers.push(
           setTimeout(() => {
-            const latestAlerts = this.state.alerts;
-            const newAlerts = latestAlerts.map(_storedAlert => {
+            const alerts = this.state;
+            const newAlerts = alerts.map(_storedAlert => {
               const { notificationsCount } = this.props;
               if (_storedAlert.eventId === _alert.eventId) {
                 _storedAlert.active = true;
@@ -99,37 +99,34 @@ class TimedNotifications extends Component<TTimedNotifications> {
   };
 
   dismissAlert = eventId => {
-    this.props
-      .dismissNotification({
-        eventId,
-      })
-      .then(res => {
-        if (res.successFlag) {
-          const dismissedAlerts = [].concat(
-            this.state.dismissedAlerts,
-            eventId
-          );
-          const newAlerts = this.state.alerts.filter(
-            _storedAlert => _storedAlert.eventId !== eventId
-          );
-          this.setState(() => ({
-            alerts: newAlerts,
-            dismissedAlerts,
-          }));
-        }
+    const { dismissNotification } = this.props;
+    const { alerts, dismissedAlerts: dismissedAlertsFromState } = this.state;
+    dismissNotification({
+      eventId,
+    }).then(res => {
+      if (res.successFlag) {
+        const dismissedAlerts = [].concat(dismissedAlertsFromState, eventId);
+        const newAlerts = alerts.filter(
+          _storedAlert => _storedAlert.eventId !== eventId
+        );
+        this.setState(() => ({
+          alerts: newAlerts,
+          dismissedAlerts,
+        }));
+      }
 
-        if (!res.error) {
-          this.setState({
-            showPrompt: res.showResponse,
-            promptText: res.response,
-          });
-        } else {
-          this.setState({
-            showPrompt: true,
-            promptText: 'There was an error.',
-          });
-        }
-      });
+      if (!res.error) {
+        this.setState({
+          showPrompt: res.showResponse,
+          promptText: res.response,
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: 'There was an error.',
+        });
+      }
+    });
   };
 
   dismissAllAlert = () => {
@@ -140,13 +137,11 @@ class TimedNotifications extends Component<TTimedNotifications> {
       eventId: 'all',
     }).then(res => {
       if (res.successFlag) {
-        let { dismissedAlerts } = this.state;
-        alerts.forEach(item => {
-          dismissedAlerts.push(item.eventId);
-        });
+        const newDismissedAlerts = alerts.map(item => item.eventId);
+
         this.setState(() => ({
           alerts: [],
-          dismissedAlerts,
+          dismissedAlerts: newDismissedAlerts,
         }));
 
         updateNotificationsCount({
@@ -198,7 +193,11 @@ class TimedNotifications extends Component<TTimedNotifications> {
 
     return (
       <div>
-        <MenuTitleBar title="Alerts" dismissAllAlert={this.dismissAllAlert} disableAlert={notificationsCount} />
+        <MenuTitleBar
+          title="Alerts"
+          dismissAllAlert={this.dismissAllAlert}
+          disableAlert={!notificationsCount}
+        />
         <MenuList
           items={notificationConfig({
             alerts,
@@ -212,7 +211,12 @@ class TimedNotifications extends Component<TTimedNotifications> {
           contentLabel="Notifications"
           onRequestClose={this.closeModal}
         >
-          <i className="fa fa-close" onClick={this.closeModal} />
+          <i
+            className="fa fa-close"
+            onClick={this.closeModal}
+            tabIndex="0"
+            role="button"
+          />
           {promptText}
         </Modal>
         <style jsx>{`

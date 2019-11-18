@@ -18,15 +18,23 @@ const defaultProps = {
   iconURL: '',
 };
 
-const MenuTitleBar = ({ title, iconURL, children, dismissAllAlert, disableAlert }) => {
+const MenuTitleBar = ({
+  title,
+  iconURL,
+  children,
+  dismissAllAlert,
+  disableAlert,
+}) => {
   return (
     <div className="root">
       <div className="tippy-top">
         {title ? <h4 className="title">{title}</h4> : null}
         {dismissAllAlert ? (
-          <Button onClick={dismissAllAlert} disabled={!disableAlert}>Dismiss All</Button>
+          <Button onClick={dismissAllAlert} disabled={disableAlert}>
+            Dismiss All
+          </Button>
         ) : null}
-        {iconURL ? <img src={iconURL} className="icon" /> : null}
+        {iconURL ? <img src={iconURL} className="icon" alt="" /> : null}
       </div>
       {children ? <div className="large">{children}</div> : null}
       <style jsx>{`
