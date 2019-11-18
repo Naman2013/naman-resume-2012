@@ -130,7 +130,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
   };
 
   dismissAllAlert = () => {
-    const { alerts } = this.state;
+    const { alerts, dismissedAlerts } = this.state;
     const { dismissNotification, updateNotificationsCount } = this.props;
 
     dismissNotification({
@@ -141,7 +141,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
 
         this.setState(() => ({
           alerts: [],
-          dismissedAlerts: newDismissedAlerts,
+          dismissedAlerts: [...dismissedAlerts, ...newDismissedAlerts],
         }));
 
         updateNotificationsCount({
