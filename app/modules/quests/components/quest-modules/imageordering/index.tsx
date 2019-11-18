@@ -5,9 +5,11 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
-import { PreviewModal } from 'app/modules/quests/components/quest-modules/imageordering/preview-modal';
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
+import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit';
+import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish';
+import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview';
 
 type ImageorderingProps = {
   module: IQuestStepModule;
@@ -23,9 +25,23 @@ type ImageorderingProps = {
   // richTextInputModule: ImageorderingModuleResponse;
 };
 
-export class Imageordering extends React.PureComponent<ImageorderingProps> {
-  state = {
-    previewModalVisible: true,
+enum Mode {
+  edit,
+  preview,
+  finish,
+  review,
+}
+
+type ImageorderingState = {
+  mode: Mode;
+};
+
+export class Imageordering extends React.PureComponent<
+  ImageorderingProps,
+  ImageorderingState
+> {
+  readonly state: ImageorderingState = {
+    mode: Mode.edit,
   };
 
   componentDidMount(): void {
@@ -70,16 +86,18 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
     // });
   };
 
-  showPreviewModal = () => {
-    this.setState({ previewModalVisible: false });
-  };
+  onChangeMode = (mode: Mode): void => this.setState({ mode });
 
-  closePreviewModal = () => {
-    this.setState({ previewModalVisible: false });
-  };
+  goToEditMode = (): void => this.onChangeMode(Mode.edit);
+
+  goToPreviewMode = (): void => this.onChangeMode(Mode.preview);
+
+  goToFinishMode = (): void => this.onChangeMode(Mode.finish);
+
+  goToReviewMode = (): void => this.onChangeMode(Mode.review);
 
   render() {
-    const { previewModalVisible } = this.state;
+    const { mode } = this.state;
     const { module, readOnly } = this.props;
     // const {
     //   activityTitle,
@@ -99,16 +117,17 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
 
         <div className="quest-qa-instructions">activityInstructions</div>
 
-        {previewModalVisible && (
-          <PreviewModal show completed onHide={this.closePreviewModal} />
+        {mode === Mode.edit && <EditMode goToPreview={this.goToPreviewMode} />}
+        {mode === Mode.preview && (
+          <PreviewMode
+            goToEdit={this.goToEditMode}
+            goToFinish={this.goToFinishMode}
+          />
         )}
-
-        {/*<QuestQaAnswerForm
-          moduleData={{}}
-          onClick={this.onAction}
-          readOnly={readOnly}
-          richTextEditor
-        />*/}
+        {mode === Mode.finish && (
+          <FinishMode goToReview={this.goToReviewMode} />
+        )}
+        {mode === Mode.review && <EditMode readonly />}
       </div>
     );
   }
