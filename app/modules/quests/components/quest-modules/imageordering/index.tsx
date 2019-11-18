@@ -7,6 +7,9 @@ import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
+import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit';
+import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish';
+import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview';
 
 type ImageorderingProps = {
   module: IQuestStepModule;
@@ -22,7 +25,20 @@ type ImageorderingProps = {
   // richTextInputModule: ImageorderingModuleResponse;
 };
 
-export class Imageordering extends React.PureComponent<ImageorderingProps> {
+type ModesType = 'edit' | 'preview' | 'finish' | 'review';
+
+type ImageorderingState = {
+  mode: ModesType;
+};
+
+export class Imageordering extends React.PureComponent<
+  ImageorderingProps,
+  ImageorderingState
+> {
+  readonly state: ImageorderingState = {
+    mode: 'edit',
+  };
+
   componentDidMount(): void {
     const { module, questId, stepData } = this.props;
     const { questUUID } = stepData;
@@ -65,7 +81,18 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
     // });
   };
 
+  onChangeMode = (mode: ModesType = 'edit') => this.setState({ mode });
+
+  goToEditMode = () => this.onChangeMode('edit');
+
+  goToPreviewMode = () => this.onChangeMode('preview');
+
+  goToFinishMode = () => this.onChangeMode('finish');
+
+  goToReviewMode = () => this.onChangeMode('review');
+
   render() {
+    const { mode } = this.state;
     const { module, readOnly } = this.props;
     // const {
     //   activityTitle,
@@ -84,6 +111,16 @@ export class Imageordering extends React.PureComponent<ImageorderingProps> {
         />
 
         <div className="quest-qa-instructions">activityInstructions</div>
+
+        {mode === 'edit' && <EditMode goToPreview={this.goToPreviewMode} />}
+        {mode === 'preview' && (
+          <PreviewMode
+            goToEdit={this.goToEditMode}
+            goToFinish={this.goToFinishMode}
+          />
+        )}
+        {mode === 'finish' && <FinishMode goToReview={this.goToReviewMode} />}
+        {mode === 'review' && <EditMode readonly />}
 
         {/*<QuestQaAnswerForm
           moduleData={{}}
