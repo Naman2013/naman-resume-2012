@@ -505,10 +505,12 @@ export class AnimationModule extends React.PureComponent<
     const {
       setActiveFrame,
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
@@ -517,7 +519,7 @@ export class AnimationModule extends React.PureComponent<
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
-      this.canvas.setZoom(zoom / 100);
+      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
     }
 
     if (frame.empty) {
