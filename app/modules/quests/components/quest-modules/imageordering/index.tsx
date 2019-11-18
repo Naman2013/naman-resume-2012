@@ -25,10 +25,15 @@ type ImageorderingProps = {
   // richTextInputModule: ImageorderingModuleResponse;
 };
 
-type ModesType = 'edit' | 'preview' | 'finish' | 'review';
+enum Mode {
+  edit,
+  preview,
+  finish,
+  review,
+}
 
 type ImageorderingState = {
-  mode: ModesType;
+  mode: Mode;
 };
 
 export class Imageordering extends React.PureComponent<
@@ -36,7 +41,7 @@ export class Imageordering extends React.PureComponent<
   ImageorderingState
 > {
   readonly state: ImageorderingState = {
-    mode: 'edit',
+    mode: Mode.edit,
   };
 
   componentDidMount(): void {
@@ -81,15 +86,15 @@ export class Imageordering extends React.PureComponent<
     // });
   };
 
-  onChangeMode = (mode: ModesType = 'edit') => this.setState({ mode });
+  onChangeMode = (mode: Mode): void => this.setState({ mode });
 
-  goToEditMode = () => this.onChangeMode('edit');
+  goToEditMode = (): void => this.onChangeMode(Mode.edit);
 
-  goToPreviewMode = () => this.onChangeMode('preview');
+  goToPreviewMode = (): void => this.onChangeMode(Mode.preview);
 
-  goToFinishMode = () => this.onChangeMode('finish');
+  goToFinishMode = (): void => this.onChangeMode(Mode.finish);
 
-  goToReviewMode = () => this.onChangeMode('review');
+  goToReviewMode = (): void => this.onChangeMode(Mode.review);
 
   render() {
     const { mode } = this.state;
@@ -112,22 +117,17 @@ export class Imageordering extends React.PureComponent<
 
         <div className="quest-qa-instructions">activityInstructions</div>
 
-        {mode === 'edit' && <EditMode goToPreview={this.goToPreviewMode} />}
-        {mode === 'preview' && (
+        {mode === Mode.edit && <EditMode goToPreview={this.goToPreviewMode} />}
+        {mode === Mode.preview && (
           <PreviewMode
             goToEdit={this.goToEditMode}
             goToFinish={this.goToFinishMode}
           />
         )}
-        {mode === 'finish' && <FinishMode goToReview={this.goToReviewMode} />}
-        {mode === 'review' && <EditMode readonly />}
-
-        {/*<QuestQaAnswerForm
-          moduleData={{}}
-          onClick={this.onAction}
-          readOnly={readOnly}
-          richTextEditor
-        />*/}
+        {mode === Mode.finish && (
+          <FinishMode goToReview={this.goToReviewMode} />
+        )}
+        {mode === Mode.review && <EditMode readonly />}
       </div>
     );
   }
