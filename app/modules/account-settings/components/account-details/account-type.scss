@@ -38,25 +38,7 @@
   }
 }
 
-@include md {
-  .account-general {
-    .list-with-params {
-      li {
-        &:first-child {
-          padding-left: 15px;
-        }
-
-        &:last-child {
-          flex: 1 1 100%;
-          border-left: none;
-          border-top: 1px solid $hr-silver;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 1200px) and (min-width: 1024px) {
+@media (max-width: 1200px) and (min-width: 768px) {
   .account-general {
     .list-with-params {
       li {
