@@ -80,9 +80,8 @@ export class RichTextInput extends React.PureComponent<RichTextInputProps> {
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
           sequenceText={activitySequenceText}
+          instructions={activityInstructions}
         />
-
-        <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
           moduleData={richTextInputModule || {}}

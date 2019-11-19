@@ -203,6 +203,13 @@ export declare interface IAnimationFrame {
 }
 
 export declare interface IQuestAnimationFrames extends StandardResponse {
+  activityCompleteIconURL: string;
+  activityInstructions: string;
+  activityPrompt: string;
+  activitySequenceNumber: number;
+  activitySequenceText: string;
+  activityStatus: string;
+  activityTitle: string;
   animationId: number;
   animationUserId: number;
   frameCount: number;

@@ -27,6 +27,14 @@
   .quest-step-module-mobile-title-container {
     display: none;
   }
+
+  .quest-step-module-instructions {
+    margin-top: 20px;
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.5;
+    color: $raven;
+  }
 }
 
 @include media-breakpoint-down(sm) {
