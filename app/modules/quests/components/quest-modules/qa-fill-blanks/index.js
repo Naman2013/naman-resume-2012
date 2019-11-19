@@ -87,9 +87,8 @@ export class QuestModuleQaFillBlanks extends PureComponent {
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
           sequenceText={activitySequenceText}
+          instructions={activityInstructions}
         />
-
-        <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
           moduleData={questQaFillBlanks[moduleId] || {}}

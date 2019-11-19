@@ -3,7 +3,7 @@ import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbo
 import './styles.scss';
 
 export const QuestStepModuleHeader = props => {
-  const { title, completed, sequenceText } = props;
+  const { title, completed, sequenceText, instructions } = props;
 
   return (
     <div className="quest-step-module-header">
@@ -15,6 +15,7 @@ export const QuestStepModuleHeader = props => {
         <div className="quest-step-module-title">{title}</div>
         <CompleteCheckbox completed={completed} />
       </div>
+      <div className="quest-step-module-instructions">{instructions}</div>
     </div>
   );
 };

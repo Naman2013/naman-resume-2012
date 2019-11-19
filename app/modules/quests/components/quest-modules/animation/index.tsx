@@ -567,14 +567,21 @@ export class AnimationModule extends React.PureComponent<
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const { previewHeading, previewSubheading } = questAnimation;
-    const { frameList } = questAnimationFrames;
+    const {
+      frameList,
+      activityStatus,
+      activityTitle,
+      activityInstructions,
+      activitySequenceText,
+    } = questAnimationFrames;
 
     return (
       <div className="animation-module">
         <QuestStepModuleHeader
-          title="activityTitle"
-          completed
-          sequenceText="activitySequenceText"
+          title={activityTitle}
+          completed={activityStatus === 'complete'}
+          sequenceText={activitySequenceText}
+          instructions={activityInstructions}
         />
         <div
           className={cx({

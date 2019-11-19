@@ -22,7 +22,7 @@ const sliderSettings = {
   swipeToSlide: false,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToScroll: 3,
 };
 
 const NextArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
