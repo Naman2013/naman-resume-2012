@@ -1,20 +1,20 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import {
-  getRichTextInputModule,
-  setRichTextInputModule,
+  getImageorderingModule,
+  setImageorderingModule,
 } from 'app/modules/quests/thunks';
 import { makeQuestsStepDataSelector } from 'app/modules/quests/selectors';
 import { Imageordering } from 'app/modules/quests/components/quest-modules/imageordering';
 
 const mapStateToProps = (state: any, props: any) => ({
   stepData: makeQuestsStepDataSelector()(state),
-  // richTextInputModule: state.quests.richTextInputModules[props.moduleId] || {},
+  imageorderingModule: state.quests.imageorderingModules[props.moduleId] || {},
 });
 
 const mapDispatchToProps = {
-  // getRichTextInputModule,
-  // setRichTextInputModule,
+  getImageorderingModule,
+  setImageorderingModule,
 };
 
 export default compose(

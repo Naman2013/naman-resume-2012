@@ -18,11 +18,11 @@ type ImageorderingProps = {
   stepData: any;
   questId: string;
   navigateToNextStep: Function;
-  // getImageorderingModule: Function;
-  // setImageorderingModule: Function;
+  getImageorderingModule: Function;
+  setImageorderingModule: Function;
   refreshQuestStep: Function;
 
-  // richTextInputModule: ImageorderingModuleResponse;
+  // imageOrderingModule: ImageorderingModuleResponse;
 };
 
 enum Mode {
@@ -45,27 +45,27 @@ export class Imageordering extends React.PureComponent<
   };
 
   componentDidMount(): void {
-    const { module, questId, stepData } = this.props;
+    const { module, questId, stepData, getImageorderingModule } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
 
-    // getImageorderingModule({
-    //   questId,
-    //   questUUID,
-    //   moduleId,
-    //   moduleUUID,
-    // });
+    getImageorderingModule({
+      questId,
+      questUUID,
+      moduleId,
+      moduleUUID,
+    });
   }
 
   onAction = (action: string, answerText: string) => {
     // const {
     //   setImageorderingModule,
     //   module,
-    //   richTextInputModule,
+    //   imageOrderingModule,
     //   refreshQuestStep,
     // } = this.props;
     // const { moduleId } = module;
-    // const { questId, questUUID, moduleUUID } = richTextInputModule;
+    // const { questId, questUUID, moduleUUID } = imageOrderingModule;
     //
     // setImageorderingModule({
     //   questId,
@@ -104,7 +104,7 @@ export class Imageordering extends React.PureComponent<
     //   activityState,
     //   activitySequenceText,
     //   activityInstructions,
-    // } = richTextInputModule;
+    // } = imageOrderingModule;
 
     return (
       <div className="rich-text-module quest-qa-free-form">
