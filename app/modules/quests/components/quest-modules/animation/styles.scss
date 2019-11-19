@@ -129,6 +129,10 @@
           padding: 13px;
         }
 
+        &:disabled {
+          pointer-events: none;
+        }
+
         div {
           font-size: 11px;
         }
