@@ -3,6 +3,7 @@ import { questModuleType } from 'app/modules/quests/data';
 import { IQuestStepModule } from 'app/modules/quests/types';
 import AnimationModule from 'app/modules/quests/containers/quest-modules/animation';
 import RichTextModule from 'app/modules/quests/containers/quest-modules/rich-text-input';
+import Imageordering from 'app/modules/quests/containers/quest-modules/imageordering';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
 import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
@@ -110,6 +111,18 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             moduleId={module.moduleId}
             questId={routeParams.questId}
             key={`rich-text-module-input-${module.moduleId}`}
+            readOnly={readOnly}
+            refreshQuestStep={refreshQuestStep}
+          />
+        );
+
+      case questModuleType.imageordering:
+        return (
+          <Imageordering
+            module={module}
+            moduleId={module.moduleId}
+            questId={routeParams.questId}
+            key={`imageordering-${module.moduleId}`}
             readOnly={readOnly}
             refreshQuestStep={refreshQuestStep}
           />
