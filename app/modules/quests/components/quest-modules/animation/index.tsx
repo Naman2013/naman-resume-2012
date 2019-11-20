@@ -60,6 +60,14 @@ export class AnimationModule extends React.PureComponent<
 
   previewAnimationInterval: ReturnType<typeof setInterval>;
 
+  isDragging: boolean;
+
+  lastPosX: number;
+
+  lastPosY: number;
+
+  vpt: Array<number>;
+
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
     activePreviewImage: 0,
@@ -81,6 +89,62 @@ export class AnimationModule extends React.PureComponent<
     this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.onPageRezise();
+
+    this.initCanvasPan();
+  };
+
+  initCanvasPan = (): void => {
+    this.canvas.on('mouse:down', ({ e }: any): void => {
+      // set dragging true
+      this.isDragging = true;
+      this.lastPosX = e.clientX;
+      this.lastPosY = e.clientY;
+    });
+
+    this.canvas.on('mouse:move', ({ e }: any): void => {
+      if (this.isDragging) {
+        // calculate dragging to true
+        this.vpt = [...this.canvas.viewportTransform];
+        this.vpt[4] += e.clientX - this.lastPosX;
+        this.vpt[5] += e.clientY - this.lastPosY;
+        this.lastPosX = e.clientX;
+        this.lastPosY = e.clientY;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const zoom = this.canvas.getZoom();
+        const containerWidth =
+          this.canvasContainer.getBoundingClientRect().width - 2;
+
+        this.canvas.viewportTransform = [...this.vpt];
+        const rightEdge = this.canvas.getWidth() - containerWidth * zoom;
+        const bottomEdge = this.canvas.getHeight() - containerWidth * zoom;
+
+        // check if end of the canvas
+        if (this.vpt[4] >= 0) {
+          this.canvas.viewportTransform[4] = 0;
+          this.vpt[4] = 0;
+        } else if (this.vpt[4] < rightEdge) {
+          this.canvas.viewportTransform[4] = rightEdge;
+          this.vpt[4] = rightEdge;
+        }
+
+        if (this.vpt[5] >= 0) {
+          this.canvas.viewportTransform[5] = 0;
+          this.vpt[5] = 0;
+        } else if (this.vpt[5] < bottomEdge) {
+          this.canvas.viewportTransform[5] = bottomEdge;
+          this.vpt[5] = bottomEdge;
+        }
+
+        this.canvas.renderAll();
+      }
+    });
+
+    this.canvas.on('mouse:up', (opt: any): void => {
+      this.isDragging = false;
+    });
   };
 
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
@@ -103,7 +167,7 @@ export class AnimationModule extends React.PureComponent<
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      hoverCursor: 'auto',
+      //hoverCursor: 'auto',
       left: empty ? 0 : xOffset,
       top: empty ? 0 : -yOffset,
       opacity: frameIndex > 1 && !empty ? 0.5 : 1,
@@ -520,10 +584,13 @@ export class AnimationModule extends React.PureComponent<
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
       this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
+      this.canvas.viewportTransform = [...this.vpt];
     }
 
     if (frame.empty) {
       this.canvas.setZoom(1);
+      this.canvas.viewportTransform[4] = 0;
+      this.canvas.viewportTransform[5] = 0;
     }
 
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
