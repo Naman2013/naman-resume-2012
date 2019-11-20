@@ -97,21 +97,20 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.on('mouse:down', ({ e }: any): void => {
       // set dragging true
       this.isDragging = true;
-      this.lastPosX = e.clientX;
-      this.lastPosY = e.clientY;
+      this.lastPosX = e.clientX || e.changedTouches[0].clientX;
+      this.lastPosY = e.clientY || e.changedTouches[0].clientY;
     });
 
     this.canvas.on('mouse:move', ({ e }: any): void => {
       if (this.isDragging) {
+        const evt = e.type === 'mousemove' ? e : e.changedTouches[0];
+
         // calculate dragging to true
         this.vpt = [...this.canvas.viewportTransform];
-        this.vpt[4] += e.clientX - this.lastPosX;
-        this.vpt[5] += e.clientY - this.lastPosY;
-        this.lastPosX = e.clientX;
-        this.lastPosY = e.clientY;
-
-        e.preventDefault();
-        e.stopPropagation();
+        this.vpt[4] += evt.clientX - this.lastPosX;
+        this.vpt[5] += evt.clientY - this.lastPosY;
+        this.lastPosX = evt.clientX;
+        this.lastPosY = evt.clientY;
 
         const zoom = this.canvas.getZoom();
         const containerWidth =
