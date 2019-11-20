@@ -613,7 +613,6 @@ export class AnimationModule extends React.PureComponent<
       xOffset,
       yOffset,
       offsetReference,
-      serializedFramesAll: JSON.stringify(this.canvas),
     };
     setAnimation(data);
   };

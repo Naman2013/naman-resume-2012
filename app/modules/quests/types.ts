@@ -196,7 +196,6 @@ export declare interface IAnimationFrame {
   negative: boolean;
   objectId: number;
   offsetReference: string;
-  serializedFrame: any;
   touched: boolean;
   xOffset: number;
   yOffset: number;
