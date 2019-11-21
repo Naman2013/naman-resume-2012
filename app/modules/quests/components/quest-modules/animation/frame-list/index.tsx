@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import cx from 'classnames';
 import Slider from 'react-slick';
 import { IAnimationFrame } from 'app/modules/quests/types';
@@ -16,13 +16,15 @@ type SliderArrowProps = {
   onClick?: Function;
 };
 
+const SLIDES_TO_SHOW = 3;
+
 const sliderSettings = {
   draggable: false,
   infinite: false,
   swipeToSlide: false,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToShow: SLIDES_TO_SHOW,
+  slidesToScroll: 3,
 };
 
 const NextArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
@@ -61,8 +63,16 @@ const PrevArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
 
 export const FrameList: React.FC<FrameListProps> = React.memo(props => {
   const { frameList, activeFrame, setActiveFrame } = props;
-  const { frameId } = activeFrame;
+  const { frameId, frameIndex } = activeFrame;
   const isArrowsVisible = frameList.length > 3;
+
+  let slider: any = null;
+
+  useEffect(() => {
+    if (frameIndex > SLIDES_TO_SHOW && slider) {
+      slider.slickGoTo(frameIndex - 1);
+    }
+  }, [frameIndex, slider]);
 
   return (
     <div className="frame-list">
@@ -72,6 +82,9 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
         prevArrow={<PrevArrow />}
         arrows={isArrowsVisible}
         className={cx({ 'arrows-visible': isArrowsVisible })}
+        ref={(node: any): void => {
+          slider = node;
+        }}
       >
         {frameList.map((frame: IAnimationFrame) => (
           <div key={frame.frameId}>

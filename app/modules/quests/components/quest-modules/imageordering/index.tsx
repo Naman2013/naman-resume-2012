@@ -7,7 +7,7 @@ import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
-import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit';
+import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview';
 
@@ -21,6 +21,7 @@ type ImageorderingProps = {
   getImageorderingModule: Function;
   setImageorderingModule: Function;
   refreshQuestStep: Function;
+  imageorderingModule: any;
 
   // imageOrderingModule: ImageorderingModuleResponse;
 };
@@ -40,7 +41,7 @@ export class Imageordering extends React.PureComponent<
   ImageorderingProps,
   ImageorderingState
 > {
-  readonly state: ImageorderingState = {
+  state = {
     mode: Mode.edit,
   };
 
@@ -98,7 +99,8 @@ export class Imageordering extends React.PureComponent<
 
   render() {
     const { mode } = this.state;
-    const { module, readOnly } = this.props;
+    const { module, readOnly, imageorderingModule } = this.props;
+
     // const {
     //   activityTitle,
     //   activityState,
@@ -115,9 +117,14 @@ export class Imageordering extends React.PureComponent<
           sequenceText="activitySequenceText"
         />
 
-        <div className="quest-qa-instructions">activityInstructions</div>
+        {/*<div className="quest-qa-instructions">activityInstructions</div>*/}
 
-        {mode === Mode.edit && <EditMode goToPreview={this.goToPreviewMode} />}
+        {mode === Mode.edit && (
+          <EditMode
+            goToPreview={this.goToPreviewMode}
+            imageOrderingModule={imageorderingModule}
+          />
+        )}
         {mode === Mode.preview && (
           <PreviewMode
             goToEdit={this.goToEditMode}
@@ -127,7 +134,9 @@ export class Imageordering extends React.PureComponent<
         {mode === Mode.finish && (
           <FinishMode goToReview={this.goToReviewMode} />
         )}
-        {mode === Mode.review && <EditMode readonly />}
+        {mode === Mode.review && (
+          <EditMode readonly imageOrderingModule={imageorderingModule} />
+        )}
       </div>
     );
   }

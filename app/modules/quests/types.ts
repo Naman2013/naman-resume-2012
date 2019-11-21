@@ -196,13 +196,19 @@ export declare interface IAnimationFrame {
   negative: boolean;
   objectId: number;
   offsetReference: string;
-  serializedFrame: any;
   touched: boolean;
   xOffset: number;
   yOffset: number;
 }
 
 export declare interface IQuestAnimationFrames extends StandardResponse {
+  activityCompleteIconURL: string;
+  activityInstructions: string;
+  activityPrompt: string;
+  activitySequenceNumber: number;
+  activitySequenceText: string;
+  activityStatus: string;
+  activityTitle: string;
   animationId: number;
   animationUserId: number;
   frameCount: number;

@@ -52,7 +52,7 @@ export const EditAnimationControls: React.FC<
   } = questAnimation;
 
   return (
-    <div className="animation-controls">
+    <div className="animation-controls edit-controls">
       <div className="controls-block">
         <div className="buttons-block">
           <Button

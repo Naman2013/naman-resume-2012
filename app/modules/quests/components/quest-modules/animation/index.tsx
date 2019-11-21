@@ -60,6 +60,14 @@ export class AnimationModule extends React.PureComponent<
 
   previewAnimationInterval: ReturnType<typeof setInterval>;
 
+  isDragging: boolean;
+
+  lastPosX: number;
+
+  lastPosY: number;
+
+  vpt: Array<number>;
+
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
     activePreviewImage: 0,
@@ -81,6 +89,62 @@ export class AnimationModule extends React.PureComponent<
     this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.onPageRezise();
+
+    this.initCanvasPan();
+  };
+
+  initCanvasPan = (): void => {
+    this.canvas.on('mouse:down', ({ e }: any): void => {
+      // set dragging true
+      this.isDragging = true;
+      this.lastPosX = e.clientX;
+      this.lastPosY = e.clientY;
+    });
+
+    this.canvas.on('mouse:move', ({ e }: any): void => {
+      if (this.isDragging) {
+        // calculate dragging to true
+        this.vpt = [...this.canvas.viewportTransform];
+        this.vpt[4] += e.clientX - this.lastPosX;
+        this.vpt[5] += e.clientY - this.lastPosY;
+        this.lastPosX = e.clientX;
+        this.lastPosY = e.clientY;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const zoom = this.canvas.getZoom();
+        const containerWidth =
+          this.canvasContainer.getBoundingClientRect().width - 2;
+
+        this.canvas.viewportTransform = [...this.vpt];
+        const rightEdge = this.canvas.getWidth() - containerWidth * zoom;
+        const bottomEdge = this.canvas.getHeight() - containerWidth * zoom;
+
+        // check if end of the canvas
+        if (this.vpt[4] >= 0) {
+          this.canvas.viewportTransform[4] = 0;
+          this.vpt[4] = 0;
+        } else if (this.vpt[4] < rightEdge) {
+          this.canvas.viewportTransform[4] = rightEdge;
+          this.vpt[4] = rightEdge;
+        }
+
+        if (this.vpt[5] >= 0) {
+          this.canvas.viewportTransform[5] = 0;
+          this.vpt[5] = 0;
+        } else if (this.vpt[5] < bottomEdge) {
+          this.canvas.viewportTransform[5] = bottomEdge;
+          this.vpt[5] = bottomEdge;
+        }
+
+        this.canvas.renderAll();
+      }
+    });
+
+    this.canvas.on('mouse:up', (opt: any): void => {
+      this.isDragging = false;
+    });
   };
 
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
@@ -103,7 +167,7 @@ export class AnimationModule extends React.PureComponent<
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      hoverCursor: 'auto',
+      //hoverCursor: 'auto',
       left: empty ? 0 : xOffset,
       top: empty ? 0 : -yOffset,
       opacity: frameIndex > 1 && !empty ? 0.5 : 1,
@@ -115,7 +179,7 @@ export class AnimationModule extends React.PureComponent<
 
     fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
-      let fabricImage = new fabric.Image(img, imgAttrs);
+      const fabricImage = new fabric.Image(img, imgAttrs);
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
@@ -375,22 +439,25 @@ export class AnimationModule extends React.PureComponent<
       ({ empty }: IAnimationFrame): any => !empty
     );
 
-    this.setState({
-      activeAnimationStep: ANIMATION_STEPS.PLAY,
-      previewFrameList,
-    });
+    this.setState(
+      {
+        activeAnimationStep: ANIMATION_STEPS.PLAY,
+        previewFrameList,
+      },
+      () => {
+        const canvasObjects = this.canvas.getObjects();
 
-    const canvasObjects = this.canvas.getObjects();
-
-    canvasObjects.map((item: any): any => {
-      item.set({ visible: false, opacity: 1 });
-      return item;
-    });
-    if (previewZoomLevel === 'default') {
-      this.canvas.setZoom(previewZoomLevel);
-    }
-    this.canvas.renderAll();
-    this.previewAnimationStart(previewDelaySlow);
+        canvasObjects.map((item: any): any => {
+          item.set({ visible: false, opacity: 1 });
+          return item;
+        });
+        if (previewZoomLevel === 'default') {
+          this.canvas.setZoom(previewZoomLevel);
+        }
+        this.canvas.renderAll();
+        this.previewAnimationStart(previewDelaySlow);
+      }
+    );
   };
 
   changeActivePreviewImage = (prevIndex: number, nextIndex: number): void => {
@@ -442,24 +509,30 @@ export class AnimationModule extends React.PureComponent<
   onEdit = (): any => {
     const {
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+
     const canvasObjects = this.canvas.getObjects();
 
     canvasObjects.map((item: any, index: number): any => {
       item.set({ visible: false, opacity: frameList[index].empty ? 1 : 0.5 });
       return item;
     });
+
+    const newZoom = zoom || magnificationDefault;
+
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : zoom / 100);
+    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
     this.canvas.renderAll();
   };
 
@@ -496,10 +569,12 @@ export class AnimationModule extends React.PureComponent<
     const {
       setActiveFrame,
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
@@ -508,11 +583,14 @@ export class AnimationModule extends React.PureComponent<
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
-      this.canvas.setZoom(zoom / 100);
+      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
+      this.canvas.viewportTransform = [...this.vpt];
     }
 
     if (frame.empty) {
       this.canvas.setZoom(1);
+      this.canvas.viewportTransform[4] = 0;
+      this.canvas.viewportTransform[5] = 0;
     }
 
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
@@ -535,7 +613,6 @@ export class AnimationModule extends React.PureComponent<
       xOffset,
       yOffset,
       offsetReference,
-      serializedFramesAll: JSON.stringify(this.canvas),
     };
     setAnimation(data);
   };
@@ -556,14 +633,21 @@ export class AnimationModule extends React.PureComponent<
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const { previewHeading, previewSubheading } = questAnimation;
-    const { frameList } = questAnimationFrames;
+    const {
+      frameList,
+      activityStatus,
+      activityTitle,
+      activityInstructions,
+      activitySequenceText,
+    } = questAnimationFrames;
 
     return (
       <div className="animation-module">
         <QuestStepModuleHeader
-          title="activityTitle"
-          completed
-          sequenceText="activitySequenceText"
+          title={activityTitle}
+          completed={activityStatus === 'complete'}
+          sequenceText={activitySequenceText}
+          instructions={activityInstructions}
         />
         <div
           className={cx({
