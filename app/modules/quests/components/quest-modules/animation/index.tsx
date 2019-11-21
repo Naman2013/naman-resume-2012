@@ -4,9 +4,9 @@ import cx from 'classnames';
 import {
   IQuestStepModule,
   IQuestAnimation,
-  IQuestAnimationFrames,
   IAnimationFrame,
   IQuestAnimationData,
+  IQuestAnimationFrames,
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';

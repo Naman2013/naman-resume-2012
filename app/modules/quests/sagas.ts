@@ -9,11 +9,8 @@ export default function* watchFetchImageorderingModule() {
 export function* fetchImageorderingModule(action: any) {
   try {
     const { at, token, cid } = yield select(state => state.user);
-    const payload = { at, token, cid };
-    const resp = yield call(getImageorderingModuleApi, {
-      payload,
-      ...action.data,
-    });
+    const payload = { at, token, cid, ...action.payload };
+    const resp = yield call(getImageorderingModuleApi, payload);
     yield put(ACTION.getImageorderingModuleSuccess(resp.data));
   } catch (error) {
     yield put(ACTION.getImageorderingModuleError(error));
