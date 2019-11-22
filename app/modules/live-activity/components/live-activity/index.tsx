@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
+import { browserHistory } from 'react-router';
 import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
 import { isMobileDevice } from 'app/services.ts';
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
+import { isEnter } from 'app/modules/utils/keyIdentifier';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -35,8 +37,30 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const setMessageIdToLocalStorage = (id: any) => {
+const setMessageIdToLocalStorage = (id: string) => {
   window.localStorage.setItem('newMessageId', id);
+};
+
+const contentClickHandler = (e: KeyboardEvent<HTMLInputElement>, setOpen) => {
+  // detect click on Link
+  if (e.target instanceof HTMLAnchorElement) {
+    const targetLink = e.target.closest('a');
+    e.preventDefault();
+    browserHistory.push(targetLink.href);
+
+    // if Mobile then close modal
+    const isMobile = isMobileDevice();
+
+    if (isMobile) {
+      setOpen(false);
+    }
+  }
+};
+
+const onKeyPressed = (e, setOpen) => {
+  if (isEnter(e)) {
+    contentClickHandler(e, setOpen);
+  }
 };
 
 const submitMessage = (
@@ -222,7 +246,11 @@ export const LiveActivity = (props: TLiveActivity) => {
                   className="live-activity-window-body-feed"
                 >
                   {activityFeedMessages.map(feedItem => (
-                    <FeedItem item={feedItem} />
+                    <FeedItem
+                      item={feedItem}
+                      contentClickHandler={e => contentClickHandler(e, setOpen)}
+                      onKeyPressed={e => onKeyPressed(e, setOpen)}
+                    />
                   ))}
                 </div>
               </div>
