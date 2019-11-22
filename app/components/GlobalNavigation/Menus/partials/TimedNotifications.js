@@ -66,9 +66,8 @@ class TimedNotifications extends Component<TTimedNotifications> {
       if (!_alert.active) {
         timers.push(
           setTimeout(() => {
-            const { alerts } = this.state;
-            const latestAlerts = alerts;
-            const newAlerts = latestAlerts.map(_storedAlert => {
+            const alerts = this.state;
+            const newAlerts = alerts.map(_storedAlert => {
               const { notificationsCount } = this.props;
               if (_storedAlert.eventId === _alert.eventId) {
                 _storedAlert.active = true;
@@ -136,6 +135,40 @@ class TimedNotifications extends Component<TTimedNotifications> {
     });
   };
 
+  dismissAllAlert = () => {
+    const { alerts, dismissedAlerts } = this.state;
+    const { dismissNotification, updateNotificationsCount } = this.props;
+
+    dismissNotification({
+      eventId: 'all',
+    }).then(res => {
+      if (res.successFlag) {
+        const newDismissedAlerts = alerts.map(item => item.eventId);
+
+        this.setState(() => ({
+          alerts: [],
+          dismissedAlerts: [...dismissedAlerts, ...newDismissedAlerts],
+        }));
+
+        updateNotificationsCount({
+          count: 0,
+        });
+      }
+
+      if (!res.error) {
+        this.setState({
+          showPrompt: res.showResponse,
+          promptText: res.response,
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: 'There was an error.',
+        });
+      }
+    });
+  };
+
   closeModal = () => {
     this.setState({
       showPrompt: false,
@@ -144,7 +177,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
   };
 
   render() {
-    const { notificationConfig } = this.props;
+    const { notificationConfig, notificationsCount } = this.props;
     const { alerts, showPrompt, promptText } = this.state;
 
     const customModalStyles = {
@@ -166,7 +199,11 @@ class TimedNotifications extends Component<TTimedNotifications> {
 
     return (
       <div>
-        <MenuTitleBar title="Alerts" />
+        <MenuTitleBar
+          title="Alerts"
+          dismissAllAlert={this.dismissAllAlert}
+          disableAlert={!notificationsCount}
+        />
         <MenuList
           items={notificationConfig({
             alerts,
@@ -180,7 +217,12 @@ class TimedNotifications extends Component<TTimedNotifications> {
           contentLabel="Notifications"
           onRequestClose={this.closeModal}
         >
-          <i className="fa fa-close" onClick={this.closeModal} />
+          <i
+            className="fa fa-close"
+            onClick={this.closeModal}
+            tabIndex="0"
+            role="button"
+          />
           {promptText}
         </Modal>
         <style jsx>{`

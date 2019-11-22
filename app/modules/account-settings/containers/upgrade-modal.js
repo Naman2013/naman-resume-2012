@@ -9,6 +9,7 @@ import { getSubscriptionPlans } from 'app/modules/account-settings/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { updateUserAt } from '../../login/actions';
 
 const mapStateToProps = createStructuredSelector({
   subscriptionPlansData: makeSubscriptionPlansDataSelector(),
@@ -17,6 +18,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getSubscriptionPlans,
+  storeUserNewAT: updateUserAt,
 };
 
 export default compose(

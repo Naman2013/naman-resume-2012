@@ -92,17 +92,27 @@
     font-family: $primary-font;
     position: relative;
 
-    .time {
-      width: 200px;
+    .mission-info {
+      width: 100%;
 
-      .large {
-        align-self: flex-end;
-        font-size: 60px;
-        font-weight: 400;
-        line-height: 1.13;
-        letter-spacing: 1.7px;
-        text-align: right;
-        position: relative;
+      .mission-datetime {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        .time {
+          width: 200px;
+
+          .large {
+            align-self: flex-end;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 1.13;
+            letter-spacing: 1.7px;
+            text-align: right;
+            position: relative;
+          }
+        }
       }
     }
 
@@ -166,6 +176,10 @@
       padding-top: 20px;
       padding-bottom: 0;
       min-height: unset;
+    }
+
+    .mission-status {
+      margin-top: 10px;
     }
 
     .time {

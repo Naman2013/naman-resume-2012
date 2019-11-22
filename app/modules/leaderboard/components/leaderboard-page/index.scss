@@ -1,0 +1,20 @@
+@import '~app/styles/variables/index';
+@import '~app/styles/mixins/index';
+
+.leaderboard-table-wrapper {
+  display: flex;
+
+  & > div {
+    flex: 1;
+
+    padding: 0 90px;
+  }
+
+  @include sm-low() {
+    flex-direction: column;
+
+    & > div {
+      padding: 0 20px;
+    }
+  }
+}

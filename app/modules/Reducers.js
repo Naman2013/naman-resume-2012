@@ -96,6 +96,7 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
 import galleryDetails from './gallery-details/reducer';
 import photoHubs from './profile-photos/reducer';
+import leaderboard from './leaderboard/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -195,4 +196,5 @@ export default combineReducers({
   galleryDetails,
   askAstronomer,
   photoHubs,
+  leaderboard,
 });

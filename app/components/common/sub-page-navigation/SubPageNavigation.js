@@ -14,12 +14,15 @@ const SubPageNavigation = ({ items, locationPath }) => {
 
   useEffect(() => {
     const el = ref.current.querySelector('.subnav-active');
-    el.parentNode.scrollTop = el.offsetTop;
-    el.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'start',
-    });
+
+    if (el) {
+      el.parentNode.scrollTop = el.offsetTop;
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
+    }
   }, [locationPath, ref]);
 
   return (

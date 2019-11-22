@@ -201,7 +201,7 @@ class Overview extends Component {
           <section className="blue-tile-bg">
             <DeviceProvider>
               <SterlingTitle
-                title="Featured Observation"
+                title="Most Recent Observation"
                 theme={{
                   title: { color: 'white' },
                   subTitle: { color: 'white' },

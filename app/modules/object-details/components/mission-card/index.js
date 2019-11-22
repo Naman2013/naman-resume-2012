@@ -20,7 +20,7 @@ export class MissionCard extends PureComponent {
       userHasReservation,
       telescopePierName,
       showDotMenu,
-      scheduledMissionId,
+      missionStatusText,
     } = timeSlot;
     const {
       displayWeekdayMonthDayUTC,
@@ -34,6 +34,7 @@ export class MissionCard extends PureComponent {
           profileMission ? ' profile-mission' : ''
         }`}
         onClick={onClickHandler}
+        role="presentation"
       >
         <div className="left">
           <div className="mission-title">{title || missionTitle}</div>
@@ -52,12 +53,23 @@ export class MissionCard extends PureComponent {
               />
             )}
           </div>
-          <div className="date">{displayWeekdayMonthDayUTC}</div>
-          <div className="time">
-            <div className="large">
-              {displayTime}
-              <span className="timezone">{displayTimeZone}</span>
+
+          <div className="mission-info">
+            <div className="mission-datetime">
+              <div className="date">{displayWeekdayMonthDayUTC}</div>
+
+              <div className="time">
+                <div className="large">
+                  {displayTime}
+                  <span className="timezone">{displayTimeZone}</span>
+                </div>
+              </div>
             </div>
+
+            <div
+              className="mission-status"
+              dangerouslySetInnerHTML={{ __html: missionStatusText }}
+            />
           </div>
         </div>
 
@@ -86,6 +98,11 @@ export class MissionCard extends PureComponent {
             <div className="date">{displayWeekdayMonthDayUTC}</div>
             <span>{telescopeName || telescopePierName}</span>
           </div>
+
+          <div
+            className="mission-status"
+            dangerouslySetInnerHTML={{ __html: missionStatusText }}
+          />
         </div>
       </div>
     );

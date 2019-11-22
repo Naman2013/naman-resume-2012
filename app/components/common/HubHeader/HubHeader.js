@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
-import PropTypes, { bool, shape } from 'prop-types';
 import cn from 'classnames';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './HubHeader.style';
-
-const { string } = PropTypes;
 
 const HubHeader = props => {
   const {
@@ -47,22 +44,6 @@ const HubHeader = props => {
       <style jsx>{style}</style>
     </Fragment>
   );
-};
-
-HubHeader.propTypes = {
-  title: string,
-  icon: string,
-  showIcon: bool,
-  titleTheme: shape({}),
-  profile: bool,
-};
-
-HubHeader.defaultProps = {
-  title: '',
-  icon: '',
-  showIcon: true,
-  titleTheme: {},
-  profile: false,
 };
 
 export default HubHeader;

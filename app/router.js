@@ -1,3 +1,4 @@
+//eslint-disable-line
 import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
@@ -30,6 +31,7 @@ import Dashboard from 'app/modules/dashboard/containers/dashborad';
 import { FeatureContainerLazy } from 'app/modules/feature-module';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
+import { LeaderboardContainerLazy } from 'app/modules/leaderboard';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
 import Constellation from 'app/modules/missions/containers/constellation';
@@ -37,6 +39,7 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
   ProfileActivity,
   ProfileDashboardContainer,
@@ -149,6 +152,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
@@ -198,6 +202,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
+        <Redirect
+          from="purchaseConfirmation(/:tab)"
+          to="/profile/private/gettingstarted"
+        />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
@@ -487,7 +495,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
-          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -496,9 +503,14 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
-          <IndexRedirect to="activity" />
         </Route>
       </Route>
+
+      <Route
+        path="leaderboard(/:tab)"
+        component={LeaderboardContainerLazy}
+        onEnter={validateUser}
+      />
 
       <Route
         path="groups/create"

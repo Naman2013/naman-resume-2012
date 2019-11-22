@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+}
+.JS9-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 85vh;
+  padding: 4vh 0 0;
+}
+
+.JS9-wrapper > .JS9 > .JS9Container {
+  left: 3px;
+}
+
+.JS9-wrapper > .JS9PluginContainer > .JS9Menubar,
+.JS9-wrapper > .JS9PluginContainer > .JS9Toolbar,
+.JS9-wrapper > .JS9PluginContainer > .JS9Colorbar {
+  min-width: 50vw !important;
+}
+
+.JS9-wrapper > .JS9 {
+  min-width: 50vw !important;
+  min-height: calc(85vh - 130px) !important;
+}
