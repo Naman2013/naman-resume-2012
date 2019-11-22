@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   IQuestStepModule,
-  // ImageorderingModuleResponse,
+  ImageorderingModuleResponse,
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
@@ -21,9 +21,7 @@ type ImageorderingProps = {
   getImageorderingModule: Function;
   setImageorderingModule: Function;
   refreshQuestStep: Function;
-  imageorderingModule: any;
-
-  // imageOrderingModule: ImageorderingModuleResponse;
+  imageorderingModule: ImageorderingModuleResponse;
 };
 
 enum Mode {
@@ -106,11 +104,10 @@ export class Imageordering extends React.PureComponent<
     //   activityState,
     //   activitySequenceText,
     //   activityInstructions,
-    // } = imageOrderingModule;
+    // } = imageorderingModule;
 
     return (
       <div className="rich-text-module quest-qa-free-form">
-        <h1>Imageordering</h1>
         <QuestStepModuleHeader
           title="activityTitle"
           completed //activityState === ACTIVITY_STATES.complete

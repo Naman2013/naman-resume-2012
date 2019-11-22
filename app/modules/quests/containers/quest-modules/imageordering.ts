@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {
-  getImageorderingModule,
-  setImageorderingModule,
-} from 'app/modules/quests/thunks';
+import { setImageorderingModule } from 'app/modules/quests/thunks';
 import { makeQuestsStepDataSelector } from 'app/modules/quests/selectors';
 import { Imageordering } from 'app/modules/quests/components/quest-modules/imageordering';
+import { ACTION } from '../../reducer';
 
 const mapStateToProps = (state: any, props: any) => ({
   stepData: makeQuestsStepDataSelector()(state),
@@ -13,7 +11,7 @@ const mapStateToProps = (state: any, props: any) => ({
 });
 
 const mapDispatchToProps = {
-  getImageorderingModule,
+  getImageorderingModule: ACTION.getImageorderingModule,
   setImageorderingModule,
 };
 

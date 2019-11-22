@@ -338,19 +338,6 @@ export const setRichTextInputModule = data => (dispatch, getState) => {
 };
 
 // imageordering MODULE
-export const getImageorderingModule = data => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
-  dispatch(ACTION.getImageorderingModule());
-  const opts = {
-    at,
-    cid,
-    token,
-    ...data,
-  };
-  return getImageorderingModuleApi({ ...opts })
-    .then(result => dispatch(ACTION.getImageorderingModuleSuccess(result.data)))
-    .catch(error => dispatch(ACTION.getImageorderingModuleError(error)));
-};
 export const setImageorderingModule = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.setImageorderingModule(data));
