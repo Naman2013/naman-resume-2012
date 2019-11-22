@@ -108,9 +108,7 @@ class RichTextEditor extends React.Component {
           }
           if (block.text === '') {
             return (
-              <p>
-                <br />
-              </p>
+              <p></p>
             );
           }
         },
