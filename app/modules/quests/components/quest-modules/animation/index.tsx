@@ -445,33 +445,35 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
   };
 
-  previewAnimationStart = (speed: number): void => {
+  prevPreviewImage = (): void => {
     const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === 0) {
+      this.changeActivePreviewImage(0, previewFrameList.length - 1);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage - 1);
+    }
+  };
+
+  nextPreviewImage = (): void => {
+    const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === previewFrameList.length - 1) {
+      this.changeActivePreviewImage(previewFrameList.length - 1, 0);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage + 1);
+    }
+  };
+
+  previewAnimationStart = (speed: number): void => {
+    const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
 
-    this.previewAnimationInterval = setInterval((): void => {
-      const { activePreviewImage } = this.state;
-
-      switch (activePreviewImage) {
-        case 0: {
-          this.changeActivePreviewImage(0, 1);
-          break;
-        }
-        case previewFrameList.length - 1: {
-          this.changeActivePreviewImage(previewFrameList.length - 1, 0);
-          break;
-        }
-        default: {
-          this.changeActivePreviewImage(
-            activePreviewImage,
-            activePreviewImage + 1
-          );
-          break;
-        }
-      }
-    }, speed);
+    if (speed) {
+      this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
+    }
   };
 
   previewAnimationStop = (): void => {
@@ -702,6 +704,8 @@ export class AnimationModule extends React.PureComponent<
                 onEdit={this.onEdit}
                 onFinish={this.onFinish}
                 onSpeedChange={this.previewAnimationStart}
+                onPrevFrame={this.prevPreviewImage}
+                onNextFrame={this.nextPreviewImage}
               />
             )}
           </div>
