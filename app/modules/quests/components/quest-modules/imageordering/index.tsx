@@ -8,8 +8,8 @@ import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-
 import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
-import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish';
-import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview';
+import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
+import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
 
 type ImageorderingProps = {
   module: IQuestStepModule;
@@ -108,7 +108,7 @@ export class Imageordering extends React.PureComponent<
     // } = imageorderingModule;
 
     return (
-      <div className="rich-text-module quest-qa-free-form">
+      <div className="montage-module quest-qa-free-form">
         <QuestStepModuleHeader
           title="activityTitle"
           completed //activityState === ACTIVITY_STATES.complete
@@ -125,12 +125,17 @@ export class Imageordering extends React.PureComponent<
         )}
         {mode === Mode.preview && (
           <PreviewMode
+            imageOrderingModule={imageorderingModule}
+            completed
             goToEdit={this.goToEditMode}
             goToFinish={this.goToFinishMode}
           />
         )}
         {mode === Mode.finish && (
-          <FinishMode goToReview={this.goToReviewMode} />
+          <FinishMode
+            imageOrderingModule={imageorderingModule}
+            goToReview={this.goToReviewMode}
+          />
         )}
         {mode === Mode.review && (
           <EditMode readonly imageOrderingModule={imageorderingModule} />
