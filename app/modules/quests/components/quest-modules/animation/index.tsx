@@ -46,6 +46,8 @@ const ANIMATION_STEPS = {
   COMPLETED: 'COMPLETED',
 };
 
+const CANVAS_DEFAULT_WIDTH = 414;
+
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
   AnimationModuleState
@@ -89,6 +91,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.canvas.hoverCursor = 'auto';
+    this.vpt = [...this.canvas.viewportTransform];
     this.onPageRezise();
 
     this.initCanvasPan();
@@ -204,11 +207,15 @@ export class AnimationModule extends React.PureComponent<
   moveTop = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') + stepSize;
+    const newOffset = activeFrame.yOffset + stepSize;
     const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -230,23 +237,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveTopRelease = (): void => {
+  moveTopRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveTop(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveTop(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveDown = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') - stepSize;
+    const newOffset = activeFrame.yOffset - stepSize;
     const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -268,23 +281,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveDownRelease = (): void => {
+  moveDownRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveDown(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveDown(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveLeft = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') - stepSize;
+    const newOffset = activeFrame.xOffset - stepSize;
     const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -306,23 +325,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveLeftRelease = (): void => {
+  moveLeftRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveLeft(xOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveLeft(xOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveRigth = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') + stepSize;
+    const newOffset = activeFrame.xOffset + stepSize;
     const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -344,13 +369,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveRigthRelease = (): void => {
+  moveRigthRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveRigth(xOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveRigth(xOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   zoomInCanvas = (): void => {
@@ -386,8 +413,11 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPageRezise = (): void => {
+    const { questAnimationFrames } = this.props;
+    const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const canvasZoom = this.canvas.getZoom();
     //set zoom to 1 before canvas rezise
@@ -397,9 +427,13 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setHeight(newCanvasContainerWidth); // 2px border
 
     const canvasObjects = this.canvas.getObjects();
-    canvasObjects.map((item: any): any => {
+    canvasObjects.map((item: any, index: number): any => {
       //scale all images to new canvas width
       item.scaleToWidth(newCanvasContainerWidth);
+      item.set({
+        left: Math.round(frameList[index].xOffset * offsetCoeff),
+        top: Math.round(-frameList[index].yOffset * offsetCoeff),
+      });
       return item;
     });
 
@@ -445,33 +479,35 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
   };
 
-  previewAnimationStart = (speed: number): void => {
+  prevPreviewImage = (): void => {
     const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === 0) {
+      this.changeActivePreviewImage(0, previewFrameList.length - 1);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage - 1);
+    }
+  };
+
+  nextPreviewImage = (): void => {
+    const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === previewFrameList.length - 1) {
+      this.changeActivePreviewImage(previewFrameList.length - 1, 0);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage + 1);
+    }
+  };
+
+  previewAnimationStart = (speed: number): void => {
+    const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
 
-    this.previewAnimationInterval = setInterval((): void => {
-      const { activePreviewImage } = this.state;
-
-      switch (activePreviewImage) {
-        case 0: {
-          this.changeActivePreviewImage(0, 1);
-          break;
-        }
-        case previewFrameList.length - 1: {
-          this.changeActivePreviewImage(previewFrameList.length - 1, 0);
-          break;
-        }
-        default: {
-          this.changeActivePreviewImage(
-            activePreviewImage,
-            activePreviewImage + 1
-          );
-          break;
-        }
-      }
-    }, speed);
+    if (speed) {
+      this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
+    }
   };
 
   previewAnimationStop = (): void => {
@@ -702,6 +738,8 @@ export class AnimationModule extends React.PureComponent<
                 onEdit={this.onEdit}
                 onFinish={this.onFinish}
                 onSpeedChange={this.previewAnimationStart}
+                onPrevFrame={this.prevPreviewImage}
+                onNextFrame={this.nextPreviewImage}
               />
             )}
           </div>
