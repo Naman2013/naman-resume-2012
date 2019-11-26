@@ -16,6 +16,7 @@ type ImageorderingProps = {
   readOnly: boolean;
   routeParams: any;
   stepData: any;
+  slot?: any;
   questId: string;
   navigateToNextStep: Function;
   getImageorderingModule: Function;

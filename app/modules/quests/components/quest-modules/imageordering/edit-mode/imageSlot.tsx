@@ -6,6 +6,7 @@ import Dots from 'app/atoms/icons/Dots';
 
 type ImageSlotProps = {
   imageOrderingModule: any;
+  slot?: any;
 };
 
 export const ImageSlot: React.FC<ImageSlotProps> = props => {
