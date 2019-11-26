@@ -5,8 +5,6 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
-import { ACTIVITY_STATES } from 'app/modules/quests/components/quest-modules/qa-free-form';
-import { QuestQaAnswerForm } from 'app/modules/quests/components/quest-qa/quest-qa-answer-form';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
@@ -16,13 +14,18 @@ type ImageorderingProps = {
   readOnly: boolean;
   routeParams: any;
   stepData: any;
-  slot?: any;
+  slot?: object;
   questId: string;
   navigateToNextStep: Function;
   getImageorderingModule: Function;
   setImageorderingModule: Function;
+  setDataCollectionSlotImages: Function;
   refreshQuestStep: Function;
+  getDataCollectionSlotImages: () => void;
   imageorderingModule: ImageorderingModuleResponse;
+  image: any;
+  loading?: boolean;
+  questDataCollectionSlotImages?: object;
 };
 
 enum Mode {
@@ -57,35 +60,6 @@ export class Imageordering extends React.PureComponent<
     });
   }
 
-  onAction = (action: string, answerText: string) => {
-    // const {
-    //   setImageorderingModule,
-    //   module,
-    //   imageOrderingModule,
-    //   refreshQuestStep,
-    // } = this.props;
-    // const { moduleId } = module;
-    // const { questId, questUUID, moduleUUID } = imageOrderingModule;
-    //
-    // setImageorderingModule({
-    //   questId,
-    //   questUUID,
-    //   moduleId,
-    //   moduleUUID,
-    //   action,
-    //   answerText,
-    // }).then((action: any) => {
-    //   const { refreshModule, refreshStep, stepModuleId } = action.payload;
-    //
-    //   if (refreshStep) {
-    //     refreshQuestStep();
-    //   } else if (refreshModule) {
-    //     console.log('refresh module!!!!');
-    //     // getQaFreeForm({ questId, moduleId });
-    //   }
-    // });
-  };
-
   onChangeMode = (mode: Mode): void => this.setState({ mode });
 
   goToEditMode = (): void => this.onChangeMode(Mode.edit);
@@ -96,16 +70,37 @@ export class Imageordering extends React.PureComponent<
 
   goToReviewMode = (): void => this.onChangeMode(Mode.review);
 
+  setDataCollectionSlotImages = (image: any, selectedSlot: any): any => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      refreshQuestStep,
+    } = this.props;
+    const { moduleId } = module;
+    const { customerImageId } = image;
+    setDataCollectionSlotImages({
+      moduleId,
+      questId,
+      customerImageId,
+      slotId: selectedSlot.slotId,
+    }).then(({ payload }: any) => {
+      if (payload.refreshStep) {
+        refreshQuestStep();
+      }
+    });
+  };
+
   render() {
     const { mode } = this.state;
-    const { module, readOnly, imageorderingModule } = this.props;
-
-    // const {
-    //   activityTitle,
-    //   activityState,
-    //   activitySequenceText,
-    //   activityInstructions,
-    // } = imageorderingModule;
+    const {
+      module,
+      readOnly,
+      imageorderingModule,
+      getDataCollectionSlotImages,
+      questDataCollectionSlotImages,
+      loading,
+    } = this.props;
 
     return (
       <div className="montage-module quest-qa-free-form">
@@ -115,12 +110,14 @@ export class Imageordering extends React.PureComponent<
           sequenceText="activitySequenceText"
         />
 
-        {/*<div className="quest-qa-instructions">activityInstructions</div>*/}
-
         {mode === Mode.edit && (
           <EditMode
             goToPreview={this.goToPreviewMode}
             imageOrderingModule={imageorderingModule}
+            getDataCollectionSlotImages={getDataCollectionSlotImages}
+            questDataCollectionSlotImages={questDataCollectionSlotImages}
+            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
+            loading={loading}
           />
         )}
         {mode === Mode.preview && (
@@ -138,7 +135,14 @@ export class Imageordering extends React.PureComponent<
           />
         )}
         {mode === Mode.review && (
-          <EditMode readonly imageOrderingModule={imageorderingModule} />
+          <EditMode
+            readonly
+            imageOrderingModule={imageorderingModule}
+            getDataCollectionSlotImages={getDataCollectionSlotImages}
+            questDataCollectionSlotImages={questDataCollectionSlotImages}
+            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
+            loading={loading}
+          />
         )}
       </div>
     );
