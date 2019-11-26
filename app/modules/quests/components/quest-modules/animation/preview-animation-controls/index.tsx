@@ -98,14 +98,14 @@ export const PreviewAnimationControls: React.FC<
             onClick={onPrevFrame}
             disabled={animationSpeed !== ANIMATION_SPEEDS.SINGLE_STEP}
           >
-            Next step
+            Prev step
           </Button>
           <Button
             className="btn-white animation-view-btn"
             onClick={onNextFrame}
             disabled={animationSpeed !== ANIMATION_SPEEDS.SINGLE_STEP}
           >
-            Prev step
+            Next step
           </Button>
         </div>
       </div>

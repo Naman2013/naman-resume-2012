@@ -237,13 +237,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveTopRelease = (): void => {
+  moveTopRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveTop(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveTop(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveDown = (stepSize: number): IAnimationFrame => {
@@ -279,13 +281,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveDownRelease = (): void => {
+  moveDownRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveDown(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveDown(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveLeft = (stepSize: number): IAnimationFrame => {
@@ -321,13 +325,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveLeftRelease = (): void => {
+  moveLeftRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveLeft(xOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveLeft(xOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveRigth = (stepSize: number): IAnimationFrame => {
@@ -363,13 +369,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveRigthRelease = (): void => {
+  moveRigthRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveRigth(xOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveRigth(xOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   zoomInCanvas = (): void => {
