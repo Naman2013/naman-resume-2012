@@ -19,6 +19,8 @@ import {
   setAnimationApi,
   getRichTextInputModuleApi,
   setRichTextInputModuleApi,
+  getImageorderingModuleApi,
+  setImageorderingModuleApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
@@ -333,4 +335,19 @@ export const setRichTextInputModule = data => (dispatch, getState) => {
   return setRichTextInputModuleApi({ ...opts })
     .then(result => dispatch(ACTION.setRichTextInputModuleSuccess(result.data)))
     .catch(error => dispatch(ACTION.setRichTextInputModuleError(error)));
+};
+
+// imageordering MODULE
+export const setImageorderingModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setImageorderingModule(data));
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setImageorderingModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.setImageorderingModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setImageorderingModuleError(error)));
 };

@@ -50,3 +50,10 @@ export const getRichTextInputModuleApi = data =>
   axios.post('/api/quests/getTextInput', data);
 export const setRichTextInputModuleApi = data =>
   axios.post('/api/quests/setTextInput', data);
+
+// IMAGEORDERING (MONTAGE) MODULE
+export const getImageorderingModuleApi = data =>
+  axios.post('/api/quests/getMontage', data);
+
+export const setImageorderingModuleApi = data =>
+  axios.post('/api/quests/setMontage', data);

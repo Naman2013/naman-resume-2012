@@ -4,9 +4,9 @@ import cx from 'classnames';
 import {
   IQuestStepModule,
   IQuestAnimation,
-  IQuestAnimationFrames,
   IAnimationFrame,
   IQuestAnimationData,
+  IQuestAnimationFrames,
 } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
@@ -46,6 +46,8 @@ const ANIMATION_STEPS = {
   COMPLETED: 'COMPLETED',
 };
 
+const CANVAS_DEFAULT_WIDTH = 414;
+
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
   AnimationModuleState
@@ -59,6 +61,14 @@ export class AnimationModule extends React.PureComponent<
   moveButtonPressInterval: ReturnType<typeof setInterval>;
 
   previewAnimationInterval: ReturnType<typeof setInterval>;
+
+  isDragging: boolean;
+
+  lastPosX: number;
+
+  lastPosY: number;
+
+  vpt: Array<number>;
 
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
@@ -80,13 +90,78 @@ export class AnimationModule extends React.PureComponent<
   initCanvas = (): void => {
     this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
+    this.canvas.hoverCursor = 'auto';
+    this.vpt = [...this.canvas.viewportTransform];
     this.onPageRezise();
+
+    this.initCanvasPan();
+  };
+
+  initCanvasPan = (): void => {
+    this.canvas.on('mouse:down', ({ e }: any): void => {
+      // set dragging true
+      const { activeFrame } = this.props;
+      const { empty } = activeFrame;
+      if (!empty) {
+        this.isDragging = true;
+        this.lastPosX = e.clientX || e.changedTouches[0].clientX;
+        this.lastPosY = e.clientY || e.changedTouches[0].clientY;
+      }
+    });
+
+    this.canvas.on('mouse:move', ({ e }: any): void => {
+      if (this.isDragging) {
+        const evt = e.type === 'mousemove' ? e : e.changedTouches[0];
+
+        // calculate dragging to true
+        this.vpt = [...this.canvas.viewportTransform];
+        this.vpt[4] += evt.clientX - this.lastPosX;
+        this.vpt[5] += evt.clientY - this.lastPosY;
+        this.lastPosX = evt.clientX;
+        this.lastPosY = evt.clientY;
+        this.canvas.viewportTransform = [...this.vpt];
+
+        this.updatePan();
+      }
+    });
+
+    this.canvas.on('mouse:up', (opt: any): void => {
+      this.isDragging = false;
+    });
   };
 
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
     this.onPageRezise();
+  };
+
+  updatePan = (): void => {
+    const zoom = this.canvas.getZoom();
+    const containerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+
+    const rightEdge = this.canvas.getWidth() - containerWidth * zoom;
+    const bottomEdge = this.canvas.getHeight() - containerWidth * zoom;
+
+    // check if end of the canvas
+    if (this.vpt[4] >= 0) {
+      this.canvas.viewportTransform[4] = 0;
+      this.vpt[4] = 0;
+    } else if (this.vpt[4] < rightEdge) {
+      this.canvas.viewportTransform[4] = rightEdge;
+      this.vpt[4] = rightEdge;
+    }
+
+    if (this.vpt[5] >= 0) {
+      this.canvas.viewportTransform[5] = 0;
+      this.vpt[5] = 0;
+    } else if (this.vpt[5] < bottomEdge) {
+      this.canvas.viewportTransform[5] = bottomEdge;
+      this.vpt[5] = bottomEdge;
+    }
+
+    this.canvas.renderAll();
   };
 
   loadImageFromUrl = (
@@ -103,7 +178,7 @@ export class AnimationModule extends React.PureComponent<
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      hoverCursor: 'auto',
+      //hoverCursor: 'auto',
       left: empty ? 0 : xOffset,
       top: empty ? 0 : -yOffset,
       opacity: frameIndex > 1 && !empty ? 0.5 : 1,
@@ -115,7 +190,7 @@ export class AnimationModule extends React.PureComponent<
 
     fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
-      let fabricImage = new fabric.Image(img, imgAttrs);
+      const fabricImage = new fabric.Image(img, imgAttrs);
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
@@ -132,11 +207,15 @@ export class AnimationModule extends React.PureComponent<
   moveTop = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') + stepSize;
+    const newOffset = activeFrame.yOffset + stepSize;
     const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -158,23 +237,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveTopRelease = (): void => {
+  moveTopRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveTop(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveTop(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveDown = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') - stepSize;
+    const newOffset = activeFrame.yOffset - stepSize;
     const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -196,23 +281,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveDownRelease = (): void => {
+  moveDownRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { yOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveDown(yOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveDown(yOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveLeft = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') - stepSize;
+    const newOffset = activeFrame.xOffset - stepSize;
     const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -234,23 +325,29 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveLeftRelease = (): void => {
+  moveLeftRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveLeft(xOffsetSmallStep);
-    this.setAnimation(frame);
+    if (!mouseLeave) {
+      const frame = this.moveLeft(xOffsetSmallStep);
+      this.setAnimation(frame);
+    }
   };
 
   moveRigth = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') + stepSize;
+    const newOffset = activeFrame.xOffset + stepSize;
     const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -272,46 +369,15 @@ export class AnimationModule extends React.PureComponent<
     }, largeStepDelay);
   };
 
-  moveRigthRelease = (): void => {
+  moveRigthRelease = (mouseLeave: boolean): void => {
     const { questAnimation } = this.props;
     const { xOffsetSmallStep } = questAnimation;
     clearTimeout(this.moveButtonPressTimer);
     clearInterval(this.moveButtonPressInterval);
-    const frame = this.moveRigth(xOffsetSmallStep);
-    this.setAnimation(frame);
-  };
-
-  zoomIn = (): void => {
-    const { questAnimation, activeFrame, setActiveFrame } = this.props;
-    const { magnificationMax, magnificationStep } = questAnimation;
-    const item = this.getActiveCanvasItem();
-    let scale = item.get('scaleX') + magnificationStep / 100;
-
-    if (scale * 100 >= magnificationMax) {
-      scale = magnificationMax / 100;
+    if (!mouseLeave) {
+      const frame = this.moveRigth(xOffsetSmallStep);
+      this.setAnimation(frame);
     }
-
-    scale = Math.round(scale * 10) / 10;
-    item.scale(scale);
-
-    this.canvas.renderAll();
-    setActiveFrame({ ...activeFrame, scale: Math.round(scale * 100) });
-  };
-
-  zoomOut = (): void => {
-    const { questAnimation, activeFrame, setActiveFrame } = this.props;
-    const { magnificationMin, magnificationStep } = questAnimation;
-    const item = this.getActiveCanvasItem();
-    let scale = item.get('scaleX') - magnificationStep / 100;
-
-    if (scale * 100 <= magnificationMin) {
-      scale = magnificationMin / 100;
-    }
-
-    scale = Math.round(scale * 10) / 10;
-    item.scale(scale);
-    this.canvas.renderAll();
-    setActiveFrame({ ...activeFrame, scale: Math.round(scale * 100) });
   };
 
   zoomInCanvas = (): void => {
@@ -324,6 +390,7 @@ export class AnimationModule extends React.PureComponent<
     }
 
     newZoom = Math.round(newZoom * 10) / 10;
+    this.canvas.hoverCursor = 'move';
     this.canvas.setZoom(newZoom).renderAll();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
   };
@@ -336,16 +403,21 @@ export class AnimationModule extends React.PureComponent<
 
     if (newZoom * 100 <= magnificationMin) {
       newZoom = magnificationMin / 100;
+      this.canvas.hoverCursor = 'auto';
     }
 
     newZoom = Math.round(newZoom * 10) / 10;
     this.canvas.setZoom(newZoom).renderAll();
+    this.updatePan();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
   };
 
   onPageRezise = (): void => {
+    const { questAnimationFrames } = this.props;
+    const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const canvasZoom = this.canvas.getZoom();
     //set zoom to 1 before canvas rezise
@@ -355,9 +427,13 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setHeight(newCanvasContainerWidth); // 2px border
 
     const canvasObjects = this.canvas.getObjects();
-    canvasObjects.map((item: any): any => {
+    canvasObjects.map((item: any, index: number): any => {
       //scale all images to new canvas width
       item.scaleToWidth(newCanvasContainerWidth);
+      item.set({
+        left: Math.round(frameList[index].xOffset * offsetCoeff),
+        top: Math.round(-frameList[index].yOffset * offsetCoeff),
+      });
       return item;
     });
 
@@ -375,22 +451,25 @@ export class AnimationModule extends React.PureComponent<
       ({ empty }: IAnimationFrame): any => !empty
     );
 
-    this.setState({
-      activeAnimationStep: ANIMATION_STEPS.PLAY,
-      previewFrameList,
-    });
+    this.setState(
+      {
+        activeAnimationStep: ANIMATION_STEPS.PLAY,
+        previewFrameList,
+      },
+      () => {
+        const canvasObjects = this.canvas.getObjects();
 
-    const canvasObjects = this.canvas.getObjects();
-
-    canvasObjects.map((item: any): any => {
-      item.set({ visible: false, opacity: 1 });
-      return item;
-    });
-    if (previewZoomLevel === 'default') {
-      this.canvas.setZoom(previewZoomLevel);
-    }
-    this.canvas.renderAll();
-    this.previewAnimationStart(previewDelaySlow);
+        canvasObjects.map((item: any): any => {
+          item.set({ visible: false, opacity: 1 });
+          return item;
+        });
+        if (previewZoomLevel === 'default') {
+          this.canvas.setZoom(previewZoomLevel);
+        }
+        this.canvas.renderAll();
+        this.previewAnimationStart(previewDelaySlow);
+      }
+    );
   };
 
   changeActivePreviewImage = (prevIndex: number, nextIndex: number): void => {
@@ -400,33 +479,35 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
   };
 
-  previewAnimationStart = (speed: number): void => {
+  prevPreviewImage = (): void => {
     const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === 0) {
+      this.changeActivePreviewImage(0, previewFrameList.length - 1);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage - 1);
+    }
+  };
+
+  nextPreviewImage = (): void => {
+    const { activePreviewImage, previewFrameList } = this.state;
+
+    if (activePreviewImage === previewFrameList.length - 1) {
+      this.changeActivePreviewImage(previewFrameList.length - 1, 0);
+    } else {
+      this.changeActivePreviewImage(activePreviewImage, activePreviewImage + 1);
+    }
+  };
+
+  previewAnimationStart = (speed: number): void => {
+    const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
 
-    this.previewAnimationInterval = setInterval((): void => {
-      const { activePreviewImage } = this.state;
-
-      switch (activePreviewImage) {
-        case 0: {
-          this.changeActivePreviewImage(0, 1);
-          break;
-        }
-        case previewFrameList.length - 1: {
-          this.changeActivePreviewImage(previewFrameList.length - 1, 0);
-          break;
-        }
-        default: {
-          this.changeActivePreviewImage(
-            activePreviewImage,
-            activePreviewImage + 1
-          );
-          break;
-        }
-      }
-    }, speed);
+    if (speed) {
+      this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
+    }
   };
 
   previewAnimationStop = (): void => {
@@ -442,24 +523,30 @@ export class AnimationModule extends React.PureComponent<
   onEdit = (): any => {
     const {
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+
     const canvasObjects = this.canvas.getObjects();
 
     canvasObjects.map((item: any, index: number): any => {
       item.set({ visible: false, opacity: frameList[index].empty ? 1 : 0.5 });
       return item;
     });
+
+    const newZoom = zoom || magnificationDefault;
+
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : zoom / 100);
+    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
     this.canvas.renderAll();
   };
 
@@ -496,10 +583,12 @@ export class AnimationModule extends React.PureComponent<
     const {
       setActiveFrame,
       activeFrame,
+      questAnimation,
       questAnimationData,
       questAnimationFrames,
     } = this.props;
     const { frameIndex } = activeFrame;
+    const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
 
@@ -508,11 +597,18 @@ export class AnimationModule extends React.PureComponent<
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
-      this.canvas.setZoom(zoom / 100);
+      if (zoom && zoom > magnificationDefault) {
+        this.canvas.hoverCursor = 'move';
+      }
+      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
+      this.canvas.viewportTransform = [...this.vpt];
     }
 
     if (frame.empty) {
+      this.canvas.hoverCursor = 'auto';
       this.canvas.setZoom(1);
+      this.canvas.viewportTransform[4] = 0;
+      this.canvas.viewportTransform[5] = 0;
     }
 
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
@@ -535,7 +631,6 @@ export class AnimationModule extends React.PureComponent<
       xOffset,
       yOffset,
       offsetReference,
-      serializedFramesAll: JSON.stringify(this.canvas),
     };
     setAnimation(data);
   };
@@ -556,14 +651,21 @@ export class AnimationModule extends React.PureComponent<
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const { previewHeading, previewSubheading } = questAnimation;
-    const { frameList } = questAnimationFrames;
+    const {
+      frameList,
+      activityStatus,
+      activityTitle,
+      activityInstructions,
+      activitySequenceText,
+    } = questAnimationFrames;
 
     return (
       <div className="animation-module">
         <QuestStepModuleHeader
-          title="activityTitle"
-          completed
-          sequenceText="activitySequenceText"
+          title={activityTitle}
+          completed={activityStatus === 'complete'}
+          sequenceText={activitySequenceText}
+          instructions={activityInstructions}
         />
         <div
           className={cx({
@@ -636,6 +738,8 @@ export class AnimationModule extends React.PureComponent<
                 onEdit={this.onEdit}
                 onFinish={this.onFinish}
                 onSpeedChange={this.previewAnimationStart}
+                onPrevFrame={this.prevPreviewImage}
+                onNextFrame={this.nextPreviewImage}
               />
             )}
           </div>

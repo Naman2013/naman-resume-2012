@@ -196,13 +196,19 @@ export declare interface IAnimationFrame {
   negative: boolean;
   objectId: number;
   offsetReference: string;
-  serializedFrame: any;
   touched: boolean;
   xOffset: number;
   yOffset: number;
 }
 
 export declare interface IQuestAnimationFrames extends StandardResponse {
+  activityCompleteIconURL: string;
+  activityInstructions: string;
+  activityPrompt: string;
+  activitySequenceNumber: number;
+  activitySequenceText: string;
+  activityStatus: string;
+  activityTitle: string;
   animationId: number;
   animationUserId: number;
   frameCount: number;
@@ -276,4 +282,38 @@ export interface RichTextInputModuleResponse extends StandardResponse {
 
 export declare interface IQuestAnimationData {
   zoom: number;
+}
+
+export declare interface ImageorderingModuleResponse {
+  activityInstructions: string;
+  activityPrompt: string;
+  activityTitle: string;
+  correctText: string;
+  gravityEarnedInThisRequest: boolean;
+  incorrectText: string;
+  isActivity: boolean;
+  moduleId: number;
+  moduleIdIsValid: boolean;
+  moduleType: string;
+  moduleUUID: string;
+  outputDownloadURL: string;
+  outputHeading: string;
+  outputSubheading: string;
+  previewBackToTasksButtonCaption: string;
+  previewEditButtonCaption: string;
+  previewFinalButtonCaption: string;
+  previewFinalHeading: string;
+  previewFinalSubheading: string;
+  previewFinishButtonCaption: string;
+  previewGoBackButtonCaption: string;
+  previewHeading: string;
+  previewReviewButtonCaption: string;
+  previewSubheading: string;
+  previewURL: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  slotArray: [];
+  slotCount: number;
+  step: number;
 }

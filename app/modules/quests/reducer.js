@@ -36,6 +36,9 @@ export const TYPE = constants('quests', [
 
   '~GET_RICH_TEXT_INPUT_MODULE',
   '~SET_RICH_TEXT_INPUT_MODULE',
+
+  '~GET_IMAGEORDERING_MODULE',
+  '~SET_IMAGEORDERING_MODULE',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -70,6 +73,8 @@ const initialState = {
   questAnimationData: { zoom: null },
 
   richTextInputModules: {},
+
+  imageorderingModules: {},
 };
 
 export default handleActions(
@@ -172,6 +177,10 @@ export default handleActions(
 
     [TYPE.SET_RICH_TEXT_INPUT_MODULE]: setRichTextInputModule,
     [TYPE.SET_RICH_TEXT_INPUT_MODULE_ERROR]: error,
+
+    [TYPE.GET_IMAGEORDERING_MODULE]: start,
+    [TYPE.GET_IMAGEORDERING_MODULE_SUCCESS]: getImageorderingModuleSuccess,
+    [TYPE.GET_IMAGEORDERING_MODULE_ERROR]: error,
   },
   initialState
 );
@@ -463,6 +472,17 @@ function getRichTextInputModuleSuccess(state, { payload }) {
     isFetching: false,
     richTextInputModules: {
       ...state.richTextInputModules,
+      [payload.moduleId]: payload,
+    },
+  };
+}
+
+function getImageorderingModuleSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    imageorderingModules: {
+      ...state.imageorderingModules,
       [payload.moduleId]: payload,
     },
   };
