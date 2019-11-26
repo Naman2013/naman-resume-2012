@@ -46,6 +46,8 @@ const ANIMATION_STEPS = {
   COMPLETED: 'COMPLETED',
 };
 
+const CANVAS_DEFAULT_WIDTH = 414;
+
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
   AnimationModuleState
@@ -89,6 +91,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas = new fabric.Canvas('animation-canvas');
     this.canvas.selection = false; // disable group selection
     this.canvas.hoverCursor = 'auto';
+    this.vpt = [...this.canvas.viewportTransform];
     this.onPageRezise();
 
     this.initCanvasPan();
@@ -204,11 +207,15 @@ export class AnimationModule extends React.PureComponent<
   moveTop = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') + stepSize;
+    const newOffset = activeFrame.yOffset + stepSize;
     const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -242,11 +249,15 @@ export class AnimationModule extends React.PureComponent<
   moveDown = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { yOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = -item.get('top') - stepSize;
+    const newOffset = activeFrame.yOffset - stepSize;
     const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
 
-    item.set({ top: -yOffset });
+    item.set({ top: Math.round(-yOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -280,11 +291,15 @@ export class AnimationModule extends React.PureComponent<
   moveLeft = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMin } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') - stepSize;
+    const newOffset = activeFrame.xOffset - stepSize;
     const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -318,11 +333,15 @@ export class AnimationModule extends React.PureComponent<
   moveRigth = (stepSize: number): IAnimationFrame => {
     const { questAnimation, activeFrame, setActiveFrame } = this.props;
     const { xOffsetMax } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
+
     const item = this.getActiveCanvasItem();
-    const newOffset = item.get('left') + stepSize;
+    const newOffset = activeFrame.xOffset + stepSize;
     const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
 
-    item.set({ left: xOffset });
+    item.set({ left: Math.round(xOffset * offsetCoeff) });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -386,8 +405,11 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPageRezise = (): void => {
+    const { questAnimationFrames } = this.props;
+    const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
+    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const canvasZoom = this.canvas.getZoom();
     //set zoom to 1 before canvas rezise
@@ -397,9 +419,13 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setHeight(newCanvasContainerWidth); // 2px border
 
     const canvasObjects = this.canvas.getObjects();
-    canvasObjects.map((item: any): any => {
+    canvasObjects.map((item: any, index: number): any => {
       //scale all images to new canvas width
       item.scaleToWidth(newCanvasContainerWidth);
+      item.set({
+        left: Math.round(frameList[index].xOffset * offsetCoeff),
+        top: Math.round(-frameList[index].yOffset * offsetCoeff),
+      });
       return item;
     });
 
