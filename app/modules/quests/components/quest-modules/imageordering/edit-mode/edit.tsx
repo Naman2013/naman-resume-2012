@@ -11,11 +11,12 @@ type EditModeProps = {
 
 export const EditMode: React.FC<EditModeProps> = props => {
   const { readonly = false, goToPreview, imageOrderingModule } = props;
-  const { previewReviewButtonCaption } = imageOrderingModule;
-
+  const { previewReviewButtonCaption, slotArray = [] } = imageOrderingModule;
   return (
     <div>
-      <ImageSlot imageOrderingModule={imageOrderingModule} />
+      {slotArray.map(slot => (
+        <ImageSlot imageOrderingModule={imageOrderingModule} slot={slot} />
+      ))}
       <div className="text-center">
         <Button onClick={goToPreview}>{previewReviewButtonCaption}</Button>
       </div>
