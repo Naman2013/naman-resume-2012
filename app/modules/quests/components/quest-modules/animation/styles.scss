@@ -84,6 +84,44 @@
       flex-flow: row wrap;
       justify-content: center;
 
+      &.preview-controls {
+        padding: 0 20px;
+        margin-top: 30px;
+
+        .controls-block {
+          &.speed-actions {
+            flex: 1 0 80%;
+            .buttons-block {
+              display: flex;
+              flex-flow: row wrap;
+              padding-top: 10px;
+
+              button {
+                flex: 1 0 25%;
+                margin-bottom: 10px;
+              }
+            }
+          }
+
+          &.change-mode {
+            flex: 1 0 20%;
+
+            .buttons-block {
+              display: flex;
+              flex-flow: column;
+              border: none;
+              width: 100%;
+              margin: 0;
+              padding: 10px 0 0;
+
+              button {
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+
       .controls-block {
         display: flex;
         flex-flow: column;
@@ -158,6 +196,21 @@
 
           .controls-block {
             flex: 1 0 50%;
+          }
+        }
+
+        &.preview-controls {
+          padding: 0;
+
+          .controls-block {
+            &.speed-actions,
+            &.change-mode {
+              flex: 1 0 100%;
+
+              button {
+                line-height: 1.3;
+              }
+            }
           }
         }
 

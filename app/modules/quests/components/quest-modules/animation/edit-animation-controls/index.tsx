@@ -9,13 +9,13 @@ type EditAnimationControlsProps = {
   yOffset: number;
   zoom: number;
   moveLeftPress: () => void;
-  moveLeftRelease: () => void;
+  moveLeftRelease: (mouseLeave?: boolean) => void;
   moveRigthPress: () => void;
-  moveRigthRelease: () => void;
+  moveRigthRelease: (mouseLeave?: boolean) => void;
   moveDownPress: () => void;
-  moveDownRelease: () => void;
+  moveDownRelease: (mouseLeave?: boolean) => void;
   moveTopPress: () => void;
-  moveTopRelease: () => void;
+  moveTopRelease: (mouseLeave?: boolean) => void;
   zoomInCanvas: () => void;
   zoomOutCanvas: () => void;
   onPlay: () => void;
@@ -58,9 +58,16 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white move-btn move-btn-left"
             onTouchStart={moveLeftPress}
-            onTouchEnd={moveLeftRelease}
+            onTouchEnd={(): void => {
+              moveLeftRelease(false);
+            }}
             onMouseDown={moveLeftPress}
-            onMouseUp={moveLeftRelease}
+            onMouseUp={(): void => {
+              moveLeftRelease(false);
+            }}
+            onMouseLeave={(): void => {
+              moveLeftRelease(true);
+            }}
             disabled={disabledMove}
           >
             <div className="icon icon-slider-left" />
@@ -68,9 +75,16 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white move-btn move-btn-right"
             onTouchStart={moveRigthPress}
-            onTouchEnd={moveRigthRelease}
+            onTouchEnd={(): void => {
+              moveRigthRelease(false);
+            }}
             onMouseDown={moveRigthPress}
-            onMouseUp={moveRigthRelease}
+            onMouseUp={(): void => {
+              moveRigthRelease(false);
+            }}
+            onMouseLeave={(): void => {
+              moveRigthRelease(true);
+            }}
             disabled={disabledMove}
           >
             <div className="icon icon-slider-right" />
@@ -84,9 +98,16 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white move-btn move-btn-down"
             onTouchStart={moveDownPress}
-            onTouchEnd={moveDownRelease}
+            onTouchEnd={(): void => {
+              moveDownRelease(false);
+            }}
             onMouseDown={moveDownPress}
-            onMouseUp={moveDownRelease}
+            onMouseUp={(): void => {
+              moveDownRelease(false);
+            }}
+            onMouseLeave={(): void => {
+              moveDownRelease(true);
+            }}
             disabled={disabledMove}
           >
             <div className="icon icon-slider-right" />
@@ -94,9 +115,16 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white move-btn move-btn-up"
             onTouchStart={moveTopPress}
-            onTouchEnd={moveTopRelease}
+            onTouchEnd={(): void => {
+              moveTopRelease(false);
+            }}
             onMouseDown={moveTopPress}
-            onMouseUp={moveTopRelease}
+            onMouseUp={(): void => {
+              moveTopRelease(false);
+            }}
+            onMouseLeave={(): void => {
+              moveTopRelease(true);
+            }}
             disabled={disabledMove}
           >
             <div className="icon icon-slider-left" />
