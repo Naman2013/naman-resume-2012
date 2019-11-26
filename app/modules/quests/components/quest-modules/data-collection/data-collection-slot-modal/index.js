@@ -88,7 +88,11 @@ export class DataCollectionSlotModal extends Component {
       showEmptySetContentsDesc,
       emptySetContentsDesc,
     } = questDataCollectionSlotImages;
-    const { slotSequence } = selectedSlot;
+
+    const {
+      noImagesFoundPrompt,
+      slotObjectMissionLinks = [],
+    } = emptySetContentsDesc;
 
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
@@ -121,11 +125,11 @@ export class DataCollectionSlotModal extends Component {
                   <p
                     className="modal-p"
                     dangerouslySetInnerHTML={{
-                      __html: emptySetContentsDesc?.noImagesFoundPrompt,
+                      __html: noImagesFoundPrompt,
                     }}
                   />
 
-                  {emptySetContentsDesc?.slotObjectMissionLinks.map(link => (
+                  {slotObjectMissionLinks.map(link => (
                     <div
                       className="object-mission-link"
                       key={`object-mission-link-${link.linkIndex}`}
