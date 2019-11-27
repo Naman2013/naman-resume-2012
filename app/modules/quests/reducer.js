@@ -27,6 +27,18 @@ export const TYPE = constants('quests', [
 
   '~GET_QUEST_GUIDE_PANEL',
   '~SET_QUEST_COMPLETED',
+
+  '~GET_ANIMATION',
+  '~GET_ANIMATION_FRAMES',
+  'SET_ACTIVE_FRAME',
+  '~SET_ANIMATION',
+  'SET_ANIMATION_DATA',
+
+  '~GET_RICH_TEXT_INPUT_MODULE',
+  '~SET_RICH_TEXT_INPUT_MODULE',
+
+  '~GET_IMAGEORDERING_MODULE',
+  '~SET_IMAGEORDERING_MODULE',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -54,6 +66,15 @@ const initialState = {
   questQaMultipleChoice: {},
 
   questGuidePanel: {},
+
+  questAnimation: {},
+  questAnimationFrames: { frameList: [] },
+  activeFrame: { frameId: 1, caption: 'FRAME 1', infoArray: {} },
+  questAnimationData: { zoom: null },
+
+  richTextInputModules: {},
+
+  imageorderingModules: {},
 };
 
 export default handleActions(
@@ -137,6 +158,29 @@ export default handleActions(
     [TYPE.GET_CUSTOMER_QUESTS]: start,
     [TYPE.GET_CUSTOMER_QUESTS_SUCCESS]: getCustomerQuestsSuccess,
     [TYPE.GET_CUSTOMER_QUESTS_ERROR]: error,
+
+    // ANIMATION MODULE
+    [TYPE.GET_ANIMATION]: start,
+    [TYPE.GET_ANIMATION_SUCCESS]: getAnimationSuccess,
+    [TYPE.GET_ANIMATION_ERROR]: error,
+    [TYPE.GET_ANIMATION_FRAMES]: start,
+    [TYPE.GET_ANIMATION_FRAMES_SUCCESS]: getAnimationFramesSuccess,
+    [TYPE.GET_ANIMATION_FRAMES_ERROR]: error,
+
+    [TYPE.SET_ACTIVE_FRAME]: setActiveFrame,
+    [TYPE.SET_ANIMATION_DATA]: setAnimationData,
+    // END: ANIMATION MODULE
+
+    [TYPE.GET_RICH_TEXT_INPUT_MODULE]: start,
+    [TYPE.GET_RICH_TEXT_INPUT_MODULE_SUCCESS]: getRichTextInputModuleSuccess,
+    [TYPE.GET_RICH_TEXT_INPUT_MODULE_ERROR]: error,
+
+    [TYPE.SET_RICH_TEXT_INPUT_MODULE]: setRichTextInputModule,
+    [TYPE.SET_RICH_TEXT_INPUT_MODULE_ERROR]: error,
+
+    [TYPE.GET_IMAGEORDERING_MODULE]: start,
+    [TYPE.GET_IMAGEORDERING_MODULE_SUCCESS]: getImageorderingModuleSuccess,
+    [TYPE.GET_IMAGEORDERING_MODULE_ERROR]: error,
   },
   initialState
 );
@@ -354,6 +398,92 @@ function getCustomerQuestsSuccess(state, { payload }) {
     isFetching: false,
     customerQuests: {
       ...payload,
+    },
+  };
+}
+
+// ANIMATION MODULE
+function getAnimationSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questAnimation: {
+      ...payload,
+    },
+  };
+}
+
+function getAnimationFramesSuccess(state, { payload }) {
+  const firstFrame = payload.frameList[0] || {};
+  return {
+    ...state,
+    isFetching: false,
+    questAnimationFrames: {
+      ...payload,
+    },
+    activeFrame: { ...firstFrame },
+  };
+}
+
+function setActiveFrame(state, { payload }) {
+  const { frameList } = state.questAnimationFrames;
+  frameList[payload.frameIndex - 1] = { ...payload };
+  return {
+    ...state,
+    activeFrame: payload,
+    questAnimationFrames: {
+      ...state.questAnimationFrames,
+      frameList: [...frameList],
+    },
+  };
+}
+
+function setAnimationData(state, { payload }) {
+  return {
+    ...state,
+    questAnimationData: {
+      ...state.questAnimationData,
+      ...payload,
+    },
+  };
+}
+// END: ANIMATION MODULE
+
+// RICH_TEXT_INPUT_MODULE
+function setRichTextInputModule(state, { payload }) {
+  const { moduleId, answerText } = payload;
+  return {
+    ...state,
+    isFetching: true,
+    richTextInputModules: {
+      ...state.richTextInputModules,
+      [moduleId]: {
+        ...state.richTextInputModules[moduleId],
+        answerText:
+          answerText || state.richTextInputModules[moduleId].answerText,
+      },
+    },
+  };
+}
+
+function getRichTextInputModuleSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    richTextInputModules: {
+      ...state.richTextInputModules,
+      [payload.moduleId]: payload,
+    },
+  };
+}
+
+function getImageorderingModuleSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    imageorderingModules: {
+      ...state.imageorderingModules,
+      [payload.moduleId]: payload,
     },
   };
 }

@@ -1,4 +1,4 @@
-import { questModuleType } from 'app/modules/quests/types';
+import { questModuleType } from 'app/modules/quests/data';
 
 const isSeparateCurrentModule = moduleType =>
   moduleType === questModuleType.textoutput ||
