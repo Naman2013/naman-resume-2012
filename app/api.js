@@ -27,7 +27,12 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
-      const finalData = { ...data, ...commonData, locale: projectLocale, productId:projectProductId };
+      const finalData = {
+        ...data,
+        ...commonData,
+        locale: projectLocale,
+        productId: projectProductId,
+      };
       return JSON.stringify(finalData);
     },
   ],

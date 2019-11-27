@@ -66,7 +66,10 @@ export class MissionCard extends PureComponent {
               </div>
             </div>
 
-            <div className="mission-status" dangerouslySetInnerHTML={{ __html: missionStatusText }}/>
+            <div
+              className="mission-status"
+              dangerouslySetInnerHTML={{ __html: missionStatusText }}
+            />
           </div>
         </div>
 
@@ -96,7 +99,10 @@ export class MissionCard extends PureComponent {
             <span>{telescopeName || telescopePierName}</span>
           </div>
 
-          <div className="mission-status" dangerouslySetInnerHTML={{ __html: missionStatusText }}/>
+          <div
+            className="mission-status"
+            dangerouslySetInnerHTML={{ __html: missionStatusText }}
+          />
         </div>
       </div>
     );

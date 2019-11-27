@@ -12,7 +12,6 @@ import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove
 
 import styles from './AsideToggleableMenu.style';
 
-
 const AsideToggleableMenu = props => {
   const {
     visible,

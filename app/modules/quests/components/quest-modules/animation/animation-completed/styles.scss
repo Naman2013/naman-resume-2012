@@ -1,0 +1,76 @@
+@import '~app/styles/variables/index';
+
+.animation-completed {
+  margin-top: 50px;
+
+  &__card {
+    background-color: $black;
+    max-width: 452px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 9px 0 $shadows;
+
+    &-image {
+      img {
+        width: 100%;
+      }
+    }
+
+    &-title {
+      margin-top: 21px;
+      font-family: $secondary-font;
+      font-size: 20px;
+      font-weight: 500;
+      color: $romance;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    &-subtitle {
+      margin-top: 7px;
+      font-family: $primary-font;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.33;
+      letter-spacing: 2px;
+      text-align: center;
+      color: $romance;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 37px;
+
+    &-separator {
+      width: 1px;
+      height: 40px;
+      background-color: $hawkesBlue;
+      margin: 0 20px;
+    }
+
+    &-download {
+      > div {
+        > .btn-circle {
+          > .icon-download:before {
+            font-weight: 700;
+            line-height: 22px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  @include sm-low {
+    .animation-completed__actions-edit {
+      > div {
+        button {
+          padding: 15px 18px;
+        }
+      }
+    }
+  }
+}

@@ -35,3 +35,25 @@ export const getQuestGuidePanelApi = data =>
   axios.post('/api/quests/getQuestGuidePanel', data);
 export const getCustomerQuestsApi = data =>
   axios.post('/api/profiles/getCustomerQuests', data);
+
+// QUEST ANIMATION MODULE
+export const getAnimationApi = data =>
+  axios.post('/api/quests/getAnimation', data);
+export const getAnimationFramesApi = data =>
+  axios.post('/api/quests/getAnimationFrames', data);
+export const setAnimationApi = data =>
+  axios.post('/api/quests/setAnimation', data);
+// END: QUEST ANIMATION MODULE
+
+// RICH TEXT INPUT MODULE
+export const getRichTextInputModuleApi = data =>
+  axios.post('/api/quests/getTextInput', data);
+export const setRichTextInputModuleApi = data =>
+  axios.post('/api/quests/setTextInput', data);
+
+// IMAGEORDERING (MONTAGE) MODULE
+export const getImageorderingModuleApi = data =>
+  axios.post('/api/quests/getMontage', data);
+
+export const setImageorderingModuleApi = data =>
+  axios.post('/api/quests/setMontage', data);
