@@ -88,7 +88,6 @@ export class DataCollectionSlotModal extends Component {
       showEmptySetContentsDesc,
       emptySetContentsDesc,
     } = questDataCollectionSlotImages;
-    const { slotSequence } = selectedSlot;
 
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">

@@ -8,18 +8,28 @@ type PreviewAnimationControlsProps = {
   onEdit: () => void;
   onFinish: () => void;
   onSpeedChange: (speed: number) => void;
+  onPrevFrame: () => void;
+  onNextFrame: () => void;
 };
 
 const ANIMATION_SPEEDS = {
   SLOW: 'SLOW',
   MED: 'MED',
   FAST: 'FAST',
+  SINGLE_STEP: 'SINGLE_STEP',
 };
 
 export const PreviewAnimationControls: React.FC<
   PreviewAnimationControlsProps
 > = React.memo(props => {
-  const { questAnimation, onEdit, onFinish, onSpeedChange } = props;
+  const {
+    questAnimation,
+    onEdit,
+    onFinish,
+    onSpeedChange,
+    onPrevFrame,
+    onNextFrame,
+  } = props;
   const {
     fastButtonCaption,
     mediumButtonCaption,
@@ -39,8 +49,8 @@ export const PreviewAnimationControls: React.FC<
   };
 
   return (
-    <div className="animation-controls">
-      <div className="controls-block">
+    <div className="animation-controls preview-controls">
+      <div className="controls-block speed-actions">
         <div className="buttons-block">
           <Button
             className={cx('btn-white animation-view-btn', {
@@ -72,21 +82,43 @@ export const PreviewAnimationControls: React.FC<
           >
             {fastButtonCaption}
           </Button>
-        </div>
-      </div>
 
-      <div className="controls-block">
-        <div className="buttons-block">
-          <Button className="btn-white animation-view-btn" onClick={onEdit}>
-            {editButtonCaption}
+          <Button
+            className={cx('btn-white animation-view-btn', {
+              'btn-active': animationSpeed === ANIMATION_SPEEDS.SINGLE_STEP,
+            })}
+            onClick={(): void => {
+              onSpeedBtnClick(ANIMATION_SPEEDS.SINGLE_STEP, 0);
+            }}
+          >
+            Single step
+          </Button>
+          <Button
+            className="btn-white animation-view-btn"
+            onClick={onPrevFrame}
+            disabled={animationSpeed !== ANIMATION_SPEEDS.SINGLE_STEP}
+          >
+            Prev step
+          </Button>
+          <Button
+            className="btn-white animation-view-btn"
+            onClick={onNextFrame}
+            disabled={animationSpeed !== ANIMATION_SPEEDS.SINGLE_STEP}
+          >
+            Next step
           </Button>
         </div>
       </div>
 
-      <div className="controls-block">
-        <Button className="btn-white animation-view-btn" onClick={onFinish}>
-          {finishButtonCaption}
-        </Button>
+      <div className="controls-block change-mode">
+        <div className="buttons-block">
+          <Button className="btn-white animation-view-btn" onClick={onEdit}>
+            {editButtonCaption}
+          </Button>
+          <Button className="btn-white animation-view-btn" onClick={onFinish}>
+            {finishButtonCaption}
+          </Button>
+        </div>
       </div>
     </div>
   );
