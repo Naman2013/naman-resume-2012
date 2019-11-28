@@ -317,3 +317,90 @@ export declare interface ImageorderingModuleResponse {
   slotCount: number;
   step: number;
 }
+
+export declare interface IImageOrderingSlot {
+  slotId: number;
+  slotSequence: number;
+  showSlotTitle: boolean;
+  slotTitle: string;
+  slotHasImage: boolean;
+  textPrompt: string;
+  showTextPrompt: boolean;
+  graphicalPromptURL: string;
+  showGraphicalPrompt: boolean;
+  slotIdentifier: string;
+  QuestModuleImageOrderingSlotId: number;
+  OverlayXpos: number;
+  OverlayYpos: number;
+  OverlayWidth: number;
+  OverlayHeight: number;
+  CorrectAnswer: number;
+  enableSlotButton: boolean;
+  showSlotButton: boolean;
+  slotButtonCaption: string;
+  showSlotButtonTooltip: boolean;
+  slotButtonTooltipText: string;
+  showSlotInfo: boolean;
+  enableSlotInfo: boolean;
+  slotInfoTitle: string;
+  showSlotInfoTooltip: boolean;
+  slotInfoTooltipText: string;
+  slotInfo: {
+    showSlotContentsDesc: boolean;
+    slotContentsDesc: string;
+    showObjectDetails: boolean;
+    objectName: string;
+    imageDate: string;
+    imageTime: string;
+    telescopeName: string;
+    instrumentName: string;
+  };
+  showSlotDetails: boolean;
+  slotDetails: [];
+  showDotMenu: boolean;
+  enableDotMenu: boolean;
+  dotMenuTitle: string;
+  showDotMenuTooltip: boolean;
+  dotMenuTooltipText: string;
+  dotMenu: {
+    showCheckForMissions: boolean;
+    enableCheckForMissions: boolean;
+    checkForMissionsText: string;
+    checkForMissionsUrl: string;
+    showRemoveImage: boolean;
+    enableRemoveImage: boolean;
+    removeImageText: string;
+    showDownloadImage: boolean;
+    enableDownloadImage: boolean;
+    downloadImageText: string;
+    showObjectInfo: boolean;
+    enableObjectInfo: boolean;
+    objectInfo: {
+      callSource: string;
+      objectName: string;
+      objectId: number;
+      learnAboutText: string;
+      learnAboutUrl: string;
+      showFollowPromptFlag: boolean;
+      followPrompt: string;
+      followPromptIconUrl: string;
+      followActionIconUrl: string;
+      toggleFollowConfirmationFlag: boolean;
+      toggleFollowConfirmationPrompt: string;
+    };
+  };
+  contentType: string;
+  contentCount: number;
+  imageSource: string;
+  objectId: number;
+  customerImageId: number;
+  imageURL: string;
+  thumbnailURL: string;
+}
+
+export declare interface IQuestDotMenuItem {
+  show: boolean;
+  disabled: boolean;
+  title: any;
+  action?: () => void;
+}
