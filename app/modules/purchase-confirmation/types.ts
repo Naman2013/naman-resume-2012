@@ -5,6 +5,13 @@ export interface IPurchaseConfirmationResponse {
   errorCode: number;
   errorMsg: string;
   statusCode: number;
+  pageHeading1: string;
+  pageHeading2: string;
+  gettingStartedBtn: {
+    linkLabel: string;
+    linkUrl: string;
+  };
+  explainationText: string;
   accountTypeSection: {
     accountTypeHeading: string;
     currentSubscriptionPlan: {
@@ -14,7 +21,7 @@ export interface IPurchaseConfirmationResponse {
       planTeaserContent: string;
       startDateText: string;
       priceDisplayLabel: string;
-      showRenewalDate: true;
+      showRenewalDate: boolean;
       isUpgradeAvailable: null; // ?
       upgradeButtonLabel: null; // ?
       planInfoUrl: string;

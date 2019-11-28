@@ -205,7 +205,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       <Route path="join" component={Join}>
         <Redirect
           from="purchaseConfirmation(/:tab)"
-          to="/profile/private/gettingstarted"
+          to="/purchase-confirmation"
         />
         <Route path="step1" component={JoinStep1} />
         <Route
