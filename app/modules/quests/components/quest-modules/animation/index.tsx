@@ -600,8 +600,8 @@ export class AnimationModule extends React.PureComponent<
       if (zoom && zoom > magnificationDefault) {
         this.canvas.hoverCursor = 'move';
       }
-      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
       this.canvas.viewportTransform = [...this.vpt];
+      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
     }
 
     if (frame.empty) {
