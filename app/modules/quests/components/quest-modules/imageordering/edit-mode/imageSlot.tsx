@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import cn from 'classnames';
+import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import Dots from 'app/atoms/icons/Dots';
@@ -82,7 +82,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   position="top"
                 >
                   <Button
-                    className={cn('info-btn', { open: isInfoMenuOpen })}
+                    className={cx('info-btn', { open: isInfoMenuOpen })}
                     onClick={() =>
                       !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
                     }
