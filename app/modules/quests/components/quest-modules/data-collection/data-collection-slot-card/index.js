@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
-import cn from 'classnames';
+import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import uniqueId from 'lodash/uniqueId';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
@@ -158,7 +158,7 @@ export const DataCollectionSlotCard = props => {
         {showSlotInfo && (
           <Tooltip theme="light" title={slotInfoTooltipText} position="top">
             <Button
-              className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
+              className={cx('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
               onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
             >
               {!isInfoMenuOpen ? (
