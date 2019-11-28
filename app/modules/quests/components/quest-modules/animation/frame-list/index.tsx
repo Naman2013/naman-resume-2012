@@ -74,7 +74,7 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
         Math.ceil(frameIndex / SLIDES_TO_SHOW - 1) * SLIDES_TO_SHOW
       );
     }
-  }, [frameIndex, slider]);
+  }, [slider]);
 
   return (
     <div className="frame-list">
