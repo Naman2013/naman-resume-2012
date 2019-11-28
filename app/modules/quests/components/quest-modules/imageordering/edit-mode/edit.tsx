@@ -2,20 +2,30 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
+import {
+  ImageorderingModuleResponse,
+  IQuestDataCollectionSlot,
+  IQuestDataCollectionSlotImage,
+  IQuestDataCollectionSlotImages,
+} from 'app/modules/quests/types';
 
-type EditModeProps = {
+type TEditModeProps = {
   readonly?: boolean; // TRUE if Finish mode
   goToPreview?: () => void;
   getDataCollectionSlotImages?: () => void;
-  setDataCollectionSlotImages?: (image: any, selectedSlot: any) => object;
-  imageOrderingModule?: any;
+  setDataCollectionSlotImages?: (
+    image: IQuestDataCollectionSlotImage,
+    selectedSlot: IQuestDataCollectionSlot
+  ) => void;
+  imageOrderingModule?: ImageorderingModuleResponse;
   previewReviewButtonCaption?: string;
-  slot?: any;
+  slot?: IQuestDataCollectionSlot;
   loading?: boolean;
-  questDataCollectionSlotImages?: object;
+  questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
 };
+const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
-export const EditMode: React.FC<EditModeProps> = props => {
+export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     readonly = false,
     goToPreview,
@@ -32,13 +42,12 @@ export const EditMode: React.FC<EditModeProps> = props => {
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState({});
+  const [selectedSlot, setSelectedSlot] = useState(INITIAL_SELECTED_SLOT);
 
   return (
     <div>
-      {slotArray.map((slot: any) => (
+      {slotArray.map((slot: IQuestDataCollectionSlot) => (
         <ImageSlot
-          imageOrderingModule={imageOrderingModule}
           slot={slot}
           showMontageModuleSlotModal={() => {
             openMMSlotModal(true);
@@ -55,9 +64,9 @@ export const EditMode: React.FC<EditModeProps> = props => {
           questDataCollectionSlotImages={questDataCollectionSlotImages}
           selectedSlot={selectedSlot}
           getDataCollectionSlotImages={getDataCollectionSlotImages}
-          setDataCollectionSlotImages={(image: any) =>
-            setDataCollectionSlotImages(image, selectedSlot)
-          }
+          setDataCollectionSlotImages={(
+            image: IQuestDataCollectionSlotImage
+          ): void => setDataCollectionSlotImages(image, selectedSlot)}
           moduleId={moduleId}
           questId={questId}
           loading={loading}
