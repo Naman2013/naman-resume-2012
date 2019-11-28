@@ -80,6 +80,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   theme="light"
                   title={slotInfoTooltipText}
                   position="top"
+                  disabled={isInfoMenuOpen}
                 >
                   <Button
                     className={cx('info-btn', { open: isInfoMenuOpen })}
