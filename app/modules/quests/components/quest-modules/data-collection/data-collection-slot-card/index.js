@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
 import cn from 'classnames';
-import Dots from 'atoms/icons/Dots';
 import { Tooltip } from 'react-tippy';
 import uniqueId from 'lodash/uniqueId';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
-import { Link } from 'react-router';
 import { downloadFile } from 'app/utils/downloadFile';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
 import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
 
@@ -20,11 +20,11 @@ export const DataCollectionSlotCard = props => {
   const {
     slot,
     showDataCollectionSlotModal,
-    readOnly,
     removeDataCollectionSlotImage,
     user,
     refreshDataCollection,
   } = props;
+
   const {
     slotSequence,
     thumbnailURL,
@@ -47,11 +47,85 @@ export const DataCollectionSlotCard = props => {
     enableSlotButton,
     slotButtonTooltipText,
     slotInfoTooltipText,
-    dotMenuTooltipText,
   } = slot;
 
+  const {
+    showRemoveImage,
+    enableRemoveImage,
+    removeImageText,
+    showDownloadImage,
+    enableDownloadImage,
+    downloadImageText,
+    showCheckForMissions,
+    enableCheckForMissions,
+    checkForMissionsText,
+    checkForMissionsUrl,
+    showObjectInfo,
+    enableObjectInfo,
+    objectInfo,
+  } = dotMenu;
+
+  const {
+    learnAboutText,
+    learnAboutUrl,
+    followPrompt,
+    followPromptIconUrl,
+  } = objectInfo;
+
+  const {
+    showSlotContentsDesc,
+    slotContentsDesc,
+    showObjectDetails,
+    objectName,
+    imageDate,
+    imageTime,
+    telescopeName,
+    instrumentName,
+  } = slotInfo;
+
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
-  const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
+
+  const dotMenuItems = [
+    {
+      show: showRemoveImage,
+      disabled: !enableRemoveImage,
+      title: removeImageText,
+      action: () => removeDataCollectionSlotImage(slotId, customerImageId),
+    },
+    {
+      show: showDownloadImage,
+      disabled: !enableDownloadImage,
+      title: downloadImageText,
+      action: () => onDownloadImage(imageURL),
+    },
+    {
+      show: showCheckForMissions,
+      disabled: !enableCheckForMissions,
+      title: checkForMissionsText,
+      action: () => browserHistory.push(checkForMissionsUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: learnAboutText,
+      action: () => browserHistory.push(learnAboutUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: Boolean(objectId) && (
+        <FollowObjectButton
+          key={`follow-object-button-${uniqueId()}`}
+          objectId={objectId}
+          user={user}
+          followButtonText={followPrompt}
+          followButtonIconURL={followPromptIconUrl}
+          callBack={refreshDataCollection}
+        />
+      ),
+    },
+  ];
+
   return (
     <div className="dc-slot-card">
       <div className="dc-slot-card-number">
@@ -61,11 +135,11 @@ export const DataCollectionSlotCard = props => {
       <div className="dc-slot-card-thumbnail-box">
         {slotHasImage ? (
           <ImageClickHandler imageUrl={imageURL}>
-            <img src={thumbnailURL} />
+            <img src={thumbnailURL} alt="slot" />
           </ImageClickHandler>
         ) : (
           <div className="dc-slot-card-empty-image">
-            <img src={thumbnailURL} />
+            <img src={thumbnailURL} alt="slot" />
           </div>
         )}
       </div>
@@ -85,7 +159,7 @@ export const DataCollectionSlotCard = props => {
           <Tooltip theme="light" title={slotInfoTooltipText} position="top">
             <Button
               className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
-              onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
+              onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
             >
               {!isInfoMenuOpen ? (
                 <img
@@ -98,127 +172,42 @@ export const DataCollectionSlotCard = props => {
             </Button>
           </Tooltip>
         )}
-        {showDotMenu && (
-          <Tooltip theme="light" title={dotMenuTooltipText} position="top">
-            <Button
-              onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
-              className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
-              disabled={!enableDotMenu}
-            >
-              {!isDotsMenuOpen ? (
-                <Dots theme={{ circleColor: astronaut }} />
-              ) : (
-                <i className="menu-icon-close icon-close" />
-              )}
-            </Button>
-          </Tooltip>
-        )}
 
         <QuestButtonsPopover isOpen={isInfoMenuOpen}>
-          {isInfoMenuOpen && slotInfo.showSlotContentsDesc && (
+          {isInfoMenuOpen && showSlotContentsDesc && (
             <div className="dc-slot-info-popover">
               <div className="dc-slot-info-title">{slotInfoTitle}</div>
               <div
                 className="dc-slot-info-text"
-                dangerouslySetInnerHTML={{ __html: slotInfo?.slotContentsDesc }}
+                dangerouslySetInnerHTML={{ __html: slotContentsDesc }}
               />
             </div>
           )}
-          {isInfoMenuOpen && slotInfo.showObjectDetails && (
+          {isInfoMenuOpen && showObjectDetails && (
             <div className="data-collection-image-info">
               <div className="dc-slot-info-popover">
                 <div className="dc-slot-info-title">{slotInfoTitle}</div>
                 <div className="dc-slot-info-text">
-                  <div className="slot-info-title">{slotInfo?.objectName}</div>
+                  <div className="slot-info-title">{objectName}</div>
                   <div className="slot-info-date">
-                    <div>{slotInfo?.imageDate}</div>
-                    <div>{slotInfo?.imageTime}</div>
+                    <div>{imageDate}</div>
+                    <div>{imageTime}</div>
                   </div>
-                  <div className="slot-info-telescope">
-                    {slotInfo?.telescopeName}
-                  </div>
-                  <div className="slot-info-subtitle">
-                    {slotInfo?.instrumentName}
-                  </div>
+                  <div className="slot-info-telescope">{telescopeName}</div>
+                  <div className="slot-info-subtitle">{instrumentName}</div>
                 </div>
               </div>
             </div>
           )}
         </QuestButtonsPopover>
 
-        <QuestButtonsPopover isOpen={isDotsMenuOpen}>
-          {isDotsMenuOpen && (
-            <div className="data-collection-menu">
-              <div className="dc-slot-dots-popover">
-                <div className="title">{dotMenuTitle}:</div>
-                <div className="content">
-                  {dotMenu?.showRemoveImage && (
-                    <div
-                      onClick={() => {
-                        toggleDotsMenu(false);
-                        removeDataCollectionSlotImage(
-                          slotId,
-                          customerImageId
-                        );
-                      }}
-                      disabled={!dotMenu?.enableRemoveImage}
-                    >
-                      {dotMenu?.removeImageText}
-                    </div>
-                  )}
-                  {dotMenu?.showDownloadImage && (
-                    <div
-                      onClick={() => {
-                        toggleDotsMenu(false);
-                        onDownloadImage(imageURL);
-                      }}
-                      disabled={!dotMenu?.enableDownloadImage}
-                    >
-                      {dotMenu?.downloadImageText}
-                    </div>
-                  )}
-                  {dotMenu?.showCheckForMissions && (
-                    <Link
-                      to={dotMenu?.checkForMissionsUrl}
-                      disabled={!dotMenu?.enableCheckForMissions}
-                    >
-                      <div>{dotMenu?.checkForMissionsText}</div>
-                    </Link>
-                  )}
-                  {dotMenu?.showObjectInfo && (
-                    <>
-                      <Link
-                        to={dotMenu?.objectInfo?.learnAboutUrl}
-                        disabled={!dotMenu?.enableObjectInfo}
-                      >
-                        <div>{dotMenu?.objectInfo?.learnAboutText}</div>
-                      </Link>
-                      <div
-                        className="follow-object-button"
-                        disabled={!dotMenu?.enableObjectInfo}
-                      >
-                        {objectId && (
-                          <FollowObjectButton
-                            key={`follow-object-button-${uniqueId()}`}
-                            objectId={objectId}
-                            user={user}
-                            followButtonText={
-                              dotMenu?.objectInfo?.followPrompt
-                            }
-                            followButtonIconURL={
-                              dotMenu?.objectInfo?.followPromptIconUrl
-                            }
-                            callBack={refreshDataCollection}
-                          />
-                        )}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-        </QuestButtonsPopover>
+        <QuestDotMenu
+          theme={{ circleColor: astronaut }}
+          show={showDotMenu}
+          enabled={enableDotMenu}
+          menuTitle={dotMenuTitle}
+          items={dotMenuItems}
+        />
       </div>
     </div>
   );

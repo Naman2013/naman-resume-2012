@@ -9,6 +9,7 @@ import {
   makeQuestDataCollectionSlotImagesSelector,
   makeQuestsStepDataSelector,
 } from 'app/modules/quests/selectors';
+import { makeUserSelector } from 'app/modules/user/selectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { ACTION } from '../../reducer';
@@ -20,6 +21,7 @@ const mapStateToProps = (state: any, props: any) => ({
   questDataCollectionSlotImages: makeQuestDataCollectionSlotImagesSelector()(
     state
   ),
+  user: makeUserSelector()(state),
 });
 
 const mapDispatchToProps = {
