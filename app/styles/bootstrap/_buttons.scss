@@ -29,6 +29,16 @@
       background-color: $lightHeadedAstronaut;
       color: $romance;
     }
+
+    &.btn-white {
+      border-color: $romance;
+      color: $romance;
+
+      &.btn-active {
+        background-color: $romance;
+        color: $lightHeadedAstronaut;
+      }
+    }
   }
 
   &-circle {
@@ -37,7 +47,7 @@
     width: 40px;
     padding: 0;
 
-    [class^=icon] {
+    [class^='icon'] {
       // centering
       position: absolute;
       top: 50%;

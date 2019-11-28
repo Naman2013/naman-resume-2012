@@ -85,3 +85,32 @@ export const makeCustomerQuestsSelector = () =>
     selectQuests,
     state => state.customerQuests
   );
+
+// QUEST ANIMATION MODULE
+export const makeQuestAnimationSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questAnimation
+  );
+export const makeQuestAnimationFramesSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questAnimationFrames
+  );
+export const makeQuestAnimationActiveFrameSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.activeFrame
+  );
+export const makeQuestAnimationDataSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questAnimationData
+  );
+// END: QUEST ANIMATION MODULE
+
+export const richTextInputModulesSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.richTextInputModules
+  );
