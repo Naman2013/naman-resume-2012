@@ -22,6 +22,7 @@ const InlineStyleControls = (props) => {
           label={type.label}
           onToggle={props.onToggle}
           style={type.style}
+          readOnly={props.readOnly}
         />
       )}
     </div>

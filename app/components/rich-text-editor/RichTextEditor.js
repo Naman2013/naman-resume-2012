@@ -322,6 +322,7 @@ class RichTextEditor extends React.Component {
             onToggle={this.toggleBlockType}
           />
           <InlineStyleControls
+            readOnly={readOnly}
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />

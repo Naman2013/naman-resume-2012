@@ -102,6 +102,10 @@ $headerSize: 1.2rem;
     color: $golden_yellow;
   }
 
+  .RichEditor-readOnly {
+    color: $astronaut;
+  }
+
   .RichEditor-horizontalRule {
     border-top: 1px solid $astronaut;
   }
