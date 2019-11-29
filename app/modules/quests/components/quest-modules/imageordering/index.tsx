@@ -2,7 +2,7 @@ import React from 'react';
 import {
   IQuestStepModule,
   ImageorderingModuleResponse,
-} from 'app/modules/quests/types';
+} from 'app/modules/quests/types.ts';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
@@ -26,6 +26,7 @@ type ImageorderingProps = {
   image: any;
   loading?: boolean;
   questDataCollectionSlotImages?: object;
+  user: User;
 };
 
 enum Mode {
@@ -48,16 +49,7 @@ export class Imageordering extends React.PureComponent<
   };
 
   componentDidMount(): void {
-    const { module, questId, stepData, getImageorderingModule } = this.props;
-    const { questUUID } = stepData;
-    const { moduleId, moduleUUID } = module;
-
-    getImageorderingModule({
-      questId,
-      questUUID,
-      moduleId,
-      moduleUUID,
-    });
+    this.getImageOrderingModule();
   }
 
   onChangeMode = (mode: Mode): void => this.setState({ mode });
@@ -70,7 +62,24 @@ export class Imageordering extends React.PureComponent<
 
   goToReviewMode = (): void => this.onChangeMode(Mode.review);
 
-  setDataCollectionSlotImages = (image: any, selectedSlot: any): any => {
+  getImageOrderingModule = (): void => {
+    const { module, questId, stepData, getImageorderingModule } = this.props;
+    const { questUUID } = stepData;
+    const { moduleId, moduleUUID } = module;
+
+    getImageorderingModule({
+      questId,
+      questUUID,
+      moduleId,
+      moduleUUID,
+    });
+  };
+
+  setDataCollectionSlotImages = (
+    image: any,
+    selectedSlot: any,
+    deleteSlotImage?: boolean
+  ): void => {
     const {
       module,
       questId,
@@ -84,6 +93,28 @@ export class Imageordering extends React.PureComponent<
       questId,
       customerImageId,
       slotId: selectedSlot.slotId,
+      deleteSlotImage,
+    }).then(({ payload }: any) => {
+      if (payload.refreshStep) {
+        refreshQuestStep();
+      }
+    });
+  };
+
+  removeDataCollectionSlotImage = (slotId: number, imageId: number): void => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      refreshQuestStep,
+    } = this.props;
+    const { moduleId } = module;
+    setDataCollectionSlotImages({
+      moduleId,
+      questId,
+      customerImageId: imageId,
+      slotId,
+      deleteSlotImage: '1',
     }).then(({ payload }: any) => {
       if (payload.refreshStep) {
         refreshQuestStep();
@@ -99,6 +130,7 @@ export class Imageordering extends React.PureComponent<
       imageorderingModule,
       getDataCollectionSlotImages,
       questDataCollectionSlotImages,
+      user,
       loading,
     } = this.props;
 
@@ -114,9 +146,12 @@ export class Imageordering extends React.PureComponent<
           <EditMode
             goToPreview={this.goToPreviewMode}
             imageOrderingModule={imageorderingModule}
+            getImageOrderingModule={this.getImageOrderingModule}
             getDataCollectionSlotImages={getDataCollectionSlotImages}
             questDataCollectionSlotImages={questDataCollectionSlotImages}
             setDataCollectionSlotImages={this.setDataCollectionSlotImages}
+            removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
+            user={user}
             loading={loading}
           />
         )}
@@ -138,9 +173,12 @@ export class Imageordering extends React.PureComponent<
           <EditMode
             readonly
             imageOrderingModule={imageorderingModule}
+            getImageOrderingModule={this.getImageOrderingModule}
             getDataCollectionSlotImages={getDataCollectionSlotImages}
             questDataCollectionSlotImages={questDataCollectionSlotImages}
             setDataCollectionSlotImages={this.setDataCollectionSlotImages}
+            removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
+            user={user}
             loading={loading}
           />
         )}

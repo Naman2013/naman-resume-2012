@@ -2,17 +2,25 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
+import { IImageOrderingSlot } from 'app/modules/quests/types.ts';
 
 type EditModeProps = {
   readonly?: boolean; // TRUE if Finish mode
   goToPreview?: () => void;
+  getImageOrderingModule?: () => void;
   getDataCollectionSlotImages?: () => void;
-  setDataCollectionSlotImages?: (image: any, selectedSlot: any) => object;
+  setDataCollectionSlotImages?: (
+    image: any,
+    selectedSlot: any,
+    deleteSlotImage?: boolean
+  ) => void;
+  removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   imageOrderingModule?: any;
   previewReviewButtonCaption?: string;
-  slot?: any;
+  slot?: IImageOrderingSlot;
   loading?: boolean;
   questDataCollectionSlotImages?: object;
+  user?: User;
 };
 
 export const EditMode: React.FC<EditModeProps> = props => {
@@ -20,9 +28,12 @@ export const EditMode: React.FC<EditModeProps> = props => {
     readonly = false,
     goToPreview,
     imageOrderingModule,
+    getImageOrderingModule,
     setDataCollectionSlotImages,
     getDataCollectionSlotImages,
+    removeDataCollectionSlotImage,
     questDataCollectionSlotImages,
+    user,
     loading,
   } = props;
   const {
@@ -36,26 +47,30 @@ export const EditMode: React.FC<EditModeProps> = props => {
 
   return (
     <div>
-      {slotArray.map((slot: any) => (
+      {slotArray.map((slot: IImageOrderingSlot) => (
         <ImageSlot
+          key={slot.slotId}
           imageOrderingModule={imageOrderingModule}
+          getImageOrderingModule={getImageOrderingModule}
           slot={slot}
-          showMontageModuleSlotModal={() => {
+          showMontageModuleSlotModal={(): void => {
             openMMSlotModal(true);
             setSelectedSlot(slot);
           }}
+          removeDataCollectionSlotImage={removeDataCollectionSlotImage}
+          user={user}
         />
       ))}
       {mmSlotModalVisible && (
         <DataCollectionSlotModal
           show
-          onHide={() => {
+          onHide={(): void => {
             openMMSlotModal(false);
           }}
           questDataCollectionSlotImages={questDataCollectionSlotImages}
           selectedSlot={selectedSlot}
           getDataCollectionSlotImages={getDataCollectionSlotImages}
-          setDataCollectionSlotImages={(image: any) =>
+          setDataCollectionSlotImages={(image: any): void =>
             setDataCollectionSlotImages(image, selectedSlot)
           }
           moduleId={moduleId}
