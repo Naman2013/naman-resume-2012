@@ -4,11 +4,13 @@ import * as cx from 'classnames';
 
 type TFeedItem = {
   item: any;
+  contentClickHandler: (e: any) => void;
+  onKeyPressed: (e: any) => void;
 };
 
 export const FeedItem = (props: TFeedItem) => {
   const { item, contentClickHandler, onKeyPressed } = props;
-  const { currentUser, text } = item;
+  const { currentUser, text, date } = item;
 
   return (
     <div
@@ -17,9 +19,7 @@ export const FeedItem = (props: TFeedItem) => {
       })}
     >
       <div className="feed-data">
-        {props.item.date && (
-          <span className="feed-data-date">{props.item.date}</span>
-        )}
+        {date && <span className="feed-data-date">{date}</span>}
         {/* <span className="feed-data-user">{props.item.user}</span> */}
       </div>
 

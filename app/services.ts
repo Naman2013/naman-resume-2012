@@ -8,6 +8,15 @@ export const isMobileDevice = (): boolean => {
   return window.screen.width < TABLET_SIZE;
 };
 
+export const isMobileScreen = (): boolean => {
+  return window.innerWidth <= MOBILE_SIZE;
+};
+
+export const isTabletScreen = (): boolean => {
+  const screenWidth = window.innerWidth;
+  return screenWidth > MOBILE_SIZE && screenWidth <= TABLET_SIZE;
+};
+
 export const isDesktopDevice = (): boolean => {
   return window.screen.width >= DESKTOP_SIZE;
 };

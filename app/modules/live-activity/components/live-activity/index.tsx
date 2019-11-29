@@ -4,10 +4,15 @@ import { Tooltip } from 'react-tippy';
 import { browserHistory } from 'react-router';
 import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
-import { isMobileDevice } from 'app/services.ts';
+import {
+  isMobileDevice,
+  isMobileScreen,
+  isTabletScreen,
+} from 'app/services.ts';
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
 import { isEnter } from 'app/modules/utils/keyIdentifier';
+import { isDesktop } from 'app/providers/deviceConfiguration';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -41,7 +46,7 @@ const setMessageIdToLocalStorage = (id: string) => {
   window.localStorage.setItem('newMessageId', id);
 };
 
-const contentClickHandler = (e: KeyboardEvent<HTMLInputElement>, setOpen) => {
+const contentClickHandler = (e: any, setOpen: Function): void => {
   // detect click on Link
   if (e.target instanceof HTMLAnchorElement) {
     const targetLink = e.target.closest('a');
@@ -49,7 +54,7 @@ const contentClickHandler = (e: KeyboardEvent<HTMLInputElement>, setOpen) => {
     browserHistory.push(targetLink.href);
 
     // if Mobile then close modal
-    const isMobile = isMobileDevice();
+    const isMobile = isMobileScreen() || isTabletScreen();
 
     if (isMobile) {
       setOpen(false);
@@ -57,7 +62,7 @@ const contentClickHandler = (e: KeyboardEvent<HTMLInputElement>, setOpen) => {
   }
 };
 
-const onKeyPressed = (e, setOpen) => {
+const onKeyPressed = (e: any, setOpen: Function) => {
   if (isEnter(e)) {
     contentClickHandler(e, setOpen);
   }
