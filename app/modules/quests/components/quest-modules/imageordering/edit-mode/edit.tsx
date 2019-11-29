@@ -12,16 +12,20 @@ import {
 type TEditModeProps = {
   readonly?: boolean; // TRUE if Finish mode
   goToPreview?: () => void;
+  getImageOrderingModule?: () => void;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
     image: IQuestDataCollectionSlotImage,
-    selectedSlot: IQuestDataCollectionSlot
+    selectedSlot: IQuestDataCollectionSlot,
+    deleteSlotImage?: boolean
   ) => void;
+  removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   imageOrderingModule?: ImageorderingModuleResponse;
   previewReviewButtonCaption?: string;
   slot?: IQuestDataCollectionSlot;
   loading?: boolean;
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
+  user?: User;
 };
 const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
@@ -30,9 +34,12 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     readonly = false,
     goToPreview,
     imageOrderingModule,
+    getImageOrderingModule,
     setDataCollectionSlotImages,
     getDataCollectionSlotImages,
+    removeDataCollectionSlotImage,
     questDataCollectionSlotImages,
+    user,
     loading,
   } = props;
   const {
@@ -48,25 +55,30 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     <div>
       {slotArray.map((slot: IQuestDataCollectionSlot) => (
         <ImageSlot
+          key={slot.slotId}
+          imageOrderingModule={imageOrderingModule}
+          getImageOrderingModule={getImageOrderingModule}
           slot={slot}
-          showMontageModuleSlotModal={() => {
+          showMontageModuleSlotModal={(): void => {
             openMMSlotModal(true);
             setSelectedSlot(slot);
           }}
+          removeDataCollectionSlotImage={removeDataCollectionSlotImage}
+          user={user}
         />
       ))}
       {mmSlotModalVisible && (
         <DataCollectionSlotModal
           show
-          onHide={() => {
+          onHide={(): void => {
             openMMSlotModal(false);
           }}
           questDataCollectionSlotImages={questDataCollectionSlotImages}
           selectedSlot={selectedSlot}
           getDataCollectionSlotImages={getDataCollectionSlotImages}
-          setDataCollectionSlotImages={(
-            image: IQuestDataCollectionSlotImage
-          ): void => setDataCollectionSlotImages(image, selectedSlot)}
+          setDataCollectionSlotImages={(image: any): void =>
+            setDataCollectionSlotImages(image, selectedSlot)
+          }
           moduleId={moduleId}
           questId={questId}
           loading={loading}

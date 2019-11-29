@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
 import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
@@ -6,15 +7,31 @@ import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import Dots from 'app/atoms/icons/Dots';
 import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './style.scss';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import { downloadFile } from 'app/utils/downloadFile';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
+import uniqueId from 'lodash/uniqueId';
 import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
 
 type TImageSlotProps = {
+  imageOrderingModule: any;
+  getImageOrderingModule?: () => void;
   showMontageModuleSlotModal?: () => void;
   slot?: IQuestDataCollectionSlot;
+  removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
+  user?: User;
 };
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {
-  const { slot, showMontageModuleSlotModal } = props;
+  const {
+    imageOrderingModule,
+    getImageOrderingModule,
+    slot,
+    showMontageModuleSlotModal,
+    removeDataCollectionSlotImage,
+    user,
+  } = props;
+  const { correctText } = imageOrderingModule;
   const {
     imageURL,
     enableSlotButton,
@@ -30,7 +47,83 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     slotInfoTooltipText,
     slotInfo,
     slotIdentifier,
+    showDotMenu,
+    enableDotMenu,
+    dotMenu,
+    dotMenuTitle,
+    slotId,
+    customerImageId,
+    objectId,
   } = slot;
+
+  const {
+    showRemoveImage,
+    enableRemoveImage,
+    removeImageText,
+    showDownloadImage,
+    enableDownloadImage,
+    downloadImageText,
+    showCheckForMissions,
+    enableCheckForMissions,
+    checkForMissionsText,
+    checkForMissionsUrl,
+    showObjectInfo,
+    enableObjectInfo,
+    objectInfo,
+  } = dotMenu;
+
+  const {
+    learnAboutText,
+    learnAboutUrl,
+    followPrompt,
+    followPromptIconUrl,
+  } = objectInfo;
+
+  const dotMenuItems = [
+    {
+      show: showRemoveImage,
+      disabled: !enableRemoveImage,
+      title: removeImageText,
+      action: (): void =>
+        removeDataCollectionSlotImage(slotId, customerImageId),
+    },
+    {
+      show: showDownloadImage,
+      disabled: !enableDownloadImage,
+      title: downloadImageText,
+      action: (): void =>
+        downloadFile(
+          imageURL,
+          imageURL.substring(imageURL.lastIndexOf('/') + 1)
+        ),
+    },
+    {
+      show: showCheckForMissions,
+      disabled: !enableCheckForMissions,
+      title: checkForMissionsText,
+      action: (): void => browserHistory.push(checkForMissionsUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: learnAboutText,
+      action: (): void => browserHistory.push(learnAboutUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: Boolean(objectId) && (
+        <FollowObjectButton
+          key={`follow-object-button-${uniqueId()}`}
+          objectId={objectId}
+          user={user}
+          followButtonText={followPrompt}
+          followButtonIconURL={followPromptIconUrl}
+          callBack={getImageOrderingModule}
+        />
+      ),
+    },
+  ];
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
   const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
@@ -68,7 +161,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 >
                   <Button
                     className="find-button"
-                    onClick={() => showMontageModuleSlotModal()}
+                    onClick={(): void => showMontageModuleSlotModal()}
                     disabled={!enableSlotButton}
                   >
                     {slotButtonCaption}
@@ -99,9 +192,13 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   </Button>
                 </Tooltip>
               )}
-              <Button onClick={() => {}} className="dots-btn">
-                <Dots theme={{ circleColor: astronaut }} />
-              </Button>
+              <QuestDotMenu
+                theme={{ circleColor: astronaut }}
+                show={showDotMenu}
+                enabled={enableDotMenu}
+                menuTitle={dotMenuTitle}
+                items={dotMenuItems}
+              />
               <QuestSlotInfoPopup
                 slotInfo={slotInfo}
                 slotInfoTitle={slotInfoTitle}

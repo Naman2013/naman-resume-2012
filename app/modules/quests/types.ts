@@ -487,3 +487,10 @@ export declare interface IQuestDataCollectionSlotImage {
   thumbnailURL: string;
   zoom: null;
 }
+
+export declare interface IQuestDotMenuItem {
+  show: boolean;
+  disabled: boolean;
+  title: any;
+  action?: () => void;
+}

@@ -53,7 +53,11 @@ const initialState = {
     stepsCompletedList: [],
     suggestedQuestsList: [],
   },
-  questDataCollection: {},
+  questDataCollection: {
+    dotMenu: {
+      objectInfo: {},
+    },
+  },
   questDataCollectionSlotImages: {
     imageList: [],
     firstImageNumber: 1,
