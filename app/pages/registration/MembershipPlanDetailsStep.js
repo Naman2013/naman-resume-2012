@@ -28,7 +28,6 @@ import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep1SchoolSelection.style';
 
-
 const { string, arrayOf, shape } = PropTypes;
 
 @withTranslation()
@@ -42,7 +41,6 @@ class MembershipPlanDetailsStep extends Component {
         value: string,
       })
     ),
-
   };
 
   static defaultProps = {
@@ -89,7 +87,9 @@ class MembershipPlanDetailsStep extends Component {
           requestBody={{
             callSource: 'membershipspagePlanDetails',
             selectedPlanId: this.state.selectedPlanId,
-	    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <div

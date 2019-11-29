@@ -1,5 +1,11 @@
-import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
+/* eslint-disable */
+import {
+  CompositeDecorator,
+  Editor,
+  EditorState,
+  RichUtils,
+} from 'draft-js';
+import { convertToHTML, convertFromHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -49,6 +55,8 @@ const editorStateDecorator = new CompositeDecorator([
   },
 ]);
 
+export const getEditorStateFromHtml = html => EditorState.createWithContent(convertFromHTML(html));
+
 class RichTextEditor extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -65,8 +73,14 @@ class RichTextEditor extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { editorValue } = nextProps;
+    const { editorValue, value } = nextProps;
     const { editorState } = prevState;
+
+    if (value) {
+      return {
+        editorState: value,
+      };
+    }
 
     return {
       editorState:
@@ -94,9 +108,7 @@ class RichTextEditor extends React.Component {
           }
           if (block.text === '') {
             return (
-              <p>
-                <br />
-              </p>
+              <p></p>
             );
           }
         },
@@ -115,7 +127,7 @@ class RichTextEditor extends React.Component {
           return originalText;
         },
       })(content);
-    onChange(threadContent);
+    onChange(threadContent, editorState);
   };
 
   onTab = e => {
@@ -256,7 +268,7 @@ class RichTextEditor extends React.Component {
 
   render() {
     const { editorState, showURLInput, urlValue } = this.state;
-    const { className } = this.props;
+    const { className, readOnly } = this.props;
     const linkClass = cx('RichEditor-styleButton', {
       'RichEditor-activeButton': showURLInput,
     });
@@ -299,7 +311,11 @@ class RichTextEditor extends React.Component {
 
     return (
       <div className={cx(['RichEditor-root', 'RichTextEditor', className])}>
-        <div className="RichEditor-controls-container">
+        <div
+          className={cx('RichEditor-controls-container', {
+            readonly: readOnly,
+          })}
+        >
           <BlockStyleControls
             className="RichEditor-controls"
             editorState={editorState}
@@ -333,6 +349,7 @@ class RichTextEditor extends React.Component {
         </div>
         <div className={editorClassName}>
           <Editor
+            readOnly={readOnly}
             id="rich-editor"
             blockStyleFn={getBlockStyle}
             blockRenderFn={this.blockRenderer}

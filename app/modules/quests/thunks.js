@@ -14,6 +14,13 @@ import {
   getQuestGuidePanelApi,
   getCustomerQuestsApi,
   setQuestCompletedApi,
+  getAnimationApi,
+  getAnimationFramesApi,
+  setAnimationApi,
+  getRichTextInputModuleApi,
+  setRichTextInputModuleApi,
+  getImageorderingModuleApi,
+  setImageorderingModuleApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
@@ -256,4 +263,91 @@ export const getCustomerQuests = data => (dispatch, getState) => {
   return getCustomerQuestsApi({ ...opts })
     .then(result => dispatch(ACTION.getCustomerQuestsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCustomerQuestsError(error)));
+};
+
+// QUEST ANIMATION MODULE
+export const getAnimation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAnimation());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getAnimationApi({ ...opts })
+    .then(result => dispatch(ACTION.getAnimationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAnimationError(error)));
+};
+
+export const getAnimationFrames = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAnimationFrames());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getAnimationFramesApi({ ...opts })
+    .then(result => dispatch(ACTION.getAnimationFramesSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAnimationFramesError(error)));
+};
+
+export const setAnimation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setAnimation());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setAnimationApi({ ...opts })
+    .then(result => dispatch(ACTION.setAnimationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setAnimationError(error)));
+};
+// END: QUEST ANIMATION MODULE
+
+// Rich Text MODULE
+export const getRichTextInputModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getRichTextInputModule());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getRichTextInputModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.getRichTextInputModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getRichTextInputModuleError(error)));
+};
+export const setRichTextInputModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setRichTextInputModule(data));
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setRichTextInputModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.setRichTextInputModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setRichTextInputModuleError(error)));
+};
+
+// imageordering MODULE
+export const setImageorderingModule = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setImageorderingModule(data));
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setImageorderingModuleApi({ ...opts })
+    .then(result => dispatch(ACTION.setImageorderingModuleSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setImageorderingModuleError(error)));
 };

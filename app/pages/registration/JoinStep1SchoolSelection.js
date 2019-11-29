@@ -28,7 +28,6 @@ const { string } = PropTypes;
 class JoinStep1SchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
-
   };
 
   static defaultProps = {

@@ -33,6 +33,10 @@ $headerSize: 1.2rem;
     border-bottom: 0;
     text-align: center;
     background-color: $seashell;
+
+    &.readonly {
+      pointer-events: none;
+    }
   }
 
   .buttons, .urlInputContainer {
