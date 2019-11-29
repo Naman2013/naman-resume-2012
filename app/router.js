@@ -191,7 +191,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":viewType" component={Memberships} />
+        </Route>
         <Route
           path=":aboutSloohSectionId"
           component={AboutSloohSection}
