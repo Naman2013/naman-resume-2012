@@ -27,6 +27,7 @@
   left: -235px;
   width: 400px;
   @include boxShadow();
+  z-index: 100;
 
   &::before {
     content: "";

@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
+import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 
@@ -30,6 +30,8 @@ export class MissionTimeSlot extends PureComponent {
       userHasHold,
       showDotMenu,
       showDotMenuMobile,
+      showNoReservations,
+      noReservationsExplanation,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -41,28 +43,28 @@ export class MissionTimeSlot extends PureComponent {
         ? () => getTelescopeSlot()
         : () => {};
 
+    const title = showNoReservations ? noReservationsExplanation : slotTitle;
+
     return (
       <div
         className={`missions-list-item${
           SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
         }`}
         onClick={missionSlotOnClick}
+        role="button"
         id={`mission-slot-${scheduledMissionId}`}
+        tabIndex={0}
       >
         <div className="left">
           <div className="mission-title">
-            {slotTitle}{' '}
+            {title}{' '}
             {expires > 0 && userHasHold && (
               <Countdown
                 date={expires * 1000}
                 onComplete={getMissionSlots}
                 renderer={props => (
                   <span>
-                    {props.minutes}:
-                    <FormattedNumber
-                      value={props.seconds}
-                      minimumIntegerDigits={2}
-                    />
+                    {props.minutes}:{twoDigitsTimeFormatting(props.seconds)}
                   </span>
                 )}
               />
@@ -73,7 +75,7 @@ export class MissionTimeSlot extends PureComponent {
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
-                <span>Scheduled by:</span>
+                {noReservationsExplanation ? null : <span>Scheduled by:</span>}
 
                 {ownerAvatarURL && (
                   <img
@@ -81,6 +83,7 @@ export class MissionTimeSlot extends PureComponent {
                       showSloohUser ? ' slooh-user' : ''
                     }`}
                     src={ownerAvatarURL}
+                    alt=""
                   />
                 )}
 
@@ -124,7 +127,7 @@ export class MissionTimeSlot extends PureComponent {
           </div>
 
           <div className="mission-title">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
+            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : title}
           </div>
 
           <div className="time">
@@ -148,6 +151,7 @@ export class MissionTimeSlot extends PureComponent {
                       showSloohUser ? ' slooh-user' : ''
                     }`}
                     src={ownerAvatarURL}
+                    alt=""
                   />
                 )}
 

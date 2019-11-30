@@ -7,10 +7,11 @@ the callback function can be called to handle clearing the form & showing a resp
 callback (error (string), message (string)); If error is null, the component will display message and clear form
 
 */
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
@@ -22,10 +23,9 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import { Spinner } from 'app/components/spinner/index';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles, { profPic } from './RevealSubmitForm.style';
-import messages from './RevealSubmitForm.messages';
 
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
-
+@withTranslation()
 class RevealSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
@@ -41,7 +41,7 @@ class RevealSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
     isClub: bool,
   };
 
@@ -88,9 +88,9 @@ class RevealSubmitForm extends Component {
     });
   };
 
-  onTextChange = e => {
+  onTextChange = value => {
     this.setState({
-      formText: e.target.value,
+      formText: value,
     });
   };
 
@@ -109,12 +109,11 @@ class RevealSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl, user } = this.props;
+    const { t, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        modalDescription:
-          message || intl.formatMessage(messages.ResponceSubmittedText),
+        modalDescription: message || t('Alerts.ResponceSubmittedText'),
         formTitle: '',
         formText: '',
         S3URLs: [],
@@ -135,7 +134,7 @@ class RevealSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        modalDescription: message || intl.formatMessage(messages.FormIssueText),
+        modalDescription: message || t('Alerts.FormIssueText'),
         isFetching: false,
       });
     }
@@ -161,10 +160,10 @@ class RevealSubmitForm extends Component {
   };
 
   closeModal = e => {
-    if(e) {
+    if (e) {
       e.preventDefault();
     }
-    
+
     this.setState({
       showPopup: false,
       formTitle: '',
@@ -264,7 +263,7 @@ class RevealSubmitForm extends Component {
       displayName,
       title,
       content,
-      intl,
+      t,
       avatarURL,
       commentPlaceholder,
       threadId,
@@ -301,7 +300,10 @@ class RevealSubmitForm extends Component {
           isOpen={showPopup}
           style={{
             content: { ...customModalStylesFitContent.content, border: 'none' },
-            overlay: customModalStylesFitContent.overlay,
+            overlay: {
+              ...customModalStylesFitContent.overlay,
+              overflow: 'auto',
+            },
           }}
           contentLabel="Comment"
           onRequestClose={this.closeModal}
@@ -320,7 +322,7 @@ class RevealSubmitForm extends Component {
             <div className="form-author">
               <div style={profPic(avatarURL)} />
               {displayName
-                ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
+                ? `${t('Alerts.WrittenBy')} ${displayName}`
                 : commentPlaceholder}
             </div>
             <div
@@ -345,12 +347,12 @@ class RevealSubmitForm extends Component {
                 onChange={this.onTitleChange}
               />
             )}
-            <textarea
-              className="reveal-form-input"
+            <RichTextEditor
+              editorValue={formText}
               onChange={this.onTextChange}
-              rows={2}
+              className="reveal-form-input"
               maxLength={maxLength}
-              value={formText}
+              rows={2}
               placeholder={placeholder}
             />
             {maxLength ? (
@@ -378,7 +380,7 @@ class RevealSubmitForm extends Component {
               </div>
               <div className="buttons-wrapper">
                 <Button
-                  text={intl.formatMessage(messages.Cancel)}
+                  text={t('Alerts.Cancel')}
                   onClickEvent={this.closeModal}
                 />
                 <Button
@@ -396,4 +398,4 @@ class RevealSubmitForm extends Component {
   }
 }
 
-export default injectIntl(RevealSubmitForm);
+export default RevealSubmitForm;

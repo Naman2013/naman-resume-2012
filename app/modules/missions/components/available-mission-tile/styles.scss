@@ -150,3 +150,15 @@
     }
   }
 }
+
+@include media-breakpoint-only(lg) {
+  .mission-tile {
+    padding: 30px;
+
+    .actions {
+      > button {
+        padding: 10px;
+      }
+    }
+  }
+}

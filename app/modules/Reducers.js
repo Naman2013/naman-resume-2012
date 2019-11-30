@@ -1,3 +1,4 @@
+/* eslint-disable */
 import profile from 'app/modules/profile/reducer';
 import askAstronomer from 'app/modules/ask-astronomer/reducers/reducer';
 import imageDetails from 'app/modules/image-details/reducer';
@@ -96,6 +97,8 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
 import galleryDetails from './gallery-details/reducer';
 import photoHubs from './profile-photos/reducer';
+import leaderboard from './leaderboard/reducer';
+import purchaseConfirmation from './purchase-confirmation/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -195,4 +198,6 @@ export default combineReducers({
   galleryDetails,
   askAstronomer,
   photoHubs,
+  leaderboard,
+  purchaseConfirmation,
 });

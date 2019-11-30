@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes, { bool } from 'prop-types';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { intlShape, injectIntl } from 'react-intl';
 import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
@@ -21,7 +21,6 @@ import {
   getStoriesError,
 } from '../../modules/stories/actions';
 import style from './stories-hub.style';
-import messages from './StoriesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -33,14 +32,14 @@ const storiesHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation()
 class Stories extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: bool.isRequired,
   };
 
@@ -92,7 +91,7 @@ class Stories extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
     const { stories } = this.state;
 
     return (
@@ -140,12 +139,10 @@ class Stories extends Component {
                       renderRightMenu={() => (
                         <div className="flex">
                           <Button
-                            text={intl.formatMessage(messages.submitStory)}
+                            text={t('Hubs.submitStory')}
                             onClickEvent={() =>
                               browserHistory.push(
-                                `/stories/${
-                                  this.props.params.filterType
-                                }/create`
+                                `/stories/${this.props.params.filterType}/create`
                               )
                             }
                           />
@@ -153,9 +150,7 @@ class Stories extends Component {
                       )}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <StoryTiles
                               stories={stories}
@@ -200,4 +195,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(Stories));
+)(Stories);

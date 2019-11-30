@@ -13,8 +13,9 @@ class ProfileLists extends Component {
     if (params.public) getPublicProfile(params.customerUUID);
     if (params.filterType) {
       if (params.private) getProfileLists(params.filterType);
-      if (params.public)
+      if (params.public) {
         getProfileLists(params.filterType, params.customerUUID);
+      }
     }
   }
 
@@ -36,7 +37,7 @@ class ProfileLists extends Component {
 
   render() {
     const { data, params, profileLists } = this.props;
-    const hubFilters = data.profileMenuList.find(el => el.name === 'Lists')
+    const hubFilters = data?.profileMenuList?.find(el => el.name === 'Lists')
       .subMenus;
     const formatedHubFilter = hubFilters.map(filter => ({
       title: filter.name,

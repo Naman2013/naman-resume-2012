@@ -6,11 +6,11 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
 import GenericButton from 'app/components/common/style/buttons/Button';
@@ -39,7 +39,6 @@ import {
 } from '../../modules/object-details/selectors';
 import { makeUserSelector } from '../../modules/user/selectors';
 
-import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
 
 const mapStateToProps = createStructuredSelector({
@@ -63,6 +62,7 @@ const DEFAULT_PAGE = 1;
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Observations extends Component {
   state = {
     selectedIndex: 1,
@@ -108,15 +108,18 @@ class Observations extends Component {
     };
     this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
-  }
+  };
 
   handleSelect = (e, selectedItem) => {
-    this.setState({
-      selectedIndex: findIndex(
-        this.dropdownOptions,
-        filter => filter.value === selectedItem.value
-      ),
-    }, () => this.getObservations(DEFAULT_PAGE));
+    this.setState(
+      {
+        selectedIndex: findIndex(
+          this.dropdownOptions,
+          filter => filter.value === selectedItem.value
+        ),
+      },
+      () => this.getObservations(DEFAULT_PAGE)
+    );
   };
 
   showWriteObservationModal = () => {
@@ -136,7 +139,7 @@ class Observations extends Component {
     const {
       objectDetails,
       sharedMemberPhotos,
-      intl,
+      t,
       fetchLikeAction,
       getMyPictures,
       user,
@@ -151,11 +154,13 @@ class Observations extends Component {
 
         <ObjectDetailsSectionTitle
           title={`${objectDetails.objectTitle}'s`}
-          subTitle={intl.formatMessage(messages.Observations)}
+          subTitle={t('Objects.Observations')}
           renderNav={() => (
             <div
               className="nav-actions"
-              ref={node => { this.observationContainer = node; }}
+              ref={node => {
+                this.observationContainer = node;
+              }}
             >
               <GenericButton
                 onClickEvent={this.showWriteObservationModal}
@@ -187,16 +192,15 @@ class Observations extends Component {
                   }}
                   render={({ serviceResponse: imageDetails }) => {
                     const photoBy = imageDetails.linkableFileData
-                      ? `${imageDetails.linkableFileData['Photo by'].label} ${
-                          imageDetails.linkableFileData['Photo by'].text
-                        }`
+                      ? `${imageDetails.linkableFileData['Photo by'].label} ${imageDetails.linkableFileData['Photo by'].text}`
                       : 'Photo by';
                     return (
                       !isEmpty(imageDetails) && (
                         <CardObservations
                           user={user}
                           subTitle={photoBy}
-                          title={imageDetails.imageTitle}
+                          observationTitle={imageDetails.observationTitle}
+                          imageTitle={imageDetails.imageTitle}
                           description={imageDetails.observationLog}
                           imageUrl={imageDetails.imageURL}
                           linkUrl={imageDetails.linkUrl}
@@ -231,14 +235,13 @@ class Observations extends Component {
               ) : null}
             </div>
           </CenterColumn>
-        ) : null }
+        ) : null}
 
         {!imageCount && !isFetching && (
           <p>
-            <FormattedMessage
-              {...messages.NoObservations}
-              values={{ objectTitle: objectDetails.objectTitle }}
-            />
+            {t('Objects.NoObservations', {
+              objectTitle: objectDetails.objectTitle,
+            })}
           </p>
         )}
 
@@ -255,8 +258,6 @@ class Observations extends Component {
   }
 }
 
-Observations.propTypes = {
-  intl: intlShape.isRequired,
-};
+Observations.propTypes = {};
 
-export default injectIntl(Observations);
+export default Observations;

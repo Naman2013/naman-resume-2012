@@ -1,6 +1,47 @@
 @import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 @import '~app/styles/mixins/index';
+@import '~app/styles/variables/colors.scss';
+
+$headerSize: 54px;
+$screenHeaderSize: 110px;
+
+@keyframes smallAnimatedCircle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bigAnimatedCircle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@mixin live-feed-full-screen-mode {
+  position: static;
+  .live-activity-window-wrapper {
+    position: static;
+    .react-draggable {
+      transform: translate(0) !important;
+      top: calc(#{$headerSize} + 6px) !important;
+      width: 100% !important;
+      height: calc(100vh - #{$headerSize}) !important;
+    }
+  }
+}
 
 .live-activity-wrapper {
   // todo make common
@@ -15,6 +56,14 @@
   font-size: 16px;
   user-select: none;
 
+  &.full-screen {
+    @include live-feed-full-screen-mode;
+  }
+
+  .desktop-container {
+    display: inline-block;
+  }
+
   .icon-bubble-comment-streamline-talk {
     font-size: 20px;
     display: inline-block;
@@ -22,12 +71,53 @@
     cursor: pointer;
   }
 
+  .message-identifier {
+    position: absolute;
+    top: 17px;
+    width: 8px;
+    height: 8px;
+    margin-left: 9px;
+    border-radius: 50%;
+    background-color: $red;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      z-index: 2;
+      width: 16px;
+      height: 16px;
+      background: $red;
+      opacity: 0.3;
+      border-radius: 100%;
+      animation: bigAnimatedCircle 2s infinite;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      z-index: 3;
+      width: 20px;
+      height: 20px;
+      background: $red;
+      opacity: 0.2;
+      border-radius: 100%;
+      animation: smallAnimatedCircle 2s infinite;
+    }
+  }
 
   .live-activity-window-wrapper {
     position: absolute;
-    top: 60px;
-    left: -235px;
+    top: 85px;
+    left: -300px;
 
+    &.live-activity-window-wrapper-mobile {
+      left: -195px;
+    }
 
     .live-activity-window {
       // todo make common
@@ -40,27 +130,45 @@
       display: flex;
       flex-direction: column;
 
-
       &-header {
         cursor: move;
         padding: 20px;
         border-bottom: 1px solid $hawkesBlue;
 
+        &-right {
+          display: inline-flex;
+          width: 15%;
+          justify-content: flex-end;
+
+          .full-screen-button {
+            font-size: 12px;
+            border-width: 1px;
+            border-color: $lightHeadedAstronaut;
+            width: 27px;
+            height: 27px;
+            color: $lightHeadedAstronaut;
+            margin-right: 10px;
+          }
+        }
+
         .h4-custom {
           font-family: $primary-font;
         }
 
+        .close-window {
+          line-height: 29px;
 
-        .icon-close {
-          font-size: 8px;
-          height: 8px;
-          cursor: pointer;
+          .icon-close {
+            font-size: 10px;
+            cursor: pointer;
+          }
         }
       }
 
       &-footer {
-        padding: 20px;
+        padding: 10px 20px 10px 20px;
         border-top: 1px solid $hawkesBlue;
+        margin-bottom: 25px;
 
         input {
           // TODO COMMON
@@ -79,12 +187,13 @@
           line-height: 1.13;
           letter-spacing: normal;
           color: $battleship-grey;
-
+          z-index: 9999;
           &:focus {
             outline: none;
           }
 
-          &:hover, &:focus {
+          &:hover,
+          &:focus {
             border: 1px solid $hawkesBlue;
           }
         }
@@ -101,10 +210,7 @@
           flex: 1;
         }
       }
-
     }
-
-
   }
 
   // resize handler
@@ -112,4 +218,16 @@
     bottom: 5px;
   }
 
+  //RESPONSIVE
+  @include media-breakpoint-down(md) {
+    @include live-feed-full-screen-mode;
+
+    .desktop-container {
+      display: none;
+    }
+
+    .live-activity-window-wrapper .react-draggable {
+      height: calc(100vh - #{$screenHeaderSize}) !important;
+    }
+  }
 }

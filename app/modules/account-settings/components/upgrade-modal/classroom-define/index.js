@@ -4,38 +4,37 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { intlShape, injectIntl } from 'react-intl';
 import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
   CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
   CLASSROOM_CREATE_NEW_SCHOOL,
 } from 'app/services/classroom/classroom';
-import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
-import { GoogleLogin } from 'react-google-login';
 import {
+  JOIN_PAGE_ENDPOINT_URL,
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   GOOGLE_SSO_LINKACCT_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import { GoogleLogin } from 'react-google-login';
+
 import { getUserInfo } from 'app/modules/User';
 import Request from 'app/components/common/network/Request';
 import { API } from 'app/api';
 import debounce from 'lodash/debounce';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep1SchoolSelection.style';
-import messages from 'app/pages/registration/JoinInviteByCodeStep1.messages';
 
 const { string } = PropTypes;
-
+@withTranslation()
 class ClassroomDefineSchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -63,40 +62,37 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
   };
 
   componentDidMount() {
-    API
-      .post(JOIN_PAGE_ENDPOINT_URL, {
-        callSource: 'selectSchoolDistrict',
-        selectedPlanId: window.localStorage.getItem('selectedPlanId'),
-      })
-      .then(({ data }) => {
-        this.setState({
-          formFieldLabels: data.formFieldLabels,
-          pageHeading1: data.pageHeading1,
-          pageHeading2: data.pageHeading2,
-          sectionHeading: data.sectionHeading,
-          selectedSubscriptionPlan: data.selectedSubscriptionPlan,
-        });
-        const { change } = this.props;
-        change(
-          'schoolCountry',
-          Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
-        );
-        change(
-          'schoolState',
-          Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
-        );
+    API.post(JOIN_PAGE_ENDPOINT_URL, {
+      callSource: 'selectSchoolDistrict',
+      selectedPlanId: window.localStorage.getItem('selectedPlanId'),
+    }).then(({ data }) => {
+      this.setState({
+        formFieldLabels: data.formFieldLabels,
+        pageHeading1: data.pageHeading1,
+        pageHeading2: data.pageHeading2,
+        sectionHeading: data.sectionHeading,
+        selectedSubscriptionPlan: data.selectedSubscriptionPlan,
       });
+      const { change } = this.props;
+      change(
+        'schoolCountry',
+        Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
+      );
+      change(
+        'schoolState',
+        Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
+      );
+    });
   }
 
   /* This function handles a zipcode change in the form and sets the state accordingly */
   handleZipCodeChange = value => {
     if (value.length >= 5) {
       //get a list of school districts for this zipcode.
-      API
-      .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
-          zipcode: value,
-          includePleaseSelectOption: 'yes',
-        })
+      API.post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
+        zipcode: value,
+        includePleaseSelectOption: 'yes',
+      })
         .then(response => {
           const res = response.data;
           if (!res.apiError) {
@@ -128,11 +124,10 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
       //get a list of schools for this school district.
       //console.log("Get a list of schools for this district." + value);
 
-      API
-      .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
-          districtExternalId: value,
-          includePleaseSelectOption: 'yes',
-        })
+      API.post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
+        districtExternalId: value,
+        includePleaseSelectOption: 'yes',
+      })
         .then(response => {
           const res = response.data;
           if (!res.apiError) {
@@ -160,7 +155,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
 
     if (!values.isNewSchool) {
       if (values.school) {
-        window.localStorage.setItem('isClassroom', "true" );
+        window.localStorage.setItem('isClassroom', 'true');
         window.localStorage.setItem('selectedSchoolId', values.school);
         this.props.goNext();
       } else {
@@ -178,23 +173,21 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      API
-      .post(CLASSROOM_CREATE_NEW_SCHOOL, {
-          schoolName,
-          schoolAddress,
-          schoolCountry,
-          schoolDistrict: districtName,
-          schoolPhoneNumber,
-          schoolWebsite,
-          districtWebsite,
-          schoolCity,
-          schoolState,
-        })
-        .then(({ data }) => {
-          window.localStorage.setItem('isClassroom', "true");
-          window.localStorage.setItem('selectedSchoolId', data.schoolId);
-          this.props.goNext();
-        });
+      API.post(CLASSROOM_CREATE_NEW_SCHOOL, {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        schoolDistrict: districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState,
+      }).then(({ data }) => {
+        window.localStorage.setItem('isClassroom', 'true');
+        window.localStorage.setItem('selectedSchoolId', data.schoolId);
+        this.props.goNext();
+      });
     }
   };
 
@@ -203,10 +196,9 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    API
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -221,18 +213,17 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
           //link it to the customer account if the email address matches....
           const user = getUserInfo();
 
-          API
-      .post(GOOGLE_SSO_LINKACCT_ENDPOINT_URL, {
-              cid: user.cid,
-              at: user.at,
-              token: user.token,
-              googleProfileId: res.googleProfileId,
-            })
+          API.post(GOOGLE_SSO_LINKACCT_ENDPOINT_URL, {
+            cid: user.cid,
+            at: user.at,
+            token: user.token,
+            googleProfileId: res.googleProfileId,
+          })
             .then(response => {
               const res = response.data;
               if (!res.apiError) {
-                /* the API verifies that the email address matches that on the account */f
-                if (res.status == "success") {
+                /* the API verifies that the email address matches that on the account */ f;
+                if (res.status == 'success') {
                   /* Set the Google Profile ID/Email */
                   window.localStorage.setItem(
                     'googleProfileId',
@@ -262,7 +253,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
   render() {
     const {
       pathname,
-      intl,
+      t,
       isNewSchool,
       schoolCountry,
       handleSubmit,
@@ -286,11 +277,16 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
               {({ isMobile, isDesktop, isTablet }) => (
                 <Fragment>
                   <h1 className="modal-h">Classroom Set Up</h1>
-  	      	      <p className="modal-p mb-5">We need a few more details to complete your classroom account.</p>
+                  <p className="modal-p mb-5">
+                    We need a few more details to complete your classroom
+                    account.
+                  </p>
                   <div className="step-root">
                     <div className="inner-container">
-                      <div className="section-heading">Step 1: Using Google Classroom?</div>
-                      <div style={{textAlign: "center"}}>
+                      <div className="section-heading">
+                        Step 1: Using Google Classroom?
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
                         <Request
                           serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
                           requestBody={{
@@ -302,7 +298,15 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                           }) => (
                             <Fragment>
                               {!fetchingGoogleClient && (
-                                <div style={{marginLeft: "auto", marginRight: "auto", textAlign: "center", width: "350px"}} className="google-login-button">
+                                <div
+                                  style={{
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                    textAlign: 'center',
+                                    width: '350px',
+                                  }}
+                                  className="google-login-button"
+                                >
                                   <GoogleLogin
                                     prompt="select_account"
                                     responseType={
@@ -336,9 +340,11 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                           )}
                         />
                       </div>
-                      <br/>
-                      <br/>
-                      <div className="section-heading">Step 2: {sectionHeading}</div>
+                      <br />
+                      <br />
+                      <div className="section-heading">
+                        Step 2: {sectionHeading}
+                      </div>
                       <form
                         className="form"
                         onSubmit={handleSubmit(this.handleSubmit)}
@@ -359,7 +365,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                                 }
                               />
                             </Fragment>
-                            <br/>
+                            <br />
                           </div>
 
                           {!isNewSchool && schoolDistrictOptions.length > 0 && (
@@ -387,7 +393,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                                     </option>
                                   ))}
                                 </Field>
-                                <br/>
+                                <br />
                               </div>
 
                               {schoolOptions.length && (
@@ -415,9 +421,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                           )}
 
                           <span>
-                            <br/>
-                            <br/>
-
+                            <br />
+                            <br />
                             <Field
                               name="isNewSchool"
                               type="checkbox"
@@ -432,9 +437,9 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
 
                           {isNewSchool && (
                             <Fragment>
-                              <br/>
-                              <br/>
-                              <br/>
+                              <br />
+                              <br />
+                              <br />
                               <span className="form-label">
                                 {
                                   formFieldLabels
@@ -614,10 +619,13 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
 
                           <br />
                         </div>
-                        <br/>
-                        <div style={{float: "right"}} className="button-container">
+                        <br />
+                        <div
+                          style={{ float: 'right' }}
+                          className="button-container"
+                        >
                           <button className="submit-button" type="submit">
-                            {intl.formatMessage(messages.Continue)}
+                            {t('Ecommerce.Continue')}
                           </button>
                         </div>
                       </form>
@@ -649,6 +657,6 @@ const ClassroomDefineSchoolSelection = connect(state => {
     'schoolCountry'
   );
   return { zipCode, isNewSchool, district, schoolCountry };
-})(injectIntl(ClassroomDefineSchoolSelectionForm));
+})(ClassroomDefineSchoolSelectionForm);
 
 export default ClassroomDefineSchoolSelection;

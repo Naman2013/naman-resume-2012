@@ -22,7 +22,7 @@ type TUpgradeModal = {
   getSubscriptionPlans: Function,
   subscriptionPlansData: any,
   selectedPlan?: Shape,
-  isFetching: Boolean,
+  isFetching: boolean,
 };
 
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
@@ -36,6 +36,9 @@ const didMount = (props: TUpgradeModal) => () => {
   getSubscriptionPlans({
     selectedPlan,
     callSource: subscriptionPlansCallSource,
+    enableHiddenPlanHashCode: window.localStorage.getItem(
+      'enableHiddenPlanHashCode'
+    ),
   });
 
   //clear localStorage
@@ -59,6 +62,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     errorData, // errors from issue with user account modal
     disableGoBack,
     preSelectedPlan,
+    storeUserNewAT,
   } = props;
 
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -67,7 +71,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
 
-  if (step == "CANCEL") {
+  if (step == 'CANCEL') {
     myDisableGoBack = true;
   }
 
@@ -85,11 +89,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
 
   let goNextAfterSchoolSelection = dispatch => {
     setStep('PAYMENT');
-  }
+  };
 
   let goNextAfterAstronomyClubDefined = dispatch => {
     setStep('PAYMENT');
-  }
+  };
 
   return (
     <>
@@ -112,43 +116,72 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 isFetching,
               }}
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
-                  if (subscriptionPlansCallSource == 'downgrade') {
-                    setStep('DOWNGRADE');
-                  }
-                  else {
-                    if (selectedPlan.isAstronomyClub == true) {
-                      setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
-                    }
-                    else if (selectedPlan.isClassroom == true) {
-                      setStep('CLASSROOM_SELECT_SCHOOL');
-                    }
-                    else {
-                      setStep('PAYMENT');
-                    }
-                  }
+                if (subscriptionPlansCallSource == 'downgrade') {
+                  setStep('DOWNGRADE');
+                } else if (selectedPlan.isAstronomyClub == true) {
+                  setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
+                } else if (selectedPlan.isClassroom == true) {
+                  setStep('CLASSROOM_SELECT_SCHOOL');
+                } else {
+                  setStep('PAYMENT');
                 }
-              }
+              }}
               setSelectedPlan={setSelectedPlan}
             />
-            {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
-              <br/>
-              <br/>
-              <Btn className='white-button' onClick={() => setStep('CANCEL')}>Cancel My Account</Btn>
-            </div>
-            }
+            {props.subscriptionPlansCallSource == 'downgrade' && (
+              <div
+                style={{
+                  width: '100%',
+                  minWidth: '100%',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  textAlign: 'center',
+                }}
+              >
+                <br />
+                <br />
+                <Btn className="white-button" onClick={() => setStep('CANCEL')}>
+                  Cancel My Account
+                </Btn>
+              </div>
+            )}
           </>
         )}
 
-        {step === 'CLASSROOM_SELECT_SCHOOL' && <ClassroomDefineSchoolSelectionGeneral {...props} selectedPlan={selectedPlan} goNext={goNextAfterSchoolSelection}/>}
+        {step === 'CLASSROOM_SELECT_SCHOOL' && (
+          <ClassroomDefineSchoolSelectionGeneral
+            {...props}
+            selectedPlan={selectedPlan}
+            goNext={goNextAfterSchoolSelection}
+          />
+        )}
 
-        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <AstronomyClubDefineClubGeneral {...props} selectedPlan={selectedPlan} goNext={goNextAfterAstronomyClubDefined}/>}
+        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && (
+          <AstronomyClubDefineClubGeneral
+            {...props}
+            selectedPlan={selectedPlan}
+            goNext={goNextAfterAstronomyClubDefined}
+          />
+        )}
 
-        {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
+        {step === 'PAYMENT' && (
+          <PaymentStep
+            conditionType={props.subscriptionPlansCallSource}
+            selectedPlan={selectedPlan}
+            closeModal={onHide}
+            storeUserNewAT={storeUserNewAT}
+          />
+        )}
 
-        {step === 'CANCEL' && <CancelStep {...props}/>}
+        {step === 'CANCEL' && <CancelStep {...props} />}
 
-        {step === 'DOWNGRADE' && <DowngradeStep {...props} conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
-
+        {step === 'DOWNGRADE' && (
+          <DowngradeStep
+            {...props}
+            conditionType={props.subscriptionPlansCallSource}
+            selectedPlan={selectedPlan}
+          />
+        )}
       </Modal>
     </>
   );

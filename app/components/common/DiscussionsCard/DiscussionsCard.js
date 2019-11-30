@@ -7,10 +7,10 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
-import { FormattedMessage } from 'react-intl';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';
@@ -19,7 +19,6 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import FlagButton from 'app/components/common/FlagButton';
 import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import styles, { profPic } from './DiscussionsCard.style';
-import messages from './DiscussionsCard.messages';
 
 const {
   any,
@@ -32,6 +31,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation()
 class DiscussionsCard extends PureComponent {
   componentDidMount() {
     const { jumpToThreadId, threadId } = this.props;
@@ -71,6 +71,7 @@ class DiscussionsCard extends PureComponent {
       showTitle,
       flagParams,
       authorInfo,
+      t,
     } = this.props;
 
     return (
@@ -109,10 +110,10 @@ class DiscussionsCard extends PureComponent {
               {moment.utc(modified).fromNow()}
             </div>
             <div className="explainantion-item">
-              <FormattedMessage {...messages.Likes} />: {likesCount}{' '}
+              {t('AskAnAstronomer.Likes')}: {likesCount}{' '}
             </div>
             <div className="explainantion-item">
-              <FormattedMessage {...messages.Comments} />: {replyToponlyCount}
+              {t('AskAnAstronomer.Comments')}: {replyToponlyCount}
             </div>
           </div>
           <div className="activity-actions">

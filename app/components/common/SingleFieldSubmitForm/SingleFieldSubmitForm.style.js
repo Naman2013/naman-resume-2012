@@ -19,7 +19,6 @@ export default css`
   .form {
     padding: 15px;
   }
-  .form-input,
   .form-input-txt {
     -moz-box-shadow: inset 0 0 7px 0 ${shadows};
     -webkit-box-shadow: inset 0 0 7px 0 ${shadows};
@@ -29,14 +28,14 @@ export default css`
     box-shadow: inset 0 0 7px 0 ${shadows};
     font-family: ${secondaryFont};
     font-size: 16px;
-    margin: 10px;
     padding: 25px;
     resize: none;
     vertical-align: top;
-    width: 520px;
+    width: 100%;
+    margin-bottom: 15px;
   }
-  .form-input {
-    height: 151px;
+  :global(.form-input) {
+    margin-bottom: 15px;
   }
 
   :global(.form-acitons label) {

@@ -7,19 +7,21 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
-import { intlShape, injectIntl } from 'react-intl';
-import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  profilePhotoStyle,
+  customModalStylesBlackOverlay,
+} from 'app/styles/mixins/utilities';
 import fetchObjectFollowService from 'app/services/objects/object-follow';
 import Button from 'app/components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+
 import { blue_tile_feat } from '../../styles/variables/colors_tiles_v4';
 
 import styles from './RelatedObject.style';
-import messages from './RelatedObject.messages';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
@@ -30,7 +32,7 @@ const profPic = photoUrl =>
     backgroundRepeat: 'no-repeat',
     background: `url(${photoUrl}) center center no-repeat, url(${blue_tile_feat})`,
   });
-
+@withTranslation()
 class RelatedObject extends Component {
   static propTypes = {
     isDesktop: bool,
@@ -65,7 +67,6 @@ class RelatedObject extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -160,7 +161,7 @@ class RelatedObject extends Component {
       objectDescription,
       dataBlocks,
       showFollowPromptFlag,
-      intl,
+      t,
     } = this.props;
 
     const { promptText, modalIsOpen } = this.state;
@@ -173,39 +174,36 @@ class RelatedObject extends Component {
           className="title-container"
           dangerouslySetInnerHTML={{ __html: label }}
         />
-          <div className="info-container">
-            <span
-              className="object-name"
-              dangerouslySetInnerHTML={{ __html: objectTitle }}
-            />
-            <span className="icon-line-horz" />
-            <div className="icon-container flex-item">
-              <div
-                className="icon"
-                style={profPic(v4IconURL || objectIconUrl)}
+        <div className="info-container">
+          <span
+            className="object-name"
+            dangerouslySetInnerHTML={{ __html: objectTitle }}
+          />
+          <span className="icon-line-horz" />
+          <div className="icon-container flex-item">
+            <div className="icon" style={profPic(v4IconURL || objectIconUrl)} />
+          </div>
+          <span className="icon-line-horz" />
+          <div className="info-list">
+            <div className="info-list-item">
+              <img className="info-list-icon" src={list.type.iconURL} />
+              <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
+            </div>
+            <div className="info-list-item">
+              <img className="info-list-icon" src={list.domain.iconURL} />
+              <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
+            </div>
+            <div className="info-list-item">
+              <img
+                className="info-list-icon"
+                src={list.constellation.iconURL}
+              />
+              <span
+                dangerouslySetInnerHTML={{ __html: list.constellation.text }}
               />
             </div>
-            <span className="icon-line-horz" />
-            <div className="info-list">
-              <div className="info-list-item">
-                <img className="info-list-icon" src={list.type.iconURL} />
-                <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
-              </div>
-              <div className="info-list-item">
-                <img className="info-list-icon" src={list.domain.iconURL} />
-                <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
-              </div>
-              <div className="info-list-item">
-                <img
-                  className="info-list-icon"
-                  src={list.constellation.iconURL}
-                />
-                <span
-                  dangerouslySetInnerHTML={{ __html: list.constellation.text }}
-                />
-              </div>
-            </div>
           </div>
+        </div>
         <div className="action-area">
           {showFollowPromptFlag ? (
             <Button
@@ -230,7 +228,7 @@ class RelatedObject extends Component {
           ariaHideApp={false}
           isOpen={modalIsOpen}
           style={customModalStylesBlackOverlay}
-          contentLabel={intl.formatMessage(messages.RelatedObjects)}
+          contentLabel={t('Objects.RelatedObjects')}
           onRequestClose={this.closeModal}
         >
           <i className="fa fa-close" onClick={this.closeModal} />
@@ -245,4 +243,4 @@ class RelatedObject extends Component {
   }
 }
 
-export default injectIntl(RelatedObject);
+export default RelatedObject;

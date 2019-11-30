@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { lightHeadedAstronaut } from 'app/styles/variables/colors';
-import { primaryFont } from '../../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 import {
   screenMedium,
   screenLarge,
@@ -50,6 +50,12 @@ export default css`
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 2px;
+  }
+
+  .show-about-curriculum {
+    font-family: ${secondaryFont};
+    font-style: italic;
+    font-size: 18px;
   }
 
   @media ${screenMedium} {

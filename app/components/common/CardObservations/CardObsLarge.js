@@ -1,16 +1,17 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
 import { Tooltip } from 'react-tippy';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import style from './CardObservationsLarge.style';
-import messages from './CardObsLarge.messages';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
+import './CardObsLarge.scss';
 
 const CardObsLarge = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
@@ -20,16 +21,18 @@ const CardObsLarge = props => {
     likeTooltip,
     commentsCount,
     observationTimeDisplay,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
     socialShareDescription,
-    iconFileData,
+    iconFileData = { Member: {} },
   } = props;
+  const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
+
   const onLikeClick = () => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
@@ -49,7 +52,7 @@ const CardObsLarge = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
-                    <Link to={iconFileData?.Member?.linkUrl}>
+                    <Link to={iconFileData.Member.linkUrl}>
                       <h5 className="author h-5 h-5-normal">{subTitle}</h5>
                     </Link>
                     {description && (
@@ -63,29 +66,11 @@ const CardObsLarge = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                            className="link"
-                          >
-                            <img
-                              className={`linkIcon${
-                                item === 'Member' ? ' memberIcon' : ''
-                              }`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
+                            <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
-                          <div className="link">
-                            <img
-                              className={`linkIcon${
-                                item === 'Member' ? ' memberIcon' : ''
-                              }`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
-                          </div>
+                          <ReturnObservationIcon item={iconFileData[item]} />
                         )}
                       </Tooltip>
                     ))}
@@ -103,6 +88,8 @@ const CardObsLarge = props => {
                       isOpen={isOpen}
                       imageURL={imageUrl}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
@@ -138,7 +125,7 @@ const CardObsLarge = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {intl.formatMessage(messages.Details)}
+                      {t('Objects.ObservationsDetails')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
@@ -149,24 +136,22 @@ const CardObsLarge = props => {
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
+                    : `${t('Objects.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
-            </div>
+            <div className="loading">{t('Objects.Loading')}...</div>
           )}
         </div>
       </div>
-      <style jsx>{style}</style>
     </Fragment>
   );
 };
 
 CardObsLarge.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
@@ -179,4 +164,4 @@ CardObsLarge.propTypes = {
   handleLike: PropTypes.func.isRequired,
 };
 
-export default injectIntl(CardObsLarge);
+export default CardObsLarge;

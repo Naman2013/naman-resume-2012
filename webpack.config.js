@@ -11,6 +11,7 @@ const apiPortNumber = process.env.apiPortNumber || '';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
+const publicPath = path.join(__dirname, './public');
 const outPath = path.join(__dirname, './dist');
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -102,14 +103,9 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
-    }),
-
-    new webpack.EnvironmentPlugin({
-      SENTRY_ENV: 'PRODUCTION',
     }),
 
     new MiniCssExtractPlugin({
@@ -119,6 +115,9 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: publicPath, to: outPath },
+    ]),
   ],
 
   // Emit a source map for easier debugging
@@ -140,17 +139,17 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

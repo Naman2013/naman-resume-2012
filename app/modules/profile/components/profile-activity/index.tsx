@@ -18,8 +18,6 @@ type TProfileActivityProps = {
   getPrivateProfileMissions: () => Promise<any>;
   getPublicProfileMissions: (data?: any) => Promise<any>;
 
-  data: any;
-  activityData: any;
   privateProfileData: any;
   profileMissionsData: ProfileMissions;
   params: any;
@@ -54,10 +52,6 @@ class ProfileActivity extends React.Component<
 
   missionTimer: ReturnType<typeof setTimeout> = null;
 
-  isPrivateProfile = (): boolean => {
-    return !_isEmpty(this.props.privateProfileData);
-  };
-
   componentDidMount(): void {
     this.fetchMissions().then(() => this.setupRefreshMissionsInterval());
   }
@@ -74,7 +68,7 @@ class ProfileActivity extends React.Component<
     } = this.props;
     const { customerUUID } = params;
 
-    if (this.isPrivateProfile()) {
+    if (params.private) {
       return getPrivateProfileMissions();
     }
     return getPublicProfileMissions({ customerUUID });

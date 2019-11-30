@@ -12,14 +12,23 @@ export class FindObject extends PureComponent {
     this.resetFindData();
   }
 
-  findObject = e => {
+  findObject = () => {
     const { fetchBrowseFindDataAction, onFind, findValue } = this.props;
     fetchBrowseFindDataAction(findValue).then(() => onFind());
   };
 
+  handleKeyDown = (e, astroObjectId) => {
+    const { onSelect } = this.props;
+
+    if (e.keyCode === 13) {
+      onSelect(astroObjectId);
+    }
+  };
+
   resetFindData = () => {
-    const { resetBrowseFindDataAction, onChange } = this.props;
+    const { resetBrowseFindDataAction, onChange, onSelect } = this.props;
     onChange('');
+    onSelect(null);
     resetBrowseFindDataAction();
   };
 
@@ -64,6 +73,9 @@ export class FindObject extends PureComponent {
                   })}
                   key={item.astroObjectId}
                   onClick={() => onSelect(item.astroObjectId)}
+                  onKeyDown={e => this.handleKeyDown(e, item.astroObjectId)}
+                  tabIndex="0"
+                  role="button"
                 >
                   {item.title}
                 </div>

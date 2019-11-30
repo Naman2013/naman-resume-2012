@@ -56,7 +56,7 @@ class ProfileWrapper extends Component {
   });
 
   render() {
-    const { children, data, params, isLoading } = this.props;
+    const { children, data, params, isLoading, location } = this.props;
     const modelResult = this.modelData(data);
 
     return (
@@ -72,6 +72,7 @@ class ProfileWrapper extends Component {
           {modelResult.profileMenuList && (
             <SubPageNavigation
               items={this.generateNavItems(modelResult.profileMenuList)}
+              locationPath={location?.pathname}
             />
           )}
 

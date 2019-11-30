@@ -6,20 +6,20 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
-import { FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import { THREAD_LIST, THREAD_REPLIES } from 'app/services/discussions';
 import pageMeta from 'app/modules/quest-details/actions/pageMeta';
+import { TopThreads } from 'app/modules/clubs';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
-import messages from './DiscussionsThreads.messages';
 
 const {
   any,
@@ -32,6 +32,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation()
 class DiscussionsThreads extends Component {
   static propTypes = {
     discussions: shape({
@@ -114,43 +115,41 @@ class DiscussionsThreads extends Component {
     const searchValue = this.searchInput.value.trim();
     const searchData = searchValue ? { searchTerms: searchValue } : {};
 
-    API
-      .post(THREAD_LIST, {
-        callSource,
-        count,
-        page,
-        topicId,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-        ...searchData,
-        ...jumpThreadData,
-      })
-      .then(res => {
-        validateResponseAccess(res);
-        this.setState({
-          fetching: false,
-          activePage: res.data.page || page,
-          showSearchTermResultHeading: res.data.showSearchTermResultHeading,
-          searchTermResultHeading: res.data.searchTermResultHeading,
-        });
-
-        if (!res.data.apiError) {
-          const { threads, threadCount } = res.data;
-          let newThreads = [].concat(threads);
-          newThreads = newThreads.map(thread => {
-            const currentThread = Object.assign({}, thread);
-            currentThread.showComments = false;
-            currentThread.page = 1;
-            currentThread.key = currentThread.threadId;
-            return currentThread;
-          });
-          updateThreadsProps(newThreads, threadCount);
-
-          if (jumpToThreadId && !paging) {
-          }
-        }
+    API.post(THREAD_LIST, {
+      callSource,
+      count,
+      page,
+      topicId,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+      ...searchData,
+      ...jumpThreadData,
+    }).then(res => {
+      validateResponseAccess(res);
+      this.setState({
+        fetching: false,
+        activePage: res.data.page || page,
+        showSearchTermResultHeading: res.data.showSearchTermResultHeading,
+        searchTermResultHeading: res.data.searchTermResultHeading,
       });
+
+      if (!res.data.apiError) {
+        const { threads, threadCount } = res.data;
+        let newThreads = [].concat(threads);
+        newThreads = newThreads.map(thread => {
+          const currentThread = Object.assign({}, thread);
+          currentThread.showComments = false;
+          currentThread.page = 1;
+          currentThread.key = currentThread.threadId;
+          return currentThread;
+        });
+        updateThreadsProps(newThreads, threadCount);
+
+        if (jumpToThreadId && !paging) {
+        }
+      }
+    });
   };
 
   getReplies = (threadId, replyTo) => {
@@ -166,51 +165,45 @@ class DiscussionsThreads extends Component {
       discussionsActions: { updateCommentsProps },
     } = this.props;
 
-    API
-      .post(THREAD_REPLIES, {
-        callSource,
-        topicId,
-        threadId,
-        forumId,
-        replyTo: replyTo || threadId, // should be threadId
-        page: 1,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-      })
-      .then(res => {
-        validateResponseAccess(res);
-        if (!res.data.apiError) {
-          const { replies } = res.data;
-          const newReplies = replies.map((reply, index) => {
-            const currentReply = Object.assign({}, reply);
-            currentReply.page = 1;
-            if (
-              commentsList[threadId] &&
-              commentsList[threadId][index]?.replyId === currentReply.replyId
-            ) {
-              currentReply.showComments =
-                commentsList[threadId][index].showComments;
-            }
-            if (
-              replyTo === currentReply.replyId ||
-              threadId === currentReply.replyId
-            ) {
-              currentReply.showComments = true;
-            }
-            currentReply.key = currentReply.replyId;
-            return currentReply;
-          });
-          const displayedComments = take([].concat(replies), count).map(
-            reply => reply.replyId
-          );
-          updateCommentsProps(
-            replyTo || threadId,
-            newReplies,
-            displayedComments
-          );
-        }
-      });
+    API.post(THREAD_REPLIES, {
+      callSource,
+      topicId,
+      threadId,
+      forumId,
+      replyTo: replyTo || threadId, // should be threadId
+      page: 1,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      validateResponseAccess(res);
+      if (!res.data.apiError) {
+        const { replies } = res.data;
+        const newReplies = replies.map((reply, index) => {
+          const currentReply = Object.assign({}, reply);
+          currentReply.page = 1;
+          if (
+            commentsList[threadId] &&
+            commentsList[threadId][index]?.replyId === currentReply.replyId
+          ) {
+            currentReply.showComments =
+              commentsList[threadId][index].showComments;
+          }
+          if (
+            replyTo === currentReply.replyId ||
+            threadId === currentReply.replyId
+          ) {
+            currentReply.showComments = true;
+          }
+          currentReply.key = currentReply.replyId;
+          return currentReply;
+        });
+        const displayedComments = take([].concat(replies), count).map(
+          reply => reply.replyId
+        );
+        updateCommentsProps(replyTo || threadId, newReplies, displayedComments);
+      }
+    });
   };
 
   createThread = params => {
@@ -293,7 +286,7 @@ class DiscussionsThreads extends Component {
   };
 
   handleSearchEnterPress = e => {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       this.getThreads(this.props);
     }
   };
@@ -319,33 +312,58 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
       discussionGroupId,
       jumpToThreadId,
+      t,
     } = this.props;
-    const { fetching, activePage, showSearchTermResultHeading, searchTermResultHeading } = this.state;
+    const {
+      fetching,
+      activePage,
+      showSearchTermResultHeading,
+      searchTermResultHeading,
+    } = this.state;
     const { threadsCount } = discussions;
 
     return (
       <div className="root">
-        <div className="comments-bar"
-          ref={node => { this.threadsContainer = node; }}
+        <div
+          className="comments-bar"
+          ref={node => {
+            this.threadsContainer = node;
+          }}
         >
-          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
+          {showSearchTermResultHeading ? (
+            <span>{searchTermResultHeading}</span>
+          ) : (
+            <span>
+              {t('AskAnAstronomer.Comments')} ({threadsCount})
+            </span>
+          )}
 
           <div className="comments-search">
             <input
               placeholder="Search"
-              ref={node => { this.searchInput = node }}
+              ref={node => {
+                this.searchInput = node;
+              }}
               onKeyUp={this.handleSearchEnterPress}
             />
             {showSearchTermResultHeading ? (
               <Button onClick={this.resetSearch}>
-                <FormattedMessage {...messages.Reset} />
+                {t('AskAnAstronomer.Reset')}
               </Button>
             ) : (
               <Button onClick={() => this.getThreads(this.props)}>
-                <FormattedMessage {...messages.Search} />
+                {t('Clubs.Search')}
               </Button>
             )}
           </div>
+        </div>
+        <div className="popular-discussion">
+          <TopThreads
+            topicId={topicId}
+            isDesktop={isDesktop}
+            discussionGroupId={discussionGroupId}
+            className="popular-discussion"
+          />
         </div>
         {CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,
@@ -353,15 +371,9 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        {fetching && (
-          <div>
-            <FormattedMessage {...messages.Loading} />
-          </div>
-        )}
+        {fetching && <div>{t('AskAnAstronomer.Loading')}</div>}
         {!fetching && threadsCount === 0 ? (
-          <div>
-            <FormattedMessage {...messages.NoThreads} />
-          </div>
+          <div>{t('AskAnAstronomer.NoThreads')}</div>
         ) : null}
         {!fetching && threadsCount > 0 && (
           <div>

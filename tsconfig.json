@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
     "outDir": "./dist/",
     "noImplicitAny": true,
     "target": "es5",
@@ -9,6 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
     "baseUrl":".",
     "paths": {
       "app/*" :["./app/*"]

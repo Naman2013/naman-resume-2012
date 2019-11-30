@@ -46,6 +46,8 @@ export const QuestDetails = props => {
         showAboutDownloadPDF={pageMeta.showAboutDownloadPDF}
         onDownloadPDF={() => onDownloadPDF(pageMeta.aboutDownloadPDFURL)}
         aboutDownloadPDFTooltipText={pageMeta.aboutDownloadPDFTooltipText}
+        aboutCurriculumText={pageMeta.aboutCurriculumText}
+        showAboutCurriculum={pageMeta.showAboutCurriculum}
       />
     ),
     column: () => (

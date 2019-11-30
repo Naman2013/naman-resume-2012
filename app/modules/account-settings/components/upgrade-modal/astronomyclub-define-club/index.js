@@ -3,18 +3,18 @@
  ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'app/components/form/InputField';
 import { createValidator, required } from 'app/modules/utils/validation';
-import { browserHistory } from 'react-router';
+
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
@@ -28,14 +28,14 @@ import {
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep2.style';
-import messages from 'app/pages/registration/JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
+@withTranslation()
 class AstronomyClubDefineClubGeneral extends Component {
   static propTypes = {
     change: func,
-    intl: intlShape.isRequired,
+
     goNext: func,
   };
 
@@ -90,14 +90,14 @@ class AstronomyClubDefineClubGeneral extends Component {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
     newAccountFormData.astronomyClubName.label =
-    result.formFieldLabels.astronomyClubName.label;
+      result.formFieldLabels.astronomyClubName.label;
     newAccountFormData.astronomyClub18AndOver.label =
-    result.formFieldLabels.astronomyClub18AndOver.label;
+      result.formFieldLabels.astronomyClub18AndOver.label;
 
     newAccountFormData.astronomyClubName.hintText =
-    result.formFieldLabels.astronomyClubName.hintText;
+      result.formFieldLabels.astronomyClubName.hintText;
     newAccountFormData.astronomyClub18AndOver.hintText =
-    result.formFieldLabels.astronomyClub18AndOver.hintText;
+      result.formFieldLabels.astronomyClub18AndOver.hintText;
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
@@ -110,7 +110,6 @@ class AstronomyClubDefineClubGeneral extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, value }) => {
-
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     newAccountFormData[field].value = value;
@@ -129,7 +128,7 @@ class AstronomyClubDefineClubGeneral extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { intl } = this.props;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -139,26 +138,33 @@ class AstronomyClubDefineClubGeneral extends Component {
     /* Special Verifications if this is an Astronomy Club */
     if (this.state.isAstronomyClub) {
       if (accountFormDetailsData.astronomyClubName.value === '') {
-          accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(
-          messages.AstronomyClubRequierMessage
+        accountFormDetailsData.astronomyClubName.errorText = t(
+          '.AstronomyClubRequierMessage'
         );
         formIsComplete = false;
       }
     }
 
     if (formIsComplete === true) {
-      window.localStorage.setItem('isAstronomyClub', this.state.isAstronomyClub )
-      window.localStorage.setItem('astronomyClubName', accountFormDetailsData.astronomyClubName.value);
-      window.localStorage.setItem('astronomyClub18AndOver', this.state.accountFormDetails.astronomyClub18AndOver.value);
+      window.localStorage.setItem(
+        'isAstronomyClub',
+        this.state.isAstronomyClub
+      );
+      window.localStorage.setItem(
+        'astronomyClubName',
+        accountFormDetailsData.astronomyClubName.value
+      );
+      window.localStorage.setItem(
+        'astronomyClub18AndOver',
+        this.state.accountFormDetails.astronomyClub18AndOver.value
+      );
       this.props.goNext();
     }
   };
 
   render() {
-    const {
-      accountFormDetails,
-      isAstronomyClub,
-    } = this.state;
+    const { accountFormDetails, isAstronomyClub } = this.state;
+    const { t } = this.props;
 
     const selectedPlanId = this.props.selectedPlan.planID;
 
@@ -178,15 +184,17 @@ class AstronomyClubDefineClubGeneral extends Component {
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
                       <h1 className="modal-h">Astronomy Club Set Up</h1>
-                      <p className="modal-p mb-5">We need a few more details to complete your astronomy club account.</p>
+                      <p className="modal-p mb-5">
+                        We need a few more details to complete your astronomy
+                        club account.
+                      </p>
 
                       <div className="step-root">
                         <DisplayAtBreakpoint
                           screenMedium
                           screenLarge
                           screenXLarge
-                        >
-                        </DisplayAtBreakpoint>
+                        ></DisplayAtBreakpoint>
                         <div className="inner-container">
                           <div className="section-heading">
                             Astronomy Club Details
@@ -229,7 +237,7 @@ class AstronomyClubDefineClubGeneral extends Component {
                                     }}
                                   />
                                 </div>
-                                <br/>
+                                <br />
                                 <div className="form-field-container">
                                   <span
                                     className="form-label"
@@ -256,13 +264,16 @@ class AstronomyClubDefineClubGeneral extends Component {
                               </div>
                             ) : null}
 
-                            <div style={{float: "right"}}  className="button-container">
+                            <div
+                              style={{ float: 'right' }}
+                              className="button-container"
+                            >
                               <button className="submit-button" type="submit">
-                                <FormattedMessage {...messages.GoToPayment} />
+                                {t('Ecommerce.GoToPayment')}
                               </button>
                             </div>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                           </form>
                         </div>
                       </div>
@@ -283,8 +294,7 @@ const mapStateToProps = ({ upgradeAccountForm }) => ({
   upgradeAccountForm,
 });
 
-const joinStep2Validation = createValidator({
-});
+const joinStep2Validation = createValidator({});
 
 export default connect(
   mapStateToProps,
@@ -294,5 +304,5 @@ export default connect(
     form: 'updateAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
-  })(injectIntl(AstronomyClubDefineClubGeneral))
+  })(AstronomyClubDefineClubGeneral)
 );

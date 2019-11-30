@@ -1,16 +1,17 @@
 /** ********************************************
  * V4 Join - Step 3 - Collect Payment Details
  ********************************************** */
+/* eslint-disable */
 
-import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import React, { Component, Fragment } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
-import { browserHistory } from 'react-router';
+
 import { API } from 'app/api';
-import { FormattedMessage } from 'react-intl';
 import {
   resetLogIn,
   logUserIn,
@@ -21,14 +22,13 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
   JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
   JOIN_PAGE_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+} from 'app/services/registration/registration';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep3.style';
-import messages from './JoinStep3.messages';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -57,13 +57,9 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class JoinStep3 extends Component {
   static propTypes = propTypes;
-
-  state = {
-    paymentToken: '',
-    redirectInXSecondsOnExpiredSignupRequest: 0,
-  };
 
   componentDidMount() {
     //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
@@ -84,15 +80,19 @@ class JoinStep3 extends Component {
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
-      console.log(paymentMessageData);
-      var paymentDataString = paymentMessageData.split('!952bccf9afe8e4c04306f70f7bed6610');
+      //console.log(paymentMessageData);
+      let paymentDataString = paymentMessageData.split(
+        '!952bccf9afe8e4c04306f70f7bed6610'
+      );
 
-      console.log(paymentDataString);
+      //console.log(paymentDataString);
       /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
         if (
-          paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__')
+          paymentDataString[0].startsWith(
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
+          )
         ) {
           paymentNonceTokenData = String.prototype.replace.call(
             paymentDataString[0],
@@ -111,10 +111,8 @@ class JoinStep3 extends Component {
 
           paymentMethod = 'paypal';
         }
-        console.log('Payment Token:' + paymentNonceTokenData);
+        //console.log(`Payment Token:${paymentNonceTokenData}`);
 
-        this.setState({ paymentMethod });
-        this.setState({ paymentToken: paymentNonceTokenData });
         //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
@@ -133,12 +131,11 @@ class JoinStep3 extends Component {
             ) === 'true',
           billingAddressString: paymentDataString[3],
         };
-//add string aboc to this //ADD THIS BACK AFTER TESTING
-            API
-      .post(
-            JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
-            activatePendingCustomerData
-          )
+        //add string aboc to this //ADD THIS BACK AFTER TESTING
+        API.post(
+          JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
+          activatePendingCustomerData
+        )
           .then(response => {
             const res = response.data;
             if (!res.apiError) {
@@ -146,6 +143,11 @@ class JoinStep3 extends Component {
                 const { actions } = this.props;
 
                 //Cleanup local localStorage
+
+                //cleanup any hidden plan that was accessed now that a plan was redeemed.
+                window.localStorage.removeItem('enableHiddenPlanHashCode');
+
+                //cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('selectedSchoolId');
@@ -169,8 +171,9 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
-                  actions.logUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
@@ -178,12 +181,15 @@ class JoinStep3 extends Component {
                   };
 
                   window.localStorage.removeItem('accountCreationType');
-                  actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logGoogleUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 }
               } else {
                 /* process / display error to user */
-		document.getElementById('embeddedHostedPaymentForm').contentWindow.captureActivationError(res);
+                document
+                  .getElementById('embeddedHostedPaymentForm')
+                  .contentWindow.captureActivationError(res);
               }
             }
           })
@@ -195,45 +201,27 @@ class JoinStep3 extends Component {
   };
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
-  handleJoinPageServiceResponse = result => {
-    /* update the account form details state so the correct hinText will show on each form field */
-    this.setState(() => ({
-      redirectInXSecondsOnExpiredSignupRequest:
-        result.redirectInXSecondsOnExpiredSignupRequest,
-    }));
-  };
+  // handleJoinPageServiceResponse = result => {
+  //   /* update the account form details state so the correct hinText will show on each form field */
+  //   this.setState(() => ({
+  //     redirectInXSecondsOnExpiredSignupRequest:
+  //       result.redirectInXSecondsOnExpiredSignupRequest,
+  //   }));
+  // };
 
   CountdownRenderer = ({ completed, minutes, seconds }) => {
+    const { t } = this.props;
     if (completed) {
       // Render a completed state
       //console.log('The countdown has completed.....');
-      return (
-        <div></div>
-      );
+      return <div></div>;
     }
     // Render a countdown
     return (
       <p style={{ fontSize: '1.3em', color: 'green' }}>
-        <FormattedMessage
-          {...messages.SignupRequestExpireTime}
-          values={{ minutes, seconds }}
-        />
+        {t('Ecommerce.SignupRequestExpireTime', { minutes, seconds })}
       </p>
     );
-  };
-
-  CountdownExpiredRenderer = ({ seconds, completed }) => {
-    if (!completed) {
-      // Render a countdown to redirect to the homepage
-      return (
-        <p style={{ fontSize: '1.3em', fontWeight: 'bold', color: 'red' }}>
-          <FormattedMessage
-            {...messages.SignupRequestExpireTime}
-            values={{ seconds }}
-          />
-        </p>
-      );
-    }
   };
 
   CountdownExpiredComplete = () => {
@@ -250,7 +238,6 @@ class JoinStep3 extends Component {
 
   render() {
     const { pathname } = this.props;
-    const paymentTokenNonce = this.state.paymentToken;
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
@@ -258,7 +245,14 @@ class JoinStep3 extends Component {
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId, cid: window.localStorage.getItem('pending_cid') }}
+          requestBody={{
+            callSource: 'providePaymentDetails',
+            selectedPlanId,
+            cid: window.localStorage.getItem('pending_cid'),
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
+          }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
@@ -275,13 +269,13 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />
@@ -294,13 +288,13 @@ class JoinStep3 extends Component {
                           backgroundImage={
                             isMobile
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
+                                  ?.planSelectedBackgroundImageUrl_Mobile
                               : isDesktop
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
+                                  ?.planSelectedBackgroundImageUrl_Desktop
                               : isTablet
                               ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
+                                  ?.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
                         />
@@ -333,7 +327,8 @@ class JoinStep3 extends Component {
                             screenXLarge
                           >
                             <iframe
-			      id="embeddedHostedPaymentForm"
+                              id="embeddedHostedPaymentForm"
+                              title="PaymentFormLarge"
                               frameBorder="0"
                               style={{ width: '100%', minHeight: '750px' }}
                               src={joinPageRes.hostedPaymentFormURL}
@@ -342,7 +337,8 @@ class JoinStep3 extends Component {
 
                           <DisplayAtBreakpoint screenSmall>
                             <iframe
-			      id="embeddedHostedPaymentForm"
+                              id="embeddedHostedPaymentForm"
+                              title="PaymentFormSmall"
                               frameBorder="0"
                               style={{ width: '100%', minHeight: '850px' }}
                               src={joinPageRes.hostedPaymentFormURL}

@@ -1,4 +1,4 @@
-import SETTINGS from '../config';
+import SETTINGS from '../config/config';
 import generateInlineURL from './generateInlineURL';
 import purgeHashURL from './purgeHashURL';
 import useAbsoluteURL from './useAbsoluteURL';
@@ -7,7 +7,8 @@ describe('purge hash from url', () => {
   const TEST_URL_A = '#telescope-details/123/123';
   const TEST_EXPECTED_RESULT_A = 'telescope-details/123/123';
 
-  const TEST_URL_B = 'https://saturn.slooh.com/working-saturn/dist/#/discussions/main/most-recent';
+  const TEST_URL_B =
+    'https://saturn.slooh.com/working-saturn/dist/#/discussions/main/most-recent';
   const TEST_EXPECTED_RESULT_B = '/discussions/main/most-recent';
 
   const TEST_URL_C = '/discussions/main/most-recent';

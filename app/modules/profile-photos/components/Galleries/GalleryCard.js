@@ -5,10 +5,10 @@
 
 import React from 'react';
 import cn from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
-import messages from '../Missions/MissionCard.messages';
+
 import style from './GalleryCard.style';
 
 export default ({ index, isDesktop, currentItem: gallery }) => {
@@ -22,6 +22,7 @@ export default ({ index, isDesktop, currentItem: gallery }) => {
     galleryLinkURL,
   } = gallery;
   const bg = `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.85)), url(${imageURL})`;
+  const { t } = useTranslation();
   return (
     <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
       <div className="galleryCardWrapper">
@@ -31,7 +32,7 @@ export default ({ index, isDesktop, currentItem: gallery }) => {
             <div className="info">
               <div className={cn('text', 'date')}>{displayDate}</div>
               <div className={cn('text', 'images-count')}>
-                {galleryPictureCount} <FormattedMessage {...messages.Images} />
+                {galleryPictureCount} {t('Photos.Images')}
               </div>
             </div>
             <div className="galleryCard-actions">

@@ -93,4 +93,16 @@ export default css.global`
   .dash-obs .slick-list {
     max-height: 547px;
   }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .dash-obs .slick-slider .slick-prev {
+      margin-left: 0;
+      left: -10vh;
+    }
+
+    .dash-obs .slick-slider .slick-next {
+      margin-right: 0;
+      right: -10vh;
+    }
+  }
 `;

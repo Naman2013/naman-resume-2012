@@ -1,6 +1,5 @@
-import {
-  ProfileGroups,
-} from 'app/components/profiles/private-profile';
+//eslint-disable-line
+import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import { About, AboutSloohSection } from 'app/containers/about';
@@ -29,8 +28,10 @@ import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
 import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import Dashboard from 'app/modules/dashboard/containers/dashborad';
+import { FeatureContainerLazy } from 'app/modules/feature-module';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
+import { LeaderboardContainerLazy } from 'app/modules/leaderboard';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
 import Constellation from 'app/modules/missions/containers/constellation';
@@ -38,20 +39,23 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
+  ProfileActivity,
   ProfileDashboardContainer,
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
-  ProfileActivity,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { PurchaseConfirmationMain } from 'app/modules/purchase-confirmation';
 import {
   QuestCompleteLazy,
   QuestDetailsLazy,
   QuestStepLazy,
 } from 'app/modules/quests';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -73,6 +77,7 @@ import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
+import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
 import JoinInviteByCodeStep1 from 'app/pages/registration/JoinInviteByCodeStep1';
@@ -101,9 +106,6 @@ import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
-
 // import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
@@ -114,10 +116,11 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
+import { bindActionCreators } from 'redux';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
+import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 
 // Create an enhanced history that syncs navigation events with the store
@@ -150,6 +153,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
@@ -188,7 +192,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":viewType" component={Memberships} />
+        </Route>
         <Route
           path=":aboutSloohSectionId"
           component={AboutSloohSection}
@@ -196,7 +203,13 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
+      {/*<Route path="feature" component={FeatureContainerLazy} />*/}
+
       <Route path="join" component={Join}>
+        <Redirect
+          from="purchaseConfirmation(/:tab)"
+          to="/purchase-confirmation"
+        />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
@@ -204,6 +217,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
+
+        <Route
+          path="enablePlan/:subscriptionPlanHashCode"
+          component={EnableHiddenPlan}
+        />
+
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
           component={JoinByLandingPage}
@@ -480,7 +499,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
-          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -489,9 +507,14 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
-          <IndexRedirect to="activity" />
         </Route>
       </Route>
+
+      <Route
+        path="leaderboard(/:tab)"
+        component={LeaderboardContainerLazy}
+        onEnter={validateUser}
+      />
 
       <Route
         path="groups/create"
@@ -541,6 +564,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path="account-details" component={AccountDetails} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
+
+      <Route
+        path="purchase-confirmation"
+        component={PurchaseConfirmationMain}
+        onEnter={validateUser}
+      />
 
       <Route
         path="admin-tools"
