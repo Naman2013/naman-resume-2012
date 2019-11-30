@@ -1,0 +1,94 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/fonts';
+
+.quest-dot-menu-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  position: relative;
+
+  &.open {
+    color: $romance;
+    background-color: $lightHeadedAstronaut;
+
+    &:after {
+      position: absolute;
+      top: -20px;
+      display: block;
+      width: 100%;
+      height: 11px;
+      margin: auto;
+      content: '';
+      transform: rotate(180deg);
+      background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+      no-repeat center center;
+    }
+  }
+
+  svg {
+    margin-bottom: 3px;
+  }
+}
+
+.quest-dot-menu {
+  .quest-dot-menu-popover {
+    padding: 0;
+    font-family: $primary-font;
+    font-weight: 400;
+
+    .title {
+      height: 50px;
+      font-family: $primary-font;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 50px;
+      letter-spacing: 0.6px;
+      color: $lightHeadedAstronaut;
+      border-bottom: 1px solid $hr-silver;
+      padding: 0 20px;
+      text-transform: uppercase;
+    }
+
+    .content {
+      padding: 0 20px;
+
+      > * {
+        &[disabled] {
+          pointer-events: none;
+          opacity: 0.5;
+        }
+      }
+
+      & div {
+        line-height: 25px;
+        padding-top: 12.5px;
+        padding-bottom: 12.5px;
+        border-bottom: 1px solid $hr-silver;
+        font-family: $primary-font;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        color: $lightHeadedAstronaut;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        & button {
+          border: none;
+          padding: 0;
+          margin: 0;
+          font-family: $primary-font;
+          font-size: 11px;
+          color: $lightHeadedAstronaut;
+
+          & span {
+            margin: 0;
+          }
+        }
+      }
+
+      & .follow-object-button > button > span {
+        margin-right: 5px;
+      }
+    }
+  }
+}
