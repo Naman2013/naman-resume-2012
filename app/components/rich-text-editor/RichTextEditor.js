@@ -3,6 +3,7 @@ import {
   CompositeDecorator,
   Editor,
   EditorState,
+  ContentState,
   RichUtils,
 } from 'draft-js';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
@@ -17,6 +18,7 @@ import InlineStyleControls from './InlineStyleControls';
 
 import 'draft-js/dist/Draft.css';
 import './RichTextEditor.scss';
+import * as DraftPasteProcessor from "draft-js/lib/DraftPasteProcessor";
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -55,7 +57,19 @@ const editorStateDecorator = new CompositeDecorator([
   },
 ]);
 
-export const getEditorStateFromHtml = html => EditorState.createWithContent(convertFromHTML(html));
+export const getEditorStateFromHtml = html => {
+  return EditorState.createWithContent(convertFromHTML({
+    htmlToEntity: (nodeName, node, createEntity) => {
+      if (nodeName === 'a') {
+        return createEntity(
+          'LINK',
+          'MUTABLE',
+          {url: node.href}
+        )
+      }
+    },
+  })(html), editorStateDecorator);
+};
 
 class RichTextEditor extends React.Component {
   static propTypes = {
@@ -82,11 +96,15 @@ class RichTextEditor extends React.Component {
       };
     }
 
+    let editorStateNew = editorState;
+    if (editorValue && !editorState.getCurrentContent().hasText()) {
+      editorStateNew = getEditorStateFromHtml(editorValue);
+    } else if (!editorValue) {
+      editorStateNew = EditorState.createEmpty(editorStateDecorator);
+    }
+
     return {
-      editorState:
-        !editorValue && editorState.getCurrentContent().hasText()
-          ? EditorState.createEmpty(editorStateDecorator)
-          : editorState,
+      editorState: editorStateNew,
     };
   }
 

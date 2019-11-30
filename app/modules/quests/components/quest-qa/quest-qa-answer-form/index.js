@@ -1,9 +1,6 @@
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
-import RichTextEditor, {
-  getEditorStateFromHtml,
-} from 'app/components/rich-text-editor/RichTextEditor';
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import cx from 'classnames';
-import { EditorState } from 'draft-js';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
@@ -48,18 +45,11 @@ export const QuestQaAnswerForm = props => {
     moduleReadOnly,
   } = moduleData;
 
-  const [richTextVal, setRichTextVal] = React.useState(
-    EditorState.createEmpty()
-  );
-
   const [richTextHtml, setRichTextHtml] = React.useState(answerText);
 
   React.useEffect(() => {
     if (answerText) {
-      setRichTextVal(getEditorStateFromHtml(answerText));
       setRichTextHtml(answerText);
-    } else {
-      setRichTextVal(EditorState.createEmpty());
     }
   }, [answerText]);
 
@@ -89,11 +79,8 @@ export const QuestQaAnswerForm = props => {
       {richTextEditor && (
         <RichTextEditor
           className="mb-4"
-          onChange={(html, editorState) => {
-            setRichTextVal(editorState);
-            setRichTextHtml(html);
-          }}
-          value={richTextVal}
+          onChange={setRichTextHtml}
+          editorValue={richTextHtml}
           placeholder=""
           readOnly={textInputReadOnly}
         />
