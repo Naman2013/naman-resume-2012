@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const {
   func,
@@ -25,10 +26,11 @@ class StyleButton extends React.Component {
   }
 
   render() {
-    let className = 'RichEditor-styleButton';
-    if (this.props.active) {
-      className += ' RichEditor-activeButton';
-    }
+    const { active, readOnly } = this.props;
+    let className = cx('RichEditor-styleButton', {
+      'RichEditor-activeButton': active,
+      'RichEditor-readOnly': readOnly,
+    });
 
     return (
       <span
