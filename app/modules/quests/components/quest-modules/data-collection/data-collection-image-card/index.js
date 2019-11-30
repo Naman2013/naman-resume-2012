@@ -22,7 +22,9 @@ export class DataCollectionImageCard extends PureComponent {
       if (alreadyUsed) {
         return '[ALREADY USED]';
       }
-      return '[SELECTED]';
+      if (selected) {
+        return '[SELECTED]';
+      }
     };
 
     return (
