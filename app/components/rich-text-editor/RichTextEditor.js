@@ -87,7 +87,7 @@ class RichTextEditor extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { editorValue, value } = nextProps;
+    const { editorValue, value, hasInitialValue } = nextProps;
     const { editorState } = prevState;
 
     if (value) {
@@ -97,9 +97,9 @@ class RichTextEditor extends React.Component {
     }
 
     let editorStateNew = editorState;
-    if (editorValue && !editorState.getCurrentContent().hasText()) {
+    if (hasInitialValue && !editorState.getCurrentContent().hasText()) {
       editorStateNew = getEditorStateFromHtml(editorValue);
-    } else if (!editorValue) {
+    } else if (!editorValue && editorState.getCurrentContent().hasText()) {
       editorStateNew = EditorState.createEmpty(editorStateDecorator);
     }
 
