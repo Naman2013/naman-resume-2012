@@ -41,7 +41,6 @@ class JoinByLandingPage extends Component {
     window.localStorage.removeItem('username');
     window.localStorage.removeItem('password');
     window.localStorage.removeItem('isAstronomyClub');
-    window.localStorage.removeItem('isClassroom');
     window.localStorage.removeItem('invitationCodeAlt');
     window.localStorage.removeItem('inviteeEmailAddress');
   }
@@ -50,26 +49,18 @@ class JoinByLandingPage extends Component {
     if (result.selectedSubscriptionPlan) {
       const selectedPlanId = result.selectedSubscriptionPlan.planId;
       const isAstronomyClub = result.selectedSubscriptionPlan.isAstronomyClub;
-      const isClassroom = result.selectedSubscriptionPlan.isClassroom;
 
       //We have received a valid response, hand off to setSelectedPlan...
-      this.setSelectedPlan(selectedPlanId, isAstronomyClub, isClassroom);
+      this.setSelectedPlan(selectedPlanId, isAstronomyClub);
     }
   };
 
-  setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
+  setSelectedPlan(subscriptionPlanId, isAstronomyClub) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
-    window.localStorage.setItem('isClassroom', isClassroom);
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (isClassroom) {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step1SchoolSelection');
-    } else {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
-    }
   }
 
   render() {

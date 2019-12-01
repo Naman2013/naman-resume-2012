@@ -38,14 +38,13 @@ class EnableHiddenPlan extends Component {
     if (result.selectedSubscriptionPlan) {
       const selectedPlanId = result.selectedSubscriptionPlan.planId;
       const { isAstronomyClub } = result.selectedSubscriptionPlan;
-      const { isClassroom } = result.selectedSubscriptionPlan;
 
       //We have received a valid response, hand off to setSelectedPlan...
-      this.setSelectedPlan(selectedPlanId, isAstronomyClub, isClassroom);
+      this.setSelectedPlan(selectedPlanId, isAstronomyClub);
     }
   };
 
-  setSelectedPlan = (subscriptionPlanId, isAstronomyClub, isClassroom) => {
+  setSelectedPlan = (subscriptionPlanId, isAstronomyClub) => {
     window.localStorage.setItem(
       'enableHiddenPlanHashCode',
       this.props.params.subscriptionPlanHashCode
