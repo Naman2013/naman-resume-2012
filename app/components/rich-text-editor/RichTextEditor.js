@@ -96,13 +96,11 @@ class RichTextEditor extends React.Component {
       };
     }
 
-    let editorStateNew;
+    let editorStateNew = editorState;
     if (hasInitialValue && !editorState.getCurrentContent().hasText()) {
       editorStateNew = getEditorStateFromHtml(editorValue);
     } else if (!editorValue && editorState.getCurrentContent().hasText()) {
       editorStateNew = EditorState.createEmpty(editorStateDecorator);
-    } else {
-      editorStateNew = editorState;
     }
 
     return {
