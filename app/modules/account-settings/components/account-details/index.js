@@ -88,6 +88,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             accountTypeHeading={accountTypeHeading}
             accountStatusLabel={accountStatusLabel}
             accountStatus={accountStatus}
+	    showInfoButton={true}
           />
 
           <Container>
