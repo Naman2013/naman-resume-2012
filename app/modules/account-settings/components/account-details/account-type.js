@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { browserHistory } from 'react-router';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { DeviceContext } from 'app/providers/DeviceProvider';
@@ -13,6 +13,7 @@ const AccountType = props => {
     accountTypeHeading,
     accountStatusLabel,
     accountStatus,
+    showInfoButton,
   } = props;
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -42,9 +43,10 @@ const AccountType = props => {
     }
   };
 
-  const renderActions = () => {
+  const renderActions = (showInfoButton) => {
     return (
       <div className="btn-group pad-top-15">
+	{showInfoButton === true && <Fragment>
         <Btn mod="circle" onClick={goToPlanInfoUrl}>
           <Icon i="info" />
         </Btn>
@@ -54,6 +56,8 @@ const AccountType = props => {
           </Button>
         )}
         {isUpgradeAvailable === false && <Button>{upgradeButtonLabel}</Button>}
+	</Fragment>}
+	{showInfoButton === false && <p style={{paddingTop: "22px"}}>&nbsp;</p>}
       </div>
     );
   };
@@ -114,7 +118,7 @@ const AccountType = props => {
                       </ul>
 
                       <div className="account-general__info__actions">
-                        {renderActions()}
+                        {renderActions(showInfoButton)}
                       </div>
                     </div>
                   </div>
