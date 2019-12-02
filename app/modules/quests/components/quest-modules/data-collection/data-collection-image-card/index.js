@@ -2,6 +2,16 @@ import React, { PureComponent, Fragment } from 'react';
 import './styles.scss';
 
 export class DataCollectionImageCard extends PureComponent {
+  getImageStatus = (alreadyUsed, selected) => {
+    if (selected) {
+      return '[SELECTED]';
+    }
+    if (alreadyUsed) {
+      return '[ALREADY USED]';
+    }
+    return '';
+  };
+
   render() {
     const { imageData, onClick } = this.props;
     const {
@@ -11,6 +21,7 @@ export class DataCollectionImageCard extends PureComponent {
       selected,
       telescopeName,
       instrumentName,
+      alreadyUsed,
     } = imageData;
     const { displayDateTime } = imageTimeFormatted;
 
@@ -25,7 +36,7 @@ export class DataCollectionImageCard extends PureComponent {
         <p className="telescope-info">{instrumentName}</p>
         <p>
           {displayDateTime}
-          {selected && <span>[SELECTED]</span>}
+          <span>{this.getImageStatus(alreadyUsed, selected)}</span>
         </p>
       </div>
     );
