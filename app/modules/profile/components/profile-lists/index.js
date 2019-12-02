@@ -13,8 +13,9 @@ class ProfileLists extends Component {
     if (params.public) getPublicProfile(params.customerUUID);
     if (params.filterType) {
       if (params.private) getProfileLists(params.filterType);
-      if (params.public)
+      if (params.public) {
         getProfileLists(params.filterType, params.customerUUID);
+      }
     }
   }
 

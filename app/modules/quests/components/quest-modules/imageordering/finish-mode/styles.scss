@@ -1,0 +1,31 @@
+@import '~app/styles/variables/colors';
+
+.montage-finish-mode {
+  .animation-completed__card {
+    background-color: $white;
+
+    .animation-completed__card-title {
+      color: $lightHeadedAstronaut;
+    }
+
+    .animation-completed__card-subtitle {
+      color: $lightHeadedAstronaut;
+    }
+  }
+
+  .montage-finish-mode-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+
+    .montage-finish-mode-actions-separator {
+      margin: 0 20px;
+      height: inherit;
+      border-left: 1px dashed $hawkesBlue;
+    }
+
+    .download {
+      padding: 13px;
+    }
+  }
+}

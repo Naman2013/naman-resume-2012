@@ -1,5 +1,12 @@
-import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
+/* eslint-disable */
+import {
+  CompositeDecorator,
+  Editor,
+  EditorState,
+  ContentState,
+  RichUtils,
+} from 'draft-js';
+import { convertToHTML, convertFromHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -11,6 +18,7 @@ import InlineStyleControls from './InlineStyleControls';
 
 import 'draft-js/dist/Draft.css';
 import './RichTextEditor.scss';
+import * as DraftPasteProcessor from "draft-js/lib/DraftPasteProcessor";
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -49,6 +57,20 @@ const editorStateDecorator = new CompositeDecorator([
   },
 ]);
 
+export const getEditorStateFromHtml = html => {
+  return EditorState.createWithContent(convertFromHTML({
+    htmlToEntity: (nodeName, node, createEntity) => {
+      if (nodeName === 'a') {
+        return createEntity(
+          'LINK',
+          'MUTABLE',
+          {url: node.href}
+        )
+      }
+    },
+  })(html), editorStateDecorator);
+};
+
 class RichTextEditor extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -65,14 +87,24 @@ class RichTextEditor extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { editorValue } = nextProps;
+    const { editorValue, value, hasInitialValue } = nextProps;
     const { editorState } = prevState;
 
+    if (value) {
+      return {
+        editorState: value,
+      };
+    }
+
+    let editorStateNew = editorState;
+    if (hasInitialValue && !editorState.getCurrentContent().hasText()) {
+      editorStateNew = getEditorStateFromHtml(editorValue);
+    } else if (!editorValue && editorState.getCurrentContent().hasText()) {
+      editorStateNew = EditorState.createEmpty(editorStateDecorator);
+    }
+
     return {
-      editorState:
-        !editorValue && editorState.getCurrentContent().hasText()
-          ? EditorState.createEmpty(editorStateDecorator)
-          : editorState,
+      editorState: editorStateNew,
     };
   }
 
@@ -94,9 +126,7 @@ class RichTextEditor extends React.Component {
           }
           if (block.text === '') {
             return (
-              <p>
-                <br />
-              </p>
+              <p></p>
             );
           }
         },
@@ -115,7 +145,7 @@ class RichTextEditor extends React.Component {
           return originalText;
         },
       })(content);
-    onChange(threadContent);
+    onChange(threadContent, editorState);
   };
 
   onTab = e => {
@@ -256,7 +286,7 @@ class RichTextEditor extends React.Component {
 
   render() {
     const { editorState, showURLInput, urlValue } = this.state;
-    const { className } = this.props;
+    const { className, readOnly } = this.props;
     const linkClass = cx('RichEditor-styleButton', {
       'RichEditor-activeButton': showURLInput,
     });
@@ -299,13 +329,18 @@ class RichTextEditor extends React.Component {
 
     return (
       <div className={cx(['RichEditor-root', 'RichTextEditor', className])}>
-        <div className="RichEditor-controls-container">
+        <div
+          className={cx('RichEditor-controls-container', {
+            readonly: readOnly,
+          })}
+        >
           <BlockStyleControls
             className="RichEditor-controls"
             editorState={editorState}
             onToggle={this.toggleBlockType}
           />
           <InlineStyleControls
+            readOnly={readOnly}
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />
@@ -333,6 +368,7 @@ class RichTextEditor extends React.Component {
         </div>
         <div className={editorClassName}>
           <Editor
+            readOnly={readOnly}
             id="rich-editor"
             blockStyleFn={getBlockStyle}
             blockRenderFn={this.blockRenderer}

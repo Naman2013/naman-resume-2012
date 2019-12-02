@@ -7,7 +7,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
