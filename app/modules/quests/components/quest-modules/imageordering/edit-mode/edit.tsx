@@ -2,28 +2,34 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
-import { IImageOrderingSlot } from 'app/modules/quests/types.ts';
+import {
+  ImageorderingModuleResponse,
+  IQuestDataCollectionSlot,
+  IQuestDataCollectionSlotImage,
+  IQuestDataCollectionSlotImages,
+} from 'app/modules/quests/types';
 
-type EditModeProps = {
+type TEditModeProps = {
   readonly?: boolean; // TRUE if Finish mode
   goToPreview?: () => void;
   getImageOrderingModule?: () => void;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
-    image: any,
-    selectedSlot: any,
+    image: IQuestDataCollectionSlotImage,
+    selectedSlot: IQuestDataCollectionSlot,
     deleteSlotImage?: boolean
   ) => void;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
-  imageOrderingModule?: any;
+  imageOrderingModule?: ImageorderingModuleResponse;
   previewReviewButtonCaption?: string;
-  slot?: IImageOrderingSlot;
+  slot?: IQuestDataCollectionSlot;
   loading?: boolean;
-  questDataCollectionSlotImages?: object;
+  questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user?: User;
 };
+const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
-export const EditMode: React.FC<EditModeProps> = props => {
+export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     readonly = false,
     goToPreview,
@@ -43,11 +49,11 @@ export const EditMode: React.FC<EditModeProps> = props => {
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState({});
+  const [selectedSlot, setSelectedSlot] = useState(INITIAL_SELECTED_SLOT);
 
   return (
     <div>
-      {slotArray.map((slot: IImageOrderingSlot) => (
+      {slotArray.map((slot: IQuestDataCollectionSlot) => (
         <ImageSlot
           key={slot.slotId}
           imageOrderingModule={imageOrderingModule}

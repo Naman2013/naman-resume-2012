@@ -2,19 +2,22 @@ import React from 'react';
 import {
   IQuestStepModule,
   ImageorderingModuleResponse,
-} from 'app/modules/quests/types.ts';
+  IQuestDataCollectionSlotImage,
+  IQuestDataCollectionSlotImages,
+  IQuestDataCollectionSlot,
+} from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
 
-type ImageorderingProps = {
+type TImageorderingProps = {
   module: IQuestStepModule;
   readOnly: boolean;
   routeParams: any;
   stepData: any;
-  slot?: object;
+  slot?: IQuestDataCollectionSlot;
   questId: string;
   navigateToNextStep: Function;
   getImageorderingModule: Function;
@@ -23,9 +26,9 @@ type ImageorderingProps = {
   refreshQuestStep: Function;
   getDataCollectionSlotImages: () => void;
   imageorderingModule: ImageorderingModuleResponse;
-  image: any;
+  image: IQuestDataCollectionSlotImage;
   loading?: boolean;
-  questDataCollectionSlotImages?: object;
+  questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user: User;
 };
 
@@ -36,13 +39,13 @@ enum Mode {
   review,
 }
 
-type ImageorderingState = {
+type TImageorderingState = {
   mode: Mode;
 };
 
 export class Imageordering extends React.PureComponent<
-  ImageorderingProps,
-  ImageorderingState
+  TImageorderingProps,
+  TImageorderingState
 > {
   state = {
     mode: Mode.edit,
@@ -76,8 +79,8 @@ export class Imageordering extends React.PureComponent<
   };
 
   setDataCollectionSlotImages = (
-    image: any,
-    selectedSlot: any,
+    image: IQuestDataCollectionSlotImage,
+    selectedSlot: IQuestDataCollectionSlot,
     deleteSlotImage?: boolean
   ): void => {
     const {

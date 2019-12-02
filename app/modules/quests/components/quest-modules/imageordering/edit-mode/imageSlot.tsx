@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
+import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import Dots from 'app/atoms/icons/Dots';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './style.scss';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
 import { downloadFile } from 'app/utils/downloadFile';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import uniqueId from 'lodash/uniqueId';
-import { IImageOrderingSlot } from 'app/modules/quests/types.ts';
+import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
 
-type ImageSlotProps = {
+type TImageSlotProps = {
   imageOrderingModule: any;
   getImageOrderingModule?: () => void;
   showMontageModuleSlotModal?: () => void;
+  slot?: IQuestDataCollectionSlot;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
-  slot?: IImageOrderingSlot;
   user?: User;
 };
 
-export const ImageSlot: React.FC<ImageSlotProps> = props => {
+export const ImageSlot: React.FC<TImageSlotProps> = props => {
   const {
     imageOrderingModule,
     getImageOrderingModule,
@@ -32,6 +35,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
   const {
     imageURL,
     enableSlotButton,
+    showSlotButton,
     slotButtonCaption,
     showSlotInfo,
     slotInfoTitle,
@@ -40,6 +44,9 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
     showGraphicalPrompt,
     graphicalPromptURL,
     slotButtonTooltipText,
+    slotInfoTooltipText,
+    slotInfo,
+    slotIdentifier,
     showDotMenu,
     enableDotMenu,
     dotMenu,
@@ -118,11 +125,15 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
     },
   ];
 
+  const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
+  const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
+
   return (
     <div>
       <div className="montage-slot">
         <div className="montage-slot__body slot-card">
           <div className="slot-card__left">
+            <div className="slot-card__left__identifier">{slotIdentifier}</div>
             <div className="slot-card__left__img">
               {showGraphicalPrompt ? (
                 <img src={graphicalPromptURL} alt="" />
@@ -141,20 +152,46 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
               <img src={imageURL} alt="" />
             </div>
             <div className="slot-card__right__action">
-              <Tooltip
-                title={slotButtonTooltipText}
-                distance={10}
-                position="top"
-              >
-                <Button
-                  className="edit"
-                  onClick={(): void => showMontageModuleSlotModal()}
-                  disabled={!enableSlotButton}
+              {showSlotButton && (
+                <Tooltip
+                  title={slotButtonTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
                 >
-                  {slotButtonCaption}
-                </Button>
-              </Tooltip>
-
+                  <Button
+                    className="find-button"
+                    onClick={(): void => showMontageModuleSlotModal()}
+                    disabled={!enableSlotButton}
+                  >
+                    {slotButtonCaption}
+                  </Button>
+                </Tooltip>
+              )}
+              {showSlotInfo && (
+                <Tooltip
+                  theme="light"
+                  title={slotInfoTooltipText}
+                  position="top"
+                  disabled={isInfoMenuOpen}
+                >
+                  <Button
+                    className={cx('info-btn', { open: isInfoMenuOpen })}
+                    onClick={() =>
+                      !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
+                    }
+                  >
+                    {!isInfoMenuOpen ? (
+                      <img
+                        alt=""
+                        src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+                      />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
+              )}
               <QuestDotMenu
                 theme={{ circleColor: astronaut }}
                 show={showDotMenu}
@@ -162,16 +199,16 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
                 menuTitle={dotMenuTitle}
                 items={dotMenuItems}
               />
+              <QuestSlotInfoPopup
+                slotInfo={slotInfo}
+                slotInfoTitle={slotInfoTitle}
+                isInfoMenuOpen={isInfoMenuOpen}
+              />
             </div>
           </div>
         </div>
-
         <div className="montage-slot__footer">
-          {showSlotInfo ? (
-            <div className="find-image-title">{slotInfoTitle}</div>
-          ) : (
-            <div className="notification-title">{correctText}</div>
-          )}
+          <div className="find-image-title" />
         </div>
       </div>
     </div>
