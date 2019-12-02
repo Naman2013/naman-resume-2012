@@ -44,7 +44,6 @@ class JoinStep1 extends Component {
     window.localStorage.removeItem('username');
     window.localStorage.removeItem('password');
     window.localStorage.removeItem('isAstronomyClub');
-    window.localStorage.removeItem('isClassroom');
     window.localStorage.removeItem('invitationCodeAlt');
     window.localStorage.removeItem('inviteeEmailAddress');
 
@@ -54,19 +53,12 @@ class JoinStep1 extends Component {
     }
   }
 
-  setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
+  setSelectedPlan(subscriptionPlanId, isAstronomyClub) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
-    window.localStorage.setItem('isClassroom', isClassroom);
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (isClassroom) {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step1SchoolSelection');
-    } else {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
-    }
   }
 
   render() {
@@ -130,8 +122,7 @@ class JoinStep1 extends Component {
                                             setSelectedPlan={() =>
                                               this.setSelectedPlan(
                                                 subscriptionPlan.planID,
-                                                subscriptionPlan.isAstronomyClub,
-                                                subscriptionPlan.isClassroom
+                                                subscriptionPlan.isAstronomyClub
                                               )
                                             }
                                           />

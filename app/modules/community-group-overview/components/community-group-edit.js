@@ -182,7 +182,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={12} md={12} sm={12}>
                     <div className="i-box i-box-white pad-40 height-max">
                       <div className="community-group-edit-desc">
-                        <h4 className="h-4">Classroom overview</h4>
+                        <h4 className="h-4">Club Overview</h4>
                         <div className="community-group-edit-row">
                           {!isDescriptionEditOn ? (
                             description && <p>{description}</p>
@@ -246,7 +246,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={9} md={9} sm={9}>
                     <div className="flex-row justify-content-between align-items-center pad-20-40">
                       <h2 className="community-group-edit-title">
-                        Your Students
+                        Your Members
                       </h2>
                       <p className="community-group-edit-hero-unit">
                         {groupInformation &&
