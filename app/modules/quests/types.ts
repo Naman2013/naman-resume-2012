@@ -284,7 +284,7 @@ export declare interface IQuestAnimationData {
   zoom: number;
 }
 
-export declare interface ImageorderingModuleResponse {
+export declare interface ImageorderingModuleResponse extends StandardResponse {
   activityInstructions: string;
   activityPrompt: string;
   activityTitle: string;
@@ -313,7 +313,184 @@ export declare interface ImageorderingModuleResponse {
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
-  slotArray: [];
+  slotArray: Array<IQuestDataCollectionSlot>;
   slotCount: number;
   step: number;
+}
+
+export declare interface IQuestDataCollectionSlotImages
+  extends StandardResponse {
+  emptySetContentsDesc: {
+    noImagesFoundPrompt: string;
+    slotObjectMissionLinks: [
+      { linkIndex: boolean; linkLabel: string; linkURL: string }
+    ];
+    sunObjectFlag: boolean;
+  };
+  noImagesFoundPrompt: string;
+  slotObjectMissionLinks: [
+    {
+      linkIndex: number;
+      linkLabel: string;
+      linkURL: string;
+    }
+  ];
+  sunObjectFlag: boolean;
+  emptySetDisplay: string;
+  emptySetFlag: boolean;
+  firstImageNumber: number;
+  gravityEarnedInThisRequest: boolean;
+  imageCount: number;
+  imageList: [];
+  maxImageCount: number;
+  moduleId: number;
+  moduleIdIsValid: boolean;
+  moduleType: string;
+  moduleUUID: string;
+  pagingMode: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  showEmptySetContentsDesc: boolean;
+  showMoreButtonCaption: string;
+  showMoreImagesIncrement: number;
+  showShowMoreButton: boolean;
+  showSlotContentsDesc: boolean;
+  slotContentsDesc: string;
+  slotContentsHeader: string;
+  slotId: number;
+  slotIdIsValid: boolean;
+  slotType: string;
+  totalImageCount: number;
+}
+
+export declare interface IQuestDataCollectionSlot {
+  CorrectAnswer: number;
+  OverlayHeight: number;
+  OverlayWidth: number;
+  OverlayXpos: number;
+  OverlayYpos: number;
+  QuestModuleImageOrderingSlotId: number;
+  contentCount: number;
+  contentType: string;
+  customerImageId: number;
+  dotMenu: {
+    checkForMissionsText: string;
+    checkForMissionsUrl: string;
+    downloadImageText: string;
+    enableCheckForMissions: boolean;
+    enableDownloadImage: boolean;
+    enableObjectInfo: boolean;
+    enableRemoveImage: boolean;
+    objectInfo: {
+      callSource: string;
+      followActionIconUrl: string;
+      followPrompt: string;
+      followPromptIconUrl: string;
+      learnAboutText: string;
+      learnAboutUrl: string;
+      objectId: number;
+      objectName: string;
+      showFollowPromptFlag: boolean;
+      toggleFollowConfirmationFlag: boolean;
+      toggleFollowConfirmationPrompt: string;
+    };
+    removeImageText: string;
+    showCheckForMissions: boolean;
+    showDownloadImage: boolean;
+    showObjectInfo: boolean;
+    showRemoveImage: boolean;
+  };
+  dotMenuTitle: string;
+  dotMenuTooltipText: string;
+  enableDotMenu: boolean;
+  enableSlotButton: boolean;
+  enableSlotInfo: boolean;
+  graphicalPromptURL: string;
+  imageSource: string;
+  imageURL: string;
+  objectId: number;
+  showDotMenu: boolean;
+  showDotMenuTooltip: boolean;
+  showGraphicalPrompt: boolean;
+  showSlotButton: boolean;
+  showSlotButtonTooltip: boolean;
+  showSlotDetails: boolean;
+  showSlotInfo: boolean;
+  showSlotInfoTooltip: boolean;
+  showSlotTitle: boolean;
+  showTextPrompt: boolean;
+  slotButtonCaption: string;
+  slotButtonTooltipText: string;
+  slotDetails: [];
+  slotHasImage: boolean;
+  slotId: number;
+  slotIdentifier: string;
+  slotInfo: {
+    imageDate: string;
+    imageTime: string;
+    instrumentName: string;
+    objectName: string;
+    showObjectDetails: boolean;
+    showSlotContentsDesc: boolean;
+    slotContentsDesc: string;
+    telescopeName: string;
+  };
+  slotInfoTitle: string;
+  slotInfoTooltipText: string;
+  slotSequence: number;
+  slotTitle: string;
+  textPrompt: string;
+  thumbnailURL: string;
+}
+
+export declare interface IQuestDataCollectionSlotImage {
+  alreadyUsed: boolean;
+  constellation: string;
+  customerImageId: number;
+  domeId: number;
+  imageDownloadFilename: string;
+  imageDownloadURL: string;
+  imageId: number;
+  imageIndex: number;
+  imageTimeFormatted: {
+    displayDate: string;
+    displayDateTime: string;
+    displayFullMonthDayYearUTC: string;
+    displayLabel: string;
+    displayOtherTimeZones: string;
+    displayTime: string;
+    displayTimeZone: string;
+    displayUSEasternTime: string;
+    displayUSPacificTime: string;
+    displayWMDUSEasternTime: string;
+    displayWMDUSPacificTime: string;
+    displayWeekdayMonthDayUTC: string;
+    displayWeekdayMonthDayYearUTC: string;
+  };
+  imageTimestamp: number;
+  imageType: string;
+  imageURL: string;
+  instrumentName: string;
+  objectIconURL: string;
+  objectId: number;
+  objectTitle: string;
+  obsId: string;
+  observatoryName: string;
+  originX: null;
+  originY: null;
+  scheduledMissionId: number;
+  selected: boolean;
+  sysId: string;
+  telescopeId: string;
+  telescopeName: string;
+  thumbnailURL: string;
+  zoom: null;
+}
+
+export declare interface IQuestDotMenuItem {
+  show: boolean;
+  disabled: boolean;
+  title: any;
+  action?: () => void;
 }

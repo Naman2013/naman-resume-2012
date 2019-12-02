@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
+import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import Dots from 'app/atoms/icons/Dots';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './style.scss';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import { downloadFile } from 'app/utils/downloadFile';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
+import uniqueId from 'lodash/uniqueId';
+import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
 
-type ImageSlotProps = {
+type TImageSlotProps = {
   imageOrderingModule: any;
+  getImageOrderingModule?: () => void;
   showMontageModuleSlotModal?: () => void;
-  slot?: any;
+  slot?: IQuestDataCollectionSlot;
+  removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
+  user?: User;
 };
 
-export const ImageSlot: React.FC<ImageSlotProps> = props => {
-  const { imageOrderingModule, slot, showMontageModuleSlotModal } = props;
-  const { correctText, outputDownloadURL } = imageOrderingModule;
+export const ImageSlot: React.FC<TImageSlotProps> = props => {
+  const {
+    imageOrderingModule,
+    getImageOrderingModule,
+    slot,
+    showMontageModuleSlotModal,
+    removeDataCollectionSlotImage,
+    user,
+  } = props;
+  const { correctText } = imageOrderingModule;
   const {
     imageURL,
     enableSlotButton,
+    showSlotButton,
     slotButtonCaption,
     showSlotInfo,
     slotInfoTitle,
@@ -25,13 +44,96 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
     showGraphicalPrompt,
     graphicalPromptURL,
     slotButtonTooltipText,
+    slotInfoTooltipText,
+    slotInfo,
+    slotIdentifier,
+    showDotMenu,
+    enableDotMenu,
+    dotMenu,
+    dotMenuTitle,
+    slotId,
+    customerImageId,
+    objectId,
   } = slot;
+
+  const {
+    showRemoveImage,
+    enableRemoveImage,
+    removeImageText,
+    showDownloadImage,
+    enableDownloadImage,
+    downloadImageText,
+    showCheckForMissions,
+    enableCheckForMissions,
+    checkForMissionsText,
+    checkForMissionsUrl,
+    showObjectInfo,
+    enableObjectInfo,
+    objectInfo,
+  } = dotMenu;
+
+  const {
+    learnAboutText,
+    learnAboutUrl,
+    followPrompt,
+    followPromptIconUrl,
+  } = objectInfo;
+
+  const dotMenuItems = [
+    {
+      show: showRemoveImage,
+      disabled: !enableRemoveImage,
+      title: removeImageText,
+      action: (): void =>
+        removeDataCollectionSlotImage(slotId, customerImageId),
+    },
+    {
+      show: showDownloadImage,
+      disabled: !enableDownloadImage,
+      title: downloadImageText,
+      action: (): void =>
+        downloadFile(
+          imageURL,
+          imageURL.substring(imageURL.lastIndexOf('/') + 1)
+        ),
+    },
+    {
+      show: showCheckForMissions,
+      disabled: !enableCheckForMissions,
+      title: checkForMissionsText,
+      action: (): void => browserHistory.push(checkForMissionsUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: learnAboutText,
+      action: (): void => browserHistory.push(learnAboutUrl),
+    },
+    {
+      show: showObjectInfo,
+      disabled: !enableObjectInfo,
+      title: Boolean(objectId) && (
+        <FollowObjectButton
+          key={`follow-object-button-${uniqueId()}`}
+          objectId={objectId}
+          user={user}
+          followButtonText={followPrompt}
+          followButtonIconURL={followPromptIconUrl}
+          callBack={getImageOrderingModule}
+        />
+      ),
+    },
+  ];
+
+  const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
+  const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
 
   return (
     <div>
       <div className="montage-slot">
         <div className="montage-slot__body slot-card">
           <div className="slot-card__left">
+            <div className="slot-card__left__identifier">{slotIdentifier}</div>
             <div className="slot-card__left__img">
               {showGraphicalPrompt ? (
                 <img src={graphicalPromptURL} alt="" />
@@ -50,31 +152,63 @@ export const ImageSlot: React.FC<ImageSlotProps> = props => {
               <img src={imageURL} alt="" />
             </div>
             <div className="slot-card__right__action">
-              <Tooltip
-                title={slotButtonTooltipText}
-                distance={10}
-                position="top"
-              >
-                <Button
-                  className="edit"
-                  onClick={() => showMontageModuleSlotModal()}
-                  disabled={!enableSlotButton}
+              {showSlotButton && (
+                <Tooltip
+                  title={slotButtonTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
                 >
-                  {slotButtonCaption}
-                </Button>
-              </Tooltip>
-              <Button onClick={() => {}} className="dots-btn">
-                <Dots theme={{ circleColor: astronaut }} />
-              </Button>
+                  <Button
+                    className="find-button"
+                    onClick={(): void => showMontageModuleSlotModal()}
+                    disabled={!enableSlotButton}
+                  >
+                    {slotButtonCaption}
+                  </Button>
+                </Tooltip>
+              )}
+              {showSlotInfo && (
+                <Tooltip
+                  theme="light"
+                  title={slotInfoTooltipText}
+                  position="top"
+                  disabled={isInfoMenuOpen}
+                >
+                  <Button
+                    className={cx('info-btn', { open: isInfoMenuOpen })}
+                    onClick={() =>
+                      !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
+                    }
+                  >
+                    {!isInfoMenuOpen ? (
+                      <img
+                        alt=""
+                        src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+                      />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
+              )}
+              <QuestDotMenu
+                theme={{ circleColor: astronaut }}
+                show={showDotMenu}
+                enabled={enableDotMenu}
+                menuTitle={dotMenuTitle}
+                items={dotMenuItems}
+              />
+              <QuestSlotInfoPopup
+                slotInfo={slotInfo}
+                slotInfoTitle={slotInfoTitle}
+                isInfoMenuOpen={isInfoMenuOpen}
+              />
             </div>
           </div>
         </div>
         <div className="montage-slot__footer">
-          {showSlotInfo ? (
-            <div className="find-image-title">{slotInfoTitle}</div>
-          ) : (
-            <div className="notification-title">{correctText}</div>
-          )}
+          <div className="find-image-title" />
         </div>
       </div>
     </div>

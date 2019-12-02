@@ -134,6 +134,7 @@ export const QuestQaAnswerForm = props => {
         answers.map(answer => (
           <Tooltip
             title={answer.answerLetterTooltipText}
+            key={`qa-fill-blanks-answer-${answer.answerId}`}
             position="top"
             theme="light"
             distance={-30}
