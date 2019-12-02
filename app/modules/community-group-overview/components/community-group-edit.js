@@ -246,7 +246,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={9} md={9} sm={9}>
                     <div className="flex-row justify-content-between align-items-center pad-20-40">
                       <h2 className="community-group-edit-title">
-                        Your Students
+                        Your Members
                       </h2>
                       <p className="community-group-edit-hero-unit">
                         {groupInformation &&
