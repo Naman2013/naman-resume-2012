@@ -37,7 +37,8 @@ type AnimationModuleProps = {
 type AnimationModuleState = {
   activeAnimationStep: string;
   activePreviewImage: number;
-  previewFrameList: Array<any>;
+  previewFrameList: Array<IAnimationFrame>;
+  previewSingleStep: boolean;
 };
 
 const ANIMATION_STEPS = {
@@ -73,7 +74,8 @@ export class AnimationModule extends React.PureComponent<
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
     activePreviewImage: 0,
-    previewFrameList: [{}],
+    previewFrameList: [{} as IAnimationFrame],
+    previewSingleStep: false,
   };
 
   componentDidMount(): void {
@@ -467,7 +469,7 @@ export class AnimationModule extends React.PureComponent<
           this.canvas.setZoom(previewZoomLevel);
         }
         this.canvas.renderAll();
-        this.previewAnimationStart(previewDelaySlow);
+        this.previewAnimationStart(previewDelaySlow, false);
       }
     );
   };
@@ -499,14 +501,17 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  previewAnimationStart = (speed: number): void => {
+  previewAnimationStart = (speed: number, singleStep: boolean): void => {
     const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
 
-    if (speed) {
+    if (!singleStep) {
       this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
+      this.setState({ previewSingleStep: false });
+    } else {
+      this.setState({ previewSingleStep: true });
     }
   };
 
@@ -646,6 +651,7 @@ export class AnimationModule extends React.PureComponent<
       activeAnimationStep,
       activePreviewImage,
       previewFrameList,
+      previewSingleStep,
     } = this.state;
     const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
@@ -686,6 +692,9 @@ export class AnimationModule extends React.PureComponent<
               <>
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
+                {previewSingleStep && (
+                  <h4>{`${previewFrameList[activePreviewImage].infoArray.objectName} ${previewFrameList[activePreviewImage].infoArray.imageDate} ${previewFrameList[activePreviewImage].infoArray.imageTime}`}</h4>
+                )}
                 <div className="animation-lines">
                   {previewFrameList.map(
                     ({ frameIndex, frameId }: IAnimationFrame) => (
