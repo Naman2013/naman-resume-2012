@@ -182,7 +182,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={12} md={12} sm={12}>
                     <div className="i-box i-box-white pad-40 height-max">
                       <div className="community-group-edit-desc">
-                        <h4 className="h-4">Classroom overview</h4>
+                        <h4 className="h-4">Club Overview</h4>
                         <div className="community-group-edit-row">
                           {!isDescriptionEditOn ? (
                             description && <p>{description}</p>
