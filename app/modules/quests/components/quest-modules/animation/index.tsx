@@ -47,6 +47,15 @@ const ANIMATION_STEPS = {
   COMPLETED: 'COMPLETED',
 };
 
+const BUTTON_TYPES = {
+  EDIT: 'edit',
+  PLAY: 'play',
+  FINISH: 'finish',
+  SLOW: 'slow',
+  MED: 'med',
+  FAST: 'fast',
+};
+
 const CANVAS_DEFAULT_WIDTH = 414;
 
 export class AnimationModule extends React.PureComponent<
@@ -127,8 +136,12 @@ export class AnimationModule extends React.PureComponent<
       }
     });
 
-    this.canvas.on('mouse:up', (opt: any): void => {
+    this.canvas.on('mouse:up', (e: any): void => {
+      const { activeFrame } = this.props;
       this.isDragging = false;
+      if (this.canvas.getZoom() > 1) {
+        this.setAnimation(activeFrame);
+      }
     });
   };
 
@@ -383,7 +396,7 @@ export class AnimationModule extends React.PureComponent<
   };
 
   zoomInCanvas = (): void => {
-    const { questAnimation, setAnimationData } = this.props;
+    const { questAnimation, setAnimationData, activeFrame } = this.props;
     const { magnificationMax, magnificationStep } = questAnimation;
     let newZoom = this.canvas.getZoom() + magnificationStep / 100;
 
@@ -395,10 +408,11 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.hoverCursor = 'move';
     this.canvas.setZoom(newZoom).renderAll();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
+    this.setAnimation(activeFrame);
   };
 
   zoomOutCanvas = (): void => {
-    const { questAnimation, setAnimationData } = this.props;
+    const { questAnimation, setAnimationData, activeFrame } = this.props;
     const { magnificationMin, magnificationStep } = questAnimation;
 
     let newZoom = this.canvas.getZoom() - magnificationStep / 100;
@@ -412,6 +426,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(newZoom).renderAll();
     this.updatePan();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
+    this.setAnimation(activeFrame);
   };
 
   onPageRezise = (): void => {
@@ -446,7 +461,7 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPlay = (): void => {
-    const { questAnimation, questAnimationFrames } = this.props;
+    const { questAnimation, questAnimationFrames, activeFrame } = this.props;
     const { previewDelaySlow, previewZoomLevel } = questAnimation;
     const { frameList } = questAnimationFrames;
     const previewFrameList = frameList.filter(
@@ -470,6 +485,7 @@ export class AnimationModule extends React.PureComponent<
         }
         this.canvas.renderAll();
         this.previewAnimationStart(previewDelaySlow, false);
+        this.setAnimation(activeFrame, BUTTON_TYPES.PLAY);
       }
     );
   };
@@ -501,7 +517,11 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  previewAnimationStart = (speed: number, singleStep: boolean): void => {
+  previewAnimationStart = (
+    speed: number,
+    singleStep: boolean,
+    type?: string
+  ): void => {
     const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
@@ -553,11 +573,14 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.item(frameIndex - 1).set({ visible: true });
     this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
     this.canvas.renderAll();
+    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT);
   };
 
   onFinish = (): any => {
+    const { activeFrame } = this.props;
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED });
+    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH);
   };
 
   getAnimation = (): void => {
@@ -622,11 +645,14 @@ export class AnimationModule extends React.PureComponent<
     setActiveFrame(frame);
   };
 
-  setAnimation = (frame: IAnimationFrame): void => {
+  setAnimation = (frame: IAnimationFrame, button?: string): void => {
     const { setAnimation, module, questId } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
-
+    const zoom = this.canvas.getZoom();
+    const viewportWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
+    console.log(button);
     const data = {
       questId,
       moduleId,
@@ -636,6 +662,12 @@ export class AnimationModule extends React.PureComponent<
       xOffset,
       yOffset,
       offsetReference,
+      zoom,
+      width: viewportWidth,
+      height: viewportWidth,
+      left: -this.vpt[4],
+      top: -this.vpt[5],
+      button,
     };
     setAnimation(data);
   };

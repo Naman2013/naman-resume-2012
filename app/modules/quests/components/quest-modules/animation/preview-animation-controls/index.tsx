@@ -7,7 +7,7 @@ type PreviewAnimationControlsProps = {
   questAnimation: IQuestAnimation;
   onEdit: () => void;
   onFinish: () => void;
-  onSpeedChange: (speed: number, singleStep: boolean) => void;
+  onSpeedChange: (speed: number, singleStep: boolean, type: string) => void;
   onPrevFrame: () => void;
   onNextFrame: () => void;
 };
@@ -45,7 +45,7 @@ export const PreviewAnimationControls: React.FC<
 
   const onSpeedBtnClick = (type: string, speed: number): void => {
     setAnimationSpeed(type);
-    onSpeedChange(speed, type === ANIMATION_SPEEDS.SINGLE_STEP);
+    onSpeedChange(speed, type === ANIMATION_SPEEDS.SINGLE_STEP, type);
   };
 
   return (
