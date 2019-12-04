@@ -9,7 +9,7 @@ import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import { downloadFile } from 'app/utils/downloadFile';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
-import { QuestButtonsPopover } from '../../../quest-buttons-popover';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './styles.scss';
 
 const onDownloadImage = url => {
@@ -47,6 +47,7 @@ export const DataCollectionSlotCard = props => {
     enableSlotButton,
     slotButtonTooltipText,
     slotInfoTooltipText,
+    dotMenuTooltipText,
   } = slot;
 
   const {
@@ -172,41 +173,18 @@ export const DataCollectionSlotCard = props => {
             </Button>
           </Tooltip>
         )}
-
-        <QuestButtonsPopover isOpen={isInfoMenuOpen}>
-          {isInfoMenuOpen && showSlotContentsDesc && (
-            <div className="dc-slot-info-popover">
-              <div className="dc-slot-info-title">{slotInfoTitle}</div>
-              <div
-                className="dc-slot-info-text"
-                dangerouslySetInnerHTML={{ __html: slotContentsDesc }}
-              />
-            </div>
-          )}
-          {isInfoMenuOpen && showObjectDetails && (
-            <div className="data-collection-image-info">
-              <div className="dc-slot-info-popover">
-                <div className="dc-slot-info-title">{slotInfoTitle}</div>
-                <div className="dc-slot-info-text">
-                  <div className="slot-info-title">{objectName}</div>
-                  <div className="slot-info-date">
-                    <div>{imageDate}</div>
-                    <div>{imageTime}</div>
-                  </div>
-                  <div className="slot-info-telescope">{telescopeName}</div>
-                  <div className="slot-info-subtitle">{instrumentName}</div>
-                </div>
-              </div>
-            </div>
-          )}
-        </QuestButtonsPopover>
-
         <QuestDotMenu
           theme={{ circleColor: astronaut }}
           show={showDotMenu}
           enabled={enableDotMenu}
           menuTitle={dotMenuTitle}
           items={dotMenuItems}
+          dotMenuTooltipText={dotMenuTooltipText}
+        />
+        <QuestSlotInfoPopup
+          slotInfo={slotInfo}
+          slotInfoTitle={slotInfoTitle}
+          isInfoMenuOpen={isInfoMenuOpen}
         />
       </div>
     </div>

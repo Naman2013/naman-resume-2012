@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
-import Dots from 'app/atoms/icons/Dots';
 import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './style.scss';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
@@ -12,6 +11,7 @@ import { downloadFile } from 'app/utils/downloadFile';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import uniqueId from 'lodash/uniqueId';
 import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
+import ImageClickHandler from 'app/components/common/ImageClickHandler';
 
 type TImageSlotProps = {
   imageOrderingModule: any;
@@ -45,6 +45,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     graphicalPromptURL,
     slotButtonTooltipText,
     slotInfoTooltipText,
+    dotMenuTooltipText,
     slotInfo,
     slotIdentifier,
     showDotMenu,
@@ -149,7 +150,9 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
           </div>
           <div className="slot-card__right">
             <div className="slot-card__right__img">
-              <img src={imageURL} alt="" />
+              <ImageClickHandler imageUrl={imageURL}>
+                <img src={imageURL} alt="" />
+              </ImageClickHandler>
             </div>
             <div className="slot-card__right__action">
               {showSlotButton && (
@@ -198,6 +201,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 enabled={enableDotMenu}
                 menuTitle={dotMenuTitle}
                 items={dotMenuItems}
+                dotMenuTooltipText={dotMenuTooltipText}
               />
               <QuestSlotInfoPopup
                 slotInfo={slotInfo}
