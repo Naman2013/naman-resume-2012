@@ -82,7 +82,7 @@ export const StatusTab = props => {
               noScroll
               noCounter
               noDescription
-              title="This Just In"
+              title="Observatory Bot"
               ViewGroup="conditions"
               teleSystem={currentTelescope.teleSystem}
               clockList={clockList}
@@ -96,7 +96,7 @@ export const StatusTab = props => {
               noScroll
               noCounter
               noDescription
-              title="This Just In"
+              title="Observatory Bot"
               ViewGroup="conditions"
               teleSystem={currentTelescope.teleSystem}
               clockList={clockList}

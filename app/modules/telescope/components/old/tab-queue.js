@@ -6,12 +6,6 @@ import style from './tab-queue.style';
 
 const TabQueue = props => (
   <div className="tab-queue-root">
-    {props.currentTelescope.teleHasNeoView && (
-      <div className="tile-container">
-        <ObsBotWidget {...props} ViewGroup="queue" />
-        <br />
-      </div>
-    )}
     <QueueTab
       currentTelescope={props.currentTelescope}
       currentObservatory={props.currentObservatory}
