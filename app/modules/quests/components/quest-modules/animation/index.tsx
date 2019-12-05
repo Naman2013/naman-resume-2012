@@ -103,7 +103,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.selection = false; // disable group selection
     this.canvas.hoverCursor = 'auto';
     this.vpt = [...this.canvas.viewportTransform];
-    this.onPageRezise();
+    this.onPageRezise(false);
 
     this.initCanvasPan();
   };
@@ -429,8 +429,8 @@ export class AnimationModule extends React.PureComponent<
     this.setAnimation(activeFrame);
   };
 
-  onPageRezise = (): void => {
-    const { questAnimationFrames } = this.props;
+  onPageRezise = (updateAnimation = true): void => {
+    const { questAnimationFrames, activeFrame } = this.props;
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
@@ -458,6 +458,9 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(canvasZoom);
 
     this.canvas.renderAll();
+    if (updateAnimation) {
+      this.setAnimation(activeFrame);
+    }
   };
 
   onPlay = (): void => {
@@ -650,9 +653,12 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
     const zoom = this.canvas.getZoom();
-    const viewportWidth =
-      this.canvasContainer.getBoundingClientRect().width - 2;
-    console.log(button);
+    const currentItem = this.canvas.item(frame.frameIndex - 1);
+    const size = this.canvas.getWidth();
+    const scaledSize = size * zoom;
+    const imageScaleY = currentItem.get('scaleY');
+    const imageHeight = currentItem.get('height');
+
     const data = {
       questId,
       moduleId,
@@ -663,11 +669,18 @@ export class AnimationModule extends React.PureComponent<
       yOffset,
       offsetReference,
       zoom,
-      width: viewportWidth,
-      height: viewportWidth,
+      width: size,
+      height: size,
       left: -this.vpt[4],
       top: -this.vpt[5],
       button,
+      serializedFramesAll: JSON.stringify(this.canvas),
+      scaleX: currentItem.get('scaleX'),
+      scaleY: imageScaleY,
+      imageWidth: currentItem.get('width'),
+      imageHeight,
+      scaledImageWidth: scaledSize,
+      scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
     setAnimation(data);
   };
