@@ -91,11 +91,11 @@ export class AnimationModule extends React.PureComponent<
     this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
-    window.addEventListener('resize', this.onPageRezise);
+    window.addEventListener('resize', () => this.onPageRezise());
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('resize', this.onPageRezise);
+    window.removeEventListener('resize', () => this.onPageRezise());
   }
 
   initCanvas = (): void => {
