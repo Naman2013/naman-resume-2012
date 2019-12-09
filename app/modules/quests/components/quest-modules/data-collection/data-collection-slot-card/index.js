@@ -173,17 +173,26 @@ export const DataCollectionSlotCard = props => {
         />
 
         {showDotMenu && (
-          <Button
-            className={cx('quest-dot-menu-btn', { open: isDotsMenuOpen })}
-            onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
-            disabled={!enableDotMenu}
+          <Tooltip
+            title={dotMenuTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
           >
-            {!isDotsMenuOpen ? (
-              <Dots theme={{ circleColor: astronaut }} />
-            ) : (
-              <i className="menu-icon-close icon-close" />
-            )}
-          </Button>
+            <Button
+              className={cx('quest-dot-menu-btn', {
+                open: isDotsMenuOpen,
+              })}
+              onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
+              disabled={!enableDotMenu}
+            >
+              {!isDotsMenuOpen ? (
+                <Dots theme={{ circleColor: astronaut }} />
+              ) : (
+                <i className="menu-icon-close icon-close" />
+              )}
+            </Button>
+          </Tooltip>
         )}
 
         <QuestDotMenu
