@@ -9,6 +9,7 @@ import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import { downloadFile } from 'app/utils/downloadFile';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import Dots from 'app/atoms/icons/Dots';
 import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
 
@@ -84,6 +85,7 @@ export const DataCollectionSlotCard = props => {
   } = slotInfo;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
+  const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
 
   const dotMenuItems = [
     {
@@ -159,7 +161,7 @@ export const DataCollectionSlotCard = props => {
           <Tooltip theme="light" title={slotInfoTooltipText} position="top">
             <Button
               className={cx('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
-              onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
+              onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
             >
               {!isInfoMenuOpen ? (
                 <img
@@ -201,12 +203,25 @@ export const DataCollectionSlotCard = props => {
           )}
         </QuestButtonsPopover>
 
+        {showDotMenu && (
+          <Button
+            className={cx('quest-dot-menu-btn', { open: isDotsMenuOpen })}
+            onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
+            disabled={!enableDotMenu}
+          >
+            {!isDotsMenuOpen ? (
+              <Dots theme={{ circleColor: astronaut }} />
+            ) : (
+              <i className="menu-icon-close icon-close" />
+            )}
+          </Button>
+        )}
+
         <QuestDotMenu
-          theme={{ circleColor: astronaut }}
-          show={showDotMenu}
-          enabled={enableDotMenu}
+          show={isDotsMenuOpen}
           menuTitle={dotMenuTitle}
           items={dotMenuItems}
+          toggle={toggleDotsMenu}
         />
       </div>
     </div>
