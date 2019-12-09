@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Dots from 'app/atoms/icons/Dots';
-import { Button } from 'react-bootstrap';
 import { QuestButtonsPopover } from 'app/modules/quests/components/quest-buttons-popover';
-import cx from 'classnames';
 import { IQuestDotMenuItem } from 'app/modules/quests/types.ts';
 import './styles.scss';
 

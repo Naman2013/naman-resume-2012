@@ -9,6 +9,7 @@ import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import { downloadFile } from 'app/utils/downloadFile';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import Dots from 'app/atoms/icons/Dots';
 import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
@@ -48,6 +49,7 @@ export const DataCollectionSlotCard = props => {
     enableSlotButton,
     slotButtonTooltipText,
     slotInfoTooltipText,
+    dotMenuTooltipText,
   } = slot;
 
   const {
@@ -72,17 +74,6 @@ export const DataCollectionSlotCard = props => {
     followPrompt,
     followPromptIconUrl,
   } = objectInfo;
-
-  const {
-    showSlotContentsDesc,
-    slotContentsDesc,
-    showObjectDetails,
-    objectName,
-    imageDate,
-    imageTime,
-    telescopeName,
-    instrumentName,
-  } = slotInfo;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
   const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
@@ -175,33 +166,11 @@ export const DataCollectionSlotCard = props => {
           </Tooltip>
         )}
 
-        <QuestButtonsPopover isOpen={isInfoMenuOpen}>
-          {isInfoMenuOpen && showSlotContentsDesc && (
-            <div className="dc-slot-info-popover">
-              <div className="dc-slot-info-title">{slotInfoTitle}</div>
-              <div
-                className="dc-slot-info-text"
-                dangerouslySetInnerHTML={{ __html: slotContentsDesc }}
-              />
-            </div>
-          )}
-          {isInfoMenuOpen && showObjectDetails && (
-            <div className="data-collection-image-info">
-              <div className="dc-slot-info-popover">
-                <div className="dc-slot-info-title">{slotInfoTitle}</div>
-                <div className="dc-slot-info-text">
-                  <div className="slot-info-title">{objectName}</div>
-                  <div className="slot-info-date">
-                    <div>{imageDate}</div>
-                    <div>{imageTime}</div>
-                  </div>
-                  <div className="slot-info-telescope">{telescopeName}</div>
-                  <div className="slot-info-subtitle">{instrumentName}</div>
-                </div>
-              </div>
-            </div>
-          )}
-        </QuestButtonsPopover>
+        <QuestSlotInfoPopup
+          slotInfo={slotInfo}
+          slotInfoTitle={slotInfoTitle}
+          isInfoMenuOpen={isInfoMenuOpen}
+        />
 
         {showDotMenu && (
           <Button

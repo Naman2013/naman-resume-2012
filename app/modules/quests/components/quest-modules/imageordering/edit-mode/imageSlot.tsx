@@ -12,6 +12,7 @@ import { downloadFile } from 'app/utils/downloadFile';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import uniqueId from 'lodash/uniqueId';
 import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
+import ImageClickHandler from 'app/components/common/ImageClickHandler';
 
 type TImageSlotProps = {
   imageOrderingModule: any;
@@ -45,6 +46,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     graphicalPromptURL,
     slotButtonTooltipText,
     slotInfoTooltipText,
+    dotMenuTooltipText,
     slotInfo,
     slotIdentifier,
     showDotMenu,
@@ -149,7 +151,9 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
           </div>
           <div className="slot-card__right">
             <div className="slot-card__right__img">
-              <img src={imageURL} alt="" />
+              <ImageClickHandler imageUrl={imageURL}>
+                <img src={imageURL} alt="" />
+              </ImageClickHandler>
             </div>
             <div className="slot-card__right__action">
               {showSlotButton && (
@@ -193,19 +197,28 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 </Tooltip>
               )}
               {showDotMenu && (
-                <Button
-                  className={cx('quest-dot-menu-btn', { open: isDotsMenuOpen })}
-                  onClick={(): void =>
-                    !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
-                  }
-                  disabled={!enableDotMenu}
+                <Tooltip
+                  title={dotMenuTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
                 >
-                  {!isDotsMenuOpen ? (
-                    <Dots theme={{ circleColor: astronaut }} />
-                  ) : (
-                    <i className="menu-icon-close icon-close" />
-                  )}
-                </Button>
+                  <Button
+                    className={cx('quest-dot-menu-btn', {
+                      open: isDotsMenuOpen,
+                    })}
+                    onClick={(): void =>
+                      !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
+                    }
+                    disabled={!enableDotMenu}
+                  >
+                    {!isDotsMenuOpen ? (
+                      <Dots theme={{ circleColor: astronaut }} />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
               )}
               <QuestDotMenu
                 show={isDotsMenuOpen}
