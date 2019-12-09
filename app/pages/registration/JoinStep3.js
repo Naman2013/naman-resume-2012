@@ -123,12 +123,6 @@ class JoinStep3 extends Component {
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
           isAstronomyClub:
             window.localStorage.getItem('isAstronomyClub') === 'true',
-          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
-          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          isAstronomyClubForMembers18AndOver:
-            window.localStorage.getItem(
-              'isAstronomyClubForMembers18AndOver'
-            ) === 'true',
           billingAddressString: paymentDataString[3],
         };
         //add string aboc to this //ADD THIS BACK AFTER TESTING
@@ -150,13 +144,7 @@ class JoinStep3 extends Component {
                 //cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
-                window.localStorage.removeItem('selectedSchoolId');
                 window.localStorage.removeItem('isAstronomyClub');
-                window.localStorage.removeItem('isClassroom');
-                window.localStorage.removeItem('astronomyClubName');
-                window.localStorage.removeItem(
-                  'isAstronomyClubForMembers18AndOver'
-                );
 
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;
@@ -199,15 +187,6 @@ class JoinStep3 extends Component {
       }
     }
   };
-
-  /* Obtain access to the join api service response and update the  redirectInX Seconds state */
-  // handleJoinPageServiceResponse = result => {
-  //   /* update the account form details state so the correct hinText will show on each form field */
-  //   this.setState(() => ({
-  //     redirectInXSecondsOnExpiredSignupRequest:
-  //       result.redirectInXSecondsOnExpiredSignupRequest,
-  //   }));
-  // };
 
   CountdownRenderer = ({ completed, minutes, seconds }) => {
     const { t } = this.props;

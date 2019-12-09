@@ -49,6 +49,7 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { PurchaseConfirmationMain } from 'app/modules/purchase-confirmation';
 import {
   QuestCompleteLazy,
   QuestDetailsLazy,
@@ -191,7 +192,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":viewType" component={Memberships} />
+        </Route>
         <Route
           path=":aboutSloohSectionId"
           component={AboutSloohSection}
@@ -202,9 +206,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
-        <Redirect
-          from="purchaseConfirmation(/:tab)"
-          to="/profile/private/gettingstarted"
+        <Route
+          path="purchaseConfirmation(/:tab)"
+          component={PurchaseConfirmationMain}
+          onEnter={validateUser}
         />
         <Route path="step1" component={JoinStep1} />
         <Route

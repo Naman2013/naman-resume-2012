@@ -4,7 +4,15 @@ import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import './quest-card.scss';
 
-const QuestCard = ({ linkUrl, questType, questDifficulty, iconURL, title, linkLabel }) => (
+const QuestCard = ({
+  linkUrl,
+  questType,
+  questDifficulty,
+  iconURL,
+  title,
+  linkLabel,
+  questAuthor,
+}) => (
   <div>
     <div className="card-container">
       <div className="avers">
@@ -37,7 +45,7 @@ const QuestCard = ({ linkUrl, questType, questDifficulty, iconURL, title, linkLa
         <div className="card-container__content">
           <div className="card-container__content-title">{title}</div>
           <div className="card-container__content-subtitle">
-            Added by: The Slooh team
+            {questAuthor ? `${questAuthor}` : 'Added by: The Slooh team'}
           </div>
           <div className="card-container__content-btn">
             <Button

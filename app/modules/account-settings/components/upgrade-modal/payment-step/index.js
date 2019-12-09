@@ -103,12 +103,7 @@ const handleIframeTaskUpgrade = (e, props) => {
         paymentToken: paymentNonceTokenData,
         billingAddressString: paymentDataString[3],
         isAstronomyClub:
-          window.localStorage.getItem('isAstronomyClub') === 'true',
-        astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-        isAstronomyClubForMembers18AndOver:
-          window.localStorage.getItem('astronomyClub18AndOver') === 'true',
-        isClassroom: window.localStorage.getItem('isClassroom') === 'true',
-        selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+          window.localStorage.getItem('isAstronomyClub') === 'true'
       };
       //add string aboc to this //ADD THIS BACK AFTER TESTING
       API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
@@ -119,11 +114,7 @@ const handleIframeTaskUpgrade = (e, props) => {
               //Cleanup local localStorage
               window.localStorage.removeItem('pending_cid');
               window.localStorage.removeItem('selectedPlanId');
-              window.localStorage.removeItem('selectedSchoolId');
               window.localStorage.removeItem('isAstronomyClub');
-              window.localStorage.removeItem('isClassroom');
-              window.localStorage.removeItem('astronomyClubName');
-              window.localStorage.removeItem('astronomyClub18AndOver');
 
               /* cleanup local storage */
               window.localStorage.removeItem('accountCreationType');
@@ -176,12 +167,7 @@ export const PaymentStep = (props: TPaymentStep) => {
           selectedPlanId,
           conditionType,
           isAstronomyClub:
-            window.localStorage.getItem('isAstronomyClub') === 'true',
-          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver:
-            window.localStorage.getItem('astronomyClub18AndOver') === 'true',
-          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
-          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+            window.localStorage.getItem('isAstronomyClub') === 'true'
         }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
@@ -191,28 +177,6 @@ export const PaymentStep = (props: TPaymentStep) => {
                   <Fragment>
                     <h1 className="modal-h">{joinPageRes.pageHeading1}</h1>
                     <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
-                    {joinPageRes.hasSelectedSchool === 'yes' ? (
-                      <JoinHeader
-                        mainHeading={joinPageRes.pageHeading1}
-                        subHeading={joinPageRes.pageHeading2}
-                        showHeading={false}
-                        showTabs={false}
-                        activeTab={pathname}
-                        tabs={CLASSROOM_JOIN_TABS}
-                        backgroundImage={
-                          isMobile
-                            ? joinPageRes.selectedSubscriptionPlan
-                                ?.planSelectedBackgroundImageUrl_Mobile
-                            : isDesktop
-                            ? joinPageRes.selectedSubscriptionPlan
-                                ?.planSelectedBackgroundImageUrl_Desktop
-                            : isTablet
-                            ? joinPageRes.selectedSubscriptionPlan
-                                ?.planSelectedBackgroundImageUrl_Tablet
-                            : ''
-                        }
-                      />
-                    ) : (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
@@ -233,7 +197,6 @@ export const PaymentStep = (props: TPaymentStep) => {
                             : ''
                         }
                       />
-                    )}
                     <div style={{ marginTop: '-100px' }} className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium

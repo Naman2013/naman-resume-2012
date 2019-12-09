@@ -14,10 +14,10 @@ import UpgradeModal from '../../containers/upgrade-modal';
 import EditPaymentModal from '../../containers/editpayment-modal';
 
 type TAccountDetails = {
-  accountTypeSection: Object<TTypeSectionItem>,
-  accountDetails: Object<TFormField>,
-  accountCancelSection: Object<TFormField>,
-  fetchAccountFormFieldAction: Function
+  accountTypeSection: Record<string, any><TTypeSectionItem>;
+  accountDetails: Record<string, any><TFormField>;
+  accountCancelSection: Record<string, any><TFormField>;
+  fetchAccountFormFieldAction: Function,
 };
 
 // mocked
@@ -88,6 +88,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             accountTypeHeading={accountTypeHeading}
             accountStatusLabel={accountStatusLabel}
             accountStatus={accountStatus}
+            showInfoButton
           />
 
           <Container>
