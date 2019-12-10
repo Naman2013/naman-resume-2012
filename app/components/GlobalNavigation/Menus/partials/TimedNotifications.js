@@ -66,8 +66,8 @@ class TimedNotifications extends Component<TTimedNotifications> {
       if (!_alert.active) {
         timers.push(
           setTimeout(() => {
-            const alerts = this.state;
-            const newAlerts = alerts.map(_storedAlert => {
+            const { alerts: alertArray } = this.state;
+            const newAlerts = alertArray.map(_storedAlert => {
               const { notificationsCount } = this.props;
               if (_storedAlert.eventId === _alert.eventId) {
                 _storedAlert.active = true;

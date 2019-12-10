@@ -14,9 +14,9 @@ import UpgradeModal from '../../containers/upgrade-modal';
 import EditPaymentModal from '../../containers/editpayment-modal';
 
 type TAccountDetails = {
-  accountTypeSection: Record<string, any><TTypeSectionItem>;
-  accountDetails: Record<string, any><TFormField>;
-  accountCancelSection: Record<string, any><TFormField>;
+  accountTypeSection: Object<TTypeSectionItem>,
+  accountDetails: Object<TFormField>,
+  accountCancelSection: Object<TFormField>,
   fetchAccountFormFieldAction: Function,
 };
 
