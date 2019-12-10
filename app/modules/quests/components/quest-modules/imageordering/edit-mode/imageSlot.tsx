@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import Dots from 'app/atoms/icons/Dots';
 import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import './style.scss';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
@@ -180,7 +181,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 >
                   <Button
                     className={cx('info-btn', { open: isInfoMenuOpen })}
-                    onClick={() =>
+                    onClick={(): void =>
                       !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
                     }
                   >
@@ -195,13 +196,35 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   </Button>
                 </Tooltip>
               )}
+              {showDotMenu && (
+                <Tooltip
+                  title={dotMenuTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
+                >
+                  <Button
+                    className={cx('quest-dot-menu-btn', {
+                      open: isDotsMenuOpen,
+                    })}
+                    onClick={(): void =>
+                      !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
+                    }
+                    disabled={!enableDotMenu}
+                  >
+                    {!isDotsMenuOpen ? (
+                      <Dots theme={{ circleColor: astronaut }} />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
+              )}
               <QuestDotMenu
-                theme={{ circleColor: astronaut }}
-                show={showDotMenu}
-                enabled={enableDotMenu}
+                show={isDotsMenuOpen}
                 menuTitle={dotMenuTitle}
                 items={dotMenuItems}
-                dotMenuTooltipText={dotMenuTooltipText}
+                toggle={toggleDotsMenu}
               />
               <QuestSlotInfoPopup
                 slotInfo={slotInfo}
