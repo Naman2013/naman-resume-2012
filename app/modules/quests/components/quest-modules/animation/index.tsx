@@ -47,7 +47,7 @@ const ANIMATION_STEPS = {
   COMPLETED: 'COMPLETED',
 };
 
-const BUTTON_TYPES = {
+const BUTTON_TYPES: { [key: string]: string } = {
   EDIT: 'edit',
   PLAY: 'play',
   FINISH: 'finish',
@@ -487,8 +487,7 @@ export class AnimationModule extends React.PureComponent<
           this.canvas.setZoom(previewZoomLevel);
         }
         this.canvas.renderAll();
-        this.previewAnimationStart(previewDelaySlow, false);
-        this.setAnimation(activeFrame, BUTTON_TYPES.PLAY);
+        this.previewAnimationStart(previewDelaySlow, false, 'PLAY');
       }
     );
   };
@@ -525,6 +524,7 @@ export class AnimationModule extends React.PureComponent<
     singleStep: boolean,
     type?: string
   ): void => {
+    const { activeFrame } = this.props;
     const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
@@ -533,6 +533,7 @@ export class AnimationModule extends React.PureComponent<
     if (!singleStep) {
       this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
       this.setState({ previewSingleStep: false });
+      this.setAnimation(activeFrame, BUTTON_TYPES[type]);
     } else {
       this.setState({ previewSingleStep: true });
     }
