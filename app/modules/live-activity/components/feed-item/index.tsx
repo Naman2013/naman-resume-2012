@@ -1,30 +1,16 @@
 import React, { KeyboardEvent } from 'react';
 import './index.scss';
 import * as cx from 'classnames';
-import { browserHistory } from 'react-router';
-import { isEnter } from 'app/modules/utils/keyIdentifier.tsx';
 
 type TFeedItem = {
   item: any;
-};
-
-const contentClickHandler = (e: any) => {
-  if (e.target instanceof HTMLAnchorElement) {
-    const targetLink = e.target.closest('a');
-    e.preventDefault();
-    browserHistory.push(targetLink.href);
-  }
-};
-
-const onKeyPressed = (e: KeyboardEvent<HTMLInputElement>) => {
-  if (isEnter(e)) {
-    contentClickHandler(e);
-  }
+  contentClickHandler: (e: any) => void;
+  onKeyPressed: (e: any) => void;
 };
 
 export const FeedItem = (props: TFeedItem) => {
-  const { item } = props;
-  const { currentUser, text } = item;
+  const { item, contentClickHandler, onKeyPressed } = props;
+  const { currentUser, text, date } = item;
 
   return (
     <div
@@ -33,9 +19,7 @@ export const FeedItem = (props: TFeedItem) => {
       })}
     >
       <div className="feed-data">
-        {props.item.date && (
-          <span className="feed-data-date">{props.item.date}</span>
-        )}
+        {date && <span className="feed-data-date">{date}</span>}
         {/* <span className="feed-data-user">{props.item.user}</span> */}
       </div>
 
