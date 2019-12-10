@@ -127,6 +127,22 @@ const telescopeConfig = {
       vertical: 60,
     },
   },
+  '8bc4567f-c9f4-11e6-86df-0eb2b1774883': {
+    key: 'CHILE_TWO_WIDE_FIELD',
+    name: 'Chile Two Wide Field',
+    topName: 'Chile Two',
+    bottomName: 'Wide-Field',
+    instrumentID: '9cf72bb2-34ad-11e7-970a-0eb2b1774883',
+    directionMarkerLengthArcMinutes: 3,
+    FOV: {
+      horizontal: 43,
+      vertical: 43,
+    },
+    PORTAL: {
+      horizontal: 43,
+      vertical: 43,
+    },
+  },
 };
 
 export default telescopeConfig;
