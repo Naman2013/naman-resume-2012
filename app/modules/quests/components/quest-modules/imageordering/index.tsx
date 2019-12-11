@@ -8,6 +8,7 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
+import { Mode } from 'app/modules/quests/constants/montageModule';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
@@ -31,13 +32,6 @@ type TImageorderingProps = {
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user: User;
 };
-
-enum Mode {
-  edit,
-  preview,
-  finish,
-  review,
-}
 
 type TImageorderingState = {
   mode: Mode;
@@ -145,7 +139,7 @@ export class Imageordering extends React.PureComponent<
           sequenceText="activitySequenceText"
         />
 
-        {mode === Mode.edit && (
+        {(mode === Mode.edit || mode === Mode.review) && (
           <EditMode
             goToPreview={this.goToPreviewMode}
             imageOrderingModule={imageorderingModule}
@@ -156,6 +150,8 @@ export class Imageordering extends React.PureComponent<
             removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
             user={user}
             loading={loading}
+            readOnly={readOnly}
+            mode={mode}
           />
         )}
         {mode === Mode.preview && (
@@ -170,19 +166,6 @@ export class Imageordering extends React.PureComponent<
           <FinishMode
             imageOrderingModule={imageorderingModule}
             goToReview={this.goToReviewMode}
-          />
-        )}
-        {mode === Mode.review && (
-          <EditMode
-            readonly
-            imageOrderingModule={imageorderingModule}
-            getImageOrderingModule={this.getImageOrderingModule}
-            getDataCollectionSlotImages={getDataCollectionSlotImages}
-            questDataCollectionSlotImages={questDataCollectionSlotImages}
-            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
-            removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
-            user={user}
-            loading={loading}
           />
         )}
       </div>
