@@ -35,13 +35,6 @@ const TabConditions = props => {
           <ObsBotWidget {...props} ViewGroup="conditions" />
         </div>
       )}
-      <div className="tile-container">
-        <ConnectedAllSkyCamera
-          obsId={obsId}
-          allSkyWidgetID={currentObservatory.AllskyWidgetId}
-          AllskyTimelapseWidgetId={currentObservatory.AllskyTimelapseWidgetId}
-        />
-      </div>
 
       <div className="tile-container">
         <SkyConditions widgetID={SeeingConditionsWidgetId} obsId={obsId} />

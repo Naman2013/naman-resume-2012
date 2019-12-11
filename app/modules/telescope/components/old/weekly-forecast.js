@@ -119,24 +119,7 @@ export class WeeklyForecast extends Component {
 
         <div className="active-weather-condition-summary">
           <h4 className="title">{forecastList[currentIndex].DisplayTitle}</h4>
-          <ul className="weather-stats">
-            <li className="weather-stat">
-              {forecastList[currentIndex].TemperatureTitle}
-              {forecastList[currentIndex].TemperatureValue}
-            </li>
-            <li className="weather-stat">
-              {forecastList[currentIndex].WindTitle}
-              {forecastList[currentIndex].WindValue}
-            </li>
-            <li className="weather-stat">
-              {forecastList[currentIndex].HumidTitle}
-              {forecastList[currentIndex].HumidValue}
-            </li>
-            <li className="weather-stat">
-              {forecastList[currentIndex].PrecipTitle}
-              {forecastList[currentIndex].PrecipChanc}
-            </li>
-          </ul>
+	  <p className="weather-stats" dangerouslySetInnerHTML={{ __html: forecastList[currentIndex].ForecastDetails}}/>
         </div>
 
         <style jsx>{style}</style>
