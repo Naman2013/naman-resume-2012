@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
-import { Mode } from 'app/modules/quests/constants/montageModule';
+import { MODE } from 'app/modules/quests/constants/montageModule';
 import {
   ImageorderingModuleResponse,
   IQuestDataCollectionSlot,
@@ -88,7 +88,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           loading={loading}
         />
       )}
-      {mode === Mode.edit && (
+      {mode === MODE.edit && (
         <div className="text-center">
           <Button onClick={goToPreview}>{previewEditButtonCaption}</Button>
         </div>
