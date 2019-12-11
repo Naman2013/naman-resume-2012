@@ -148,7 +148,7 @@ export class AnimationModule extends React.PureComponent<
   initFramesImages = (frameList: Array<IAnimationFrame>): void => {
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
-    this.onPageRezise();
+    this.onPageRezise(false);
   };
 
   updatePan = (): void => {
@@ -224,13 +224,12 @@ export class AnimationModule extends React.PureComponent<
     const { yOffsetMax } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.yOffset + stepSize;
     const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
-
-    item.set({ top: Math.round(-yOffset * offsetCoeff) });
+    item.set({ top: -yOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -268,13 +267,13 @@ export class AnimationModule extends React.PureComponent<
     const { yOffsetMin } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.yOffset - stepSize;
     const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
 
-    item.set({ top: Math.round(-yOffset * offsetCoeff) });
+    item.set({ top: -yOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -312,13 +311,13 @@ export class AnimationModule extends React.PureComponent<
     const { xOffsetMin } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.xOffset - stepSize;
     const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
 
-    item.set({ left: Math.round(xOffset * offsetCoeff) });
+    item.set({ left: xOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -356,13 +355,13 @@ export class AnimationModule extends React.PureComponent<
     const { xOffsetMax } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.xOffset + stepSize;
     const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
 
-    item.set({ left: Math.round(xOffset * offsetCoeff) });
+    item.set({ left: xOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -434,7 +433,6 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const canvasZoom = this.canvas.getZoom();
     //set zoom to 1 before canvas rezise
@@ -446,10 +444,11 @@ export class AnimationModule extends React.PureComponent<
     const canvasObjects = this.canvas.getObjects();
     canvasObjects.map((item: any, index: number): any => {
       //scale all images to new canvas width
+      const offsetCoeff = newCanvasContainerWidth / item.get('width');
       item.scaleToWidth(newCanvasContainerWidth);
       item.set({
-        left: Math.round(frameList[index].xOffset * offsetCoeff),
-        top: Math.round(-frameList[index].yOffset * offsetCoeff),
+        left: frameList[index].xOffset * offsetCoeff,
+        top: -frameList[index].yOffset * offsetCoeff,
       });
       return item;
     });
