@@ -8,6 +8,7 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
+import { MODE } from 'app/modules/quests/constants/montageModule';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
@@ -32,15 +33,8 @@ type TImageorderingProps = {
   user: User;
 };
 
-enum Mode {
-  edit,
-  preview,
-  finish,
-  review,
-}
-
 type TImageorderingState = {
-  mode: Mode;
+  mode: MODE;
 };
 
 export class Imageordering extends React.PureComponent<
@@ -48,22 +42,22 @@ export class Imageordering extends React.PureComponent<
   TImageorderingState
 > {
   state = {
-    mode: Mode.edit,
+    mode: MODE.edit,
   };
 
   componentDidMount(): void {
     this.getImageOrderingModule();
   }
 
-  onChangeMode = (mode: Mode): void => this.setState({ mode });
+  onChangeMode = (mode: MODE): void => this.setState({ mode });
 
-  goToEditMode = (): void => this.onChangeMode(Mode.edit);
+  goToEditMode = (): void => this.onChangeMode(MODE.edit);
 
-  goToPreviewMode = (): void => this.onChangeMode(Mode.preview);
+  goToPreviewMode = (): void => this.onChangeMode(MODE.preview);
 
-  goToFinishMode = (): void => this.onChangeMode(Mode.finish);
+  goToFinishMode = (): void => this.onChangeMode(MODE.finish);
 
-  goToReviewMode = (): void => this.onChangeMode(Mode.review);
+  goToReviewMode = (): void => this.onChangeMode(MODE.review);
 
   getImageOrderingModule = (): void => {
     const { module, questId, stepData, getImageorderingModule } = this.props;
@@ -145,7 +139,7 @@ export class Imageordering extends React.PureComponent<
           sequenceText="activitySequenceText"
         />
 
-        {mode === Mode.edit && (
+        {(mode === MODE.edit || mode === MODE.review) && (
           <EditMode
             goToPreview={this.goToPreviewMode}
             imageOrderingModule={imageorderingModule}
@@ -156,9 +150,11 @@ export class Imageordering extends React.PureComponent<
             removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
             user={user}
             loading={loading}
+            readOnly={readOnly}
+            mode={mode}
           />
         )}
-        {mode === Mode.preview && (
+        {mode === MODE.preview && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
             completed
@@ -166,23 +162,10 @@ export class Imageordering extends React.PureComponent<
             goToFinish={this.goToFinishMode}
           />
         )}
-        {mode === Mode.finish && (
+        {mode === MODE.finish && (
           <FinishMode
             imageOrderingModule={imageorderingModule}
             goToReview={this.goToReviewMode}
-          />
-        )}
-        {mode === Mode.review && (
-          <EditMode
-            readonly
-            imageOrderingModule={imageorderingModule}
-            getImageOrderingModule={this.getImageOrderingModule}
-            getDataCollectionSlotImages={getDataCollectionSlotImages}
-            questDataCollectionSlotImages={questDataCollectionSlotImages}
-            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
-            removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
-            user={user}
-            loading={loading}
           />
         )}
       </div>

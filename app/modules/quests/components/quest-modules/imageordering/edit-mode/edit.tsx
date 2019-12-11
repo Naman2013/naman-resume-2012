@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
+import { MODE } from 'app/modules/quests/constants/montageModule';
 import {
   ImageorderingModuleResponse,
   IQuestDataCollectionSlot,
@@ -10,7 +11,8 @@ import {
 } from 'app/modules/quests/types';
 
 type TEditModeProps = {
-  readonly?: boolean; // TRUE if Finish mode
+  readOnly?: boolean; // TRUE if Finish mode
+  mode: number;
   goToPreview?: () => void;
   getImageOrderingModule?: () => void;
   getDataCollectionSlotImages?: () => void;
@@ -31,7 +33,8 @@ const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
 export const EditMode: React.FC<TEditModeProps> = props => {
   const {
-    readonly = false,
+    readOnly,
+    mode,
     goToPreview,
     imageOrderingModule,
     getImageOrderingModule,
@@ -65,9 +68,10 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           }}
           removeDataCollectionSlotImage={removeDataCollectionSlotImage}
           user={user}
+          readOnly={readOnly}
         />
       ))}
-      {mmSlotModalVisible && (
+      {mmSlotModalVisible && !readOnly && (
         <DataCollectionSlotModal
           show
           onHide={(): void => {
@@ -84,9 +88,11 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           loading={loading}
         />
       )}
-      <div className="text-center">
-        <Button onClick={goToPreview}>{previewEditButtonCaption}</Button>
-      </div>
+      {mode === MODE.edit && (
+        <div className="text-center">
+          <Button onClick={goToPreview}>{previewEditButtonCaption}</Button>
+        </div>
+      )}
     </div>
   );
 };
