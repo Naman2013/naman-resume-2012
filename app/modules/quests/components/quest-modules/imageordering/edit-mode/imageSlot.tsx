@@ -21,6 +21,7 @@ type TImageSlotProps = {
   slot?: IQuestDataCollectionSlot;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   user?: User;
+  readOnly: boolean;
 };
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {

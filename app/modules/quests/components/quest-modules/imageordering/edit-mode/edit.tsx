@@ -11,7 +11,7 @@ import {
 } from 'app/modules/quests/types';
 
 type TEditModeProps = {
-  readonly?: boolean; // TRUE if Finish mode
+  readOnly?: boolean; // TRUE if Finish mode
   mode: number;
   goToPreview?: () => void;
   getImageOrderingModule?: () => void;
