@@ -72,7 +72,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
 
   if ( (props.subscriptionPlansCallSource == 'forcedsloohcrew') || 
      (props.subscriptionPlansCallSource == 'expired') ||
-     (props.subscriptionPlansCallSource == 'expiredrecently') {
+     (props.subscriptionPlansCallSource == 'expiredrecently') ) {
     buttonText = 'LOGOUT';
     onCloseFunc = dispatch => {
       //Force Logout the User - They have opted to not buy a Slooh Plan
