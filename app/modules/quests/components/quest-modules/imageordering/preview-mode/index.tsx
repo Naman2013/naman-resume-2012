@@ -18,18 +18,21 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
     previewHeading,
     previewSubheading,
     previewURL,
+    previewGoBackButtonCaption,
+    previewBackToTasksButtonCaption,
     finishButtonTooltipText,
     showFinishButton,
     enableFinishButton,
     finishButtonCaption,
-    backToEditButtonTooltipText,
-    showBackToEditButton,
-    enableBackToEditButton,
-    backToEditButtonCaption,
   } = imageOrderingModule;
 
   return (
-    <Modal show onHide={goToEdit} goBackText="GO BACK" disableGoBack={false}>
+    <Modal
+      show
+      onHide={goToEdit}
+      goBackText={previewGoBackButtonCaption}
+      disableGoBack={false}
+    >
       <div className="montage-preview-mode">
         <div className="montage-preview-header">
           <h6>{previewHeading}</h6>
@@ -58,22 +61,9 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
             </Tooltip>
           )}
 
-          {showBackToEditButton && (
-            <Tooltip
-              title={backToEditButtonTooltipText}
-              theme="light"
-              distance={10}
-              position="top"
-            >
-              <Button
-                className="btn-white"
-                onClick={goToEdit}
-                disabled={!enableBackToEditButton}
-              >
-                {backToEditButtonCaption}
-              </Button>
-            </Tooltip>
-          )}
+          <Button className="btn-white" onClick={goToEdit}>
+            {previewBackToTasksButtonCaption}
+          </Button>
         </div>
       </div>
     </Modal>

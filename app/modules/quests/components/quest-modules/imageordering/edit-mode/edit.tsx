@@ -53,6 +53,10 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     enablePreviewButton,
     showPreviewButton,
     previewButtonTooltipText,
+    exitReviewButtonCaption,
+    enableExitReviewButton,
+    showExitReviewButton,
+    exitReviewButtonTooltipText,
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
@@ -75,6 +79,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           readOnly={readOnly}
         />
       ))}
+
       {mmSlotModalVisible && !readOnly && (
         <DataCollectionSlotModal
           show
@@ -92,20 +97,34 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           loading={loading}
         />
       )}
-      {mode === MODE.edit && (
+
+      {mode === MODE.edit && showPreviewButton && (
         <div className="text-center">
-          {showPreviewButton && (
-            <Tooltip
-              title={previewButtonTooltipText || ''}
-              theme="light"
-              distance={10}
-              position="top"
-            >
-              <Button onClick={goToPreview} disabled={!enablePreviewButton}>
-                {previewButtonCaption}
-              </Button>
-            </Tooltip>
-          )}
+          <Tooltip
+            title={previewButtonTooltipText || ''}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button onClick={goToPreview} disabled={!enablePreviewButton}>
+              {previewButtonCaption}
+            </Button>
+          </Tooltip>
+        </div>
+      )}
+
+      {mode === MODE.review && showExitReviewButton && (
+        <div className="text-center">
+          <Tooltip
+            title={exitReviewButtonTooltipText || ''}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button onClick={goToPreview} disabled={!enableExitReviewButton}>
+              {exitReviewButtonCaption}
+            </Button>
+          </Tooltip>
         </div>
       )}
     </div>

@@ -154,6 +154,7 @@ export class Imageordering extends React.PureComponent<
             mode={mode}
           />
         )}
+
         {mode === MODE.preview && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
@@ -161,9 +162,11 @@ export class Imageordering extends React.PureComponent<
             goToFinish={this.goToFinishMode}
           />
         )}
+
         {mode === MODE.finish && (
           <FinishMode
             imageOrderingModule={imageorderingModule}
+            goToEdit={this.goToEditMode}
             goToReview={this.goToReviewMode}
           />
         )}

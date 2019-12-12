@@ -8,10 +8,11 @@ import './styles.scss';
 type FinishModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
   goToReview?: () => void;
+  goToEdit?: () => void;
 };
 
 export const FinishMode: React.FC<FinishModeProps> = props => {
-  const { imageOrderingModule, goToReview } = props;
+  const { imageOrderingModule, goToEdit, goToReview } = props;
   const {
     previewURL,
     previewFinalHeading,
@@ -24,6 +25,10 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
     downloadButtonTooltipText,
     enableDownloadButton,
     showDownloadButton,
+    backToEditButtonTooltipText,
+    showBackToEditButton,
+    enableBackToEditButton,
+    backToEditButtonCaption,
   } = imageOrderingModule;
 
   return (
@@ -56,7 +61,31 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           </Tooltip>
         )}
 
-        <div className="montage-finish-mode-actions-separator" />
+        {showReviewWorkButton && showBackToEditButton && (
+          <div className="montage-finish-mode-actions-separator" />
+        )}
+
+        {showBackToEditButton && (
+          <Tooltip
+            title={backToEditButtonTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button
+              className="btn-white"
+              onClick={goToEdit}
+              disabled={!enableBackToEditButton}
+            >
+              {backToEditButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {(showReviewWorkButton || showBackToEditButton) &&
+          showDownloadButton && (
+            <div className="montage-finish-mode-actions-separator" />
+          )}
 
         {showDownloadButton && (
           <Tooltip
