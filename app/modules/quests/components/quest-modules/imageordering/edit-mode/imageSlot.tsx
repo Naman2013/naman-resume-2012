@@ -21,6 +21,7 @@ type TImageSlotProps = {
   slot?: IQuestDataCollectionSlot;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   user?: User;
+  readOnly: boolean;
 };
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {
@@ -31,11 +32,13 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     showMontageModuleSlotModal,
     removeDataCollectionSlotImage,
     user,
+    readOnly,
   } = props;
   const { correctText } = imageOrderingModule;
   const {
     imageURL,
     enableSlotButton,
+    enableSlotInfo,
     showSlotButton,
     slotButtonCaption,
     showSlotInfo,
@@ -166,7 +169,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   <Button
                     className="find-button"
                     onClick={(): void => showMontageModuleSlotModal()}
-                    disabled={!enableSlotButton}
+                    disabled={!enableSlotButton || readOnly}
                   >
                     {slotButtonCaption}
                   </Button>
@@ -184,6 +187,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                     onClick={(): void =>
                       !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
                     }
+                    disabled={!enableSlotInfo || readOnly}
                   >
                     {!isInfoMenuOpen ? (
                       <img
@@ -210,7 +214,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                     onClick={(): void =>
                       !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
                     }
-                    disabled={!enableDotMenu}
+                    disabled={!enableDotMenu || readOnly}
                   >
                     {!isDotsMenuOpen ? (
                       <Dots theme={{ circleColor: astronaut }} />
