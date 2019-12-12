@@ -25,7 +25,6 @@ const CardObsLarge = props => {
     customerImageId,
     likePrompt,
     showLikePrompt,
-    socialShareDescription,
     iconFileData = { Member: {} },
   } = props;
   const { t } = useTranslation();
@@ -66,7 +65,7 @@ const CardObsLarge = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link to={iconFileData[item].linkUrl} target="_blank">
+                          <Link to={iconFileData[item].linkUrl}>
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
