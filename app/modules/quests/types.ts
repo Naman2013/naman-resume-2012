@@ -313,6 +313,48 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
+
+  previewButtonCaption: string;
+  enablePreviewButton: boolean;
+  showPreviewButton: boolean;
+  previewButtonTooltipText: string;
+  showPreviewButtonTooltip: boolean;
+
+  backToEditButtonCaption: string;
+  enableBackToEditButton: boolean;
+  showBackToEditButton: boolean;
+  backToEditButtonTooltipText: string;
+  showBackToEditButtonTooltip: boolean;
+
+  finishButtonCaption: string;
+  enableFinishButton: boolean;
+  showFinishButton: boolean;
+  finishButtonTooltipText: string;
+  showFinishButtonTooltip: boolean;
+
+  reviewWorkButtonCaption: string;
+  enableReviewWorkButton: boolean;
+  showReviewWorkButton: boolean;
+  reviewWorkButtonTooltipText: string;
+  showReviewWorkButtonTooltip: boolean;
+
+  editWorkButtonCaption: string;
+  enableEditWorkButton: boolean;
+  showEditWorkButton: boolean;
+  editWorkButtonTooltipText: string;
+  showEditWorkButtonTooltip: boolean;
+
+  exitReviewButtonCaption: string;
+  enableExitReviewButton: boolean;
+  showExitReviewButton: boolean;
+  exitReviewButtonTooltipText: string;
+  showExitReviewButtonTooltip: boolean;
+
+  enableDownloadButton: boolean;
+  showDownloadButton: boolean;
+  downloadButtonTooltipText: string;
+  showDownloadButtonTooltip: boolean;
+
   slotArray: Array<IQuestDataCollectionSlot>;
   slotCount: number;
   step: number;
