@@ -1,4 +1,4 @@
-{
+﻿{
   "About": {
     "LearnTo": "Learn to",
     "Explore": "Explore",
@@ -201,8 +201,8 @@
     "This request will expire in {{minutes}}:{{seconds}}.",
     "SignupRequestExpieredOnUpgrade":
     "Request expired...redirecting to the homepage in 00:{{seconds}}.",
-    "JoinSlooh": "14 DAY FREE TRIAL",
-    "JoinSloohTrial": "Join today and get a 14 day free trial",
+    "JoinSlooh": "1 WEEK FREE TRIAL",
+    "JoinSloohTrial": "Join today and get a 1 week free trial",
     "JoinNow": "Join Now",
     "Login": "Login",
     "Home": "Home"

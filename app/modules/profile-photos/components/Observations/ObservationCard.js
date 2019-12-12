@@ -12,7 +12,13 @@ import style from './ObservationCard.style';
 
 export default ({ index, isDesktop, currentItem: observation }) => {
   const inCenter = index % 3 === 1;
-  const { imageTitle, imageURL, likesCount, commentsCount } = observation;
+  const {
+    imageTitle,
+    observationTitle,
+    imageURL,
+    likesCount,
+    commentsCount,
+  } = observation;
 
   const onClickDetails = () => {
     return browserHistory.push(observation.photoViewFullURL);
@@ -24,7 +30,7 @@ export default ({ index, isDesktop, currentItem: observation }) => {
         <div className="padding">
           <div>
             <div className="observation-title" title={imageTitle}>
-              {imageTitle}
+              {observationTitle || imageTitle}
             </div>
             <div className="observation-image-wrapper">
               <div className="image-border">
