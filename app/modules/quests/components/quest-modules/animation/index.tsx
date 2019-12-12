@@ -56,7 +56,7 @@ const BUTTON_TYPES: { [key: string]: string } = {
   FAST: 'fast',
 };
 
-const CANVAS_DEFAULT_WIDTH = 414;
+const RESIZE_DELTA = 300;
 
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
@@ -80,6 +80,10 @@ export class AnimationModule extends React.PureComponent<
 
   vpt: Array<number>;
 
+  resizeTime: number;
+
+  resizeTimeout: ReturnType<typeof setTimeout>;
+
   state = {
     activeAnimationStep: ANIMATION_STEPS.EDIT,
     activePreviewImage: 0,
@@ -96,6 +100,7 @@ export class AnimationModule extends React.PureComponent<
 
   componentWillUnmount(): void {
     window.removeEventListener('resize', () => this.onPageRezise());
+    clearTimeout(this.resizeTimeout);
   }
 
   initCanvas = (): void => {
@@ -428,8 +433,19 @@ export class AnimationModule extends React.PureComponent<
     this.setAnimation(activeFrame);
   };
 
+  resizeEnd = (): void => {
+    const { activeFrame } = this.props;
+    if (Date.now() - this.resizeTime < RESIZE_DELTA) {
+      this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+    } else {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = undefined;
+      this.setAnimation(activeFrame);
+    }
+  };
+
   onPageRezise = (updateAnimation = true): void => {
-    const { questAnimationFrames, activeFrame } = this.props;
+    const { questAnimationFrames } = this.props;
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
@@ -458,7 +474,10 @@ export class AnimationModule extends React.PureComponent<
 
     this.canvas.renderAll();
     if (updateAnimation) {
-      this.setAnimation(activeFrame);
+      this.resizeTime = Date.now();
+      if (!this.resizeTimeout) {
+        this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+      }
     }
   };
 
