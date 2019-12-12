@@ -161,7 +161,6 @@ export class Imageordering extends React.PureComponent<
         {mode === Mode.preview && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
-            completed
             goToEdit={this.goToEditMode}
             goToFinish={this.goToFinishMode}
           />

@@ -8,6 +8,7 @@ import {
   IQuestDataCollectionSlotImage,
   IQuestDataCollectionSlotImages,
 } from 'app/modules/quests/types';
+import { Tooltip } from 'react-tippy';
 
 type TEditModeProps = {
   readonly?: boolean; // TRUE if Finish mode
@@ -45,7 +46,10 @@ export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     moduleId,
     questId,
-    previewEditButtonCaption,
+    previewButtonCaption,
+    enablePreviewButton,
+    showPreviewButton,
+    previewButtonTooltipText,
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
@@ -84,8 +88,20 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           loading={loading}
         />
       )}
+
       <div className="text-center">
-        <Button onClick={goToPreview}>{previewEditButtonCaption}</Button>
+        {showPreviewButton && (
+          <Tooltip
+            title={previewButtonTooltipText || ''}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button onClick={goToPreview} disabled={!enablePreviewButton}>
+              {previewButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
       </div>
     </div>
   );

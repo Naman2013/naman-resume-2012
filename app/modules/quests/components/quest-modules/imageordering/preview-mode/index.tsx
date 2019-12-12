@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'app/components/modal';
 import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
+import { Tooltip } from 'react-tippy';
 import './styles.scss';
 
 type PreviewModeProps = {
@@ -12,34 +13,67 @@ type PreviewModeProps = {
 };
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
-  const { imageOrderingModule, completed, goToEdit, goToFinish } = props;
+  const { imageOrderingModule, goToEdit, goToFinish } = props;
+  const {
+    previewHeading,
+    previewSubheading,
+    previewURL,
+    finishButtonTooltipText,
+    showFinishButton,
+    enableFinishButton,
+    finishButtonCaption,
+    backToEditButtonTooltipText,
+    showBackToEditButton,
+    enableBackToEditButton,
+    backToEditButtonCaption,
+  } = imageOrderingModule;
 
   return (
     <Modal show onHide={goToEdit} goBackText="GO BACK" disableGoBack={false}>
       <div className="montage-preview-mode">
         <div className="montage-preview-header">
-          <h6>{imageOrderingModule.previewHeading}</h6>
-          <h2>{imageOrderingModule.previewSubheading}</h2>
+          <h6>{previewHeading}</h6>
+          <h2>{previewSubheading}</h2>
         </div>
 
         <div className="montage-preview-body">
-          <img
-            className="montage-preview-img"
-            src={imageOrderingModule.previewURL}
-            alt="preview"
-          />
+          <img className="montage-preview-img" src={previewURL} alt="preview" />
         </div>
 
         <div className="montage-preview-footer">
-          {completed && (
-            <Button className="btn-white finish-btn" onClick={goToFinish}>
-              {imageOrderingModule.previewFinishButtonCaption}
-            </Button>
+          {showFinishButton && (
+            <Tooltip
+              title={finishButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="btn-white finish-btn"
+                onClick={goToFinish}
+                disabled={!enableFinishButton}
+              >
+                {finishButtonCaption}
+              </Button>
+            </Tooltip>
           )}
 
-          <Button className="btn-white" onClick={goToEdit}>
-            {imageOrderingModule.previewBackToTasksButtonCaption}
-          </Button>
+          {showBackToEditButton && (
+            <Tooltip
+              title={backToEditButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="btn-white"
+                onClick={goToEdit}
+                disabled={!enableBackToEditButton}
+              >
+                {backToEditButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
         </div>
       </div>
     </Modal>
