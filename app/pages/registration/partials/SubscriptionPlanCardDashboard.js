@@ -79,7 +79,7 @@ class SubscriptionPlanCardDashboard extends Component {
               Welcome!
             </div>
             <div className="emphasize border-bottom title">
-              Join now to enjoy Slooh for <span style={{fontWeight: "bold"}}>14 days</span>
+              Join now to enjoy Slooh for <span style={{fontWeight: "bold"}}>1 Week</span>
             </div>
             <div className="flex border-bottom padded-top-bottom">
               <div>
