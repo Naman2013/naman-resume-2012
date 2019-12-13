@@ -1,6 +1,8 @@
 import React from 'react';
 import { fabric } from 'fabric';
 import cx from 'classnames';
+import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import {
   IQuestStepModule,
   IQuestAnimation,
@@ -12,7 +14,6 @@ import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
 import { QuestStepModuleHeader } from '../../quest-step-module-header';
-import { AnimationCompleted } from './animation-completed';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -118,7 +119,9 @@ export class AnimationModule extends React.PureComponent<
       // set dragging true
       const { activeFrame } = this.props;
       const { empty } = activeFrame;
-      if (!empty) {
+      const { activeAnimationStep } = this.state;
+
+      if (!empty && activeAnimationStep !== ANIMATION_STEPS.COMPLETED) {
         this.isDragging = true;
         this.lastPosX = e.clientX || e.changedTouches[0].clientX;
         this.lastPosY = e.clientY || e.changedTouches[0].clientY;
@@ -143,8 +146,12 @@ export class AnimationModule extends React.PureComponent<
 
     this.canvas.on('mouse:up', (e: any): void => {
       const { activeFrame } = this.props;
+      const { activeAnimationStep } = this.state;
       this.isDragging = false;
-      if (this.canvas.getZoom() > 1) {
+      if (
+        this.canvas.getZoom() > 1 &&
+        activeAnimationStep !== ANIMATION_STEPS.COMPLETED
+      ) {
         this.setAnimation(activeFrame);
       }
     });
@@ -600,12 +607,15 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
     this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+    this.canvas.hoverCursor = 'move';
     this.canvas.renderAll();
     this.setAnimation(activeFrame, BUTTON_TYPES.EDIT);
   };
 
   onFinish = (): any => {
     const { activeFrame } = this.props;
+    this.canvas.hoverCursor = 'auto';
+    this.canvas.renderAll();
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED });
     this.setAnimation(activeFrame, BUTTON_TYPES.FINISH);
@@ -726,7 +736,13 @@ export class AnimationModule extends React.PureComponent<
     const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
-    const { previewHeading, previewSubheading } = questAnimation;
+    const {
+      previewHeading,
+      previewSubheading,
+      outputHeading,
+      outputSubheading,
+      editAnimationButtonCaption,
+    } = questAnimation;
     const {
       frameList,
       activityStatus,
@@ -745,9 +761,11 @@ export class AnimationModule extends React.PureComponent<
         />
         <div
           className={cx({
-            'animation-edit': activeAnimationStep !== ANIMATION_STEPS.EDIT,
-            'animation-play': activeAnimationStep !== ANIMATION_STEPS.PLAY,
-            visible: activeAnimationStep !== ANIMATION_STEPS.COMPLETED,
+            'animation-edit': activeAnimationStep === ANIMATION_STEPS.EDIT,
+            'animation-play': activeAnimationStep === ANIMATION_STEPS.PLAY,
+            'animation-completed':
+              activeAnimationStep === ANIMATION_STEPS.COMPLETED,
+            visible: true,
           })}
         >
           <div className="animation-box">
@@ -821,6 +839,17 @@ export class AnimationModule extends React.PureComponent<
                 onNextFrame={this.nextPreviewImage}
               />
             )}
+
+            {activeAnimationStep === ANIMATION_STEPS.COMPLETED && (
+              <div className="animation-completed-card">
+                <div className="animation-completed-card-title">
+                  {outputHeading}
+                </div>
+                <div className="animation-completed-card-subtitle">
+                  {outputSubheading}
+                </div>
+              </div>
+            )}
           </div>
 
           {activeAnimationStep === ANIMATION_STEPS.EDIT && (
@@ -832,16 +861,34 @@ export class AnimationModule extends React.PureComponent<
           )}
         </div>
 
-        <div
-          className={cx('animation-completed', {
-            visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
-          })}
-        >
-          <AnimationCompleted
-            questAnimation={questAnimation}
-            onEdit={this.onEdit}
-          />
-        </div>
+        {activeAnimationStep === ANIMATION_STEPS.COMPLETED && (
+          <div className="animation-completed-actions">
+            <div className="animation-completed-actions-edit">
+              <Tooltip
+                theme="dark"
+                title="Tooltip text will be there soon"
+                distance={10}
+                position="top"
+              >
+                <Button className="dc-slot-card-find-btn" onClick={this.onEdit}>
+                  {editAnimationButtonCaption}
+                </Button>
+              </Tooltip>
+            </div>
+            <div className="animation-completed-actions-separator" />
+            <div className="animation-completed-actions-download">
+              <Tooltip
+                title="Tooltip text will be there soon"
+                distance={10}
+                position="top"
+              >
+                <Button className="btn-circle" onClick={() => {}}>
+                  <span className="icon-download" />
+                </Button>
+              </Tooltip>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
