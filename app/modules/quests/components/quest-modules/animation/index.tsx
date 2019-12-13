@@ -193,14 +193,13 @@ export class AnimationModule extends React.PureComponent<
     ];
     const { questAnimation } = this.props;
     const { offsetReference } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
 
     const imgAttrs = {
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      //hoverCursor: 'auto',
-      left: empty ? 0 : xOffset,
-      top: empty ? 0 : -yOffset,
       opacity: frameIndex > 1 && !empty ? 0.5 : 1,
       originX:
         offsetReference === 'center' && !empty ? offsetReference : 'left',
@@ -211,6 +210,13 @@ export class AnimationModule extends React.PureComponent<
     fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
       const fabricImage = new fabric.Image(img, imgAttrs);
+
+      const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
+      fabricImage.set({
+        left: empty ? 0 : xOffset * offsetCoeff,
+        top: empty ? 0 : -yOffset * offsetCoeff,
+      });
+
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas

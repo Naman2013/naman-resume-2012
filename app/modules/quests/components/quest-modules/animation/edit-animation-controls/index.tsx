@@ -96,23 +96,6 @@ export const EditAnimationControls: React.FC<
       <div className="controls-block">
         <div className="buttons-block">
           <Button
-            className="btn-white move-btn move-btn-down"
-            onTouchStart={moveDownPress}
-            onTouchEnd={(): void => {
-              moveDownRelease(false);
-            }}
-            onMouseDown={moveDownPress}
-            onMouseUp={(): void => {
-              moveDownRelease(false);
-            }}
-            onMouseLeave={(): void => {
-              moveDownRelease(true);
-            }}
-            disabled={disabledMove}
-          >
-            <div className="icon icon-slider-right" />
-          </Button>
-          <Button
             className="btn-white move-btn move-btn-up"
             onTouchStart={moveTopPress}
             onTouchEnd={(): void => {
@@ -128,6 +111,23 @@ export const EditAnimationControls: React.FC<
             disabled={disabledMove}
           >
             <div className="icon icon-slider-left" />
+          </Button>
+          <Button
+            className="btn-white move-btn move-btn-down"
+            onTouchStart={moveDownPress}
+            onTouchEnd={(): void => {
+              moveDownRelease(false);
+            }}
+            onMouseDown={moveDownPress}
+            onMouseUp={(): void => {
+              moveDownRelease(false);
+            }}
+            onMouseLeave={(): void => {
+              moveDownRelease(true);
+            }}
+            disabled={disabledMove}
+          >
+            <div className="icon icon-slider-right" />
           </Button>
         </div>
         <p>Y: {yOffset}</p>
