@@ -201,8 +201,8 @@
     "This request will expire in {{minutes}}:{{seconds}}.",
     "SignupRequestExpieredOnUpgrade":
     "Request expired...redirecting to the homepage in 00:{{seconds}}.",
-    "JoinSlooh": "1 WEEK FREE TRIAL",
-    "JoinSloohTrial": "Join today and get a 1 week free trial",
+    "JoinSlooh": "ONE WEEK FREE TRIAL",
+    "JoinSloohTrial": "Join today and get a one week free trial",
     "JoinNow": "Join Now",
     "Login": "Login",
     "Home": "Home"
