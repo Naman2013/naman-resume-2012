@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import cx from 'classnames';
 import { IQuestAnimation } from 'app/modules/quests/types';
 
@@ -39,6 +40,26 @@ export const PreviewAnimationControls: React.FC<
     previewDelaySlow,
     previewDelayMedium,
     previewDelayFast,
+    editButtonTooltipText,
+    enableEditButton,
+    enableFastButton,
+    enableFinishButton,
+    enableMediumButton,
+    enableSlowButton,
+    fastButtonTooltipText,
+    finishButtonTooltipText,
+    mediumButtonTooltipText,
+    showEditButton,
+    showEditButtonTooltip,
+    showFastButton,
+    showFastButtonTooltip,
+    showFinishButton,
+    showFinishButtonTooltip,
+    showMediumButton,
+    showMediumButtonTooltip,
+    showSlowButton,
+    showSlowButtonTooltip,
+    slowButtonTooltipText,
   } = questAnimation;
 
   const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEEDS.SLOW);
@@ -52,36 +73,69 @@ export const PreviewAnimationControls: React.FC<
     <div className="animation-controls preview-controls">
       <div className="controls-block speed-actions">
         <div className="buttons-block">
-          <Button
-            className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.SLOW,
-            })}
-            onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.SLOW, previewDelaySlow);
-            }}
-          >
-            {slowButtonCaption}
-          </Button>
-          <Button
-            className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.MED,
-            })}
-            onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.MED, previewDelayMedium);
-            }}
-          >
-            {mediumButtonCaption}
-          </Button>
-          <Button
-            className={cx('btn-white animation-view-btn', {
-              'btn-active': animationSpeed === ANIMATION_SPEEDS.FAST,
-            })}
-            onClick={(): void => {
-              onSpeedBtnClick(ANIMATION_SPEEDS.FAST, previewDelayFast);
-            }}
-          >
-            {fastButtonCaption}
-          </Button>
+          {showSlowButton && (
+            <Tooltip
+              theme="dark"
+              title={slowButtonTooltipText}
+              distance={10}
+              position="top"
+              disabled={!showSlowButtonTooltip}
+            >
+              <Button
+                className={cx('btn-white animation-view-btn', {
+                  'btn-active': animationSpeed === ANIMATION_SPEEDS.SLOW,
+                })}
+                onClick={(): void => {
+                  onSpeedBtnClick(ANIMATION_SPEEDS.SLOW, previewDelaySlow);
+                }}
+                disabled={!enableSlowButton}
+              >
+                {slowButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
+          {showMediumButton && (
+            <Tooltip
+              theme="dark"
+              title={mediumButtonTooltipText}
+              distance={10}
+              position="top"
+              disabled={!showMediumButtonTooltip}
+            >
+              <Button
+                className={cx('btn-white animation-view-btn', {
+                  'btn-active': animationSpeed === ANIMATION_SPEEDS.MED,
+                })}
+                onClick={(): void => {
+                  onSpeedBtnClick(ANIMATION_SPEEDS.MED, previewDelayMedium);
+                }}
+                disabled={!enableMediumButton}
+              >
+                {mediumButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
+          {showFastButton && (
+            <Tooltip
+              theme="dark"
+              title={fastButtonTooltipText}
+              distance={10}
+              position="top"
+              disabled={!showFastButtonTooltip}
+            >
+              <Button
+                className={cx('btn-white animation-view-btn', {
+                  'btn-active': animationSpeed === ANIMATION_SPEEDS.FAST,
+                })}
+                onClick={(): void => {
+                  onSpeedBtnClick(ANIMATION_SPEEDS.FAST, previewDelayFast);
+                }}
+                disabled={!enableFastButton}
+              >
+                {fastButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
 
           <Button
             className={cx('btn-white animation-view-btn', {
@@ -93,6 +147,7 @@ export const PreviewAnimationControls: React.FC<
           >
             Single step
           </Button>
+
           <Button
             className="btn-white animation-view-btn"
             onClick={onPrevFrame}
@@ -100,6 +155,7 @@ export const PreviewAnimationControls: React.FC<
           >
             Prev step
           </Button>
+
           <Button
             className="btn-white animation-view-btn"
             onClick={onNextFrame}
@@ -112,12 +168,40 @@ export const PreviewAnimationControls: React.FC<
 
       <div className="controls-block change-mode">
         <div className="buttons-block">
-          <Button className="btn-white animation-view-btn" onClick={onEdit}>
-            {editButtonCaption}
-          </Button>
-          <Button className="btn-white animation-view-btn" onClick={onFinish}>
-            {finishButtonCaption}
-          </Button>
+          {showEditButton && (
+            <Tooltip
+              theme="dark"
+              title={editButtonTooltipText}
+              distance={10}
+              position="top"
+              disabled={!showEditButtonTooltip}
+            >
+              <Button
+                className="btn-white animation-view-btn"
+                onClick={onEdit}
+                disabled={!enableEditButton}
+              >
+                {editButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
+          {showFinishButton && (
+            <Tooltip
+              theme="dark"
+              title={finishButtonTooltipText}
+              distance={10}
+              position="top"
+              disabled={!showFinishButtonTooltip}
+            >
+              <Button
+                className="btn-white animation-view-btn"
+                onClick={onFinish}
+                disabled={!enableFinishButton}
+              >
+                {finishButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
         </div>
       </div>
     </div>

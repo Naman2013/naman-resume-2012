@@ -42,10 +42,11 @@ type AnimationModuleState = {
   previewSingleStep: boolean;
 };
 
-const ANIMATION_STEPS = {
-  EDIT: 'EDIT',
-  PLAY: 'PLAY',
-  COMPLETED: 'COMPLETED',
+const ANIMATION_STEPS: { [key: string]: string } = {
+  edit: 'edit',
+  play: 'play',
+  finished: 'finished',
+  none: 'edit',
 };
 
 const BUTTON_TYPES: { [key: string]: string } = {
@@ -86,7 +87,7 @@ export class AnimationModule extends React.PureComponent<
   resizeTimeout: ReturnType<typeof setTimeout>;
 
   state = {
-    activeAnimationStep: ANIMATION_STEPS.EDIT,
+    activeAnimationStep: ANIMATION_STEPS.edit,
     activePreviewImage: 0,
     previewFrameList: [{} as IAnimationFrame],
     previewSingleStep: false,
@@ -121,7 +122,7 @@ export class AnimationModule extends React.PureComponent<
       const { empty } = activeFrame;
       const { activeAnimationStep } = this.state;
 
-      if (!empty && activeAnimationStep !== ANIMATION_STEPS.COMPLETED) {
+      if (!empty && activeAnimationStep !== ANIMATION_STEPS.finished) {
         this.isDragging = true;
         this.lastPosX = e.clientX || e.changedTouches[0].clientX;
         this.lastPosY = e.clientY || e.changedTouches[0].clientY;
@@ -150,17 +151,31 @@ export class AnimationModule extends React.PureComponent<
       this.isDragging = false;
       if (
         this.canvas.getZoom() > 1 &&
-        activeAnimationStep !== ANIMATION_STEPS.COMPLETED
+        activeAnimationStep !== ANIMATION_STEPS.finished
       ) {
         this.setAnimation(activeFrame);
       }
     });
   };
 
-  initFramesImages = (frameList: Array<IAnimationFrame>): void => {
+  initFramesImages = ({
+    frameList,
+    left,
+    top,
+    zoom,
+    activityState,
+  }: IQuestAnimationFrames): void => {
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
     this.onPageRezise(false);
+
+    this.vpt[4] = left ? -left : 0;
+    this.vpt[5] = top ? -top : 0;
+    this.canvas.setZoom(zoom);
+    this.canvas.viewportTransform[4] = left ? -left : 0;
+    this.canvas.viewportTransform[5] = top ? -top : 0;
+    this.updatePan();
+    this.setActiveStep(activityState);
   };
 
   updatePan = (): void => {
@@ -175,7 +190,7 @@ export class AnimationModule extends React.PureComponent<
     if (this.vpt[4] >= 0) {
       this.canvas.viewportTransform[4] = 0;
       this.vpt[4] = 0;
-    } else if (this.vpt[4] < rightEdge) {
+    } else if (this.vpt[4] <= rightEdge) {
       this.canvas.viewportTransform[4] = rightEdge;
       this.vpt[4] = rightEdge;
     }
@@ -183,7 +198,7 @@ export class AnimationModule extends React.PureComponent<
     if (this.vpt[5] >= 0) {
       this.canvas.viewportTransform[5] = 0;
       this.vpt[5] = 0;
-    } else if (this.vpt[5] < bottomEdge) {
+    } else if (this.vpt[5] <= bottomEdge) {
       this.canvas.viewportTransform[5] = bottomEdge;
       this.vpt[5] = bottomEdge;
     }
@@ -495,7 +510,7 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPlay = (): void => {
-    const { questAnimation, questAnimationFrames, activeFrame } = this.props;
+    const { questAnimation, questAnimationFrames } = this.props;
     const { previewDelaySlow, previewZoomLevel } = questAnimation;
     const { frameList } = questAnimationFrames;
     const previewFrameList = frameList.filter(
@@ -504,7 +519,7 @@ export class AnimationModule extends React.PureComponent<
 
     this.setState(
       {
-        activeAnimationStep: ANIMATION_STEPS.PLAY,
+        activeAnimationStep: ANIMATION_STEPS.play,
         previewFrameList,
       },
       () => {
@@ -593,7 +608,7 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.edit });
 
     const canvasObjects = this.canvas.getObjects();
 
@@ -609,7 +624,9 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
     this.canvas.hoverCursor = 'move';
     this.canvas.renderAll();
-    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT);
+    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
+      this.getAnimation()
+    );
   };
 
   onFinish = (): any => {
@@ -617,8 +634,10 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.hoverCursor = 'auto';
     this.canvas.renderAll();
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED });
-    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH);
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
+    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
+      this.getAnimation()
+    );
   };
 
   getAnimation = (): void => {
@@ -640,8 +659,30 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void => this.initFramesImages(payload.frameList)
+        ({ payload }: any): void => {
+          this.initFramesImages(payload);
+        }
       );
+    }
+  };
+
+  setActiveStep = (step: string): void => {
+    switch (step) {
+      case ANIMATION_STEPS.edit: {
+        this.onEdit();
+        break;
+      }
+      case ANIMATION_STEPS.play: {
+        this.onEdit();
+        break;
+      }
+      case ANIMATION_STEPS.finished: {
+        this.onFinish();
+        break;
+      }
+      default: {
+        this.onEdit();
+      }
     }
   };
 
@@ -666,6 +707,7 @@ export class AnimationModule extends React.PureComponent<
       if (zoom && zoom > magnificationDefault) {
         this.canvas.hoverCursor = 'move';
       }
+
       this.canvas.viewportTransform = [...this.vpt];
       this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
     }
@@ -683,7 +725,7 @@ export class AnimationModule extends React.PureComponent<
     setActiveFrame(frame);
   };
 
-  setAnimation = (frame: IAnimationFrame, button?: string): void => {
+  setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
     const { setAnimation, module, questId } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
@@ -717,7 +759,8 @@ export class AnimationModule extends React.PureComponent<
       scaledImageWidth: scaledSize,
       scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
-    setAnimation(data);
+
+    return setAnimation(data);
   };
 
   render() {
@@ -742,6 +785,14 @@ export class AnimationModule extends React.PureComponent<
       outputHeading,
       outputSubheading,
       editAnimationButtonCaption,
+      showEditAnimationButton,
+      editAnimationButtonTooltipText,
+      showEditAnimationButtonTooltip,
+      enableEditAnimationButton,
+      showDownloadButton,
+      downloadButtonTooltipText,
+      showDownloadButtonTooltip,
+      enableDownloadButton,
     } = questAnimation;
     const {
       frameList,
@@ -761,22 +812,22 @@ export class AnimationModule extends React.PureComponent<
         />
         <div
           className={cx({
-            'animation-edit': activeAnimationStep === ANIMATION_STEPS.EDIT,
-            'animation-play': activeAnimationStep === ANIMATION_STEPS.PLAY,
+            'animation-edit': activeAnimationStep === ANIMATION_STEPS.edit,
+            'animation-play': activeAnimationStep === ANIMATION_STEPS.play,
             'animation-completed':
-              activeAnimationStep === ANIMATION_STEPS.COMPLETED,
+              activeAnimationStep === ANIMATION_STEPS.finished,
             visible: true,
           })}
         >
           <div className="animation-box">
-            {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+            {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
                 <h6>{caption}</h6>
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
             )}
 
-            {activeAnimationStep === ANIMATION_STEPS.PLAY && (
+            {activeAnimationStep === ANIMATION_STEPS.play && (
               <>
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
@@ -807,7 +858,7 @@ export class AnimationModule extends React.PureComponent<
               <canvas id="animation-canvas" />
             </div>
 
-            {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+            {activeAnimationStep === ANIMATION_STEPS.edit && (
               <EditAnimationControls
                 questAnimation={questAnimation}
                 xOffset={xOffset}
@@ -829,7 +880,7 @@ export class AnimationModule extends React.PureComponent<
               />
             )}
 
-            {activeAnimationStep === ANIMATION_STEPS.PLAY && (
+            {activeAnimationStep === ANIMATION_STEPS.play && (
               <PreviewAnimationControls
                 questAnimation={questAnimation}
                 onEdit={this.onEdit}
@@ -840,7 +891,7 @@ export class AnimationModule extends React.PureComponent<
               />
             )}
 
-            {activeAnimationStep === ANIMATION_STEPS.COMPLETED && (
+            {activeAnimationStep === ANIMATION_STEPS.finished && (
               <div className="animation-completed-card">
                 <div className="animation-completed-card-title">
                   {outputHeading}
@@ -852,7 +903,7 @@ export class AnimationModule extends React.PureComponent<
             )}
           </div>
 
-          {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+          {activeAnimationStep === ANIMATION_STEPS.edit && (
             <FrameList
               frameList={frameList}
               activeFrame={activeFrame}
@@ -861,31 +912,45 @@ export class AnimationModule extends React.PureComponent<
           )}
         </div>
 
-        {activeAnimationStep === ANIMATION_STEPS.COMPLETED && (
+        {activeAnimationStep === ANIMATION_STEPS.finished && (
           <div className="animation-completed-actions">
             <div className="animation-completed-actions-edit">
-              <Tooltip
-                theme="dark"
-                title="Tooltip text will be there soon"
-                distance={10}
-                position="top"
-              >
-                <Button className="dc-slot-card-find-btn" onClick={this.onEdit}>
-                  {editAnimationButtonCaption}
-                </Button>
-              </Tooltip>
+              {showEditAnimationButton && (
+                <Tooltip
+                  theme="dark"
+                  title={editAnimationButtonTooltipText}
+                  distance={10}
+                  position="top"
+                  disabled={!showEditAnimationButtonTooltip}
+                >
+                  <Button
+                    className="dc-slot-card-find-btn"
+                    onClick={this.onEdit}
+                    disabled={!enableEditAnimationButton}
+                  >
+                    {editAnimationButtonCaption}
+                  </Button>
+                </Tooltip>
+              )}
             </div>
             <div className="animation-completed-actions-separator" />
             <div className="animation-completed-actions-download">
-              <Tooltip
-                title="Tooltip text will be there soon"
-                distance={10}
-                position="top"
-              >
-                <Button className="btn-circle" onClick={() => {}}>
-                  <span className="icon-download" />
-                </Button>
-              </Tooltip>
+              {showDownloadButton && (
+                <Tooltip
+                  title={downloadButtonTooltipText}
+                  distance={10}
+                  position="top"
+                  disabled={!showDownloadButtonTooltip}
+                >
+                  <Button
+                    className="btn-circle"
+                    onClick={() => {}}
+                    disabled={!enableDownloadButton}
+                  >
+                    <span className="icon-download" />
+                  </Button>
+                </Tooltip>
+              )}
             </div>
           </div>
         )}

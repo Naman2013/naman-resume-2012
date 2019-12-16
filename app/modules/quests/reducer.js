@@ -426,6 +426,9 @@ function getAnimationFramesSuccess(state, { payload }) {
       ...payload,
     },
     activeFrame: { ...firstFrame },
+    questAnimationData: {
+      zoom: payload.zoom * 100,
+    },
   };
 }
 

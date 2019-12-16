@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import cx from 'classnames';
+import { Tooltip } from 'react-tippy';
 import { IQuestAnimation } from 'app/modules/quests/types';
 
 type EditAnimationControlsProps = {
@@ -49,6 +49,10 @@ export const EditAnimationControls: React.FC<
     magnificationDefault,
     magnificationUnitsCaption,
     playButtonCaption,
+    enablePlayButton,
+    showPlayButton,
+    showPlayButtonTooltip,
+    playButtonTooltipText,
   } = questAnimation;
 
   return (
@@ -157,9 +161,23 @@ export const EditAnimationControls: React.FC<
       </div>
 
       <div className="controls-block">
-        <Button className="btn-white" onClick={onPlay}>
-          {playButtonCaption}
-        </Button>
+        {showPlayButton && (
+          <Tooltip
+            theme="dark"
+            title={playButtonTooltipText}
+            distance={10}
+            position="top"
+            disabled={!showPlayButtonTooltip}
+          >
+            <Button
+              className="btn-white"
+              onClick={onPlay}
+              disabled={!enablePlayButton}
+            >
+              {playButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
       </div>
     </div>
   );
