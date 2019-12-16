@@ -171,6 +171,38 @@ export declare interface IQuestAnimation extends StandardResponse {
   yOffsetMax: number;
   yOffsetMin: number;
   yOffsetSmallStep: number;
+  editAnimationButtonTooltipText: string;
+  editButtonTooltipText: string;
+  enableDownloadButton: boolean;
+  enableEditAnimationButton: boolean;
+  enableEditButton: boolean;
+  enableFastButton: boolean;
+  enableFinishButton: boolean;
+  enableMediumButton: boolean;
+  enablePlayButton: boolean;
+  enableSlowButton: boolean;
+  fastButtonTooltipText: string;
+  finishButtonTooltipText: string;
+  mediumButtonTooltipText: string;
+  playButtonTooltipText: string;
+  showDownloadButton: boolean;
+  showDownloadButtonTooltip: boolean;
+  showEditAnimationButton: boolean;
+  showEditAnimationButtonTooltip: boolean;
+  showEditButton: boolean;
+  showEditButtonTooltip: boolean;
+  showFastButton: boolean;
+  showFastButtonTooltip: boolean;
+  showFinishButton: boolean;
+  showFinishButtonTooltip: boolean;
+  showMediumButton: boolean;
+  showMediumButtonTooltip: boolean;
+  showPlayButton: boolean;
+  showPlayButtonTooltip: boolean;
+  showSlowButton: boolean;
+  showSlowButtonTooltip: boolean;
+  slowButtonTooltipText: string;
+  downloadButtonTooltipText: string;
 }
 
 export declare interface IAnimationFrame {
@@ -222,6 +254,10 @@ export declare interface IQuestAnimationFrames extends StandardResponse {
   questIdIsValid: boolean;
   questUUID: string;
   requestType: string;
+  left: number;
+  top: number;
+  zoom: number;
+  activityState: string;
 }
 
 export interface RichTextInputModuleResponse extends StandardResponse {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { fabric } from 'fabric';
 import cx from 'classnames';
+import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import {
   IQuestStepModule,
   IQuestAnimation,
@@ -12,7 +14,6 @@ import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
 import { QuestStepModuleHeader } from '../../quest-step-module-header';
-import { AnimationCompleted } from './animation-completed';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -37,16 +38,27 @@ type AnimationModuleProps = {
 type AnimationModuleState = {
   activeAnimationStep: string;
   activePreviewImage: number;
-  previewFrameList: Array<any>;
+  previewFrameList: Array<IAnimationFrame>;
+  previewSingleStep: boolean;
 };
 
-const ANIMATION_STEPS = {
-  EDIT: 'EDIT',
-  PLAY: 'PLAY',
-  COMPLETED: 'COMPLETED',
+const ANIMATION_STEPS: { [key: string]: string } = {
+  edit: 'edit',
+  play: 'play',
+  finished: 'finished',
+  none: 'edit',
 };
 
-const CANVAS_DEFAULT_WIDTH = 414;
+const BUTTON_TYPES: { [key: string]: string } = {
+  EDIT: 'edit',
+  PLAY: 'play',
+  FINISH: 'finish',
+  SLOW: 'slow',
+  MED: 'med',
+  FAST: 'fast',
+};
+
+const RESIZE_DELTA = 300;
 
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
@@ -70,21 +82,27 @@ export class AnimationModule extends React.PureComponent<
 
   vpt: Array<number>;
 
+  resizeTime: number;
+
+  resizeTimeout: ReturnType<typeof setTimeout>;
+
   state = {
-    activeAnimationStep: ANIMATION_STEPS.EDIT,
+    activeAnimationStep: ANIMATION_STEPS.edit,
     activePreviewImage: 0,
-    previewFrameList: [{}],
+    previewFrameList: [{} as IAnimationFrame],
+    previewSingleStep: false,
   };
 
   componentDidMount(): void {
     this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
-    window.addEventListener('resize', this.onPageRezise);
+    window.addEventListener('resize', () => this.onPageRezise());
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('resize', this.onPageRezise);
+    window.removeEventListener('resize', () => this.onPageRezise());
+    clearTimeout(this.resizeTimeout);
   }
 
   initCanvas = (): void => {
@@ -92,7 +110,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.selection = false; // disable group selection
     this.canvas.hoverCursor = 'auto';
     this.vpt = [...this.canvas.viewportTransform];
-    this.onPageRezise();
+    this.onPageRezise(false);
 
     this.initCanvasPan();
   };
@@ -102,7 +120,9 @@ export class AnimationModule extends React.PureComponent<
       // set dragging true
       const { activeFrame } = this.props;
       const { empty } = activeFrame;
-      if (!empty) {
+      const { activeAnimationStep } = this.state;
+
+      if (!empty && activeAnimationStep !== ANIMATION_STEPS.finished) {
         this.isDragging = true;
         this.lastPosX = e.clientX || e.changedTouches[0].clientX;
         this.lastPosY = e.clientY || e.changedTouches[0].clientY;
@@ -125,15 +145,37 @@ export class AnimationModule extends React.PureComponent<
       }
     });
 
-    this.canvas.on('mouse:up', (opt: any): void => {
+    this.canvas.on('mouse:up', (e: any): void => {
+      const { activeFrame } = this.props;
+      const { activeAnimationStep } = this.state;
       this.isDragging = false;
+      if (
+        this.canvas.getZoom() > 1 &&
+        activeAnimationStep !== ANIMATION_STEPS.finished
+      ) {
+        this.setAnimation(activeFrame);
+      }
     });
   };
 
-  initFramesImages = (frameList: Array<IAnimationFrame>): void => {
+  initFramesImages = ({
+    frameList,
+    left,
+    top,
+    zoom,
+    activityState,
+  }: IQuestAnimationFrames): void => {
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
-    this.onPageRezise();
+    this.onPageRezise(false);
+
+    this.vpt[4] = left ? -left : 0;
+    this.vpt[5] = top ? -top : 0;
+    this.canvas.setZoom(zoom);
+    this.canvas.viewportTransform[4] = left ? -left : 0;
+    this.canvas.viewportTransform[5] = top ? -top : 0;
+    this.updatePan();
+    this.setActiveStep(activityState);
   };
 
   updatePan = (): void => {
@@ -148,7 +190,7 @@ export class AnimationModule extends React.PureComponent<
     if (this.vpt[4] >= 0) {
       this.canvas.viewportTransform[4] = 0;
       this.vpt[4] = 0;
-    } else if (this.vpt[4] < rightEdge) {
+    } else if (this.vpt[4] <= rightEdge) {
       this.canvas.viewportTransform[4] = rightEdge;
       this.vpt[4] = rightEdge;
     }
@@ -156,7 +198,7 @@ export class AnimationModule extends React.PureComponent<
     if (this.vpt[5] >= 0) {
       this.canvas.viewportTransform[5] = 0;
       this.vpt[5] = 0;
-    } else if (this.vpt[5] < bottomEdge) {
+    } else if (this.vpt[5] <= bottomEdge) {
       this.canvas.viewportTransform[5] = bottomEdge;
       this.vpt[5] = bottomEdge;
     }
@@ -173,14 +215,13 @@ export class AnimationModule extends React.PureComponent<
     ];
     const { questAnimation } = this.props;
     const { offsetReference } = questAnimation;
+    const newCanvasContainerWidth =
+      this.canvasContainer.getBoundingClientRect().width - 2;
 
     const imgAttrs = {
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
-      //hoverCursor: 'auto',
-      left: empty ? 0 : xOffset,
-      top: empty ? 0 : -yOffset,
       opacity: frameIndex > 1 && !empty ? 0.5 : 1,
       originX:
         offsetReference === 'center' && !empty ? offsetReference : 'left',
@@ -191,6 +232,13 @@ export class AnimationModule extends React.PureComponent<
     fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
       const fabricImage = new fabric.Image(img, imgAttrs);
+
+      const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
+      fabricImage.set({
+        left: empty ? 0 : xOffset * offsetCoeff,
+        top: empty ? 0 : -yOffset * offsetCoeff,
+      });
+
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
@@ -209,13 +257,12 @@ export class AnimationModule extends React.PureComponent<
     const { yOffsetMax } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.yOffset + stepSize;
     const yOffset = newOffset < yOffsetMax ? newOffset : yOffsetMax;
-
-    item.set({ top: Math.round(-yOffset * offsetCoeff) });
+    item.set({ top: -yOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -253,13 +300,13 @@ export class AnimationModule extends React.PureComponent<
     const { yOffsetMin } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.yOffset - stepSize;
     const yOffset = newOffset > yOffsetMin ? newOffset : yOffsetMin;
 
-    item.set({ top: Math.round(-yOffset * offsetCoeff) });
+    item.set({ top: -yOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, yOffset };
     setActiveFrame(newFrame);
@@ -297,13 +344,13 @@ export class AnimationModule extends React.PureComponent<
     const { xOffsetMin } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.xOffset - stepSize;
     const xOffset = newOffset > xOffsetMin ? newOffset : xOffsetMin;
 
-    item.set({ left: Math.round(xOffset * offsetCoeff) });
+    item.set({ left: xOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -341,13 +388,13 @@ export class AnimationModule extends React.PureComponent<
     const { xOffsetMax } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const item = this.getActiveCanvasItem();
+    const offsetCoeff = newCanvasContainerWidth / item.get('width');
     const newOffset = activeFrame.xOffset + stepSize;
     const xOffset = newOffset < xOffsetMax ? newOffset : xOffsetMax;
 
-    item.set({ left: Math.round(xOffset * offsetCoeff) });
+    item.set({ left: xOffset * offsetCoeff });
     this.canvas.renderAll();
     const newFrame = { ...activeFrame, xOffset };
     setActiveFrame(newFrame);
@@ -381,7 +428,7 @@ export class AnimationModule extends React.PureComponent<
   };
 
   zoomInCanvas = (): void => {
-    const { questAnimation, setAnimationData } = this.props;
+    const { questAnimation, setAnimationData, activeFrame } = this.props;
     const { magnificationMax, magnificationStep } = questAnimation;
     let newZoom = this.canvas.getZoom() + magnificationStep / 100;
 
@@ -393,10 +440,11 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.hoverCursor = 'move';
     this.canvas.setZoom(newZoom).renderAll();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
+    this.setAnimation(activeFrame);
   };
 
   zoomOutCanvas = (): void => {
-    const { questAnimation, setAnimationData } = this.props;
+    const { questAnimation, setAnimationData, activeFrame } = this.props;
     const { magnificationMin, magnificationStep } = questAnimation;
 
     let newZoom = this.canvas.getZoom() - magnificationStep / 100;
@@ -410,14 +458,25 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(newZoom).renderAll();
     this.updatePan();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
+    this.setAnimation(activeFrame);
   };
 
-  onPageRezise = (): void => {
+  resizeEnd = (): void => {
+    const { activeFrame } = this.props;
+    if (Date.now() - this.resizeTime < RESIZE_DELTA) {
+      this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+    } else {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = undefined;
+      this.setAnimation(activeFrame);
+    }
+  };
+
+  onPageRezise = (updateAnimation = true): void => {
     const { questAnimationFrames } = this.props;
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
-    const offsetCoeff = newCanvasContainerWidth / CANVAS_DEFAULT_WIDTH;
 
     const canvasZoom = this.canvas.getZoom();
     //set zoom to 1 before canvas rezise
@@ -429,10 +488,11 @@ export class AnimationModule extends React.PureComponent<
     const canvasObjects = this.canvas.getObjects();
     canvasObjects.map((item: any, index: number): any => {
       //scale all images to new canvas width
+      const offsetCoeff = newCanvasContainerWidth / item.get('width');
       item.scaleToWidth(newCanvasContainerWidth);
       item.set({
-        left: Math.round(frameList[index].xOffset * offsetCoeff),
-        top: Math.round(-frameList[index].yOffset * offsetCoeff),
+        left: frameList[index].xOffset * offsetCoeff,
+        top: -frameList[index].yOffset * offsetCoeff,
       });
       return item;
     });
@@ -441,6 +501,12 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(canvasZoom);
 
     this.canvas.renderAll();
+    if (updateAnimation) {
+      this.resizeTime = Date.now();
+      if (!this.resizeTimeout) {
+        this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+      }
+    }
   };
 
   onPlay = (): void => {
@@ -453,7 +519,7 @@ export class AnimationModule extends React.PureComponent<
 
     this.setState(
       {
-        activeAnimationStep: ANIMATION_STEPS.PLAY,
+        activeAnimationStep: ANIMATION_STEPS.play,
         previewFrameList,
       },
       () => {
@@ -467,7 +533,7 @@ export class AnimationModule extends React.PureComponent<
           this.canvas.setZoom(previewZoomLevel);
         }
         this.canvas.renderAll();
-        this.previewAnimationStart(previewDelaySlow);
+        this.previewAnimationStart(previewDelaySlow, false, 'PLAY');
       }
     );
   };
@@ -499,14 +565,23 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  previewAnimationStart = (speed: number): void => {
+  previewAnimationStart = (
+    speed: number,
+    singleStep: boolean,
+    type?: string
+  ): void => {
+    const { activeFrame } = this.props;
     const { activePreviewImage } = this.state;
 
     this.previewAnimationStop();
     this.changeActivePreviewImage(activePreviewImage, 0);
 
-    if (speed) {
+    if (!singleStep) {
       this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
+      this.setState({ previewSingleStep: false });
+      this.setAnimation(activeFrame, BUTTON_TYPES[type]);
+    } else {
+      this.setState({ previewSingleStep: true });
     }
   };
 
@@ -533,7 +608,7 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.EDIT });
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.edit });
 
     const canvasObjects = this.canvas.getObjects();
 
@@ -547,12 +622,22 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.item(0).set({ visible: true, opacity: 1 });
     this.canvas.item(frameIndex - 1).set({ visible: true });
     this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+    this.canvas.hoverCursor = 'move';
     this.canvas.renderAll();
+    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
+      this.getAnimation()
+    );
   };
 
   onFinish = (): any => {
+    const { activeFrame } = this.props;
+    this.canvas.hoverCursor = 'auto';
+    this.canvas.renderAll();
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.COMPLETED });
+    this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
+    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
+      this.getAnimation()
+    );
   };
 
   getAnimation = (): void => {
@@ -574,8 +659,30 @@ export class AnimationModule extends React.PureComponent<
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
       getAnimationFrames({ questId, questUUID, moduleId, moduleUUID }).then(
-        ({ payload }: any): void => this.initFramesImages(payload.frameList)
+        ({ payload }: any): void => {
+          this.initFramesImages(payload);
+        }
       );
+    }
+  };
+
+  setActiveStep = (step: string): void => {
+    switch (step) {
+      case ANIMATION_STEPS.edit: {
+        this.onEdit();
+        break;
+      }
+      case ANIMATION_STEPS.play: {
+        this.onEdit();
+        break;
+      }
+      case ANIMATION_STEPS.finished: {
+        this.onFinish();
+        break;
+      }
+      default: {
+        this.onEdit();
+      }
     }
   };
 
@@ -600,8 +707,9 @@ export class AnimationModule extends React.PureComponent<
       if (zoom && zoom > magnificationDefault) {
         this.canvas.hoverCursor = 'move';
       }
-      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
+
       this.canvas.viewportTransform = [...this.vpt];
+      this.canvas.setZoom(zoom ? zoom / 100 : magnificationDefault / 100);
     }
 
     if (frame.empty) {
@@ -617,10 +725,16 @@ export class AnimationModule extends React.PureComponent<
     setActiveFrame(frame);
   };
 
-  setAnimation = (frame: IAnimationFrame): void => {
+  setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
     const { setAnimation, module, questId } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
+    const zoom = this.canvas.getZoom();
+    const currentItem = this.canvas.item(frame.frameIndex - 1);
+    const size = this.canvas.getWidth();
+    const scaledSize = size * zoom;
+    const imageScaleY = currentItem.get('scaleY');
+    const imageHeight = currentItem.get('height');
 
     const data = {
       questId,
@@ -631,8 +745,22 @@ export class AnimationModule extends React.PureComponent<
       xOffset,
       yOffset,
       offsetReference,
+      zoom,
+      width: size,
+      height: size,
+      left: -this.vpt[4],
+      top: -this.vpt[5],
+      button,
+      serializedFramesAll: JSON.stringify(this.canvas),
+      scaleX: currentItem.get('scaleX'),
+      scaleY: imageScaleY,
+      imageWidth: currentItem.get('width'),
+      imageHeight,
+      scaledImageWidth: scaledSize,
+      scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
-    setAnimation(data);
+
+    return setAnimation(data);
   };
 
   render() {
@@ -646,11 +774,26 @@ export class AnimationModule extends React.PureComponent<
       activeAnimationStep,
       activePreviewImage,
       previewFrameList,
+      previewSingleStep,
     } = this.state;
     const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
-    const { previewHeading, previewSubheading } = questAnimation;
+    const {
+      previewHeading,
+      previewSubheading,
+      outputHeading,
+      outputSubheading,
+      editAnimationButtonCaption,
+      showEditAnimationButton,
+      editAnimationButtonTooltipText,
+      showEditAnimationButtonTooltip,
+      enableEditAnimationButton,
+      showDownloadButton,
+      downloadButtonTooltipText,
+      showDownloadButtonTooltip,
+      enableDownloadButton,
+    } = questAnimation;
     const {
       frameList,
       activityStatus,
@@ -669,23 +812,28 @@ export class AnimationModule extends React.PureComponent<
         />
         <div
           className={cx({
-            'animation-edit': activeAnimationStep !== ANIMATION_STEPS.EDIT,
-            'animation-play': activeAnimationStep !== ANIMATION_STEPS.PLAY,
-            visible: activeAnimationStep !== ANIMATION_STEPS.COMPLETED,
+            'animation-edit': activeAnimationStep === ANIMATION_STEPS.edit,
+            'animation-play': activeAnimationStep === ANIMATION_STEPS.play,
+            'animation-completed':
+              activeAnimationStep === ANIMATION_STEPS.finished,
+            visible: true,
           })}
         >
           <div className="animation-box">
-            {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+            {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
                 <h6>{caption}</h6>
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
             )}
 
-            {activeAnimationStep === ANIMATION_STEPS.PLAY && (
+            {activeAnimationStep === ANIMATION_STEPS.play && (
               <>
                 <h6>{previewHeading}</h6>
                 <h4>{previewSubheading}</h4>
+                {previewSingleStep && (
+                  <h4>{`${previewFrameList[activePreviewImage].infoArray.objectName} ${previewFrameList[activePreviewImage].infoArray.imageDate} ${previewFrameList[activePreviewImage].infoArray.imageTime}`}</h4>
+                )}
                 <div className="animation-lines">
                   {previewFrameList.map(
                     ({ frameIndex, frameId }: IAnimationFrame) => (
@@ -710,7 +858,7 @@ export class AnimationModule extends React.PureComponent<
               <canvas id="animation-canvas" />
             </div>
 
-            {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+            {activeAnimationStep === ANIMATION_STEPS.edit && (
               <EditAnimationControls
                 questAnimation={questAnimation}
                 xOffset={xOffset}
@@ -732,7 +880,7 @@ export class AnimationModule extends React.PureComponent<
               />
             )}
 
-            {activeAnimationStep === ANIMATION_STEPS.PLAY && (
+            {activeAnimationStep === ANIMATION_STEPS.play && (
               <PreviewAnimationControls
                 questAnimation={questAnimation}
                 onEdit={this.onEdit}
@@ -742,9 +890,20 @@ export class AnimationModule extends React.PureComponent<
                 onNextFrame={this.nextPreviewImage}
               />
             )}
+
+            {activeAnimationStep === ANIMATION_STEPS.finished && (
+              <div className="animation-completed-card">
+                <div className="animation-completed-card-title">
+                  {outputHeading}
+                </div>
+                <div className="animation-completed-card-subtitle">
+                  {outputSubheading}
+                </div>
+              </div>
+            )}
           </div>
 
-          {activeAnimationStep === ANIMATION_STEPS.EDIT && (
+          {activeAnimationStep === ANIMATION_STEPS.edit && (
             <FrameList
               frameList={frameList}
               activeFrame={activeFrame}
@@ -753,16 +912,48 @@ export class AnimationModule extends React.PureComponent<
           )}
         </div>
 
-        <div
-          className={cx('animation-completed', {
-            visible: activeAnimationStep === ANIMATION_STEPS.COMPLETED,
-          })}
-        >
-          <AnimationCompleted
-            questAnimation={questAnimation}
-            onEdit={this.onEdit}
-          />
-        </div>
+        {activeAnimationStep === ANIMATION_STEPS.finished && (
+          <div className="animation-completed-actions">
+            <div className="animation-completed-actions-edit">
+              {showEditAnimationButton && (
+                <Tooltip
+                  theme="dark"
+                  title={editAnimationButtonTooltipText}
+                  distance={10}
+                  position="top"
+                  disabled={!showEditAnimationButtonTooltip}
+                >
+                  <Button
+                    className="dc-slot-card-find-btn"
+                    onClick={this.onEdit}
+                    disabled={!enableEditAnimationButton}
+                  >
+                    {editAnimationButtonCaption}
+                  </Button>
+                </Tooltip>
+              )}
+            </div>
+            <div className="animation-completed-actions-separator" />
+            <div className="animation-completed-actions-download">
+              {showDownloadButton && (
+                <Tooltip
+                  title={downloadButtonTooltipText}
+                  distance={10}
+                  position="top"
+                  disabled={!showDownloadButtonTooltip}
+                >
+                  <Button
+                    className="btn-circle"
+                    onClick={() => {}}
+                    disabled={!enableDownloadButton}
+                  >
+                    <span className="icon-download" />
+                  </Button>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
