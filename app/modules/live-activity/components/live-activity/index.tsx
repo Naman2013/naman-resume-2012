@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
 import { browserHistory } from 'react-router';
@@ -12,7 +12,6 @@ import {
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
 import { isEnter } from 'app/modules/utils/keyIdentifier';
-import { isDesktop } from 'app/providers/deviceConfiguration';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -116,6 +115,18 @@ const submitMessage = (
   }
 };
 
+const toggleActivityFeedMenu = (
+  setOpen: Function,
+  isOpen: boolean,
+  subscribeToPubnubActivityFeedChannel: Function,
+  isSubscribed: boolean
+) => {
+  if (!isSubscribed) {
+    subscribeToPubnubActivityFeedChannel();
+  }
+  setOpen(!isOpen);
+};
+
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
   pubnubConnection: Record<string, any>;
@@ -123,6 +134,7 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
+  subscribeToPubnubActivityFeedChannel: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -130,8 +142,10 @@ export const LiveActivity = (props: TLiveActivity) => {
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
+    subscribeToPubnubActivityFeedChannel,
   } = props;
   const [isOpen, setOpen] = React.useState(false);
+  const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
   const [isFullscreen, setFullscreen] = useState(false);
@@ -156,6 +170,8 @@ export const LiveActivity = (props: TLiveActivity) => {
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isMobile, isOpen, lastMessageId]);
 
+  console.log('isSubscribed', isSubscribed);
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
@@ -165,22 +181,35 @@ export const LiveActivity = (props: TLiveActivity) => {
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       <span
         role="presentation"
         className={
-          lastMessageId !== lastStorageMessageId &&
-          !lastMessageFromCurrentUser &&
-          !isOpen
+          (lastMessageId !== lastStorageMessageId &&
+            !lastMessageFromCurrentUser &&
+            !isOpen) ||
+          !isSubscribed
             ? 'message-identifier'
             : ''
         }
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       {/* WINDOW */}
