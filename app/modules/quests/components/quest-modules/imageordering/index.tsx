@@ -8,7 +8,10 @@ import {
 } from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
-import { MODE } from 'app/modules/quests/constants/montageModule';
+import {
+  MODE,
+  ACTIVITY_STATES,
+} from 'app/modules/quests/constants/montageModule';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
@@ -31,6 +34,7 @@ type TImageorderingProps = {
   loading?: boolean;
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user: User;
+  activityStatus: ImageorderingModuleResponse['activityStatus'];
 };
 
 type TImageorderingState = {
@@ -131,11 +135,13 @@ export class Imageordering extends React.PureComponent<
       loading,
     } = this.props;
 
+    const { activityTitle, activityStatus } = imageorderingModule;
+
     return (
       <div className="montage-module quest-qa-free-form">
         <QuestStepModuleHeader
-          title="activityTitle"
-          completed //activityState === ACTIVITY_STATES.complete
+          title={activityTitle}
+          completed={activityStatus === ACTIVITY_STATES.complete}
           sequenceText="activitySequenceText"
         />
 

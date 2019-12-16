@@ -176,65 +176,69 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 </Tooltip>
               )}
               {showSlotInfo && (
-                <Tooltip
-                  theme="light"
-                  title={slotInfoTooltipText}
-                  position="top"
-                  disabled={isInfoMenuOpen}
-                >
-                  <Button
-                    className={cx('info-btn', { open: isInfoMenuOpen })}
-                    onClick={(): void =>
-                      !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
-                    }
-                    disabled={!enableSlotInfo || readOnly}
+                <div className="slot-info-container">
+                  <Tooltip
+                    theme="light"
+                    title={slotInfoTooltipText}
+                    position="top"
+                    disabled={isInfoMenuOpen}
                   >
-                    {!isInfoMenuOpen ? (
-                      <img
-                        alt=""
-                        src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
-                      />
-                    ) : (
-                      <i className="menu-icon-close icon-close" />
-                    )}
-                  </Button>
-                </Tooltip>
+                    <Button
+                      className={cx('info-btn', { open: isInfoMenuOpen })}
+                      onClick={(): void =>
+                        !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
+                      }
+                      disabled={!enableSlotInfo || readOnly}
+                    >
+                      {!isInfoMenuOpen ? (
+                        <img
+                          alt=""
+                          src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+                        />
+                      ) : (
+                        <i className="menu-icon-close icon-close" />
+                      )}
+                    </Button>
+                  </Tooltip>
+                  <QuestSlotInfoPopup
+                    slotInfo={slotInfo}
+                    slotInfoTitle={slotInfoTitle}
+                    isInfoMenuOpen={isInfoMenuOpen}
+                  />
+                </div>
               )}
               {showDotMenu && (
-                <Tooltip
-                  title={dotMenuTooltipText}
-                  theme="light"
-                  distance={10}
-                  position="top"
-                >
-                  <Button
-                    className={cx('quest-dot-menu-btn', {
-                      open: isDotsMenuOpen,
-                    })}
-                    onClick={(): void =>
-                      !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
-                    }
-                    disabled={!enableDotMenu || readOnly}
+                <div className="dot-menu-wrapper">
+                  <Tooltip
+                    title={dotMenuTooltipText}
+                    theme="light"
+                    distance={10}
+                    position="top"
                   >
-                    {!isDotsMenuOpen ? (
-                      <Dots theme={{ circleColor: astronaut }} />
-                    ) : (
-                      <i className="menu-icon-close icon-close" />
-                    )}
-                  </Button>
-                </Tooltip>
+                    <Button
+                      className={cx('quest-dot-menu-btn', {
+                        open: isDotsMenuOpen,
+                      })}
+                      onClick={(): void =>
+                        !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
+                      }
+                      disabled={!enableDotMenu || readOnly}
+                    >
+                      {!isDotsMenuOpen ? (
+                        <Dots theme={{ circleColor: astronaut }} />
+                      ) : (
+                        <i className="menu-icon-close icon-close" />
+                      )}
+                    </Button>
+                  </Tooltip>
+                  <QuestDotMenu
+                    show={isDotsMenuOpen}
+                    menuTitle={dotMenuTitle}
+                    items={dotMenuItems}
+                    toggle={toggleDotsMenu}
+                  />
+                </div>
               )}
-              <QuestDotMenu
-                show={isDotsMenuOpen}
-                menuTitle={dotMenuTitle}
-                items={dotMenuItems}
-                toggle={toggleDotsMenu}
-              />
-              <QuestSlotInfoPopup
-                slotInfo={slotInfo}
-                slotInfoTitle={slotInfoTitle}
-                isInfoMenuOpen={isInfoMenuOpen}
-              />
             </div>
           </div>
         </div>

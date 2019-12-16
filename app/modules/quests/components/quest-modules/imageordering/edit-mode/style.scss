@@ -140,6 +140,26 @@
       &__right {
         width: 100%;
         padding: 50px;
+
+        .dot-menu-wrapper {
+          position: relative;
+
+          .quest-buttons-popover {
+            position: absolute;
+            left: -190px;
+          }
+        }
+
+        .slot-info-container {
+          position: relative;
+
+          .slot-info-wrapper {
+            .quest-buttons-popover {
+              position: absolute;
+              left: -130px;
+            }
+          }
+        }
       }
     }
   }
@@ -150,6 +170,23 @@
     .slot-card {
       &__left, &__right {
         padding: 20px;
+      }
+
+      &__right {
+        .dot-menu-wrapper {
+          .quest-buttons-popover {
+            width: 260px;
+          }
+        }
+
+        .slot-info-container {
+          .slot-info-wrapper {
+            .quest-buttons-popover {
+              width: 270px;
+              left: -150px;
+            }
+          }
+        }
       }
     }
   }
