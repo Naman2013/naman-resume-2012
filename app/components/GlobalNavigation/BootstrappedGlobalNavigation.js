@@ -173,10 +173,6 @@ class GlobalNavigation extends Component {
     this.pubnub.init(this);
   }
 
-  componentWillMount() {
-    this.subscribeToPubnubActivityFeedChannel();
-  }
-
   componentDidMount() {
     const { isMobile } = this.props;
     if (!isMobile) {
