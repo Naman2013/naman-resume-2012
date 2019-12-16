@@ -174,19 +174,7 @@ class GlobalNavigation extends Component {
   }
 
   componentWillMount() {
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
-
-    this.pubnub.subscribe({
-      channels: [
-        pubnubActivityFeedChannelName,
-        pubnubLiveEventsChannelName,
-        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
-      ],
-      withPresence: true,
-    });
+    this.subscribeToPubnubActivityFeedChannel();
   }
 
   componentDidMount() {
@@ -220,6 +208,22 @@ class GlobalNavigation extends Component {
       ],
     });
   }
+
+  subscribeToPubnubActivityFeedChannel = () => {
+    const {
+      pubnubActivityFeedChannelName,
+      pubnubLiveEventsChannelName,
+    } = this.props;
+
+    this.pubnub.subscribe({
+      channels: [
+        pubnubActivityFeedChannelName,
+        pubnubLiveEventsChannelName,
+        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
+      ],
+      withPresence: true,
+    });
+  };
 
   scrollActivityFeedToBottom = () => {
     let liveActivityWindowBodyFeedObj = document.getElementById(
@@ -392,6 +396,9 @@ class GlobalNavigation extends Component {
             userDisplayName={displayName}
             isChatEnabled={isChatEnabled}
             scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
+            subscribeToPubnubActivityFeedChannel={
+              this.subscribeToPubnubActivityFeedChannel
+            }
           />
         </div>
 
