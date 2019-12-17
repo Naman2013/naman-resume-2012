@@ -135,14 +135,18 @@ export class Imageordering extends React.PureComponent<
       loading,
     } = this.props;
 
-    const { activityTitle, activityStatus } = imageorderingModule;
+    const {
+      activityTitle,
+      activityStatus,
+      activityInstructions,
+    } = imageorderingModule;
 
     return (
       <div className="montage-module quest-qa-free-form">
         <QuestStepModuleHeader
           title={activityTitle}
           completed={activityStatus === ACTIVITY_STATES.complete}
-          sequenceText="activitySequenceText"
+          instructions={activityInstructions}
         />
 
         {(mode === MODE.edit || mode === MODE.review) && (
