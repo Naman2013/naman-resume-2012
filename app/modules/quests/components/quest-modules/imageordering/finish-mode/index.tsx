@@ -33,16 +33,14 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
 
   return (
     <div className="montage-finish-mode">
-      <div className="animation-completed__card">
-        <div className="animation-completed__card-image">
+      <div className="montage-finish-card">
+        <div className="montage-finish-card-image">
           <img src={previewURL} alt="" />
         </div>
 
-        <div className="animation-completed__card-title">
-          {previewFinalHeading}
-        </div>
+        <div className="montage-finish-card-title">{previewFinalHeading}</div>
 
-        <div className="animation-completed__card-subtitle">
+        <div className="montage-finish-card-subtitle">
           {previewFinalSubheading}
         </div>
       </div>
