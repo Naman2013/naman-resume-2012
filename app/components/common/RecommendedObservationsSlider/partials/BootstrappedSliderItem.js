@@ -26,7 +26,6 @@ const BootstrappedObservationSliderItem = props => {
     customerImageId,
     likePrompt,
     showLikePrompt,
-    socialShareDescription,
     iconFileData,
   } = props;
   const [isOpen, openModal] = useState(false);
@@ -49,7 +48,7 @@ const BootstrappedObservationSliderItem = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title">{title}</h2>
-                    <Link to={iconFileData?.Member?.linkUrl}>
+                    <Link to={iconFileData['Member']?.linkUrl}>
                       <h5 className="author">{displayName}</h5>
                     </Link>
                     {observationLog && (
@@ -63,7 +62,7 @@ const BootstrappedObservationSliderItem = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link to={iconFileData[item].linkUrl} target="_blank">
+                          <Link to={iconFileData[item].linkUrl}>
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (

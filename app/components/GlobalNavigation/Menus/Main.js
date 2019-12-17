@@ -20,7 +20,6 @@ const Main = ({ mainMenu }) => {
         iconURL={sloohLogoAstronaut}
       />
       <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
-      <SocialMenu />
       <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
     </Fragment>
   );

@@ -28,7 +28,6 @@ import {
   selectSelectedFilters,
   selectTelescopeList,
   selectTimeList,
-  photoHubsUploadToMyPicturesPageDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
@@ -37,16 +36,11 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import {
-  getFitsData,
-  deleteTag,
-  getTags,
-  setTag,
-} from '../thunks';
 import './image-list.scss';
-import style from './ImageList.style';
 import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
 import { makePrivateProfileUserDataSelector } from 'app/modules/profile/selectors';
+import style from './ImageList.style';
+import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -389,7 +383,7 @@ class ImageList extends Component {
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-    const { canUploadToPhotoHub } = privateProfileData;
+    const { canUploadToPhotoHub } = privateProfileData || false;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
@@ -397,7 +391,11 @@ class ImageList extends Component {
     return (
       <div className={cn}>
         {params.private && (
-          <div className={cx('filter-dropdown-btn', { 'position-right': !canUploadToPhotoHub })}>
+          <div
+            className={cx('filter-dropdown-btn', {
+              'position-right': !canUploadToPhotoHub,
+            })}
+          >
             <FilterDropdown
               isOpen={isFilterOpen}
               setOpen={this.setFilterOpen}
