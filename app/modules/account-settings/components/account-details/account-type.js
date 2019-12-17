@@ -43,21 +43,27 @@ const AccountType = props => {
     }
   };
 
-  const renderActions = (showInfoButton) => {
+  const renderActions = showInfoButton => {
     return (
       <div className="btn-group pad-top-15">
-	{showInfoButton === true && <Fragment>
-        <Btn mod="circle" onClick={goToPlanInfoUrl}>
-          <Icon i="info" />
-        </Btn>
-        {isUpgradeAvailable === true && (
-          <Button onClick={() => setModalOpen(true)}>
-            {upgradeButtonLabel}
-          </Button>
+        {showInfoButton === true && (
+          <Fragment>
+            <Btn mod="circle" onClick={goToPlanInfoUrl}>
+              <Icon i="info" />
+            </Btn>
+            {isUpgradeAvailable === true && (
+              <Button onClick={() => setModalOpen(true)}>
+                {upgradeButtonLabel}
+              </Button>
+            )}
+            {isUpgradeAvailable === false && (
+              <Button>{upgradeButtonLabel}</Button>
+            )}
+          </Fragment>
         )}
-        {isUpgradeAvailable === false && <Button>{upgradeButtonLabel}</Button>}
-	</Fragment>}
-	{showInfoButton === false && <p style={{paddingTop: "22px"}}>&nbsp;</p>}
+        {showInfoButton === false && (
+          <p style={{ paddingTop: '22px' }}>&nbsp;</p>
+        )}
       </div>
     );
   };
