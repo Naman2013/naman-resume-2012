@@ -194,21 +194,18 @@ const TopBar = ({
                         {userIsActive ? (
                           <i className="top-nav-icon icon-close" />
                         ) : (
-                          <div className="flex-row justify-content-center">
-                            <div style={{ marginTop: '-3px' }}>
-                              <Link
-                                className="button text"
-                                to="/about/memberships"
-                              >
-                                <span
-                                  style={{ color: '#415671' }}
-                                  className="text"
-                                >
-                                  Join now for FREE!
-                                </span>
-                              </Link>
-                              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                            </div>
+                          <div className="flex-row justify-content-center align-items-center">
+                            <Link
+                              className="button text"
+                              to="/about/memberships"
+                            >
+                              <button className="btn btn-submit">
+                                Join now for FREE!
+                              </button>
+                            </Link>
+
+                            <div className="buttons-separator" />
+
                             <span className="text">
                               {t('Navigation.SignIn')}
                             </span>
