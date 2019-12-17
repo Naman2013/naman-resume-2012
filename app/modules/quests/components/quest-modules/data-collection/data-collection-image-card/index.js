@@ -11,8 +11,21 @@ export class DataCollectionImageCard extends PureComponent {
       selected,
       telescopeName,
       instrumentName,
+      alreadyUsed,
     } = imageData;
     const { displayDateTime } = imageTimeFormatted;
+
+    const selectFlag = () => {
+      if (alreadyUsed && selected) {
+        return '[SELECTED]';
+      }
+      if (alreadyUsed) {
+        return '[ALREADY USED]';
+      }
+      if (selected) {
+        return '[SELECTED]';
+      }
+    };
 
     return (
       <div className="dc-image-card" onClick={onClick}>
@@ -25,7 +38,7 @@ export class DataCollectionImageCard extends PureComponent {
         <p className="telescope-info">{instrumentName}</p>
         <p>
           {displayDateTime}
-          {selected && <span>[SELECTED]</span>}
+          <span>{selectFlag()}</span>
         </p>
       </div>
     );

@@ -67,8 +67,7 @@
       padding: 15px 20px;
     }
 
-    .dc-slot-card-info-btn,
-    .dc-slot-card-dots-menu {
+    .dc-slot-card-info-btn {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -161,66 +160,7 @@
       }
     }
 
-    .data-collection-menu {
-      .dc-slot-dots-popover {
-        padding: 0;
-
-        .title {
-          height: 50px;
-          font-family: $primary-font;
-          font-size: 11px;
-          font-weight: 900;
-          line-height: 50px;
-          letter-spacing: 0.6px;
-          color: $lightHeadedAstronaut;
-          border-bottom: 1px solid $hr-silver;
-          padding: 0 20px;
-          text-transform: uppercase;
-        }
-
-        .content {
-          padding: 0 20px;
-
-          > * {
-            &[disabled] {
-              pointer-events: none;
-              opacity: 0.5;
-            }
-          }
-
-          & div {
-            line-height: 25px;
-            padding-top: 12.5px;
-            padding-bottom: 12.5px;
-            border-bottom: 1px solid $hr-silver;
-            font-family: $primary-font;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.6px;
-            color: $lightHeadedAstronaut;
-            text-transform: uppercase;
-            cursor: pointer;
-
-            & button {
-              border: none;
-              padding: 0;
-              margin: 0;
-              font-family: $primary-font;
-              font-size: 11px;
-              color: $lightHeadedAstronaut;
-              & span {
-                margin: 0;
-              }
-            }
-          }
-          & .follow-object-button > button > span {
-            margin-right: 5px;
-          }
-        }
-      }
-    }
-    .dc-slot-info-popover,
-    .dc-slot-dots-popover {
+    .dc-slot-info-popover {
       padding: 20px 30px;
       font-family: $primary-font;
       font-weight: 400;

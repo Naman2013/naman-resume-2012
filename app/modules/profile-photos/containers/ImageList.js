@@ -362,7 +362,7 @@ class ImageList extends Component {
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-    const { canUploadToPhotoHub } = privateProfileData;
+    const { canUploadToPhotoHub } = privateProfileData || false;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });

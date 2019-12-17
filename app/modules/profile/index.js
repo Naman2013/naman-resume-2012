@@ -58,3 +58,14 @@ export const ProfileDashboardContainer = props => (
     <ProfileDashboardContainerLoadable {...props} />
   </Suspense>
 );
+
+// Getting Started
+const GettingStartedContainerLoadable = React.lazy(() =>
+  import('./containers/getting-started')
+);
+
+export const GettingStartedContainer = props => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <GettingStartedContainerLoadable {...props} />
+  </Suspense>
+);

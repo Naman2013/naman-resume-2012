@@ -92,7 +92,9 @@ class MobileViewSwiper extends Component {
           </div>
         ) : (
           <div className="top">
-            {!error ? `${t('Dashboard.Loading')}...` : t('Dashboard.ErrorWhileLoading')}
+            {!error
+              ? `${t('Dashboard.Loading')}...`
+              : t('Dashboard.ErrorWhileLoading')}
           </div>
         )}
         <div className="swiper-container">

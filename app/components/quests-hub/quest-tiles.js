@@ -5,9 +5,9 @@ import uniqueId from 'lodash/uniqueId';
 import { withTranslation } from 'react-i18next';
 import CenterColumn from 'app/components/common/CenterColumn';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
-import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';
 import QuestExcerptTile from 'app/components/common/tiles/quest-excerpt-tile';
 
+import QuestCard from 'app/components/common/tiles/Quest-card';
 import style from './quest-tiles.style';
 
 @withTranslation()
@@ -30,9 +30,10 @@ class QuestTiles extends Component {
   setActiveTile = e => {
     e.preventDefault();
     e.stopPropagation();
+    const { activeId } = this.state;
     const { id } = e.currentTarget.dataset;
     const parsedId = Number(id);
-    if (this.state.activeId !== parsedId) {
+    if (activeId !== parsedId) {
       this.setState(() => ({
         activeId: Number(parsedId),
       }));
@@ -81,12 +82,23 @@ class QuestTiles extends Component {
                 </div>
               </li>
             ))}
-          {isMobile &&
-            quests.map(quest => (
-              <li key={uniqueId()} className="tile">
-                <QuestHubTileSmall {...quest} />
-              </li>
-            ))}
+          <div className="quest-list">
+            {isMobile && quests
+              ? quests.map(quest => (
+                  <div className="quest-list-item">
+                    <QuestCard
+                      linkUrl={quest.linkUrl}
+                      questType={quest.questType}
+                      iconURL={quest.iconURL}
+                      questDifficulty={quest.questDifficulty}
+                      title={quest.questTitle}
+                      linkLabel={quest.linkLabel}
+                      questAuthor={quest.questAuthor}
+                    />
+                  </div>
+                ))
+              : null}
+          </div>
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>

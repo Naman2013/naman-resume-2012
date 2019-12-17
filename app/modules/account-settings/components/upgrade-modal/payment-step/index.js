@@ -15,7 +15,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
-import { getUserInfo, storeUserNewAT } from 'app/modules/User';
+import { getUserInfo } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
 
@@ -49,7 +49,7 @@ const CountdownExpiredComplete = () => {
   window.location.reload();
 };
 
-const handleIframeTaskUpgrade = e => {
+const handleIframeTaskUpgrade = (e, props) => {
   /* Verify there is data in this event) */
   if (e.data) {
     const paymentMessageData = `${e.data}`;
@@ -103,12 +103,7 @@ const handleIframeTaskUpgrade = e => {
         paymentToken: paymentNonceTokenData,
         billingAddressString: paymentDataString[3],
         isAstronomyClub:
-          window.localStorage.getItem('isAstronomyClub') === 'true',
-        astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-        isAstronomyClubForMembers18AndOver:
-          window.localStorage.getItem('astronomyClub18AndOver') === 'true',
-        isClassroom: window.localStorage.getItem('isClassroom') === 'true',
-        selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+          window.localStorage.getItem('isAstronomyClub') === 'true'
       };
       //add string aboc to this //ADD THIS BACK AFTER TESTING
       API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
@@ -119,11 +114,7 @@ const handleIframeTaskUpgrade = e => {
               //Cleanup local localStorage
               window.localStorage.removeItem('pending_cid');
               window.localStorage.removeItem('selectedPlanId');
-              window.localStorage.removeItem('selectedSchoolId');
               window.localStorage.removeItem('isAstronomyClub');
-              window.localStorage.removeItem('isClassroom');
-              window.localStorage.removeItem('astronomyClubName');
-              window.localStorage.removeItem('astronomyClub18AndOver');
 
               /* cleanup local storage */
               window.localStorage.removeItem('accountCreationType');
@@ -132,15 +123,14 @@ const handleIframeTaskUpgrade = e => {
 
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              storeUserNewAT({
-                at: res.newAccountTypeNbr,
+              props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
+                props.closeModal(true);
+
+               let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+               browserHistory.push( confirmationPageURL );
+
+               //browserHistory.push('/');
               });
-
-              window.location.reload();
-
-              //actions.logUserIn(loginDataPayload);
-              browserHistory.push('/');
-              window.location.reload();
             }
           }
         })
@@ -162,8 +152,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', handleIframeTaskUpgrade);
-  window.addEventListener('message', handleIframeTaskUpgrade);
+  window.removeEventListener('message', e => handleIframeTaskUpgrade(e, props));
+  window.addEventListener('message', e => handleIframeTaskUpgrade(e, props));
 
   return (
     <>
@@ -176,13 +166,8 @@ export const PaymentStep = (props: TPaymentStep) => {
           token: user.token,
           selectedPlanId,
           conditionType,
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver: window.localStorage.getItem(
-            'astronomyClub18AndOver'
-          ) === 'true',
-          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
-          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+          isAstronomyClub:
+            window.localStorage.getItem('isAstronomyClub') === 'true'
         }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
@@ -192,28 +177,6 @@ export const PaymentStep = (props: TPaymentStep) => {
                   <Fragment>
                     <h1 className="modal-h">{joinPageRes.pageHeading1}</h1>
                     <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
-                    {joinPageRes.hasSelectedSchool === 'yes' ? (
-                      <JoinHeader
-                        mainHeading={joinPageRes.pageHeading1}
-                        subHeading={joinPageRes.pageHeading2}
-                        showHeading={false}
-                        showTabs={false}
-                        activeTab={pathname}
-                        tabs={CLASSROOM_JOIN_TABS}
-                        backgroundImage={
-                          isMobile
-                            ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
-                            : isDesktop
-                            ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
-                            : isTablet
-                            ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
-                            : ''
-                        }
-                      />
-                    ) : (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
@@ -224,17 +187,16 @@ export const PaymentStep = (props: TPaymentStep) => {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Mobile
+                                ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Desktop
+                                ?.planSelectedBackgroundImageUrl_Desktop
                             : isTablet
                             ? joinPageRes.selectedSubscriptionPlan
-                                .planSelectedBackgroundImageUrl_Tablet
+                                ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
                       />
-                    )}
                     <div style={{ marginTop: '-100px' }} className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
@@ -306,5 +268,4 @@ export const PaymentStep = (props: TPaymentStep) => {
     </>
   );
 };
-
 /* eslint-enable */

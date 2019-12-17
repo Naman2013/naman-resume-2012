@@ -16,7 +16,8 @@ class About extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchAboutDataAction();
+    const { fetchAboutDataAction } = this.props;
+    fetchAboutDataAction();
   }
 
   render() {

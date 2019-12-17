@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent, Fragment, useState} from 'react';
+import React, { PureComponent, Fragment, useState } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import { Col, Container, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
@@ -14,10 +14,10 @@ import UpgradeModal from '../../containers/upgrade-modal';
 import EditPaymentModal from '../../containers/editpayment-modal';
 
 type TAccountDetails = {
-  accountTypeSection: Object<TTypeSectionItem>,
-  accountDetails: Object<TFormField>,
-  accountCancelSection: Object<TFormField>,
-  fetchAccountFormFieldAction: Function,
+  accountTypeSection: Record<string, any><TTypeSectionItem>;
+  accountDetails: Record<string, any><TFormField>;
+  accountCancelSection: Record<string, any><TFormField>;
+  fetchAccountFormFieldAction: Function;
 };
 
 // mocked
@@ -32,7 +32,6 @@ const mockedPaymentDetailsOptions = [
 const mockedTitle = '';
 
 class AccountDetails extends PureComponent<TAccountDetails> {
-
   render() {
     const {
       accountTypeSection,
@@ -46,7 +45,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       showForgetPasswordPopup,
       forgetPasswordPopupText,
       isModalOpen,
-      setModalOpen
+      setModalOpen,
     } = this.props;
 
     if (isEmpty(accountTypeSection)) return null;
@@ -89,6 +88,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             accountTypeHeading={accountTypeHeading}
             accountStatusLabel={accountStatusLabel}
             accountStatus={accountStatus}
+            showInfoButton
           />
 
           <Container>
@@ -110,7 +110,9 @@ class AccountDetails extends PureComponent<TAccountDetails> {
                         i={i}
                         {...el}
                         key={`${el.label}-${el.currentValue}`}
-                        fetchAccountFormFieldAction={fetchAccountFormFieldAction}
+                        fetchAccountFormFieldAction={
+                          fetchAccountFormFieldAction
+                        }
                       />
                     );
                   })}
@@ -137,24 +139,32 @@ class AccountDetails extends PureComponent<TAccountDetails> {
               </Row>
             </div>
 
-            <EditPayment {...this.props}/>
+            <EditPayment {...this.props} />
 
-            <CancelAccount {...this.props}/>
+            <CancelAccount {...this.props} />
           </Container>
 
           <Modal
             show={showForgetPasswordPopup}
             onHide={dismissResetPasswordPopup}
           >
-            <div className='color-white' dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
-            <Btn className='color-white' onClick={dismissResetPasswordPopup}>Close</Btn>
+            <div
+              className="color-white"
+              dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }}
+            />
+            <Btn className="color-white" onClick={dismissResetPasswordPopup}>
+              Close
+            </Btn>
           </Modal>
         </Fragment>
 
         {isModalOpen && (
-          <UpgradeModal subscriptionPlansCallSource="downgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
+          <UpgradeModal
+            subscriptionPlansCallSource="downgrade"
+            show={isModalOpen}
+            onHide={() => setModalOpen(false)}
+          />
         )}
-
       </>
     );
   }

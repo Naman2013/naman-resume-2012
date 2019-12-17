@@ -1,10 +1,10 @@
 @import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
-.quest-qa-header {
+.quest-step-module-header {
   margin-bottom: 20px;
 
-  .quest-qa-title-container {
+  .quest-step-module-title-container {
     padding: 20px 0;
     border-top: 1px solid $hawkesBlue;
     border-bottom: 1px solid $hawkesBlue;
@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
 
-    .quest-qa-title {
+    .quest-step-module-title {
       font-family: $secondary-font;
       font-size: 24px;
       color: $lightHeadedAstronaut;
@@ -24,26 +24,34 @@
     }
   }
 
-  .quest-qa-mobile-title-container {
+  .quest-step-module-mobile-title-container {
     display: none;
+  }
+
+  .quest-step-module-instructions {
+    margin-top: 20px;
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.5;
+    color: $raven;
   }
 }
 
 @include media-breakpoint-down(sm) {
-  .quest-qa-header {
-    .quest-qa-title-container {
+  .quest-step-module-header {
+    .quest-step-module-title-container {
       .quest-complete-checkbox {
         display: none;
       }
     }
 
-    .quest-qa-mobile-title-container {
+    .quest-step-module-mobile-title-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
 
-      .quest-qa-sequence-title {
+      .quest-step-module-sequence-title {
         font-family: $primary-font;
         font-size: 10px;
         color: $lightHeadedAstronaut;

@@ -39,6 +39,7 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
   ProfileActivity,
   ProfileDashboardContainer,
@@ -48,6 +49,7 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { PurchaseConfirmationMain } from 'app/modules/purchase-confirmation';
 import {
   QuestCompleteLazy,
   QuestDetailsLazy,
@@ -151,6 +153,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
@@ -189,7 +192,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":viewType" component={Memberships} />
+        </Route>
         <Route
           path=":aboutSloohSectionId"
           component={AboutSloohSection}
@@ -200,6 +206,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
+        <Route
+          path="purchaseConfirmation(/:tab)"
+          component={PurchaseConfirmationMain}
+          onEnter={validateUser}
+        />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
@@ -489,7 +500,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
-          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -498,7 +508,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
-          <IndexRedirect to="activity" />
         </Route>
       </Route>
 

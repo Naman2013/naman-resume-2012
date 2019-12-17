@@ -9,6 +9,11 @@ class Profile extends Component {
     this.getProfileData();
   };
 
+  componentWillUnmount = () => {
+    const { clearProfileData } = this.props;
+    clearProfileData();
+  };
+
   getProfileData = () => {
     const { params, getPrivateProfile, getPublicProfile } = this.props;
     if (params.private) getPrivateProfile();

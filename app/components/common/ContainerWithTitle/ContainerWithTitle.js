@@ -46,7 +46,7 @@ export class ContainerWithTitle extends Component {
     } = this.props;
 
     return (
-      <div className="root">
+      <div className="navigation-wrapper root">
         <h2 style={theme}>{title}</h2>
         <div className="navigation">
           {showNavigation && (

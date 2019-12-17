@@ -144,8 +144,8 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
    * POSSIBLE HTTP RESPONSE CODES....
    *	401 - Unauthorized, Login Issues
    *	402 - Credentials Required to verify account access
-   * 418 - Expired
-   * 421 - Expired Recently
+   *    418 - Expired
+   *    421 - Expired Recently
    *	419 - Forced Slooh Crew
    *	420 - Upsell Flow
    *****************************************/
@@ -164,29 +164,22 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
-  if (
-    statusCode === UNAUTHORIZED_STATUS_CODE ||
-    statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE
-  ) {
-    //login issues....send the user to a screen that requires login....
+  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
+    //session issues....send the user to the homepage, they likely tried accessing on a second device.
     triggerUserAccountIssueModal = false;
-    /* send the user to the login screen */
+
+    destroySession();
+    dispatch(removeUser());
+    dispatch(push('/'));
+    dispatch(window.location.reload());
+  } else if (statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE) {
+    //paywall
+    triggerUserAccountIssueModal = false;
 
     destroySession();
     dispatch(removeUser());
     dispatch(push('/join/step1'));
     dispatch(window.location.reload());
-
-    //dispatch(
-    //  toggleGlobalNavMenu({
-    //    activeMenu: MENU_INTERFACE.PROFILE.name,
-    //    isLeftOpen: false,
-    //    isRightOpen: true,
-    //    activeLeft: MENU_INTERFACE.MAIN.name,
-    //    activeRight: MENU_INTERFACE.PROFILE.name,
-    //    isNotificationMenuOpen: false,
-    //  })
-    //);
   } else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
     subscriptionPlansCallSource = 'forcedsloohcrew';
     triggerUserAccountIssueModal = true;
