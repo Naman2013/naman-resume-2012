@@ -200,7 +200,7 @@ const TopBar = ({
                               to="/about/memberships"
                             >
                               <button className="btn btn-submit">
-                                Join now for FREE!
+                                Start Free Trial
                               </button>
                             </Link>
 
