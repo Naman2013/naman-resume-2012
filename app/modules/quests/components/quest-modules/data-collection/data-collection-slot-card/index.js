@@ -114,6 +114,7 @@ export const DataCollectionSlotCard = props => {
           followButtonText={followPrompt}
           followButtonIconURL={followPromptIconUrl}
           callBack={refreshDataCollection}
+          width="auto"
         />
       ),
     },

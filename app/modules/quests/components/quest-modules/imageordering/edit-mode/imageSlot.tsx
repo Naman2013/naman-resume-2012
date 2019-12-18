@@ -126,6 +126,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
           followButtonText={followPrompt}
           followButtonIconURL={followPromptIconUrl}
           callBack={getImageOrderingModule}
+          width="auto"
         />
       ),
     },
