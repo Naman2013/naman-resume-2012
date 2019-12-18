@@ -1,11 +1,17 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from 'app/modules/account-settings/reducer';
+import { makeAccountPreferencesSelector } from 'app/modules/account-settings/selectors';
 import { AccountPreferences } from '../components/account-preferences';
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  accountPreferences: makeAccountPreferencesSelector(),
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  setAccountPreference: ACTION.setAccountPreference,
+};
 
 export default compose(
   connect(
