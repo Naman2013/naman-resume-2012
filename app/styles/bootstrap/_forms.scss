@@ -1,0 +1,37 @@
+.custom-switch {
+  .custom-control-input {
+    ~ label.custom-control-label {
+      &:before {
+        top: -8px;
+        left: -60px;
+        width: 60px;
+        height: 34px;
+        border: 1px dashed $moodyBleu;
+        border-radius: 50px;
+      }
+
+      &:after {
+        top: -4px;
+        left: -55px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: $iron;
+      }
+    }
+
+    &:checked {
+      ~ label.custom-control-label {
+        &:before {
+          border: 1px dashed $lightHeadedAstronaut;
+          background-color: $romance;
+        }
+
+        &:after {
+          background-color: $astronaut;
+          left: -40px;
+        }
+      }
+    }
+  }
+}
