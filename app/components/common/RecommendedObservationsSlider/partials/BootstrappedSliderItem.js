@@ -27,6 +27,7 @@ const BootstrappedObservationSliderItem = props => {
     likePrompt,
     showLikePrompt,
     iconFileData,
+    readOnly,
   } = props;
   const [isOpen, openModal] = useState(false);
   const { t } = useTranslation();
@@ -48,9 +49,13 @@ const BootstrappedObservationSliderItem = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title">{title}</h2>
-                    <Link to={iconFileData['Member']?.linkUrl}>
+                    {readOnly ? (
                       <h5 className="author">{displayName}</h5>
-                    </Link>
+                    ) : (
+                      <Link to={iconFileData['Member']?.linkUrl}>
+                        <h5 className="author">{displayName}</h5>
+                      </Link>
+                    )}
                     {observationLog && (
                       <p
                         className="dashboardObservationText i-text-box"
@@ -61,7 +66,7 @@ const BootstrappedObservationSliderItem = props => {
                   <div className="links">
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
-                        {iconFileData[item].hasLink ? (
+                        {iconFileData[item].hasLink && !readOnly ? (
                           <Link to={iconFileData[item].linkUrl}>
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
@@ -92,41 +97,45 @@ const BootstrappedObservationSliderItem = props => {
               </div>
               <div className="bottom">
                 <div className="buttons">
-                  <div className="button">
-                    <LikeSomethingButton
-                      mod="no-border"
-                      likePrompt={likePrompt}
-                      likesCount={likesNumber || likesCount}
-                      likedByMe={likedByMe}
-                      likeTooltip={likeTooltip}
-                      likeHandler={onLikeClick}
-                      customerId={customerImageId}
-                      showLikePrompt={showLikePrompt}
-                    >
-                      <img
-                        className="icon"
-                        src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                        alt="heart"
-                      />
-                      {!likesCount ? '0' : likesCount}
-                    </LikeSomethingButton>
-                  </div>
-                  <div className="button">
-                    <img
-                      className="icon"
-                      src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                      alt="comment"
-                    />
-                    {!commentsCount ? '0' : commentsCount}
-                  </div>
-                  {linkUrl && (
-                    <Link to={linkUrl} className="button details">
-                      {t('Dashboard.Details')}
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                        alt="arrow-right"
-                      />
-                    </Link>
+                  {!readOnly && (
+                    <>
+                      <div className="button">
+                        <LikeSomethingButton
+                          mod="no-border"
+                          likePrompt={likePrompt}
+                          likesCount={likesNumber || likesCount}
+                          likedByMe={likedByMe}
+                          likeTooltip={likeTooltip}
+                          likeHandler={onLikeClick}
+                          customerId={customerImageId}
+                          showLikePrompt={showLikePrompt}
+                        >
+                          <img
+                            className="icon"
+                            src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                            alt="heart"
+                          />
+                          {!likesCount ? '0' : likesCount}
+                        </LikeSomethingButton>
+                      </div>
+                      <div className="button">
+                        <img
+                          className="icon"
+                          src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                          alt="comment"
+                        />
+                        {!commentsCount ? '0' : commentsCount}
+                      </div>
+                      {linkUrl && (
+                        <Link to={linkUrl} className="button details">
+                          {t('Dashboard.Details')}
+                          <img
+                            src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                            alt="arrow-right"
+                          />
+                        </Link>
+                      )}
+                    </>
                   )}
                 </div>
                 <div className="capture-date">

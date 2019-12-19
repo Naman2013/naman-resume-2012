@@ -20,7 +20,9 @@ const initialState = {
     recommendedObjectsHeading: '',
     recommendedObjectsSubHeading: '',
   },
-  guestDashboard: {},
+  guestDashboard: {
+    Sections: {},
+  },
   error: false,
 };
 
@@ -40,7 +42,7 @@ export default createReducer(initialState, {
       profile: payload,
     };
   },
-  [FETCH_DASHBOARD_FAILURE](state, { payload }) {
+  [FETCH_DASHBOARD_FAILURE](state) {
     return {
       ...state,
       error: true,

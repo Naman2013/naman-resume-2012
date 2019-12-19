@@ -58,14 +58,14 @@ export declare interface IDashboardRecomendedClub {
 
 export declare interface IGuestDashboard extends StandardResponse {
   Sections: {
-    Telescopes?: IGuestDashboardSection;
-    Missions?: IGuestDashboardSection;
-    MissionsPhotos?: IGuestDashboardSection;
-    Observations?: IGuestDashboardSection;
-    Clubs?: IGuestDashboardSection;
-    Shows?: IGuestDashboardSection;
-    Quests?: IGuestDashboardSection;
-    Plans?: IGuestDashboardSection;
+    [Telescopes: string]: IGuestDashboardSection;
+    Missions: IGuestDashboardSection;
+    MissionsPhotos: IGuestDashboardSection;
+    Observations: IGuestDashboardSection;
+    Clubs: IGuestDashboardSection;
+    Shows: IGuestDashboardSection;
+    Quests: IGuestDashboardSection;
+    Plans: IGuestDashboardSection;
   };
   TelescopePromos: Array<IDashboardTelescopePromo>;
   RecommendedQuests: Array<IDashboardRecomendedQuest>;

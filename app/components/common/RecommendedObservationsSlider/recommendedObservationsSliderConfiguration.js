@@ -35,7 +35,7 @@ const getSliderConfiguration = () =>
     ],
   });
 
-const getRecommendedObservationsItems = (imageList = []) => {
+const getRecommendedObservationsItems = (imageList = [], readOnly = false) => {
   return imageList.map(object => {
     return {
       customerImageId: parseInt(object.customerImageId, 10),
@@ -44,16 +44,17 @@ const getRecommendedObservationsItems = (imageList = []) => {
           key={imageList.customerImageId}
           {...sliderProps}
           {...object}
+          readOnly={readOnly}
         />
       ),
     };
   });
 };
 
-export const getSliderProps = (slideList = [], t) => {
+export const getSliderProps = (slideList = [], t, readOnly) => {
   return Object.assign(
     {
-      slideList: getRecommendedObservationsItems(slideList),
+      slideList: getRecommendedObservationsItems(slideList, readOnly),
     },
     {
       sliderConfig: getSliderConfiguration(),

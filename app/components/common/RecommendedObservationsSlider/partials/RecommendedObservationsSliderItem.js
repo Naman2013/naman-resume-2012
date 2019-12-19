@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { LIKE } from 'app/services/like';
-import CardObservations from 'app/components/common/CardObservations';
 import SliderItem from './BootstrappedSliderItem';
 
 const { number } = PropTypes;
@@ -15,20 +14,18 @@ class RecommendedObservationsItem extends Component {
   componentDidMount() {
     const { customerImageId, user } = this.props;
     const { token, at, cid } = user;
-    return API
-      .post(IMAGE_DETAILS, {
-        cid,
-        at,
-        customerImageId,
-        token,
-        useShareToken: 'n',
-        callSource: 'sharedpictures',
-      })
-      .then(res => {
-        this.setState({
-          ...res.data,
-        });
+    return API.post(IMAGE_DETAILS, {
+      cid,
+      at,
+      customerImageId,
+      token,
+      useShareToken: 'n',
+      callSource: 'sharedpictures',
+    }).then(res => {
+      this.setState({
+        ...res.data,
       });
+    });
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -58,41 +55,38 @@ class RecommendedObservationsItem extends Component {
   handleLike = () => {
     const { user, customerImageId } = this.props;
     const { token, at, cid } = user;
-    API
-      .post(LIKE, {
-        cid,
-        at,
-        token,
-        likeId: customerImageId,
-      })
-      .then(res => {
-        this.setState({
-          ...res.data,
-        });
+    API.post(LIKE, {
+      cid,
+      at,
+      token,
+      likeId: customerImageId,
+    }).then(res => {
+      this.setState({
+        ...res.data,
       });
-    return API
-      .post(IMAGE_DETAILS, {
-        cid,
-        at,
-        customerImageId,
-        token,
-        useShareToken: 'n',
-        callSource: 'sharedpictures',
-      })
-      .then(res => {
-        this.setState({
-          ...res.data,
-        });
+    });
+    return API.post(IMAGE_DETAILS, {
+      cid,
+      at,
+      customerImageId,
+      token,
+      useShareToken: 'n',
+      callSource: 'sharedpictures',
+    }).then(res => {
+      this.setState({
+        ...res.data,
       });
+    });
   };
 
   render() {
-    const { customerImageId } = this.props;
+    const { customerImageId, readOnly } = this.props;
     return (
       <SliderItem
         {...this.state}
         handleLike={this.handleLike}
         customerImageId={customerImageId}
+        readOnly={readOnly}
       />
     );
   }

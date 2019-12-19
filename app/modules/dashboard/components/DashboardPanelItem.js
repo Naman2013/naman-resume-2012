@@ -7,9 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 
-const { func, number, string } = PropTypes;
+const { func, string } = PropTypes;
 
 const PanelItem = ({ orderNumber, render, title, subtitle }) => (
   <div className={`dash-item${orderNumber === 1 ? '-first' : ''}`}>
@@ -154,7 +153,6 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
 );
 
 PanelItem.propTypes = {
-  orderNumber: number.isRequired,
   render: func.isRequired,
   title: string.isRequired,
   subtitle: string.isRequired,
