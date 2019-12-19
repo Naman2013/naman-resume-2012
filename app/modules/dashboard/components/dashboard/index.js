@@ -1,14 +1,16 @@
-import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
+import React, { Component } from 'react';
 import {
   setupFeaturedObjectsExpireTimer,
   stopFeaturedObjectsExpireTimer,
 } from 'app/services/dashboard/timer';
-import React, { Component } from 'react';
+import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
+import { GuestDashboard } from '../guest-dashboard';
 
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
     const { embed, router, user } = this.props;
+
     // Redirect user to /profile/dashboard from / if user is authenticated
     if (!embed && user.isAuthorized) {
       router.push('/profile/private');
@@ -16,12 +18,23 @@ export class Dashboard extends Component {
   }
 
   componentDidMount() {
+    const { user } = this.props;
+
+    if (!user.isAuthorized) {
+      this.getGuestDashboard();
+    }
+
     this.getDashboardFeaturedObjects();
   }
 
   componentWillUnmount() {
     stopFeaturedObjectsExpireTimer();
   }
+
+  getGuestDashboard = () => {
+    const { getGuestDashboard } = this.props;
+    getGuestDashboard();
+  };
 
   getDashboardFeaturedObjects = () => {
     const { getDashboardFeaturedObjects } = this.props;
@@ -35,7 +48,12 @@ export class Dashboard extends Component {
   };
 
   render() {
-    const { user, hideHero, hideNav } = this.props;
-    return <DashboardDisplay {...{ hideHero, hideNav, user }} />;
+    const { user, hideHero, hideNav, guestDashboard } = this.props;
+
+    if (user.isAuthorized) {
+      return <DashboardDisplay {...{ hideHero, hideNav, user }} />;
+    }
+
+    return <GuestDashboard user={user} guestDashboard={guestDashboard} />;
   }
 }
