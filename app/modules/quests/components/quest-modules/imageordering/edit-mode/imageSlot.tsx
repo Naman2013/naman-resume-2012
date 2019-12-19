@@ -149,7 +149,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
               ''
             )}
 
-            {!showTextPrompt ? (
+            {showTextPrompt ? (
               <div className="slot-card__left__title">{textPrompt}</div>
             ) : (
               ''
