@@ -57,7 +57,6 @@ export default handleActions(
     [TYPE.GET_ACCOUNT_PREFERENCES_SUCCESS]: getAccountPreferencesSuccess,
     [TYPE.GET_ACCOUNT_PREFERENCES_ERROR]: error,
 
-    [TYPE.SET_ACCOUNT_PREFERENCE]: start,
     [TYPE.SET_ACCOUNT_PREFERENCE_SUCCESS]: setAccountPreferencesSuccess,
     [TYPE.SET_ACCOUNT_PREFERENCE_ERROR]: error,
 
