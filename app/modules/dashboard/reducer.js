@@ -21,7 +21,11 @@ const initialState = {
     recommendedObjectsSubHeading: '',
   },
   guestDashboard: {
-    Sections: {},
+    Sections: {
+      Missions: {
+        APIParams: {},
+      },
+    },
   },
   error: false,
 };

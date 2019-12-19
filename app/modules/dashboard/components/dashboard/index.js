@@ -22,9 +22,9 @@ export class Dashboard extends Component {
 
     if (!user.isAuthorized) {
       this.getGuestDashboard();
+    } else {
+      this.getDashboardFeaturedObjects();
     }
-
-    this.getDashboardFeaturedObjects();
   }
 
   componentWillUnmount() {
@@ -33,13 +33,23 @@ export class Dashboard extends Component {
 
   getGuestDashboard = () => {
     const { getGuestDashboard } = this.props;
-    getGuestDashboard();
+    getGuestDashboard().then(() => this.getDashboardFeaturedObjects());
   };
 
   getDashboardFeaturedObjects = () => {
-    const { getDashboardFeaturedObjects } = this.props;
+    const {
+      getDashboardFeaturedObjects,
+      guestDashboard: {
+        Sections: {
+          Missions: {
+            APIParams: { callSource },
+          },
+        },
+      },
+    } = this.props;
+
     stopFeaturedObjectsExpireTimer();
-    getDashboardFeaturedObjects().then(({ payload }) => {
+    getDashboardFeaturedObjects({ callSource }).then(({ payload }) => {
       const timerTime = payload.expires - payload.timestamp;
       setupFeaturedObjectsExpireTimer(timerTime, () =>
         this.getDashboardFeaturedObjects()
@@ -48,12 +58,31 @@ export class Dashboard extends Component {
   };
 
   render() {
-    const { user, hideHero, hideNav, guestDashboard } = this.props;
+    const {
+      user,
+      hideHero,
+      hideNav,
+      guestDashboard,
+      recommendedObjects,
+    } = this.props;
 
     if (user.isAuthorized) {
-      return <DashboardDisplay {...{ hideHero, hideNav, user }} />;
+      return (
+        <DashboardDisplay
+          hideHero={hideHero}
+          hideNav={hideNav}
+          user={user}
+          recommendedObjects={recommendedObjects}
+        />
+      );
     }
 
-    return <GuestDashboard user={user} guestDashboard={guestDashboard} />;
+    return (
+      <GuestDashboard
+        user={user}
+        guestDashboard={guestDashboard}
+        recommendedObjects={recommendedObjects}
+      />
+    );
   }
 }

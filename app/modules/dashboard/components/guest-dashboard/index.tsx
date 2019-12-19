@@ -4,9 +4,13 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Request from 'app/components/common/network/Request';
 import ConnectUserAndResponseAccess from 'app/redux/components/ConnectUserAndResponseAccess';
 import { DASHBOARD_TOUR_POPUP } from 'app/services/dashboard';
-import { IGuestDashboard } from 'app/modules/dashboard/types';
+import {
+  IGuestDashboard,
+  IDashboardFeaturedObjects,
+} from 'app/modules/dashboard/types';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import { ClubsList } from 'app/components/common/RecommendedGroupsSlider/clubs-list';
+import { RecommendedObjects } from 'app/components/common/RecommendedObjectsSlider/RecommendedObjectsSlider';
 import BootstrappedTourPopupForUser from '../tour-popup/BootstrappedTourPopupForUser';
 import BootstrappedTourPopupForGuestJoin from '../tour-popup/BootstrappedTourPopupForGuestJoin';
 import DashNav from '../nav/DashboardNav';
@@ -18,6 +22,7 @@ import './styles.scss';
 type TGuestDashboardProps = {
   user: User;
   guestDashboard: IGuestDashboard;
+  recommendedObjects: IDashboardFeaturedObjects;
 };
 
 type TGuestDashboardState = {
@@ -52,7 +57,7 @@ export class GuestDashboard extends Component<
   }
 
   getSectionComponent = (section: string): any => {
-    const { guestDashboard } = this.props;
+    const { guestDashboard, recommendedObjects } = this.props;
     const { CommunityObservations, RecommendedClubs } = guestDashboard;
 
     switch (section) {
@@ -60,7 +65,7 @@ export class GuestDashboard extends Component<
         return <div />;
       }
       case SECTION_TYPE.Missions: {
-        return <div />;
+        return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
       case SECTION_TYPE.MissionsPhotos: {
         return <div />;
