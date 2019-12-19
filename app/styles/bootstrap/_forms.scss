@@ -1,6 +1,8 @@
 .custom-switch {
   .custom-control-input {
     ~ label.custom-control-label {
+      cursor: pointer;
+
       &:before {
         top: -8px;
         left: -60px;

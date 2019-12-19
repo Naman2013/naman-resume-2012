@@ -58,7 +58,7 @@ export default handleActions(
     [TYPE.GET_ACCOUNT_PREFERENCES_ERROR]: error,
 
     [TYPE.SET_ACCOUNT_PREFERENCE]: start,
-    [TYPE.SET_ACCOUNT_PREFERENCE_SUCCESS]: end,
+    [TYPE.SET_ACCOUNT_PREFERENCE_SUCCESS]: setAccountPreferencesSuccess,
     [TYPE.SET_ACCOUNT_PREFERENCE_ERROR]: error,
 
     [TYPE.GET_SUBSCRIPTION_PLANS]: getSubscriptionPlan,
@@ -79,12 +79,12 @@ function start(state) {
   return set(['isFetching'], true, state);
 }
 
-function end(state) {
-  return set(['isFetching'], false, state);
-}
-
 function error(state, { payload }) {
-  return set(['serverError'], payload, state);
+  return {
+    ...state,
+    isFetching: false,
+    serverError: payload,
+  };
 }
 
 function getDashboardPopupInfoSuccess(state, { payload }) {
@@ -144,6 +144,27 @@ function getAccountPreferencesSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     accountPreferences: payload,
+  };
+}
+
+function setAccountPreferencesSuccess(
+  state,
+  { payload: { currentValue }, meta: { settingsKey } }
+) {
+  const { accountPreferences } = state;
+  const settings = accountPreferences.settings.map(item => ({
+    ...item,
+    currentValue:
+      item.settingsKey === settingsKey ? currentValue : item.currentValue,
+  }));
+
+  return {
+    ...state,
+    isFetching: false,
+    accountPreferences: {
+      ...accountPreferences,
+      settings,
+    },
   };
 }
 

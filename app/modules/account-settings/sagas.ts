@@ -26,9 +26,9 @@ export function* setAccountPreference(action: any): SagaIterator {
   try {
     const { at, token, cid } = yield select(state => state.user);
     const payload = { at, token, cid, ...action.payload };
-    yield call(setAccountPreferenceApi, payload);
-    yield put(ACTION.setAccountPreferenceSuccess());
-    yield put(ACTION.getAccountPreferences());
+    const resp = yield call(setAccountPreferenceApi, payload);
+    const { settingsKey } = payload;
+    yield put(ACTION.setAccountPreferenceSuccess(resp.data, { settingsKey }));
   } catch (error) {
     yield put(ACTION.setAccountPreferenceError(error));
   }
