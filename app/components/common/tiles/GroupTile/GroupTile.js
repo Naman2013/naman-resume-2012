@@ -1,18 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router';
-import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import style from './Group.style';
 
-const GroupTile = ({ iconURL, title, accessDescription, theme, linkUrl }) => (
-  <div className="root" style={theme} key={uniqueId()}>
+const GroupTile = ({
+  iconURL,
+  title,
+  accessDescription,
+  theme,
+  linkUrl,
+  readOnly,
+}) => (
+  <div className="root" style={theme}>
     <div
       className="card-groups-img"
       style={{ backgroundImage: `url(${iconURL})` }}
     />
-    <Link to={linkUrl} href={linkUrl}>
-      <div className="card-title">{title}</div>
-    </Link>
+    {readOnly ? (
+      <a>
+        <div className="card-title">{title}</div>
+      </a>
+    ) : (
+      <Link to={linkUrl} href={linkUrl}>
+        <div className="card-title">{title}</div>
+      </Link>
+    )}
     <span
       className="card-desc"
       dangerouslySetInnerHTML={{ __html: accessDescription }}
