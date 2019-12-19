@@ -12,13 +12,13 @@ import uniqueId from 'lodash/uniqueId';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
 import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
 import { reserveCommunityMission } from 'app/modules/telescope/thunks';
-import { makeUserSelector } from 'app/modules/user/selectors';
 import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
 } from 'app/modules/telescope/selectors';
 import PromoPanel from 'app/components/home/promo-panel';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+// eslint-disable-next-line
 import Request from '../../../components/common/network/Request';
 import ConnectUserAndResponseAccess from '../../../redux/components/ConnectUserAndResponseAccess';
 import BootstrappedTourPopupForUser from './tour-popup/BootstrappedTourPopupForUser';
@@ -161,9 +161,8 @@ class BootstrappedDashboard extends Component {
   };
 
   componentDidMount() {
-    let that = this;
-    setTimeout(function() {
-      that.setState({
+    setTimeout(() => {
+      this.setState({
         guestPopupForceShow: true,
       });
     }, 15000);
@@ -190,6 +189,8 @@ class BootstrappedDashboard extends Component {
       getDashboardFeaturedObjects,
     };
 
+    const { guestPopupForceShow } = this.state;
+
     return (
       <div className="root">
         <Request
@@ -201,7 +202,7 @@ class BootstrappedDashboard extends Component {
                 <ConnectUserAndResponseAccess
                   render={props => (
                     <>
-                      {serviceResponse.displayType == 'user' && (
+                      {serviceResponse.displayType === 'user' && (
                         <BootstrappedTourPopupForUser
                           {...user}
                           user={user}
@@ -209,8 +210,8 @@ class BootstrappedDashboard extends Component {
                           validateResponseAccess={props.validateResponseAccess}
                         />
                       )}
-                      {serviceResponse.displayType == 'guest-join' &&
-                        this.state.guestPopupForceShow && (
+                      {serviceResponse.displayType === 'guest-join' &&
+                        guestPopupForceShow && (
                           <BootstrappedTourPopupForGuestJoin
                             id="dashboardGuestModal"
                             {...serviceResponse.popupData}
@@ -251,11 +252,13 @@ class BootstrappedDashboard extends Component {
         <div className="sections-wrapper">
           {sectionOrder.map(
             (section, i) =>
+              // eslint-disable-next-line
               this.props[section] &&
               getSectionComponent(
                 section,
                 Object.assign(
                   { orderNumber: i + 1 },
+                  // eslint-disable-next-line
                   this.props[section],
                   {
                     user,
@@ -275,7 +278,6 @@ const mapStateToProps = createStructuredSelector({
   recommendedObjects: makeDashboardFeaturedObjectsSelector(),
   reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
   reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
-  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {

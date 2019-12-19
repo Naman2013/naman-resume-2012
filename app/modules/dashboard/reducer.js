@@ -9,7 +9,7 @@ import {
   GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
 } from './actions';
 
-export const TYPE = constants('profile', ['~GET_DASHBOARD_PAGE']);
+export const TYPE = constants('dashboard', ['~GET_GUEST_DASHBOARD']);
 export const ACTION = actions(TYPE);
 
 const initialState = {
@@ -20,6 +20,7 @@ const initialState = {
     recommendedObjectsHeading: '',
     recommendedObjectsSubHeading: '',
   },
+  guestDashboard: {},
   error: false,
 };
 
@@ -59,6 +60,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       featuredObjects: payload,
+    };
+  },
+  [TYPE.GET_GUEST_DASHBOARD_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      guestDashboard: payload,
     };
   },
 });
