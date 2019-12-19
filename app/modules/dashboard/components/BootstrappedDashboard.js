@@ -10,7 +10,6 @@ import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
-import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
 import { reserveCommunityMission } from 'app/modules/telescope/thunks';
 import {
   makeQueueTabReservedCommunityMissionDataSelector,
@@ -275,7 +274,6 @@ class BootstrappedDashboard extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  recommendedObjects: makeDashboardFeaturedObjectsSelector(),
   reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
   reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
 });
