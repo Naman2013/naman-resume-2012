@@ -25,6 +25,9 @@ const initialState = {
       Missions: {
         APIParams: {},
       },
+      Plans: {
+        APIParams: {},
+      },
     },
   },
   error: false,
