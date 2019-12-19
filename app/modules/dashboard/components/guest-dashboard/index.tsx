@@ -11,6 +11,7 @@ import {
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import { ClubsList } from 'app/components/common/RecommendedGroupsSlider/clubs-list';
 import { RecommendedObjects } from 'app/components/common/RecommendedObjectsSlider/RecommendedObjectsSlider';
+import RecommendedQuestsList from 'app/components/common/RecommendedQuestsSlider';
 import BootstrappedTourPopupForUser from '../tour-popup/BootstrappedTourPopupForUser';
 import BootstrappedTourPopupForGuestJoin from '../tour-popup/BootstrappedTourPopupForGuestJoin';
 import DashNav from '../nav/DashboardNav';
@@ -58,7 +59,11 @@ export class GuestDashboard extends Component<
 
   getSectionComponent = (section: string): any => {
     const { guestDashboard, recommendedObjects } = this.props;
-    const { CommunityObservations, RecommendedClubs } = guestDashboard;
+    const {
+      CommunityObservations,
+      RecommendedClubs,
+      RecommendedQuests,
+    } = guestDashboard;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -82,7 +87,12 @@ export class GuestDashboard extends Component<
         return <div />;
       }
       case SECTION_TYPE.Quests: {
-        return <div />;
+        return (
+          <RecommendedQuestsList
+            recommendedQuestsList={RecommendedQuests}
+            readOnly
+          />
+        );
       }
       case SECTION_TYPE.Plans: {
         return <div />;

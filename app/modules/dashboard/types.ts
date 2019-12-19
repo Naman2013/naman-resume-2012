@@ -96,7 +96,7 @@ export declare interface IFeaturedObjectsMission {
   };
   scheduledMissionId: number;
   userHasReservation: boolean;
-  'userReservationType ': string;
+  userReservationType: string;
   missionType: string;
   objectType: string;
   objectId: number;
