@@ -114,6 +114,7 @@ export const DataCollectionSlotCard = props => {
           followButtonText={followPrompt}
           followButtonIconURL={followPromptIconUrl}
           callBack={refreshDataCollection}
+          width="auto"
         />
       ),
     },
@@ -149,58 +150,67 @@ export const DataCollectionSlotCard = props => {
           </Tooltip>
         )}
         {showSlotInfo && (
-          <Tooltip theme="light" title={slotInfoTooltipText} position="top">
-            <Button
-              className={cx('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
-              onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
-            >
-              {!isInfoMenuOpen ? (
-                <img
-                  alt=""
-                  src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
-                />
-              ) : (
-                <i className="menu-icon-close icon-close" />
-              )}
-            </Button>
-          </Tooltip>
+          <div className="slot-info-container">
+            <Tooltip theme="light" title={slotInfoTooltipText} position="top">
+              <Button
+                className={cx('dc-slot-card-info-btn', {
+                  open: isInfoMenuOpen,
+                })}
+                onClick={() =>
+                  !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
+                }
+              >
+                {!isInfoMenuOpen ? (
+                  <img
+                    alt=""
+                    src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+                  />
+                ) : (
+                  <i className="menu-icon-close icon-close" />
+                )}
+              </Button>
+            </Tooltip>
+            <QuestSlotInfoPopup
+              slotInfo={slotInfo}
+              slotInfoTitle={slotInfoTitle}
+              isInfoMenuOpen={isInfoMenuOpen}
+            />
+          </div>
         )}
-
-        <QuestSlotInfoPopup
-          slotInfo={slotInfo}
-          slotInfoTitle={slotInfoTitle}
-          isInfoMenuOpen={isInfoMenuOpen}
-        />
 
         {showDotMenu && (
-          <Tooltip
-            title={dotMenuTooltipText}
-            theme="light"
-            distance={10}
-            position="top"
-          >
-            <Button
-              className={cx('quest-dot-menu-btn', {
-                open: isDotsMenuOpen,
-              })}
-              onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
-              disabled={!enableDotMenu}
+          <div className="dot-menu-wrapper">
+            <Tooltip
+              title={dotMenuTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
             >
-              {!isDotsMenuOpen ? (
-                <Dots theme={{ circleColor: astronaut }} />
-              ) : (
-                <i className="menu-icon-close icon-close" />
-              )}
-            </Button>
-          </Tooltip>
-        )}
+              <Button
+                className={cx('quest-dot-menu-btn', {
+                  open: isDotsMenuOpen,
+                })}
+                onClick={() =>
+                  !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
+                }
+                disabled={!enableDotMenu}
+              >
+                {!isDotsMenuOpen ? (
+                  <Dots theme={{ circleColor: astronaut }} />
+                ) : (
+                  <i className="menu-icon-close icon-close" />
+                )}
+              </Button>
+            </Tooltip>
 
-        <QuestDotMenu
-          show={isDotsMenuOpen}
-          menuTitle={dotMenuTitle}
-          items={dotMenuItems}
-          toggle={toggleDotsMenu}
-        />
+            <QuestDotMenu
+              show={isDotsMenuOpen}
+              menuTitle={dotMenuTitle}
+              items={dotMenuItems}
+              toggle={toggleDotsMenu}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

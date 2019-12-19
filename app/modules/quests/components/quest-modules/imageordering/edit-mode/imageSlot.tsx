@@ -59,6 +59,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     slotId,
     customerImageId,
     objectId,
+    slotHasImage,
   } = slot;
 
   const {
@@ -125,6 +126,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
           followButtonText={followPrompt}
           followButtonIconURL={followPromptIconUrl}
           callBack={getImageOrderingModule}
+          width="auto"
         />
       ),
     },
@@ -139,14 +141,15 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
         <div className="montage-slot__body slot-card">
           <div className="slot-card__left">
             <div className="slot-card__left__identifier">{slotIdentifier}</div>
-            <div className="slot-card__left__img">
-              {showGraphicalPrompt ? (
+            {showGraphicalPrompt ? (
+              <div className="slot-card__left__img">
                 <img src={graphicalPromptURL} alt="" />
-              ) : (
-                ''
-              )}
-            </div>
-            {showTextPrompt ? (
+              </div>
+            ) : (
+              ''
+            )}
+
+            {!showTextPrompt ? (
               <div className="slot-card__left__title">{textPrompt}</div>
             ) : (
               ''
@@ -154,9 +157,13 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
           </div>
           <div className="slot-card__right">
             <div className="slot-card__right__img">
-              <ImageClickHandler imageUrl={imageURL}>
-                <img src={imageURL} alt="" />
-              </ImageClickHandler>
+              {slotHasImage ? (
+                <ImageClickHandler imageUrl={imageURL}>
+                  <img src={imageURL} alt="slot" />
+                </ImageClickHandler>
+              ) : (
+                <img src={imageURL} alt="slot" />
+              )}
             </div>
             <div className="slot-card__right__action">
               {showSlotButton && (
