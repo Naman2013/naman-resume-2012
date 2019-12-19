@@ -20,9 +20,7 @@ export class Dashboard extends Component {
   componentDidMount() {
     const { user } = this.props;
 
-    if (!user.isAuthorized) {
-      this.getGuestDashboard();
-    } else {
+    if (user.isAuthorized) {
       this.getDashboardFeaturedObjects();
     }
   }
@@ -30,11 +28,6 @@ export class Dashboard extends Component {
   componentWillUnmount() {
     stopFeaturedObjectsExpireTimer();
   }
-
-  getGuestDashboard = () => {
-    const { getGuestDashboard } = this.props;
-    getGuestDashboard().then(() => this.getDashboardFeaturedObjects());
-  };
 
   getDashboardFeaturedObjects = () => {
     const {
@@ -64,6 +57,9 @@ export class Dashboard extends Component {
       hideNav,
       guestDashboard,
       recommendedObjects,
+      getGuestDashboard,
+      getSubscriptionPlans,
+      subscriptionPlansData,
     } = this.props;
 
     if (user.isAuthorized) {
@@ -79,9 +75,12 @@ export class Dashboard extends Component {
 
     return (
       <GuestDashboard
-        user={user}
         guestDashboard={guestDashboard}
         recommendedObjects={recommendedObjects}
+        getGuestDashboard={getGuestDashboard}
+        getDashboardFeaturedObjects={this.getDashboardFeaturedObjects}
+        getSubscriptionPlans={getSubscriptionPlans}
+        subscriptionPlansData={subscriptionPlansData}
       />
     );
   }

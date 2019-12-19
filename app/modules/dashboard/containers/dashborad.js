@@ -9,16 +9,20 @@ import {
   makeDashboardFeaturedObjectsSelector,
 } from 'app/modules/dashboard/selectors';
 import { makeUserSelector } from 'app/modules/user/selectors';
+import { getSubscriptionPlans } from 'app/modules/account-settings/thunks';
+import { makeSubscriptionPlansDataSelector } from 'app/modules/account-settings/selectors';
 
 const mapStateToProps = createStructuredSelector({
   recommendedObjects: makeDashboardFeaturedObjectsSelector(),
   guestDashboard: makeGuestDashboardSelector(),
   user: makeUserSelector(),
+  subscriptionPlansData: makeSubscriptionPlansDataSelector(),
 });
 
 const mapDispatchToProps = {
   getDashboardFeaturedObjects,
   getGuestDashboard,
+  getSubscriptionPlans,
 };
 
 export default compose(

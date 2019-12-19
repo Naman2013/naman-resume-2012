@@ -28,14 +28,14 @@ export const initialState: TInitialState = {
       cardType: null,
       last4: null,
       expirationDate: null,
-    }
+    },
   },
   showForgetPasswordPopup: false,
   forgetPasswordText: '',
 
   subscriptionPlans: {
     isFetching: false,
-    data: {},
+    data: { subscriptionPlans: [] },
   },
   dashboardPopupInfo: {},
 };
@@ -142,7 +142,7 @@ function getSubscriptionPlan(state) {
     subscriptionPlans: {
       ...state.subscriptionPlans,
       isFetching: true,
-      data: {},
+      data: { subscriptionPlans: [] },
     },
   };
 }

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-// eslint-disable-next-line
-import Request from 'app/components/common/network/Request';
-import ConnectUserAndResponseAccess from 'app/redux/components/ConnectUserAndResponseAccess';
-import { DASHBOARD_TOUR_POPUP } from 'app/services/dashboard';
 import {
   IGuestDashboard,
   IDashboardFeaturedObjects,
@@ -12,8 +8,7 @@ import RecommendedObservations from 'app/components/common/RecommendedObservatio
 import { ClubsList } from 'app/components/common/RecommendedGroupsSlider/clubs-list';
 import { RecommendedObjects } from 'app/components/common/RecommendedObjectsSlider/RecommendedObjectsSlider';
 import RecommendedQuestsList from 'app/components/common/RecommendedQuestsSlider';
-import BootstrappedTourPopupForUser from '../tour-popup/BootstrappedTourPopupForUser';
-import BootstrappedTourPopupForGuestJoin from '../tour-popup/BootstrappedTourPopupForGuestJoin';
+import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -21,13 +16,12 @@ import DashboardPanelItem from '../DashboardPanelItem';
 import './styles.scss';
 
 type TGuestDashboardProps = {
-  user: User;
   guestDashboard: IGuestDashboard;
   recommendedObjects: IDashboardFeaturedObjects;
-};
-
-type TGuestDashboardState = {
-  guestPopupForceShow: boolean;
+  getGuestDashboard: Function;
+  getDashboardFeaturedObjects: Function;
+  getSubscriptionPlans: Function;
+  subscriptionPlansData: any;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -41,29 +35,48 @@ const SECTION_TYPE: { [key: string]: string } = {
   Plans: 'Plans',
 };
 
-export class GuestDashboard extends Component<
-  TGuestDashboardProps,
-  TGuestDashboardState
-> {
-  state = {
-    guestPopupForceShow: false,
-  };
-
+export class GuestDashboard extends Component<TGuestDashboardProps> {
   componentDidMount(): void {
-    setTimeout(() => {
-      this.setState({
-        guestPopupForceShow: true,
-      });
-    }, 15000);
+    this.getGuestDashboard();
   }
 
+  getGuestDashboard = (): void => {
+    const { getGuestDashboard, getDashboardFeaturedObjects } = this.props;
+    getGuestDashboard().then(() => {
+      getDashboardFeaturedObjects();
+      this.getSubscriptionPlans();
+    });
+  };
+
+  getSubscriptionPlans = (): void => {
+    const {
+      getSubscriptionPlans,
+      guestDashboard: {
+        Sections: {
+          Plans: {
+            APIParams: { callSource },
+          },
+        },
+      },
+    } = this.props;
+
+    getSubscriptionPlans({
+      callSource,
+    });
+  };
+
   getSectionComponent = (section: string): any => {
-    const { guestDashboard, recommendedObjects } = this.props;
+    const {
+      guestDashboard,
+      recommendedObjects,
+      subscriptionPlansData,
+    } = this.props;
     const {
       CommunityObservations,
       RecommendedClubs,
       RecommendedQuests,
     } = guestDashboard;
+    const { subscriptionPlans } = subscriptionPlansData;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -95,7 +108,7 @@ export class GuestDashboard extends Component<
         );
       }
       case SECTION_TYPE.Plans: {
-        return <div />;
+        return <MembershipPlansList plans={subscriptionPlans} />;
       }
       default: {
         return <div />;
@@ -104,47 +117,11 @@ export class GuestDashboard extends Component<
   };
 
   render() {
-    const { user, guestDashboard } = this.props;
+    const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
-    const { guestPopupForceShow } = this.state;
 
     return (
       <div className="dashboard-layout">
-        {/* #TODO remove request */}
-        <Request
-          serviceURL={DASHBOARD_TOUR_POPUP}
-          method="POST"
-          render={({ serviceResponse }: any): any => (
-            <div className="root">
-              {serviceResponse.hasPopupDataFlag && (
-                <ConnectUserAndResponseAccess
-                  render={(props: any): any => (
-                    <>
-                      {serviceResponse.displayType === 'user' && (
-                        <BootstrappedTourPopupForUser
-                          {...user}
-                          user={user}
-                          {...serviceResponse.popupData}
-                          validateResponseAccess={props.validateResponseAccess}
-                        />
-                      )}
-                      {serviceResponse.displayType === 'guest-join' &&
-                        guestPopupForceShow && (
-                          <BootstrappedTourPopupForGuestJoin
-                            id="dashboardGuestModal"
-                            {...serviceResponse.popupData}
-                            validateResponseAccess={
-                              props.validateResponseAccess
-                            }
-                          />
-                        )}
-                    </>
-                  )}
-                />
-              )}
-            </div>
-          )}
-        />
         <div className="dash-hero">
           <DisplayAtBreakpoint screenSmall>
             <DashHeroMobile />
@@ -165,7 +142,8 @@ export class GuestDashboard extends Component<
             const { Index, Title, SubTitle, HideSection } = Sections[section];
 
             return (
-              !HideSection && (
+              !HideSection &&
+              Index && (
                 <DashboardPanelItem
                   key={`dashboard-section-0${Index}`}
                   orderNumber={`0${Index}`}
