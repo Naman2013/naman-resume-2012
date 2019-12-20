@@ -1,0 +1,42 @@
+@import '~app/styles/bootstrap/common';
+
+.telescopes-slider-container {
+  margin: 0 auto;
+  max-width: 780px;
+  display: flex;
+  justify-content: center;
+
+  .telescopes-slider {
+    display: block;
+    width: 100%;
+
+    .slick-slider {
+      .slick-prev {
+        margin-left: 23px;
+      }
+
+      .slick-next {
+        margin-right: 23px;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+
+  .telescopes-mobile-list {
+    display: none;
+    width: 100%;
+
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .telescopes-slider-container {
+    max-width: 1180px;
+  }
+}

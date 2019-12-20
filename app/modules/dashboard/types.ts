@@ -13,8 +13,9 @@ export declare interface IDashboardTelescopePromo {
   Index: number;
   Title: string;
   Body: string;
-  ShowDomeCam: boolean;
-  ShowAllSkyCam: boolean;
+  WidgetType: string;
+  WidgetIdFieldName: string;
+  ObsId: string;
 }
 
 export declare interface IDashboardRecomendedQuest {
@@ -149,4 +150,35 @@ export declare interface IDashboardFeaturedObjects extends StandardResponse {
   missionCount: number;
   missionList: Array<IFeaturedObjectsMission>;
   gravityEarnedInThisRequest: boolean;
+}
+
+export declare interface ISubscriptionPlan {
+  planID: string;
+  planName: string;
+  planAudienceType: string;
+  planAudienceTab: string;
+  planDescription: string;
+  planCostPrefix: string;
+  planCost: string;
+  planCostPostfix: string;
+  PlanConditionId: string;
+  aboutThisPlan: string;
+  teaserContent: string;
+  welcomeToThisPlan: string;
+  isPlanActionEnabled: boolean;
+  selectButtonText: string;
+  imageUrl: string;
+  isAstronomyClub: boolean;
+  triggerUpgradeFlow: boolean;
+  triggerUpsellFlow: boolean;
+  planSelectedBackgroundImageUrl_Desktop: string;
+  planSelectedBackgroundImageUrl_Tablet: string;
+  planSelectedBackgroundImageUrl_Mobile: string;
+  hasTrialPeriod: string;
+  '2018AccountType': string;
+}
+
+export declare interface ISubscriptionPlans extends StandardResponse {
+  subscriptionPlansCount: number;
+  subscriptionPlans: Array<ISubscriptionPlan>;
 }

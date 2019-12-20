@@ -37,7 +37,7 @@
 
   .dash-nav {
     position: static;
-    height: 160px;
+    height: 90px;
     width: 100%;
     background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
   }
@@ -45,6 +45,24 @@
   .sections-wrapper {
     margin-bottom: 30px;
     background-color: $faintGray;
+
+    .dash-item {
+      margin-top: 25px;
+
+      & ~ .dash-item {
+        margin-top: 120px;
+      }
+
+      &:nth-child(2) {
+        margin-top: -170px;
+      }
+    }
+
+    .subscription-plans-list {
+      &:after {
+        flex: 0;
+      }
+    }
   }
 
   @media (min-width: 641px) and (max-width: 768px) {

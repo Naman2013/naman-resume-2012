@@ -16,3 +16,5 @@ export const reserveCommunityMissionApi = data =>
   API.post('/api/reservation/reserveCommunityMission', data);
 
 export const getTelescopesApi = data => API.post('/api/page/telescopes', data);
+
+export const getObservatoryListApi = data => API.post('/api/obs/list', data);

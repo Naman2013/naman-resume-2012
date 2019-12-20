@@ -4,6 +4,7 @@ import {
   getFeaturedObjectsByTelescopeApi,
   reserveCommunityMissionApi,
   getTelescopesApi,
+  getObservatoryListApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -58,4 +59,18 @@ export const getTelescopes = () => (dispatch, getState) => {
   return getTelescopesApi({ at, token, cid })
     .then(result => dispatch(ACTION.getTelescopesSuccess(result.data)))
     .catch(error => dispatch(ACTION.getTelescopesError(error)));
+};
+
+export const getObservatoryList = ({ callSource, listType }) => (
+  dispatch,
+  getState
+) => {
+  const { at, token, cid } = getState().user;
+
+  dispatch(ACTION.getObservatoryList());
+  return getObservatoryListApi({ at, token, cid, callSource, listType })
+    .then(result => {
+      return dispatch(ACTION.getObservatoryListSuccess(result.data));
+    })
+    .catch(error => dispatch(ACTION.getObservatoryListError(error)));
 };

@@ -1,0 +1,66 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
+
+.telescopes-slider-item-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .telescopes-slider-item {
+    width: 100%;
+    padding: 10px;
+    background: url($white_texture_bg);
+    box-shadow: 0 0 6px 0 $shadows;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: auto;
+
+    @include media-breakpoint-up(md) {
+      flex-flow: row nowrap;
+      align-items: flex-start;
+      width: 95%;
+      padding: 40px;
+
+      .telescope-info,
+      .telescope-widget {
+        width: 50%;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 80%;
+    }
+
+    .telescope-info {
+      width: 100%;
+      padding: 10px;
+      text-align: left;
+      color: $lightHeadedAstronaut;
+      text-transform: none;
+
+      .telescope-info-title {
+        font-family: $secondary-font;
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 24px;
+        border-bottom: 1px solid $hawkesBlue;
+        padding: 10px 0;
+      }
+
+      .telescope-info-body {
+        margin-top: 15px;
+        font-family: $primary-font;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+      }
+    }
+
+    .telescope-widget {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}

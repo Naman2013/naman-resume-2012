@@ -60,6 +60,8 @@ export class Dashboard extends Component {
       getGuestDashboard,
       getSubscriptionPlans,
       subscriptionPlansData,
+      getObservatoryList,
+      observatoryListData,
     } = this.props;
 
     if (user.isAuthorized) {
@@ -81,6 +83,8 @@ export class Dashboard extends Component {
         getDashboardFeaturedObjects={this.getDashboardFeaturedObjects}
         getSubscriptionPlans={getSubscriptionPlans}
         subscriptionPlansData={subscriptionPlansData}
+        getObservatoryList={getObservatoryList}
+        observatoryListData={observatoryListData}
       />
     );
   }

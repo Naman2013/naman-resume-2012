@@ -3,9 +3,10 @@ import { faintShadow } from 'app/styles/variables/shadows';
 import {
   astronaut,
   romance,
+  // eslint-disable-next-line
   golden_yellow,
   shadows,
-  golda
+  golda,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
@@ -39,7 +40,7 @@ export default css`
   }
   .dash-nav-item img {
     height: 30px;
-    margin: 45px 0 30px 0;
+    margin: 15px 0;
     transition: all 0.3s ease;
   }
 
@@ -54,21 +55,11 @@ export default css`
     color: ${golda};
   }
 
-  .link-container:hover img {
-    height: 35px;
-    margin: 43px 0 17px 0;
-  }
-
-
   @media ${screenMedium} {
     .root {
       display: flex;
-      height: 160px;
+      height: 90px;
       font-size: 11px;
-    }
-    .dash-nav-item img {
-      height: 30px;
-      margin: 45px 0 20px 0;
     }
   }
   @media ${screenLarge} {

@@ -11,18 +11,22 @@ import {
 import { makeUserSelector } from 'app/modules/user/selectors';
 import { getSubscriptionPlans } from 'app/modules/account-settings/thunks';
 import { makeSubscriptionPlansDataSelector } from 'app/modules/account-settings/selectors';
+import { makeObservatoryListSelector } from 'app/modules/telescope/selectors';
+import { getObservatoryList } from 'app/modules/telescope/thunks';
 
 const mapStateToProps = createStructuredSelector({
   recommendedObjects: makeDashboardFeaturedObjectsSelector(),
   guestDashboard: makeGuestDashboardSelector(),
   user: makeUserSelector(),
   subscriptionPlansData: makeSubscriptionPlansDataSelector(),
+  observatoryListData: makeObservatoryListSelector(),
 });
 
 const mapDispatchToProps = {
   getDashboardFeaturedObjects,
   getGuestDashboard,
   getSubscriptionPlans,
+  getObservatoryList,
 };
 
 export default compose(
