@@ -1,7 +1,7 @@
 // @flow
-import React, { PureComponent, Fragment, useState } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
 import { Modal } from '../../../../components/modal';
 import { AccountDetailsHeader } from './header';
@@ -11,7 +11,6 @@ import { CancelAccount } from './cancel-account';
 import { EditPayment } from './edit-payment';
 import { TFormField, TTypeSectionItem } from '../../types';
 import UpgradeModal from '../../containers/upgrade-modal';
-import EditPaymentModal from '../../containers/editpayment-modal';
 
 type TAccountDetails = {
   accountTypeSection: Object<TTypeSectionItem>,
@@ -29,16 +28,12 @@ const mockedPaymentDetailsOptions = [
   },
 ];
 
-const mockedTitle = '';
-
 class AccountDetails extends PureComponent<TAccountDetails> {
   render() {
     const {
       accountTypeSection,
       accountDetails,
       fetchAccountFormFieldAction,
-      accountCancelSection,
-      editPaymentSection,
       resetPassword,
       accountEmail,
       dismissResetPasswordPopup,
@@ -56,14 +51,6 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       accountStatusLabel,
       accountStatus,
     } = accountTypeSection;
-
-    const {
-      canUserCancelTheirAccount,
-      isCancellationInProgress,
-      cancelInstructionalText,
-      cancelButtonText,
-      cancelHeading,
-    } = accountCancelSection;
 
     const getFormFields = data => {
       return data
