@@ -5,17 +5,14 @@ import { EditorState } from 'draft-js';
 import StyleButton from './StyleButton';
 import { INLINE_STYLES } from './constants';
 
-const {
-  func,
-  instanceOf,
-} = PropTypes;
+const { func, instanceOf } = PropTypes;
 
-const InlineStyleControls = (props) => {
+const InlineStyleControls = props => {
   const currentStyle = props.editorState.getCurrentInlineStyle();
 
   return (
     <div className="RichEditor-controls">
-      {INLINE_STYLES.map(type =>
+      {INLINE_STYLES.map(type => (
         <StyleButton
           key={type.label}
           active={currentStyle.has(type.style)}
@@ -24,7 +21,7 @@ const InlineStyleControls = (props) => {
           style={type.style}
           readOnly={props.readOnly}
         />
-      )}
+      ))}
     </div>
   );
 };
