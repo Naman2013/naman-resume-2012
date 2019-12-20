@@ -35,6 +35,7 @@ type TImageorderingProps = {
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user: User;
   activityStatus: ImageorderingModuleResponse['activityStatus'];
+  mmSlotModalVisible: boolean;
 };
 
 type TImageorderingState = {
