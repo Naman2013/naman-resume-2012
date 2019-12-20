@@ -224,6 +224,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                     theme="light"
                     distance={10}
                     position="top"
+                    disabled={isDotsMenuOpen}
                   >
                     <Button
                       className={cx('quest-dot-menu-btn', {
