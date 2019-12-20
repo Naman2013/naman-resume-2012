@@ -11,6 +11,12 @@ export const makeTelescopeFetchingSelector = () =>
     state => state.isFetching
   );
 
+export const makeObservatoryListSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.observatoryList
+  );
+
 export const makeTelescopeDataSelector = () =>
   createSelector(
     selectTelescope,

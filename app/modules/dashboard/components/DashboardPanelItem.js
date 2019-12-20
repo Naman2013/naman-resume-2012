@@ -50,7 +50,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
       h5 {
         font-family: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
         font-weight: 700;
-        font-size: 12px;
+        font-size: 1.4em;
         color: #41566f;
         border-bottom: 2px solid #d8d8d8;
         width: 34px;
@@ -82,7 +82,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
         background-color: #213043;
         background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
         background-size: 100px;
-        padding-top: 125px;
+        padding-top: 25px;
         transition: padding ease-in-out 0.3s;
       }
 

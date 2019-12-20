@@ -3,12 +3,14 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
   IGuestDashboard,
   IDashboardFeaturedObjects,
+  ISubscriptionPlans,
 } from 'app/modules/dashboard/types';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import { ClubsList } from 'app/components/common/RecommendedGroupsSlider/clubs-list';
 import { RecommendedObjects } from 'app/components/common/RecommendedObjectsSlider/RecommendedObjectsSlider';
 import RecommendedQuestsList from 'app/components/common/RecommendedQuestsSlider';
 import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
+import { TelescopesSlider } from 'app/components/telescopes-slider';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -21,7 +23,9 @@ type TGuestDashboardProps = {
   getGuestDashboard: Function;
   getDashboardFeaturedObjects: Function;
   getSubscriptionPlans: Function;
-  subscriptionPlansData: any;
+  subscriptionPlansData: ISubscriptionPlans;
+  getObservatoryList: Function;
+  observatoryListData: any;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -40,9 +44,15 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     this.getGuestDashboard();
   }
 
+  getObservatoryList = (): void => {
+    const { getObservatoryList } = this.props;
+    getObservatoryList({ callSource: 'guestDashboard', listType: 'full' });
+  };
+
   getGuestDashboard = (): void => {
     const { getGuestDashboard, getDashboardFeaturedObjects } = this.props;
     getGuestDashboard().then(() => {
+      this.getObservatoryList();
       getDashboardFeaturedObjects();
       this.getSubscriptionPlans();
     });
@@ -70,17 +80,25 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
       guestDashboard,
       recommendedObjects,
       subscriptionPlansData,
+      observatoryListData,
     } = this.props;
     const {
       CommunityObservations,
       RecommendedClubs,
       RecommendedQuests,
+      TelescopePromos,
     } = guestDashboard;
     const { subscriptionPlans } = subscriptionPlansData;
+    const { observatoryList } = observatoryListData;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
-        return <div />;
+        return (
+          <TelescopesSlider
+            telescopesList={TelescopePromos}
+            observatoryList={observatoryList}
+          />
+        );
       }
       case SECTION_TYPE.Missions: {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
@@ -134,7 +152,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="dash-nav">
-          <DashNav />
+          <DashNav readOnly />
         </div>
 
         <div className="sections-wrapper">

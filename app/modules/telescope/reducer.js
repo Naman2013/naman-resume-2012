@@ -9,6 +9,7 @@ export const TYPE = constants('telescope', [
   '~RESERVE_COMMUNITY_MISSION',
   '~GET_TELESCOPES',
   'SET_TELESCOPES_ACTIVE_TAB',
+  '~GET_OBSERVATORY_LIST',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -36,6 +37,8 @@ export const initialState = {
     reservedCommunityMissionData: {},
     reservedCommunityMissionList: [],
   },
+
+  observatoryList: { observatoryList: [] },
 };
 
 export default handleActions(
@@ -56,6 +59,9 @@ export default handleActions(
     [TYPE.GET_TELESCOPES_SUCCESS]: getTelescopesSuccess,
     [TYPE.GET_TELESCOPES_ERROR]: setTelescopesError,
     [TYPE.SET_TELESCOPES_ACTIVE_TAB]: setTelescopesActiveTab,
+    [TYPE.GET_OBSERVATORY_LIST]: setTelescopesFetching,
+    [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
+    [TYPE.GET_OBSERVATORY_LIST_ERROR]: setTelescopesError,
   },
   initialState
 );
@@ -152,6 +158,16 @@ function getTelescopesSuccess(state, action) {
     pageSetup: {
       ...state.pageSetup,
       ...action.payload,
+    },
+  };
+}
+
+function getObservatoryListSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    observatoryList: {
+      ...payload,
     },
   };
 }
