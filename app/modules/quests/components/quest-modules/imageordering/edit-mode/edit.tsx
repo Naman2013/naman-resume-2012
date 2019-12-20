@@ -30,6 +30,11 @@ type TEditModeProps = {
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user?: User;
 };
+
+type slotModalVisible = {
+  mmSlotModalVisible: boolean;
+};
+
 const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
 export const EditMode: React.FC<TEditModeProps> = props => {
@@ -59,7 +64,9 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     exitReviewButtonTooltipText,
     slotArray = [],
   } = imageOrderingModule;
-  const [mmSlotModalVisible, openMMSlotModal] = useState(false);
+  const [mmSlotModalVisible, openMMSlotModal] = React.useState<
+    slotModalVisible | any
+  >(false);
   const [selectedSlot, setSelectedSlot] = useState(INITIAL_SELECTED_SLOT);
 
   return (
@@ -77,6 +84,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           removeDataCollectionSlotImage={removeDataCollectionSlotImage}
           user={user}
           readOnly={readOnly}
+          mmSlotModalVisible={mmSlotModalVisible}
         />
       ))}
 

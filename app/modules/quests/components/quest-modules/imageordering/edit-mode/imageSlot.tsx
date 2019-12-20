@@ -22,6 +22,7 @@ type TImageSlotProps = {
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   user?: User;
   readOnly: boolean;
+  mmSlotModalVisible: boolean;
 };
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {
@@ -33,6 +34,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     removeDataCollectionSlotImage,
     user,
     readOnly,
+    mmSlotModalVisible,
   } = props;
   const { correctText } = imageOrderingModule;
   const {
@@ -172,6 +174,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   theme="light"
                   distance={10}
                   position="top"
+                  disabled={mmSlotModalVisible}
                 >
                   <Button
                     className="find-button"
