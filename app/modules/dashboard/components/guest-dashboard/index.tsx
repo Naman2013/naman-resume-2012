@@ -11,6 +11,7 @@ import { RecommendedObjects } from 'app/components/common/RecommendedObjectsSlid
 import RecommendedQuestsList from 'app/components/common/RecommendedQuestsSlider';
 import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import { TelescopesSlider } from 'app/components/telescopes-slider';
+import { IObservatoryList } from 'app/modules/telescope/types';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -25,7 +26,7 @@ type TGuestDashboardProps = {
   getSubscriptionPlans: Function;
   subscriptionPlansData: ISubscriptionPlans;
   getObservatoryList: Function;
-  observatoryListData: any;
+  observatoryListData: IObservatoryList;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {

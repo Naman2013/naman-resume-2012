@@ -10,6 +10,7 @@ export const TYPE = constants('telescope', [
   '~GET_TELESCOPES',
   'SET_TELESCOPES_ACTIVE_TAB',
   '~GET_OBSERVATORY_LIST',
+  '~GET_DOME_CAM',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -39,6 +40,8 @@ export const initialState = {
   },
 
   observatoryList: { observatoryList: [] },
+
+  domeCamData: {},
 };
 
 export default handleActions(
@@ -62,6 +65,9 @@ export default handleActions(
     [TYPE.GET_OBSERVATORY_LIST]: setTelescopesFetching,
     [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
     [TYPE.GET_OBSERVATORY_LIST_ERROR]: setTelescopesError,
+    [TYPE.GET_DOME_CAM]: setTelescopesFetching,
+    [TYPE.GET_DOME_CAM_SUCCESS]: getDomeCamSuccess,
+    [TYPE.GET_DOME_CAM_ERROR]: setTelescopesError,
   },
   initialState
 );
@@ -171,3 +177,23 @@ function getObservatoryListSuccess(state, { payload }) {
     },
   };
 }
+
+// Widgets begin
+
+function getDomeCamSuccess(state, { payload }) {
+  const { domeCamData } = state;
+  const { widgetUniqueId } = payload;
+
+  return {
+    ...state,
+    isFetching: false,
+    domeCamData: {
+      ...domeCamData,
+      [widgetUniqueId]: {
+        ...payload,
+      },
+    },
+  };
+}
+
+// Widgets end

@@ -1,5 +1,7 @@
 import React from 'react';
 import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
+import DomeCamWidget from 'app/modules/telescope/containers/dome-cam-widget';
+import { IObservatory } from 'app/modules/telescope/types';
 import './styles.scss';
 
 type TTelescopesSliderItemProps = {
@@ -9,7 +11,7 @@ type TTelescopesSliderItemProps = {
   widgetType: string;
   widgetIdFieldName: string;
   obsId: string;
-  observatoryList: any;
+  observatoryList: Array<IObservatory>;
 };
 
 const TELESCOPE_WIDGETS: { [key: string]: string } = {
@@ -31,35 +33,13 @@ const getWidgetId = (props: TTelescopesSliderItemProps): string => {
   return null;
 };
 
-const getTelescopeWidget = (
-  widgetType: string,
-  obsId: string,
-  widgetId: string
-) => {
-  switch (widgetType) {
-    case TELESCOPE_WIDGETS.AllSkyCam: {
-      return (
-        <ConnectedAllSkyCamera
-          obsId={obsId}
-          allSkyWidgetID={widgetId}
-          withoutContainer
-        />
-      );
-    }
-    case TELESCOPE_WIDGETS.DomeCam: {
-      return <div />;
-    }
-    default: {
-      return <div />;
-    }
-  }
-};
-
 export const TelescopesSliderItem: React.FC<
   TTelescopesSliderItemProps
 > = props => {
   const { title, body, widgetType, obsId } = props;
 
+  //const Widget = WidgetsMapping[type];
+  const widgetId = getWidgetId(props);
   return (
     <div className="telescopes-slider-item-wrapper">
       <div className="telescopes-slider-item">
@@ -68,7 +48,17 @@ export const TelescopesSliderItem: React.FC<
           <div className="telescope-info-body">{body}</div>
         </div>
         <div className="telescope-widget">
-          {getTelescopeWidget(widgetType, obsId, getWidgetId(props))}
+          {widgetType === TELESCOPE_WIDGETS.AllSkyCam && (
+            <ConnectedAllSkyCamera
+              obsId={obsId}
+              allSkyWidgetID={widgetId}
+              withoutContainer
+            />
+          )}
+
+          {widgetType === TELESCOPE_WIDGETS.DomeCam && widgetId && (
+            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId} />
+          )}
         </div>
       </div>
     </div>

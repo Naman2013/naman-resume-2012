@@ -150,3 +150,13 @@ export const makeQueueTabReservedCommunityMissionSelector = () =>
     makeQueueTabSelector(),
     state => state.reservedCommunityMissionList[0]
   );
+
+// Widgets begin
+
+export const makeDomeCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.domeCamData
+  );
+
+// Widgets end

@@ -2,6 +2,7 @@ import React from 'react';
 import take from 'lodash/take';
 import { useTranslation } from 'react-i18next';
 import SloohSlider from 'app/components/common/Slider';
+import { IObservatory } from 'app/modules/telescope/types';
 import { IDashboardTelescopePromo } from 'app/modules/dashboard/types';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import { TelescopesSliderItem } from './telescopes-slider-item';
@@ -10,7 +11,7 @@ import './styles.scss';
 type TTelescopesSliderProps = {
   readOnly?: boolean;
   telescopesList: Array<IDashboardTelescopePromo>;
-  observatoryList: any;
+  observatoryList: Array<IObservatory>;
 };
 
 const getSliderConfiguration = () => {

@@ -5,6 +5,7 @@ import {
   reserveCommunityMissionApi,
   getTelescopesApi,
   getObservatoryListApi,
+  getDomeCamApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -74,3 +75,15 @@ export const getObservatoryList = ({ callSource, listType }) => (
     })
     .catch(error => dispatch(ACTION.getObservatoryListError(error)));
 };
+
+// widgets begin
+
+export const getDomeCam = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getDomeCam());
+  return getDomeCamApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getDomeCamSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getDomeCamError(error)));
+};
+
+// widgets end
