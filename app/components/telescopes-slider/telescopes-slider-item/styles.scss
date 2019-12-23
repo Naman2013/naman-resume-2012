@@ -22,6 +22,8 @@
       align-items: flex-start;
       width: 95%;
       padding: 40px;
+      padding-top: 0px;
+      padding-bottom: 0px;
 
       .telescope-info,
       .telescope-widget {
@@ -35,32 +37,51 @@
 
     .telescope-info {
       width: 100%;
-      padding: 10px;
+
       text-align: left;
       color: $lightHeadedAstronaut;
       text-transform: none;
 
       .telescope-info-title {
         font-family: $secondary-font;
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 300;
         line-height: 24px;
         border-bottom: 1px solid $hawkesBlue;
-        padding: 10px 0;
+        padding: 30px 0;
       }
 
       .telescope-info-body {
         margin-top: 15px;
         font-family: $primary-font;
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 400;
-        line-height: 18px;
+        line-height: 28px;
       }
     }
 
     .telescope-widget {
       width: 100%;
-      padding: 10px;
+
+      .image-clip {
+	width: 250px;
+	height: 250px;
+      }
+
+      .image-portal-root {
+	width: 270px;
+	height: 270px;
+      }
+
+      @media only screen and (max-width: 599px) {
+	padding: 10px;
+      }
+
+      @media only screen and (min-width: 600px) {
+	 padding-top: 40px;
+      	 padding-bottom: 40px;
+         padding-left: 100px;
+      }
     }
   }
 }

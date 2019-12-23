@@ -44,8 +44,8 @@ export const TelescopesSliderItem: React.FC<
     <div className="telescopes-slider-item-wrapper">
       <div className="telescopes-slider-item">
         <div className="telescope-info">
-          <div className="telescope-info-title">{title}</div>
-          <div className="telescope-info-body">{body}</div>
+          <div className="telescope-info-title" dangerouslySetInnerHTML={{__html: title}}/>
+          <div className="telescope-info-body" dangerouslySetInnerHTML={{__html: body}}/>
         </div>
         <div className="telescope-widget">
           {widgetType === TELESCOPE_WIDGETS.AllSkyCam && (
@@ -57,7 +57,7 @@ export const TelescopesSliderItem: React.FC<
           )}
 
           {widgetType === TELESCOPE_WIDGETS.DomeCam && widgetId && (
-            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId} />
+            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId}/>
           )}
         </div>
       </div>

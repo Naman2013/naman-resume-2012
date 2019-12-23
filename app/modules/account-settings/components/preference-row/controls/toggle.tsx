@@ -12,7 +12,6 @@ export const Toggle: React.FC<OptionToggleRowProps> = React.memo(props => {
 
   return (
     <Form.Check
-      type="switch"
       label=""
       id={settingsKey}
       checked={value}
