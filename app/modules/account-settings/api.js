@@ -16,3 +16,9 @@ export const resetPasswordApi = data =>
 
 export const getDashboardPopupInfoApi = data =>
   API.post('/api/app/dashboardPopupInfo', data);
+
+export const getAccountPreferencesApi = data =>
+  API.post('/api/account-settings/getSettings', data);
+
+export const setAccountPreferenceApi = data =>
+  API.post('/api/account-settings/setSetting', data);

@@ -2,24 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const {
-  func,
-  string,
-  bool,
-} = PropTypes;
+const { func, string, bool } = PropTypes;
 
 class StyleButton extends React.Component {
-
   static propTypes = {
     onToggle: func.isRequired,
     style: string.isRequired,
     active: bool.isRequired,
     label: string.isRequired,
-  }
+  };
 
   constructor() {
     super();
-    this.onToggle = (e) => {
+    this.onToggle = e => {
       e.preventDefault();
       this.props.onToggle(this.props.style);
     };
