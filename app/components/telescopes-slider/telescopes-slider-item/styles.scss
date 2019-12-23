@@ -37,10 +37,13 @@
 
     .telescope-info {
       width: 100%;
-
       text-align: left;
       color: $lightHeadedAstronaut;
       text-transform: none;
+
+      @media only screen and (min-width: 600px) {
+	 padding-top: 40px;
+      }
 
       .telescope-info-title {
         font-family: $secondary-font;
