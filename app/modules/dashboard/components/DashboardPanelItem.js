@@ -28,7 +28,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
         text-align: center;
         padding: 0 25px;
         min-height: 400px;
-        margin-top: 120px;
+        margin-top: 60px;
       }
 
       .dash-item:nth-child(2) {
