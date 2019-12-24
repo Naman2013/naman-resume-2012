@@ -9,10 +9,11 @@ const BigShowTile = ({
   eventHostName,
   linkUrl,
   displayDate,
+  readOnly,
 }) => (
   <div className="card-shows">
     <div className="show-card-head">{header}</div>
-    <Link to={linkUrl} href={linkUrl}>
+    <Link to={`${readOnly ? '' : linkUrl}`}>
       <div className="show-card-title">{title}</div>
     </Link>
     <div className="show-card-author">

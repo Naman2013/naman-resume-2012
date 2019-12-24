@@ -12,6 +12,7 @@ import RecommendedQuestsList from 'app/components/common/RecommendedQuestsSlider
 import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import { TelescopesSlider } from 'app/components/telescopes-slider';
 import { IObservatoryList } from 'app/modules/telescope/types';
+import { ShowsSlider } from 'app/components/shows-slider';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -27,6 +28,8 @@ type TGuestDashboardProps = {
   subscriptionPlansData: ISubscriptionPlans;
   getObservatoryList: Function;
   observatoryListData: IObservatoryList;
+  getDashboardShows: Function;
+  dashboardShowsList: any;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -55,6 +58,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     getGuestDashboard().then(() => {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
+      this.getDashboardShows();
       this.getSubscriptionPlans();
     });
   };
@@ -76,12 +80,31 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     });
   };
 
+  getDashboardShows = (): void => {
+    const {
+      getDashboardShows,
+      guestDashboard: {
+        Sections: {
+          Shows: {
+            APIParams: { callSource },
+          },
+        },
+      },
+    } = this.props;
+
+    getDashboardShows({
+      upcomingShowsParams: `limit=50`,
+      highlightedShowsParams: `callSource=${callSource}`,
+    });
+  };
+
   getSectionComponent = (section: string): any => {
     const {
       guestDashboard,
       recommendedObjects,
       subscriptionPlansData,
       observatoryListData,
+      dashboardShowsList,
     } = this.props;
     const {
       CommunityObservations,
@@ -116,7 +139,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return <ClubsList clubsList={RecommendedClubs} readOnly />;
       }
       case SECTION_TYPE.Shows: {
-        return <div />;
+        return <ShowsSlider showsList={dashboardShowsList} readOnly />;
       }
       case SECTION_TYPE.Quests: {
         return (

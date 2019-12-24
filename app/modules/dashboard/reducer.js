@@ -25,6 +25,9 @@ const initialState = {
       Missions: {
         APIParams: {},
       },
+      Shows: {
+        APIParams: {},
+      },
       Plans: {
         APIParams: {},
       },
