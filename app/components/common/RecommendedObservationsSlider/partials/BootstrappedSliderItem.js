@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
+import cx from 'classnames';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
@@ -41,7 +42,7 @@ const BootstrappedObservationSliderItem = props => {
   };
   return (
     <Fragment>
-      <div className="card-obs-wrapper">
+      <div className={cx('card-obs-wrapper', { 'read-only': readOnly })}>
         <div className="card-obs">
           {imageDownloadURL ? (
             <Fragment>

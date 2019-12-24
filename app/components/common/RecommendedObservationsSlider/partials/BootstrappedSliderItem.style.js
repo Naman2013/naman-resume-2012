@@ -1,3 +1,4 @@
+/* eslint-disable */
 import css from 'styled-jsx/css';
 import {
   screenMedium,
@@ -37,6 +38,15 @@ export default css`
     justify-content: center;
     margin-bottom: 20px;
     color: ${lightHeadedAstronaut};
+  }
+
+  .card-obs-wrapper.read-only
+    .card-obs
+    .top
+    .info
+    .links
+    :global(.observation-icon .link) {
+    cursor: auto;
   }
 
   .card-obs {
