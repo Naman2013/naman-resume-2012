@@ -153,6 +153,12 @@ export const makeQueueTabReservedCommunityMissionSelector = () =>
 
 // Widgets begin
 
+export const makeAllSkyCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.allSkyCamData
+  );
+
 export const makeDomeCamDataSelector = () =>
   createSelector(
     selectTelescope,

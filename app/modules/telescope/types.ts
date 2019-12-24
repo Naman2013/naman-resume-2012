@@ -80,3 +80,24 @@ export declare interface IDomeCam extends StandardResponse {
   domeCamURL: string;
   [key: string]: any;
 }
+
+export declare interface IAllSkyCam extends StandardResponse {
+  obsId: string;
+  widgetUniqueId: string;
+  title: string;
+  subtitle: string;
+  credits: string;
+  widgetWidth: string;
+  widgetHeight: string;
+  imageWidth: string;
+  imageHeight: string;
+  offsetTop: string;
+  offsetLeft: string;
+  operation: string;
+  onlineStatus: string;
+  offlineImageURL: string;
+  refreshIntervalSec: number;
+  expires: number;
+  allSkyCamURL: string;
+  [key: string]: any;
+}

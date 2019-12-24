@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
+import AllSkyCamWidget from 'app/modules/telescope/containers/all-sky-cam-widget';
 import DomeCamWidget from 'app/modules/telescope/containers/dome-cam-widget';
 import { IObservatory } from 'app/modules/telescope/types';
 import './styles.scss';
@@ -33,22 +33,52 @@ const getWidgetId = (props: TTelescopesSliderItemProps): string => {
   return null;
 };
 
+const getTelescopeWidget = (
+  widgetType: string,
+  obsId: string,
+  widgetId: string
+) => {
+  switch (widgetType) {
+    case TELESCOPE_WIDGETS.AllSkyCam: {
+      return (
+        <AllSkyCamWidget
+          key={widgetId}
+          obsId={obsId}
+          allSkyWidgetID={widgetId}
+        />
+      );
+    }
+    case TELESCOPE_WIDGETS.DomeCam: {
+      return (
+        <DomeCamWidget
+          key={widgetId}
+          obsId={obsId}
+          domeCamWidgetId={widgetId}
+        />
+      );
+    }
+    default: {
+      return <div />;
+    }
+  }
+};
+
 export const TelescopesSliderItem: React.FC<
   TTelescopesSliderItemProps
 > = props => {
   const { title, body, widgetType, obsId } = props;
 
-  //const Widget = WidgetsMapping[type];
   const widgetId = getWidgetId(props);
+
   return (
     <div className="telescopes-slider-item-wrapper">
       <div className="telescopes-slider-item">
         <div className="telescope-info">
-          <div className="telescope-info-title" dangerouslySetInnerHTML={{__html: title}}/>
-          <div className="telescope-info-body" dangerouslySetInnerHTML={{__html: body}}/>
+          <div className="telescope-info-title">{title}</div>
+          <div className="telescope-info-body">{body}</div>
         </div>
         <div className="telescope-widget">
-          {widgetType === TELESCOPE_WIDGETS.AllSkyCam && (
+          {/* {widgetType === TELESCOPE_WIDGETS.AllSkyCam && (
             <ConnectedAllSkyCamera
               obsId={obsId}
               allSkyWidgetID={widgetId}
@@ -57,8 +87,9 @@ export const TelescopesSliderItem: React.FC<
           )}
 
           {widgetType === TELESCOPE_WIDGETS.DomeCam && widgetId && (
-            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId}/>
-          )}
+            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId} />
+          )} */}
+          {widgetId && getTelescopeWidget(widgetType, obsId, widgetId)}
         </div>
       </div>
     </div>

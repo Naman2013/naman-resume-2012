@@ -6,6 +6,7 @@ import {
   getTelescopesApi,
   getObservatoryListApi,
   getDomeCamApi,
+  getAllSkyCamApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -77,6 +78,14 @@ export const getObservatoryList = ({ callSource, listType }) => (
 };
 
 // widgets begin
+
+export const getAllSkyCam = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAllSkyCam());
+  return getAllSkyCamApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getAllSkyCamSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAllSkyCamError(error)));
+};
 
 export const getDomeCam = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
