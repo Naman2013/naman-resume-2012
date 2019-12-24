@@ -17,6 +17,7 @@ const RecommendedObjectsItem = ({
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,
+  readOnly,
 }) => {
   const {
     missionStartFormatted,
@@ -60,7 +61,7 @@ const RecommendedObjectsItem = ({
           <div className="telescope-name">{telescopeName}</div>
         </div>
       </div>
-      {missionAvailable && !userHasReservation && (
+      {missionAvailable && !userHasReservation && !readOnly && (
         <Button
           onClickEvent={() => reservationModalShow(object)}
           text={optionsButtonCaption}

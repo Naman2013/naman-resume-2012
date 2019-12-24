@@ -149,6 +149,10 @@ export default telescopeConfig;
 
 export function getTelescope(instrumentID) {
   const telescopeNames = Object.keys(telescopeConfig);
-  const selectedTelescope = first(telescopeNames.filter(telescope => telescopeConfig[telescope].instrumentID === instrumentID));
+  const selectedTelescope = first(
+    telescopeNames.filter(
+      telescope => telescopeConfig[telescope].instrumentID === instrumentID
+    )
+  );
   return telescopeConfig[selectedTelescope];
 }

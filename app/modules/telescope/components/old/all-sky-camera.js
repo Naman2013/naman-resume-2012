@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import './all-sky-camera.scss';
-import { ImagePortalViewer } from './index';
+// eslint-disable-next-line
+import { ImagePortalViewer } from 'app/modules/telescope/components/old/common/image-portal-viewer';
 import { ModuleContainer } from './module-container';
+import './all-sky-camera.scss';
 
 class AllSkyCamera extends Component {
   state = {
@@ -17,7 +18,9 @@ class AllSkyCamera extends Component {
 
   componentDidUpdate(prevProps) {
     const { allSkyWidgetID } = prevProps;
-    if (allSkyWidgetID !== this.props.allSkyWidgetID) {
+    const { allSkyWidgetID: propsAllSkyWidgetID } = this.props;
+
+    if (allSkyWidgetID !== propsAllSkyWidgetID) {
       this.updateAllSky();
     }
   }
@@ -70,22 +73,33 @@ class AllSkyCamera extends Component {
       imageURL,
       title,
       AllskyTimelapseWidgetId,
+      withoutContainer,
     } = this.props;
     if (!allSkyWidgetID) return null;
     const { isModalOpen } = this.state;
 
+    const widgetContent = (
+      <>
+        <ImagePortalViewer
+          imageURL={imageURL}
+          title={title}
+          onClick={this.openModal}
+        />
+        {AllskyTimelapseWidgetId
+          ? this.renderAllSkyTimelapseCollapsible()
+          : null}
+      </>
+    );
+
     return (
       <div className="root all-sky-camera">
-        <ModuleContainer title="All sky camera">
-          <ImagePortalViewer
-            imageURL={imageURL}
-            title={title}
-            onClick={this.openModal}
-          />
-          {AllskyTimelapseWidgetId
-            ? this.renderAllSkyTimelapseCollapsible()
-            : null}
-        </ModuleContainer>
+        {withoutContainer ? (
+          widgetContent
+        ) : (
+          <ModuleContainer title="All sky camera">
+            {widgetContent}
+          </ModuleContainer>
+        )}
 
         <ModalImg
           isOpen={isModalOpen}

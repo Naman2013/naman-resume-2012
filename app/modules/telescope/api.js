@@ -16,3 +16,12 @@ export const reserveCommunityMissionApi = data =>
   API.post('/api/reservation/reserveCommunityMission', data);
 
 export const getTelescopesApi = data => API.post('/api/page/telescopes', data);
+
+export const getObservatoryListApi = data => API.post('/api/obs/list', data);
+
+// widgets
+
+export const getAllSkyCamApi = data =>
+  API.post('/api/widget/allSkyCamera', data);
+
+export const getDomeCamApi = data => API.post('/api/widget/domeCamera', data);

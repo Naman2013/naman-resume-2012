@@ -119,7 +119,12 @@ export class WeeklyForecast extends Component {
 
         <div className="active-weather-condition-summary">
           <h4 className="title">{forecastList[currentIndex].DisplayTitle}</h4>
-	  <p className="weather-stats" dangerouslySetInnerHTML={{ __html: forecastList[currentIndex].ForecastDetails}}/>
+          <p
+            className="weather-stats"
+            dangerouslySetInnerHTML={{
+              __html: forecastList[currentIndex].ForecastDetails,
+            }}
+          />
         </div>
 
         <style jsx>{style}</style>
