@@ -1,8 +1,6 @@
 import React from 'react';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { Col, Container, Row } from 'react-bootstrap';
-import Btn from 'app/atoms/Btn';
-import Icon from 'app/atoms/Icon';
 
 const AccountDetailsHeader = props => {
   const { title, noEdit } = props;

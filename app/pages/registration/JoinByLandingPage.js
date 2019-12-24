@@ -3,17 +3,17 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
-import JoinHeader from './partials/JoinHeader';
-import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
+
 import Request from 'app/components/common/network/Request';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import JoinHeader from './partials/JoinHeader';
+import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep1.style';
@@ -24,6 +24,7 @@ class JoinByLandingPage extends Component {
   static propTypes = {
     pathname: string,
   };
+
   static defaultProps = {
     pathname: '/join/byLandingPage',
   };
@@ -48,7 +49,7 @@ class JoinByLandingPage extends Component {
   handleSubscriptionPlanResponse = result => {
     if (result.selectedSubscriptionPlan) {
       const selectedPlanId = result.selectedSubscriptionPlan.planId;
-      const isAstronomyClub = result.selectedSubscriptionPlan.isAstronomyClub;
+      const { isAstronomyClub } = result.selectedSubscriptionPlan;
 
       //We have received a valid response, hand off to setSelectedPlan...
       this.setSelectedPlan(selectedPlanId, isAstronomyClub);
@@ -59,8 +60,8 @@ class JoinByLandingPage extends Component {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
 
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step2');
+    /* move to step 2 in the join flow */
+    browserHistory.push('/join/step2');
   }
 
   render() {

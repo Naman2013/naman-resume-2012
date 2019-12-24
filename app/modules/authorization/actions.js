@@ -164,10 +164,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
-  if (
-    statusCode === UNAUTHORIZED_STATUS_CODE
-    
-  ) {
+  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
     //session issues....send the user to the homepage, they likely tried accessing on a second device.
     triggerUserAccountIssueModal = false;
 
@@ -175,7 +172,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     dispatch(removeUser());
     dispatch(push('/'));
     dispatch(window.location.reload());
-
   } else if (statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE) {
     //paywall
     triggerUserAccountIssueModal = false;
@@ -184,7 +180,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     dispatch(removeUser());
     dispatch(push('/join/step1'));
     dispatch(window.location.reload());
-
   } else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
     subscriptionPlansCallSource = 'forcedsloohcrew';
     triggerUserAccountIssueModal = true;

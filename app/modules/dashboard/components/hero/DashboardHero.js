@@ -1132,7 +1132,7 @@ class DashboardHero extends Component {
                 letterSpacing="2"
               >
                 <tspan x="64.57" y="459">
-                  EDUCATION
+                  TELESCOPES
                 </tspan>
               </text>
               <path

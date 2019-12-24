@@ -577,24 +577,24 @@ class JoinStep2 extends Component {
                 <DeviceContext.Consumer>
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
-                        <JoinHeader
-                          mainHeading={joinPageRes.pageHeading1}
-                          subHeading={joinPageRes.pageHeading2}
-                          activeTab={pathname}
-                          tabs={DEFAULT_JOIN_TABS}
-                          backgroundImage={
-                            isMobile
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Mobile
-                              : isDesktop
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Desktop
-                              : isTablet
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Tablet
-                              : ''
-                          }
-                        />
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                        backgroundImage={
+                          isMobile
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Mobile
+                            : isDesktop
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Desktop
+                            : isTablet
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Tablet
+                            : ''
+                        }
+                      />
                       <div className="step-root">
                         <DisplayAtBreakpoint
                           screenMedium

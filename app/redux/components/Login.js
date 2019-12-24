@@ -363,7 +363,7 @@ class Login extends Component {
               <span className="title-link">
                 {t('Dashboard.DontHaveAccount')}
               </span>
-              <Link to="/about/memberships">
+              <Link to="/join/step1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
                   theme={{

@@ -1,0 +1,54 @@
+@import "~app/styles/variables/colors.scss";
+
+.account-preferences {
+  padding: 40px 0;
+
+  .account-preferences-header {
+    display: flex;
+    padding: 40px;
+    color: $lightHeadedAstronaut;
+
+    .account-preferences-header-inner {
+      width: 100%;
+
+      .hr {
+        margin: 15px 0;
+      }
+    }
+
+    .account-preferences-header-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      margin-left: 40px;
+      font-size: 30px;
+      line-height: 1;
+      color: $romance;
+
+      .icon-wrapper {
+        width: 92px;
+        height: 92px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 1px solid $iron;
+
+        .icon-inner {
+          width: 80px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: $astronaut;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .account-preferences-items {
+    margin-top: 24px;
+  }
+}
