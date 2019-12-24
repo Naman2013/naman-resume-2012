@@ -56,6 +56,12 @@
       &:nth-child(2) {
         margin-top: -170px;
       }
+
+      .outer-well {
+	.dashboard-recommended-objects {
+		padding-bottom: 0px;
+	}
+      }
     }
 
     .subscription-plans-list {
