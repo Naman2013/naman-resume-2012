@@ -38,7 +38,7 @@ export const initialState: TInitialState = {
 
   subscriptionPlans: {
     isFetching: false,
-    data: {},
+    data: { subscriptionPlans: [] },
   },
   dashboardPopupInfo: {},
 };
@@ -173,7 +173,7 @@ function getSubscriptionPlan(state) {
     subscriptionPlans: {
       ...state.subscriptionPlans,
       isFetching: true,
-      data: {},
+      data: { subscriptionPlans: [] },
     },
   };
 }

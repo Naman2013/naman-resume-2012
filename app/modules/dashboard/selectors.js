@@ -7,3 +7,9 @@ export const makeDashboardFeaturedObjectsSelector = () =>
     selectDashboard,
     state => state.featuredObjects
   );
+
+export const makeGuestDashboardSelector = () =>
+  createSelector(
+    selectDashboard,
+    state => state.guestDashboard
+  );

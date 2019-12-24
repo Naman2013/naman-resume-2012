@@ -22,15 +22,17 @@ const getSliderConfiguration = () =>
     ],
   });
 
-const getRecommendedEventsItems = (imageList = []) =>
+const getRecommendedEventsItems = (imageList = [], readOnly = false) =>
   imageList.map(object => ({
-    render: () => <BigShowTile key={object.eventId} {...object} />,
+    render: () => (
+      <BigShowTile key={object.eventId} {...object} readOnly={readOnly} />
+    ),
   }));
 
-export const getSliderProps = (slideList = [], t) =>
+export const getSliderProps = (slideList = [], t, readOnly) =>
   Object.assign(
     {
-      slideList: getRecommendedEventsItems(slideList),
+      slideList: getRecommendedEventsItems(slideList, readOnly),
     },
     {
       sliderConfig: getSliderConfiguration(),

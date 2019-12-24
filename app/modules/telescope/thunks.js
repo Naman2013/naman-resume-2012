@@ -4,6 +4,9 @@ import {
   getFeaturedObjectsByTelescopeApi,
   reserveCommunityMissionApi,
   getTelescopesApi,
+  getObservatoryListApi,
+  getDomeCamApi,
+  getAllSkyCamApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -59,3 +62,37 @@ export const getTelescopes = () => (dispatch, getState) => {
     .then(result => dispatch(ACTION.getTelescopesSuccess(result.data)))
     .catch(error => dispatch(ACTION.getTelescopesError(error)));
 };
+
+export const getObservatoryList = ({ callSource, listType }) => (
+  dispatch,
+  getState
+) => {
+  const { at, token, cid } = getState().user;
+
+  dispatch(ACTION.getObservatoryList());
+  return getObservatoryListApi({ at, token, cid, callSource, listType })
+    .then(result => {
+      return dispatch(ACTION.getObservatoryListSuccess(result.data));
+    })
+    .catch(error => dispatch(ACTION.getObservatoryListError(error)));
+};
+
+// widgets begin
+
+export const getAllSkyCam = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getAllSkyCam());
+  return getAllSkyCamApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getAllSkyCamSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAllSkyCamError(error)));
+};
+
+export const getDomeCam = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getDomeCam());
+  return getDomeCamApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getDomeCamSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getDomeCamError(error)));
+};
+
+// widgets end

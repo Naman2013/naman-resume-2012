@@ -30,12 +30,12 @@ class DashboardNav extends Component {
   state = {};
 
   render() {
-    const { t } = this.props;
+    const { t, readOnly } = this.props;
 
     return (
       <div className="root">
         <div className="dash-nav-item">
-          <Link to="/missions">
+          <Link to={`${readOnly ? '' : '/missions'}`}>
             <div className="link-container">
               <img alt="missions" src={missions} />
               <div className="title-item">{t('Dashboard.missions')}</div>
@@ -43,7 +43,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/guides/all">
+          <Link to={`${readOnly ? '' : '/guides/all'}`}>
             <div className="link-container">
               <img alt="guides" src={guides} />
               <div className="title-item">{t('Dashboard.guides')}</div>
@@ -51,7 +51,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/quests">
+          <Link to={`${readOnly ? '' : '/quests'}`}>
             <div className="link-container">
               <img alt="quests" src={quests} />
               <div className="title-item">{t('Dashboard.quests')}</div>
@@ -59,7 +59,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/shows">
+          <Link to={`${readOnly ? '' : '/shows'}`}>
             <div className="link-container">
               <img alt="shows" src={shows} />
               <div className="title-item">{t('Dashboard.shows')}</div>
@@ -67,7 +67,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/stories">
+          <Link to={`${readOnly ? '' : '/stories'}`}>
             <div className="link-container">
               <img alt="stories" src={stories} />
               <div className="title-item">{t('Dashboard.stories')}</div>
@@ -75,7 +75,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/groups">
+          <Link to={`${readOnly ? '' : '/groups'}`}>
             <div className="link-container">
               <img alt="clubs" src={groups} />
               <div className="title-item">{t('Dashboard.clubs')}</div>

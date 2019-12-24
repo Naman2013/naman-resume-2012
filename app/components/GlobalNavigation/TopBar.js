@@ -197,7 +197,7 @@ const TopBar = ({
                           <div className="flex-row justify-content-center align-items-center">
                             <Link
                               className="button text"
-                              to="/about/memberships"
+                              to="/join/step1"
                             >
                               <button className="btn btn-submit">
                                 Start Free Trial

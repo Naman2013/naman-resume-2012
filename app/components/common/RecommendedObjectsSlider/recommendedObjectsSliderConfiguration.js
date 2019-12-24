@@ -14,7 +14,8 @@ const getRecommendedObjectsItems = (
   recommendedObjectsList = [],
   reservationModalShow,
   reservedButtonCaption,
-  optionsButtonCaption
+  optionsButtonCaption,
+  readOnly = false
 ) =>
   recommendedObjectsList.map(object => ({
     render: () => (
@@ -24,6 +25,7 @@ const getRecommendedObjectsItems = (
         reservationModalShow={reservationModalShow}
         reservedButtonCaption={reservedButtonCaption}
         optionsButtonCaption={optionsButtonCaption}
+        readOnly={readOnly}
       />
     ),
   }));
@@ -33,7 +35,8 @@ export const getSliderProps = (
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,
-  t
+  t,
+  readOnly
 ) =>
   Object.assign(
     {
@@ -41,7 +44,8 @@ export const getSliderProps = (
         slideList,
         reservationModalShow,
         reservedButtonCaption,
-        optionsButtonCaption
+        optionsButtonCaption,
+        readOnly
       ),
     },
     {
