@@ -13,6 +13,8 @@ import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import { TelescopesSlider } from 'app/components/telescopes-slider';
 import { IObservatoryList } from 'app/modules/telescope/types';
 import { ShowsSlider } from 'app/components/shows-slider';
+import { MissionPhotosSlider } from 'app/components/common/mission-photos-slider';
+import { missionPhotoList } from 'app/components/common/mission-photos-slider/imageList';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -114,6 +116,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     } = guestDashboard;
     const { subscriptionPlans } = subscriptionPlansData;
     const { observatoryList } = observatoryListData;
+    const { imageList } = missionPhotoList;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -128,7 +131,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
       case SECTION_TYPE.MissionsPhotos: {
-        return <div />;
+        return <MissionPhotosSlider imageList={imageList} readOnly />;
       }
       case SECTION_TYPE.Observations: {
         return (
@@ -184,7 +187,6 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
             const { Index, Title, SubTitle, HideSection } = Sections[section];
 
             return (
-              !HideSection &&
               Index && (
                 <DashboardPanelItem
                   key={`dashboard-section-0${Index}`}
