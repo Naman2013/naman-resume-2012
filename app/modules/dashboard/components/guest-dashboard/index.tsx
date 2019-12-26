@@ -13,8 +13,9 @@ import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import { TelescopesSlider } from 'app/components/telescopes-slider';
 import { IObservatoryList } from 'app/modules/telescope/types';
 import { ShowsSlider } from 'app/components/shows-slider';
-import { MissionPhotosSlider } from 'app/components/common/mission-photos-slider';
-import { missionPhotoList } from 'app/components/common/mission-photos-slider/imageList';
+import { MissionPhotosSlider } from 'app/components/mission-photos-slider';
+import { missionPhotoList } from 'app/components/mission-photos-slider/imageList';
+import { IShowsListItem } from 'app/modules/shows/types';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -31,7 +32,7 @@ type TGuestDashboardProps = {
   getObservatoryList: Function;
   observatoryListData: IObservatoryList;
   getDashboardShows: Function;
-  dashboardShowsList: any;
+  dashboardShowsList: Array<IShowsListItem>;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -187,6 +188,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
             const { Index, Title, SubTitle, HideSection } = Sections[section];
 
             return (
+              !HideSection &&
               Index && (
                 <DashboardPanelItem
                   key={`dashboard-section-0${Index}`}

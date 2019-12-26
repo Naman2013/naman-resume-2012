@@ -19,7 +19,7 @@ import './fitsData.scss';
 type TMissionCard = {
   isDesktop: boolean,
   isMobile: boolean,
-  currentItem: Record<string, any>;
+  currentItem: Record<string, any>,
 };
 
 @withTranslation()
@@ -200,7 +200,12 @@ class MissionCard extends PureComponent<TMissionCard> {
     const { showPrompt, modalStyles, modalComponent } = this.state;
 
     return (
-      <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
+      <div
+        className={cn([
+          'root mission-photos-card',
+          { inCenter: inCenter && isDesktop },
+        ])}
+      >
         <div
           className={cn('missionCard', { hovered: menuIsVisible })}
           ref={node => {
