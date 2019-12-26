@@ -66,21 +66,22 @@ export class ThreeDotsMenu extends PureComponent {
       cancelMissionMenuText,
     } = timeSlot;
 
+    const CustomToggle = React.forwardRef(({ onClick }, ref) => (
+      <i
+        ref={ref}
+        className="fa fa-ellipsis-h"
+        aria-hidden="true"
+        onClick={onClick}
+      />
+    ));
+
     return (
       <Dropdown
         className="three-dots-menu"
         onSelect={this.handleSelect}
         alignRight
       >
-        <Dropdown.Toggle
-          as={props => (
-            <i
-              className="fa fa-ellipsis-h"
-              aria-hidden="true"
-              onClick={props.onClick}
-            />
-          )}
-        />
+        <Dropdown.Toggle as={CustomToggle} />
 
         <Dropdown.Menu>
           {showPiggybackButton && (
