@@ -151,7 +151,7 @@ export default css`
     display: flex;
   }
 
-  .photoRoll-details-btn {
+  :global(.overlay-bottom .photoRoll-details-btn) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,7 +168,7 @@ export default css`
     font-family: ${primaryFont};
   }
 
-  .overlay-bottom-action .photoRoll-circle-btn {
+  :global(.overlay-bottom .overlay-bottom-action .photoRoll-circle-btn) {
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -177,13 +177,25 @@ export default css`
     border: 1px dashed ${romance};
     border-radius: 50%;
     cursor: pointer;
+    padding: 0;
   }
 
-  .overlay-bottom-action .photoRoll-circle-btn:first-child {
+  :global(.overlay-bottom
+      .overlay-bottom-action
+      .photoRoll-circle-btn:first-child) {
     margin-right: 10px;
   }
 
-  .overlay-bottom-action .photoRoll-circle-btn:last-child {
+  :global(.overlay-bottom
+      .overlay-bottom-action
+      .photoRoll-circle-btn
+      .icon-download:before) {
+    color: ${romance};
+  }
+
+  :global(.overlay-bottom
+      .overlay-bottom-action
+      .photoRoll-circle-btn:last-child) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,16 +224,13 @@ export default css`
       margin-top: 10px;
     }
 
-    .onhover-overlay .overlay-bottom .photoRoll-details-btn {
+    :global(.onhover-overlay .overlay-bottom .photoRoll-details-btn) {
       padding: 0 10px;
+      line-height: 30px;
+      height: 30px;
     }
 
-    .onhover-overlay > .overlay-bottom > button.photoRoll-details-btn {
-      padding: 0 15px !important;
-      height: 30px !important;
-    }
-
-    .overlay-bottom-action .photoRoll-circle-btn {
+    :global(.onhover-overlay .overlay-bottom-action .photoRoll-circle-btn) {
       width: 30px;
       height: 30px;
       font-size: 14px;
