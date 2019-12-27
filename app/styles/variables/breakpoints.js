@@ -7,9 +7,18 @@ function createMediaQuery(size = 0) {
   return `screen and (min-width: ${size}px)`;
 }
 
+function createTabletMediaQuery() {
+  return `screen and (max-width: ${SCREEN_LARGE}px) and (min-width: ${SCREEN_MEDIUM}px),`;
+}
+
 export const screenMedium = createMediaQuery(SCREEN_MEDIUM);
 export const screenLarge = createMediaQuery(SCREEN_LARGE);
 export const screenXLarge = createMediaQuery(SCREEN_XLARGE);
+export const screenTablet = createTabletMediaQuery();
 
 export const defaultScale = [screenMedium, screenLarge, screenXLarge];
-export const tileScale = [createMediaQuery(620), createMediaQuery(940), createMediaQuery(940)];
+export const tileScale = [
+  createMediaQuery(620),
+  createMediaQuery(940),
+  createMediaQuery(940),
+];
