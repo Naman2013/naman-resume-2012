@@ -1,10 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import Slider from 'react-slick';
 import getDefaultConfig from 'app/components/common/Slider/sliderConfig';
-import { FeaturedObjectCard } from '../featured-object-card';
 import { sliderResponsiveConfig } from 'app/styles/variables/slider-config';
-import { FeaturedObjectsModal } from '../featured-objects-modal';
 import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import { FeaturedObjectCard } from '../featured-object-card';
+import { FeaturedObjectsModal } from '../featured-objects-modal';
 import './styles.scss';
 
 function NextArrow(props) {
@@ -45,12 +45,15 @@ export class FeaturedObjects extends PureComponent {
       callSource: 'featuredObjectsV4',
       scheduledMissionId,
       missionStart,
-    }).then(() => this.setState({ successModalShow: true }));
-  }
-  
+    }).then(() => {
+      this.setState({ successModalShow: true });
+      this.reservationModalHide();
+    });
+  };
+
   reservationModalShow = mission => {
     this.setState({ reservationModalVisible: true, selectedMission: mission });
-  }
+  };
 
   reservationModalHide = () => {
     this.setState({ reservationModalVisible: false, selectedMission: {} });
@@ -58,15 +61,33 @@ export class FeaturedObjects extends PureComponent {
 
   modalClose = () => {
     const { getFeaturedObjectsByTelescope } = this.props;
-    this.setState({ successModalShow: false, reservationModalVisible: false, selectedMission: {} });
+    this.setState({
+      successModalShow: false,
+      reservationModalVisible: false,
+      selectedMission: {},
+    });
     getFeaturedObjectsByTelescope();
-  }
+  };
 
   render() {
-    const { currentTelescope, featuredObjectsData, user, reservedCommunityMissionData, reservedCommunityMission } = this.props;
-    const { reservationModalVisible, selectedMission, successModalShow } = this.state;
+    const {
+      currentTelescope,
+      featuredObjectsData,
+      user,
+      reservedCommunityMissionData,
+      reservedCommunityMission,
+    } = this.props;
+    const {
+      reservationModalVisible,
+      selectedMission,
+      successModalShow,
+    } = this.state;
     const { teleName } = currentTelescope;
-    const { missionCount, missionList, reservedButtonCaption } = featuredObjectsData;
+    const {
+      missionCount,
+      missionList,
+      reservedButtonCaption,
+    } = featuredObjectsData;
     const defaultSliderConfig = getDefaultConfig();
     return (
       <div className="featured-objects">
@@ -76,7 +97,7 @@ export class FeaturedObjects extends PureComponent {
         </h3>
 
         <div className="featured-objects-slider">
-          <Slider 
+          <Slider
             {...defaultSliderConfig}
             {...sliderResponsiveConfig}
             nextArrow={<NextArrow />}
