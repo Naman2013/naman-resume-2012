@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
-import Button from 'app/components/common/style/buttons/Button';
+import { Button } from 'react-bootstrap';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
@@ -127,14 +127,14 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <div className="photoRoll-instrument">{instrumentName}</div>
                 </div>
                 <div className="overlay-bottom">
-                  <div className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</div>
+                  <Button className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</Button>
                   <div style={{ display: 'flex' }} className="overlay-bottom-action">
-                    <div className="photoRoll-circle-btn" onClick={this.onDownloadFile}>
+                    <Button className="photoRoll-circle-btn" onClick={this.onDownloadFile}>
                       <span className="icon-download" />
-                    </div>
-                    <div className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
+                    </Button>
+                    <Button className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
                       <Dots />
-                    </div>
+                    </Button>
                   </div>
                 </div>
               </div>
