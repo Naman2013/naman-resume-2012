@@ -1,37 +1,25 @@
-import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
-import {
-  astronaut,
-  shadows,
-  questTexture,
-  blue_tile_canvas,
-  lightHeadedAstronaut,
-} from '../../../../styles/variables/colors_tiles_v4';
-import { questShield } from '../../../../styles/variables/iconURLs';
+@import '~app/styles/variables/index';
 
-export default css`
-  .root {
-    pointer-events: auto;
-    width: 300px;
-    height: 300px;
-    text-align: center;
-    box-size: border-box;
-    padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
-    color: ${astronaut};
-    list-style-type: none;
-    background: url(${questTexture});
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: width, height 0.15s ease-out;
-    margin: 10px auto;
-    position: relative;
-    max-width: 100%;
-  }
+.quest-dashboard-list-item {
+  pointer-events: auto;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  padding: 0;
+  box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
+  color: $astronaut;
+  list-style-type: none;
+  background: url($questTexture);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: width, height 0.15s ease-out;
+  margin: 10px auto;
+  position: relative;
+  max-width: 100%;
 
   .blue-shield {
     position: absolute;
-    background: url(${questShield});
+    background: url($questShield);
     background-size: cover;
     background-repeat: no-repeat;
     height: 112px;
@@ -70,7 +58,7 @@ export default css`
     height: 100px;
     margin: 0 auto;
     border-radius: 50%;
-    background: url(${blue_tile_canvas});
+    background: url($blue_tile_canvas);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -87,8 +75,8 @@ export default css`
 
   .title {
     border-bottom: none;
-    color: ${lightHeadedAstronaut};
-    font-family: ${secondaryFont};
+    color: $lightHeadedAstronaut;
+    font-family: $secondary-font;
     font-size: 21px;
     font-weight: 300;
     letter-spacing: 0;
@@ -98,8 +86,8 @@ export default css`
   }
 
   .level {
-    color: ${lightHeadedAstronaut};
-    font-family: ${primaryFont};
+    color: $lightHeadedAstronaut;
+    font-family: $primary-font;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 2px;
@@ -121,13 +109,9 @@ export default css`
   }
 
   .quest-info-item.left {
-    border-right: 0.5px solid ${shadows};
+    border-right: 0.5px solid $shadows;
   }
   .quest-info-item.right {
-    border-left: 0.5px solid ${shadows};
+    border-left: 0.5px solid $shadows;
   }
-
-  .disable-link {
-    pointer-events: none;
-  }
-`;
+}

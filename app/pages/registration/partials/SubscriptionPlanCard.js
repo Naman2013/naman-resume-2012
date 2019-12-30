@@ -1,8 +1,7 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Button from 'app/components/common/style/buttons/Button';
-import { info } from 'app/styles/variables/iconURLs';
 import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
 import styles from './SubscriptionPlanCard.style';
 
@@ -20,13 +19,20 @@ class SubscriptionPlanCard extends Component {
     planName: string.isRequired,
     selectButtonText: string.isRequired,
     setSelectedPlan: func.isRequired,
+    expanded: string,
   };
 
   static defaultProps = {};
 
-  state = {
-    showDetails: false,
-  };
+  constructor(props) {
+    super(props);
+
+    const { expanded } = props;
+
+    this.state = {
+      showDetails: expanded,
+    };
+  }
 
   toggleDetails = () => {
     this.setState(state => ({
@@ -37,12 +43,10 @@ class SubscriptionPlanCard extends Component {
   render() {
     const {
       aboutThisPlan,
-      imageUrl,
       planAudienceType,
       planCost,
       planCostPrefix,
       planCostPostfix,
-      planDescription,
       planID,
       planName,
       selectButtonText,
@@ -100,7 +104,7 @@ class SubscriptionPlanCard extends Component {
         {showDetails ? (
           <div
             className="inner-container"
-            id={'subscriptionPlanDetails_' + planID}
+            id={`subscriptionPlanDetails_${planID}`}
             dangerouslySetInnerHTML={{ __html: aboutThisPlan }}
           />
         ) : null}

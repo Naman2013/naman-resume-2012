@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Button from 'app/components/common/style/buttons/Button';
 import { info } from 'app/styles/variables/iconURLs';
-import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
 import { browserHistory } from 'react-router';
-import styles from './SubscriptionPlanCard.style';
 import styles2 from 'app/pages/registration/JoinStep1SchoolSelection.style';
+import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
+import styles from './SubscriptionPlanCard.style';
 
 const { func, number, oneOfType, string } = PropTypes;
 
@@ -47,11 +47,10 @@ class SubscriptionPlanCardDashboard extends Component {
     /* move to collecting account info in the Join Flow */
     if (isClassroom == true) {
       browserHistory.push('/join/step1SchoolSelection');
-    }
-    else {
+    } else {
       browserHistory.push('/join/step2');
     }
-  }
+  };
 
   render() {
     const {
@@ -75,11 +74,10 @@ class SubscriptionPlanCardDashboard extends Component {
       <div className="root">
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
           <div className="inner-container">
-            <div className="emphasize title">
-              Welcome!
-            </div>
+            <div className="emphasize title">Welcome!</div>
             <div className="emphasize border-bottom title">
-              Join now to enjoy Slooh for <span style={{fontWeight: "bold"}}>14 days</span>
+              Join now to enjoy Slooh for{' '}
+              <span style={{ fontWeight: 'bold' }}>One Week</span>
             </div>
             <div className="flex border-bottom padded-top-bottom">
               <div>
@@ -89,9 +87,7 @@ class SubscriptionPlanCardDashboard extends Component {
                 />
                 <div className="audience-type">{planAudienceType}</div>
               </div>
-              <div className="plan-cost">
-                FREE
-              </div>
+              <div className="plan-cost">FREE</div>
             </div>
             <div className="flex border-bottom padded-top-bottom">
               <div
@@ -99,7 +95,7 @@ class SubscriptionPlanCardDashboard extends Component {
                 dangerouslySetInnerHTML={{ __html: teaserContent }}
               />
               <span
-                style={{textAlign: "center", marginLeft: "55px"}}
+                style={{ textAlign: 'center', marginLeft: '55px' }}
                 className="emphasize"
                 dangerouslySetInnerHTML={{ __html: planCostPostfix }}
               />
@@ -109,11 +105,7 @@ class SubscriptionPlanCardDashboard extends Component {
                 <Button
                   icon={info}
                   onClickEvent={() =>
-                    this.viewPlanDetails(
-                      planID,
-                      isAstronomyClub,
-                      isClassroom
-                    )
+                    this.viewPlanDetails(planID, isAstronomyClub, isClassroom)
                   }
                 />
               </div>

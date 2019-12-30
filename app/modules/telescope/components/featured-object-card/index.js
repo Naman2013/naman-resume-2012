@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import './styles.scss';
 
@@ -6,23 +6,19 @@ export class FeaturedObjectCard extends PureComponent {
   render() {
     const {
       featureObject,
-      getTelescopeSlot,
       onOptionClick,
       reservedButtonCaption,
       optionsButtonCaption,
+      readOnly,
     } = this.props;
     const {
       title,
-      ownerAvatarURL,
-      ownerDisplayName,
-      showSloohUser,
       missionStartFormatted,
       objectIconURL,
       missionAvailable,
       userHasReservation,
     } = featureObject;
     const {
-      displayOtherTimeZones,
       displayTime,
       displayTimeZone,
       displayWeekdayMonthDayUTC,
@@ -49,7 +45,7 @@ export class FeaturedObjectCard extends PureComponent {
         <div className="featured-object-card-footer">
           <div className="mission-date">{displayWeekdayMonthDayUTC}</div>
 
-          {missionAvailable && !userHasReservation && (
+          {missionAvailable && !userHasReservation && !readOnly && (
             <Button className="option-btn" onClick={onOptionClick}>
               {optionsButtonCaption || 'Options'}
             </Button>

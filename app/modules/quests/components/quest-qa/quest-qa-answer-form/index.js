@@ -83,6 +83,7 @@ export const QuestQaAnswerForm = props => {
           editorValue={richTextHtml}
           placeholder=""
           readOnly={textInputReadOnly}
+          hasInitialValue={Boolean(answerText)}
         />
       )}
 

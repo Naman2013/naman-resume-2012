@@ -119,6 +119,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
+import AccountPreferences from './modules/account-settings/containers/account-preferences';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
@@ -206,9 +207,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
-        <Redirect
-          from="purchaseConfirmation(/:tab)"
-          to="/purchase-confirmation"
+        <Route
+          path="purchaseConfirmation(/:tab)"
+          component={PurchaseConfirmationMain}
+          onEnter={validateUser}
         />
         <Route path="step1" component={JoinStep1} />
         <Route
@@ -562,14 +564,9 @@ const AppRouter = ({ setPreviousInstrument }) => (
       >
         <IndexRedirect to="account-details" />
         <Route path="account-details" component={AccountDetails} />
+        <Route path="settings" component={AccountPreferences} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
-
-      <Route
-        path="purchase-confirmation"
-        component={PurchaseConfirmationMain}
-        onEnter={validateUser}
-      />
 
       <Route
         path="admin-tools"

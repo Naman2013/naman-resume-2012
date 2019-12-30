@@ -19,23 +19,6 @@ const Footer = ({ primaryLinks, copyrightText }) => (
         ))}
       </ul>
     </div>
-    <ul className="buttons">
-      <li>
-        <a className="action social" href="#">
-          <span className="fa fa-twitter" />
-        </a>
-      </li>
-      <li>
-        <a className="action social" href="#">
-          <span className="fa fa-facebook" />
-        </a>
-      </li>
-      <li>
-        <a className="action social" href="#">
-          <span className="fa fa-instagram" />
-        </a>
-      </li>
-    </ul>
     <style jsx>{style}</style>
   </div>
 );

@@ -65,7 +65,6 @@ class JoinStep2 extends Component {
       isAstronomyClub:
         window.localStorage.getItem('isAstronomyClub') === 'true',
       isAgeRestricted: true,
-      isClassroom: window.localStorage.getItem('isClassroom') === 'true',
       googleProfileData: {
         googleProfileId: '',
         googleProfileEmail: '',
@@ -120,20 +119,6 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
-        astronomyClubName: {
-          label: '',
-          visible: true,
-          value: '',
-          hintText: '',
-          errorText: '',
-        },
-        astronomyClub18AndOver: {
-          label: '',
-          visible: true,
-          value: false,
-          hintText: '',
-          errorText: '',
-        },
         is13YearsAndOlder: {
           label: '',
           visible: true,
@@ -175,10 +160,6 @@ class JoinStep2 extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label =
       result.formFieldLabels.passwordverification.label;
-    newAccountFormData.astronomyClubName.label =
-      result.formFieldLabels.astronomyClubName.label;
-    newAccountFormData.astronomyClub18AndOver.label =
-      result.formFieldLabels.astronomyClub18AndOver.label;
     newAccountFormData.is13YearsAndOlder.label =
       result.formFieldLabels.is13YearsAndOlder.label;
     newAccountFormData.not13YearsOldLegalGuardianOk.label =
@@ -200,10 +181,6 @@ class JoinStep2 extends Component {
       result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText =
       result.formFieldLabels.passwordverification.hintText;
-    newAccountFormData.astronomyClubName.hintText =
-      result.formFieldLabels.astronomyClubName.hintText;
-    newAccountFormData.astronomyClub18AndOver.hintText =
-      result.formFieldLabels.astronomyClub18AndOver.hintText;
     newAccountFormData.is13YearsAndOlder.hintText =
       result.formFieldLabels.is13YearsAndOlder.hintText;
     newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
@@ -249,7 +226,6 @@ class JoinStep2 extends Component {
     accountFormDetailsData.loginEmailAddressVerification.errorText = '';
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
-    accountFormDetailsData.astronomyClubName.errorText = '';
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
     accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
@@ -313,16 +289,6 @@ class JoinStep2 extends Component {
       if (accountFormDetailsData.familyName.value === '') {
         accountFormDetailsData.familyName.errorText = t(
           '.LastNameRequierMessage'
-        );
-        formIsComplete = false;
-      }
-    }
-
-    /* Special Verifications if this is an Astronomy Club */
-    if (this.state.isAstronomyClub) {
-      if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = t(
-          '.AstronomyClubRequierMessage'
         );
         formIsComplete = false;
       }
@@ -457,17 +423,6 @@ class JoinStep2 extends Component {
       selectedSchoolId,
       isAgeRestricted: this.state.isAgeRestricted,
     };
-    /* update tool/false values for Astronomy Club */
-    if (
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver
-        .value === false
-    ) {
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value =
-        'false';
-    } else {
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value =
-        'true';
-    }
 
     // JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
     API.post(
@@ -494,14 +449,6 @@ class JoinStep2 extends Component {
             window.localStorage.setItem(
               'password',
               this.state.accountFormDetails.password.value
-            );
-            window.localStorage.setItem(
-              'astronomyClubName',
-              this.state.accountFormDetails.astronomyClubName.value
-            );
-            window.localStorage.setItem(
-              'isAstronomyClubForMembers18AndOver',
-              this.state.accountFormDetails.astronomyClub18AndOver.value
             );
             // console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
@@ -612,9 +559,6 @@ class JoinStep2 extends Component {
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
-    //for classroom accounts
-    const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
-
     return (
       <div>
         <Request
@@ -622,7 +566,6 @@ class JoinStep2 extends Component {
           requestBody={{
             callSource: 'setupCredentials',
             selectedPlanId,
-            selectedSchoolId,
             enableHiddenPlanHashCode: window.localStorage.getItem(
               'enableHiddenPlanHashCode'
             ),
@@ -634,45 +577,24 @@ class JoinStep2 extends Component {
                 <DeviceContext.Consumer>
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
-                      {joinPageRes.hasSelectedSchool === 'yes' ? (
-                        <JoinHeader
-                          mainHeading={joinPageRes.pageHeading1}
-                          subHeading={joinPageRes.pageHeading2}
-                          activeTab={pathname}
-                          tabs={CLASSROOM_JOIN_TABS}
-                          backgroundImage={
-                            isMobile
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Mobile
-                              : isDesktop
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Desktop
-                              : isTablet
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Tablet
-                              : ''
-                          }
-                        />
-                      ) : (
-                        <JoinHeader
-                          mainHeading={joinPageRes.pageHeading1}
-                          subHeading={joinPageRes.pageHeading2}
-                          activeTab={pathname}
-                          tabs={DEFAULT_JOIN_TABS}
-                          backgroundImage={
-                            isMobile
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Mobile
-                              : isDesktop
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Desktop
-                              : isTablet
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  ?.planSelectedBackgroundImageUrl_Tablet
-                              : ''
-                          }
-                        />
-                      )}
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                        backgroundImage={
+                          isMobile
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Mobile
+                            : isDesktop
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Desktop
+                            : isTablet
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Tablet
+                            : ''
+                        }
+                      />
                       <div className="step-root">
                         <DisplayAtBreakpoint
                           screenMedium
@@ -698,22 +620,6 @@ class JoinStep2 extends Component {
                               <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
                             </div>
                           */}
-
-                          {joinPageRes.hasSelectedSchool === 'yes' && (
-                            <div>
-                              <br />
-                              <p>
-                                {t('Ecommerce.YourSchool')}:{' '}
-                                {joinPageRes.selectedSchool.schoolName}
-                              </p>
-                              <p style={{ fontSize: '1.0em' }}>
-                                {t('Ecommerce.YourSchoolDistrict')}:{' '}
-                                {joinPageRes.selectedSchool.districtName}
-                              </p>
-                              <br />
-                              <br />
-                            </div>
-                          )}
 
                           <Request
                             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
@@ -760,69 +666,6 @@ class JoinStep2 extends Component {
                             )}
                           />
                           <form onSubmit={this.handleSubmit}>
-                            {isAstronomyClub ? (
-                              <div className="form-section">
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails.astronomyClubName
-                                          .label,
-                                    }}
-                                  />
-                                  :
-                                  <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails.astronomyClubName
-                                          .errorText,
-                                    }}
-                                  />
-                                  <Field
-                                    className="form-field"
-                                    name="astronomyClubName"
-                                    type="name"
-                                    label={
-                                      accountFormDetails.astronomyClubName
-                                        .hintText
-                                    }
-                                    component={InputField}
-                                    onChange={event => {
-                                      this.handleFieldChange({
-                                        field: 'astronomyClubName',
-                                        value: event.target.value,
-                                      });
-                                    }}
-                                  />
-                                </div>
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails
-                                          .astronomyClub18AndOver.label,
-                                    }}
-                                  />
-                                  :
-                                  <Field
-                                    className="form-field"
-                                    name="astronomyClub18AndOver"
-                                    component={InputField}
-                                    type="checkbox"
-                                    onChange={event => {
-                                      this.handleFieldChange({
-                                        field: 'astronomyClub18AndOver',
-                                        value: event.target.value,
-                                      });
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            ) : null}
-
                             {this.state.isAgeRestricted && (
                               <div className="form-section">
                                 <div>

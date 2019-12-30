@@ -6,6 +6,7 @@ interface StandardResponse {
   statusCode: number;
   timestamp: number;
   ver: string;
+  gravityEarnedInThisRequest: boolean;
 }
 
 interface ProfileMenu {

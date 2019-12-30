@@ -1,5 +1,4 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import GroupTile from 'app/components/common/tiles/GroupTile';
 
@@ -11,23 +10,24 @@ const getSliderConfiguration = () =>
     centerPadding: '25px',
   });
 
-const getRecommendedGroupsItems = (groupList = []) =>
+const getRecommendedGroupsItems = (groupList = [], readOnly = false) =>
   groupList.map(object => ({
     render: () => (
       <GroupTile
-        key={uniqueId()}
+        key={`group-tile-${object.discussionGroupId}`}
         title={object.title}
         accessDescription={object.accessDescription}
         iconURL={object.iconUrl}
         linkUrl={object.linkUrl}
+        readOnly={readOnly}
       />
     ),
   }));
 
-export const getSliderProps = (slideList = [], t) =>
+export const getSliderProps = (slideList = [], t, readOnly) =>
   Object.assign(
     {
-      slideList: getRecommendedGroupsItems(slideList),
+      slideList: getRecommendedGroupsItems(slideList, readOnly),
     },
     {
       sliderConfig: getSliderConfiguration(),

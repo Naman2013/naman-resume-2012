@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
+import { browserHistory } from 'react-router';
 import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
-import { isMobileDevice } from 'app/services.ts';
+import {
+  isMobileDevice,
+  isMobileScreen,
+  isTabletScreen,
+} from 'app/services.ts';
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
+import { isEnter } from 'app/modules/utils/keyIdentifier';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -35,8 +41,30 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const setMessageIdToLocalStorage = (id: any) => {
+const setMessageIdToLocalStorage = (id: string) => {
   window.localStorage.setItem('newMessageId', id);
+};
+
+const contentClickHandler = (e: any, setOpen: Function): void => {
+  // detect click on Link
+  if (e.target instanceof HTMLAnchorElement) {
+    const targetLink = e.target.closest('a');
+    e.preventDefault();
+    browserHistory.push(targetLink.href);
+
+    // if Mobile then close modal
+    const isMobile = isMobileScreen() || isTabletScreen();
+
+    if (isMobile) {
+      setOpen(false);
+    }
+  }
+};
+
+const onKeyPressed = (e: any, setOpen: Function) => {
+  if (isEnter(e)) {
+    contentClickHandler(e, setOpen);
+  }
 };
 
 const submitMessage = (
@@ -87,6 +115,18 @@ const submitMessage = (
   }
 };
 
+const toggleActivityFeedMenu = (
+  setOpen: Function,
+  isOpen: boolean,
+  subscribeToPubnubActivityFeedChannel: Function,
+  isSubscribed: boolean
+) => {
+  if (!isSubscribed) {
+    subscribeToPubnubActivityFeedChannel();
+  }
+  setOpen(!isOpen);
+};
+
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
   pubnubConnection: Record<string, any>;
@@ -94,6 +134,7 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
+  subscribeToPubnubActivityFeedChannel: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -101,8 +142,10 @@ export const LiveActivity = (props: TLiveActivity) => {
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
+    subscribeToPubnubActivityFeedChannel,
   } = props;
   const [isOpen, setOpen] = React.useState(false);
+  const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
   const [isFullscreen, setFullscreen] = useState(false);
@@ -127,6 +170,8 @@ export const LiveActivity = (props: TLiveActivity) => {
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isMobile, isOpen, lastMessageId]);
 
+  console.log('isSubscribed', isSubscribed);
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
@@ -136,22 +181,35 @@ export const LiveActivity = (props: TLiveActivity) => {
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       <span
         role="presentation"
         className={
-          lastMessageId !== lastStorageMessageId &&
-          !lastMessageFromCurrentUser &&
-          !isOpen
+          (lastMessageId !== lastStorageMessageId &&
+            !lastMessageFromCurrentUser &&
+            !isOpen) ||
+          !isSubscribed
             ? 'message-identifier'
             : ''
         }
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       {/* WINDOW */}
@@ -222,7 +280,11 @@ export const LiveActivity = (props: TLiveActivity) => {
                   className="live-activity-window-body-feed"
                 >
                   {activityFeedMessages.map(feedItem => (
-                    <FeedItem item={feedItem} />
+                    <FeedItem
+                      item={feedItem}
+                      contentClickHandler={e => contentClickHandler(e, setOpen)}
+                      onKeyPressed={e => onKeyPressed(e, setOpen)}
+                    />
                   ))}
                 </div>
               </div>

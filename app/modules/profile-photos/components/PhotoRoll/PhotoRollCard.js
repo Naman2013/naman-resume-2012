@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
-import Button from 'app/components/common/style/buttons/Button';
+import { Button } from 'react-bootstrap';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
@@ -127,23 +127,14 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <div className="photoRoll-instrument">{instrumentName}</div>
                 </div>
                 <div className="overlay-bottom">
-                  <Button
-                    withIntl
-                    onClickEvent={this.redirectToImage()}
-                    text={t('Photos.Details')}
-                    theme={{ borderColor: '#fff', color: '#fff' }}
-                  />
-                  <div style={{ display: 'flex' }}>
-                    <Button
-                      onClickEvent={this.onDownloadFile}
-                      theme={{ borderColor: '#fff', marginRight: 10 }}
-                      icon="https://vega.slooh.com/assets/v4/icons/download.svg"
-                    />
-                    <Button
-                      onClickEvent={this.toggleMenuVisibility}
-                      theme={{ borderColor: '#fff' }}
-                      renderIcon={() => <Dots />}
-                    />
+                  <Button className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</Button>
+                  <div style={{ display: 'flex' }} className="overlay-bottom-action">
+                    <Button className="photoRoll-circle-btn" onClick={this.onDownloadFile}>
+                      <span className="icon-download" />
+                    </Button>
+                    <Button className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
+                      <Dots />
+                    </Button>
                   </div>
                 </div>
               </div>

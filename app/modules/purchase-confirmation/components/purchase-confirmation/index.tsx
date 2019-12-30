@@ -53,10 +53,11 @@ export class PurchaseConfirmation extends React.PureComponent<
               accountStatus={
                 purchaseConfirmationData.accountTypeSection.accountStatus
               }
+              showInfoButton={false}
             />
           )}
 
-        <div className="top-bot-40 left-right-minus-20">
+        <div className="top-bot-10 left-right-minus-20">
           <AccountDetailsHeader title={pageHeading2} />
           <Container>
             <p dangerouslySetInnerHTML={{ __html: explainationText }} />

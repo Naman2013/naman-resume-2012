@@ -16,23 +16,17 @@ export default class MembershipPlansList extends Component {
   setSelectedPlan(
     subscriptionPlanId,
     isAstronomyClubFlag,
-    isClassroomFlag,
     triggerUpgradeFlow,
     selectedPlan
   ) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
-    window.localStorage.setItem('isClassroom', isClassroomFlag);
 
     const isAstronomyClub =
       window.localStorage.getItem('isAstronomyClub') === 'true';
-    const isClassroom = window.localStorage.getItem('isClassroom') === 'true';
 
     if (triggerUpgradeFlow) {
       this.setUpgradeModalOpen(selectedPlan);
-    } else if (isClassroom) {
-      /* Teacher Subscription Plans should prompt for School Selection */
-      browserHistory.push('/join/step1SchoolSelection');
     } else {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
@@ -41,10 +35,9 @@ export default class MembershipPlansList extends Component {
 
   setUpgradeModalOpen = selectedPlan => this.setState({ selectedPlan });
 
-  viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
+  viewPlanDetails(subscriptionPlanId, isAstronomyClub) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
-    window.localStorage.setItem('isClassroom', isClassroom);
 
     /* move to Plan Details in the Join Flow */
     browserHistory.push('/join/membershipPlanDetailsStep');
@@ -81,15 +74,13 @@ export default class MembershipPlansList extends Component {
                 viewPlanDetails={() =>
                   this.viewPlanDetails(
                     subscriptionPlan.planID,
-                    subscriptionPlan.isAstronomyClub,
-                    subscriptionPlan.isClassroom
+                    subscriptionPlan.isAstronomyClub
                   )
                 }
                 setSelectedPlan={() =>
                   this.setSelectedPlan(
                     subscriptionPlan.planID,
                     subscriptionPlan.isAstronomyClub,
-                    subscriptionPlan.isClassroom,
                     subscriptionPlan.triggerUpgradeFlow,
                     subscriptionPlan
                   )

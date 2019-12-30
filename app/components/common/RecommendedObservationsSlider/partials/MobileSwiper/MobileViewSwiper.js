@@ -63,7 +63,7 @@ class MobileViewSwiper extends Component {
   };
 
   render() {
-    const { imagesList, t } = this.props;
+    const { imagesList, t, readOnly } = this.props;
     const {
       title,
       author,
@@ -82,9 +82,13 @@ class MobileViewSwiper extends Component {
         {!loading ? (
           <div className="top">
             <div className="title">{title}</div>
-            <Link to={iconFileData?.Member?.linkUrl}>
+            {readOnly ? (
               <div className="author">{author}</div>
-            </Link>
+            ) : (
+              <Link to={iconFileData['Member']?.linkUrl}>
+                <div className="author">{author}</div>
+              </Link>
+            )}
             <div
               className="description"
               dangerouslySetInnerHTML={{ __html: description }}
@@ -111,33 +115,35 @@ class MobileViewSwiper extends Component {
             ))}
           </Swiper>
         </div>
-        <div className="bottom">
-          <div className="buttons">
-            <div className="button">
-              <img
-                className="icon"
-                src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                alt="heart"
-              />
-              {likesCount}
+        {!readOnly && (
+          <div className="bottom">
+            <div className="buttons">
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                  alt="heart"
+                />
+                {likesCount}
+              </div>
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                  alt="comment"
+                />
+                {commentsCount}
+              </div>
+              <a href={linkUrl} className="button details">
+                {t('Dashboard.Details')}
+                <img
+                  src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                  alt="arrow-right"
+                />
+              </a>
             </div>
-            <div className="button">
-              <img
-                className="icon"
-                src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                alt="comment"
-              />
-              {commentsCount}
-            </div>
-            <a href={linkUrl} className="button details">
-              {t('Dashboard.Details')}
-              <img
-                src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                alt="arrow-right"
-              />
-            </a>
           </div>
-        </div>
+        )}
         <style jsx>{styles}</style>
       </div>
     );

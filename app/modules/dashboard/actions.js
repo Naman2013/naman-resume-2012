@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { API } from 'app/api';
 import { getDashboardFeaturedObjectsApi } from './api';
 
@@ -13,26 +15,29 @@ export const fetchDashboard = ({ lang, ver, lookbackDays }) => (
 ) => {
   const { user } = getState();
   dispatch(fetchDashboardStart());
-  return API
-      .post('/api/settings/getDashboard', {
-      lang,
-      lookbackDays,
-      ver,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    })
+  return API.post('/api/settings/getDashboard', {
+    lang,
+    lookbackDays,
+    ver,
+    at: user.at,
+    token: user.token,
+    cid: user.cid,
+  })
     .then(result => dispatch(fetchDashboardSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));
 };
 
-export const getDashboardFeaturedObjects = () => (dispatch, getState) => {
+export const getDashboardFeaturedObjects = ({ callSource }) => (
+  dispatch,
+  getState
+) => {
   const { user } = getState();
   dispatch(fetchDashboardStart());
   return getDashboardFeaturedObjectsApi({
     at: user.at,
     token: user.token,
     cid: user.cid,
+    callSource,
   })
     .then(result => dispatch(getDashboardFeaturedObjectsSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));
@@ -56,5 +61,3 @@ const getDashboardFeaturedObjectsSuccess = payload => ({
   type: GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
   payload,
 });
-
-

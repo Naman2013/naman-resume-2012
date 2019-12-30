@@ -14,7 +14,7 @@ import MobileSwiper from './partials/MobileSwiper';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
 
 const Observations = props => {
-  const { imageList } = props;
+  const { imageList, readOnly } = props;
   const getImages = images => {
     return Object.values(images).filter(im => im.customerImageId);
   };
@@ -22,7 +22,7 @@ const Observations = props => {
   const images = getImages(imageList);
   const [imagesCount, addImage] = useState(5);
   const longList = take(images, imagesCount) || [];
-  const sliderProps = images ? getSliderProps(longList, t) : {};
+  const sliderProps = images ? getSliderProps(longList, t, readOnly) : {};
   const shortList = take(images, 4) || [];
   const sliderChange = index => {
     if (index > imagesCount - 2) {
@@ -36,7 +36,7 @@ const Observations = props => {
         <SloohSlider {...sliderProps} sliderChange={sliderChange} />
       </DisplayAtBreakpoint>
       <DisplayAtBreakpoint screenSmall>
-        <MobileSwiper imagesList={shortList} />
+        <MobileSwiper imagesList={shortList} readOnly />
       </DisplayAtBreakpoint>
       <style jsx>{`
         .root {
