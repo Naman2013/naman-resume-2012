@@ -211,7 +211,7 @@ class SubmitQuestionForm extends PureComponent {
 
         <RichTextEditor
           className="field-input"
-          value={questionText}
+          editorValue={questionText}
           onChange={this.onChangeQuestionText}
           placeholder={askPrompt}
         />

@@ -39,8 +39,9 @@ const AsideToggleableMenu = props => {
       className={mod ? `root ${mod}` : 'root'}
       style={{ width: visible ? '70%' : '0' }}
       onClick={e => e.stopPropagation()}
+      role="presentation"
     >
-      <div style={{ opacity: visible ? 1 : 0 }} className="heading">
+      <div style={!visible ? { display: 'none' } : null} className="heading">
         {t('Photos.CardMenu.MenuTitle')}
         <i
           className="fa fa-close"
@@ -56,7 +57,7 @@ const AsideToggleableMenu = props => {
               <div className="action-menu-container option">
                 <div
                   className="remove-gallery-image"
-                  style={{ opacity: visible ? 1 : 0 }}
+                  style={!visible ? { display: 'none' } : null}
                 >
                   <RemoveGalleryImageBtn
                     label={option.label}
@@ -77,9 +78,9 @@ const AsideToggleableMenu = props => {
                 firstImageNumber={firstImageNumber}
                 render={removeImage => (
                   <button
-                    style={{ opacity: visible ? 1 : 0 }}
+                    style={!visible ? { display: 'none' } : null}
                     onClick={removeImage}
-                    className="option"
+                    className="option delete"
                   >
                     {option.label}
                   </button>
@@ -98,7 +99,7 @@ const AsideToggleableMenu = props => {
                 asideMenuWidth={blockWidth * 0.7}
                 render={toggleMenu => (
                   <button
-                    style={{ opacity: visible ? 1 : 0 }}
+                    style={!visible ? { display: 'none' } : null}
                     onClick={toggleMenu}
                     className="option"
                   >
@@ -111,7 +112,7 @@ const AsideToggleableMenu = props => {
           if (option.action === 'redirect') {
             return (
               <button
-                style={{ opacity: visible ? 1 : 0 }}
+                style={!visible ? { display: 'none' } : null}
                 onClick={redirectToImage()}
                 className="option"
               >
@@ -122,7 +123,7 @@ const AsideToggleableMenu = props => {
           if (option.action === 'download') {
             return (
               <button
-                style={{ opacity: visible ? 1 : 0 }}
+                style={!visible ? { display: 'none' } : null}
                 onClick={downloadFile}
                 className="option"
               >
@@ -131,18 +132,21 @@ const AsideToggleableMenu = props => {
             );
           }
           if (option.action === 'tagging') {
+            const { tagList, isFetching } = tagsData;
+            const { setTag, getTags, deleteTag } = tagActions;
+
             return (
               <button
-                style={{ opacity: visible ? 1 : 0 }}
+                style={!visible ? { display: 'none' } : null}
                 className="option flex-row-reverse"
               >
                 <AddTagsAsideMenu
                   label={option.label}
-                  tagList={tagsData?.tagList}
-                  isFetching={tagsData?.isFetching}
-                  setTag={tagActions?.setTag}
-                  getTags={tagActions?.getTags}
-                  deleteTag={tagActions?.deleteTag}
+                  tagList={tagList}
+                  isFetching={isFetching}
+                  setTag={setTag}
+                  getTags={getTags}
+                  deleteTag={deleteTag}
                   customerImageId={customerImageId}
                 />
               </button>
@@ -150,7 +154,7 @@ const AsideToggleableMenu = props => {
           }
           return (
             <button
-              style={{ opacity: visible ? 1 : 0 }}
+              style={!visible ? { display: 'none' } : null}
               onClick={option.action}
               className="option"
             >

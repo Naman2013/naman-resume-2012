@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import SocialMenu from 'app/components/GlobalNavigation/Menus/partials/SocialMenu';
-import style from './Footer.style';
 
 const Footer = ({ primaryLinks, copyrightText }) => (
   <div className="root">
-    <div className="button-container">
+    <div className="footer-menu-wrapper">
       <div dangerouslySetInnerHTML={{ __html: copyrightText }} />
-      <ul className="buttons">
+
+      <ul className="footer-menu buttons">
         {primaryLinks.map(item => (
           <li key={uniqueId()}>
             <Link target="_blank" to={item.link}>
@@ -19,7 +18,26 @@ const Footer = ({ primaryLinks, copyrightText }) => (
         ))}
       </ul>
     </div>
-    <style jsx>{style}</style>
+
+    <ul className="footer-social buttons">
+      <li>
+        <a className="action social" href="#">
+          <span className="fa fa-facebook" />
+        </a>
+      </li>
+
+      <li>
+        <a className="action social" href="#">
+          <span className="fa fa-twitter" />
+        </a>
+      </li>
+
+      <li>
+        <a className="action social" href="#">
+          <span className="fa fa-instagram" />
+        </a>
+      </li>
+    </ul>
   </div>
 );
 
