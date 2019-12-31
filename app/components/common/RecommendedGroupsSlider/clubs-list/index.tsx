@@ -11,7 +11,7 @@ import './styles.scss';
 type TClubsListProps = {
   readOnly?: boolean;
   clubsList: Array<IDashboardRecomendedClub>;
-  customClass: any;
+  customClass: string;
 };
 
 export const ClubsList: React.FC<TClubsListProps> = props => {

@@ -103,11 +103,8 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     });
   };
 
-  setSliderWrapperClass = (itemList: any): any => {
-    if (itemList.length < 3) {
-      return 'custom-slider-wrapper';
-    }
-    return false;
+  setSliderWrapperClass = (itemList: any): string => {
+    return itemList.length < 3 ? 'centered-slider-wrapper' : '';
   };
 
   getSectionComponent = (section: string): any => {
