@@ -89,6 +89,22 @@
     }
   }
 
+  @media screen and (min-width: 1200px) {
+    .custom-slider-wrapper {
+      .root {
+        .slider-container {
+          .slick-slider {
+            .slick-list {
+              .slick-track {
+                margin: 0 auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   @include media-breakpoint-up(md) {
     .dash-hero {
       background-color: #213043;

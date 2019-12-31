@@ -57,6 +57,34 @@ export declare interface IDashboardRecomendedClub {
   googleClassroomIconURL: string;
 }
 
+export declare interface IDashboardMissionPhotosData {
+  imageIndex: number;
+  imageTimestamp: string;
+  imageId: number;
+  imageURL: string;
+  imageType: string;
+  imageTitle: string;
+  overlayText: string[];
+  missionDate: string;
+  missionTime: string;
+  displayDate: string;
+  displayTime: string;
+  scheduledMissionId: number;
+  missionImageCount: string;
+  missionOwner: string;
+  fitsIsAvailable: true;
+  galleryId: number;
+  objectId: number;
+  objectIconURL: string;
+  missionIconURL: string;
+  obsId: string;
+  domeId: number;
+  telescopeId: string;
+  sysId: string;
+  telescopeName: string;
+  instrumentName: string;
+}
+
 export declare interface IGuestDashboard extends StandardResponse {
   Sections: {
     [Telescopes: string]: IGuestDashboardSection;
@@ -74,6 +102,10 @@ export declare interface IGuestDashboard extends StandardResponse {
   CommunityObservations: Array<IDashboardCommunityObservation>;
   FreeTrialButton: { ButtonText: string; LinkUrl: string };
   gravityEarnedInThisRequest: boolean;
+  MissionPhotosData: {
+    imageList: Array<IDashboardMissionPhotosData>;
+  };
+  customClass: string;
 }
 
 export declare interface IFeaturedObjectsMission {

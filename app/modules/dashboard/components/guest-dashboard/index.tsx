@@ -14,7 +14,6 @@ import { TelescopesSlider } from 'app/components/telescopes-slider';
 import { IObservatoryList } from 'app/modules/telescope/types';
 import { ShowsSlider } from 'app/components/shows-slider';
 import { MissionPhotosSlider } from 'app/components/mission-photos-slider';
-import { missionPhotoList } from 'app/components/mission-photos-slider/imageList';
 import { IShowsListItem } from 'app/modules/shows/types';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
@@ -33,6 +32,9 @@ type TGuestDashboardProps = {
   observatoryListData: IObservatoryList;
   getDashboardShows: Function;
   dashboardShowsList: Array<IShowsListItem>;
+  MissionPhotosData: IGuestDashboard;
+  setSliderWrapperClass: Function;
+  customClass?: string;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -101,6 +103,13 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     });
   };
 
+  setSliderWrapperClass = (itemList: any): any => {
+    if (itemList.length < 3) {
+      return 'custom-slider-wrapper';
+    }
+    return false;
+  };
+
   getSectionComponent = (section: string): any => {
     const {
       guestDashboard,
@@ -114,10 +123,11 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
       RecommendedClubs,
       RecommendedQuests,
       TelescopePromos,
+      MissionPhotosData,
     } = guestDashboard;
     const { subscriptionPlans } = subscriptionPlansData;
     const { observatoryList } = observatoryListData;
-    const { imageList } = missionPhotoList;
+    const { imageList } = MissionPhotosData;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -140,7 +150,13 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Clubs: {
-        return <ClubsList clubsList={RecommendedClubs} readOnly />;
+        return (
+          <ClubsList
+            clubsList={RecommendedClubs}
+            customClass={this.setSliderWrapperClass(RecommendedClubs)}
+            readOnly
+          />
+        );
       }
       case SECTION_TYPE.Shows: {
         return <ShowsSlider showsList={dashboardShowsList} readOnly />;
@@ -149,6 +165,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return (
           <RecommendedQuestsList
             recommendedQuestsList={RecommendedQuests}
+            customClass={this.setSliderWrapperClass(RecommendedQuests)}
             readOnly
           />
         );
