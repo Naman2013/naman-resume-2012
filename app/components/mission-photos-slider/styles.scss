@@ -1,0 +1,39 @@
+@import '~app/styles/bootstrap/common';
+
+.mission-photos-slider-container {
+  margin: 0 auto;
+  max-width: 644px;
+
+  .mission-photos-slider {
+    display: block;
+  }
+
+  .mission-photos-list {
+    display: none;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .mission-photos-slider {
+      .mission-photos-card {
+        max-width: 90%;
+        margin: 20px 5%;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .mission-photos-slider {
+      display: none;
+    }
+
+    .mission-photos-list {
+      display: block;
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .mission-photos-slider-container {
+    max-width: 965px;
+  }
+}

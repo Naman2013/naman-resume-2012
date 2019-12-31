@@ -13,6 +13,8 @@ import MembershipPlansList from 'app/pages/registration/MembershipPlansList';
 import { TelescopesSlider } from 'app/components/telescopes-slider';
 import { IObservatoryList } from 'app/modules/telescope/types';
 import { ShowsSlider } from 'app/components/shows-slider';
+import { MissionPhotosSlider } from 'app/components/mission-photos-slider';
+import { IShowsListItem } from 'app/modules/shows/types';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -29,7 +31,10 @@ type TGuestDashboardProps = {
   getObservatoryList: Function;
   observatoryListData: IObservatoryList;
   getDashboardShows: Function;
-  dashboardShowsList: any;
+  dashboardShowsList: Array<IShowsListItem>;
+  MissionPhotosData: IGuestDashboard;
+  setSliderWrapperClass: Function;
+  customClass?: string;
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -98,6 +103,10 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     });
   };
 
+  setSliderWrapperClass = (itemList: any): string => {
+    return itemList.length < 3 ? 'centered-slider-wrapper' : '';
+  };
+
   getSectionComponent = (section: string): any => {
     const {
       guestDashboard,
@@ -111,9 +120,11 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
       RecommendedClubs,
       RecommendedQuests,
       TelescopePromos,
+      MissionPhotosData,
     } = guestDashboard;
     const { subscriptionPlans } = subscriptionPlansData;
     const { observatoryList } = observatoryListData;
+    const { imageList } = MissionPhotosData;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -128,7 +139,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
       case SECTION_TYPE.MissionsPhotos: {
-        return <div />;
+        return <MissionPhotosSlider imageList={imageList} readOnly />;
       }
       case SECTION_TYPE.Observations: {
         return (
@@ -136,7 +147,13 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Clubs: {
-        return <ClubsList clubsList={RecommendedClubs} readOnly />;
+        return (
+          <ClubsList
+            clubsList={RecommendedClubs}
+            customClass={this.setSliderWrapperClass(RecommendedClubs)}
+            readOnly
+          />
+        );
       }
       case SECTION_TYPE.Shows: {
         return <ShowsSlider showsList={dashboardShowsList} readOnly />;
@@ -145,6 +162,7 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return (
           <RecommendedQuestsList
             recommendedQuestsList={RecommendedQuests}
+            customClass={this.setSliderWrapperClass(RecommendedQuests)}
             readOnly
           />
         );
