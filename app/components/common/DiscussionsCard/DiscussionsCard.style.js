@@ -131,6 +131,11 @@ export default css`
     border-top: 0;
   }
 
+  .comment-item :global(.title),
+  .comment-item :global(.content) {
+    overflow-wrap: break-word;
+  }
+
   @media ${screenMedium} {
     .date {
       visibility: visible;

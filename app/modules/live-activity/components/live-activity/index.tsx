@@ -8,6 +8,7 @@ import {
   isMobileDevice,
   isMobileScreen,
   isTabletScreen,
+  isTabletDevice,
 } from 'app/services.ts';
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
@@ -28,18 +29,18 @@ const disableResizing = {
   bottom: false,
 };
 
-const getResizableBoxConfigs = () => {
-  const isMobile = isMobileDevice();
-  const defaultWidth = 500;
-  const defaultHeight = 450;
-  const width = isMobile ? window.screen.availWidth : defaultWidth;
-  const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
-
-  return {
-    width,
-    height,
-  };
-};
+// const getResizableBoxConfigs = () => {
+//   const isMobile = isTabletDevice();
+//   const defaultWidth = 500;
+//   const defaultHeight = 450;
+//   const width = isMobile ? window.screen.availWidth : defaultWidth;
+//   const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
+//
+//   return {
+//     width,
+//     height,
+//   };
+// };
 
 const setMessageIdToLocalStorage = (id: string) => {
   window.localStorage.setItem('newMessageId', id);
@@ -65,6 +66,13 @@ const onKeyPressed = (e: any, setOpen: Function) => {
   if (isEnter(e)) {
     contentClickHandler(e, setOpen);
   }
+};
+
+const calculateFeedMenuSize = (setFeedMenuSize: Function) => {
+  const isMobile = isTabletDevice();
+  const width = isMobile ? window.screen.availWidth : 500;
+  const height = isMobile ? window.screen.availHeight - 53 : 450;
+  setFeedMenuSize({ width, height });
 };
 
 const submitMessage = (
@@ -146,8 +154,11 @@ export const LiveActivity = (props: TLiveActivity) => {
   } = props;
   const [isOpen, setOpen] = React.useState(false);
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
-  const isMobile = isMobileDevice();
-  const defaultSize = getResizableBoxConfigs();
+  const [boxSize, setFeedMenuSize] = useState({
+    width: 500,
+    height: 450,
+  });
+  const [isMobile, setScreenType] = useState(isTabletDevice());
   const [isFullscreen, setFullscreen] = useState(false);
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
@@ -158,8 +169,26 @@ export const LiveActivity = (props: TLiveActivity) => {
     : 'null';
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
+  const changeOrientationListener = () => {
+    setScreenType(isTabletDevice());
+    calculateFeedMenuSize(setFeedMenuSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener('orientationchange', () =>
+      changeOrientationListener()
+    );
+
+    return () => {
+      window.removeEventListener('orientationchange', () =>
+        changeOrientationListener()
+      );
+    };
+  }, []);
+
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
+    // calculateFeedMenuSize(isMobile, setFeedMenuSize);
     if (isOpen && (isFullscreen || isMobile)) {
       document.body.classList.add('disable-overflow');
       document.documentElement.classList.add('disable-overflow');
@@ -169,8 +198,6 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isMobile, isOpen, lastMessageId]);
-
-  console.log('isSubscribed', isSubscribed);
 
   return (
     <div
@@ -221,10 +248,10 @@ export const LiveActivity = (props: TLiveActivity) => {
         >
           <Rnd
             default={{
-              width: defaultSize.width,
-              height: defaultSize.height,
-              x: 0,
-              y: 0,
+              width: boxSize.width,
+              height: boxSize.height,
+              x: -400,
+              y: 100,
             }}
             minWidth={300}
             minHeight={300}
@@ -234,6 +261,7 @@ export const LiveActivity = (props: TLiveActivity) => {
               isFullscreen || isMobile ? disableResizing : enableResizing
             }
             dragHandleClassName="live-activity-window-header"
+            bounds="window"
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
