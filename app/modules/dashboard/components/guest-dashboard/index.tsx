@@ -139,7 +139,13 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
       case SECTION_TYPE.MissionsPhotos: {
-        return <MissionPhotosSlider imageList={imageList} readOnly />;
+        return (
+          <MissionPhotosSlider
+            imageList={imageList}
+            customClass={this.setSliderWrapperClass(RecommendedClubs)}
+            readOnly
+          />
+        );
       }
       case SECTION_TYPE.Observations: {
         return (
