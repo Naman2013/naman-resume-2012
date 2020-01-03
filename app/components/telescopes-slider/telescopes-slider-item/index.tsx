@@ -78,17 +78,6 @@ export const TelescopesSliderItem: React.FC<
           <div className="telescope-info-body">{body}</div>
         </div>
         <div className="telescope-widget">
-          {/* {widgetType === TELESCOPE_WIDGETS.AllSkyCam && (
-            <ConnectedAllSkyCamera
-              obsId={obsId}
-              allSkyWidgetID={widgetId}
-              withoutContainer
-            />
-          )}
-
-          {widgetType === TELESCOPE_WIDGETS.DomeCam && widgetId && (
-            <DomeCamWidget obsId={obsId} domeCamWidgetId={widgetId} />
-          )} */}
           {widgetId && getTelescopeWidget(widgetType, obsId, widgetId)}
         </div>
       </div>

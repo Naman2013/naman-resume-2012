@@ -46,6 +46,10 @@
     margin-bottom: 30px;
     background-color: $faintGray;
 
+    .slick-list {
+      pointer-events: auto;
+    }
+
     .dash-item {
       margin-top: 25px;
 
