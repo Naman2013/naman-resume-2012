@@ -111,9 +111,10 @@ $screenHeaderSize: 110px;
   }
 
   .live-activity-window-wrapper {
-    position: absolute;
-    top: 85px;
-    left: -300px;
+    //position: relative;
+    //transform: translate(85px -300px);
+    //top: 85px;
+    //left: -300px;
 
     &.live-activity-window-wrapper-mobile {
       left: -195px;
@@ -230,4 +231,13 @@ $screenHeaderSize: 110px;
       height: calc(100vh - #{$screenHeaderSize}) !important;
     }
   }
+
+  //@include xlg {
+    //.live-activity-window-wrapper .react-draggable {
+    //  width: 500px !important;
+    //  height: 450px !important;
+    //  top: 0 !important;
+    //  transform: translate(-359.875px, 130px) !important;
+    //}
+  //}
 }
