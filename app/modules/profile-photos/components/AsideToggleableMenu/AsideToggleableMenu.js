@@ -27,8 +27,8 @@ const AsideToggleableMenu = props => {
     redirectToImage,
     downloadFile,
     mod,
-    tagActions,
-    tagsData,
+    tagActions = {},
+    tagsData = {},
     galleryId,
     typeGallery,
   } = props;
