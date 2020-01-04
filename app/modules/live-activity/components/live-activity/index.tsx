@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
 import {
-  isMobileDevice,
   isMobileScreen,
   isTabletScreen,
   isTabletDevice,
@@ -56,11 +55,11 @@ const onKeyPressed = (e: any, setOpen: Function) => {
 };
 
 const calculateFeedMenuSize = (
-  isMobile: boolean,
+  isTablet: boolean,
   setFeedMenuSize: Function
 ) => {
-  const width = isMobile ? window.screen.availWidth : 500;
-  const height = isMobile ? window.screen.availHeight - 53 : 450;
+  const width = isTablet ? window.screen.availWidth : 500;
+  const height = isTablet ? window.screen.availHeight - 53 : 450;
   setFeedMenuSize({ width, height });
 };
 
@@ -144,7 +143,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   const [isOpen, setOpen] = React.useState(false);
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
   const [boxSize, setFeedMenuSize] = useState({ width: 500, height: 450 });
-  const isMobile = isTabletDevice();
+  const isTablet = isTabletDevice();
   const [isFullscreen, setFullscreen] = useState(false);
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
@@ -157,19 +156,19 @@ export const LiveActivity = (props: TLiveActivity) => {
 
   useEffect(() => {
     window.addEventListener('orientationchange', function() {
-      calculateFeedMenuSize(isMobile, setFeedMenuSize);
+      calculateFeedMenuSize(isTablet, setFeedMenuSize);
     });
 
     return () => {
       window.removeEventListener('orientationchange', function() {
-        calculateFeedMenuSize(isMobile, setFeedMenuSize);
+        calculateFeedMenuSize(isTablet, setFeedMenuSize);
       });
     };
-  }, [isMobile]);
+  }, []);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
-    if (isOpen && (isFullscreen || isMobile)) {
+    if (isOpen && (isFullscreen || isTablet)) {
       document.body.classList.add('disable-overflow');
       document.documentElement.classList.add('disable-overflow');
     } else {
@@ -177,7 +176,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       document.documentElement.classList.remove('disable-overflow');
     }
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
-  }, [isFullscreen, isMobile, isOpen, lastMessageId]);
+  }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
   return (
     <div
@@ -223,7 +222,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       {isOpen && (
         <div
           className={cx('live-activity-window-wrapper', {
-            'live-activity-window-wrapper-mobile': isMobile,
+            'live-activity-window-wrapper-mobile': isTablet,
           })}
         >
           <Rnd
@@ -235,9 +234,9 @@ export const LiveActivity = (props: TLiveActivity) => {
             }}
             minWidth={300}
             minHeight={300}
-            disableDragging={isFullscreen || isMobile}
+            disableDragging={isFullscreen || isTablet}
             enableResizing={
-              isFullscreen || isMobile ? disableResizing : enableResizing
+              isFullscreen || isTablet ? disableResizing : enableResizing
             }
             dragHandleClassName="live-activity-window-header"
             bounds="window"
