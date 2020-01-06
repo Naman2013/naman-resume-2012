@@ -231,13 +231,4 @@ $screenHeaderSize: 110px;
       height: calc(100vh - #{$screenHeaderSize}) !important;
     }
   }
-
-  //@include xlg {
-    //.live-activity-window-wrapper .react-draggable {
-    //  width: 500px !important;
-    //  height: 450px !important;
-    //  top: 0 !important;
-    //  transform: translate(-359.875px, 130px) !important;
-    //}
-  //}
 }
