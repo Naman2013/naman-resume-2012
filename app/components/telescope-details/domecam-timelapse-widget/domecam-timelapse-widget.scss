@@ -1,13 +1,17 @@
+@import "~app/styles/variables/colors.scss";
+
 .domecamtimelapse-video {
   max-width: 100%;
-  height: auto;
+  height: 202px;
   min-height: auto;
   max-height: auto;
 }
 
 .live-domecamtimelapse {
   display: block;
+  margin-top: 20px;
   line-height: 1;
+  background-color: $light-black;
 
   .generic-loading-box {
     height: auto;

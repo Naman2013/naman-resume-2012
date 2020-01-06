@@ -7,7 +7,7 @@
   width: 100%;
 
   .root {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     width: 100%;
   }
@@ -45,6 +45,10 @@
   .sections-wrapper {
     margin-bottom: 30px;
     background-color: $faintGray;
+
+    .slick-list {
+      pointer-events: auto;
+    }
 
     .dash-item {
       margin-top: 25px;
@@ -86,6 +90,22 @@
 
     .sections-wrapper {
       margin-top: 0;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .centered-slider-wrapper {
+      .root {
+        .slider-container {
+          .slick-slider {
+            .slick-list {
+              .slick-track {
+                margin: 0 auto;
+              }
+            }
+          }
+        }
+      }
     }
   }
 

@@ -63,7 +63,8 @@
     "Questions": "Questions",
     "AskNow": "Ask Now",
     "MVPAstronomers": "MVP Astronomers",
-    "ReplySuccessText": "You reply has been submitted!"
+    "ReplySuccessText": "You reply has been submitted!",
+    "Reset": "Reset"
   },
   "Clubs": {
     "Close": "Close",

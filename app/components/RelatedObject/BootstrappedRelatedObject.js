@@ -5,13 +5,13 @@
  *
  ***********************************/
 
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
-import uniqueId from 'lodash/uniqueId';
 import {
   profilePhotoStyle,
   customModalStylesBlackOverlay,
@@ -23,7 +23,7 @@ import { blue_tile_feat } from '../../styles/variables/colors_tiles_v4';
 
 import styles from './RelatedObject.style';
 
-const { arrayOf, bool, number, shape, string } = PropTypes;
+const { bool, number, shape, string } = PropTypes;
 
 const profPic = photoUrl =>
   Object.assign(profilePhotoStyle(photoUrl), {
@@ -74,7 +74,6 @@ class RelatedObject extends Component {
     label: '',
     objectIconUrl: '',
     objectTitle: '',
-    hasLink: false,
     linkUrl: '',
     LinkLabel: '',
     objectId: null,
@@ -101,7 +100,6 @@ class RelatedObject extends Component {
   };
 
   state = {
-    showInfo: !this.props.isDesktop,
     promptText: this.props.followPrompt,
     modalIsOpen: false,
   };
@@ -150,13 +148,11 @@ class RelatedObject extends Component {
 
   render() {
     const {
-      isDesktop,
       fetching,
       relatedObjectsCount,
       label,
       objectIconUrl,
       v4IconURL,
-      linkUrl,
       objectTitle,
       objectDescription,
       dataBlocks,
@@ -186,17 +182,26 @@ class RelatedObject extends Component {
           <span className="icon-line-horz" />
           <div className="info-list">
             <div className="info-list-item">
-              <img className="info-list-icon" src={list.type.iconURL} />
+              <img
+                className="info-list-icon"
+                src={list.type.iconURL}
+                alt="Info"
+              />
               <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
             </div>
             <div className="info-list-item">
-              <img className="info-list-icon" src={list.domain.iconURL} />
+              <img
+                className="info-list-icon"
+                src={list.domain.iconURL}
+                alt="Info"
+              />
               <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
             </div>
             <div className="info-list-item">
               <img
                 className="info-list-icon"
                 src={list.constellation.iconURL}
+                alt="Info"
               />
               <span
                 dangerouslySetInnerHTML={{ __html: list.constellation.text }}
@@ -231,7 +236,11 @@ class RelatedObject extends Component {
           contentLabel={t('Objects.RelatedObjects')}
           onRequestClose={this.closeModal}
         >
-          <i className="fa fa-close" onClick={this.closeModal} />
+          <i
+            className="fa fa-close modal-close"
+            onClick={this.closeModal}
+            role="presentation"
+          />
           <p
             className=""
             dangerouslySetInnerHTML={{ __html: objectDescription }}
