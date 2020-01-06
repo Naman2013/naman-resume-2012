@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
 import { browserHistory } from 'react-router';
@@ -56,11 +56,13 @@ const onKeyPressed = (e: any, setOpen: Function) => {
 
 const calculateFeedMenuSize = (
   isTablet: boolean,
-  setFeedMenuSize: Function
+  setFeedMenuSize: Function,
 ) => {
   const width = isTablet ? window.screen.availWidth : 500;
   const height = isTablet ? window.screen.availHeight - 53 : 450;
-  setFeedMenuSize({ width, height });
+  const left = -340;
+  const top = 55;
+  setFeedMenuSize({ width, height, left, top });
 };
 
 const submitMessage = (
@@ -134,6 +136,7 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
+  const rnd = useRef(null);
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
@@ -142,7 +145,12 @@ export const LiveActivity = (props: TLiveActivity) => {
   } = props;
   const [isOpen, setOpen] = React.useState(false);
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
-  const [boxSize, setFeedMenuSize] = useState({ width: 500, height: 450 });
+  const [boxSize, setFeedMenuSize] = useState({
+    width: 500,
+    height: 450,
+    left: -340,
+    top: 55,
+  });
   const isTablet = isTabletDevice();
   const [isFullscreen, setFullscreen] = useState(false);
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
@@ -155,14 +163,18 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
-    window.addEventListener('orientationchange', function() {
+    const handleOrientationChangeEvent = () => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
-    });
+      rnd.current.updatePosition({ x: -300, y: 80 });
+    };
 
+    window.addEventListener('orientationchange', handleOrientationChangeEvent);
     return () => {
-      window.removeEventListener('orientationchange', function() {
-        calculateFeedMenuSize(isTablet, setFeedMenuSize);
-      });
+      handleOrientationChangeEvent();
+      window.removeEventListener(
+        'orientationchange',
+        handleOrientationChangeEvent
+      );
     };
   }, []);
 
@@ -229,8 +241,8 @@ export const LiveActivity = (props: TLiveActivity) => {
             default={{
               width: boxSize.width,
               height: boxSize.height,
-              x: -400,
-              y: 100,
+              x: boxSize.left,
+              y: boxSize.top,
             }}
             minWidth={300}
             minHeight={300}
@@ -240,6 +252,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             }
             dragHandleClassName="live-activity-window-header"
             bounds="window"
+            ref={rnd}
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
