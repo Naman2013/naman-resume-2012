@@ -136,7 +136,7 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
-  const rnd = useRef();
+  const rnd = useRef(null);
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
