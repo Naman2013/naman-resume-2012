@@ -266,7 +266,7 @@ class GlobalNavigation extends Component {
         user: messageJSONObj.displayName,
         currentUser: isMessageFromCurrentUser,
         date: messageJSONObj.displayTimestamp,
-        text: messageJSONObj.messageByLocale.en,
+        text: messageJSONObj.message_by_locale.en,
       };
 
       if (appendFlag === true) {
