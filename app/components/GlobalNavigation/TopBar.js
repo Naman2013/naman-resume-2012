@@ -7,6 +7,10 @@ import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
 import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+import {
+  screenMobile,
+  screenSmallMobile,
+} from 'app/styles/variables/breakpoints';
 import MENU_INTERFACE from './Menus/MenuInterface';
 import CenterBar from './CenterBar';
 import Button from './Button';
@@ -117,9 +121,9 @@ const TopBar = ({
               </ul>
             </div>
 
-            <div className="center-menu">
-              <CenterBar />
-            </div>
+            {/*<div className="center-menu">*/}
+            {/*  <CenterBar />*/}
+            {/*</div>*/}
 
             <div className="right-menu">
               <ul className="button-list">
@@ -176,7 +180,7 @@ const TopBar = ({
                     theme={
                       user.isAuthorized
                         ? {}
-                        : { width: 'auto', padding: '0 20px' }
+                        : { width: 'auto', padding: '0 5px 0 0' }
                     }
                   >
                     {user.isAuthorized && (
@@ -195,12 +199,12 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
-                            <Link
-                              className="button text"
-                              to="/join/step1"
-                            >
-                              <button className="btn btn-submit">
-                                Start Free Trial
+                            <Link className="button text" to="/join/step1">
+                              <button className="btn btn-submit free-trial-button">
+                                <div>
+                                  <span>Start Free</span>
+                                  <span>Trial</span>
+                                </div>
                               </button>
                             </Link>
 
@@ -272,6 +276,30 @@ const TopBar = ({
                 .i-user-astronaut {
                   /* todo make global configs for icons */
                   width: 20px;
+                }
+
+                .free-trial-button > div {
+                  min-width: 100px;
+                  text-align: center;
+                }
+
+                .free-trial-button > div > span:first-child {
+                  margin-right: 3px;
+                }
+
+                @media ${screenMobile} {
+                  .free-trial-button {
+                    padding: 5px;
+                  }
+                }
+
+                @media ${screenSmallMobile} {
+                  .free-trial-button > div {
+                    display: flex;
+                    min-width: auto;
+                    flex-direction: column;
+                    align-items: center;
+                  }
                 }
               `}
             </style>

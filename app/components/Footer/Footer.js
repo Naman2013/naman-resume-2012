@@ -7,8 +7,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'app/components/common/network/Request';
-import BootstrappedFooter from './BootstrappedFooter';
 import { GET_FOOTER_NAVIGATION } from 'app/services/navigation';
+import BootstrappedFooter from './BootstrappedFooter';
+import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
 
@@ -26,7 +27,9 @@ const Footer = () => (
     serviceExpiresFieldName="expires"
     // model={footerModel}
     render={({ serviceResponse }) => (
-      <div>{<BootstrappedFooter {...serviceResponse} />}</div>
+      <div className="app-footer">
+        <BootstrappedFooter {...serviceResponse} />
+      </div>
     )}
   />
 );

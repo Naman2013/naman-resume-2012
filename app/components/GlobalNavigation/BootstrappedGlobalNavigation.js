@@ -359,10 +359,8 @@ class GlobalNavigation extends Component {
     const rightMenuContent = MENU_INTERFACE[activeRight];
     const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name];
 
-    let displayName = '';
-    if (userMenu && userMenu.userInfo) {
-      displayName = userMenu.userInfo.displayName;
-    }
+    let displayName =
+      userMenu && userMenu.userInfo ? userMenu.userInfo.displayName : '';
 
     let isChatEnabled = true;
 

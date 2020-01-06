@@ -15,6 +15,7 @@ import { QuestListItem } from './quest-list-item';
 const RecommendedObjects = ({
   recommendedQuestsList = [],
   readOnly = false,
+  customClass,
 }) => {
   const { t } = useTranslation();
   const sliderProps = getSliderProps(recommendedQuestsList, t, readOnly);
@@ -22,7 +23,9 @@ const RecommendedObjects = ({
   return (
     <div className="root">
       <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-        <SloohSlider {...sliderProps} />
+        <div className={customClass}>
+          <SloohSlider {...sliderProps} />
+        </div>
       </DisplayAtBreakpoint>
       <DisplayAtBreakpoint screenSmall>
         {shortList.map(quest => (
