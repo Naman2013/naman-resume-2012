@@ -88,7 +88,7 @@ const submitMessage = (
       displayName: userDisplayName,
       customerUUID: getUserInfo().customerUUID,
       date: '',
-      messageByLocale: {
+      message_by_locale: {
         en: `<a href="/profile/public/${
           getUserInfo().customerUUID
         }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
