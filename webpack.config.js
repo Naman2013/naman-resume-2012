@@ -149,7 +149,7 @@ module.exports = {
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://novao.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
