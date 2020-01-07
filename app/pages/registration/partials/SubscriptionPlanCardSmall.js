@@ -53,27 +53,22 @@ class SubscriptionPlanCardSmall extends Component {
 
     const { showDetails } = this.state;
 
+    const planCostDetails = planCostPrefix + planCost + " " + planCostPostfix;
     return (
       <div className="root">
         <img src={imageUrl} className="plan-image" />
         <div className="inner-container">
-          <div
-            className="plan-name "
-            dangerouslySetInnerHTML={{ __html: planName }}
-          />
-          <div className="audience-type border-bottom">{planAudienceType}</div>
-          <div className="emphasize border-bottom padded-top-bottom">
+	  <div className="plannametype-container">
+	          <div
+        	    className="plan-name "
+	            dangerouslySetInnerHTML={{ __html: planName }}
+        	  />
+	          <div className="audience-type">{planAudienceType}</div>
+	  </div>
+          <div className="emphasize border-top border-bottom padded-top-bottom">
             <span
               className="plan-cost-small"
-              dangerouslySetInnerHTML={{ __html: planCostPrefix }}
-            />
-            <span
-              className="plan-cost-small"
-              dangerouslySetInnerHTML={{ __html: planCost }}
-            />
-            <span
-              className="plan-cost-small"
-              dangerouslySetInnerHTML={{ __html: planCostPostfix }}
+              dangerouslySetInnerHTML={{ __html: planCostDetails }}
             />
           </div>
           <div className="flex padded-top-bottom">
