@@ -144,12 +144,12 @@ module.exports = {
         secure: true,
       },
       '/api/**': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://novao.slooh.com',
         changeOrigin: true,
         secure: true,
       },
