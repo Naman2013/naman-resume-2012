@@ -67,6 +67,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       location,
     } = this.props;
     const { abTestCallSource } = location.query;
+    debugger
     getGuestDashboard(abTestCallSource).then(() => {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
