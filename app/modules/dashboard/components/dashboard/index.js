@@ -4,7 +4,7 @@ import {
   stopFeaturedObjectsExpireTimer,
 } from 'app/services/dashboard/timer';
 import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
-import { GuestDashboard } from '../guest-dashboard';
+import GuestDashboard from '../guest-dashboard';
 
 export class Dashboard extends Component {
   constructor(props) {

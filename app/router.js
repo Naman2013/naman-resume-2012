@@ -189,7 +189,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
     </Route>
 
     <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} onEnter={validateUser} />
+      <IndexRedirect to="guestDashboard" />
+      <Route
+        path="guestDashboard"
+        component={Dashboard}
+        onEnter={validateUser}
+      />
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
