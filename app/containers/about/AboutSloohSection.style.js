@@ -4,12 +4,19 @@ import {
   romance,
   yellow,
   faintGray,
+  hawkesBlue,
 } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../styles/variables/fonts';
 
 export default css`
+  .about-slooh-page :global(.nav) {
+    margin: 40px 0;
+    border-top: 1px solid ${hawkesBlue};
+    border-bottom: 1px solid ${hawkesBlue};
+  }
+
   .about-section-container {
-    padding-top: 10px;
+    margin-top: 40px;
     background-color: ${faintGray};
   }
 
@@ -84,10 +91,6 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .about-section-container {
-      padding-top: 40px;
-    }
-
     .about-hero {
       height: 400px;
     }

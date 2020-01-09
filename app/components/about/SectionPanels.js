@@ -7,7 +7,7 @@ import style from './SectionPanels.style';
 
 const SectionPanels = ({ disableReadMore, list }) => (
   <CenterColumn>
-    <ul style={{paddingTop: '40px'}}>
+    <ul>
       {list.map(tile => (
         <li key={`about-panel-${tile.panelId}`}>
           <DisplayAtBreakpoint screenSmall>
@@ -50,10 +50,12 @@ const SectionPanels = ({ disableReadMore, list }) => (
 );
 
 SectionPanels.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    showPanelTitle: PropTypes.bool.isRequired,
-    showPanelSubtitle: PropTypes.bool.isRequired,
-  })).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      showPanelTitle: PropTypes.bool.isRequired,
+      showPanelSubtitle: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
 };
 
 export default SectionPanels;

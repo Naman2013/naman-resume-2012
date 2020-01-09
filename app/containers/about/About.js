@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PageHeader from '../../components/common/PageHeader';
 import Navigation from '../../components/about/Navigation';
-import { fetchAboutDataAction } from '../../modules/about/actions';
+// TODO: ???
+import { fetchAboutDataAction } from '../../modules/about/_/actions';
 
 class About extends Component {
   static propTypes = {

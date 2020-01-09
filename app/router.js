@@ -117,6 +117,7 @@ import {
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
+import { AboutLazy } from 'app/modules/about';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import AccountPreferences from './modules/account-settings/containers/account-preferences';
@@ -191,17 +192,15 @@ const AppRouter = ({ setPreviousInstrument }) => (
     <Route path="/" component={App}>
       <IndexRoute component={Dashboard} onEnter={validateUser} />
 
-      <Route path="about" component={About} onEnter={validateUser}>
+      <Route path="about" component={AboutLazy} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
+
         <Route path="memberships">
           <IndexRedirect to="individual" />
           <Route path=":viewType" component={Memberships} />
         </Route>
-        <Route
-          path=":aboutSloohSectionId"
-          component={AboutSloohSection}
-          onEnter={validateUser}
-        />
+
+        <Route path=":aboutSloohSectionId" onEnter={validateUser} />
       </Route>
 
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}

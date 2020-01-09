@@ -2,9 +2,10 @@
  * V4 AboutSloohSection page
  ********************************** */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { Nav, Tab } from 'react-bootstrap';
 import Request from '../../components/common/network/Request';
 import CenterColumn from '../../components/common/CenterColumn';
 import CardsLayout from '../../components/common/CardsLayout';
@@ -22,17 +23,27 @@ const TEAM_SECTION = 'about-slooh-team';
 const ADVISORS_SECTION = 'about-slooh-advisors';
 
 const AboutSloohSection = ({ params }) => {
+  const [activeSubMenu, setActiveSubMenu] = useState(null);
+
   const { t } = useTranslation();
+
+  const changeSubMenu = url => {
+    setActiveSubMenu(url.substr(url.lastIndexOf('/') + 1));
+  };
+
   return (
     <Fragment>
       <Request
         serviceURL={GET_SECTION}
-        requestBody={{ sectionTag: params.aboutSloohSectionId }}
+        requestBody={{
+          sectionTag: activeSubMenu || params.aboutSloohSectionId,
+        }}
         render={({
           fetchingContent,
           serviceResponse: subscriptionResponse,
         }) => {
           const {
+            aboutSloohHeroImageUrl,
             sectionPanels,
             hasAboutSloohPartners,
             aboutSloohPartners,
@@ -40,17 +51,39 @@ const AboutSloohSection = ({ params }) => {
             aboutSloohNewsStories,
             hasAboutSloohStore,
             aboutSloohStore,
+            subMenuItems,
           } = subscriptionResponse;
+
           return (
-            <Fragment>
+            <div className="about-slooh-page">
               {!fetchingContent && (
                 <Fragment>
+                  {subMenuItems && (
+                    <CenterColumn>
+                      <Tab.Container
+                        defaultActiveKey={subMenuItems[0].linkUrl}
+                        id="tabs"
+                        unmountOnExit
+                        mountOnEnter
+                        onSelect={changeSubMenu}
+                      >
+                        <Nav variant="tabs">
+                          {subMenuItems.map(({ title, linkUrl }) => (
+                            <Nav.Item>
+                              <Nav.Link eventKey={linkUrl}>{title}</Nav.Link>
+                            </Nav.Item>
+                          ))}
+                        </Nav>
+                      </Tab.Container>
+                    </CenterColumn>
+                  )}
+
                   {params.aboutSloohSectionId === ABOUT_SLOOH_SECTION && (
                     <div className="about-hero">
                       <img
                         alt=""
                         className="hero-img"
-                        src={subscriptionResponse.aboutSloohHeroImageUrl}
+                        src={aboutSloohHeroImageUrl}
                       />
                       <div className="hero-text">
                         <div>{t('About.LearnTo')}</div>
@@ -68,10 +101,7 @@ const AboutSloohSection = ({ params }) => {
                     />
                   )}
 
-                  <div
-                    style={{ paddingTop: '0px' }}
-                    className="about-section-container"
-                  >
+                  <div className="about-section-container container-fluid">
                     {hasAboutSloohPartners &&
                       Array.isArray(aboutSloohPartners.partnerLogoList) &&
                       aboutSloohPartners.partnerLogoList.length > 0 && (
@@ -146,7 +176,7 @@ const AboutSloohSection = ({ params }) => {
                   </div>
                 </Fragment>
               )}
-            </Fragment>
+            </div>
           );
         }}
       />
