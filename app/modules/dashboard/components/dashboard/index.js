@@ -9,11 +9,18 @@ import GuestDashboard from '../guest-dashboard';
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
-    const { embed, router, user } = this.props;
+    const { embed, router, user, params } = this.props;
 
     // Redirect user to /profile/dashboard from / if user is authenticated
     if (!embed && user.isAuthorized) {
       router.push('/profile/private');
+    }
+    if (!user.isAuthorized) {
+      if (params.abTestCallSource) {
+        router.push(`/guestDashboard/${params.abTestCallSource}`);
+      } else {
+        router.push(`/guestDashboard`);
+      }
     }
   }
 

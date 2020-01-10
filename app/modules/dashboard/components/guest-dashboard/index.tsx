@@ -36,7 +36,9 @@ type TGuestDashboardProps = {
   MissionPhotosData: IGuestDashboard;
   setSliderWrapperClass: Function;
   customClass?: string;
-  location: any;
+  params: {
+    abTestCallSource: string;
+  };
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -64,11 +66,9 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const {
       getGuestDashboard,
       getDashboardFeaturedObjects,
-      location,
+      params,
     } = this.props;
-    const {
-      query: { abTestCallSource },
-    } = location;
+    const { abTestCallSource } = params;
     getGuestDashboard(abTestCallSource).then(() => {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
