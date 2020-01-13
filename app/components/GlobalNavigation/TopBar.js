@@ -52,7 +52,7 @@ const TopBar = ({
   const alertsIsActive = isActive(activeMenu, MENU_INTERFACE.ALERTS.name);
   const userIsActive = isActive(activeMenu, MENU_INTERFACE.PROFILE.name);
 
-  const home = () => browserHistory.push('/');
+  const home = () => browserHistory.push('/guestDashboard');
   const main = () => handleMenuClick(MENU_INTERFACE.MAIN.name);
   const telescope = () => handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
