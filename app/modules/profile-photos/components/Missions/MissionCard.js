@@ -154,14 +154,14 @@ class MissionCard extends PureComponent<TMissionCard> {
                         >
                           View FITS
                         </a>
-                        <Button
-                          mod="astronomical-download-btn btn-circle"
-                          onClickEvent={e =>
-                            onDownloadFile(e, imageURL, imageTitle)
-                          }
+                        <a
+                          href={imageURL}
+                          className="astronomical-download-btn btn-circle"
+                          onClick={e => onDownloadFile(e, imageURL, imageTitle)}
+                          download
                         >
                           <span className="icon-download" />
-                        </Button>
+                        </a>
                       </div>
                     </li>
                   );

@@ -93,6 +93,8 @@
         height: 40px;
         text-align: center;
         color: $lightHeadedAstronaut;
+        border: 1px dashed $astronaut;
+        border-radius: 50%;
 
         .icon-download {
           line-height: 40px;
