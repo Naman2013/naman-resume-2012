@@ -2,7 +2,6 @@
 import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
-import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
 import CreateStory from 'app/containers/create-story';
 import GroupsHub from 'app/containers/groups-hub';
@@ -28,7 +27,6 @@ import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
 import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import Dashboard from 'app/modules/dashboard/containers/dashborad';
-import { FeatureContainerLazy } from 'app/modules/feature-module';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { LeaderboardContainerLazy } from 'app/modules/leaderboard';
@@ -88,7 +86,6 @@ import JoinStep1SchoolSelection from 'app/pages/registration/JoinStep1SchoolSele
 import JoinStep2 from 'app/pages/registration/JoinStep2';
 import JoinStep3 from 'app/pages/registration/JoinStep3';
 import MembershipPlanDetailsStep from 'app/pages/registration/MembershipPlanDetailsStep';
-import Memberships from 'app/pages/registration/Memberships';
 import ResetPassword from 'app/pages/registration/ResetPassword';
 import SignIn from 'app/pages/registration/SignIn';
 import Upgrade from 'app/pages/registration/Upgrade';
@@ -106,7 +103,6 @@ import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-// import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
   IndexRedirect,
@@ -197,13 +193,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
         <Route path="memberships">
           <IndexRedirect to="individual" />
-          <Route path=":viewType" component={Memberships} />
+          <Route path=":membershipViewType" />
         </Route>
 
         <Route path=":aboutSloohSectionId" onEnter={validateUser} />
       </Route>
-
-      {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
         <Route

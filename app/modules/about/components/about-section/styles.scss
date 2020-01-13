@@ -1,0 +1,121 @@
+@import '~app/styles/variables/index';
+
+.about-slooh-section {
+  .nav {
+    margin-top: 40px;
+    border-top: 1px solid $hawkesBlue;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: $primary-font;
+    font-size: 11px;
+    color: $moodyBleu;
+  }
+
+  .about-slooh-section-content {
+    .section-panel {
+      margin-top: 40px;
+    }
+
+    .about-hero {
+      width: 100%;
+      height: 240px;
+      margin-bottom: 40px;
+      position: relative;
+
+      @include rwd(768) {
+        height: 400px;
+      }
+
+      .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: $primary-font;
+        color: $romance;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:nth-child(1) {
+            font-size: 5px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            height: 4px;
+
+            @include rwd(768) {
+              font-size: 9px;
+              font-weight: 500;
+              letter-spacing: 3px;
+              height: 8px;
+            }
+          }
+
+          &:nth-child(2) {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 8px;
+            height: 12px;
+            margin-top: 9px;
+            margin-left: 5px;
+
+            @include rwd(768) {
+              font-size: 29px;
+              font-weight: 600;
+              letter-spacing: 10px;
+              height: 22px;
+              margin-top: 17px;
+            }
+          }
+
+          &:nth-child(3) {
+            font-size: 48px;
+            line-height: 48px;
+            letter-spacing: 1px;
+            height: 35px;
+            margin-top: 11px;
+
+            @include rwd(768) {
+              font-size: 82px;
+              line-height: 82px;
+              letter-spacing: 1px;
+              height: 62px;
+              margin-top: 18px;
+            }
+          }
+
+          &:nth-child(4) {
+            font-size: 8px;
+            font-weight: 300;
+            line-height: 8px;
+            letter-spacing: 1px;
+            color: $yellow;
+            height: 6px;
+            margin-top: 17px;
+
+            @include rwd(768) {
+              font-size: 10px;
+              font-weight: 300;
+              line-height: 10px;
+              letter-spacing: 2px;
+              color: $yellow;
+              height: 10px;
+              margin-top: 27px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

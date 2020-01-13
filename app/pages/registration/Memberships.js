@@ -15,7 +15,7 @@ class Memberships extends Component {
   TAB_INDIVIDUAL_NAME = 'individual';
 
   render() {
-    const { params } = this.props;
+    const { membershipType } = this.props;
 
     return (
       <div className="about-membership">
@@ -38,7 +38,7 @@ class Memberships extends Component {
 
             const plans = subscriptionResponse.subscriptionPlans?.filter(
               item => {
-                if (params.viewType === this.TAB_INDIVIDUAL_NAME) {
+                if (membershipType === this.TAB_INDIVIDUAL_NAME) {
                   return item.planAudienceTab === this.TAB_INDIVIDUAL_NAME;
                 }
                 return item.planAudienceTab !== this.TAB_INDIVIDUAL_NAME;
@@ -52,7 +52,7 @@ class Memberships extends Component {
                     title=""
                     navItems={navItems}
                     showNavigation
-                    activeFilter={params.viewType}
+                    activeFilter={membershipType}
                   >
                     {!fetchingContent && <MembershipPlansList plans={plans} />}
                   </ContainerWithTitle>

@@ -7,7 +7,7 @@ import style from './SectionPanels.style';
 
 const SectionPanels = ({ disableReadMore, list }) => (
   <CenterColumn>
-    <ul>
+    <ul className="section-panel">
       {list.map(tile => (
         <li key={`about-panel-${tile.panelId}`}>
           <DisplayAtBreakpoint screenSmall>

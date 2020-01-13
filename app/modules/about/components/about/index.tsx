@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles.scss';
 import { IAboutData } from 'app/modules/about/types';
 import PageHeader from 'app/components/common/PageHeader';
 import Navigation from 'app/components/about/Navigation';
 import AboutSection from 'app/modules/about/containers/about-section';
+import Memberships from 'app/pages/registration/Memberships';
 
 type AboutProps = {
   getAboutData: Function;
@@ -21,7 +21,7 @@ export class About extends React.PureComponent<AboutProps> {
 
   render() {
     const { aboutData, location, params } = this.props;
-    const { aboutSloohSectionId } = params;
+    const { aboutSloohSectionId, membershipViewType } = params;
     const {
       aboutSloohSectionsList,
       aboutSloohIconUrl,
@@ -38,12 +38,16 @@ export class About extends React.PureComponent<AboutProps> {
           locationPath={pathname}
         />
 
-        <div className="container">
+        {aboutSloohSectionId && (
           <AboutSection
             key={`about-slooh-section-${aboutSloohSectionId}`}
             sectionTag={aboutSloohSectionId}
           />
-        </div>
+        )}
+
+        {membershipViewType && (
+          <Memberships membershipType={membershipViewType} />
+        )}
       </div>
     );
   }
