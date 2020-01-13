@@ -47,11 +47,9 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     this.setState({ width: this.blockWidth.clientWidth });
   }
 
-  onDownloadFile = () => {
-    const {
-      currentItem: { imageDownloadURL, imageDownloadFilename },
-    } = this.props;
-    downloadFile(imageDownloadURL, imageDownloadFilename);
+  onDownloadFile = (e, imageURL, imageTitle) => {
+    e.preventDefault();
+    downloadFile(imageURL, imageTitle);
   };
 
   toggleMenuVisibility = () => {
@@ -86,6 +84,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       telescopeName,
       instrumentName,
     } = observation;
+    const { onDownloadFile } = this;
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
@@ -129,9 +128,14 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                 <div className="overlay-bottom">
                   <Button className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</Button>
                   <div style={{ display: 'flex' }} className="overlay-bottom-action">
-                    <Button className="photoRoll-circle-btn" onClick={this.onDownloadFile}>
+                    <a
+                      href={imageURL}
+                      className="photoRoll-circle-btn btn-circle"
+                      onClick={e => onDownloadFile(e, imageURL, imageTitle)}
+                      download
+                    >
                       <span className="icon-download" />
-                    </Button>
+                    </a>
                     <Button className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
                       <Dots />
                     </Button>
