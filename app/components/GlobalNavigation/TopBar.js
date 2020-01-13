@@ -52,7 +52,6 @@ const TopBar = ({
   const alertsIsActive = isActive(activeMenu, MENU_INTERFACE.ALERTS.name);
   const userIsActive = isActive(activeMenu, MENU_INTERFACE.PROFILE.name);
 
-  const home = () => browserHistory.push('/guestDashboard');
   const main = () => handleMenuClick(MENU_INTERFACE.MAIN.name);
   const telescope = () => handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
@@ -69,7 +68,16 @@ const TopBar = ({
             <div className="left-menu">
               <ul className="button-list">
                 <li>
-                  <Button handleClick={home} mod="no-border">
+                  <Button
+                    handleClick={() => {
+                      if (user.isAuthorized) {
+                        browserHistory.push('/');
+                      } else {
+                        browserHistory.push('/guestDashboard');
+                      }
+                    }}
+                    mod="no-border"
+                  >
                     <i className="top-nav-icon i-logo_astronaut" />
                   </Button>
                 </li>
