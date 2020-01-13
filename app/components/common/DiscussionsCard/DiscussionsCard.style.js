@@ -37,6 +37,7 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
     text-transform: uppercase;
+    word-break: break-word;
   }
 
   .user-info,
