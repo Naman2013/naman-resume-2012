@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
   IGuestDashboard,
@@ -35,6 +36,9 @@ type TGuestDashboardProps = {
   MissionPhotosData: IGuestDashboard;
   setSliderWrapperClass: Function;
   customClass?: string;
+  params: {
+    abTestCallSource: string;
+  };
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
@@ -48,7 +52,7 @@ const SECTION_TYPE: { [key: string]: string } = {
   Plans: 'Plans',
 };
 
-export class GuestDashboard extends Component<TGuestDashboardProps> {
+class GuestDashboard extends Component<TGuestDashboardProps> {
   componentDidMount(): void {
     this.getGuestDashboard();
   }
@@ -59,8 +63,13 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
   };
 
   getGuestDashboard = (): void => {
-    const { getGuestDashboard, getDashboardFeaturedObjects } = this.props;
-    getGuestDashboard().then(() => {
+    const {
+      getGuestDashboard,
+      getDashboardFeaturedObjects,
+      params,
+    } = this.props;
+    const { abTestCallSource } = params;
+    getGuestDashboard(abTestCallSource).then(() => {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
       this.getDashboardShows();
@@ -225,3 +234,5 @@ export class GuestDashboard extends Component<TGuestDashboardProps> {
     );
   }
 }
+
+export default withRouter(GuestDashboard);
