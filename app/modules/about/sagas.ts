@@ -26,6 +26,17 @@ export function* getSectionData(action: any): SagaIterator {
     const payload = { at, token, cid, ...action.payload };
     const resp = yield call(getSectionApi, payload);
     yield put(ACTION.getSectionDataSuccess(resp.data));
+
+    if (resp.data.subMenuCount) {
+      const { linkUrl } = resp.data.subMenuItems[0];
+      const sectionTag = linkUrl.substr(linkUrl.lastIndexOf('/') + 1);
+
+      yield put(
+        ACTION.getSubSectionData({
+          sectionTag,
+        })
+      );
+    }
   } catch (error) {
     yield put(ACTION.getSectionDataError(error));
   }

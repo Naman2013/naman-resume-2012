@@ -6,8 +6,7 @@ import Navigation from 'app/components/about/Navigation';
 import AboutSection from 'app/modules/about/containers/about-section';
 
 type AboutProps = {
-  getAboutDataAction: Function;
-  getSectionDataAction: Function;
+  getAboutData: Function;
   aboutData: IAboutData;
   location: Record<string, any>;
   params: Record<string, any>;
@@ -15,22 +14,14 @@ type AboutProps = {
 
 export class About extends React.PureComponent<AboutProps> {
   componentDidMount(): void {
-    const { getAboutDataAction } = this.props;
+    const { getAboutData } = this.props;
 
-    getAboutDataAction();
-    this.getSectionFromServer();
+    getAboutData();
   }
 
-  getSectionFromServer = (): void => {
-    const { getSectionDataAction, params } = this.props;
-
-    getSectionDataAction({
-      sectionTag: params.aboutSloohSectionId,
-    });
-  };
-
   render() {
-    const { aboutData, location } = this.props;
+    const { aboutData, location, params } = this.props;
+    const { aboutSloohSectionId } = params;
     const {
       aboutSloohSectionsList,
       aboutSloohIconUrl,
@@ -48,7 +39,10 @@ export class About extends React.PureComponent<AboutProps> {
         />
 
         <div className="container">
-          <AboutSection />
+          <AboutSection
+            key={`about-slooh-section-${aboutSloohSectionId}`}
+            sectionTag={aboutSloohSectionId}
+          />
         </div>
       </div>
     );

@@ -1,25 +1,25 @@
-import { AboutSection } from 'app/modules/about/components/about-section';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import { ACTION } from 'app/modules/about/reducer';
 import {
-  makeSectionDataSelector,
+  makeActiveSubSectionSelector,
   makeSubSectionDataSelector,
 } from 'app/modules/about/selectors';
-import { ACTION } from 'app/modules/about/reducer';
+import { AboutSection } from 'app/modules/about/components/about-section';
 
-const mapStateToProps = createStructuredSelector({
-  sectionData: makeSectionDataSelector(),
-  subSectionData: makeSubSectionDataSelector(),
+const mapStateToProps = (state: any, props: any) => ({
+  sectionData: state.about.aboutSloohSections[props.sectionTag] || {},
+  activeSubSection: makeActiveSubSectionSelector()(state),
+  subSectionData: makeSubSectionDataSelector()(state),
 });
 
 const mapDispatchToProps = {
-  getSubSectionDataAction: ACTION.getSubSectionData,
+  getSectionData: ACTION.getSectionData,
+  getSubSectionData: ACTION.getSubSectionData,
 };
 
 export default compose(
-  withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps

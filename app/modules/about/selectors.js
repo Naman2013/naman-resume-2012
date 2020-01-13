@@ -19,3 +19,9 @@ export const makeSubSectionDataSelector = () =>
     selectAbout,
     state => state.subSectionData
   );
+
+export const makeActiveSubSectionSelector = () =>
+  createSelector(
+    selectAbout,
+    state => state.acticeSubSection
+  );

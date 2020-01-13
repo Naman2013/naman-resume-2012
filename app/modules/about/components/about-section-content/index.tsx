@@ -16,10 +16,11 @@ export const AboutSectionContent: React.FC<
   AboutSectionContentProps
 > = props => {
   const { sectionData } = props;
+  const { sectionTag } = sectionData;
 
   return (
     <div className="about-slooh-section-content">
-      about-slooh-section-content
+      about-slooh-section-content {sectionTag}
     </div>
   );
 };

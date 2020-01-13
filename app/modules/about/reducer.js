@@ -5,6 +5,7 @@ export const TYPE = constants('about', [
   '~GET_ABOUT_DATA',
   '~GET_SECTION_DATA',
   '~GET_SUB_SECTION_DATA',
+  'SET_ACTIVE_SUB_SECTION',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -12,8 +13,9 @@ export const ACTION = actions(TYPE);
 const initialState = {
   isFetching: false,
   aboutData: {},
-  sectionData: {},
+  aboutSloohSections: {},
   subSectionData: {},
+  activeSubSections: null,
   serverError: null,
 };
 
@@ -30,6 +32,8 @@ export default handleActions(
     [TYPE.GET_SUB_SECTION_DATA]: start,
     [TYPE.GET_SUB_SECTION_DATA_SUCCESS]: getSubSectionDataSuccess,
     [TYPE.GET_SUB_SECTION_DATA_ERROR]: error,
+
+    [TYPE.SET_ACTIVE_SUB_SECTION]: setActiveSubSection,
   },
   initialState
 );
@@ -58,10 +62,13 @@ function getAboutDataSuccess(state, { payload }) {
 }
 
 function getSectionDataSuccess(state, { payload }) {
+  const { aboutSloohSections } = state;
+  const { sectionTag } = payload;
   return {
     ...state,
     isFetching: false,
-    sectionData: payload,
+    aboutSloohSections: { ...aboutSloohSections, [sectionTag]: payload },
+    activeSubSections: null,
   };
 }
 
@@ -70,5 +77,12 @@ function getSubSectionDataSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     subSectionData: payload,
+  };
+}
+
+function setActiveSubSection(state, { payload }) {
+  return {
+    ...state,
+    activeSubSections: payload,
   };
 }

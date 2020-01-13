@@ -10,8 +10,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getAboutDataAction: ACTION.getAboutData,
-  getSectionDataAction: ACTION.getSectionData,
+  getAboutData: ACTION.getAboutData,
+  getSectionData: ACTION.getSectionData,
 };
 
 export default compose(
