@@ -6,7 +6,6 @@
  ********************************** */
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';

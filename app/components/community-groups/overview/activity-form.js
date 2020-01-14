@@ -28,7 +28,7 @@ class ActivityForm extends Component {
 
   state = {
     uuid: null,
-    showInfo: false,
+    showInfo: true,
   };
 
   componentDidMount() {
@@ -79,6 +79,7 @@ class ActivityForm extends Component {
             uuid={uuid}
           />
         )}
+
         <style jsx>
           {`
             .root {
