@@ -19,13 +19,15 @@ export const EditHeader = props => {
     observationLog,
     refetchData,
     shareMemberPhotoData,
+    imageDownloadURL,
   } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [isDownloadOpen, setDownloadOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
 
-  const onDownloadFile = () => {
+  const onDownloadFile = e => {
+    e.preventDefault();
     const { imageDownloadURL, imageDownloadFilename } = props;
     downloadFile(imageDownloadURL, imageDownloadFilename);
   };
@@ -80,9 +82,14 @@ export const EditHeader = props => {
             tooltip="Download"
             icon={<span className="icon-download" />}
             popover={
-              <Button block onClick={() => onDownloadFile()}>
+              <a
+                href={imageDownloadURL}
+                className="btn btn-primary btn-block"
+                onClick={e => onDownloadFile(e)}
+                download
+              >
                 Download
-              </Button>
+              </a>
             }
           />
 
@@ -94,20 +101,6 @@ export const EditHeader = props => {
               shareMemberPhotoData={shareMemberPhotoData}
             />
           </Modal>
-          {/*<BtnWithPopover
-            isOpen={isShareOpen}
-            setOpen={setShareOpen}
-            className="ml-2"
-            tooltip="Share"
-            icon={<span className="icon-share" />}
-            popoverHeader="SHARE THIS IMAGE"
-            popover={
-              <div>
-                <h1>Share</h1>
-              </div>
-            }
-          />*/}
-
           <BtnWithPopover
             isOpen={isDeleteOpen}
             setOpen={setDeleteOpen}

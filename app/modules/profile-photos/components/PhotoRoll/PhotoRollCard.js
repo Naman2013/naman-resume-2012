@@ -47,11 +47,9 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     this.setState({ width: this.blockWidth.clientWidth });
   }
 
-  onDownloadFile = () => {
-    const {
-      currentItem: { imageDownloadURL, imageDownloadFilename },
-    } = this.props;
-    downloadFile(imageDownloadURL, imageDownloadFilename);
+  onDownloadFile = (e, imageURL, imageTitle) => {
+    e.preventDefault();
+    downloadFile(imageURL, imageTitle);
   };
 
   toggleMenuVisibility = () => {
@@ -81,11 +79,14 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     const {
       imageTitle,
       imageURL,
+      imageDownloadURL,
+      imageDownloadFilename,
       displayDate,
       displayTime,
       telescopeName,
       instrumentName,
     } = observation;
+
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
@@ -127,12 +128,34 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <div className="photoRoll-instrument">{instrumentName}</div>
                 </div>
                 <div className="overlay-bottom">
-                  <Button className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</Button>
-                  <div style={{ display: 'flex' }} className="overlay-bottom-action">
-                    <Button className="photoRoll-circle-btn" onClick={this.onDownloadFile}>
+                  <Button
+                    className="photoRoll-details-btn"
+                    onClick={this.redirectToImage()}
+                  >
+                    {t('Photos.Details')}
+                  </Button>
+                  <div
+                    style={{ display: 'flex' }}
+                    className="overlay-bottom-action"
+                  >
+                    <a
+                      href={imageDownloadURL}
+                      className="photoRoll-circle-btn btn-circle"
+                      onClick={e =>
+                        this.onDownloadFile(
+                          e,
+                          imageDownloadURL,
+                          imageDownloadFilename
+                        )
+                      }
+                      download
+                    >
                       <span className="icon-download" />
-                    </Button>
-                    <Button className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
+                    </a>
+                    <Button
+                      className="photoRoll-circle-btn"
+                      onClick={this.toggleMenuVisibility}
+                    >
                       <Dots />
                     </Button>
                   </div>
