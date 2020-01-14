@@ -79,12 +79,14 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     const {
       imageTitle,
       imageURL,
+      imageDownloadURL,
+      imageDownloadFilename,
       displayDate,
       displayTime,
       telescopeName,
       instrumentName,
     } = observation;
-    const { onDownloadFile } = this;
+
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
@@ -126,17 +128,34 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <div className="photoRoll-instrument">{instrumentName}</div>
                 </div>
                 <div className="overlay-bottom">
-                  <Button className="photoRoll-details-btn" onClick={this.redirectToImage()}>{t('Photos.Details')}</Button>
-                  <div style={{ display: 'flex' }} className="overlay-bottom-action">
+                  <Button
+                    className="photoRoll-details-btn"
+                    onClick={this.redirectToImage()}
+                  >
+                    {t('Photos.Details')}
+                  </Button>
+                  <div
+                    style={{ display: 'flex' }}
+                    className="overlay-bottom-action"
+                  >
                     <a
-                      href={imageURL}
+                      href={imageDownloadURL}
                       className="photoRoll-circle-btn btn-circle"
-                      onClick={e => onDownloadFile(e, imageURL, imageTitle)}
+                      onClick={e =>
+                        this.onDownloadFile(
+                          e,
+                          imageDownloadURL,
+                          imageDownloadFilename
+                        )
+                      }
                       download
                     >
                       <span className="icon-download" />
                     </a>
-                    <Button className="photoRoll-circle-btn" onClick={this.toggleMenuVisibility} >
+                    <Button
+                      className="photoRoll-circle-btn"
+                      onClick={this.toggleMenuVisibility}
+                    >
                       <Dots />
                     </Button>
                   </div>
