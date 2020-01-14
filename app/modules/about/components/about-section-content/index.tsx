@@ -75,7 +75,12 @@ export const AboutSectionContent: React.FC<
         )}
 
       {sectionPanels && (
-        <SectionPanels disableReadMore={disableReadMore} list={sectionPanels} />
+        <div className="container-fluid">
+          <SectionPanels
+            disableReadMore={disableReadMore}
+            list={sectionPanels}
+          />
+        </div>
       )}
 
       {hasAboutSloohNewsStories &&

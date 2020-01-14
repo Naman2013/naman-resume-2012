@@ -47,25 +47,27 @@ export class AboutSection extends React.PureComponent<AboutSectionProps> {
       <div className="about-slooh-section">
         {subMenuCount ? (
           <>
-            <CenterColumn>
-              <Tab.Container
-                defaultActiveKey={this.getSectionTag(subMenuItems)}
-                id="tabs"
-                unmountOnExit
-                mountOnEnter
-                onSelect={(key: string): void =>
-                  this.getSubSectionData(key.substr(key.lastIndexOf('/') + 1))
-                }
-              >
-                <Nav variant="tabs">
-                  {subMenuItems.map(({ title, linkUrl }) => (
-                    <Nav.Item>
-                      <Nav.Link eventKey={linkUrl}>{title}</Nav.Link>
-                    </Nav.Item>
-                  ))}
-                </Nav>
-              </Tab.Container>
-            </CenterColumn>
+            <div className="container-fluid">
+              <CenterColumn>
+                <Tab.Container
+                  defaultActiveKey={this.getSectionTag(subMenuItems)}
+                  id="tabs"
+                  unmountOnExit
+                  mountOnEnter
+                  onSelect={(key: string): void =>
+                    this.getSubSectionData(key.substr(key.lastIndexOf('/') + 1))
+                  }
+                >
+                  <Nav variant="tabs">
+                    {subMenuItems.map(({ title, linkUrl }) => (
+                      <Nav.Item>
+                        <Nav.Link eventKey={linkUrl}>{title}</Nav.Link>
+                      </Nav.Item>
+                    ))}
+                  </Nav>
+                </Tab.Container>
+              </CenterColumn>
+            </div>
 
             <AboutSectionContent sectionData={subSectionData} />
           </>
