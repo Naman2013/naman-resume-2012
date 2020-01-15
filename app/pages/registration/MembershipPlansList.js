@@ -4,6 +4,7 @@ import cx from 'classnames';
 import styles from 'app/pages/registration/MembershipPlansList.style';
 import UpgradeModal from 'app/modules/account-settings/containers/upgrade-modal';
 import SloohSlider from 'app/components/common/Slider';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
 
 export default class MembershipPlansList extends Component {
@@ -45,6 +46,13 @@ export default class MembershipPlansList extends Component {
     browserHistory.push('/join/membershipPlanDetailsStep');
   }
 
+  getSliderConfiguration = () => {
+    return {
+      ...defaultSliderConfiguration(),
+      slidesToShow: 2,
+    };
+  };
+
   getPlansSliderItems = plans =>
     plans.map(subscriptionPlan => ({
       render: () => (
@@ -75,7 +83,7 @@ export default class MembershipPlansList extends Component {
 
   render() {
     const { selectedPlan } = this.state;
-    const { plans, sliderConfig, customClass } = this.props;
+    const { plans, showSlider } = this.props;
 
     let subscriptionPlansCallSource = 'join';
     if (selectedPlan && selectedPlan.triggerUpgradeFlow === true) {
@@ -95,12 +103,12 @@ export default class MembershipPlansList extends Component {
 
         <ul
           className={cx('subscription-plans-list', {
-            'with-slider': sliderConfig && plans.length,
+            'with-slider': showSlider && plans.length,
           })}
         >
-          {sliderConfig && plans.length > 2 && (
+          {showSlider && plans.length > 2 && (
             <SloohSlider
-              {...sliderConfig}
+              sliderConfig={this.getSliderConfiguration()}
               slideList={this.getPlansSliderItems(plans)}
             />
           )}

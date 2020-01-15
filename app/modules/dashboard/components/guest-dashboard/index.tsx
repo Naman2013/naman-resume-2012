@@ -16,7 +16,6 @@ import { IObservatoryList } from 'app/modules/telescope/types';
 import { ShowsSlider } from 'app/components/shows-slider';
 import { MissionPhotosSlider } from 'app/components/mission-photos-slider';
 import { IShowsListItem } from 'app/modules/shows/types';
-import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import DashNav from '../nav/DashboardNav';
 import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
@@ -184,12 +183,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Plans: {
-        return (
-          <MembershipPlansList
-            plans={subscriptionPlans}
-            sliderConfig={defaultSliderConfiguration}
-          />
-        );
+        return <MembershipPlansList plans={subscriptionPlans} showSlider />;
       }
       default: {
         return <div />;
