@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import cx from 'classnames';
 import styles from 'app/pages/registration/MembershipPlansList.style';
 import UpgradeModal from 'app/modules/account-settings/containers/upgrade-modal';
+import SloohSlider from 'app/components/common/Slider';
 import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
 
 export default class MembershipPlansList extends Component {
@@ -43,9 +45,37 @@ export default class MembershipPlansList extends Component {
     browserHistory.push('/join/membershipPlanDetailsStep');
   }
 
+  getPlansSliderItems = plans =>
+    plans.map(subscriptionPlan => ({
+      render: () => (
+        <li
+          key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+          className="subscription-plans-list-item"
+        >
+          <SubscriptionPlanCardSmall
+            {...subscriptionPlan}
+            viewPlanDetails={() =>
+              this.viewPlanDetails(
+                subscriptionPlan.planID,
+                subscriptionPlan.isAstronomyClub
+              )
+            }
+            setSelectedPlan={() =>
+              this.setSelectedPlan(
+                subscriptionPlan.planID,
+                subscriptionPlan.isAstronomyClub,
+                subscriptionPlan.triggerUpgradeFlow,
+                subscriptionPlan
+              )
+            }
+          />
+        </li>
+      ),
+    }));
+
   render() {
     const { selectedPlan } = this.state;
-    const { plans } = this.props;
+    const { plans, sliderConfig, customClass } = this.props;
 
     let subscriptionPlansCallSource = 'join';
     if (selectedPlan && selectedPlan.triggerUpgradeFlow === true) {
@@ -63,7 +93,18 @@ export default class MembershipPlansList extends Component {
           />
         )}
 
-        <ul className="subscription-plans-list">
+        <ul
+          className={cx('subscription-plans-list', {
+            'with-slider': sliderConfig && plans.length,
+          })}
+        >
+          {sliderConfig && plans.length > 2 && (
+            <SloohSlider
+              {...sliderConfig}
+              slideList={this.getPlansSliderItems(plans)}
+            />
+          )}
+
           {plans.map(subscriptionPlan => (
             <li
               key={`subscriptionplan-tile-${subscriptionPlan.planID}`}

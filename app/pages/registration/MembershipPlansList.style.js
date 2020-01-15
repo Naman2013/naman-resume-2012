@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { screenMedium } from 'app/styles/variables/breakpoints';
+import { screenMedium, screenMobile } from 'app/styles/variables/breakpoints';
 import { resetMarginPadding } from 'app/styles/variables/utils';
 
 export default css`
@@ -9,6 +9,20 @@ export default css`
     flex-wrap: wrap;
     ${resetMarginPadding}
     list-style-type: none;
+  }
+
+  .subscription-plans-list.with-slider {
+    margin: 0 auto;
+    max-width: 644px;
+  }
+
+  .subscription-plans-list.with-slider :global(.subscription-plans-list-item) {
+    max-width: 90%;
+    margin: 20px 5%;
+  }
+
+  .subscription-plans-list.with-slider .subscription-plans-list-item {
+    display: none;
   }
 
   .subscription-plans-list-item {
@@ -23,6 +37,16 @@ export default css`
     margin: 0;
   }
 
+  @media ${screenMobile} {
+    .subscription-plans-list.with-slider .subscription-plans-list-item {
+      display: block;
+    }
+
+    .subscription-plans-list.with-slider :global(> .root) {
+      display: none;
+    }
+  }
+
   @media ${screenMedium} {
     .subscription-plans-list {
       margin-top: 20px;
@@ -35,6 +59,12 @@ export default css`
 
     .subscription-plans-list-item {
       margin: 20px 10px 0;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .subscription-plans-list.with-slider {
+      max-width: 965px;
     }
   }
 `;
