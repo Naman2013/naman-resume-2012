@@ -16,11 +16,6 @@ export default css`
     max-width: 644px;
   }
 
-  .subscription-plans-list.with-slider :global(.subscription-plans-list-item) {
-    max-width: 90%;
-    margin: 20px 5%;
-  }
-
   .subscription-plans-list.with-slider .subscription-plans-list-item {
     display: none;
   }
@@ -42,6 +37,11 @@ export default css`
       display: block;
     }
 
+    .subscription-plans-list.with-slider
+      :global(.subscription-plans-list-item) {
+      margin: 20px 5%;
+    }
+
     .subscription-plans-list.with-slider :global(> .root) {
       display: none;
     }
@@ -60,11 +60,22 @@ export default css`
     .subscription-plans-list-item {
       margin: 20px 10px 0;
     }
+
+    .subscription-plans-list.with-slider
+      :global(.subscription-plans-list-item) {
+      margin: 20px 5%;
+    }
   }
 
   @media only screen and (min-width: 1200px) {
     .subscription-plans-list.with-slider {
       max-width: 965px;
+    }
+
+    .subscription-plans-list.with-slider
+      :global(.subscription-plans-list-item) {
+      max-width: 330px;
+      margin: 20px auto;
     }
   }
 `;
