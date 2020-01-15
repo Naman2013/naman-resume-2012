@@ -10,6 +10,10 @@
 
   .clubs-list {
     display: none;
+
+    > .root {
+      margin: 20px auto;
+    }
   }
 
   @include media-breakpoint-down(sm) {

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import cx from 'classnames';
 import styles from 'app/pages/registration/MembershipPlansList.style';
 import UpgradeModal from 'app/modules/account-settings/containers/upgrade-modal';
+import SloohSlider from 'app/components/common/Slider';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
 
 export default class MembershipPlansList extends Component {
@@ -43,9 +46,44 @@ export default class MembershipPlansList extends Component {
     browserHistory.push('/join/membershipPlanDetailsStep');
   }
 
+  getSliderConfiguration = () => {
+    return {
+      ...defaultSliderConfiguration(),
+      slidesToShow: 2,
+    };
+  };
+
+  getPlansSliderItems = plans =>
+    plans.map(subscriptionPlan => ({
+      render: () => (
+        <li
+          key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+          className="subscription-plans-list-item"
+        >
+          <SubscriptionPlanCardSmall
+            {...subscriptionPlan}
+            viewPlanDetails={() =>
+              this.viewPlanDetails(
+                subscriptionPlan.planID,
+                subscriptionPlan.isAstronomyClub
+              )
+            }
+            setSelectedPlan={() =>
+              this.setSelectedPlan(
+                subscriptionPlan.planID,
+                subscriptionPlan.isAstronomyClub,
+                subscriptionPlan.triggerUpgradeFlow,
+                subscriptionPlan
+              )
+            }
+          />
+        </li>
+      ),
+    }));
+
   render() {
     const { selectedPlan } = this.state;
-    const { plans } = this.props;
+    const { plans, showSlider } = this.props;
 
     let subscriptionPlansCallSource = 'join';
     if (selectedPlan && selectedPlan.triggerUpgradeFlow === true) {
@@ -63,7 +101,18 @@ export default class MembershipPlansList extends Component {
           />
         )}
 
-        <ul className="subscription-plans-list">
+        <ul
+          className={cx('subscription-plans-list', {
+            'with-slider': showSlider && plans.length,
+          })}
+        >
+          {showSlider && plans.length > 2 && (
+            <SloohSlider
+              sliderConfig={this.getSliderConfiguration()}
+              slideList={this.getPlansSliderItems(plans)}
+            />
+          )}
+
           {plans.map(subscriptionPlan => (
             <li
               key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
