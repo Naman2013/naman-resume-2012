@@ -103,7 +103,7 @@ export default class MembershipPlansList extends Component {
 
         <ul
           className={cx('subscription-plans-list', {
-            'with-slider': showSlider && plans.length,
+            'with-slider': showSlider && plans.length > 2,
           })}
         >
           {showSlider && plans.length > 2 && (
