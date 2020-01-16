@@ -1,17 +1,36 @@
 <!-- Google Analytics with Optimize -->
+
+<script>
+	window.dataLayer = window.dataLayer || [];
+</script>
+
+<!-- Page hiding snippet for Optimize -->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>
+(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);
+})(window,document.documentElement,'async-hide','dataLayer',4000,{'GTM-TM8J8FH':true});
+</script>
+
+<!-- Analytics tracking code with Optimize plugin -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-150649783-1', 'auto');
-ga('require', 'GTM-TM8J8FH');
-
-dataLayer.push({'event': 'optimize.activate'});
-
+ga('create', 'UA-150649783-1', 'auto', {allowLinker: true}); //Insert GA Property ID
+ga('require', 'GTM-TM8J8FH'); //Insert Optimize Container ID
 </script>
-<!-- End Google Analytics -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TM8J8FH');</script>
+<!-- End Google Tag Manager -->
 
 <!-- Facebook Pixel Code -->
     <script>
@@ -50,13 +69,3 @@ dataLayer.push({'event': 'optimize.activate'});
         else {window.attachEvent('onload', _onload)}
     }());
 </script>
-
-<!-- This will send an activate event to Optimize, anytime that there is a change in the DOM --> 
-<script> 
-    window.dataLayer = window.dataLayer || []; 
-    if (MutationObserver) { 
-      new MutationObserver(function(){ 
-        dataLayer.push({'event': 'optimize.activate'}); 
-      }).observe(document.body, {subtree: true, attributes: true, characterData: true}); 
-    } 
-  </script> 
