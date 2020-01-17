@@ -4,6 +4,7 @@ import { Modal } from 'app/components/modal';
 import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
+import { downloadFile } from 'app/utils/downloadFile';
 
 type PreviewModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
@@ -24,6 +25,10 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
     showFinishButton,
     enableFinishButton,
     finishButtonCaption,
+    downloadPreviewButtonTooltipText,
+    showDownloadPreviewButton,
+    previewDownloadURL,
+    enableDownloadPreviewButton,
   } = imageOrderingModule;
 
   return (
@@ -57,6 +62,25 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
                 disabled={!enableFinishButton}
               >
                 {finishButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
+
+          {showDownloadPreviewButton && (
+            <Tooltip
+              title={downloadPreviewButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="download btn-white"
+                onClick={(): void =>
+                  downloadFile(previewDownloadURL, 'result.png')
+                }
+                disabled={!enableDownloadPreviewButton}
+              >
+                <i className="icon white icon-download" />
               </Button>
             </Tooltip>
           )}

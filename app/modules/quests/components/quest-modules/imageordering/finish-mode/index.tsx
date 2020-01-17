@@ -14,7 +14,7 @@ type FinishModeProps = {
 export const FinishMode: React.FC<FinishModeProps> = props => {
   const { imageOrderingModule, goToEdit, goToReview } = props;
   const {
-    previewURL,
+    outputURL,
     previewFinalHeading,
     previewFinalSubheading,
     outputDownloadURL,
@@ -35,7 +35,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
     <div className="montage-finish-mode">
       <div className="montage-finish-card">
         <div className="montage-finish-card-image">
-          <img src={previewURL} alt="" />
+          <img src={outputURL} alt="" />
         </div>
 
         <div className="montage-finish-card-title">{previewFinalHeading}</div>

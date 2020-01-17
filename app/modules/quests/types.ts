@@ -347,6 +347,7 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   previewReviewButtonCaption: string;
   previewSubheading: string;
   previewURL: string;
+  outputURL: string;
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
@@ -356,6 +357,12 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   showPreviewButton: boolean;
   previewButtonTooltipText: string;
   showPreviewButtonTooltip: boolean;
+
+  downloadPreviewButtonIconURL: string;
+  downloadPreviewButtonTooltipText: string;
+  showDownloadPreviewButton: boolean;
+  previewDownloadURL: boolean;
+  enableDownloadPreviewButton: boolean;
 
   backToEditButtonCaption: string;
   enableBackToEditButton: boolean;
