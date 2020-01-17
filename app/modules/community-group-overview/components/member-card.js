@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Btn from 'app/atoms/Btn';
 import './member-card.scss';
 import { Col, Row } from 'react-bootstrap';
-import noop from 'lodash/fp/noop';
+import { MissionPhotosCard } from 'app/modules/clubs/components/delete-invitation-modal';
 
 type TMemberCard = {
   member: {
@@ -26,40 +26,97 @@ type TMemberCard = {
   },
 };
 
+const openInvitationModal = (
+  setDeleteOpen,
+  deleteInvitationFromGroup,
+  member,
+  setDeleteInvitationResponse
+) => {
+  deleteInvitationFromGroup(member).then(response => {
+    const deleteInvitationResponse = {
+      pageHeading1: response.pageHeading1,
+      pageHeading2: response.pageHeading2,
+      canDeleteInvitation: response.canDeleteInvitation,
+      confirmationText: response.confirmationText,
+      confirmButtonText: response.confirmButtonText,
+      cancelButtonText: response.cancelButtonText,
+      gravityEarnedInThisRequest: response.gravityEarnedInThisRequest,
+    };
+    setDeleteInvitationResponse(deleteInvitationResponse);
+    setDeleteOpen(true);
+  });
+};
+
 const MemberCard = (props: TMemberCard) => {
   const [isOpen, toggleCard] = useState(false);
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [deleteInvitationResponse, setDeleteInvitationResponse] = useState({});
+
   const {
     onAddClick,
+    member,
     member: {
       status,
       name,
-      publicProfileLinkUrl,
       invitationcode,
       emailaddress,
       lastactivity,
       showInvitationCode,
       showAddButton,
       invitationPrompt,
+      canDeleteInvitation,
     },
+    deleteInvitationFromGroup,
+    deleteInvitation,
   } = props;
+
   return (
     <div className="member-card i-box i-box-white">
       <Row noGutters className="member-card-row">
         <Col
-          lg={9}
-          md={9}
-          sm={9}
+          lg={8}
+          md={6}
+          sm={6}
           className="member-card-col member-card-col-pad border-right"
         >
           <h2 className="community-group-edit-title">{name}</h2>
           <h4 className="h-4 h-4-bold">{status}</h4>
         </Col>
         <Col
-          lg={3}
-          md={3}
-          sm={3}
+          lg={4}
+          md={6}
+          sm={6}
           className="member-card-col member-card-col-centered"
         >
+          {canDeleteInvitation && (
+            <div>
+              <div
+                className="delete-invitation-btn"
+                onClick={() => {
+                  openInvitationModal(
+                    setDeleteOpen,
+                    deleteInvitationFromGroup,
+                    member,
+                    setDeleteInvitationResponse
+                  );
+                }}
+              >
+                <span className="icon-delete" />
+              </div>
+              {isDeleteOpen && (
+                <MissionPhotosCard
+                  show
+                  onHide={() => {
+                    setDeleteOpen(false);
+                  }}
+                  deleteInvitationResponse={deleteInvitationResponse}
+                  deleteInvitation={() => {
+                    deleteInvitation(member);
+                  }}
+                />
+              )}
+            </div>
+          )}
           {isOpen ? (
             <Btn mod="circle" onClick={() => toggleCard(false)}>
               <i className="fa fa-close" />

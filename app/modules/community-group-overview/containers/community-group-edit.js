@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import {
+  getGroupDeleteInvitation,
+  deleteInvitation,
+} from 'app/modules/clubs/thunks';
+import {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
   fetchGroupInvitationPanel,
@@ -28,6 +32,8 @@ const mapDispatchToProps = {
   fetchInvitePopupContent,
   addExistingUser,
   addGoogleUser,
+  getGroupDeleteInvitation,
+  deleteInvitation,
 };
 
 export default compose(

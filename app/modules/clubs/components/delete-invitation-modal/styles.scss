@@ -1,0 +1,17 @@
+@import "~app/styles/variables/index";
+
+.delete-invitation {
+  display: flex;
+  flex-direction: column;
+
+  .delete-invitation__title {
+    font-size: 19px;
+    color: $romance;
+  }
+
+  .delete-invitation__action {
+    button:first-child {
+      margin-right: 15px;
+    }
+  }
+}

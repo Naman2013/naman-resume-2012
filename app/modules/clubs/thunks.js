@@ -1,4 +1,8 @@
-import { getTopThreadsListApi } from './api';
+import {
+  getTopThreadsListApi,
+  getGroupDeleteInvitationApi,
+  deleteInvitationApi,
+} from './api';
 
 import { ACTION } from './reducer';
 
@@ -11,4 +15,39 @@ export const getTopThreadList = data => (dispatch, getState) => {
       return result.data;
     })
     .catch(error => dispatch(ACTION.getTopThreadsError(error)));
+};
+
+export const getGroupDeleteInvitation = inviteDetails => (
+  dispatch,
+  getState
+) => {
+  const { cid, at, token } = getState().user;
+  return getGroupDeleteInvitationApi({
+    at,
+    cid,
+    token,
+    inviteDetails: [inviteDetails],
+  })
+    .then(result => {
+      dispatch(ACTION.getGroupDeleteInvitationSuccess(result.data));
+      return result.data;
+    })
+    .catch(error => dispatch(ACTION.getGroupDeleteInvitationError(error)));
+};
+
+export const deleteInvitation = inviteDetails => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  return deleteInvitationApi({
+    at,
+    cid,
+    token,
+    inviteDetails: [inviteDetails],
+  })
+    .then(result => {
+      dispatch(ACTION.deleteInvitationSuccess(result.data));
+      return result.data;
+    })
+    .catch(error => {
+      dispatch(ACTION.deleteInvitationError(error));
+    });
 };

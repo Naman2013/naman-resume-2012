@@ -404,3 +404,13 @@ export declare interface IQuestDotMenuItem {
   title: any;
   action?: () => void;
 }
+
+export declare interface IDeleteInvitationResponse {
+  pageHeading1: string;
+  pageHeading2: string;
+  canDeleteInvitation: boolean;
+  confirmationText: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
+  gravityEarnedInThisRequest: boolean;
+}

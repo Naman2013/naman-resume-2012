@@ -1,7 +1,12 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('clubs', ['~GET_CLUBS', '~GET_TOP_THREADS']);
+export const TYPE = constants('clubs', [
+  '~GET_CLUBS',
+  '~GET_TOP_THREADS',
+  '~GET_GROUP_DELETE_INVITATION',
+  '~DELETE_INVITATION',
+]);
 
 export const ACTION = actions(TYPE);
 
@@ -19,6 +24,10 @@ export default handleActions(
     [TYPE.GET_TOP_THREADS]: getTopThreadsStart,
     [TYPE.GET_TOP_THREADS_SUCCESS]: getTopThreadsSuccess,
     [TYPE.GET_TOP_THREADS_ERROR]: getTopThreadsError,
+    [TYPE.GET_GROUP_DELETE_INVITATION_SUCCESS]: getGroupDeleteInvitationSuccess,
+    [TYPE.GET_GROUP_DELETE_INVITATION_ERROR]: getGroupDeleteInvitationError,
+    [TYPE.DELETE_INVITATION_SUCCESS]: deleteInvitationSuccess,
+    [TYPE.DELETE_INVITATION_ERROR]: deleteInvitationError,
   },
   initialState
 );
@@ -62,6 +71,34 @@ function getClubsSuccess(state = initialState) {
 }
 
 function getClubsError(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function getGroupDeleteInvitationSuccess(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function getGroupDeleteInvitationError(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function deleteInvitationSuccess(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function deleteInvitationError(state = initialState) {
   return {
     ...state,
     isFetching: false,
