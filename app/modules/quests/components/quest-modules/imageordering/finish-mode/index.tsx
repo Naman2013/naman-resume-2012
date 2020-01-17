@@ -4,15 +4,22 @@ import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
 import { downloadFile } from 'app/utils/downloadFile';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type FinishModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
+  setImageOrderingModule?: (mode: string) => Promise<any>;
   goToReview?: () => void;
   goToEdit?: () => void;
 };
 
 export const FinishMode: React.FC<FinishModeProps> = props => {
-  const { imageOrderingModule, goToEdit, goToReview } = props;
+  const {
+    imageOrderingModule,
+    setImageOrderingModule,
+    goToEdit,
+    goToReview,
+  } = props;
   const {
     outputURL,
     previewFinalHeading,
@@ -53,7 +60,18 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
             distance={10}
             position="top"
           >
-            <Button onClick={goToReview} disabled={!enableReviewWorkButton}>
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.REVIEW).then(
+                  ({ payload: { apiError } }) => {
+                    if (!apiError) {
+                      goToReview();
+                    }
+                  }
+                );
+              }}
+              disabled={!enableReviewWorkButton}
+            >
               {reviewWorkButtonCaption}
             </Button>
           </Tooltip>
@@ -72,7 +90,10 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           >
             <Button
               className="btn-white"
-              onClick={goToEdit}
+              onClick={(): void => {
+                goToEdit();
+                setImageOrderingModule(MODES.EDIT);
+              }}
               disabled={!enableBackToEditButton}
             >
               {backToEditButtonCaption}

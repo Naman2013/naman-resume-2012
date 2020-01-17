@@ -5,16 +5,23 @@ import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
 import { downloadFile } from 'app/utils/downloadFile';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type PreviewModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
+  setImageOrderingModule?: (mode: string) => Promise<any>;
   goToEdit?: () => void;
   goToFinish?: () => void;
   completed?: boolean;
 };
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
-  const { imageOrderingModule, goToEdit, goToFinish } = props;
+  const {
+    imageOrderingModule,
+    goToEdit,
+    goToFinish,
+    setImageOrderingModule,
+  } = props;
   const {
     previewHeading,
     previewSubheading,
@@ -34,7 +41,10 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
   return (
     <Modal
       show
-      onHide={goToEdit}
+      onHide={(): void => {
+        goToEdit();
+        setImageOrderingModule(MODES.EDIT);
+      }}
       goBackText={previewGoBackButtonCaption}
       disableGoBack={false}
     >
@@ -58,7 +68,15 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
             >
               <Button
                 className="btn-white finish-btn"
-                onClick={goToFinish}
+                onClick={(): void => {
+                  setImageOrderingModule(MODES.FINISH).then(
+                    ({ payload: { apiError } }) => {
+                      if (!apiError) {
+                        goToFinish();
+                      }
+                    }
+                  );
+                }}
                 disabled={!enableFinishButton}
               >
                 {finishButtonCaption}
@@ -85,7 +103,13 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
             </Tooltip>
           )}
 
-          <Button className="btn-white" onClick={goToEdit}>
+          <Button
+            className="btn-white"
+            onClick={(): void => {
+              goToEdit();
+              setImageOrderingModule(MODES.EDIT);
+            }}
+          >
             {previewBackToTasksButtonCaption}
           </Button>
         </div>

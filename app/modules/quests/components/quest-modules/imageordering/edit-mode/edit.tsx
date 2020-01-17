@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
-import { MODE } from 'app/modules/quests/constants/montageModule';
+import { MODE, MODES } from 'app/modules/quests/constants/montageModule';
 import {
   ImageorderingModuleResponse,
   IQuestDataCollectionSlot,
@@ -16,6 +16,7 @@ type TEditModeProps = {
   mode: number;
   goToPreview?: () => void;
   getImageOrderingModule?: () => void;
+  setImageOrderingModule?: (mode: string) => Promise<any>;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
     image: IQuestDataCollectionSlotImage,
@@ -40,6 +41,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     goToPreview,
     imageOrderingModule,
     getImageOrderingModule,
+    setImageOrderingModule,
     setDataCollectionSlotImages,
     getDataCollectionSlotImages,
     removeDataCollectionSlotImage,
@@ -108,7 +110,18 @@ export const EditMode: React.FC<TEditModeProps> = props => {
             distance={10}
             position="top"
           >
-            <Button onClick={goToPreview} disabled={!enablePreviewButton}>
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.PREVIEW).then(
+                  ({ payload: { apiError } }) => {
+                    if (!apiError) {
+                      goToPreview();
+                    }
+                  }
+                );
+              }}
+              disabled={!enablePreviewButton}
+            >
               {previewButtonCaption}
             </Button>
           </Tooltip>
@@ -123,7 +136,13 @@ export const EditMode: React.FC<TEditModeProps> = props => {
             distance={10}
             position="top"
           >
-            <Button onClick={goToPreview} disabled={!enableExitReviewButton}>
+            <Button
+              onClick={(): void => {
+                goToPreview();
+                setImageOrderingModule(MODES.PREVIEW);
+              }}
+              disabled={!enableExitReviewButton}
+            >
               {exitReviewButtonCaption}
             </Button>
           </Tooltip>

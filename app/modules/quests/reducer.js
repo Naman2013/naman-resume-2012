@@ -185,6 +185,10 @@ export default handleActions(
     [TYPE.GET_IMAGEORDERING_MODULE]: start,
     [TYPE.GET_IMAGEORDERING_MODULE_SUCCESS]: getImageorderingModuleSuccess,
     [TYPE.GET_IMAGEORDERING_MODULE_ERROR]: error,
+
+    [TYPE.SET_IMAGEORDERING_MODULE]: start,
+    [TYPE.SET_IMAGEORDERING_MODULE_SUCCESS]: end,
+    [TYPE.SET_IMAGEORDERING_MODULE_ERROR]: error,
   },
   initialState
 );
@@ -193,6 +197,13 @@ function start(state = initialState) {
   return {
     ...state,
     isFetching: true,
+  };
+}
+
+function end(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
   };
 }
 
