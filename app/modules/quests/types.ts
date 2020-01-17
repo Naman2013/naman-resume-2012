@@ -325,6 +325,7 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   activityPrompt: string;
   activityTitle: string;
   activityStatus: string;
+  activityState: string;
   correctText: string;
   gravityEarnedInThisRequest: boolean;
   incorrectText: string;
