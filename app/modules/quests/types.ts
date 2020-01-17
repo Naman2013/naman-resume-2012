@@ -457,6 +457,8 @@ export declare interface IQuestDataCollectionSlot {
   OverlayXpos: number;
   OverlayYpos: number;
   QuestModuleImageOrderingSlotId: number;
+  scoringText: string;
+  scoringTextBold: boolean;
   contentCount: number;
   contentType: string;
   customerImageId: number;

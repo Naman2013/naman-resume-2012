@@ -118,7 +118,7 @@
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    font-weight: 700;
+    font-size: 14px;
     letter-spacing: .63px;
 
     .find-image-title {
@@ -127,6 +127,10 @@
 
     .notification-title {
       align-self: flex-end;
+
+      &.bold {
+        font-weight: 700;
+      }
     }
   }
 }
