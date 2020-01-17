@@ -2,56 +2,75 @@ import React from 'react';
 import './styles.scss';
 import { Modal } from 'app/components/modal';
 import { Button } from 'react-bootstrap';
-import { IDeleteInvitationResponse } from 'app/modules/quests/types.ts';
+import {
+  IDeleteInvitationResponse,
+  IInvitationCustomerLinks,
+} from 'app/modules/quests/types';
 
 type TDeleteInvitationModalProps = {
   onHide: Function;
   show: boolean;
   goBackText: string;
-  deleteInvitationResponse: IDeleteInvitationResponse;
-  deleteInvitation: Function;
+  getGroupDeleteInvitation: () => void;
+  groupDeleteInvitation: IDeleteInvitationResponse;
+  deleteInvitation: (member: IInvitationCustomerLinks) => void;
+  member: IInvitationCustomerLinks;
 };
 
-export const MissionPhotosCard: React.FC<
+export default class DeleteInvitationModal extends React.PureComponent<
   TDeleteInvitationModalProps
-> = props => {
-  const { onHide, show, deleteInvitationResponse, deleteInvitation } = props;
+> {
+  componentDidMount(): void {
+    const { getGroupDeleteInvitation } = this.props;
+    getGroupDeleteInvitation();
+  }
 
-  const {
-    confirmationText,
-    confirmButtonText,
-    cancelButtonText,
-  } = deleteInvitationResponse;
+  render() {
+    const {
+      show,
+      onHide,
+      groupDeleteInvitation: {
+        confirmationText,
+        cancelButtonText,
+        confirmButtonText,
+        pageHeading1,
+        pageHeading2,
+      },
+      member,
+      deleteInvitation,
+    } = this.props;
 
-  return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      goBackText="GO BACK"
-      disableGoBack={false}
-    >
-      <div className="delete-invitation">
-        <div className="delete-invitation__title">{confirmationText}</div>
-        <br />
-        <div className="delete-invitation__action">
-          <Button
-            onClick={() => {
-              deleteInvitation();
-            }}
-            className="modal-btn"
-          >
-            {confirmButtonText}
-          </Button>
-          <Button
-            onClick={() => {
-              onHide();
-            }}
-            className="modal-btn"
-          >
-            {cancelButtonText}
-          </Button>
+    return (
+      <Modal
+        show={show}
+        onHide={onHide}
+        goBackText="GO BACK"
+        disableGoBack={false}
+      >
+        <div className="delete-invitation">
+          <h1 className="modal-h">{pageHeading1}</h1>
+          <h3 className="modal-h3">{pageHeading2}</h3>
+          <p className="modal-p">{confirmationText}</p>
+          <div className="delete-invitation__action">
+            <Button
+              onClick={() => {
+                deleteInvitation(member);
+              }}
+              className="modal-btn"
+            >
+              {confirmButtonText}
+            </Button>
+            <Button
+              onClick={() => {
+                onHide();
+              }}
+              className="modal-btn"
+            >
+              {cancelButtonText}
+            </Button>
+          </div>
         </div>
-      </div>
-    </Modal>
-  );
-};
+      </Modal>
+    );
+  }
+}

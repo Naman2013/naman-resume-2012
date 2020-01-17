@@ -414,3 +414,20 @@ export declare interface IDeleteInvitationResponse {
   cancelButtonText: string;
   gravityEarnedInThisRequest: boolean;
 }
+
+export declare interface IInvitationCustomerLinks {
+  publicProfileLinkUrl: string;
+  name: string;
+  firstname: string;
+  lastname: string;
+  emailaddress: string;
+  invitationcode: string;
+  showInvitationCode: boolean;
+  status: string;
+  lastactivity: string;
+  showClubStatus: boolean;
+  showAddButton: boolean;
+  invitationPrompt: string;
+  clubStatus: string;
+  canDeleteInvitation: boolean;
+}

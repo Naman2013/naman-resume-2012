@@ -112,20 +112,17 @@ class CommunityGroupEdit extends Component {
       communityGroupOverview: {
         pageMeta: { isGoogleClassroom },
       },
-      getGroupDeleteInvitation,
-      deleteInvitation,
     } = this.props;
     if (!data) return null;
     const { customerLinks } = data;
+    console.log('RENDER GAVNO');
     return (
       customerLinks &&
       customerLinks.length &&
       customerLinks.map((member, index) => (
         <MemberCard
           member={member}
-          deleteInvitationFromGroup={getGroupDeleteInvitation}
           key={`member-card-invitation-code-${index}`}
-          deleteInvitation={deleteInvitation}
           onAddClick={() => {
             let user = {
               firstName: member.firstname,

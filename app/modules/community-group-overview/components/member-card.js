@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Btn from 'app/atoms/Btn';
 import './member-card.scss';
 import { Col, Row } from 'react-bootstrap';
-import { MissionPhotosCard } from 'app/modules/clubs/components/delete-invitation-modal';
+import DeleteInvitationModal from 'app/modules/clubs/containers/deleteInvitationModal';
 
 type TMemberCard = {
   member: {
@@ -11,7 +11,6 @@ type TMemberCard = {
     clubStatus: string,
     showInvitationCode: boolean,
     showClubStatus: boolean,
-    showAddButton: boolean,
     publicProfileLinkUrl: string,
     name: string,
     lastname: string,
@@ -20,37 +19,14 @@ type TMemberCard = {
     lastactivity: string | Date,
     invitationcode: string | number,
     invitationPrompt: string,
-    showInvitationCode: boolean,
     showAddButton: boolean,
     invitationPrompt: string,
   },
 };
 
-const openInvitationModal = (
-  setDeleteOpen,
-  deleteInvitationFromGroup,
-  member,
-  setDeleteInvitationResponse
-) => {
-  deleteInvitationFromGroup(member).then(response => {
-    const deleteInvitationResponse = {
-      pageHeading1: response.pageHeading1,
-      pageHeading2: response.pageHeading2,
-      canDeleteInvitation: response.canDeleteInvitation,
-      confirmationText: response.confirmationText,
-      confirmButtonText: response.confirmButtonText,
-      cancelButtonText: response.cancelButtonText,
-      gravityEarnedInThisRequest: response.gravityEarnedInThisRequest,
-    };
-    setDeleteInvitationResponse(deleteInvitationResponse);
-    setDeleteOpen(true);
-  });
-};
-
 const MemberCard = (props: TMemberCard) => {
   const [isOpen, toggleCard] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
-  const [deleteInvitationResponse, setDeleteInvitationResponse] = useState({});
 
   const {
     onAddClick,
@@ -66,8 +42,6 @@ const MemberCard = (props: TMemberCard) => {
       invitationPrompt,
       canDeleteInvitation,
     },
-    deleteInvitationFromGroup,
-    deleteInvitation,
   } = props;
 
   return (
@@ -92,27 +66,15 @@ const MemberCard = (props: TMemberCard) => {
             <div>
               <div
                 className="delete-invitation-btn"
-                onClick={() => {
-                  openInvitationModal(
-                    setDeleteOpen,
-                    deleteInvitationFromGroup,
-                    member,
-                    setDeleteInvitationResponse
-                  );
-                }}
+                onClick={() => setDeleteOpen(true)}
               >
                 <span className="icon-delete" />
               </div>
               {isDeleteOpen && (
-                <MissionPhotosCard
+                <DeleteInvitationModal
                   show
-                  onHide={() => {
-                    setDeleteOpen(false);
-                  }}
-                  deleteInvitationResponse={deleteInvitationResponse}
-                  deleteInvitation={() => {
-                    deleteInvitation(member);
-                  }}
+                  onHide={() => setDeleteOpen(false)}
+                  member={member}
                 />
               )}
             </div>

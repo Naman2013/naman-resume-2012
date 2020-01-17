@@ -14,6 +14,7 @@ const initialState = {
   isFetching: false,
   topThreadsList: [],
   serverError: null,
+  groupDeleteInvitation: {},
 };
 
 export default handleActions(
@@ -24,8 +25,10 @@ export default handleActions(
     [TYPE.GET_TOP_THREADS]: getTopThreadsStart,
     [TYPE.GET_TOP_THREADS_SUCCESS]: getTopThreadsSuccess,
     [TYPE.GET_TOP_THREADS_ERROR]: getTopThreadsError,
+    [TYPE.GET_GROUP_DELETE_INVITATION]: getGroupDeleteInvitationStart,
     [TYPE.GET_GROUP_DELETE_INVITATION_SUCCESS]: getGroupDeleteInvitationSuccess,
     [TYPE.GET_GROUP_DELETE_INVITATION_ERROR]: getGroupDeleteInvitationError,
+    [TYPE.DELETE_INVITATION]: deleteInvitationStart,
     [TYPE.DELETE_INVITATION_SUCCESS]: deleteInvitationSuccess,
     [TYPE.DELETE_INVITATION_ERROR]: deleteInvitationError,
   },
@@ -77,10 +80,20 @@ function getClubsError(state = initialState) {
   };
 }
 
-function getGroupDeleteInvitationSuccess(state = initialState) {
+function getGroupDeleteInvitationStart(state) {
+  return {
+    ...state,
+    isFetching: true,
+    isLoaded: false,
+    groupDeleteInvitation: {},
+  };
+}
+
+function getGroupDeleteInvitationSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
+    groupDeleteInvitation: action.payload,
   };
 }
 
@@ -88,6 +101,14 @@ function getGroupDeleteInvitationError(state = initialState) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function deleteInvitationStart(state) {
+  return {
+    ...state,
+    isFetching: true,
+    isLoaded: false,
   };
 }
 
