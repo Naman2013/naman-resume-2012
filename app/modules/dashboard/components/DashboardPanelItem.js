@@ -7,9 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 
-const { func, number, string } = PropTypes;
+const { func, string } = PropTypes;
 
 const PanelItem = ({ orderNumber, render, title, subtitle }) => (
   <div className={`dash-item${orderNumber === 1 ? '-first' : ''}`}>
@@ -29,7 +28,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
         text-align: center;
         padding: 0 25px;
         min-height: 400px;
-        margin-top: 120px;
+        margin-top: 60px;
       }
 
       .dash-item:nth-child(2) {
@@ -51,7 +50,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
       h5 {
         font-family: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
         font-weight: 700;
-        font-size: 12px;
+        font-size: 1.4em;
         color: #41566f;
         border-bottom: 2px solid #d8d8d8;
         width: 34px;
@@ -83,7 +82,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
         background-color: #213043;
         background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
         background-size: 100px;
-        padding-top: 125px;
+        padding-top: 25px;
         transition: padding ease-in-out 0.3s;
       }
 
@@ -154,7 +153,6 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
 );
 
 PanelItem.propTypes = {
-  orderNumber: number.isRequired,
   render: func.isRequired,
   title: string.isRequired,
   subtitle: string.isRequired,

@@ -24,6 +24,8 @@
         -moz-box-shadow: 0 2px 4px 1px $shadows;
         -webkit-box-shadow: 0 2px 4px 1px $shadows;
         box-shadow: 0 2px 4px 1px $shadows;
+        word-break: break-all;
+
         .header {
           border-bottom: 1px solid $astronaut;
           font-size: 18px;

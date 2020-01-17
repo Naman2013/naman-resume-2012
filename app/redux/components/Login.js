@@ -27,10 +27,9 @@ import { primaryFont } from 'app/styles/variables/fonts';
 import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs';
 import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
-  googleClientIDModel,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+} from 'app/services/registration/registration';
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
@@ -86,10 +85,11 @@ class Login extends Component {
   };
 
   startForgotPassword = () => {
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { loginFormDetails } = this.state;
+    const newLoginFormData = cloneDeep(loginFormDetails);
     const { t } = this.props;
 
-    if (this.state.loginFormDetails.loginEmailAddress.value === '') {
+    if (loginFormDetails.loginEmailAddress.value === '') {
       newLoginFormData.loginEmailAddress.errorText = t(
         'Dashboard.ForgotPasswordError'
       );
@@ -105,7 +105,7 @@ class Login extends Component {
       }));
 
       API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
-        loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
+        loginEmailAddress: loginFormDetails.loginEmailAddress.value,
       })
         .then(response => {
           const { actions } = this.props;
@@ -130,7 +130,8 @@ class Login extends Component {
 
   //capture the change to the email address field
   handleFieldChange = ({ field, value }) => {
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { loginFormDetails } = this.state;
+    const newLoginFormData = cloneDeep(loginFormDetails);
     newLoginFormData[field].value = value;
 
     this.setState(() => ({
@@ -139,8 +140,9 @@ class Login extends Component {
   };
 
   clearCurrentErrors = () => {
+    const { loginFormDetails } = this.state;
     //clear out any login form errors
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const newLoginFormData = cloneDeep(loginFormDetails);
     newLoginFormData.loginEmailAddress.errorText = '';
 
     this.setState(() => ({
@@ -155,8 +157,6 @@ class Login extends Component {
     this.setState(() => ({
       inForgotPasswordMode: false,
     }));
-
-    actions.closeAllMenus();
   };
 
   processGoogleFailureResponse = googleMessageData => {
@@ -217,16 +217,22 @@ class Login extends Component {
       }),
     };
 
-    const { googleProfileData } = this.state;
+    const {
+      inForgotPasswordMode,
+      forgotPasswordStatusMessage,
+      loginFormDetails,
+    } = this.state;
+
+    const { handleSubmit } = this.props;
 
     return (
       <div className="root">
-        {this.state.inForgotPasswordMode === true && (
+        {inForgotPasswordMode === true && (
           <div className="form">
             <div className="forgot-password-req">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: this.state.forgotPasswordStatusMessage,
+                  __html: forgotPasswordStatusMessage,
                 }}
               />
               <div className="close-button-container">
@@ -244,21 +250,19 @@ class Login extends Component {
             </div>
           </div>
         )}
-        {this.state.inForgotPasswordMode === false && (
-          <form
-            className="form"
-            onSubmit={this.props.handleSubmit(this.handleSubmit)}
-          >
+        {inForgotPasswordMode === false && (
+          <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
             {loginFailed ? (
-              <div className="field-error">{t('Dashboard.LoginFailed')}</div>
+              <div className="field-error" style={{ marginLeft: '15px' }}>
+                {t('Dashboard.LoginFailed')}
+              </div>
             ) : null}
-            {this.state.loginFormDetails.loginEmailAddress.errorText.length >
-              0 && (
+            {loginFormDetails.loginEmailAddress.errorText.length > 0 && (
               <div
                 className="field-error"
                 style={{ marginLeft: '10px', marginRight: '10px' }}
               >
-                {this.state.loginFormDetails.loginEmailAddress.errorText}
+                {loginFormDetails.loginEmailAddress.errorText}
               </div>
             )}
             <Field
@@ -272,7 +276,7 @@ class Login extends Component {
                   value: event.target.value,
                 });
               }}
-              value={this.state.loginFormDetails.loginEmailAddress.value}
+              value={loginFormDetails.loginEmailAddress.value}
             />
             <Field
               name="pwd"
@@ -285,7 +289,7 @@ class Login extends Component {
                   value: event.target.value,
                 });
               }}
-              value={this.state.loginFormDetails.password.value}
+              value={loginFormDetails.password.value}
             />
             <a
               className="forgot title-link"
@@ -359,7 +363,7 @@ class Login extends Component {
               <span className="title-link">
                 {t('Dashboard.DontHaveAccount')}
               </span>
-              <Link to="/about/memberships">
+              <Link to="/join/step1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
                   theme={{

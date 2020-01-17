@@ -77,6 +77,7 @@ export class RecommendedObjects extends Component {
       reservedButtonCaption,
       optionsButtonCaption,
       t,
+      readOnly,
     } = this.props;
     const {
       reservationModalVisible,
@@ -88,7 +89,8 @@ export class RecommendedObjects extends Component {
       this.reservationModalShow,
       reservedButtonCaption,
       optionsButtonCaption,
-      t
+      t,
+      readOnly
     );
     const shortList = take(missionList, 3) || [];
     return (
@@ -105,6 +107,7 @@ export class RecommendedObjects extends Component {
                 onOptionClick={() => this.reservationModalShow(object)}
                 reservedButtonCaption={reservedButtonCaption}
                 optionsButtonCaption={optionsButtonCaption}
+                readOnly={readOnly}
               />
             ))}
           </div>

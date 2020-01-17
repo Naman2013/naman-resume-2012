@@ -56,19 +56,12 @@ class MembershipPlanDetailsStep extends Component {
   state = {
     selectedPlanId: window.localStorage.getItem('selectedPlanId'),
     isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-    isClassroom: window.localStorage.getItem('isClassroom') === 'true',
   };
 
   continueToJoinFlow = formValues => {
     formValues.preventDefault();
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (this.state.isClassroom) {
-      browserHistory.push('/join/step1SchoolSelection');
-    } else {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step2');
-    }
+    browserHistory.push('/join/step2');
   };
 
   changeActiveTab = activeTab => {

@@ -7,6 +7,10 @@ import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
 import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+import {
+  screenMobile,
+  screenSmallMobile,
+} from 'app/styles/variables/breakpoints';
 import MENU_INTERFACE from './Menus/MenuInterface';
 import CenterBar from './CenterBar';
 import Button from './Button';
@@ -37,6 +41,7 @@ const TopBar = ({
   userDisplayName,
   isChatEnabled,
   scrollActivityFeedToBottom,
+  subscribeToPubnubActivityFeedChannel,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -47,7 +52,6 @@ const TopBar = ({
   const alertsIsActive = isActive(activeMenu, MENU_INTERFACE.ALERTS.name);
   const userIsActive = isActive(activeMenu, MENU_INTERFACE.PROFILE.name);
 
-  const home = () => browserHistory.push('/');
   const main = () => handleMenuClick(MENU_INTERFACE.MAIN.name);
   const telescope = () => handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
@@ -64,7 +68,16 @@ const TopBar = ({
             <div className="left-menu">
               <ul className="button-list">
                 <li>
-                  <Button handleClick={home} mod="no-border">
+                  <Button
+                    handleClick={() => {
+                      if (user.isAuthorized) {
+                        browserHistory.push('/');
+                      } else {
+                        browserHistory.push('/guestDashboard');
+                      }
+                    }}
+                    mod="no-border"
+                  >
                     <i className="top-nav-icon i-logo_astronaut" />
                   </Button>
                 </li>
@@ -116,9 +129,9 @@ const TopBar = ({
               </ul>
             </div>
 
-            <div className="center-menu">
-              <CenterBar />
-            </div>
+            {/*<div className="center-menu">*/}
+            {/*  <CenterBar />*/}
+            {/*</div>*/}
 
             <div className="right-menu">
               <ul className="button-list">
@@ -144,6 +157,9 @@ const TopBar = ({
                         isChatEnabled={isChatEnabled}
                         onClick={closeAllMenus}
                         scrollActivityFeedToBottom={scrollActivityFeedToBottom}
+                        subscribeToPubnubActivityFeedChannel={
+                          subscribeToPubnubActivityFeedChannel
+                        }
                       />
                     </li>
                     <li>
@@ -172,7 +188,7 @@ const TopBar = ({
                     theme={
                       user.isAuthorized
                         ? {}
-                        : { width: 'auto', padding: '0 20px' }
+                        : { width: 'auto', padding: '0 5px 0 0' }
                     }
                   >
                     {user.isAuthorized && (
@@ -190,21 +206,18 @@ const TopBar = ({
                         {userIsActive ? (
                           <i className="top-nav-icon icon-close" />
                         ) : (
-                          <div className="flex-row justify-content-center">
-                            <div style={{ marginTop: '-3px' }}>
-                              <Link
-                                className="button text"
-                                to="/about/memberships"
-                              >
-                                <span
-                                  style={{ color: '#415671' }}
-                                  className="text"
-                                >
-                                  Join now for FREE!
-                                </span>
-                              </Link>
-                              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                            </div>
+                          <div className="flex-row justify-content-center align-items-center">
+                            <Link className="button text" to="/join/step1">
+                              <button className="btn btn-submit free-trial-button">
+                                <div>
+                                  <span>Start Free</span>
+                                  <span>Trial</span>
+                                </div>
+                              </button>
+                            </Link>
+
+                            <div className="buttons-separator" />
+
                             <span className="text">
                               {t('Navigation.SignIn')}
                             </span>
@@ -271,6 +284,30 @@ const TopBar = ({
                 .i-user-astronaut {
                   /* todo make global configs for icons */
                   width: 20px;
+                }
+
+                .free-trial-button > div {
+                  min-width: 100px;
+                  text-align: center;
+                }
+
+                .free-trial-button > div > span:first-child {
+                  margin-right: 3px;
+                }
+
+                @media ${screenMobile} {
+                  .free-trial-button {
+                    padding: 5px;
+                  }
+                }
+
+                @media ${screenSmallMobile} {
+                  .free-trial-button > div {
+                    display: flex;
+                    min-width: auto;
+                    flex-direction: column;
+                    align-items: center;
+                  }
                 }
               `}
             </style>

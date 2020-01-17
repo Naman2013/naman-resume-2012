@@ -6,8 +6,6 @@ import { PaymentStep } from 'app/modules/account-settings/components/upgrade-mod
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
-import ClassroomDefineSchoolSelectionGeneral from 'app/modules/account-settings/components/upgrade-modal/classroom-define';
-import AstronomyClubDefineClubGeneral from 'app/modules/account-settings/components/upgrade-modal/astronomyclub-define-club';
 
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
@@ -42,11 +40,8 @@ const didMount = (props: TUpgradeModal) => () => {
   });
 
   //clear localStorage
-  window.localStorage.removeItem('isClassroom');
   window.localStorage.removeItem('selectedSchoolId');
   window.localStorage.removeItem('isAstronomyClub');
-  window.localStorage.removeItem('astronomyClubName');
-  window.localStorage.removeItem('astronomyClub18AndOver');
 };
 
 export const UpgradeModal = (props: TUpgradeModal) => {
@@ -75,7 +70,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     myDisableGoBack = true;
   }
 
-  if (props.subscriptionPlansCallSource == 'forcedsloohcrew') {
+  if (
+    props.subscriptionPlansCallSource == 'forcedsloohcrew' ||
+    props.subscriptionPlansCallSource == 'expired' ||
+    props.subscriptionPlansCallSource == 'expiredrecently'
+  ) {
     buttonText = 'LOGOUT';
     onCloseFunc = dispatch => {
       //Force Logout the User - They have opted to not buy a Slooh Plan
@@ -86,14 +85,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     };
   }
-
-  let goNextAfterSchoolSelection = dispatch => {
-    setStep('PAYMENT');
-  };
-
-  let goNextAfterAstronomyClubDefined = dispatch => {
-    setStep('PAYMENT');
-  };
 
   return (
     <>
@@ -118,10 +109,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
-                } else if (selectedPlan.isAstronomyClub == true) {
-                  setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
-                } else if (selectedPlan.isClassroom == true) {
-                  setStep('CLASSROOM_SELECT_SCHOOL');
                 } else {
                   setStep('PAYMENT');
                 }
@@ -146,22 +133,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               </div>
             )}
           </>
-        )}
-
-        {step === 'CLASSROOM_SELECT_SCHOOL' && (
-          <ClassroomDefineSchoolSelectionGeneral
-            {...props}
-            selectedPlan={selectedPlan}
-            goNext={goNextAfterSchoolSelection}
-          />
-        )}
-
-        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && (
-          <AstronomyClubDefineClubGeneral
-            {...props}
-            selectedPlan={selectedPlan}
-            goNext={goNextAfterAstronomyClubDefined}
-          />
         )}
 
         {step === 'PAYMENT' && (

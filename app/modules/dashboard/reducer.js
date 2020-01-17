@@ -9,7 +9,7 @@ import {
   GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
 } from './actions';
 
-export const TYPE = constants('profile', ['~GET_DASHBOARD_PAGE']);
+export const TYPE = constants('dashboard', ['~GET_GUEST_DASHBOARD']);
 export const ACTION = actions(TYPE);
 
 const initialState = {
@@ -19,6 +19,19 @@ const initialState = {
     recommendedObjectsShow: false,
     recommendedObjectsHeading: '',
     recommendedObjectsSubHeading: '',
+  },
+  guestDashboard: {
+    Sections: {
+      Missions: {
+        APIParams: {},
+      },
+      Shows: {
+        APIParams: {},
+      },
+      Plans: {
+        APIParams: {},
+      },
+    },
   },
   error: false,
 };
@@ -39,7 +52,7 @@ export default createReducer(initialState, {
       profile: payload,
     };
   },
-  [FETCH_DASHBOARD_FAILURE](state, { payload }) {
+  [FETCH_DASHBOARD_FAILURE](state) {
     return {
       ...state,
       error: true,
@@ -59,6 +72,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       featuredObjects: payload,
+    };
+  },
+  [TYPE.GET_GUEST_DASHBOARD_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      guestDashboard: payload,
     };
   },
 });

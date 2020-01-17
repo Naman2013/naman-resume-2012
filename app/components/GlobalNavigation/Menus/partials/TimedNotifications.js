@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { withRouter } from 'react-router';
 import xorBy from 'lodash/xorBy';
 import { primaryFont } from 'app/styles/variables/fonts';
+import { getRelativePath } from 'app/utils/urlParser';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import AlertTile from './AlertTile';
@@ -55,14 +57,17 @@ class TimedNotifications extends Component<TTimedNotifications> {
   }
 
   createTimers = alerts => {
-    const { updateNotificationsCount } = this.props;
+    const {
+      updateNotificationsCount,
+      location: { pathname },
+    } = this.props;
     const timers = [];
     alerts.map(_alert => {
       if (!_alert.active) {
         timers.push(
           setTimeout(() => {
-            const alerts = this.state;
-            const newAlerts = alerts.map(_storedAlert => {
+            const { alerts: alertArray } = this.state;
+            const newAlerts = alertArray.map(_storedAlert => {
               const { notificationsCount } = this.props;
               if (_storedAlert.eventId === _alert.eventId) {
                 _storedAlert.active = true;
@@ -70,7 +75,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
                   count: notificationsCount + 1,
                 });
                 this.setState(() => ({
-                  showPrompt: true,
+                  showPrompt: getRelativePath(_alert.linkUrl) !== pathname,
                   promptText: (
                     <div>
                       <AlertTile
@@ -101,6 +106,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
   dismissAlert = eventId => {
     const { dismissNotification } = this.props;
     const { alerts, dismissedAlerts: dismissedAlertsFromState } = this.state;
+
     dismissNotification({
       eventId,
     }).then(res => {
@@ -232,4 +238,4 @@ class TimedNotifications extends Component<TTimedNotifications> {
   }
 }
 
-export default TimedNotifications;
+export default withRouter(TimedNotifications);

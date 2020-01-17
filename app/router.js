@@ -49,6 +49,7 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { PurchaseConfirmationMain } from 'app/modules/purchase-confirmation';
 import {
   QuestCompleteLazy,
   QuestDetailsLazy,
@@ -118,6 +119,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
+import AccountPreferences from './modules/account-settings/containers/account-preferences';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
@@ -188,10 +190,24 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
     <Route path="/" component={App}>
       <IndexRoute component={Dashboard} onEnter={validateUser} />
+      <Route
+        exact
+        path="guestDashboard"
+        component={Dashboard}
+        onEnter={validateUser}
+      />
+      <Route
+        path="guestDashboard/:abTestCallSource"
+        component={Dashboard}
+        onEnter={validateUser}
+      />
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":viewType" component={Memberships} />
+        </Route>
         <Route
           path=":aboutSloohSectionId"
           component={AboutSloohSection}
@@ -202,9 +218,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
       {/*<Route path="feature" component={FeatureContainerLazy} />*/}
 
       <Route path="join" component={Join}>
-        <Redirect
-          from="purchaseConfirmation(/:tab)"
-          to="/profile/private/gettingstarted"
+        <Route
+          path="purchaseConfirmation(/:tab)"
+          component={PurchaseConfirmationMain}
+          onEnter={validateUser}
         />
         <Route path="step1" component={JoinStep1} />
         <Route
@@ -558,6 +575,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       >
         <IndexRedirect to="account-details" />
         <Route path="account-details" component={AccountDetails} />
+        <Route path="settings" component={AccountPreferences} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
 

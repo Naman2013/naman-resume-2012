@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenTablet,
+} from 'app/styles/variables/breakpoints';
 import {
   romance,
   hawkesBlue,
@@ -88,7 +92,6 @@ export default css`
   .photoRoll-title {
     font-family: ${secondaryFont};
     text-transform: none;
-    padding-bottom: 15px;
     border-bottom: 1px solid ${borderColor};
     font-size: 20px;
     white-space: nowrap;
@@ -148,6 +151,58 @@ export default css`
     display: flex;
   }
 
+  .overlay-bottom :global(.photoRoll-details-btn) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 100px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px dashed ${romance};
+    color: ${romance};
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: ${primaryFont};
+  }
+
+  .overlay-bottom .overlay-bottom-action :global(.photoRoll-circle-btn) {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px dashed ${romance};
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .overlay-bottom
+    .overlay-bottom-action
+    :global(.photoRoll-circle-btn:first-child) {
+    margin-right: 10px;
+  }
+
+  .overlay-bottom
+    .overlay-bottom-action
+    :global(.photoRoll-circle-btn .icon-download:before) {
+    color: ${romance};
+  }
+
+  .overlay-bottom
+    .overlay-bottom-action:global(.photoRoll-circle-btn:last-child) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .onhover-overlay .overlay-bottom-action :global(.photoRoll-circle-btn > svg) {
+    margin-bottom: 5px;
+  }
+
   @media ${screenLarge} {
     .root {
       flex-basis: 32%;
@@ -159,6 +214,29 @@ export default css`
     .root {
       flex-basis: 32%;
       max-width: 32%;
+    }
+  }
+
+  @media ${screenTablet} {
+    .onhover-overlay {
+      padding: 20px;
+    }
+
+    .onhover-overlay .overlay-bottom {
+      margin-top: 10px;
+    }
+
+    .onhover-overlay .overlay-bottom :global(.photoRoll-details-btn) {
+      padding: 0 10px;
+      line-height: 30px;
+      height: 30px;
+    }
+
+    .onhover-overlay .overlay-bottom-action :global(.photoRoll-circle-btn) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      line-height: 30px;
     }
   }
 `;

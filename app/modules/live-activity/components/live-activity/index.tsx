@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
+import { browserHistory } from 'react-router';
 import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
-import { isMobileDevice } from 'app/services.ts';
+import {
+  isMobileScreen,
+  isTabletScreen,
+  isTabletDevice,
+} from 'app/services.ts';
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
+import { isEnter } from 'app/modules/utils/keyIdentifier';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -22,21 +28,41 @@ const disableResizing = {
   bottom: false,
 };
 
-const getResizableBoxConfigs = () => {
-  const isMobile = isMobileDevice();
-  const defaultWidth = 500;
-  const defaultHeight = 450;
-  const width = isMobile ? window.screen.availWidth : defaultWidth;
-  const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
-
-  return {
-    width,
-    height,
-  };
+const setMessageIdToLocalStorage = (id: string) => {
+  window.localStorage.setItem('newMessageId', id);
 };
 
-const setMessageIdToLocalStorage = (id: any) => {
-  window.localStorage.setItem('newMessageId', id);
+const contentClickHandler = (e: any, setOpen: Function): void => {
+  // detect click on Link
+  if (e.target instanceof HTMLAnchorElement) {
+    const targetLink = e.target.closest('a');
+    e.preventDefault();
+    browserHistory.push(targetLink.href);
+
+    // if Mobile then close modal
+    const isMobile = isMobileScreen() || isTabletScreen();
+
+    if (isMobile) {
+      setOpen(false);
+    }
+  }
+};
+
+const onKeyPressed = (e: any, setOpen: Function) => {
+  if (isEnter(e)) {
+    contentClickHandler(e, setOpen);
+  }
+};
+
+const calculateFeedMenuSize = (
+  isTablet: boolean,
+  setFeedMenuSize: Function,
+) => {
+  const width = isTablet ? window.screen.availWidth : 500;
+  const height = isTablet ? window.screen.availHeight - 53 : 450;
+  const left = -340;
+  const top = 55;
+  setFeedMenuSize({ width, height, left, top });
 };
 
 const submitMessage = (
@@ -87,6 +113,18 @@ const submitMessage = (
   }
 };
 
+const toggleActivityFeedMenu = (
+  setOpen: Function,
+  isOpen: boolean,
+  subscribeToPubnubActivityFeedChannel: Function,
+  isSubscribed: boolean
+) => {
+  if (!isSubscribed) {
+    subscribeToPubnubActivityFeedChannel();
+  }
+  setOpen(!isOpen);
+};
+
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
   pubnubConnection: Record<string, any>;
@@ -94,17 +132,26 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
+  subscribeToPubnubActivityFeedChannel: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
+  const rnd = useRef(null);
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
+    subscribeToPubnubActivityFeedChannel,
   } = props;
   const [isOpen, setOpen] = React.useState(false);
-  const isMobile = isMobileDevice();
-  const defaultSize = getResizableBoxConfigs();
+  const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
+  const [boxSize, setFeedMenuSize] = useState({
+    width: 500,
+    height: 450,
+    left: -340,
+    top: 55,
+  });
+  const isTablet = isTabletDevice();
   const [isFullscreen, setFullscreen] = useState(false);
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
@@ -115,9 +162,25 @@ export const LiveActivity = (props: TLiveActivity) => {
     : 'null';
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
+  useEffect(() => {
+    const handleOrientationChangeEvent = () => {
+      calculateFeedMenuSize(isTablet, setFeedMenuSize);
+      rnd.current.updatePosition({ x: -300, y: 80 });
+    };
+
+    window.addEventListener('orientationchange', handleOrientationChangeEvent);
+    return () => {
+      handleOrientationChangeEvent();
+      window.removeEventListener(
+        'orientationchange',
+        handleOrientationChangeEvent
+      );
+    };
+  }, []);
+
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
-    if (isOpen && (isFullscreen || isMobile)) {
+    if (isOpen && (isFullscreen || isTablet)) {
       document.body.classList.add('disable-overflow');
       document.documentElement.classList.add('disable-overflow');
     } else {
@@ -125,7 +188,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       document.documentElement.classList.remove('disable-overflow');
     }
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
-  }, [isFullscreen, isMobile, isOpen, lastMessageId]);
+  }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
   return (
     <div
@@ -136,45 +199,60 @@ export const LiveActivity = (props: TLiveActivity) => {
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       <span
         role="presentation"
         className={
-          lastMessageId !== lastStorageMessageId &&
-          !lastMessageFromCurrentUser &&
-          !isOpen
+          (lastMessageId !== lastStorageMessageId &&
+            !lastMessageFromCurrentUser &&
+            !isOpen) ||
+          !isSubscribed
             ? 'message-identifier'
             : ''
         }
         onClick={() => {
-          setOpen(!isOpen);
+          toggleActivityFeedMenu(
+            setOpen,
+            isOpen,
+            subscribeToPubnubActivityFeedChannel,
+            isSubscribed
+          );
           setMessageIdToLocalStorage(lastMessageId);
+          pubNubFeedChannelSubscribingStatus(true);
         }}
       />
       {/* WINDOW */}
       {isOpen && (
         <div
           className={cx('live-activity-window-wrapper', {
-            'live-activity-window-wrapper-mobile': isMobile,
+            'live-activity-window-wrapper-mobile': isTablet,
           })}
         >
           <Rnd
             default={{
-              width: defaultSize.width,
-              height: defaultSize.height,
-              x: 0,
-              y: 0,
+              width: boxSize.width,
+              height: boxSize.height,
+              x: boxSize.left,
+              y: boxSize.top,
             }}
             minWidth={300}
             minHeight={300}
-            disableDragging={isFullscreen || isMobile}
+            disableDragging={isFullscreen || isTablet}
             enableResizing={
-              isFullscreen || isMobile ? disableResizing : enableResizing
+              isFullscreen || isTablet ? disableResizing : enableResizing
             }
             dragHandleClassName="live-activity-window-header"
+            bounds="window"
+            ref={rnd}
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
@@ -222,7 +300,11 @@ export const LiveActivity = (props: TLiveActivity) => {
                   className="live-activity-window-body-feed"
                 >
                   {activityFeedMessages.map(feedItem => (
-                    <FeedItem item={feedItem} />
+                    <FeedItem
+                      item={feedItem}
+                      contentClickHandler={e => contentClickHandler(e, setOpen)}
+                      onKeyPressed={e => onKeyPressed(e, setOpen)}
+                    />
                   ))}
                 </div>
               </div>

@@ -2,6 +2,7 @@
  * V4 ImageList
  ***********************************/
 
+/* eslint-disable */
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import ShowMore from 'app/components/common/ShowMore';
 import {
@@ -28,7 +29,6 @@ import {
   selectSelectedFilters,
   selectTelescopeList,
   selectTimeList,
-  photoHubsUploadToMyPicturesPageDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
@@ -37,12 +37,7 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import {
-  getFitsData,
-  deleteTag,
-  getTags,
-  setTag,
-} from '../thunks';
+import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
 import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
@@ -82,9 +77,6 @@ const mapTypeToRequestMore = {
   missions: 'fetchMoreMissions',
   galleries: 'fetchMoreGalleries',
 };
-
-const getImagesCountToFetch = ({ isMobile, isTablet }) =>
-  isMobile || isTablet ? 10 : 9;
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
@@ -146,10 +138,9 @@ class ImageList extends Component {
   };
 
   componentDidMount() {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, params = {} } = this.props;
     const { activePage } = this.state;
     const fetchImages = actions[mapTypeToRequest[type]];
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
     const PHOTOS_ON_ONE_PAGE = 9;
     const PREVIOUS_PAGE = activePage - 1;
@@ -160,8 +151,6 @@ class ImageList extends Component {
       sharedOnly: type === 'observations',
       firstImageNumber,
       firstMissionNumber: firstImageNumber,
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
       publicGalleries: params.public ? 'y' : null,
     });
@@ -177,8 +166,6 @@ class ImageList extends Component {
     const fetchImages = actions[mapTypeToRequest[type]];
     const arrOfImages = this.props[mapTypeToList[type]];
 
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
-
     if (prevProps.deviceInfo.isMobile && !deviceInfo.isMobile) {
       const currentPage = Math.floor(arrOfImages.length / 10);
       const firstImageOfCurrentPage = (currentPage - 1) * 10 + 1;
@@ -189,8 +176,6 @@ class ImageList extends Component {
         sharedOnly: type === 'observations',
         firstImageNumber,
         firstMissionNumber: firstImageNumber,
-        maxImageCount: imagesToFetch,
-        maxMissionCount: imagesToFetch,
         customerUUID,
         publicGalleries: params.public ? 'y' : null,
       });
@@ -202,8 +187,8 @@ class ImageList extends Component {
       const imagesToFetchCount = arrOfImages.length * activePage;
       fetchImages({
         sharedOnly: type === 'observations',
-        maxMissionCount: Math.max(imagesToFetchCount, 10),
-        maxImageCount: Math.max(imagesToFetchCount, 10),
+        maxMissionCount: Math.max(imagesToFetchCount, 9),
+        maxImageCount: Math.max(imagesToFetchCount, 9),
         customerUUID,
         publicGalleries: params.public ? 'y' : null,
       });
@@ -213,8 +198,6 @@ class ImageList extends Component {
       this.setState({ activePage: 1 });
       fetchImages({
         sharedOnly: type === 'observations',
-        maxImageCount: imagesToFetch,
-        maxMissionCount: imagesToFetch,
         customerUUID,
         publicGalleries: params.public ? 'y' : null,
       });
@@ -236,10 +219,9 @@ class ImageList extends Component {
   }
 
   fetchImages = () => {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, params = {} } = this.props;
     const { activePage } = this.state;
     const fetchImages = actions[mapTypeToRequest[type]];
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
     const PHOTOS_ON_ONE_PAGE = 9;
     const PREVIOUS_PAGE = activePage - 1;
@@ -250,8 +232,6 @@ class ImageList extends Component {
       sharedOnly: type === 'observations',
       firstImageNumber,
       firstMissionNumber: firstImageNumber,
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
       publicGalleries: params.public ? 'y' : null,
     });
@@ -270,7 +250,6 @@ class ImageList extends Component {
     const {
       actions,
       type,
-      deviceInfo,
       params = {},
       location: { pathname },
     } = this.props;
@@ -284,7 +263,6 @@ class ImageList extends Component {
     //  ***
 
     const fetchImages = actions[mapTypeToRequest[type]];
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
     browserHistory.push({
       pathname,
@@ -295,8 +273,6 @@ class ImageList extends Component {
       sharedOnly: type === 'observations',
       firstMissionNumber: this.startFrom,
       firstImageNumber: this.startFrom,
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
       publicGalleries: params.public ? 'y' : null,
     });
@@ -310,6 +286,7 @@ class ImageList extends Component {
       missionsEmptyMsg,
       galleryEmptyMsg,
     } = this.props;
+
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
@@ -341,18 +318,14 @@ class ImageList extends Component {
   };
 
   handleApplyFilter = () => {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, params = {} } = this.props;
     const { customerUUID } = params;
 
     const fetchImages = actions[mapTypeToRequest[type]];
 
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
-
     this.setState({ activePage: 1 });
     fetchImages({
       sharedOnly: type === 'observations',
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
       publicGalleries: params.public ? 'y' : null,
     });
@@ -389,7 +362,7 @@ class ImageList extends Component {
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-    const { canUploadToPhotoHub } = privateProfileData;
+    const { canUploadToPhotoHub } = privateProfileData || false;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
@@ -397,7 +370,11 @@ class ImageList extends Component {
     return (
       <div className={cn}>
         {params.private && (
-          <div className={cx('filter-dropdown-btn', { 'position-right': !canUploadToPhotoHub })}>
+          <div
+            className={cx('filter-dropdown-btn', {
+              'position-right': !canUploadToPhotoHub,
+            })}
+          >
             <FilterDropdown
               isOpen={isFilterOpen}
               setOpen={this.setFilterOpen}

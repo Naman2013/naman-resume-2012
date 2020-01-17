@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { browserHistory } from 'react-router';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { DeviceContext } from 'app/providers/DeviceProvider';
@@ -13,6 +13,7 @@ const AccountType = props => {
     accountTypeHeading,
     accountStatusLabel,
     accountStatus,
+    showInfoButton,
   } = props;
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -42,18 +43,27 @@ const AccountType = props => {
     }
   };
 
-  const renderActions = () => {
+  const renderActions = showInfoButton => {
     return (
       <div className="btn-group pad-top-15">
-        <Btn mod="circle" onClick={goToPlanInfoUrl}>
-          <Icon i="info" />
-        </Btn>
-        {isUpgradeAvailable === true && (
-          <Button onClick={() => setModalOpen(true)}>
-            {upgradeButtonLabel}
-          </Button>
+        {showInfoButton === true && (
+          <Fragment>
+            <Btn mod="circle" onClick={goToPlanInfoUrl}>
+              <Icon i="info" />
+            </Btn>
+            {isUpgradeAvailable === true && (
+              <Button onClick={() => setModalOpen(true)}>
+                {upgradeButtonLabel}
+              </Button>
+            )}
+            {isUpgradeAvailable === false && (
+              <Button>{upgradeButtonLabel}</Button>
+            )}
+          </Fragment>
         )}
-        {isUpgradeAvailable === false && <Button>{upgradeButtonLabel}</Button>}
+        {showInfoButton === false && (
+          <p style={{ paddingTop: '22px' }}>&nbsp;</p>
+        )}
       </div>
     );
   };
@@ -114,7 +124,7 @@ const AccountType = props => {
                       </ul>
 
                       <div className="account-general__info__actions">
-                        {renderActions()}
+                        {renderActions(showInfoButton)}
                       </div>
                     </div>
                   </div>

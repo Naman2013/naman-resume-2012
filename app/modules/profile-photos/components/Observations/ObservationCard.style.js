@@ -117,9 +117,6 @@ export default css`
     .mission-image-wrapper {
       display: flex;
     }
-    .observationCard {
-      min-height: 370px;
-    }
   }
 
   @media ${screenLarge} {

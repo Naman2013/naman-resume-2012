@@ -11,6 +11,12 @@ export const makeTelescopeFetchingSelector = () =>
     state => state.isFetching
   );
 
+export const makeObservatoryListSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.observatoryList
+  );
+
 export const makeTelescopeDataSelector = () =>
   createSelector(
     selectTelescope,
@@ -144,3 +150,19 @@ export const makeQueueTabReservedCommunityMissionSelector = () =>
     makeQueueTabSelector(),
     state => state.reservedCommunityMissionList[0]
   );
+
+// Widgets begin
+
+export const makeAllSkyCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.allSkyCamData
+  );
+
+export const makeDomeCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.domeCamData
+  );
+
+// Widgets end

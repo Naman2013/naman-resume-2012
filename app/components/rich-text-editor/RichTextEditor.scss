@@ -61,7 +61,7 @@ $headerSize: 1.2rem;
   }
 
   .link {
-    color: #1c2633;
+    color: $dukeBlue;
     text-decoration: underline;
   }
 
@@ -89,6 +89,19 @@ $headerSize: 1.2rem;
     font-size: $headerSize*.5;
   }
 
+  .RichEditor-blockquote {
+    border-left: 5px solid $lynch;
+    color: $lynch;
+    font-family: $primary-font;
+    font-style: italic;
+    margin: 16px 0;
+    padding: 10px 20px;
+
+    .link {
+      color: $nightfall;
+    }
+  }
+
   .RichEditor-styleButton {
     color: $astronaut;
     cursor: pointer;
@@ -100,6 +113,10 @@ $headerSize: 1.2rem;
 
   .RichEditor-activeButton {
     color: $golden_yellow;
+  }
+
+  .RichEditor-readOnly {
+    color: $astronaut;
   }
 
   .RichEditor-horizontalRule {
