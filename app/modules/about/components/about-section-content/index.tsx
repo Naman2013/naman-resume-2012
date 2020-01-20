@@ -46,6 +46,7 @@ export const AboutSectionContent: React.FC<
       {sectionTag === ABOUT_SLOOH_SECTION && (
         <div className="about-hero">
           <img alt="" className="hero-img" src={aboutSloohHeroImageUrl} />
+
           <div className="hero-text">
             <div>{t('About.LearnTo')}</div>
             <div>{t('About.Explore')}</div>

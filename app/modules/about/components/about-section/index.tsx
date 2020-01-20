@@ -45,7 +45,7 @@ export class AboutSection extends React.PureComponent<AboutSectionProps> {
 
     return (
       <div className="about-slooh-section">
-        {subMenuCount ? (
+        {subMenuCount && (
           <>
             <div className="container-fluid">
               <CenterColumn>
@@ -71,9 +71,9 @@ export class AboutSection extends React.PureComponent<AboutSectionProps> {
 
             <AboutSectionContent sectionData={subSectionData} />
           </>
-        ) : (
-          <AboutSectionContent sectionData={sectionData} />
         )}
+
+        <AboutSectionContent sectionData={sectionData} />
       </div>
     );
   }
