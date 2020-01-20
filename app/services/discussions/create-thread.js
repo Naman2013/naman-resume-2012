@@ -28,7 +28,7 @@ export const createThread = ({
   topicId,
   callSource,
   objectId,
-}) => (
+}) =>
   API.post('/api/forum/createThread', {
     cid,
     at,
@@ -43,5 +43,4 @@ export const createThread = ({
     topicId,
     callSource,
     objectId,
-  })
-);
+  });

@@ -6,6 +6,9 @@ export default css`
   .form-container {
     width: 100%;
   }
+  .discuss-form-wrapper {
+    position: relative;
+  }
   .flex-container {
     display: flex;
     flex-direction: row;
