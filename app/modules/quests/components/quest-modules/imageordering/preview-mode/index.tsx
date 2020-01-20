@@ -27,7 +27,10 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
     previewSubheading,
     previewURL,
     previewGoBackButtonCaption,
-    previewBackToTasksButtonCaption,
+    backToEditButtonCaption,
+    backToEditButtonTooltipText,
+    enableBackToEditButton,
+    showBackToEditButton,
     finishButtonTooltipText,
     showFinishButton,
     enableFinishButton,
@@ -43,7 +46,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
       show
       onHide={(): void => {
         goToEdit();
-        setImageOrderingModule(MODES.EDIT);
+        setImageOrderingModule('backToEdit');
       }}
       goBackText={previewGoBackButtonCaption}
       disableGoBack={false}
@@ -94,7 +97,12 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
               <Button
                 className="download btn-white"
                 onClick={(): void =>
-                  downloadFile(previewDownloadURL, 'result.png')
+                  downloadFile(
+                    previewDownloadURL,
+                    previewDownloadURL.substring(
+                      previewDownloadURL.lastIndexOf('/') + 1
+                    )
+                  )
                 }
                 disabled={!enableDownloadPreviewButton}
               >
@@ -103,15 +111,25 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
             </Tooltip>
           )}
 
-          <Button
-            className="btn-white"
-            onClick={(): void => {
-              goToEdit();
-              setImageOrderingModule(MODES.EDIT);
-            }}
-          >
-            {previewBackToTasksButtonCaption}
-          </Button>
+          {showBackToEditButton && (
+            <Tooltip
+              title={backToEditButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="btn-white"
+                onClick={(): void => {
+                  goToEdit();
+                  setImageOrderingModule('backToEdit');
+                }}
+                disabled={!enableBackToEditButton}
+              >
+                {backToEditButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
         </div>
       </div>
     </Modal>

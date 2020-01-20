@@ -52,7 +52,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
         </div>
       </div>
 
-      <div className="montage-finish-mode-actions">
+      <div className="montage-finish-mode-actions text-center">
         {showReviewWorkButton && (
           <Tooltip
             title={reviewWorkButtonTooltipText}
@@ -77,35 +77,6 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           </Tooltip>
         )}
 
-        {showReviewWorkButton && showBackToEditButton && (
-          <div className="montage-finish-mode-actions-separator" />
-        )}
-
-        {showBackToEditButton && (
-          <Tooltip
-            title={backToEditButtonTooltipText}
-            theme="light"
-            distance={10}
-            position="top"
-          >
-            <Button
-              className="btn-white"
-              onClick={(): void => {
-                goToEdit();
-                setImageOrderingModule(MODES.EDIT);
-              }}
-              disabled={!enableBackToEditButton}
-            >
-              {backToEditButtonCaption}
-            </Button>
-          </Tooltip>
-        )}
-
-        {(showReviewWorkButton || showBackToEditButton) &&
-          showDownloadButton && (
-            <div className="montage-finish-mode-actions-separator" />
-          )}
-
         {showDownloadButton && (
           <Tooltip
             title={downloadButtonTooltipText}
@@ -116,11 +87,35 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
             <Button
               className="download"
               onClick={(): void =>
-                downloadFile(outputDownloadURL, 'result.png')
+                downloadFile(
+                  outputDownloadURL,
+                  outputDownloadURL.substring(
+                    outputDownloadURL.lastIndexOf('/') + 1
+                  )
+                )
               }
               disabled={!enableDownloadButton}
             >
               <i className="icon white icon-download" />
+            </Button>
+          </Tooltip>
+        )}
+
+        {showBackToEditButton && (
+          <Tooltip
+            title={backToEditButtonTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button
+              onClick={(): void => {
+                goToEdit();
+                setImageOrderingModule('backToEdit');
+              }}
+              disabled={!enableBackToEditButton}
+            >
+              {backToEditButtonCaption}
             </Button>
           </Tooltip>
         )}

@@ -1,6 +1,5 @@
 @import '~app/styles/variables/index';
 
-
 .montage-slot {
   display: flex;
   flex-direction: column;
@@ -132,6 +131,12 @@
         font-weight: 700;
       }
     }
+  }
+}
+
+.montage-edit-mode-actions {
+  .btn {
+    margin: 20px 15px 0;
   }
 }
 

@@ -15,6 +15,7 @@ type TEditModeProps = {
   readOnly?: boolean; // TRUE if Finish mode
   mode: number;
   goToPreview?: () => void;
+  goToFinish?: () => void;
   getImageOrderingModule?: () => void;
   setImageOrderingModule?: (mode: string) => Promise<any>;
   getDataCollectionSlotImages?: () => void;
@@ -39,6 +40,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     readOnly,
     mode,
     goToPreview,
+    goToFinish,
     imageOrderingModule,
     getImageOrderingModule,
     setImageOrderingModule,
@@ -52,7 +54,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     moduleId,
     questId,
-    previewButtonCaption,
+    previewEditButtonCaption,
     enablePreviewButton,
     showPreviewButton,
     previewButtonTooltipText,
@@ -60,6 +62,10 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     enableExitReviewButton,
     showExitReviewButton,
     exitReviewButtonTooltipText,
+    showFinishButton,
+    finishButtonTooltipText,
+    enableFinishButton,
+    finishButtonCaption,
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
@@ -102,8 +108,8 @@ export const EditMode: React.FC<TEditModeProps> = props => {
         />
       )}
 
-      {mode === MODE.edit && showPreviewButton && (
-        <div className="text-center">
+      <div className="montage-edit-mode-actions text-center">
+        {mode === MODE.edit && showPreviewButton && (
           <Tooltip
             title={previewButtonTooltipText || ''}
             theme="light"
@@ -122,14 +128,36 @@ export const EditMode: React.FC<TEditModeProps> = props => {
               }}
               disabled={!enablePreviewButton}
             >
-              {previewButtonCaption}
+              {previewEditButtonCaption}
             </Button>
           </Tooltip>
-        </div>
-      )}
+        )}
 
-      {mode === MODE.review && showExitReviewButton && (
-        <div className="text-center">
+        {mode === MODE.edit && showFinishButton && (
+          <Tooltip
+            title={finishButtonTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.FINISH).then(
+                  ({ payload: { apiError } }) => {
+                    if (!apiError) {
+                      goToFinish();
+                    }
+                  }
+                );
+              }}
+              disabled={!enableFinishButton}
+            >
+              {finishButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {mode === MODE.review && showExitReviewButton && (
           <Tooltip
             title={exitReviewButtonTooltipText || ''}
             theme="light"
@@ -146,8 +174,8 @@ export const EditMode: React.FC<TEditModeProps> = props => {
               {exitReviewButtonCaption}
             </Button>
           </Tooltip>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

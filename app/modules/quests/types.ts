@@ -362,7 +362,7 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   downloadPreviewButtonIconURL: string;
   downloadPreviewButtonTooltipText: string;
   showDownloadPreviewButton: boolean;
-  previewDownloadURL: boolean;
+  previewDownloadURL: string;
   enableDownloadPreviewButton: boolean;
 
   backToEditButtonCaption: string;

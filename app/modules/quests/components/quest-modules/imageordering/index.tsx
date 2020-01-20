@@ -142,7 +142,6 @@ export class Imageordering extends React.PureComponent<
   render() {
     const { mode } = this.state;
     const {
-      module,
       readOnly,
       imageorderingModule,
       getDataCollectionSlotImages,
@@ -170,6 +169,7 @@ export class Imageordering extends React.PureComponent<
           activityState !== MODES.FINISHED && (
             <EditMode
               goToPreview={this.goToPreviewMode}
+              goToFinish={this.goToFinishMode}
               imageOrderingModule={imageorderingModule}
               getImageOrderingModule={this.getImageOrderingModule}
               setImageOrderingModule={this.setImageOrderingModule}
