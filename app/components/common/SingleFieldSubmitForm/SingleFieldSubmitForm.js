@@ -94,7 +94,7 @@ class SingleFieldSubmitForm extends Component {
     const { formText, S3URLs, formTitle } = this.state;
     const { toggleInfo, submitForm } = this.props;
     submitForm(formText, S3URLs, formTitle, this.handleSubmit);
-    toggleInfo(e);
+    // toggleInfo(e);
   };
 
   handleSubmit = (error, message) => {
@@ -125,7 +125,6 @@ class SingleFieldSubmitForm extends Component {
         responseMessage: message || t('Alerts.FormIssueText'),
       });
     }
-    setTimeout(this.closeModal, 1000);
   };
 
   closeModal = e => {
