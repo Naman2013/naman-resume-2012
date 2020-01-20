@@ -42,7 +42,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
     <div className="montage-finish-mode">
       <div className="montage-finish-card">
         <div className="montage-finish-card-image">
-          <img src={outputURL} alt="" />
+          <img src={`${outputURL}?time=${Date.now()}`} alt="" />
         </div>
 
         <div className="montage-finish-card-title">{previewFinalHeading}</div>
@@ -88,7 +88,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
               className="download"
               onClick={(): void =>
                 downloadFile(
-                  outputDownloadURL,
+                  `${outputDownloadURL}?time=${Date.now()}`,
                   outputDownloadURL.substring(
                     outputDownloadURL.lastIndexOf('/') + 1
                   )

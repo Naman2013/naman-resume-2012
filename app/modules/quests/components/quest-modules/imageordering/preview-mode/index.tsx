@@ -58,7 +58,11 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
         </div>
 
         <div className="montage-preview-body">
-          <img className="montage-preview-img" src={previewURL} alt="preview" />
+          <img
+            className="montage-preview-img"
+            src={`${previewURL}?time=${Date.now()}`}
+            alt="preview"
+          />
         </div>
 
         <div className="montage-preview-footer">
@@ -98,7 +102,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
                 className="download btn-white"
                 onClick={(): void =>
                   downloadFile(
-                    previewDownloadURL,
+                    `${previewDownloadURL}?time=${Date.now()}`,
                     previewDownloadURL.substring(
                       previewDownloadURL.lastIndexOf('/') + 1
                     )
