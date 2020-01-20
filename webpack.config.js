@@ -113,7 +113,7 @@ module.exports = {
       // both options are optional
       filename: isProduction ? '[name].[hash].css' : '[name].css',
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
-      disable: !isProduction,
+      disable: true, //!isProduction,
     }),
     new CopyWebpackPlugin([
       { from: publicPath, to: outPath },
