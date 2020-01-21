@@ -113,19 +113,18 @@
 
   .montage-slot__footer {
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+    justify-content: space-between;
     padding: 20px;
     font-size: 14px;
     letter-spacing: .63px;
 
-    .find-image-title {
-      align-self: flex-start;
+    .explanation-text {
+      width: 54%;
     }
 
-    .notification-title {
-      align-self: flex-end;
+    .scoring-text {
+      width: 40%;
+      text-align: right;
 
       &.bold {
         font-weight: 700;

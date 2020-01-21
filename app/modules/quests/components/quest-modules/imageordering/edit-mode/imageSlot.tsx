@@ -64,6 +64,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     slotHasImage,
     scoringText,
     scoringTextBold,
+    explanation,
   } = slot;
 
   const {
@@ -259,7 +260,9 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
         </div>
 
         <div className="montage-slot__footer">
-          <div className={cx('notification-title', { bold: scoringTextBold })}>
+          <div className="explanation-text">{explanation}</div>
+
+          <div className={cx('scoring-text', { bold: scoringTextBold })}>
             {scoringText}
           </div>
         </div>
