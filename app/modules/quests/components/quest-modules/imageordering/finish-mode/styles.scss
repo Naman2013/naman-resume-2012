@@ -39,8 +39,6 @@
   }
 
   .montage-finish-mode-actions {
-    display: flex;
-    justify-content: center;
     margin-top: 32px;
 
     .montage-finish-mode-actions-separator {
@@ -49,8 +47,12 @@
       border-left: 1px dashed $hawkesBlue;
     }
 
-    .download {
-      padding: 13px;
+    .btn {
+      margin: 20px 15px 0;
+
+      &.download {
+        padding: 12px;
+      }
     }
   }
 }
