@@ -115,7 +115,6 @@ class CommunityGroupEdit extends Component {
     } = this.props;
     if (!data) return null;
     const { customerLinks } = data;
-    console.log('RENDER GAVNO');
     return (
       customerLinks &&
       customerLinks.length &&
