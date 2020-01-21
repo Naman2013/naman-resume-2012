@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
-import { MODE, MODES } from 'app/modules/quests/constants/montageModule';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 import {
   ImageorderingModuleResponse,
   IQuestDataCollectionSlot,
@@ -12,12 +12,11 @@ import {
 import { Tooltip } from 'react-tippy';
 
 type TEditModeProps = {
-  readOnly?: boolean; // TRUE if Finish mode
-  mode: number;
+  activityState: string;
   goToPreview?: () => void;
   goToFinish?: () => void;
   getImageOrderingModule?: () => void;
-  setImageOrderingModule?: (mode: string) => Promise<any>;
+  setImageOrderingModule?: (activityState: string) => Promise<any>;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
     image: IQuestDataCollectionSlotImage,
@@ -37,8 +36,7 @@ const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
 export const EditMode: React.FC<TEditModeProps> = props => {
   const {
-    readOnly,
-    mode,
+    activityState,
     goToPreview,
     goToFinish,
     imageOrderingModule,
@@ -59,8 +57,6 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     showPreviewButton,
     previewButtonTooltipText,
     exitReviewButtonCaption,
-    enableExitReviewButton,
-    showExitReviewButton,
     exitReviewButtonTooltipText,
     showFinishButton,
     finishButtonTooltipText,
@@ -85,12 +81,12 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           }}
           removeDataCollectionSlotImage={removeDataCollectionSlotImage}
           user={user}
-          readOnly={readOnly}
+          readOnly={activityState === MODES.REVIEW}
           mmSlotModalVisible={mmSlotModalVisible}
         />
       ))}
 
-      {mmSlotModalVisible && !readOnly && (
+      {mmSlotModalVisible && activityState !== MODES.REVIEW && (
         <DataCollectionSlotModal
           show
           onHide={(): void => {
@@ -109,7 +105,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
       )}
 
       <div className="montage-edit-mode-actions text-center">
-        {mode === MODE.edit && showPreviewButton && (
+        {activityState === MODES.EDIT && showPreviewButton && (
           <Tooltip
             title={previewButtonTooltipText || ''}
             theme="light"
@@ -133,7 +129,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           </Tooltip>
         )}
 
-        {mode === MODE.edit && showFinishButton && (
+        {activityState === MODES.EDIT && showFinishButton && (
           <Tooltip
             title={finishButtonTooltipText}
             theme="light"
@@ -157,19 +153,18 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           </Tooltip>
         )}
 
-        {mode === MODE.review && showExitReviewButton && (
+        {activityState === MODES.REVIEW && (
           <Tooltip
-            title={exitReviewButtonTooltipText || ''}
+            title={exitReviewButtonTooltipText}
             theme="light"
             distance={10}
             position="top"
           >
             <Button
               onClick={(): void => {
-                goToPreview();
-                setImageOrderingModule(MODES.PREVIEW);
+                goToFinish();
+                setImageOrderingModule(MODES.FINISH);
               }}
-              disabled={!enableExitReviewButton}
             >
               {exitReviewButtonCaption}
             </Button>

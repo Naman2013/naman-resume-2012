@@ -8,7 +8,7 @@ import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type FinishModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  setImageOrderingModule?: (mode: string) => Promise<any>;
+  setImageOrderingModule?: (activityState: string) => Promise<any>;
   goToReview?: () => void;
   goToEdit?: () => void;
 };

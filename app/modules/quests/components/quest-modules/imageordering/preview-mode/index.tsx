@@ -9,7 +9,7 @@ import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type PreviewModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  setImageOrderingModule?: (mode: string) => Promise<any>;
+  setImageOrderingModule?: (activityState: string) => Promise<any>;
   goToEdit?: () => void;
   goToFinish?: () => void;
   completed?: boolean;
