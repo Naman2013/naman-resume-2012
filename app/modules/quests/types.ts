@@ -531,6 +531,7 @@ export declare interface IQuestDataCollectionSlot {
   slotTitle: string;
   textPrompt: string;
   thumbnailURL: string;
+  explanation: string;
 }
 
 export declare interface IQuestDataCollectionSlotImage {
