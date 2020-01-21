@@ -29,6 +29,7 @@ type TImageorderingProps = {
   setImageOrderingActivityState: Function;
   setDataCollectionSlotImages: Function;
   refreshQuestStep: Function;
+  refreshModule: Function;
   getDataCollectionSlotImages: () => void;
   imageorderingModule: ImageorderingModuleResponse;
   image: IQuestDataCollectionSlotImage;
@@ -93,7 +94,13 @@ export class Imageordering extends React.PureComponent<
   };
 
   setImageOrderingModule = (mode: string): Promise<any> => {
-    const { module, questId, stepData, setImageorderingModule } = this.props;
+    const {
+      module,
+      questId,
+      stepData,
+      setImageorderingModule,
+      refreshQuestStep,
+    } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
 
@@ -103,6 +110,12 @@ export class Imageordering extends React.PureComponent<
       moduleId,
       moduleUUID,
       button: mode,
+    }).then(({ payload: { refreshStep, refreshModule } }: any): void => {
+      if (refreshStep) {
+        refreshQuestStep();
+      } else if (refreshModule) {
+        this.getImageOrderingModule();
+      }
     });
   };
 
@@ -197,7 +210,7 @@ export class Imageordering extends React.PureComponent<
           />
         )}
 
-        {showPreviewModal && (
+        {(activityState === MODES.PREVIEW || showPreviewModal) && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
             setImageOrderingModule={this.setImageOrderingModule}

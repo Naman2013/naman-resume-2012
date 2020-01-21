@@ -16,12 +16,7 @@ type PreviewModeProps = {
 };
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
-  const {
-    imageOrderingModule,
-    goToEdit,
-    goToFinish,
-    setImageOrderingModule,
-  } = props;
+  const { imageOrderingModule, goToEdit, setImageOrderingModule } = props;
   const {
     previewHeading,
     previewSubheading,
@@ -76,13 +71,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
               <Button
                 className="btn-white finish-btn"
                 onClick={(): void => {
-                  setImageOrderingModule(MODES.FINISH).then(
-                    ({ payload: { apiError } }) => {
-                      if (!apiError) {
-                        goToFinish();
-                      }
-                    }
-                  );
+                  setImageOrderingModule(MODES.FINISH);
                 }}
                 disabled={!enableFinishButton}
               >

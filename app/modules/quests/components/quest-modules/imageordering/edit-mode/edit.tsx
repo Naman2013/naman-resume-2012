@@ -37,7 +37,6 @@ const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     activityState,
-    goToPreview,
     goToFinish,
     imageOrderingModule,
     getImageOrderingModule,
@@ -114,13 +113,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.PREVIEW).then(
-                  ({ payload: { apiError } }) => {
-                    if (!apiError) {
-                      goToPreview();
-                    }
-                  }
-                );
+                setImageOrderingModule(MODES.PREVIEW);
               }}
               disabled={!enablePreviewButton}
             >
@@ -138,13 +131,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.FINISH).then(
-                  ({ payload: { apiError } }) => {
-                    if (!apiError) {
-                      goToFinish();
-                    }
-                  }
-                );
+                setImageOrderingModule(MODES.FINISH);
               }}
               disabled={!enableFinishButton}
             >

@@ -62,13 +62,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.REVIEW).then(
-                  ({ payload: { apiError } }) => {
-                    if (!apiError) {
-                      goToReview();
-                    }
-                  }
-                );
+                setImageOrderingModule(MODES.REVIEW);
               }}
               disabled={!enableReviewWorkButton}
             >

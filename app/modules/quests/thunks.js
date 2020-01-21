@@ -19,7 +19,6 @@ import {
   setAnimationApi,
   getRichTextInputModuleApi,
   setRichTextInputModuleApi,
-  getImageorderingModuleApi,
   setImageorderingModuleApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
