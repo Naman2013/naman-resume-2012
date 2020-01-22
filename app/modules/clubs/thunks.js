@@ -22,6 +22,7 @@ export const getGroupDeleteInvitation = inviteDetails => (
   getState
 ) => {
   const { cid, at, token } = getState().user;
+  dispatch(ACTION.getGroupDeleteInvitation());
   return getGroupDeleteInvitationApi({
     at,
     cid,
@@ -37,6 +38,7 @@ export const getGroupDeleteInvitation = inviteDetails => (
 
 export const deleteInvitation = inviteDetails => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
+  dispatch(ACTION.deleteInvitation());
   return deleteInvitationApi({
     at,
     cid,
