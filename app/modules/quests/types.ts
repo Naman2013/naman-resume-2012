@@ -344,6 +344,7 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   previewFinalSubheading: string;
   previewFinishButtonCaption: string;
   previewGoBackButtonCaption: string;
+  goBackButtonCaption: string;
   previewHeading: string;
   previewReviewButtonCaption: string;
   previewSubheading: string;

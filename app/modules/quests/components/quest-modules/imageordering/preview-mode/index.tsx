@@ -9,19 +9,20 @@ import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type PreviewModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  setImageOrderingModule?: (activityState: string) => Promise<any>;
-  goToEdit?: () => void;
-  goToFinish?: () => void;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
   completed?: boolean;
 };
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
-  const { imageOrderingModule, goToEdit, setImageOrderingModule } = props;
+  const { imageOrderingModule, setImageOrderingModule } = props;
   const {
     previewHeading,
     previewSubheading,
     previewURL,
-    previewGoBackButtonCaption,
+    goBackButtonCaption,
     backToEditButtonCaption,
     backToEditButtonTooltipText,
     enableBackToEditButton,
@@ -40,10 +41,9 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
     <Modal
       show
       onHide={(): void => {
-        goToEdit();
-        setImageOrderingModule('backToEdit');
+        setImageOrderingModule(MODES.BACK_TO_EDIT);
       }}
-      goBackText={previewGoBackButtonCaption}
+      goBackText={goBackButtonCaption}
       disableGoBack={false}
     >
       <div className="montage-preview-mode">
@@ -71,7 +71,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
               <Button
                 className="btn-white finish-btn"
                 onClick={(): void => {
-                  setImageOrderingModule(MODES.FINISH);
+                  setImageOrderingModule(MODES.FINISH, true);
                 }}
                 disabled={!enableFinishButton}
               >
@@ -114,8 +114,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = props => {
               <Button
                 className="btn-white"
                 onClick={(): void => {
-                  goToEdit();
-                  setImageOrderingModule('backToEdit');
+                  setImageOrderingModule(MODES.BACK_TO_EDIT);
                 }}
                 disabled={!enableBackToEditButton}
               >

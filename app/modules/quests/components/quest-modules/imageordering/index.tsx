@@ -40,45 +40,12 @@ type TImageorderingProps = {
   mmSlotModalVisible: boolean;
 };
 
-type TImageorderingState = {
-  showPreviewModal: boolean;
-};
-
-export class Imageordering extends React.PureComponent<
-  TImageorderingProps,
-  TImageorderingState
-> {
-  state = {
-    showPreviewModal: false,
-  };
+export class Imageordering extends React.PureComponent<TImageorderingProps> {
+  moduleRef = React.createRef<HTMLDivElement>();
 
   componentDidMount(): void {
     this.getImageOrderingModule();
   }
-
-  showPreviewModal = (): void => this.setState({ showPreviewModal: true });
-
-  hidePreviewModal = (): void => this.setState({ showPreviewModal: false });
-
-  onChangeMode = (activityState: string): void => {
-    const { setImageOrderingActivityState, imageorderingModule } = this.props;
-    setImageOrderingActivityState({
-      moduleId: imageorderingModule.moduleId,
-      activityState,
-    });
-  };
-
-  goToEditMode = (): void => {
-    this.onChangeMode(MODES.EDIT);
-    this.hidePreviewModal();
-  };
-
-  goToFinishMode = (): void => {
-    this.onChangeMode(MODES.FINISHED);
-    this.hidePreviewModal();
-  };
-
-  goToReviewMode = (): void => this.onChangeMode(MODES.REVIEW);
 
   getImageOrderingModule = (): void => {
     const { module, questId, stepData, getImageorderingModule } = this.props;
@@ -93,28 +60,47 @@ export class Imageordering extends React.PureComponent<
     });
   };
 
-  setImageOrderingModule = (mode: string): Promise<any> => {
+  setImageOrderingModule = (
+    activityState: string,
+    scrollIntoView = false
+  ): void => {
     const {
       module,
+      imageorderingModule,
       questId,
       stepData,
       setImageorderingModule,
+      setImageOrderingActivityState,
       refreshQuestStep,
     } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
 
-    return setImageorderingModule({
+    if (
+      imageorderingModule.activityState === MODES.PREVIEW &&
+      activityState === MODES.BACK_TO_EDIT
+    ) {
+      setImageOrderingActivityState({
+        moduleId,
+        activityState: 'edit',
+      });
+    }
+
+    setImageorderingModule({
       questId,
       questUUID,
       moduleId,
       moduleUUID,
-      button: mode,
+      button: activityState,
     }).then(({ payload: { refreshStep, refreshModule } }: any): void => {
       if (refreshStep) {
         refreshQuestStep();
       } else if (refreshModule) {
         this.getImageOrderingModule();
+      }
+
+      if (scrollIntoView) {
+        this.moduleRef.current.scrollIntoView();
       }
     });
   };
@@ -167,7 +153,6 @@ export class Imageordering extends React.PureComponent<
   };
 
   render() {
-    const { showPreviewModal } = this.state;
     const {
       imageorderingModule,
       getDataCollectionSlotImages,
@@ -184,7 +169,7 @@ export class Imageordering extends React.PureComponent<
     } = imageorderingModule;
 
     return (
-      <div className="montage-module quest-qa-free-form">
+      <div className="montage-module quest-qa-free-form" ref={this.moduleRef}>
         <QuestStepModuleHeader
           title={activityTitle}
           completed={activityStatus === ACTIVITY_STATES.complete}
@@ -195,8 +180,6 @@ export class Imageordering extends React.PureComponent<
           activityState === MODES.PREVIEW ||
           activityState === MODES.REVIEW) && (
           <EditMode
-            goToPreview={this.showPreviewModal}
-            goToFinish={this.goToFinishMode}
             imageOrderingModule={imageorderingModule}
             getImageOrderingModule={this.getImageOrderingModule}
             setImageOrderingModule={this.setImageOrderingModule}
@@ -210,12 +193,10 @@ export class Imageordering extends React.PureComponent<
           />
         )}
 
-        {(activityState === MODES.PREVIEW || showPreviewModal) && (
+        {activityState === MODES.PREVIEW && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
             setImageOrderingModule={this.setImageOrderingModule}
-            goToEdit={this.goToEditMode}
-            goToFinish={this.goToFinishMode}
           />
         )}
 
@@ -223,8 +204,6 @@ export class Imageordering extends React.PureComponent<
           <FinishMode
             imageOrderingModule={imageorderingModule}
             setImageOrderingModule={this.setImageOrderingModule}
-            goToEdit={this.goToEditMode}
-            goToReview={this.goToReviewMode}
           />
         )}
       </div>

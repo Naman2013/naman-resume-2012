@@ -13,10 +13,11 @@ import { Tooltip } from 'react-tippy';
 
 type TEditModeProps = {
   activityState: string;
-  goToPreview?: () => void;
-  goToFinish?: () => void;
   getImageOrderingModule?: () => void;
-  setImageOrderingModule?: (activityState: string) => Promise<any>;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
     image: IQuestDataCollectionSlotImage,
@@ -25,7 +26,6 @@ type TEditModeProps = {
   ) => void;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   imageOrderingModule?: ImageorderingModuleResponse;
-  previewReviewButtonCaption?: string;
   slot?: IQuestDataCollectionSlot;
   loading?: boolean;
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
@@ -37,7 +37,6 @@ const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     activityState,
-    goToFinish,
     imageOrderingModule,
     getImageOrderingModule,
     setImageOrderingModule,
@@ -51,7 +50,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
   const {
     moduleId,
     questId,
-    previewEditButtonCaption,
+    previewButtonCaption,
     enablePreviewButton,
     showPreviewButton,
     previewButtonTooltipText,
@@ -117,7 +116,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
               }}
               disabled={!enablePreviewButton}
             >
-              {previewEditButtonCaption}
+              {previewButtonCaption}
             </Button>
           </Tooltip>
         )}
@@ -131,7 +130,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.FINISH);
+                setImageOrderingModule(MODES.FINISH, true);
               }}
               disabled={!enableFinishButton}
             >
@@ -149,8 +148,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                goToFinish();
-                setImageOrderingModule(MODES.FINISH);
+                setImageOrderingModule(MODES.FINISH, true);
               }}
             >
               {exitReviewButtonCaption}

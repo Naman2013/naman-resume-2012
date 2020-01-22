@@ -8,22 +8,18 @@ import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type FinishModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  setImageOrderingModule?: (activityState: string) => Promise<any>;
-  goToReview?: () => void;
-  goToEdit?: () => void;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
 };
 
 export const FinishMode: React.FC<FinishModeProps> = props => {
-  const {
-    imageOrderingModule,
-    setImageOrderingModule,
-    goToEdit,
-    goToReview,
-  } = props;
+  const { imageOrderingModule, setImageOrderingModule } = props;
   const {
     outputURL,
-    previewFinalHeading,
-    previewFinalSubheading,
+    outputHeading,
+    outputSubheading,
     outputDownloadURL,
     reviewWorkButtonCaption,
     enableReviewWorkButton,
@@ -32,10 +28,10 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
     downloadButtonTooltipText,
     enableDownloadButton,
     showDownloadButton,
-    backToEditButtonTooltipText,
-    showBackToEditButton,
-    enableBackToEditButton,
-    backToEditButtonCaption,
+    showEditWorkButton,
+    enableEditWorkButton,
+    editWorkButtonTooltipText,
+    editWorkButtonCaption,
   } = imageOrderingModule;
 
   return (
@@ -45,11 +41,9 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           <img src={`${outputURL}?time=${Date.now()}`} alt="" />
         </div>
 
-        <div className="montage-finish-card-title">{previewFinalHeading}</div>
+        <div className="montage-finish-card-title">{outputHeading}</div>
 
-        <div className="montage-finish-card-subtitle">
-          {previewFinalSubheading}
-        </div>
+        <div className="montage-finish-card-subtitle">{outputSubheading}</div>
       </div>
 
       <div className="montage-finish-mode-actions text-center">
@@ -62,11 +56,29 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.REVIEW);
+                setImageOrderingModule(MODES.REVIEW, true);
               }}
               disabled={!enableReviewWorkButton}
             >
               {reviewWorkButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {showEditWorkButton && (
+          <Tooltip
+            title={editWorkButtonTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.BACK_TO_EDIT, true);
+              }}
+              disabled={!enableEditWorkButton}
+            >
+              {editWorkButtonCaption}
             </Button>
           </Tooltip>
         )}
@@ -91,25 +103,6 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
               disabled={!enableDownloadButton}
             >
               <i className="icon white icon-download" />
-            </Button>
-          </Tooltip>
-        )}
-
-        {showBackToEditButton && (
-          <Tooltip
-            title={backToEditButtonTooltipText}
-            theme="light"
-            distance={10}
-            position="top"
-          >
-            <Button
-              onClick={(): void => {
-                goToEdit();
-                setImageOrderingModule('backToEdit');
-              }}
-              disabled={!enableBackToEditButton}
-            >
-              {backToEditButtonCaption}
             </Button>
           </Tooltip>
         )}
