@@ -74,7 +74,7 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.BACK_TO_EDIT, true);
+                setImageOrderingModule(MODES.EDIT_WORK, true);
               }}
               disabled={!enableEditWorkButton}
             >
