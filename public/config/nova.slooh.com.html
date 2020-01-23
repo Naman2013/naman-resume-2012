@@ -1,14 +1,3 @@
-<!-- Google Optimize / AB Testing -->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150649783-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'UA-150649783-1', { 'optimize_id': 'GTM-TM8J8FH'});
-</script>
-
 
 <!-- Facebook Pixel Code -->
     <script>
@@ -47,13 +36,3 @@ gtag('config', 'UA-150649783-1', { 'optimize_id': 'GTM-TM8J8FH'});
         else {window.attachEvent('onload', _onload)}
     }());
 </script>
-
-<!-- This will send an activate event to Optimize, anytime that there is a change in the DOM --> 
-<script> 
-    window.dataLayer = window.dataLayer || []; 
-    if (MutationObserver) { 
-      new MutationObserver(function(){ 
-        dataLayer.push({'event': 'optimize.activate'}); 
-      }).observe(document.body, {subtree: true, attributes: true, characterData: true}); 
-    } 
-  </script> 
