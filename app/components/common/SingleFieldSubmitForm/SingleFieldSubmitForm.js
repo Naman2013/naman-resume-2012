@@ -22,6 +22,7 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
+import { Spinner } from 'app/components/spinner/index';
 import styles from './SingleFieldSubmitForm.style';
 
 const { bool, func, number, shape, string } = PropTypes;
@@ -94,11 +95,12 @@ class SingleFieldSubmitForm extends Component {
     const { formText, S3URLs, formTitle } = this.state;
     const { toggleInfo, submitForm } = this.props;
     submitForm(formText, S3URLs, formTitle, this.handleSubmit);
-    toggleInfo(e);
+    // toggleInfo(e);
   };
 
   handleSubmit = (error, message) => {
-    const { t, user } = this.props;
+    const { t, user, isLoading } = this.props;
+
     if (!error) {
       this.setState({
         showPopup: true,
@@ -125,7 +127,6 @@ class SingleFieldSubmitForm extends Component {
         responseMessage: message || t('Alerts.FormIssueText'),
       });
     }
-    setTimeout(this.closeModal, 1000);
   };
 
   closeModal = e => {
@@ -211,6 +212,7 @@ class SingleFieldSubmitForm extends Component {
       maxLength,
       useModal,
       user,
+      isLoading,
     } = this.props;
 
     const {
@@ -225,7 +227,8 @@ class SingleFieldSubmitForm extends Component {
     } = this.state;
 
     return (
-      <div className="form-container">
+      <div className="form-container discuss-form-wrapper">
+        <Spinner loading={isLoading} />
         <MultiUploadImageList
           onAddImage={this.handleAddImage}
           imageList={S3URLs}
