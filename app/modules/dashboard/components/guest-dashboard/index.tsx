@@ -74,24 +74,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
       this.getDashboardShows();
-      this.getSubscriptionPlans();
-    });
-  };
 
-  getSubscriptionPlans = (): void => {
-    const {
-      getSubscriptionPlans,
-      guestDashboard: {
-        Sections: {
-          Plans: {
-            APIParams: { callSource },
-          },
-        },
-      },
-    } = this.props;
-
-    getSubscriptionPlans({
-      callSource,
+      //get the subscription plan list for Variant A (callSource=dashboard) and Variant B (callSource=dashboard-b)
     });
   };
 
@@ -122,6 +106,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       guestDashboard,
       recommendedObjects,
       subscriptionPlansData,
+      subscriptionPlansData_DashboardB,
       observatoryListData,
       dashboardShowsList,
     } = this.props;
@@ -132,7 +117,9 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       TelescopePromos,
       MissionPhotosData,
     } = guestDashboard;
-    const { subscriptionPlans } = subscriptionPlansData;
+    const subscriptionPlans_DashboardA = subscriptionPlansData.subscriptionPlans;
+    const subscriptionPlans_DashboardB = subscriptionPlansData_DashboardB.subscriptionPlans;
+
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
 
@@ -184,7 +171,17 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Plans: {
-        return <MembershipPlansList plans={subscriptionPlans} showSlider />;
+	      <Experiment id="mB71-QJiRqaGL3_VhnLJpw">
+        	<Variant id="0">
+			{/* Dashboard Plans List (callSource = dashboard) */}
+		        return <MembershipPlansList plans={subscriptionPlans_DashboardA} showSlider />;
+
+        	</Variant>
+	        <Variant id="1">
+			{/* All Plans List (callSource = dashboard-b) */}
+		        return <MembershipPlansList plans={subscriptionPlans_DashboardB} showSlider />;
+	        </Variant>
+	      </Experiment>
       }
       default: {
         return <div />;
@@ -214,14 +211,6 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-	      <Experiment id="mB71-QJiRqaGL3_VhnLJpw">
-        	<Variant id="0">
-	          Original
-        	</Variant>
-	        <Variant id="1">
-        	  All Plans
-	        </Variant>
-	      </Experiment>
 
           {Object.keys(Sections).map((section: string) => {
             const { Index, Title, SubTitle, HideSection } = Sections[section];
