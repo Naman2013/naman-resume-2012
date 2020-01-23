@@ -196,6 +196,9 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
 
+    //activate the experiement
+    dataLayer.push({'event': 'optimize.activate.guestdashboard'});
+
     return (
       <div className="dashboard-layout">
         <div className="dash-hero">
@@ -214,7 +217,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-	      <Experiment id="yD3m4Xr-QjCyXBu3ahsgLQ">
+	      <Experiment id="GPsG62xQRcaGB2I0oUtK1Q">
         	<Variant id="0">
 	          Original
         	</Variant>
