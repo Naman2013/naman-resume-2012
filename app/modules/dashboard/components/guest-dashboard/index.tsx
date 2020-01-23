@@ -197,7 +197,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { Sections } = guestDashboard;
 
     //activate the experiement
-    dataLayer.push({'event': 'optimize.activate.guestdashboard'});
+    window.dataLayer.push({'event': 'optimize.activate.guestdashboard'});
 
     return (
       <div className="dashboard-layout">
