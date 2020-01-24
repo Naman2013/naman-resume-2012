@@ -1,15 +1,31 @@
-<!-- Google Optimize / AB Testing -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150649783-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+    <script>
+      // google analytics + google optimize
+      (function(i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
 
-gtag('config', 'UA-150649783-1', { 'optimize_id': 'GTM-TM8J8FH'});
-</script>
-
-
+      // initialize the ga analytics global
+      ga("require", "GTM-5MLVBGX");
+      ga("create", "UA-150649783-1", "auto");
+    </script>
 <!-- Facebook Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -47,13 +63,3 @@ gtag('config', 'UA-150649783-1', { 'optimize_id': 'GTM-TM8J8FH'});
         else {window.attachEvent('onload', _onload)}
     }());
 </script>
-
-<!-- This will send an activate event to Optimize, anytime that there is a change in the DOM --> 
-<script> 
-    window.dataLayer = window.dataLayer || []; 
-    if (MutationObserver) { 
-      new MutationObserver(function(){ 
-        dataLayer.push({'event': 'optimize.activate'}); 
-      }).observe(document.body, {subtree: true, attributes: true, characterData: true}); 
-    } 
-  </script> 
