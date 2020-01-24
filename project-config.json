@@ -8,26 +8,46 @@
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/events.slooh.com.html"
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+	'guestDashboard_Plans': 'rcEoLV3ESAi9ZfOfkNIwMQ',
+        'upsellPayWall_Plan': ''
+    }
   },
   "live.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/live.slooh.com.html"
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+	'guestDashboard_Plans': 'rcEoLV3ESAi9ZfOfkNIwMQ',
+        'upsellPayWall_Plan': ''
+    }
   },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/main.slooh.com.html"
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+	'guestDashboard_Plans': 'rcEoLV3ESAi9ZfOfkNIwMQ',
+        'upsellPayWall_Plan': ''
+    }
   },
   "www.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/www.slooh.com.html"
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+	'guestDashboard_Plans': 'rcEoLV3ESAi9ZfOfkNIwMQ',
+        'upsellPayWall_Plan': ''
+    }
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/slooh.com.html"
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+	'guestDashboard_Plans': 'rcEoLV3ESAi9ZfOfkNIwMQ',
+        'upsellPayWall_Plan': ''
+    }
   },
   "southafrica.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
