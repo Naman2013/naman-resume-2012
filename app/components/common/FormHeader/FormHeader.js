@@ -4,26 +4,13 @@
  *
  *
  ***********************************/
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  romance,
-  astronaut,
-  shadows,
-} from 'app/styles/variables/colors_tiles_v4';
-import { dropShadowContainer, smallProfPic } from 'app/styles/mixins/utilities';
+import { astronaut, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { smallProfPic } from 'app/styles/mixins/utilities';
 import classnames from 'classnames';
 
-const {
-  arrayOf,
-  any,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { string } = PropTypes;
 
 const FormHeader = ({ avatarURL, toggleInfo, showInfo }) => {
   return (
@@ -34,6 +21,7 @@ const FormHeader = ({ avatarURL, toggleInfo, showInfo }) => {
             style={Object.assign({ margin: '0 auto' }, smallProfPic(avatarURL))}
           />
         </div>
+
         <div className="comment-title-text-container">
           <span className="comment-title-text">Start a discussion</span>
           <img
@@ -42,9 +30,11 @@ const FormHeader = ({ avatarURL, toggleInfo, showInfo }) => {
             })}
             onClick={toggleInfo}
             src="https://vega.slooh.com/assets/v4/common/arrow_down.svg"
+            alt="expand"
           />
         </div>
       </div>
+
       <style jsx>{`
         .comment-title-container {
           display: flex;

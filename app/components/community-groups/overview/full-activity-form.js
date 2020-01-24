@@ -6,7 +6,6 @@
  ********************************** */
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
@@ -30,10 +29,16 @@ class FullActivityForm extends Component {
     uuid: null,
   };
 
-  state = {};
+  state = {
+    isLoading: false,
+  };
 
   submitForm = (content, S3URLs, title, callback) => {
     const { topicId, forumId, t } = this.props;
+
+    this.setState(state => ({
+      isLoading: !state.isLoading,
+    }));
 
     this.props
       .createThread({
@@ -44,6 +49,10 @@ class FullActivityForm extends Component {
         forumId,
       })
       .then(data => {
+        this.setState(state => ({
+          isLoading: !state.isLoading,
+        }));
+
         const message = data.apiError
           ? t('Clubs.SubmitPostError')
           : t('Clubs.PostSubmitted');
@@ -53,6 +62,7 @@ class FullActivityForm extends Component {
 
   render() {
     const { user, t, placeholder, toggleInfo, showInfo } = this.props;
+    const { isLoading } = this.state;
 
     const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
@@ -70,6 +80,7 @@ class FullActivityForm extends Component {
               {...this.props}
               submitForm={this.submitForm}
               placeholder={formPlaceholder}
+              isLoading={isLoading}
             />
           ) : null}
         </div>

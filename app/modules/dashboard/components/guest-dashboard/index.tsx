@@ -183,7 +183,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Plans: {
-        return <MembershipPlansList plans={subscriptionPlans} />;
+        return <MembershipPlansList plans={subscriptionPlans} showSlider />;
       }
       default: {
         return <div />;

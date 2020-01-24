@@ -52,3 +52,10 @@ $screen-xl-min: 1366px;
     @content;
   }
 }
+
+// Custom devices
+@mixin rwd($screen) {
+  @media (min-width: $screen+'px') {
+    @content;
+  }
+}
