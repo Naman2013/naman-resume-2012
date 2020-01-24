@@ -25,6 +25,13 @@ export default class DeleteInvitationModal extends React.PureComponent<
     getGroupDeleteInvitation();
   }
 
+  confirmDeleteInvitation = () => {
+    const { deleteInvitation, member, onHide } = this.props;
+    deleteInvitation(member).then((response: any) => {
+      onHide(response.payload.statusMessage);
+    });
+  };
+
   render() {
     const {
       show,
@@ -36,8 +43,6 @@ export default class DeleteInvitationModal extends React.PureComponent<
         pageHeading1,
         pageHeading2,
       },
-      member,
-      deleteInvitation,
     } = this.props;
 
     return (
@@ -53,16 +58,14 @@ export default class DeleteInvitationModal extends React.PureComponent<
           <p className="modal-p">{confirmationText}</p>
           <div className="delete-invitation__action">
             <Button
-              onClick={() => {
-                deleteInvitation(member);
-              }}
+              onClick={() => this.confirmDeleteInvitation()}
               className="modal-btn"
             >
               {confirmButtonText}
             </Button>
             <Button
               onClick={() => {
-                onHide();
+                onHide(null);
               }}
               className="modal-btn"
             >

@@ -1,9 +1,11 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Btn from 'app/atoms/Btn';
 import './member-card.scss';
 import { Col, Row } from 'react-bootstrap';
 import DeleteInvitationModal from 'app/modules/clubs/containers/deleteInvitationModal';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import Modal from 'react-modal';
 
 type TMemberCard = {
   member: {
@@ -22,11 +24,14 @@ type TMemberCard = {
     showAddButton: boolean,
     invitationPrompt: string,
   },
+  refreshPage: Function,
 };
 
 const MemberCard = (props: TMemberCard) => {
   const [isOpen, toggleCard] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [invitationIsDeleted, setInvitationIsDeleted] = useState(null);
+  const [deletedInvitationData, setDeletedInvitationData] = useState('');
 
   const {
     onAddClick,
@@ -42,7 +47,25 @@ const MemberCard = (props: TMemberCard) => {
       invitationPrompt,
       canDeleteInvitation,
     },
+    refreshPage,
   } = props;
+
+  useEffect(() => {
+    if (invitationIsDeleted === false) {
+      refreshPage();
+    }
+  }, [invitationIsDeleted]);
+
+  const closeDeleteInvitationModal = responceStatusMessage => {
+    if (responceStatusMessage) {
+      setDeletedInvitationData(responceStatusMessage);
+      setDeleteOpen(false);
+      setInvitationIsDeleted(true);
+      setTimeout(() => setInvitationIsDeleted(false), 3000);
+    } else {
+      setDeleteOpen(false);
+    }
+  };
 
   return (
     <div className="member-card i-box i-box-white">
@@ -73,9 +96,32 @@ const MemberCard = (props: TMemberCard) => {
               {isDeleteOpen && (
                 <DeleteInvitationModal
                   show
-                  onHide={() => setDeleteOpen(false)}
+                  onHide={invitationDeleted =>
+                    closeDeleteInvitationModal(
+                      invitationDeleted,
+                      setDeleteOpen,
+                      setInvitationIsDeleted,
+                      setDeletedInvitationData,
+                      refreshPage
+                    )
+                  }
                   member={member}
                 />
+              )}
+              {invitationIsDeleted && (
+                <Modal
+                  ariaHideApp={false}
+                  isOpen
+                  style={customModalStylesBlackOverlay}
+                  contentLabel="Like"
+                  onRequestClose={() => {}}
+                >
+                  <i
+                    className="fa fa-close"
+                    onClick={() => setInvitationIsDeleted(false)}
+                  />
+                  <p>{deletedInvitationData}</p>
+                </Modal>
               )}
             </div>
           )}

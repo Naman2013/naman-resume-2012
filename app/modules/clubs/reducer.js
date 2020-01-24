@@ -15,6 +15,7 @@ const initialState = {
   topThreadsList: [],
   serverError: null,
   groupDeleteInvitation: {},
+  deleteInvitationData: null,
 };
 
 export default handleActions(
@@ -77,9 +78,10 @@ function getGroupDeleteInvitationSuccess(state, action) {
   };
 }
 
-function deleteInvitationSuccess(state = initialState) {
+function deleteInvitationSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
+    deleteInvitationData: action.payload,
   };
 }
