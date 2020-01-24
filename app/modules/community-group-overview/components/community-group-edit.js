@@ -122,7 +122,7 @@ class CommunityGroupEdit extends Component {
         <MemberCard
           member={member}
           key={`member-card-invitation-code-${index}`}
-          refreshPage={() => this.refreshPage()}
+          refreshPage={this.refreshPage}
           onAddClick={() => {
             let user = {
               firstName: member.firstname,
