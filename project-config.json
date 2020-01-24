@@ -107,10 +107,10 @@
     "loadHtmlFile": "/config/eris.slooh.com.html"
   },
   "nova.slooh.com": {
-    "loadHtmlFile": "/config/nova.slooh.com.html"
+    "loadHtmlFile": "/config/nova.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-	'guestDashboard_Plans': 'mB71-QJiRqaGL3_VhnLJpw',
-        'upsellPayWall_Plan': 'P4jeFFYGRsO5VdXpGXxh1g'
+      "guestDashboardPlans": "mB71-QJiRqaGL3_VhnLJpw",
+      "upsellPayWall_Plan": "P4jeFFYGRsO5VdXpGXxh1g"
     }
   },
   "orion.slooh.com": {

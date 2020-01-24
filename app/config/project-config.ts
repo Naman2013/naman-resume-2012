@@ -10,6 +10,7 @@ export type ProjectConf = {
   PUBNUB_FEEDS_PUBKEY?: string;
   PUBNUB_FEEDS_SECRETKEY?: string;
   loadHtmlFile?: string;
+  GOOGLE_OPTIMIZE_EXPERIMENT_IDS?: { [key: string]: string };
 };
 export type ProjectsConf = {
   [key: string]: any;
@@ -46,3 +47,5 @@ export const projectPubnubConf = {
   PUBNUB_FEEDS_PUBKEY: projectConf.PUBNUB_FEEDS_PUBKEY,
   PUBNUB_FEEDS_SECRETKEY: projectConf.PUBNUB_FEEDS_SECRETKEY,
 };
+export const projectGoogleOptimizeExpirianceId =
+  projectConf.GOOGLE_OPTIMIZE_EXPERIMENT_IDS;

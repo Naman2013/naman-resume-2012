@@ -16,6 +16,13 @@ export default class MembershipPlansList extends Component {
     window.localStorage.removeItem('selectedPlanId');
   }
 
+  componentDidMount(): void {
+    const { getSubscriptionPlans } = this.props;
+    if (getSubscriptionPlans) {
+      getSubscriptionPlans();
+    }
+  }
+
   setSelectedPlan(
     subscriptionPlanId,
     isAstronomyClubFlag,
