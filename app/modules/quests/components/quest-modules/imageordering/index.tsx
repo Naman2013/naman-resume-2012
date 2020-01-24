@@ -76,13 +76,10 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
 
-    if (
-      imageorderingModule.activityState === MODES.PREVIEW &&
-      activityState === MODES.BACK_TO_EDIT
-    ) {
+    if (imageorderingModule.activityState === MODES.PREVIEW) {
       setImageOrderingActivityState({
         moduleId,
-        activityState: 'edit',
+        activityState: activityState === MODES.BACK_TO_EDIT ? 'edit' : 'finish',
       });
     }
 
