@@ -14,19 +14,10 @@
 	var GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS = {};
 	GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS[GOOGLE_OPTIMIZE_CONTAINER_ID] = true;
 
-//Anti-flickr snippet for Google Optimize
-(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date; h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')}; (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;} (window,document.documentElement,'async-hide','dataLayer',8000, GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS);
+	//Anti-flickr snippet for Google Optimize
+	(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date; h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')}; (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;} (window,document.documentElement,'async-hide','dataLayer',8000, GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS);
 
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics - Dynamically build the tag -->
-<script>
 	var googleTagScriptURL = "https://www.googletagmanager.com/gtag/js?id=" + GOOGLE_ANALYTICS_PROPERTY_ID;
-	//document.write('<script src="' + googleTagScriptURL + '"></script>');
-
-	//var my_awesome_script = document.createElement('script');
-	//my_awesome_script.setAttribute('src', ");
-	//document.head.appendChild(my_awesome_script)
 
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
