@@ -5,6 +5,7 @@ export const MODES = {
   FINISH: 'finish',
   FINISHED: 'finished',
   REVIEW: 'review',
+  EXIT_REVIEW: 'exitReview',
 };
 
 export const ACTIVITY_STATES = {

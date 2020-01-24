@@ -148,7 +148,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           >
             <Button
               onClick={(): void => {
-                setImageOrderingModule(MODES.FINISH, true);
+                setImageOrderingModule(MODES.EXIT_REVIEW, true);
               }}
             >
               {exitReviewButtonCaption}
