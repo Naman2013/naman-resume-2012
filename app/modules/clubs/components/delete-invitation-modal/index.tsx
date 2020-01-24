@@ -13,7 +13,7 @@ type TDeleteInvitationModalProps = {
   goBackText: string;
   getGroupDeleteInvitation: () => void;
   groupDeleteInvitation: IDeleteInvitationResponse;
-  deleteInvitation: (member: IInvitationCustomerLinks) => void;
+  deleteInvitation: (member: IInvitationCustomerLinks) => any;
   member: IInvitationCustomerLinks;
 };
 
