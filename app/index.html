@@ -5,6 +5,12 @@
 <script>
         //Initialize the data layer
         window.dataLayer = window.dataLayer || [];
+
+	var GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-150649783-1';
+	var GOOGLE_OPTIMIZE_CONTAINER_ID = 'GTM-TM8J8FH';
+
+	var GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS = {};
+	GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS[GOOGLE_OPTIMIZE_CONTAINER_ID] = true;
 </script>
 
 <!-- Anti-flicker snippet (recommended)  -->
@@ -12,16 +18,15 @@
 <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
 h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
 (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-})(window,document.documentElement,'async-hide','dataLayer',8000,
-{'GTM-TM8J8FH':true});</script>
+})(window,document.documentElement,'async-hide','dataLayer',8000, GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS);</script>
 
-<!-- Global site tag (gtag.js) - Google Analytics  -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150649783-1"></script>
+<!-- Global site tag (gtag.js) - Google Analytics - Dynamically build the tag-->
+<script>eval('<script async src="https://www.googletagmanager.com/gtag/js?id=" + GOOGLE_ANALYTICS_PROPERTY_ID"></script>');</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'UA-150649783-1', { 'optimize_id': 'GTM-TM8J8FH', 'send_page_view': true});
+  gtag('config', GOOGLE_ANALYTICS_PROPERTY_ID, { 'optimize_id': GOOGLE_OPTIMIZE_CONTAINER_ID, 'send_page_view': true});
 </script>
 
 
