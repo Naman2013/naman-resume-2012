@@ -62,6 +62,9 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     customerImageId,
     objectId,
     slotHasImage,
+    scoringText,
+    scoringTextBold,
+    explanation,
   } = slot;
 
   const {
@@ -143,20 +146,17 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
         <div className="montage-slot__body slot-card">
           <div className="slot-card__left">
             <div className="slot-card__left__identifier">{slotIdentifier}</div>
-            {showGraphicalPrompt ? (
+            {showGraphicalPrompt && (
               <div className="slot-card__left__img">
                 <img src={graphicalPromptURL} alt="" />
               </div>
-            ) : (
-              ''
             )}
 
-            {showTextPrompt ? (
+            {showTextPrompt && (
               <div className="slot-card__left__title">{textPrompt}</div>
-            ) : (
-              ''
             )}
           </div>
+
           <div className="slot-card__right">
             <div className="slot-card__right__img">
               {slotHasImage ? (
@@ -167,6 +167,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                 <img src={imageURL} alt="slot" />
               )}
             </div>
+
             <div className="slot-card__right__action">
               {showSlotButton && (
                 <Tooltip
@@ -185,6 +186,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   </Button>
                 </Tooltip>
               )}
+
               {showSlotInfo && (
                 <div className="slot-info-container">
                   <Tooltip
@@ -210,6 +212,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                       )}
                     </Button>
                   </Tooltip>
+
                   <QuestSlotInfoPopup
                     slotInfo={slotInfo}
                     slotInfoTitle={slotInfoTitle}
@@ -217,6 +220,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                   />
                 </div>
               )}
+
               {showDotMenu && (
                 <div className="dot-menu-wrapper">
                   <Tooltip
@@ -242,6 +246,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                       )}
                     </Button>
                   </Tooltip>
+
                   <QuestDotMenu
                     show={isDotsMenuOpen}
                     menuTitle={dotMenuTitle}
@@ -253,8 +258,13 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
             </div>
           </div>
         </div>
+
         <div className="montage-slot__footer">
-          <div className="find-image-title" />
+          <div className="explanation-text">{explanation}</div>
+
+          <div className={cx('scoring-text', { bold: scoringTextBold })}>
+            {scoringText}
+          </div>
         </div>
       </div>
     </div>

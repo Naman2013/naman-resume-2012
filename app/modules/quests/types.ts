@@ -325,6 +325,7 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   activityPrompt: string;
   activityTitle: string;
   activityStatus: string;
+  activityState: string;
   correctText: string;
   gravityEarnedInThisRequest: boolean;
   incorrectText: string;
@@ -343,10 +344,12 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   previewFinalSubheading: string;
   previewFinishButtonCaption: string;
   previewGoBackButtonCaption: string;
+  goBackButtonCaption: string;
   previewHeading: string;
   previewReviewButtonCaption: string;
   previewSubheading: string;
   previewURL: string;
+  outputURL: string;
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
@@ -356,6 +359,12 @@ export declare interface ImageorderingModuleResponse extends StandardResponse {
   showPreviewButton: boolean;
   previewButtonTooltipText: string;
   showPreviewButtonTooltip: boolean;
+
+  downloadPreviewButtonIconURL: string;
+  downloadPreviewButtonTooltipText: string;
+  showDownloadPreviewButton: boolean;
+  previewDownloadURL: string;
+  enableDownloadPreviewButton: boolean;
 
   backToEditButtonCaption: string;
   enableBackToEditButton: boolean;
@@ -450,6 +459,8 @@ export declare interface IQuestDataCollectionSlot {
   OverlayXpos: number;
   OverlayYpos: number;
   QuestModuleImageOrderingSlotId: number;
+  scoringText: string;
+  scoringTextBold: boolean;
   contentCount: number;
   contentType: string;
   customerImageId: number;
@@ -521,6 +532,7 @@ export declare interface IQuestDataCollectionSlot {
   slotTitle: string;
   textPrompt: string;
   thumbnailURL: string;
+  explanation: string;
 }
 
 export declare interface IQuestDataCollectionSlotImage {

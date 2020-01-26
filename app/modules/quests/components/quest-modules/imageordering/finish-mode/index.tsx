@@ -4,19 +4,22 @@ import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
 import { downloadFile } from 'app/utils/downloadFile';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type FinishModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  goToReview?: () => void;
-  goToEdit?: () => void;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
 };
 
 export const FinishMode: React.FC<FinishModeProps> = props => {
-  const { imageOrderingModule, goToEdit, goToReview } = props;
+  const { imageOrderingModule, setImageOrderingModule } = props;
   const {
-    previewURL,
-    previewFinalHeading,
-    previewFinalSubheading,
+    outputURL,
+    outputHeading,
+    outputSubheading,
     outputDownloadURL,
     reviewWorkButtonCaption,
     enableReviewWorkButton,
@@ -25,27 +28,25 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
     downloadButtonTooltipText,
     enableDownloadButton,
     showDownloadButton,
-    backToEditButtonTooltipText,
-    showBackToEditButton,
-    enableBackToEditButton,
-    backToEditButtonCaption,
+    showEditWorkButton,
+    enableEditWorkButton,
+    editWorkButtonTooltipText,
+    editWorkButtonCaption,
   } = imageOrderingModule;
 
   return (
     <div className="montage-finish-mode">
       <div className="montage-finish-card">
         <div className="montage-finish-card-image">
-          <img src={previewURL} alt="" />
+          <img src={`${outputURL}?time=${Date.now()}`} alt="" />
         </div>
 
-        <div className="montage-finish-card-title">{previewFinalHeading}</div>
+        <div className="montage-finish-card-title">{outputHeading}</div>
 
-        <div className="montage-finish-card-subtitle">
-          {previewFinalSubheading}
-        </div>
+        <div className="montage-finish-card-subtitle">{outputSubheading}</div>
       </div>
 
-      <div className="montage-finish-mode-actions">
+      <div className="montage-finish-mode-actions text-center">
         {showReviewWorkButton && (
           <Tooltip
             title={reviewWorkButtonTooltipText}
@@ -53,37 +54,34 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
             distance={10}
             position="top"
           >
-            <Button onClick={goToReview} disabled={!enableReviewWorkButton}>
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.REVIEW, true);
+              }}
+              disabled={!enableReviewWorkButton}
+            >
               {reviewWorkButtonCaption}
             </Button>
           </Tooltip>
         )}
 
-        {showReviewWorkButton && showBackToEditButton && (
-          <div className="montage-finish-mode-actions-separator" />
-        )}
-
-        {showBackToEditButton && (
+        {showEditWorkButton && (
           <Tooltip
-            title={backToEditButtonTooltipText}
+            title={editWorkButtonTooltipText}
             theme="light"
             distance={10}
             position="top"
           >
             <Button
-              className="btn-white"
-              onClick={goToEdit}
-              disabled={!enableBackToEditButton}
+              onClick={(): void => {
+                setImageOrderingModule(MODES.EDIT_WORK, true);
+              }}
+              disabled={!enableEditWorkButton}
             >
-              {backToEditButtonCaption}
+              {editWorkButtonCaption}
             </Button>
           </Tooltip>
         )}
-
-        {(showReviewWorkButton || showBackToEditButton) &&
-          showDownloadButton && (
-            <div className="montage-finish-mode-actions-separator" />
-          )}
 
         {showDownloadButton && (
           <Tooltip
@@ -95,7 +93,12 @@ export const FinishMode: React.FC<FinishModeProps> = props => {
             <Button
               className="download"
               onClick={(): void =>
-                downloadFile(outputDownloadURL, 'result.png')
+                downloadFile(
+                  `${outputDownloadURL}?time=${Date.now()}`,
+                  outputDownloadURL.substring(
+                    outputDownloadURL.lastIndexOf('/') + 1
+                  )
+                )
               }
               disabled={!enableDownloadButton}
             >

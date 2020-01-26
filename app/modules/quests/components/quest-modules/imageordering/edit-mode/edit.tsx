@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ImageSlot } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/imageSlot';
 import { DataCollectionSlotModal } from 'app/modules/quests/components/quest-modules/data-collection/data-collection-slot-modal';
-import { MODE } from 'app/modules/quests/constants/montageModule';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 import {
   ImageorderingModuleResponse,
   IQuestDataCollectionSlot,
@@ -12,10 +12,12 @@ import {
 import { Tooltip } from 'react-tippy';
 
 type TEditModeProps = {
-  readOnly?: boolean; // TRUE if Finish mode
-  mode: number;
-  goToPreview?: () => void;
+  activityState: string;
   getImageOrderingModule?: () => void;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
   getDataCollectionSlotImages?: () => void;
   setDataCollectionSlotImages?: (
     image: IQuestDataCollectionSlotImage,
@@ -24,7 +26,6 @@ type TEditModeProps = {
   ) => void;
   removeDataCollectionSlotImage?: (slotId: number, imageId: number) => void;
   imageOrderingModule?: ImageorderingModuleResponse;
-  previewReviewButtonCaption?: string;
   slot?: IQuestDataCollectionSlot;
   loading?: boolean;
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
@@ -35,11 +36,10 @@ const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
 
 export const EditMode: React.FC<TEditModeProps> = props => {
   const {
-    readOnly,
-    mode,
-    goToPreview,
+    activityState,
     imageOrderingModule,
     getImageOrderingModule,
+    setImageOrderingModule,
     setDataCollectionSlotImages,
     getDataCollectionSlotImages,
     removeDataCollectionSlotImage,
@@ -55,9 +55,11 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     showPreviewButton,
     previewButtonTooltipText,
     exitReviewButtonCaption,
-    enableExitReviewButton,
-    showExitReviewButton,
     exitReviewButtonTooltipText,
+    showFinishButton,
+    finishButtonTooltipText,
+    enableFinishButton,
+    finishButtonCaption,
     slotArray = [],
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
@@ -77,12 +79,12 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           }}
           removeDataCollectionSlotImage={removeDataCollectionSlotImage}
           user={user}
-          readOnly={readOnly}
+          readOnly={activityState === MODES.REVIEW}
           mmSlotModalVisible={mmSlotModalVisible}
         />
       ))}
 
-      {mmSlotModalVisible && !readOnly && (
+      {mmSlotModalVisible && activityState !== MODES.REVIEW && (
         <DataCollectionSlotModal
           show
           onHide={(): void => {
@@ -100,35 +102,60 @@ export const EditMode: React.FC<TEditModeProps> = props => {
         />
       )}
 
-      {mode === MODE.edit && showPreviewButton && (
-        <div className="text-center">
+      <div className="montage-edit-mode-actions text-center">
+        {activityState === MODES.EDIT && showPreviewButton && (
           <Tooltip
             title={previewButtonTooltipText || ''}
             theme="light"
             distance={10}
             position="top"
           >
-            <Button onClick={goToPreview} disabled={!enablePreviewButton}>
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.PREVIEW);
+              }}
+              disabled={!enablePreviewButton}
+            >
               {previewButtonCaption}
             </Button>
           </Tooltip>
-        </div>
-      )}
+        )}
 
-      {mode === MODE.review && showExitReviewButton && (
-        <div className="text-center">
+        {activityState === MODES.EDIT && showFinishButton && (
           <Tooltip
-            title={exitReviewButtonTooltipText || ''}
+            title={finishButtonTooltipText}
             theme="light"
             distance={10}
             position="top"
           >
-            <Button onClick={goToPreview} disabled={!enableExitReviewButton}>
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.FINISH, true);
+              }}
+              disabled={!enableFinishButton}
+            >
+              {finishButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {activityState === MODES.REVIEW && (
+          <Tooltip
+            title={exitReviewButtonTooltipText}
+            theme="light"
+            distance={10}
+            position="top"
+          >
+            <Button
+              onClick={(): void => {
+                setImageOrderingModule(MODES.EXIT_REVIEW, true);
+              }}
+            >
               {exitReviewButtonCaption}
             </Button>
           </Tooltip>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

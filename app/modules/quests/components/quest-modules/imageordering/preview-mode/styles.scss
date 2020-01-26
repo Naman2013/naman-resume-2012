@@ -26,10 +26,14 @@
   }
 
   .montage-preview-footer {
-    margin-top: 60px;
+    margin-top: 40px;
 
-    .finish-btn {
-      margin-right: 60px;
+    .btn {
+      margin: 20px 15px 0;
+
+      &.download {
+        padding: 12px;
+      }
     }
   }
 
@@ -37,10 +41,6 @@
     .montage-preview-footer {
       display: flex;
       justify-content: space-between;
-
-      .finish-btn {
-        margin-right: 0;
-      }
     }
   }
 }

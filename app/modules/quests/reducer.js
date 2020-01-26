@@ -39,6 +39,8 @@ export const TYPE = constants('quests', [
 
   '~GET_IMAGEORDERING_MODULE',
   '~SET_IMAGEORDERING_MODULE',
+
+  'SET_IMAGE_ORDERING_ACTIVITY_STATE',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -185,6 +187,11 @@ export default handleActions(
     [TYPE.GET_IMAGEORDERING_MODULE]: start,
     [TYPE.GET_IMAGEORDERING_MODULE_SUCCESS]: getImageorderingModuleSuccess,
     [TYPE.GET_IMAGEORDERING_MODULE_ERROR]: error,
+
+    [TYPE.SET_IMAGEORDERING_MODULE]: start,
+    [TYPE.SET_IMAGEORDERING_MODULE_SUCCESS]: end,
+    [TYPE.SET_IMAGEORDERING_MODULE_ERROR]: error,
+    [TYPE.SET_IMAGE_ORDERING_ACTIVITY_STATE]: setImageOrderingActivityState,
   },
   initialState
 );
@@ -193,6 +200,13 @@ function start(state = initialState) {
   return {
     ...state,
     isFetching: true,
+  };
+}
+
+function end(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
   };
 }
 
@@ -491,6 +505,22 @@ function getImageorderingModuleSuccess(state, { payload }) {
     imageorderingModules: {
       ...state.imageorderingModules,
       [payload.moduleId]: payload,
+    },
+  };
+}
+
+function setImageOrderingActivityState(
+  state,
+  { payload: { moduleId, activityState } }
+) {
+  return {
+    ...state,
+    imageorderingModules: {
+      ...state.imageorderingModules,
+      [moduleId]: {
+        ...state.imageorderingModules[moduleId],
+        activityState,
+      },
     },
   };
 }
