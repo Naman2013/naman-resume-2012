@@ -4,6 +4,7 @@ import questsSaga from './modules/quests/sagas';
 import purchaseConfirmationSaga from './modules/purchase-confirmation/sagas';
 import accountSaga from './modules/account-settings/sagas';
 import showsSaga from './modules/shows/sagas';
+import aboutSaga from './modules/about/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     questsSaga(),
     accountSaga(),
     showsSaga(),
+    aboutSaga(),
   ]);
 }

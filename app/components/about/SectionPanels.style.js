@@ -5,7 +5,6 @@ export default css`
   ul {
     ${resetMarginPadding}
     list-style-type: none;
-    width: 95%;
     margin: 0 auto;
   }
 

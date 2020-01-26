@@ -1,4 +1,4 @@
-import { fetchAboutDataService } from '../../services/about';
+import { fetchAboutDataService } from '../../../services/about';
 
 export const COMMIT_FEATURES = 'COMMIT_FEATURES';
 export const FETCH_ABOUT_DATA_START = 'FETCH_ABOUT_DATA_START';
@@ -14,7 +14,7 @@ export const processFeaturePopStatus = featureID => (dispatch, getState) => {
     about: { sloohFeatures },
   } = getState();
 
-  const flipFeature = (feature) => {
+  const flipFeature = feature => {
     if (feature.id === featureID) {
       return Object.assign({}, feature, {
         tooltip: Object.assign(feature.tooltip, { toolTipOpen: true }),
@@ -51,7 +51,7 @@ export const fetchAboutDataAction = () => (dispatch, getState) => {
     token,
     at,
     cid,
-  }).then((result) => {
+  }).then(result => {
     dispatch(fetchAboutDataActionSuccess(result.data));
   });
 };

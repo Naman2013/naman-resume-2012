@@ -56,7 +56,7 @@
         height: 22px;
         content: '';
         background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow.svg')
-        no-repeat center bottom;
+          no-repeat center bottom;
       }
 
       a.subnav-active {
@@ -66,10 +66,9 @@
     }
   }
 
-  .subnav::-webkit-scrollbar {
-    display: none;
-  }
-
+  // .subnav::-webkit-scrollbar {
+  //   display: none;
+  // }
 
   @include md {
     .subnav {
