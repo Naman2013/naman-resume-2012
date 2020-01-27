@@ -43,7 +43,7 @@ export const deleteInvitation = inviteDetails => (dispatch, getState) => {
     at,
     cid,
     token,
-    inviteDetails: [inviteDetails],
+    inviteDetails,
   })
     .then(result => dispatch(ACTION.deleteInvitationSuccess(result.data)))
     .catch(error => {
