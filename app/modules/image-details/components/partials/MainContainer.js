@@ -35,6 +35,7 @@ const MainContainer = ({
   refetchData,
   shareMemberPhotoData,
   iconFileData,
+  profileGroupList,
 }) => {
   const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState('');
@@ -74,6 +75,7 @@ const MainContainer = ({
             }}
             refetchData={refetchData}
             shareMemberPhotoData={shareMemberPhotoData}
+            profileGroupList={profileGroupList}
           />
           <br />
         </>

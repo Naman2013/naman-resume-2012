@@ -1,7 +1,11 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('clubs', ['~GET_CLUBS', '~GET_TOP_THREADS']);
+export const TYPE = constants('clubs', [
+  '~GET_CLUBS',
+  '~GET_TOP_THREADS',
+  '~GET_PROFILE_GROUP',
+]);
 
 export const ACTION = actions(TYPE);
 
@@ -9,6 +13,7 @@ const initialState = {
   isFetching: false,
   topThreadsList: [],
   serverError: null,
+  profileGroupList: [],
 };
 
 export default handleActions(
@@ -19,11 +24,17 @@ export default handleActions(
     [TYPE.GET_TOP_THREADS]: getTopThreadsStart,
     [TYPE.GET_TOP_THREADS_SUCCESS]: getTopThreadsSuccess,
     [TYPE.GET_TOP_THREADS_ERROR]: getTopThreadsError,
+    [TYPE.GET_PROFILE_GROUP]: getProfileGroup,
+    [TYPE.GET_PROFILE_GROUP_SUCCESS]: getProfileGroupSuccess,
+    [TYPE.GET_PROFILE_GROUP_ERROR]: getProfileGroupError,
   },
   initialState
 );
 
 function setFetching(state) {
+  return { ...state, isFetching: true, isLoaded: false };
+}
+function getProfileGroup(state) {
   return { ...state, isFetching: true, isLoaded: false };
 }
 
@@ -65,5 +76,21 @@ function getClubsError(state = initialState) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function getProfileGroupSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    profileGroupList: action.payload || [],
+  };
+}
+
+function getProfileGroupError(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
   };
 }

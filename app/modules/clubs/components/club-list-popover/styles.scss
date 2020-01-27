@@ -1,0 +1,11 @@
+@import '~app/styles/variables/index';
+
+.club-list-popover {
+  position: relative;
+
+  .circle-close-btn {
+    padding: 15px;
+    color: $romance;
+    background-color: $astronaut;
+  }
+}

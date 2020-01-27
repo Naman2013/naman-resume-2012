@@ -10,6 +10,7 @@ type TProfileActivityProps = {
   validateResponseAccess: (data: any) => Promise<any>;
   setObservationTags: (data: any) => Promise<any>;
   shareMemberPicture: (data: any) => Promise<any>;
+  getProfileGroupList: (data: any) => Promise<any>;
 
   observationTagsError: any;
   imageDetailsData: ImageDetails;
@@ -17,6 +18,7 @@ type TProfileActivityProps = {
   shareMemberPhotoData: any;
   params: any;
   user: User;
+  profileGroupList: any;
 };
 
 export class ImageDetails extends Component<TProfileActivityProps> {
@@ -25,6 +27,7 @@ export class ImageDetails extends Component<TProfileActivityProps> {
       getImageDetails,
       setObservationTags,
       shareMemberPicture,
+      getProfileGroupList,
       user,
       observationTagsError,
       validateResponseAccess,
@@ -32,11 +35,13 @@ export class ImageDetails extends Component<TProfileActivityProps> {
       imageDetailsData,
       isFetching,
       shareMemberPhotoData,
+      profileGroupList,
     } = this.props;
     const actions = {
       getImageDetails,
       setObservationTags,
       shareMemberPicture,
+      getProfileGroupList,
     };
 
     return (
@@ -60,6 +65,7 @@ export class ImageDetails extends Component<TProfileActivityProps> {
                 {...context}
                 {...imageDetailsData}
                 customerImageId={customerImageId}
+                profileGroupList={profileGroupList}
               />
             </div>
           )}

@@ -56,6 +56,7 @@ type TProfileActivityProps = {
   iconFileData: any;
   imageDownloadFilename: string;
   imageDownloadURL: string;
+  profileGroupList: any;
 };
 
 type TProfileActivityState = {
@@ -107,6 +108,7 @@ export class ImageDetails extends Component<
       observationLog,
       shareMemberPhotoData,
       observationTitle,
+      profileGroupList,
     } = this.props;
     const { isOpenModal } = this.state;
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -182,6 +184,7 @@ export class ImageDetails extends Component<
               firstTabOnClick={navProps.onShowMainContainer}
               secondTabIsActive={navProps.showAsideContainer}
               secondTabOnClick={navProps.onShowAsideContainer}
+              profileGroupList={profileGroupList}
             />
           )}
           renderAsideContent={() => (
