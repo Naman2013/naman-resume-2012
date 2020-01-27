@@ -13,9 +13,9 @@ export const getTopThreadList = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getTopThreadsError(error)));
 };
 
-export const getProfileGroupList = callSource => (dispatch, getState) => {
+export const getProfileGroupList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  return getProfileGroupsApi({ at, token, cid, ...callSource })
+  return getProfileGroupsApi({ at, token, cid, ...data })
     .then(result =>
       dispatch(ACTION.getProfileGroupSuccess(result.data.groupsList))
     )

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Spinner } from 'app/components/spinner/index';
 import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 import { DeviceContext } from 'app/providers/DeviceProvider';
+import { IProfileGroupList } from 'app/modules/profile-photos/types';
 import ImageDetailsContent from './image-details';
 import './styles.scss';
 
@@ -18,7 +19,7 @@ type TProfileActivityProps = {
   shareMemberPhotoData: any;
   params: any;
   user: User;
-  profileGroupList: any;
+  profileGroupList: IProfileGroupList;
 };
 
 export class ImageDetails extends Component<TProfileActivityProps> {

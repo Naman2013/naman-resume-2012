@@ -10,13 +10,18 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { makeByGroupsListSelectOptsSelector } from 'app/modules/clubs/selectors';
 
-const mapStateToProps = (state, { user }) => {
+const mapStateToProps = state => {
+  const {
+    user,
+    imageDetails: { observationTagsError, data, isFetching },
+    shareMemberPhoto: { shareMemberPhotoData },
+  } = state;
   return {
-    user: state.user,
-    observationTagsError: state.imageDetails.observationTagsError,
-    imageDetailsData: state.imageDetails.data,
-    isFetching: state.imageDetails.isFetching,
-    shareMemberPhotoData: state.shareMemberPhoto.shareMemberPhotoData,
+    user,
+    observationTagsError,
+    imageDetailsData: data,
+    isFetching,
+    shareMemberPhotoData,
     profileGroupList: makeByGroupsListSelectOptsSelector()(state),
   };
 };

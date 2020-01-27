@@ -8,6 +8,7 @@ import {
   CALLSOURCE_PHOTOVIEW,
   USE_SHARE_TOKEN_TRUE,
 } from 'app/modules/image-details/components/imageDetailsConfiguration';
+import { IProfileGroupList } from 'app/modules/profile-photos/types';
 import MainContainer from '../partials/MainContainer';
 import AsideContainer from '../partials/AsideContainer';
 
@@ -56,7 +57,7 @@ type TProfileActivityProps = {
   iconFileData: any;
   imageDownloadFilename: string;
   imageDownloadURL: string;
-  profileGroupList: any;
+  profileGroupList: IProfileGroupList;
 };
 
 type TProfileActivityState = {

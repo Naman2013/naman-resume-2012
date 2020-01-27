@@ -75,13 +75,15 @@ class ObservationInformation extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.likePrompt !== nextProps.likePrompt) {
+    const { likePrompt, likesCount } = this.props;
+
+    if (likePrompt !== nextProps.likePrompt) {
       this.setState({
         likePrompt: nextProps.likePrompt,
       });
     }
 
-    if (this.props.likesCount !== nextProps.likesCount) {
+    if (likesCount !== nextProps.likesCount) {
       this.setState({
         count: nextProps.likesCount,
       });
@@ -220,8 +222,8 @@ class ObservationInformation extends Component {
                 customerImageId={customerImageId}
                 profileGroupList={profileGroupList}
                 shareMemberPhotoData={shareMemberPhotoData}
-                openSuccessShareableImageModal={() =>
-                  this.openSuccessShareableImageModal()
+                openSuccessShareableImageModal={
+                  this.openSuccessShareableImageModal
                 }
               />
             </div>

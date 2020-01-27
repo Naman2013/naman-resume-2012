@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { ShareButtonsPopover } from 'app/modules/clubs/components/share-buttons-popover';
+import { ShareButtonsPopover } from 'app/components/share-buttons-popover';
 import './styles.scss';
 import cx from 'classnames';
 import { Select } from 'app/components/common/select';
+import { IProfileGroupList } from 'app/modules/profile-photos/types';
 
 type TClubListMenuProps = {
   show?: boolean;
-  getProfileGroupList: (data: any) => Promise<any>;
-  shareMemberPicture: (data: any) => Promise<any>;
-  openSuccessShareableImageModal: (data: any) => Promise<any>;
+  getProfileGroupList: Function;
+  shareMemberPicture: Function;
+  openSuccessShareableImageModal: Function;
   customerImageId: number;
-  profileGroupList: any;
-  shareMemberPhotoData: any;
+  profileGroupList: IProfileGroupList;
 };
 
 const openClubListMenuModal = (
@@ -28,7 +28,7 @@ const openClubListMenuModal = (
 };
 
 const handleChange = (
-  selectedOption: any,
+  selectedOption: string,
   shareMemberPicture: Function,
   customerImageId: number,
   setSelectedOption: Function,
@@ -82,7 +82,7 @@ export const ClubListPopover: React.FC<TClubListMenuProps> = React.memo(
             {isShareMenuOpen && (
               <div className="share-clubs-menu">
                 <Select
-                  handleChange={(selectedOption: number) =>
+                  handleChange={(selectedOption: string) =>
                     handleChange(
                       selectedOption,
                       shareMemberPicture,
