@@ -27,7 +27,7 @@ export const getGroupDeleteInvitation = inviteDetails => (
     at,
     cid,
     token,
-    inviteDetails: [inviteDetails],
+    inviteDetails,
   })
     .then(result => {
       dispatch(ACTION.getGroupDeleteInvitationSuccess(result.data));

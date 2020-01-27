@@ -11,7 +11,7 @@ type TDeleteInvitationModalProps = {
   onHide: Function;
   show: boolean;
   goBackText: string;
-  getGroupDeleteInvitation: () => void;
+  getGroupDeleteInvitation: (member: IInvitationCustomerLinks) => void;
   groupDeleteInvitation: IDeleteInvitationResponse;
   deleteInvitation: (member: IInvitationCustomerLinks) => any;
   member: IInvitationCustomerLinks;
@@ -21,8 +21,8 @@ export default class DeleteInvitationModal extends React.PureComponent<
   TDeleteInvitationModalProps
 > {
   componentDidMount(): void {
-    const { getGroupDeleteInvitation } = this.props;
-    getGroupDeleteInvitation();
+    const { getGroupDeleteInvitation, member } = this.props;
+    getGroupDeleteInvitation(member);
   }
 
   confirmDeleteInvitation = () => {
