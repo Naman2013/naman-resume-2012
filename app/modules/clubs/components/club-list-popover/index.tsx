@@ -81,7 +81,6 @@ export const ClubListPopover: React.FC<TClubListMenuProps> = React.memo(
           <ShareButtonsPopover isOpen={isShareMenuOpen}>
             {isShareMenuOpen && (
               <div className="share-clubs-menu">
-                Share Clubs Menu
                 <Select
                   handleChange={(selectedOption: number) =>
                     handleChange(

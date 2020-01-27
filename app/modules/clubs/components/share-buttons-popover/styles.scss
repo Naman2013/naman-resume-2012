@@ -6,12 +6,23 @@
   width: 300px;
   height: 200px;
   bottom: 58px;
-  left: -10px;
+  left: -200px;
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
   border-bottom: 4px solid $lightHeadedAstronaut;
 
   &.open {
     display: block;
+  }
+
+  .share-clubs-menu {
+    margin-top: 10px;
+  }
+}
+
+@include xsm {
+  .share-buttons-popover {
+    width: 280px;
+    left: -165px;
   }
 }
