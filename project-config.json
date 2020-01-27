@@ -128,6 +128,8 @@
   },
   "nova.slooh.com": {
     "loadHtmlFile": "/config/nova.slooh.com.html",
+    "GOOGLE_ANALYTICS_PROPERTY_ID": "UA-150649783-1",
+    "GOOGLE_OPTIMIZE_CONTAINER_ID": "GTM-TM8J8FH",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardPlans": "mB71-QJiRqaGL3_VhnLJpw",
       "upsellPayWall_Plan": "P4jeFFYGRsO5VdXpGXxh1g"

@@ -2,31 +2,33 @@
 <html lang="en">
   <head>
 
+<style>.async-hide { opacity: 0 !important} </style>
+
 <script>
         //Initialize the data layer
         window.dataLayer = window.dataLayer || [];
 
-	var GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-150649783-1';
-	var GOOGLE_OPTIMIZE_CONTAINER_ID = 'GTM-TM8J8FH';
+	var GOOGLE_ANALYTICS_PROPERTY_ID = "UA-150649783-1";
+	var GOOGLE_OPTIMIZE_CONTAINER_ID = "GTM-TM8J8FH";
 
 	var GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS = {};
 	GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS[GOOGLE_OPTIMIZE_CONTAINER_ID] = true;
-</script>
 
-<!-- Anti-flicker snippet (recommended)  -->
-<style>.async-hide { opacity: 0 !important} </style>
-<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-})(window,document.documentElement,'async-hide','dataLayer',8000, GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS);</script>
+	//Anti-flickr snippet for Google Optimize
+	(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date; h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')}; (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;} (window,document.documentElement,'async-hide','dataLayer',8000, GOOGLE_OPTIMIZE_ANTIFLICKR_SETTINGS));
 
-<!-- Global site tag (gtag.js) - Google Analytics - Dynamically build the tag-->
-<script>eval('<script async src="https://www.googletagmanager.com/gtag/js?id=" + GOOGLE_ANALYTICS_PROPERTY_ID"></script>');</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', GOOGLE_ANALYTICS_PROPERTY_ID, { 'optimize_id': GOOGLE_OPTIMIZE_CONTAINER_ID, 'send_page_view': true});
+	var googleTagScriptURL = "https://www.googletagmanager.com/gtag/js?id=" + GOOGLE_ANALYTICS_PROPERTY_ID;
+
+	var scr  = document.createElement('script'),
+	head = document.head || document.getElementsByTagName('head')[0];
+	scr.src = googleTagScriptURL;
+	scr.async = false;
+        head.insertBefore(scr, head.firstChild);
+
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', GOOGLE_ANALYTICS_PROPERTY_ID, { 'optimize_id': GOOGLE_OPTIMIZE_CONTAINER_ID, 'send_page_view': true});
 </script>
 
 
