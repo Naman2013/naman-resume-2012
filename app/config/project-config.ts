@@ -21,8 +21,9 @@ const loadHtml = (filePath: string): Promise<any> =>
     .fetch(filePath)
     .then(resp => resp.text())
     .then(html =>
-      document.body.appendChild(
-        document.createRange().createContextualFragment(html)
+      document.body.insertBefore(
+        document.createRange().createContextualFragment(html),
+        document.body.firstChild
       )
     );
 
