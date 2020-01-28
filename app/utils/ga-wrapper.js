@@ -3,11 +3,14 @@
   defensive code to the application
 */
 
-export default function firePageview({ location }) {
-  if (typeof ga === 'undefined') { return; }
+export default function fireSloohGAPageview({ location }) {
+  if (typeof gtag === 'undefined') { return; }
 
-  ga('send', {
-    hitType: 'pageview',
-    location,
-  });
+  //ga('send', {
+  //  hitType: 'pageview',
+  //  location,
+  //});
+
+  gtag('config', window.getGoogleAnalyticsPropertyID(), {'page_path': location });
+
 }

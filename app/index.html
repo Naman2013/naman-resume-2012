@@ -235,6 +235,15 @@
     </script>
     <!-- End of PowerWebTraffic by PowerObjects Logging Code -->
 
+    <script>
+	//return the Google Analytics Property ID
+	function getGoogleAnalyticsPropertyID() {
+		if (typeof GOOGLE_ANALYTICS_PROPERTY_ID === 'undefined') { return; }
+
+		return GOOGLE_ANALYTICS_PROPERTY_ID;
+	}
+    </script>
+
     <script async src="https://use.fontawesome.com/a6e7d96168.js"></script>
   </body>
 </html>
