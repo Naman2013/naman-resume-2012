@@ -4,6 +4,8 @@
 */
 
 export default function firePageview({ location }) {
+  console.log(GOOGLE_ANALYTICS_PROPERTY_ID);
+
   if (typeof ga === 'undefined') { return; }
 
   //ga('send', {
