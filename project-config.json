@@ -9,7 +9,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/events.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
       "upsellPayWall_Plan": ""
     }
   },
@@ -18,7 +18,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/live.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
       "upsellPayWall_Plan": ""
     }
   },
@@ -27,7 +27,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/main.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
       "upsellPayWall_Plan": ""
     }
   },
@@ -36,7 +36,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/www.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
       "upsellPayWall_Plan": ""
     }
   },
@@ -45,7 +45,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
       "upsellPayWall_Plan": ""
     }
   },
