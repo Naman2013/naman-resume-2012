@@ -100,7 +100,7 @@ import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
 import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
-import firePageview from 'app/utils/ga-wrapper';
+import fireSloohGAPageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -127,12 +127,11 @@ const history = syncHistoryWithStore(browserHistory, store);
 // handle to the listen callback on changes to the history
 history.listen(location => {
   const { pathname } = location;
-
-  firePageview({
+  
+  //Fire a Google Analytics pageview event as the route / path changed.
+  fireSloohGAPageview({
     location: pathname,
   });
-  // todo do we need this on every page refresh?
-  // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
 const getProfileRoutes = ({ publicProfile }) => (
