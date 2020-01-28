@@ -4,7 +4,7 @@
 */
 
 export default function firePageview({ location }) {
-  if (typeof ga === 'undefined') { return; }
+  if (typeof ga === 'undefined') { console.log("GA Undefined!"); return; }
 
   ga('send', {
     hitType: 'pageview',
