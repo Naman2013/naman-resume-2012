@@ -4,7 +4,7 @@
 */
 
 export default function fireSloohGAPageview({ googleAnalyticsPropertyID, location }) {
-  if (typeof ga === 'undefined') { return; }
+  if (typeof gtag === 'undefined') { return; }
 
   //ga('send', {
   //  hitType: 'pageview',
