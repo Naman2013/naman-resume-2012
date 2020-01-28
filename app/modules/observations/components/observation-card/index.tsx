@@ -57,9 +57,9 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title">{title}</h2>
+                    <h2 className="title h-2 h-2-bold">{title}</h2>
                     {readOnly ? (
-                      <h5 className="author">{displayName}</h5>
+                      <h5 className="author h-5 h-5-normal">{displayName}</h5>
                     ) : (
                       <Link to={iconFileData.Member.linkUrl}>
                         <h5 className="author">{displayName}</h5>
