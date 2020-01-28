@@ -93,7 +93,7 @@ export const ClubListPopover: React.FC<TClubListMenuProps> = React.memo(
                     )
                   }
                   options={profileGroupList}
-                  placeholder="CHOOSE"
+                  placeholder="Select a Club"
                   value={selectedOption}
                 />
               </div>

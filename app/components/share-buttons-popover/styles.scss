@@ -17,6 +17,14 @@
 
   .share-clubs-menu {
     margin-top: 10px;
+
+    .slooh-select-container {
+      .slooh-react-select__menu {
+        .dropdown-opt {
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 
