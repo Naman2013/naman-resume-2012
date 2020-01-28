@@ -4,10 +4,13 @@
 */
 
 export default function firePageview({ location }) {
-  if (typeof ga === 'undefined') { console.log("GA Undefined!"); return; }
+  if (typeof ga === 'undefined') { return; }
 
-  ga('send', {
-    hitType: 'pageview',
-    location,
-  });
+  //ga('send', {
+  //  hitType: 'pageview',
+  //  location,
+  //});
+
+  gtag('config', 'UA-150649783-1', {'page_path': location });
+
 }
