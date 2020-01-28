@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getSelectOptions } from 'app/utils/common-methods';
 
 export const selectClubs = state => state.clubs;
 
@@ -12,6 +13,12 @@ export const makeTopThreadsSelector = () =>
   createSelector(
     selectClubs,
     state => state.topThreadsList
+  );
+
+export const makeGroupsListSelector = () =>
+  createSelector(
+    selectClubs,
+    state => state.profileGroupList
   );
 
 export const makeTopThreadsDataSelector = () =>
@@ -29,4 +36,14 @@ export const makeTopThreadsDataSelector = () =>
           authorInfo: x.authorInfo,
         };
       })
+  );
+
+/**
+ * Gets the objectList from reducer
+ * Returns objectList options ready for Select
+ */
+export const makeByGroupsListSelectOptsSelector = () =>
+  createSelector(
+    makeGroupsListSelector(),
+    state => getSelectOptions(state, 'discussionGroupId', 'title')
   );
