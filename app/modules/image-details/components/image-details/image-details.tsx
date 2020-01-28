@@ -1,4 +1,4 @@
-import React, { Component, useState, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import EditHeader from 'app/modules/image-details/containers/edit-header';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';

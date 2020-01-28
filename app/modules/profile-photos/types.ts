@@ -31,7 +31,3 @@ export declare interface IProfileGroupList {
   label: string;
   disabled: boolean;
 }
-
-// export declare interface IShareMemberPhotoData {
-//
-// }
