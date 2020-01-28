@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './CenterColumn.style';
 import { defaultScale } from 'app/styles/variables/breakpoints';
-import { defaultWidths } from './constants';
 import cx from 'classnames';
+import style from './CenterColumn.style';
+import { defaultWidths } from './constants';
 
 const CenterColumn = ({
   children,
   theme,
   breakpoints,
   widths,
-  customClass
+  customClass,
 }) => (
   <div className={cx('root', customClass)} style={theme}>
     {children}
@@ -19,30 +19,32 @@ const CenterColumn = ({
       {`
         @media ${breakpoints[0]} {
           .root {
-            width: ${widths[0]}
+            width: ${widths[0]};
           }
         }
 
         @media ${breakpoints[1]} {
           .root {
-            width: ${widths[1]}
+            width: ${widths[1]};
           }
         }
 
         @media ${breakpoints[2]} {
           .root {
-            width: ${widths[2]}
+            width: ${widths[2]};
           }
         }
       `}
     </style>
-  </div>);
+  </div>
+);
 
 CenterColumn.propTypes = {
   children: PropTypes.node.isRequired,
   theme: PropTypes.shape({}),
   breakpoints: PropTypes.arrayOf(PropTypes.string),
   widths: PropTypes.arrayOf(PropTypes.string),
+  customClass: PropTypes.string,
 };
 
 CenterColumn.defaultProps = {

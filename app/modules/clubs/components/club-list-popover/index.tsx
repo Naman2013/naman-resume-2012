@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { ShareButtonsPopover } from 'app/components/share-buttons-popover';
 import './styles.scss';
