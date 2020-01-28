@@ -104,7 +104,7 @@ class ProfileGroups extends Component {
 
     return (
       <div className="profile-groups">
-        <CenterColumn>
+        <CenterColumn customClass="profile-groups-container" >
           {this.renderClubBtns()}
 
           <ContainerWithTitle title={t('Profile.MyClubs')}>

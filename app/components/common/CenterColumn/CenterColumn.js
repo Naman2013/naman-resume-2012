@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import style from './CenterColumn.style';
 import { defaultScale } from 'app/styles/variables/breakpoints';
 import { defaultWidths } from './constants';
+import cx from 'classnames';
 
 const CenterColumn = ({
   children,
   theme,
   breakpoints,
   widths,
+  customClass
 }) => (
-  <div className="root" style={theme}>
+  <div className={cx('root', customClass)} style={theme}>
     {children}
     <style jsx>{style}</style>
     <style jsx>
