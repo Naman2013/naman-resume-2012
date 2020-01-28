@@ -3,7 +3,7 @@
   defensive code to the application
 */
 
-export default function fireSloohGAPageview({ googleAnalyticsPropertyID, location }) {
+export default function fireSloohGAPageview({ location }) {
   if (typeof gtag === 'undefined') { return; }
 
   //ga('send', {
@@ -11,6 +11,6 @@ export default function fireSloohGAPageview({ googleAnalyticsPropertyID, locatio
   //  location,
   //});
 
-  gtag('config', googleAnalyticsPropertyID, {'page_path': location });
+  gtag('config', window.getGoogleAnalyticsPropertyID(), {'page_path': location });
 
 }

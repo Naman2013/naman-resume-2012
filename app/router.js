@@ -121,8 +121,6 @@ import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 
-import { projectGoogleAnalyticsPropertyId } from 'app/config/project-config';
-
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -132,7 +130,6 @@ history.listen(location => {
   
   //Fire a Google Analytics pageview event as the route / path changed.
   fireSloohGAPageview({
-    googleAnalyticsPropertyID: projectGoogleAnalyticsPropertyId,
     location: pathname,
   });
 });
