@@ -5,8 +5,8 @@ import {
   openUpsellModal,
 } from 'app/modules/global-navigation/actions';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
-import { destroySession, removeUser } from '../User';
-import SETTINGS from '../../config';
+import { getUserInfo, destroySession, removeUser } from '../User';
+import SETTINGS from '../../config/config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
 export const FETCH_ERRORS_SUCCESS = 'FETCH_ERRORS_SUCCESS';
@@ -42,8 +42,9 @@ const fetchErrorsSuccess = payload => ({
   payload,
 });
 
-export const showIssueWithUserAccountModal = () => ({
+export const showIssueWithUserAccountModal = payload => ({
   type: SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
+  payload,
 });
 
 export const hideIssueWithUserAccountModal = () => ({
@@ -137,43 +138,80 @@ export const fetchErrors = () => (dispatch, getState) => {
 
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
+  const user = getUserInfo();
+
+  /*****************************************
+   * POSSIBLE HTTP RESPONSE CODES....
+   *	401 - Unauthorized, Login Issues
+   *	402 - Credentials Required to verify account access
+   *    418 - Expired
+   *    421 - Expired Recently
+   *	419 - Forced Slooh Crew
+   *	420 - Upsell Flow
+   *****************************************/
+
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
+  const UNAUTHORIZED_CREDSREQD_STATUS_CODE = 402;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
+  const EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE = 421;
+  const FORCED_SLOOH_CREW_STATUS_CODE = 419;
+  const UPSELL_STATUS_CODE = 420;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
-  if (
-    statusCode === UNAUTHORIZED_STATUS_CODE ||
-    statusCode === EXPIRED_ACCOUNT_STATUS_CODE
-  ) {
-    // if it is not a log in error, and we are not currently handling something already
-    /**
-      TODO: once the migration is complete and we have hashless URL's in production
-      remove this check and only pass the pathname
-    */
-    if (typeof loginError === 'undefined' && !handlingScenario) {
-      if (SETTINGS.isHashHistory()) {
-        dispatch(setSignInReturnURL(window.location.hash));
-      } else {
-        dispatch(setSignInReturnURL(window.location.pathname));
-      }
-      dispatch(
-        captureErrorState({
-          apiError,
-          errorCode,
-          statusCode,
-          loginError,
-        })
-      );
-      console.log('AAAAAAAAAAAAAAAAA', {
+  //console.log(statusCode);
+
+  let subscriptionPlansCallSource = '';
+  let triggerUserAccountIssueModal = false;
+
+  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
+    //session issues....send the user to the homepage, they likely tried accessing on a second device.
+    triggerUserAccountIssueModal = false;
+
+    destroySession();
+    dispatch(removeUser());
+    dispatch(push('/'));
+    dispatch(window.location.reload());
+  } else if (statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE) {
+    //paywall
+    triggerUserAccountIssueModal = false;
+
+    destroySession();
+    dispatch(removeUser());
+    dispatch(push('/join/step1'));
+    dispatch(window.location.reload());
+  } else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
+    subscriptionPlansCallSource = 'forcedsloohcrew';
+    triggerUserAccountIssueModal = true;
+  } else if (statusCode === UPSELL_STATUS_CODE) {
+    subscriptionPlansCallSource = 'upsell';
+    triggerUserAccountIssueModal = true;
+  } else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expired';
+    triggerUserAccountIssueModal = true;
+  } else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expiredrecently';
+    triggerUserAccountIssueModal = true;
+  }
+
+  if (triggerUserAccountIssueModal == true) {
+    if (SETTINGS.isHashHistory()) {
+      dispatch(setSignInReturnURL(window.location.hash));
+    } else {
+      dispatch(setSignInReturnURL(window.location.pathname));
+    }
+    dispatch(
+      captureErrorState({
         apiError,
         errorCode,
         statusCode,
         loginError,
-      });
-      dispatch(showIssueWithUserAccountModal());
-    }
+      })
+    );
+
+    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource, user));
     return false;
   }
+
   return true;
 };

@@ -1,4 +1,6 @@
-import axios from 'axios';
+/* eslint-disable */
+
+import { API } from 'app/api';
 import { getDashboardFeaturedObjectsApi } from './api';
 
 export const FETCH_DASHBOARD_START = 'FETCH_DASHBOARD_START';
@@ -13,26 +15,29 @@ export const fetchDashboard = ({ lang, ver, lookbackDays }) => (
 ) => {
   const { user } = getState();
   dispatch(fetchDashboardStart());
-  return axios
-    .post('/api/settings/getDashboard', {
-      lang,
-      lookbackDays,
-      ver,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    })
+  return API.post('/api/settings/getDashboard', {
+    lang,
+    lookbackDays,
+    ver,
+    at: user.at,
+    token: user.token,
+    cid: user.cid,
+  })
     .then(result => dispatch(fetchDashboardSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));
 };
 
-export const getDashboardFeaturedObjects = () => (dispatch, getState) => {
+export const getDashboardFeaturedObjects = ({ callSource }) => (
+  dispatch,
+  getState
+) => {
   const { user } = getState();
   dispatch(fetchDashboardStart());
   return getDashboardFeaturedObjectsApi({
     at: user.at,
     token: user.token,
     cid: user.cid,
+    callSource,
   })
     .then(result => dispatch(getDashboardFeaturedObjectsSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));

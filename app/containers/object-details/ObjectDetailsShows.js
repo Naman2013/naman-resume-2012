@@ -7,14 +7,13 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import noop from 'lodash/noop';
 import has from 'lodash/has';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 
-import DeviceProvider from 'providers/DeviceProvider';
+import DeviceProvider from 'app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import ShowTile from 'app/components/common/tiles/ShowTile';
@@ -24,9 +23,8 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'app/modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 
-const { bool, number, string, shape, func, arrayOf } = PropTypes;
+const { number } = PropTypes;
 
 const mapStateToProps = ({
   objectDetails,
@@ -55,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Shows extends Component {
   static defaultProps = {
     actions: {},
@@ -64,19 +63,6 @@ class Shows extends Component {
     pages: 0,
     count: number,
   };
-
-  constructor(props) {
-    super(props);
-    const { actions } = props;
-  }
-
-  componentWillReceiveProps(nextProps) {}
-
-  componentWillUpdate(nextProps) {}
-
-  componentWillMount() {
-    //console.log(this.props)
-  }
 
   render() {
     const {
@@ -89,15 +75,15 @@ class Shows extends Component {
       pages,
       count,
       objectDetails,
-      intl,
+      t,
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedShows)}
+            title={`${objectDetails.objectTitle}'s`}
+            subTitle={t('Objects.RelatedShows')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
@@ -124,10 +110,9 @@ class Shows extends Component {
                   ))
                 ) : (
                   <p>
-                    <FormattedMessage
-                      {...messages.NoShows}
-                      values={{ objectTitle: objectDetails.objectTitle }}
-                    />
+                    {t('Objects.NoShows', {
+                      objectTitle: objectDetails.objectTitle,
+                    })}
                   </p>
                 )}
               </div>
@@ -147,8 +132,6 @@ class Shows extends Component {
   }
 }
 
-Shows.propTypes = {
-  intl: intlShape.isRequired,
-};
+Shows.propTypes = {};
 
-export default injectIntl(Shows);
+export default Shows;

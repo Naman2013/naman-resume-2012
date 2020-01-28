@@ -55,15 +55,11 @@ class Slooh1000 extends Component {
     const {
       categoryList,
       categoryListOpts,
-      setCategory,
       objectListOpts,
       setObject,
       missionSlot,
       selectedCategorySlug,
       selectedObjectId,
-      reservedMissionData,
-      objectListExpires,
-      reservedMission,
       availableMissions,
       noObjects,
       getTelescopeSlot,
@@ -71,7 +67,13 @@ class Slooh1000 extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      pageSetup,
+      navigationConfig,
+      selectedSlot,
     } = this.props;
+
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const { userHasHold } = selectedSlot;
 
     return (
       <div className="reservation-slooh-1000 slooh-1000">
@@ -92,8 +94,10 @@ class Slooh1000 extends Component {
           onCountdownComplete={onCountdownComplete}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
-          description="Welcome to the Slooh 1000! Tell us what you want to see - we’ll make sure that the object 
-          is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
+          pageConfig={navigationConfig.bySlooh1000}
+          userHasHold={userHasHold}
           byTelescope
         />
       </div>

@@ -28,13 +28,15 @@ class ObservationsSlider extends Component {
   };
 
   state = {
-    currentIndex: 1,
+    currentIndex: 0,
   };
 
   beforeSlideChange = (old, nextIndex) => {
+    const { sliderChange } = this.props;
     this.setState({
       currentIndex: nextIndex,
     });
+    sliderChange(nextIndex);
   };
 
   render() {

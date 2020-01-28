@@ -5,14 +5,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
-// todo fix importing custom colors
-@import "../variables/colors";
-
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "variables";
-@import "~bootstrap/scss/mixins";
+@import "common";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
@@ -21,6 +14,7 @@
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/forms";
+@import "forms";
 @import "~bootstrap/scss/buttons";
 @import "buttons";
 @import "~bootstrap/scss/transitions";

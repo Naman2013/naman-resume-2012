@@ -140,6 +140,7 @@ export default createReducer(initialState, {
   [FETCH_GROUP_OVERVIEW_PAGE_META_START](state) {
     return {
       ...state,
+      pageMeta: {},
     };
   },
   [FETCH_GROUP_OVERVIEW_PAGE_META_SUCCESS](state, { payload }) {
@@ -157,6 +158,7 @@ export default createReducer(initialState, {
   [TOGGLE_JOIN_GROUP_SUCCESS](state, { payload }) {
     const {
       canPost,
+      canSeeGroupContent,
       askPrompt,
       joinPrompt,
       showAskPrompt,
@@ -172,6 +174,7 @@ export default createReducer(initialState, {
         joinPrompt,
         showJoinPrompt,
         canPost,
+        canSeeGroupContent,
       }),
     };
   },

@@ -1,0 +1,152 @@
+{
+  "gonogo.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/gonogo.slooh.com.html"
+  },
+  "events.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/events.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "upsellPayWall_Plan": ""
+    }
+  },
+  "live.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/live.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "upsellPayWall_Plan": ""
+    }
+  },
+  "main.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/main.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "upsellPayWall_Plan": ""
+    }
+  },
+  "www.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/www.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "upsellPayWall_Plan": ""
+    }
+  },
+  "slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "rcEoLV3ESAi9ZfOfkNIwMQ",
+      "upsellPayWall_Plan": ""
+    }
+  },
+  "southafrica.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/southafrica.slooh.com.html"
+  },
+  "newzealand.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/newzealand.slooh.com.html"
+  },
+  "australia.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/australia.slooh.com.html"
+  },
+  "china.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/china.slooh.com.html"
+  },
+  "uk.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/uk.slooh.com.html"
+  },
+  "eu.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/eu.slooh.com.html"
+  },
+  "india.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/india.slooh.com.html"
+  },
+  "china-dev.slooh.com": {
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/china-dev.slooh.com.html"
+  },
+  "uk-dev.slooh.com": {
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/uk-dev.slooh.com.html"
+  },
+  "eu-dev.slooh.com": {
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/eu-dev.slooh.com.html"
+  },
+  "australia-dev.slooh.com": {
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/australia-dev.slooh.com.html"
+  },
+  "newzealand-dev.slooh.com": {
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/newzealand-dev.slooh.com.html"
+  },
+  "southafrica-dev.slooh.com": {
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/southafrica-dev.slooh.com.html"
+  },
+  "india-dev.slooh.com": {
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
+    "loadHtmlFile": "/config/india-dev.slooh.com.html"
+  },
+  "localhost": {
+    "COOKIE_DOMAIN": null,
+    "loadHtmlFile": "/config/localhost.html"
+  },
+  "eris.slooh.com": {
+    "loadHtmlFile": "/config/eris.slooh.com.html"
+  },
+  "nova.slooh.com": {
+    "loadHtmlFile": "/config/nova.slooh.com.html",
+    "GOOGLE_ANALYTICS_PROPERTY_ID": "UA-150649783-1",
+    "GOOGLE_OPTIMIZE_CONTAINER_ID": "GTM-TM8J8FH",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "mB71-QJiRqaGL3_VhnLJpw",
+      "upsellPayWall_Plan": "P4jeFFYGRsO5VdXpGXxh1g"
+    }
+  },
+  "orion.slooh.com": {
+    "loadHtmlFile": "/config/orion.slooh.com.html"
+  },
+  "default": {
+    "loadHtmlFile": "/config/default.html",
+    "SENTRY_ENV": "TEST",
+    "COOKIE_DOMAIN": ".slooh.com",
+    "locale": "en",
+    "productID": "adfb3d74-e551-11e9-a8f4-06b2ab7e8ae4",
+    "PUBNUB_CHANNEL_PREFIX": "dev",
+    "PUBNUB_FEEDS_SUBKEY": "sub-c-15f5f3fa-a890-11e9-9764-faf49bb54dbb",
+    "PUBNUB_FEEDS_PUBKEY": "pub-c-e2ae41bc-2edd-4b67-90ff-f204c3d8a01e",
+    "PUBNUB_FEEDS_SECRETKEY": "sec-c-OGZkMWEyYjgtZGE5Yi00YWJhLTk3YTItOGJmNWQwYzFhYzEw"
+  }
+}

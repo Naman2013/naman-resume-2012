@@ -6,11 +6,13 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import moment from 'moment/moment';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import {
@@ -45,16 +47,23 @@ const Card = props => {
     likeParams,
     likePrompt,
     likesCount,
+    likedByMe,
+    likeTooltip,
     modalActions,
+    objectName,
     renderChildReplies,
     renderReplyButton,
     replyToponlyCount,
+    replyCount,
     S3Files,
     title,
     toggleComments,
     showComments,
     showLikePrompt,
+    showObjectName,
     user,
+    commentBtnDisabled,
+    authorInfo,
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -73,34 +82,45 @@ const Card = props => {
         <div className="user-info-container">
           <div className="user-info">
             <div style={profPic(avatarURL)} />
-            <div
-              className="display-name"
-              dangerouslySetInnerHTML={{ __html: displayName }}
-            />
+            <Link to={authorInfo?.linkUrl}>
+              <div
+                className="display-name"
+                dangerouslySetInnerHTML={{ __html: displayName }}
+              />
+            </Link>
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
+
+        {showObjectName && (
+          <div className="object-name-container">{objectName}</div>
+        )}
 
         <div
           className="content"
           dangerouslySetInnerHTML={{ __html: content || title }}
         />
+        {!!S3Files.length && <ViewImage images={S3Files} />}
         <div className="explainantion-container">
           <div className="explainantion-item">
             {moment.utc(creationDate).fromNow()}
           </div>
           <div className="explainantion-item">
             {`Likes: ${likesCount} `}{' '}
-            {allowReplies ? (
-              <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span>
-            ) : null}
           </div>
+          {allowReplies ? (
+            <div className="explainantion-item">
+              <span>{`${commentText}: ${replyToponlyCount}`}</span>
+            </div>
+          ) : null}
         </div>
         <div className="activity-actions">
           <div className="action-left">
             <LikeSomethingButton
               likeHandler={likeHandler}
               likesCount={likesCount}
+              likedByMe={likedByMe}
+              likeTooltip={likeTooltip}
               likePrompt={likePrompt}
               likeParams={likeParams}
               showLikePrompt={showLikePrompt}
@@ -108,13 +128,14 @@ const Card = props => {
             />
             {renderChildReplies ? (
               <CommentButton
+                isDisabled={commentBtnDisabled}
                 isActive={showComments}
                 onClickEvent={toggleComments}
-                count={replyToponlyCount}
+                count={replyToponlyCount || replyCount}
                 alwaysShowCount
               />
             ) : null}
-            {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
+            {/*{S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}*/}
           </div>
           <div className="action-right">
             {allowReplies ? renderReplyButton() : null}

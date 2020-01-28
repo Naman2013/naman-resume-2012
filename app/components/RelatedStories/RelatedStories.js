@@ -39,6 +39,7 @@ class RelatedStories extends Component {
   render() {
     const {
       isDesktop,
+      isMobile,
       isScreenLarge,
       user,
       showId,
@@ -48,7 +49,7 @@ class RelatedStories extends Component {
       maxCount,
       postId,
     } = this.props;
-
+    
     return (
       <Request
         userParams={['at', 'cid', 'token']}
@@ -79,6 +80,7 @@ class RelatedStories extends Component {
                 <BootstrappedRelatedStories
                   relatedStoriesList={serviceResponse.relatedStoriesList}
                   serviceResponse={serviceResponse}
+                  isMobile={isMobile}
                 />
               )}
             />

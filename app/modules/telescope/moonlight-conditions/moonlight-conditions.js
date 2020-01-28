@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useState } from 'react';
-import axios from 'axios';
+import { API } from 'app/api';
 import { browserHistory } from 'react-router';
 import GenericButton from '../../../components/common/style/buttons/Button';
 import { ModuleContainer } from '../components/old';
@@ -10,10 +10,11 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
   const [title, setTitle] = useState('');
   const [relatedGuideUrl, setGuideUrl] = useState('');
   const [subwidgets, setSubwidgets] = useState([]);
+  const { hideHeader } = props;
 
   useEffect(() => {
     const { widgetId, obsId } = props.moonlightWidget;
-    axios
+    API
       .post('/api/widget/moonlightBar', {
         widgetUniqueId: widgetId,
         obsId,
@@ -26,7 +27,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
   }, [props.moonlightWidget.widgetId]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <ModuleContainer title={title}>
+    <ModuleContainer title={title} hideHeader={hideHeader}>
       <ul className="moonlight-conditions">
         {subwidgets.map(x => (
           <li className="moonlight-condition">

@@ -1,16 +1,24 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
-import { fetchObjectContent, fetchContentReset } from '../community-content/community-object-content-actions';
+import {
+  fetchObjectContent,
+  fetchContentReset,
+} from '../community-content/community-object-content-actions';
 import { fetchObjectDataAction } from '../object-details/actions';
+import { getUpcomingSlotsByTelescope } from '../telescope/thunks';
 
-export const UPDATE_TELESCOPE_MISSION_FULL_START = 'UPDATE_TELESCOPE_MISSION_FULL_START';
-export const UPDATE_TELESCOPE_MISSION_COMPACT_START = 'UPDATE_TELESCOPE_MISSION_COMPACT_START';
+export const UPDATE_TELESCOPE_MISSION_FULL_START =
+  'UPDATE_TELESCOPE_MISSION_FULL_START';
+export const UPDATE_TELESCOPE_MISSION_COMPACT_START =
+  'UPDATE_TELESCOPE_MISSION_COMPACT_START';
 export const UPDATE_TELESCOPE_MISSION_FAIL = 'UPDATE_TELESCOPE_MISSION_FAIL';
 export const COMMIT_ACTIVE_MISSION_CHANGE = 'COMMIT_ACTIVE_MISSION_CHANGE';
 export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 
-export const UPDATE_ACTIVE_TELESCOPE_MISSION_ID = 'UPDATE_ACTIVE_TELESCOPE_MISSION_ID';
-export const RESET_ACTIVE_TELESCOPE_MISSION_ID = 'RESET_ACTIVE_TELESCOPE_MISSION_ID';
+export const UPDATE_ACTIVE_TELESCOPE_MISSION_ID =
+  'UPDATE_ACTIVE_TELESCOPE_MISSION_ID';
+export const RESET_ACTIVE_TELESCOPE_MISSION_ID =
+  'RESET_ACTIVE_TELESCOPE_MISSION_ID';
 
 export const SET_ACTIVE_TELESCOPE_MISSION = 'SET_ACTIVE_TELESCOPE_MISSION';
 export const RESET_ACTIVE_MISSION = 'RESET_ACTIVE_MISSION';
@@ -37,7 +45,7 @@ const fetchingMissionFull = error => ({
   payload: error,
 });
 
-const fetchingMissionData = ({ telescopeId, format }) => (dispatch) => {
+const fetchingMissionData = ({ telescopeId, format }) => dispatch => {
   if (format === FORMAT_COMPACT) {
     dispatch(fetchingMissionCompact({ telescopeId }));
   }
@@ -51,7 +59,7 @@ const commitActiveMissionChange = payload => ({
   payload,
 });
 
-const failedFetchMission = error => (dispatch) => {
+const failedFetchMission = error => dispatch => {
   // reset the community content
   dispatch(fetchContentReset());
   return {
@@ -60,11 +68,14 @@ const failedFetchMission = error => (dispatch) => {
   };
 };
 
-const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getState) => {
+const updateActiveMissionCompact = ({ telescopeId, payload }) => (
+  dispatch,
+  getState
+) => {
   const { telescopes } = getState().activeTelescopeMissions;
   let updatedTelescopes = telescopes;
   if (telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
-    updatedTelescopes = telescopes.map((telescope) => {
+    updatedTelescopes = telescopes.map(telescope => {
       if (telescope.telescopeId === telescopeId) {
         return Object.assign(telescope, {
           activeMission: {
@@ -106,60 +117,96 @@ export const updateTelescopeActiveMission = ({
   scheduledMissionId,
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
+  const { queueTab, telescopeActiveTab } = getState().telescope;
+  const { currentObservatory, currentTelescope } = getState().telescopeDetails;
+  const { upcomingSlotsData } = queueTab;
 
-  dispatch(fetchingMissionData({
-    telescopeId,
-    format,
-  }));
+  dispatch(
+    fetchingMissionData({
+      telescopeId,
+      format,
+    })
+  );
 
   dispatch(fetchContentReset());
 
-  return axios.post('/api/reservation/getCurrentMission', {
-    token,
-    cid,
-    at,
-    telescopeId,
-    obsId,
-    domeId,
-    format,
-    scheduledMissionId,
-  })
-  .then((result) => {
-    if (format === FORMAT_COMPACT) {
-      dispatch(updateActiveMissionCompact({ telescopeId, payload: result.data }));
-    }
-
-    if (format === FORMAT_FULL) {
-      const hasMission = result.data.missionList.length > 0;
-      const currentMission = Object.assign({
-        timestamp: result.data.timestamp,
-      }, result.data.missionList[0]);
-
-      if (!result.data.apiError) {
-        dispatch(setActiveTelescopeMission(currentMission));
-
-        // if we have a mission, fetch the community content...
-        if (hasMission) {
-          const { objectId } = currentMission;
-          const callSource = 'telescopeDetails';
-
-          if (objectId != 0) {
-            //get the object associated with this object
-            dispatch(fetchObjectDataAction(objectId));
-
-            // get the community posts associated with this object
-            dispatch(fetchObjectContent({
-              objectId,
-              callSource,
-            }));
-          }
+  return API
+      .post('/api/reservation/getCurrentMission', {
+      token,
+      cid,
+      at,
+      telescopeId,
+      obsId,
+      domeId,
+      format,
+      scheduledMissionId,
+    })
+    .then(result => {
+      if (format === FORMAT_COMPACT) {
+        dispatch(
+          updateActiveMissionCompact({ telescopeId, payload: result.data })
+        );
+        if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+          dispatch(
+            getUpcomingSlotsByTelescope({
+              callSource: 'onlineQueue',
+              obsId: currentObservatory.obsId,
+              domeId: currentTelescope.telePierNumber,
+              telescopeId: currentTelescope.teleId,
+              requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
+            })
+          );
         }
-      } else {
-        dispatch(resetActiveMission());
       }
-    }
-  })
-  .catch(error => dispatch(failedFetchMission(error)));
+
+      if (format === FORMAT_FULL) {
+        const hasMission = result.data.missionList.length > 0;
+        const currentMission = Object.assign(
+          {
+            timestamp: result.data.timestamp,
+          },
+          result.data.missionList[0]
+        );
+
+        if (!result.data.apiError) {
+          dispatch(setActiveTelescopeMission(currentMission));
+
+          // if we have a mission, fetch the community content...
+          if (hasMission) {
+            const { objectId } = currentMission;
+            const callSource = 'telescopeDetails';
+
+            if (objectId != 0) {
+              //get the object associated with this object
+              dispatch(fetchObjectDataAction(objectId));
+
+              // get the community posts associated with this object
+              dispatch(
+                fetchObjectContent({
+                  objectId,
+                  callSource,
+                })
+              );
+            }
+          }
+
+          if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+            dispatch(
+              getUpcomingSlotsByTelescope({
+                callSource: 'onlineQueue',
+                obsId: currentObservatory.obsId,
+                domeId: currentTelescope.telePierNumber,
+                telescopeId: currentTelescope.teleId,
+                requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
+              })
+            );
+          }
+        } else {
+          dispatch(resetActiveMission());
+        }
+      }
+    })
+    .catch(error => dispatch(failedFetchMission(error)));
 };
 
 export const setActiveTelescopeMissionID = telescopeMissionID => ({

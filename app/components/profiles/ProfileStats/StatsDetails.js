@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
+import GuideTile from 'app/components/common/tiles/guide-tile';
 import Button from '../../common/style/buttons/Button';
 import styles from './StatsDetails.styles';
 
@@ -21,14 +22,15 @@ class StatsDetails extends Component {
   state = {};
 
   render() {
-    const { text, buttonLinkUrl, buttonText } = this.props;
-
+    const { userInfoGuideDetails } = this.props;
+    const { guideTitleDisplay, headerText, linkUrl } = userInfoGuideDetails;
     return (
       <div className="stats-details">
-        <div className="stats-details-text">{text}</div>
-        <Link to={buttonLinkUrl}>
-          <Button text={buttonText} theme={{ marginTop: '15px' }} />
-        </Link>
+        <GuideTile
+          title={headerText}
+          subTitle={guideTitleDisplay}
+          linkUrl={linkUrl}
+        />
         <style jsx>{styles}</style>
       </div>
     );

@@ -5,26 +5,32 @@
 
 import React from 'react';
 import cn from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 
-import messages from './ObservationCard.messages';
 import style from './ObservationCard.style';
 
 export default ({ index, isDesktop, currentItem: observation }) => {
   const inCenter = index % 3 === 1;
-  const { imageTitle, imageURL, likesCount, commentsCount } = observation;
+  const {
+    imageTitle,
+    observationTitle,
+    imageURL,
+    likesCount,
+    commentsCount,
+  } = observation;
 
   const onClickDetails = () => {
     return browserHistory.push(observation.photoViewFullURL);
   };
+  const { t } = useTranslation();
   return (
     <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
       <div className="observationCard">
         <div className="padding">
           <div>
             <div className="observation-title" title={imageTitle}>
-              {imageTitle}
+              {observationTitle || imageTitle}
             </div>
             <div className="observation-image-wrapper">
               <div className="image-border">
@@ -54,7 +60,7 @@ export default ({ index, isDesktop, currentItem: observation }) => {
             {commentsCount}
           </div>
           <div className="details" onClick={onClickDetails}>
-            <FormattedMessage {...messages.Details} />
+            {t('Photos.Details')}
             <img
               src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
               alt="arrow-right"

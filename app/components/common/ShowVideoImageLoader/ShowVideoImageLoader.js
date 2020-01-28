@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import StarShareCamera from 'app/components/telescope-details/star-share-camera/star-share-camera';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import {
   updateActiveSSE,
@@ -126,6 +127,7 @@ class ShowVideoImageLoader extends Component {
       teleStreamThumbnailVideoWidth,
       teleStreamThumbnailVideoHeight,
       clipped,
+      isMobile,
     } = this.props;
 
     const videoImageLoaderClassnames = classnames(
@@ -155,6 +157,7 @@ class ShowVideoImageLoader extends Component {
           showVideoControls={1}
           autoplay={1}
         />
+        <StarShareCamera mobileStarShare={isMobile} />
         <style jsx>{styles}</style>
       </div>
     );

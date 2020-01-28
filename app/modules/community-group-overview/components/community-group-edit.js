@@ -69,81 +69,81 @@ class CommunityGroupEdit extends Component {
     }
   }
 
-    refreshPage = () => {
-      const { groupId } = this.state;
+  refreshPage = () => {
+    const { groupId } = this.state;
+    const {
+      fetchGroupOverviewPageMeta,
+      fetchGroupInvitationPanel,
+      fetchGoogleClassroomStudentsPanel,
+    } = this.props;
+    fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
       const {
-        fetchGroupOverviewPageMeta,
-        fetchGroupInvitationPanel,
-        fetchGoogleClassroomStudentsPanel,
-      } = this.props;
-      fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
-        const {
-          communityGroupOverview: {
-            pageMeta: { isGoogleClassroom },
-          },
-        } = this.props;
-
-        if (isGoogleClassroom) {
-          fetchGoogleClassroomStudentsPanel(groupId);
-        } else {
-          fetchGroupInvitationPanel(groupId);
-        }
-      });
-    };
-
-    onInviteClick = () => {
-      const {
-        fetchInvitePopupContent,
-        routeParams: { groupId },
-      } = this.props;
-      fetchInvitePopupContent(groupId);
-      this.setState({ isInviteOn: true });
-    };
-
-    handleSubmit = value => {
-      const {
-        changeGroupDescription,
-        routeParams: { groupId },
-      } = this.props;
-      changeGroupDescription({ ...value, groupId }).then(() =>
-        this.setState({ isDescriptionEditOn: false })
-      );
-    };
-
-    renderMembers = data => {
-      const {
-        addExistingUser,
-        addGoogleUser,
-        routeParams: { groupId },
         communityGroupOverview: {
           pageMeta: { isGoogleClassroom },
         },
       } = this.props;
-      if (!data) return null;
-      const { customerLinks } = data;
-      return (
-        customerLinks &&
-        customerLinks.length &&
-        customerLinks.map(member => (
-          <MemberCard
-            member={member}
-            onAddClick={() => {
-              let user = {
-                firstName: member.firstname,
-                lastName: member.lastname,
-                emailAddress: member.emailaddress,
-              };
-              if (!isGoogleClassroom) {
-                addExistingUser(user, groupId).then(() => this.refreshPage());
-              } else {
-                user = { ...user, googleProfileId: member.googleprofileid };
-                addGoogleUser(user, groupId).then(() => this.refreshPage());
-              }
-            }}
-          />
-        ))
-      );
-    };
+
+      if (isGoogleClassroom) {
+        fetchGoogleClassroomStudentsPanel(groupId);
+      } else {
+        fetchGroupInvitationPanel(groupId);
+      }
+    });
+  };
+
+  onInviteClick = () => {
+    const {
+      fetchInvitePopupContent,
+      routeParams: { groupId },
+    } = this.props;
+    fetchInvitePopupContent(groupId);
+    this.setState({ isInviteOn: true });
+  };
+
+  handleSubmit = value => {
+    const {
+      changeGroupDescription,
+      routeParams: { groupId },
+    } = this.props;
+    changeGroupDescription({ ...value, groupId }).then(() =>
+      this.setState({ isDescriptionEditOn: false })
+    );
+  };
+
+  renderMembers = data => {
+    const {
+      addExistingUser,
+      addGoogleUser,
+      routeParams: { groupId },
+      communityGroupOverview: {
+        pageMeta: { isGoogleClassroom },
+      },
+    } = this.props;
+    if (!data) return null;
+    const { customerLinks } = data;
+    return (
+      customerLinks &&
+      customerLinks.length &&
+      customerLinks.map(member => (
+        <MemberCard
+          member={member}
+          onAddClick={() => {
+            let user = {
+              firstName: member.firstname,
+              lastName: member.lastname,
+              emailAddress: member.emailaddress,
+            };
+            if (!isGoogleClassroom) {
+              addExistingUser(user, groupId).then(() => this.refreshPage());
+            } else {
+              user = { ...user, googleProfileId: member.googleprofileid };
+              addGoogleUser(user, groupId).then(() => this.refreshPage());
+            }
+          }}
+        />
+      ))
+    );
+  };
 
   render() {
     const { renderMembers } = this;
@@ -182,7 +182,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={12} md={12} sm={12}>
                     <div className="i-box i-box-white pad-40 height-max">
                       <div className="community-group-edit-desc">
-                        <h4 className="h-4">Classroom overview</h4>
+                        <h4 className="h-4">Club Overview</h4>
                         <div className="community-group-edit-row">
                           {!isDescriptionEditOn ? (
                             description && <p>{description}</p>
@@ -246,7 +246,7 @@ class CommunityGroupEdit extends Component {
                   <Col lg={9} md={9} sm={9}>
                     <div className="flex-row justify-content-between align-items-center pad-20-40">
                       <h2 className="community-group-edit-title">
-                        Your Students
+                        Your Members
                       </h2>
                       <p className="community-group-edit-hero-unit">
                         {groupInformation &&

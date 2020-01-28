@@ -1,18 +1,5 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'app/styles/variables/shadows';
-import {
-  astronaut,
-  romance,
-  golden_yellow,
-  shadows,
-  seashell,
-} from 'app/styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
-import {
-  backgroundImageCover,
-  dropShadowContainer,
-} from 'app/styles/mixins/utilities';
+import { astronaut, seashell } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -36,14 +23,17 @@ export default css`
   }
 
   .context-container {
-    width: 75%;
     position: absolute;
-    left: 0;
-    margin: 0 50px;
+    right: 0;
   }
 
   .sort-dropdown-container {
-    width: 100%;
     background-color: ${seashell};
+  }
+
+  @media screen and (max-width: 450px) {
+    .context-container.toggle {
+      width: 100%;
+    }
   }
 `;

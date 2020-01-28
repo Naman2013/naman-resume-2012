@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import StoryTile from 'app/components/common/tiles/story-tile';
 import StoryExcerptTile from 'app/components/common/tiles/story-excerpt-tile';
@@ -18,6 +17,7 @@ class StoriesTiles extends Component {
     ).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
+    emptyText: PropTypes.string,
   };
 
   state = {
@@ -46,7 +46,13 @@ class StoriesTiles extends Component {
   };
 
   render() {
-    const { stories, isMobile, updateReadingListInfo } = this.props;
+    const {
+      stories,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return stories.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -54,7 +60,7 @@ class StoriesTiles extends Component {
           {!isMobile &&
             stories.map(story => (
               <li
-                key={uniqueId()}
+                key={story.postId}
                 className="tile"
                 data-id={story.postId}
                 onMouseOver={this.setActiveTile}
@@ -71,6 +77,7 @@ class StoriesTiles extends Component {
                   <StoryExcerptTile
                     {...story}
                     updateReadingInfoInList={updateReadingListInfo}
+                    onUpdate={onUpdate}
                   />
                 </div>
               </li>
@@ -85,7 +92,7 @@ class StoriesTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noStories" />
+      <span dangerouslySetInnerHTML={{ __html: emptyText }} />
     );
   }
 }

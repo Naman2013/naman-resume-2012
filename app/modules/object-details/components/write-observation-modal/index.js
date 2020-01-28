@@ -54,6 +54,18 @@ export class WriteObservationModal extends Component {
     );
   };
 
+  onShare = () => {
+    const { shareMemberPicture } = this.props;
+    const { imageData } = this.state;
+    const { customerImageId } = imageData;
+
+    shareMemberPicture({ customerImageId }).then(() =>
+      this.setState({
+        currentStep: WRITE_OBSERVATIONS_STEPS.STEP_3,
+      })
+    );
+  };
+
   render() {
     const {
       getMyPictures,
@@ -61,6 +73,8 @@ export class WriteObservationModal extends Component {
       objectDetails,
       onHide,
       imageDetails,
+      isFetching,
+      shareMemberPhotoData,
     } = this.props;
     const { currentStep, imageData } = this.state;
     const { STEP_1, STEP_2, STEP_3 } = WRITE_OBSERVATIONS_STEPS;
@@ -73,6 +87,7 @@ export class WriteObservationModal extends Component {
             objectDetails={objectDetails}
             selectImage={this.selectImage}
             imageDetails={imageDetails}
+            isFetching={isFetching}
           />
         )}
 
@@ -84,11 +99,17 @@ export class WriteObservationModal extends Component {
             setTitle={this.setTitle}
             setText={this.setText}
             onSubmit={this.onSubmit}
+            onShare={this.onShare}
             objectDetails={objectDetails}
           />
         )}
 
-        {currentStep === STEP_3 && <WriteObservationStep3 onHide={onHide} />}
+        {currentStep === STEP_3 && (
+          <WriteObservationStep3
+            onHide={onHide}
+            shareMemberPhotoData={shareMemberPhotoData}
+          />
+        )}
       </Fragment>
     );
   }

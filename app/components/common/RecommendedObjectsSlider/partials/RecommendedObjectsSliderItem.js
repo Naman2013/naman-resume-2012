@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
 import Button from '../../style/buttons/Button';
 
 import styles from './RecommendedObjectsSliderItem.style';
-import messages from './RecommendedObjectsSliderItem.messages';
 
 const getIconStyle = iconURL => ({
   backgroundImage: `url(${iconURL})`,
@@ -14,7 +12,13 @@ const getIconStyle = iconURL => ({
 
 const { string, arrayOf, shape, bool } = PropTypes;
 
-const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
+const RecommendedObjectsItem = ({
+  object,
+  reservationModalShow,
+  reservedButtonCaption,
+  optionsButtonCaption,
+  readOnly,
+}) => {
   const {
     missionStartFormatted,
     title,
@@ -57,20 +61,20 @@ const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
           <div className="telescope-name">{telescopeName}</div>
         </div>
       </div>
-      {missionAvailable && !userHasReservation && (
+      {missionAvailable && !userHasReservation && !readOnly && (
         <Button
           onClickEvent={() => reservationModalShow(object)}
-          text={intl.formatMessage(messages.Options)}
+          text={optionsButtonCaption}
           theme={{ margin: '30px auto 0', width: '140px' }}
         />
+      )}
+
+      {userHasReservation && reservedButtonCaption && (
+        <div className="reserved-mission-capture">{reservedButtonCaption}</div>
       )}
       <style jsx>{styles}</style>
     </div>
   );
 };
 
-RecommendedObjectsItem.propTypes = {
-  intl: shape({}).isRequired,
-};
-
-export default injectIntl(RecommendedObjectsItem);
+export default RecommendedObjectsItem;

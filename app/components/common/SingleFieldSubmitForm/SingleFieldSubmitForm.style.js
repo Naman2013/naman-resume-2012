@@ -6,6 +6,9 @@ export default css`
   .form-container {
     width: 100%;
   }
+  .discuss-form-wrapper {
+    position: relative;
+  }
   .flex-container {
     display: flex;
     flex-direction: row;
@@ -19,7 +22,6 @@ export default css`
   .form {
     padding: 15px;
   }
-  .form-input,
   .form-input-txt {
     -moz-box-shadow: inset 0 0 7px 0 ${shadows};
     -webkit-box-shadow: inset 0 0 7px 0 ${shadows};
@@ -29,13 +31,28 @@ export default css`
     box-shadow: inset 0 0 7px 0 ${shadows};
     font-family: ${secondaryFont};
     font-size: 16px;
-    margin: 10px;
     padding: 25px;
     resize: none;
     vertical-align: top;
-    width: 520px;
+    width: 100%;
+    margin-bottom: 15px;
   }
-  .form-input {
-    height: 151px;
+  :global(.form-input) {
+    margin-bottom: 15px;
+  }
+
+  :global(.form-acitons label) {
+    margin: 0;
+    margin-right: 5px;
+  }
+
+  :global(.form-container .multi-upload-image-list) {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    margin-bottom: 0;
+  }
+
+  :global(.form-actions .thumbnails-container button) {
+    margin: 0;
   }
 `;

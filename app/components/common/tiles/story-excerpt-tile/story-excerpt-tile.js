@@ -17,10 +17,14 @@ const StoryExcerptTile = ({
   title,
   toggleReadingListFlag,
   updateReadingInfoInList,
+  onUpdate,
+  authorPublicProfileUrl,
 }) => (
   <div className="story-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: author }} />
+    <Link className="author-public-profile-url" to={authorPublicProfileUrl}>
+      <div className="sub-title" dangerouslySetInnerHTML={{ __html: author }} />
+    </Link>
     <div
       className="description"
       dangerouslySetInnerHTML={{ __html: shortDescription }}
@@ -38,6 +42,7 @@ const StoryExcerptTile = ({
           readingListPrompt={null}
           readingListType={readingListType}
           updateReadingInfoInList={updateReadingInfoInList}
+          onUpdate={onUpdate}
         />
       ) : null}
     </div>

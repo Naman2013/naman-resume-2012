@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SEARCH_FORUMS_START = 'SEARCH_FORUMS_START';
 export const SEARCH_FORUMS_SUCCESS = 'SEARCH_FORUMS_SUCCESS';
@@ -31,7 +31,7 @@ export const searchForums = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(searchForumsStart({ appendToList }));
-  return axios.post('/api/forum/searchForum', {
+  return API.post('/api/forum/searchForum', {
     cid,
     at,
     token,

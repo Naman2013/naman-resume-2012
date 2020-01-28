@@ -51,6 +51,7 @@ class MissionDetails extends Component<TMissionDetails> {
       imageCount,
       imageList,
       apiURL,
+      params: { missionId: scheduledMissionId },
     } = this.props;
     const { activePage } = this.state;
     if (isFetching) return <div>Loading...</div>;
@@ -60,6 +61,8 @@ class MissionDetails extends Component<TMissionDetails> {
           <section className="mission-details root-wrapper">
             <BackButton />
             <MissionDetailsHeader
+              {...this.props}
+              scheduledMissionId={scheduledMissionId}
               image={imageList[0]}
               isMobile={isMobile}
               missionTitle={missionTitle}

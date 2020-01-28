@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
-import PropTypes, { bool, shape } from 'prop-types';
 import cn from 'classnames';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './HubHeader.style';
-
-const { string } = PropTypes;
 
 const HubHeader = props => {
   const {
@@ -32,39 +29,21 @@ const HubHeader = props => {
             dangerouslySetInnerHTML={{ __html: title }}
           />
           {renderRightMenu ? (
-            <div className="right-menu-nav">
-              <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-                {renderRightMenu()}
-              </DisplayAtBreakpoint>
-            </div>
+            <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+              <div className="right-menu-nav">{renderRightMenu()}</div>
+            </DisplayAtBreakpoint>
+          ) : null}
+          {renderRightMenu ? (
+            <DisplayAtBreakpoint screenSmall>
+              <div className="right-menu-nav">{renderRightMenu()}</div>
+            </DisplayAtBreakpoint>
           ) : null}
         </div>
         {renderNav ? <div className="hub-header-nav">{renderNav()}</div> : null}
-        {renderRightMenu ? (
-          <DisplayAtBreakpoint screenSmall>
-            <div className="right-menu-nav">{renderRightMenu()}</div>
-          </DisplayAtBreakpoint>
-        ) : null}
       </div>
       <style jsx>{style}</style>
     </Fragment>
   );
-};
-
-HubHeader.propTypes = {
-  title: string,
-  icon: string,
-  showIcon: bool,
-  titleTheme: shape({}),
-  profile: bool,
-};
-
-HubHeader.defaultProps = {
-  title: '',
-  icon: '',
-  showIcon: true,
-  titleTheme: {},
-  profile: false,
 };
 
 export default HubHeader;

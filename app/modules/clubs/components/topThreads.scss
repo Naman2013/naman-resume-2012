@@ -24,6 +24,8 @@
         -moz-box-shadow: 0 2px 4px 1px $shadows;
         -webkit-box-shadow: 0 2px 4px 1px $shadows;
         box-shadow: 0 2px 4px 1px $shadows;
+        word-break: break-all;
+
         .header {
           border-bottom: 1px solid $astronaut;
           font-size: 18px;
@@ -51,12 +53,26 @@
               margin: 0px 5px;
               border-radius: 50%;
             }
+            a {
+              color: initial;
+            }
           }
 
           .date-container {
             text-align: end;
           }
         }
+      }
+    }
+  }
+
+  @include md-low {
+    > div {
+      .title {
+        background: $white;
+        padding: 15px 25px;
+        box-shadow: 0 2px 4px 1px $shadows;
+        width: 100%;
       }
     }
   }

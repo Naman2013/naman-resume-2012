@@ -1,10 +1,16 @@
 @import "~app/styles/variables/fonts";
+@import "~app/styles/variables/colors.scss";
+
 
 .fitsData {
   max-width: 70vw;
   padding: 0 20px;
   text-align: center;
   font-family: $primary-font;
+
+  .link {
+    color: $lightHeadedAstronaut;
+  }
 
   h2 {
     margin-bottom: 20px;
@@ -37,7 +43,8 @@
   }
 
   ul {
-    margin: 40px 0;
+    margin: 25px 0;
+    padding-left: 20px;
     text-align: left;
     list-style: none;
 
@@ -48,11 +55,53 @@
     }
 
     li {
-      margin: 5px 0;
+      margin: 10px 0;
     }
   }
 
   button {
     margin: 30px auto 0;
+  }
+
+  .fits-image-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .fits-item-title {
+      width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fits-item-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 165px;
+      margin-left: 15px;
+
+      .astronomical-view-btn {
+        padding: 15px 18px;
+      }
+
+      .astronomical-download-btn {
+        padding: 0;
+        margin: 0;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        color: $lightHeadedAstronaut;
+        border: 1px dashed $astronaut;
+        border-radius: 50%;
+
+        .icon-download {
+          line-height: 40px;
+          font-size: 15px;
+        }
+      }
+    }
+
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { injectIntl } from 'react-intl';
+import { withTranslation } from 'react-i18next';
+import { withRouter } from 'react-router';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import HubContainer from 'app/components/common/HubContainer';
 import GuideTopics from 'app/components/guides/GuideTopics';
@@ -7,8 +8,8 @@ import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import GuideTiles from 'app/components/guides-hub/guide-tiles';
 import ShowTiles from 'app/components/shows-hub/show-tiles';
 import isEmpty from 'lodash/fp/isEmpty';
-import messages from './my-lists.messages';
 
+@withTranslation()
 class Lists extends Component {
   state = { tiles: [], items: [] };
 
@@ -88,19 +89,46 @@ class Lists extends Component {
   };
 
   GetTiles = (filterType, props) => {
-    const { profileLists, data } = this.props;
+    const { profileLists, data, onUpdate } = this.props;
     const { interestsList } = data;
     const { itemList } = profileLists;
     const tiles = this.getModeledTiles(filterType, itemList, interestsList);
     switch (filterType) {
       case 'object':
-        return <GuideTopics {...props} list={tiles} />;
+        return (
+          <GuideTopics
+            {...props}
+            list={tiles}
+            emptyText={data.emptySetObjectsDisplay}
+          />
+        );
       case 'story':
-        return <StoryTiles {...props} stories={tiles} />;
+        return (
+          <StoryTiles
+            {...props}
+            stories={tiles}
+            emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
+          />
+        );
       case 'guide':
-        return <GuideTiles {...props} guides={tiles} />;
+        return (
+          <GuideTiles
+            {...props}
+            guides={tiles}
+            emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
+          />
+        );
       case 'show':
-        return <ShowTiles {...props} shows={tiles} />;
+        return (
+          <ShowTiles
+            {...props}
+            shows={tiles}
+            emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
+          />
+        );
       default:
         return null;
     }
@@ -139,7 +167,15 @@ class Lists extends Component {
   };
 
   render() {
-    const { filterType, filterOptions, profileLists, intl, data } = this.props;
+    const {
+      filterType,
+      filterOptions,
+      profileLists,
+      t,
+      data,
+      params,
+    } = this.props;
+    const { customerUUID } = params;
     if (!profileLists || !data) return null;
     return (
       <DeviceContext.Consumer>
@@ -159,7 +195,7 @@ class Lists extends Component {
             filterTypeFieldName="readingListType"
             updateList={this.updateTilesList}
             appendToList={this.appendToTilesList}
-            pageTitle="My Lists"
+            pageTitle={customerUUID ? 'Lists' : 'My Lists'}
             filterType={filterType}
             clearTiles={this.clearTiles}
             showHeaderIcon={false}
@@ -170,7 +206,7 @@ class Lists extends Component {
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,
                   isMobile: context.isMobile,
-                }) || <div>{intl.formatMessage(messages.NoTiles)}</div>}
+                }) || <div>{t('Photos.NoTiles')}</div>}
               </Fragment>
             )}
           />
@@ -180,4 +216,4 @@ class Lists extends Component {
   }
 }
 
-export default injectIntl(Lists);
+export default withRouter(Lists);

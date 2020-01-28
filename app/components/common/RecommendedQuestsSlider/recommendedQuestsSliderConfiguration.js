@@ -1,9 +1,6 @@
 import React from 'react';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
-import RecommendedQuestItem from './partials/RecommendedQuestItem';
-import { FormattedMessage } from 'react-intl';
-
-import messages from './RecommendedQuestsSlider.messages';
+import { QuestListItem } from './quest-list-item';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -13,18 +10,20 @@ const getSliderConfiguration = () =>
     centerPadding: '25px',
   });
 
-const getRecommendedQuestsItems = (recommendedQuestList = []) =>
+const getRecommendedQuestsItems = (recommendedQuestList = [], readOnly) =>
   recommendedQuestList.map(quest => ({
-    render: () => <RecommendedQuestItem key={quest.linkUrl} {...quest} />,
+    render: () => (
+      <QuestListItem key={quest.linkUrl} {...quest} readOnly={readOnly} />
+    ),
   }));
 
-export const getSliderProps = (slideList = []) =>
+export const getSliderProps = (slideList = [], t, readOnly) =>
   Object.assign(
     {
-      slideList: getRecommendedQuestsItems(slideList),
+      slideList: getRecommendedQuestsItems(slideList, readOnly),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

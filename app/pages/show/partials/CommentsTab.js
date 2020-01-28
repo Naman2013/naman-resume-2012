@@ -7,12 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
-import DiscussionComments from 'app/components/common/DiscussionsBoard';
+import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
-import messages from '../Show.messages';
 
 const {
   any,
@@ -24,7 +23,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class CommentsTab extends Component {
   static propTypes = {
     content: string,
@@ -36,7 +35,6 @@ class CommentsTab extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -55,12 +53,14 @@ class CommentsTab extends Component {
       isDesktop,
       isScreenMedium,
       user,
-      intl,
+      t,
+      validateResponseAccess,
+      showId,
     } = this.props;
 
     return (
       <div className="root">
-        <DiscussionComments
+        <DiscussionsBoard
           topLevelThread={false}
           forumId={discussionForumId}
           threadId={discussionThreadId}
@@ -68,9 +68,11 @@ class CommentsTab extends Component {
           topicId={discussionTopicId}
           user={user}
           isDesktop={isDesktop}
-          header={intl.formatMessage(messages.Comments)}
+          header={t('Shows.Comments')}
           canSubmitReplies={canSubmitReplies}
+          validateResponseAccess={validateResponseAccess}
           callSource="shows"
+          showId={showId}
         />
         <style jsx>{styles}</style>
       </div>
@@ -78,4 +80,4 @@ class CommentsTab extends Component {
   }
 }
 
-export default injectIntl(CommentsTab);
+export default CommentsTab;

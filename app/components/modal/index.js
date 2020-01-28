@@ -10,10 +10,11 @@ type TModalDialog = {
   onHide: Function,
   goBackText: string,
   mobileGoBackText: string,
+  disableGoBack: boolean,
 };
 
 const ModalDialog = (props: TModalDialog) => {
-  const { children, onHide, goBackText, mobileGoBackText } = props;
+  const { children, onHide, goBackText, mobileGoBackText, disableGoBack } = props;
 
   const backClick = e => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const ModalDialog = (props: TModalDialog) => {
 
   return (
     <div className="custom-modal">
-      <span role="presentation" className="modal-back-btn" onClick={backClick}>
+      {disableGoBack != true && <span role="presentation" className="modal-back-btn" onClick={backClick}>
         <span className="d-sm-none">
           <span className="icon icon-arrow-left" />{' '}
           {mobileGoBackText || 'GO BACK'}
@@ -31,7 +32,7 @@ const ModalDialog = (props: TModalDialog) => {
           <span className="icon icon-arrow-left" /> {goBackText || 'GO BACK'}
         </span>
       </span>
-
+      }
       <div className="container">{children}</div>
     </div>
   );
@@ -44,16 +45,18 @@ type TModal = {
   goBackText?: string,
   mobileGoBackText?: string,
   show: boolean,
+  disableGoBack: boolean,
 };
 
 export const Modal = (props: TModal) => {
-  const { children, mobileStyle } = props;
-  const cls = cx({ 'mobile-style': mobileStyle });
+  const { children, mobileStyle, customClass } = props;
+  const cls = cx({ 'mobile-style': mobileStyle }, customClass);
   return (
     <BModal
       {...props}
       dialogAs={() => <ModalDialog {...props} />}
-      backdrop={false}
+      backdrop="static"
+      backdropClassName={`custom-modal-backdrop ${customClass || ''}`}
       className={cls}
     >
       {children}

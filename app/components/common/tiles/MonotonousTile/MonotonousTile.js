@@ -9,12 +9,19 @@ const MonotonousTile = ({
   id,
   showReadingList,
   readingListType,
+  readingListPrompt,
+  promptIconUrl,
 }) => (
   <div className="root">
     <div className="title-label" dangerouslySetInnerHTML={{ __html: label }} />
     <div className="text" dangerouslySetInnerHTML={{ __html: text }} />
     {showReadingList && (
-      <ToggleReadingList itemId={id} readingListType={readingListType} />
+      <ToggleReadingList
+        itemId={id}
+        readingListType={readingListType}
+        readingListPrompt={readingListPrompt}
+        promptIconUrl={promptIconUrl}
+      />
     )}
     <style jsx>{style}</style>
   </div>

@@ -20,6 +20,7 @@ import {
   makeReservedMissionSelector,
   makeBySlooh1000AvailableMissionsSelector,
   makeBySlooh1000NoObjectsSelector,
+  makeMissionsPageSetupSelector,
 } from '../selectors';
 import {
   cancelMissionSlot,
@@ -45,6 +46,7 @@ const mapStateToProps = createStructuredSelector({
   objectListExpires: makeBySlooh1000ObjectListExpiresSelector(),
   availableMissions: makeBySlooh1000AvailableMissionsSelector(),
   noObjects: makeBySlooh1000NoObjectsSelector(),
+  pageSetup: makeMissionsPageSetupSelector(),
 });
 
 const mapDispatchToProps = {

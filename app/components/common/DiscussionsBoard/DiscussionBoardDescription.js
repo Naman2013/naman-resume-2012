@@ -3,21 +3,20 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { intlShape, injectIntl } from 'react-intl';
+import { API } from 'app/api';
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
 import TextareaField from 'app/components/form/TextareaField';
 import Button from 'app/components/common/style/buttons/Button';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'app/services/classroom/classroom';
-import messages from './DiscussionBoard.messages';
 
 const { any, bool, func, number, shape, string } = PropTypes;
-
+@withTranslation()
 class DiscussionBoardDescription extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,6 @@ class DiscussionBoardDescription extends Component {
     groupId: string,
     description: string,
     canEdit: bool,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -81,14 +79,16 @@ class DiscussionBoardDescription extends Component {
 
     formValues.preventDefault();
 
-    const setGroupDescriptionResult = axios
-      .post(CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL, {
+    const setGroupDescriptionResult = API.post(
+      CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL,
+      {
         cid: user.cid,
         at: user.at,
         token: user.token,
-        groupId: groupId,
-        groupDescription: groupDescription,
-      })
+        groupId,
+        groupDescription,
+      }
+    )
       .then(response => {
         const res = response.data;
         if (res.apiError == false) {
@@ -104,7 +104,7 @@ class DiscussionBoardDescription extends Component {
   };
 
   render() {
-    const { canEdit, intl } = this.props;
+    const { canEdit, t } = this.props;
 
     const { inEditMode, groupDescription } = this.state;
 
@@ -131,7 +131,7 @@ class DiscussionBoardDescription extends Component {
                 <div className="button-actions">
                   <Button
                     type="button"
-                    text={intl.formatMessage(messages.Cancel)}
+                    text={t('AskAnAstronomer.Cancel')}
                     onClickEvent={this.cancelEditMode}
                   />
 
@@ -139,7 +139,7 @@ class DiscussionBoardDescription extends Component {
                     className="submit-button"
                     type="submit"
                     onClickEvent={this.handleSubmit}
-                    text={intl.formatMessage(messages.SaveChanges)}
+                    text={t('AskAnAstronomer.SaveChanges')}
                   />
                 </div>
               )}
@@ -150,7 +150,7 @@ class DiscussionBoardDescription extends Component {
           <div className="button-actions">
             <Button
               type="button"
-              text={intl.formatMessage(messages.EditDescription)}
+              text={t('AskAnAstronomer.EditDescription')}
               onClickEvent={this.enableEditMode}
             />
           </div>
@@ -188,6 +188,6 @@ export default connect(
   null
 )(
   reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true })(
-    injectIntl(DiscussionBoardDescription)
+    DiscussionBoardDescription
   )
 );

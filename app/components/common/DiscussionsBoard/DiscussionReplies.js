@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
@@ -68,8 +68,8 @@ class DiscussionsReplies extends Component {
       discussionsActions: { updateCommentsProps },
     } = this.props;
     if (typeof commentsList[replyId] === 'undefined') {
-      axios
-        .post(THREAD_REPLIES, {
+      API
+      .post(THREAD_REPLIES, {
           callSource,
           topicId,
           threadId,
@@ -114,6 +114,24 @@ class DiscussionsReplies extends Component {
       .filter(reply => displayed.indexOf(reply.replyId) > -1);
   }
 
+  getCommentData = () => {
+    const {
+      threadId,
+      replyId,
+      discussions: { commentsList },
+    } = this.props;
+
+    if (commentsList[threadId].length > 0) {
+      return commentsList[threadId].filter(
+        reply => reply.replyId === replyId
+      )[0];
+    }
+
+    return {
+      commentPlaceholder: 'Reply to this comment',
+    };
+  };
+
   handleShowMore = (paginatedSet, page) => {
     const {
       threadId,
@@ -149,10 +167,12 @@ class DiscussionsReplies extends Component {
       topicId,
       user,
       page,
+      flagParams,
     } = this.props;
 
     const comments = commentsList[replyId] || [];
     const { displayedCommentsObjs } = this;
+    const threadData = this.getCommentData();
 
     return (
       <div className="comment" key={uniqueId()}>
@@ -169,6 +189,7 @@ class DiscussionsReplies extends Component {
               topicId={topicId}
               user={user}
               isDesktop={isDesktop}
+              {...threadData}
             />
           ) : null}
         </div>
@@ -187,6 +208,11 @@ class DiscussionsReplies extends Component {
                 };
                 return (
                   <RepliesListItem
+                    flagParams={{
+                      ...flagParams,
+                      itemId: displayedComment.replyId,
+                      itemType: 'comment',
+                    }}
                     {...displayedComment}
                     key={displayedComment.replyId}
                     likeParams={likeParams}

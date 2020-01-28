@@ -1,36 +1,62 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
+import { Link } from 'react-router';
+import {
+  setupTopThreadsExpireTimer,
+  stopTopThreadsExpireTimer,
+} from 'app/services/community-groups/timer';
 import BlueLineDrop from '../../../components/common/BlueLineDrop';
 
 import './topThreads.scss';
 
 export const TopThreads = memo(function TopThreads(props) {
+  const [shouldReload, setShouldReload] = useState(false);
   useEffect(() => {
-    props.getTopThreadList({
-      count: 10,
-      page: 1,
-      callSource: 'groups',
-      topicId: props.topicId,
-    });
-  }, [props.topicId]); //eslint-disable-line react-hooks/exhaustive-deps
+    if (props.topicId !== undefined) {
+      stopTopThreadsExpireTimer();
+      props
+        .getTopThreadList({
+          count: 10,
+          page: 1,
+          callSource: 'groups',
+          topicId: props.topicId,
+        })
+        .then(({ expires }) => {
+          setupTopThreadsExpireTimer(expires, () =>
+            setShouldReload(!shouldReload)
+          );
+        });
+    }
+  }, [props.topicId, shouldReload]); //eslint-disable-line react-hooks/exhaustive-deps
+
+  const { topThreadsList, isDesktop, discussionGroupId } = props;
 
   return (
     <div className="top-discussions-wr">
       <BlueLineDrop
-        title={`Popular Discussions (${props.topThreadsList.length})`}
-        isDesktop={props.isDesktop}
+        title={`Popular Discussions (${topThreadsList?.length})`}
+        isDesktop={isDesktop}
         isDefaultOpen
         render={() => (
           <div className="members-list">
-            {props.topThreadsList.map(x => (
-              <a href={`#card-${x.threadId}`} className="navigation-link">
+            {topThreadsList?.map(x => (
+              <a
+                href={`/community-groups/${discussionGroupId}/${x.threadId}`}
+                className="navigation-link"
+                key={x.threadId}
+              >
                 <div className="members-list-card">
-                  <div className="header">{x.title}</div>
+                  <div
+                    className="header __html-blob-content-container__"
+                    dangerouslySetInnerHTML={{
+                      __html: x.title,
+                    }}
+                  />
                   <div className="bottom">
                     <span className="user-info">
-                      <img className="avatar" src={x.avatarUrl} />
-                      {x.displayName}
+                      <img className="avatar" src={x.avatarUrl} alt="avatar" />
+                      <Link to={x?.authorInfo?.linkUrl}>{x.displayName}</Link>
                     </span>
-                    <div className="date-container">{x.freshness}</div>
+                    <div className="date-container">{x.totalLikes} likes</div>
                   </div>
                 </div>
               </a>

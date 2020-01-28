@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
+import take from 'lodash/take';
 import { canUseDOM } from 'exenv';
 import {
   snapImage,
@@ -12,6 +13,7 @@ import {
 } from 'app/modules/starshare-camera/starshare-camera-actions';
 import removeStyle from 'app/utils/removeStyle';
 import ModalGeneric from 'app/components/common/modals/modal-generic';
+import uniqueId from 'lodash/uniqueId';
 import Snap from './Snap';
 import './star-share-camera.scss';
 
@@ -68,7 +70,32 @@ class StarShareCamera extends Component {
     lightboxOpen: false,
     lightboxImage: '',
     snappingPhoto: false,
+    snapshotList: [],
   };
+
+  componentDidMount() {
+    const { mobileStarShare } = this.props;
+    this.getSnapshotListData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { snapshotList, mobileStarShare } = this.props;
+    if (
+      snapshotList !== prevProps.snapshotList ||
+      mobileStarShare !== prevProps.mobileStarShare
+    ) {
+      this.getSnapshotListData();
+    }
+  }
+
+  getSnapshotListData() {
+    const { snapshotList, mobileStarShare } = this.props;
+    if (mobileStarShare) {
+      this.setState({ snapshotList: take(snapshotList, 4) });
+    } else {
+      this.setState({ snapshotList });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const { snapshotMsg } = this.props;
@@ -95,12 +122,13 @@ class StarShareCamera extends Component {
   };
 
   takeSnapshot = () => {
-    const { actions } = this.props;
+    const { actions, currentFeed, showId } = this.props;
+    
     this.setState(
       {
         snappingPhoto: true,
       },
-      () => actions.snapImage()
+      () => actions.snapImage({ showId, systemId: currentFeed?.systemId, tabDesc: currentFeed?.tabDesc })
     );
   };
 
@@ -127,8 +155,9 @@ class StarShareCamera extends Component {
       lightboxImage,
       snappingPhoto,
       openedModal,
+      snapshotList,
     } = this.state;
-    const { snapshotList, snapshotMsg, snapAPIError, justSnapped } = this.props;
+    const { snapshotMsg, snapAPIError, justSnapped } = this.props;
     const snappingImages = justSnapped && snappingPhoto;
 
     return (
@@ -139,7 +168,7 @@ class StarShareCamera extends Component {
         {snapshotList.map((snapshot, i) => {
           return (
             <button
-              key={snapshot.imageID}
+              key={`${snapshot.imageID}-${uniqueId()}`}
               onClick={() => openLightbox(snapshot.imageURL)}
               className={getSnapClasses(i, snappingImages)}
             >
@@ -147,7 +176,7 @@ class StarShareCamera extends Component {
                 <Snap
                   width="100px"
                   height="50px"
-                  key={snapshot.imageID}
+                  key={`${snapshot.imageID}-${uniqueId()}`}
                   imageURL={snapshot.imageURL}
                 />
               )}

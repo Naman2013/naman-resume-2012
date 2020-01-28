@@ -46,6 +46,30 @@ export const makeReservedMissionSelector = () =>
     state => state.reservedMission || {}
   );
 
+export const makePiggybackMissionsData = () =>
+  createSelector(
+    selectMissions,
+    state => state.piggybackMissions
+  );
+
+export const makePiggybackMissionsFirstSlot = () =>
+  createSelector(
+    makePiggybackMissionsData(),
+    state => state.piggybackMissionList[0]
+  );
+
+export const makePiggybackReservedMissionData = () =>
+  createSelector(
+    makePiggybackMissionsData(),
+    state => state.piggybackReservedMissionList[0] || {}
+  );
+
+export const makePiggybackReservedMissionSelector = () =>
+  createSelector(
+    makePiggybackMissionsData(),
+    state => state.piggybackReservedMission || {}
+  );
+
 // bySlooh1000
 export const makeBySlooh1000Selector = () =>
   createSelector(
@@ -485,6 +509,24 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
     state => state.missionListRefreshInterval
   );
 
+export const makeTelescopeMissionscrollToSMIDSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.scrollToSMID
+  );
+
+export const makeTelescopeScrolledToSlotSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.scrolledToSlot
+  );
+
+export const makeTelescopeMissionListLodadedSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionListLodaded
+  );
+
 // by coordinates
 
 export const makeByCoordinatesSelector = () =>
@@ -552,7 +594,7 @@ export const makeByCoordinatesDataSelector = () =>
       missionSlot,
       reservedMissionData,
       reservedMission,
-      targetName,
+      targetName
     ) => {
       return {
         categoryList,

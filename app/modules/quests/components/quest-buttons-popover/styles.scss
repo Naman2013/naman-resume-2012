@@ -1,0 +1,16 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-buttons-popover {
+  display: none;
+  position: absolute;
+  width: calc(100% + 20px);
+  bottom: 58px;
+  left: -10px;
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+  border-bottom: 4px solid $lightHeadedAstronaut;
+
+  &.open {
+    display: block;
+  }
+}

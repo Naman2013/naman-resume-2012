@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import { Link } from 'react-router';
 import { plus, info } from 'app/styles/variables/iconURLs';
-import style from './object-summary-tile.style';
 
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
+import style from './object-summary-tile.style';
 
 const ObjectSummaryTile = props => (
   <div className="object-summary-tile-root">
@@ -40,13 +41,19 @@ const ObjectSummaryTile = props => (
 
     <ul className="action-list">
       <li>
-        <GenericButton theme={{ width: '100%' }} text="Follow" />
+        {props.objectId && (
+          <FollowObjectButton
+            objectId={props.objectId}
+            user={props.user}
+            followButtonText={props.followPrompt}
+            followButtonIconURL={props.followActionIconUrl}
+            width="100%"
+            heigh={null}
+          />
+        )}
       </li>
       <li>
-        <GenericButton icon={info} />
-      </li>
-      <li>
-        <Link to={`/object-details/` + props.objectId}>
+        <Link to={`/object-details/${props.objectId}`}>
           <img
             style={{ paddingLeft: '15px' }}
             src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"

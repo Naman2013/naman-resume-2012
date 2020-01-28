@@ -1,4 +1,4 @@
-@import '~app/styles/bootstrap/index';
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
 .mission-tile {
@@ -146,6 +146,18 @@
     .info {
       .time {
         display: block;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .mission-tile {
+    padding: 30px;
+
+    .actions {
+      > button {
+        padding: 10px;
       }
     }
   }

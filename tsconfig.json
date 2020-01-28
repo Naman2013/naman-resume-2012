@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "baseUrl":".",
+    "paths": {
+      "app/*" :["./app/*"]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "typings/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

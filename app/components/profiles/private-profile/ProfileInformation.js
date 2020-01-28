@@ -5,7 +5,7 @@
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 
 import { DeviceContext } from '../../../providers/DeviceProvider';
@@ -14,13 +14,12 @@ import DisplayAtBreakpoint from '../../common/DisplayAtBreakpoint';
 import BackBar from '../../common/style/buttons/BackBar';
 import {
   Badges,
-  GravityBreakdown,
   ProfileStatsItem,
   SpecialistList,
   StatsDetails,
   StatsPopover,
+  GravityStatsList,
 } from '../ProfileStats';
-import messages from './ProfileInformation.messages';
 import styles from './ProfileInformation.styles';
 
 const { shape } = PropTypes;
@@ -30,7 +29,7 @@ const PROFILE_STATS = {
   badges: 'badges',
   mvp: 'mvp',
 };
-
+@withTranslation()
 class ProfileInformation extends Component {
   static propTypes = {
     myInformationData: shape({
@@ -39,7 +38,6 @@ class ProfileInformation extends Component {
       badgesData: shape({}).isRequired,
       mvpData: shape({}).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   state = {
@@ -48,52 +46,44 @@ class ProfileInformation extends Component {
 
   getGravityTabs = () => {
     const { gravityData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { t, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.Breakdown),
-        intl.formatMessage(messages.Details),
-      ],
+      tabsList: [t('Profile.Stats'), t('Profile.Guide')],
       panels: [
-        <GravityBreakdown gravityList={gravityData.gravityList} />,
-        <StatsDetails
-          text={gravityData.gravityDetailsText}
-          buttonLinkUrl={_get(
-            gravityData,
-            'gravityGuideDetails.buttonLinkUrl',
-            ''
-          )}
-          buttonText={_get(gravityData, 'gravityGuideDetails.buttonText', '')}
-        />,
+        <GravityStatsList gravityList={gravityData.gravityList} />,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
+      disabledList: [false, false],
+      defaultIndex: 0,
     };
   };
 
   getBadgesTabs = () => {
     const { badgesData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { t, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.MyBadges),
-        intl.formatMessage(messages.Details),
+      tabsList: [t('Profile.MyBadges'), t('Profile.Guide')],
+      panels: [
+        <Badges badgesList={badgesData.badgesList} />,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
-      panels: [<Badges badgesList={badgesData.badgesList} />, null],
-      disabledList: [true, false],
-      defaultIndex: 1
+      disabledList: [false, false],
+      defaultIndex: 0,
     };
   };
 
   getMvpTabs = () => {
     const { mvpData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { t, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.Specialties),
-        intl.formatMessage(messages.Details),
-      ],
+      tabsList: [t('Profile.Specialties'), t('Profile.Guide')],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
-        null,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
+        ,
       ],
     };
   };
@@ -106,7 +96,7 @@ class ProfileInformation extends Component {
   };
 
   render() {
-    const { intl, myInformationData } = this.props;
+    const { t, myInformationData } = this.props;
     const { generalInfo, gravityData, badgesData, mvpData } = myInformationData;
     const { selectedStats } = this.state;
 
@@ -114,7 +104,7 @@ class ProfileInformation extends Component {
       <Fragment>
         <ProfileStatsItem
           type={PROFILE_STATS.gravity}
-          label={intl.formatMessage(messages.Gravity)}
+          label={t('Profile.Gravity')}
           buttonText={gravityData.totalGravity}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.gravity}
@@ -122,7 +112,7 @@ class ProfileInformation extends Component {
 
         <ProfileStatsItem
           type={PROFILE_STATS.badges}
-          label={intl.formatMessage(messages.Badges)}
+          label={t('Profile.Badges')}
           buttonText={badgesData.badgesCount}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.badges}
@@ -130,7 +120,7 @@ class ProfileInformation extends Component {
 
         <ProfileStatsItem
           type={PROFILE_STATS.mvp}
-          label={intl.formatMessage(messages.MVP)}
+          label={t('Profile.MVP')}
           buttonText={mvpData.specialistObjectsCount}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.mvp}
@@ -168,7 +158,9 @@ class ProfileInformation extends Component {
       <div className="profile-header">
         <div className="profile-information">
           <div className="profile-avatar">
-            <img src={generalInfo.avatarURL} alt="" />
+            <div className="profile-avatar-container">
+              <img src={generalInfo.avatarURL} alt="" />
+            </div>
             <div className="profile-user-name">
               <DisplayAtBreakpoint screenMedium>
                 {generalInfo.memberName}
@@ -227,11 +219,13 @@ class ProfileInformation extends Component {
           {context => (
             <div className="profile-information-mobile">
               <div className="avatar-border">
-                <img
-                  src={generalInfo.avatarURL}
-                  alt=""
-                  className="avatar-inner-ring"
-                />
+                <div className="profile-avatar-container-mobile">
+                  <img
+                    src={generalInfo.avatarURL}
+                    alt=""
+                    className="avatar-inner-ring"
+                  />
+                </div>
               </div>
 
               <div className="vertical-line" style={{ height: '40px' }} />
@@ -272,4 +266,4 @@ class ProfileInformation extends Component {
   }
 }
 
-export default injectIntl(ProfileInformation);
+export default ProfileInformation;

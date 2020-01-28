@@ -6,9 +6,9 @@
  ********************************** */
 
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { Button } from 'react-bootstrap';
@@ -17,6 +17,9 @@ import {
   stopCommunityMissionExpireTimer,
 } from 'app/services/objects/timer';
 import { Spinner } from 'app/components/spinner/index';
+import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import MissionTile from 'app/components/common/tiles/MissionTile';
 import { getCommunityMissions } from '../../modules/object-details/actions';
 import {
   makeObjectDetailsMissionsSelector,
@@ -27,20 +30,13 @@ import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
 } from '../../modules/telescope/selectors';
-import {
-  reserveCommunityMission,
-} from '../../modules/telescope/thunks';
-import {
-  makeUserSelector,
-} from '../../modules/user/selectors';
-import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
-import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import { reserveCommunityMission } from '../../modules/telescope/thunks';
+import { makeUserSelector } from '../../modules/user/selectors';
 import { MissionCard } from '../../modules/object-details/components/mission-card';
-import DeviceProvider from '../../../app/providers/DeviceProvider';
+import DeviceProvider from '../../providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import MissionTile from 'app/components/common/tiles/MissionTile';
-import CenterColumn from '../../../app/components/common/CenterColumn';
-import messages from './ObjectDetails.messages';
+import CenterColumn from '../../components/common/CenterColumn';
+import './ObjectDetailsMissions.scss';
 
 const mapStateToProps = createStructuredSelector({
   missionData: makeObjectDetailsMissionsSelector(),
@@ -60,11 +56,13 @@ const mapDispatchToProps = {
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Missions extends Component {
   state = {
     reservationModalVisible: false,
     selectedMission: {},
     successModalShow: false,
+    missionListExpired: false,
   };
 
   componentDidMount() {
@@ -83,11 +81,12 @@ class Missions extends Component {
     stopCommunityMissionExpireTimer();
     getCommunityMissions(objectId).then(({ data }) => {
       const timerTime = data.expires - data.timestamp;
+      this.setState({ missionListExpired: false });
       setupCommunityMissionExpireTimer(timerTime, () =>
-        this.getCommunityMissions()
+        this.setState({ missionListExpired: true })
       );
-    });;
-  }
+    });
+  };
 
   reserveCommunityMission = () => {
     const { reserveCommunityMission, missionData } = this.props;
@@ -99,12 +98,14 @@ class Missions extends Component {
       callSource,
       scheduledMissionId,
       missionStart,
-    }).then(() => this.setState({ successModalShow: true, reservationModalVisible: false, }));
-  }
-  
+    }).then(() =>
+      this.setState({ successModalShow: true, reservationModalVisible: false })
+    );
+  };
+
   reservationModalShow = mission => {
     this.setState({ reservationModalVisible: true, selectedMission: mission });
-  }
+  };
 
   reservationModalHide = () => {
     this.setState({ reservationModalVisible: false, selectedMission: {} });
@@ -113,39 +114,38 @@ class Missions extends Component {
   modalClose = () => {
     this.setState({ successModalShow: false, selectedMission: {} });
     this.getCommunityMissions();
-  }
+  };
 
   render() {
     const {
       params: { objectId },
       objectDetails,
       missionData,
-      intl,
+      t,
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
-      isFetching
+      isFetching,
     } = this.props;
-    const { missionCount, missionList } = missionData;
-    const { reservationModalVisible, selectedMission, successModalShow } = this.state;
+    const { missionCount, missionList, explanation } = missionData;
+    const {
+      reservationModalVisible,
+      selectedMission,
+      successModalShow,
+      missionListExpired,
+    } = this.state;
 
     return (
       <Fragment>
-        <Spinner
-          loading={isFetching}
-        />
+        <Spinner loading={isFetching} />
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={intl.formatMessage(messages.UpcomingMissions)}
+            subTitle={t('Objects.UpcomingMissions')}
             renderNav={() => (
-              <div className="nav-actions">
-                {!isFetching && (
-                  <Button
-                    onClick={this.getCommunityMissions}
-                  >
-                    Refresh
-                  </Button>
+              <div className="object-details-missions-actions">
+                {missionListExpired && (
+                  <Button onClick={this.getCommunityMissions}>Refresh</Button>
                 )}
               </div>
             )}
@@ -153,9 +153,13 @@ class Missions extends Component {
         </DeviceProvider>
         <CenterColumn>
           {missionCount > 0 ? (
-            <div style={{margin: '0 20px 40px'}}>
+            <div style={{ margin: '0 20px 40px' }}>
               {missionList.map(item => (
-                <div>
+                <div
+                  className={`mission-card-container${
+                    missionListExpired ? ' mission-expired' : ''
+                  }`}
+                >
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
@@ -165,14 +169,7 @@ class Missions extends Component {
               ))}
             </div>
           ) : (
-            <div>
-              {!isFetching && (
-                <FormattedMessage
-                  {...messages.NoMissions}
-                  values={{ objectTitle: objectDetails.objectTitle }}
-                />
-              )}
-            </div>
+            <div>{!isFetching && explanation}</div>
           )}
         </CenterColumn>
 
@@ -199,8 +196,6 @@ class Missions extends Component {
   }
 }
 
-Missions.propTypes = {
-  intl: intlShape.isRequired,
-};
+Missions.propTypes = {};
 
-export default injectIntl(Missions);
+export default Missions;

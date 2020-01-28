@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import createReducer from './utils/createReducer';
 
 const FETCH_ANNOUNCEMENTS = 'FETCH_ANNOUNCEMENTS';
@@ -21,7 +21,7 @@ export const fetchAnnouncements = ( obsId, category='announcement', level='obser
   if(token && at && cid) {
     dispatch(startFetchAnnouncements());
 
-    return axios.post('/api/info/getAnnouncements', {
+    return API.post('/api/info/getAnnouncements', {
       at,
       cid,
       token,

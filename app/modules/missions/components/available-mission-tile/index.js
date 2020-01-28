@@ -2,9 +2,9 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
+import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import Button from '../../../../components/common/style/buttons/Button';
-import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
@@ -25,6 +25,10 @@ export class AvailbleMissionTile extends Component {
       communityMissions,
       user,
       onMissionView,
+      cancelButtonCaption,
+      scheduleMissionCaption,
+      completeReservationPromptShort,
+      piggyback,
     } = this.props;
     const {
       title,
@@ -38,6 +42,8 @@ export class AvailbleMissionTile extends Component {
       followPromptIconUrl,
       viewMissionButtonCaption,
       missionStartFormatted,
+      showFollowPromptFlag,
+      showLearnButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
 
@@ -50,11 +56,8 @@ export class AvailbleMissionTile extends Component {
               onComplete={onCancel}
               renderer={props => (
                 <div>
-                  Reservation ends in {props.minutes}:
-                  <FormattedNumber
-                    value={props.seconds}
-                    minimumIntegerDigits={2}
-                  />
+                  {completeReservationPromptShort || 'Reservation ends in'}{' '}
+                  {props.minutes}:{twoDigitsTimeFormatting(props.seconds)}
                 </div>
               )}
             />
@@ -74,25 +77,38 @@ export class AvailbleMissionTile extends Component {
         {tip && <div className="description">{tip}</div>}
         {onSubmit && (
           <div className="actions">
-            <Button text="Cancel" onClickEvent={onCancel} />
-            <Button text="Schedule Mission" onClickEvent={onSubmit} />
+            <Button
+              text={cancelButtonCaption || 'Cancel'}
+              onClickEvent={onCancel}
+            />
+            <Button
+              text={scheduleMissionCaption || 'Schedule Mission'}
+              onClickEvent={onSubmit}
+            />
           </div>
         )}
         {communityMissions && (
           <div className="actions community-mission-actions">
             <div>
-              <Link to={learnButtonLink} className="learn-btn">
-                <Button text={learnButtonCaption}/>
-              </Link>
-              <FollowObjectButton
-                objectId={objectId}
-                user={user}
-                followButtonText={followPrompt}
-                followButtonIconURL={followPromptIconUrl}
-              />
+              {!piggyback || showLearnButton ? (
+                <Link to={learnButtonLink} className="learn-btn">
+                  <Button text={learnButtonCaption} />
+                </Link>
+              ) : null}
+              {!piggyback || showFollowPromptFlag ? (
+                <FollowObjectButton
+                  objectId={objectId}
+                  user={user}
+                  followButtonText={followPrompt}
+                  followButtonIconURL={followPromptIconUrl}
+                />
+              ) : null}
             </div>
             <div>
-              <Button text={viewMissionButtonCaption} onClickEvent={onMissionView} />
+              <Button
+                text={viewMissionButtonCaption}
+                onClickEvent={onMissionView}
+              />
             </div>
           </div>
         )}

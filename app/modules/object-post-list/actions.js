@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_OBJECT_LIST_PAGE_META_START = 'FETCH_OBJECT_LIST_PAGE_META_START';
 export const FETCH_OBJECT_LIST_PAGE_META_SUCCESS = 'FETCH_OBJECT_LIST_PAGE_META_SUCCESS';
@@ -28,7 +28,7 @@ const fetchPageMetaFail = payload => ({
 
 export const fetchPageMeta = ({ slugLookupId }) => (dispatch) => {
   dispatch(fetchPageMetaStart());
-  return axios.post('/api/content/getObjectPostListPageLayout', {
+  return API.post('/api/content/getObjectPostListPageLayout', {
     slugLookupId,
   })
   .then((result) => {
@@ -60,7 +60,7 @@ export const fetchObjectAllTimeBest = ({
   const { cid } = getState().user;
   dispatch(fetchObjectAllTimeBestStart());
 
-  return axios.post('/api/content/getAllTimeBest', {
+  return API.post('/api/content/getAllTimeBest', {
     cid,
     lang,
     type,
@@ -98,7 +98,7 @@ export const fetchObjectLatestContent = ({
   const { cid } = getState().user;
   dispatch(fetchObjectLatestContentStart());
 
-  return axios.post('/api/content/getLatestContent', {
+  return API.post('/api/content/getLatestContent', {
     cid,
     count,
     lang,

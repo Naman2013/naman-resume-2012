@@ -5,29 +5,33 @@
  *
  ***********************************/
 import React from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import SloohSlider from '../../../components/common/Slider';
-import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import { useTranslation } from 'react-i18next';
+import SloohSlider from '../Slider';
+import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedQuestsSliderConfiguration';
-import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
+import { QuestListItem } from './quest-list-item';
 
-const { arrayOf, shape } = PropTypes;
-
-const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
-  const sliderProps = getSliderProps(recommendedQuestsList);
+const RecommendedObjects = ({
+  recommendedQuestsList = [],
+  readOnly = false,
+  customClass,
+}) => {
+  const { t } = useTranslation();
+  const sliderProps = getSliderProps(recommendedQuestsList, t, readOnly);
   const shortList = take(recommendedQuestsList, 2) || [];
   return (
-    <div className="root" key={uniqueId()}>
+    <div className="root">
       <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-        <SloohSlider {...sliderProps} />
+        <div className={customClass}>
+          <SloohSlider {...sliderProps} />
+        </div>
       </DisplayAtBreakpoint>
       <DisplayAtBreakpoint screenSmall>
         {shortList.map(quest => (
-          <RecommendedQuestSliderItem key={quest.linkUrl} {...quest} />
+          <QuestListItem key={quest.linkUrl} {...quest} readOnly={readOnly} />
         ))}
-      </DisplayAtBreakpoint>      
+      </DisplayAtBreakpoint>
       <style jsx>{`
         .root {
           margin: 0 auto;
@@ -39,12 +43,8 @@ const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
           }
         }
       `}</style>
-      </div>
+    </div>
   );
-};
-
-RecommendedObjects.propTypes = {
-  recommendedQuestsList: arrayOf(shape({})).isRequired,
 };
 
 export default RecommendedObjects;

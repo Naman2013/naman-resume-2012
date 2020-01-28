@@ -9,6 +9,7 @@ import { primaryFont } from 'app/styles/variables/fonts';
 export default css`
   .root {
     padding: 0 25px;
+    padding-left: 0;
   }
 
   .root.profile {
@@ -62,7 +63,22 @@ export default css`
     cursor: pointer;
   }
 
+  .item-container.disabled {
+    pointer-events: none;
+  }
+
+  .item-container.disabled .nav-item {
+    pointer-events: none;
+    color: #dedede;
+  }
+
   .is-active .nav-item {
     color: ${astronaut};
+  }
+
+  @media screen and (max-width: 450px) {
+    .root {
+      padding: 0;
+    }
   }
 `;

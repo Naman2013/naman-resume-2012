@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RequestGroupForm from 'app/components/community-groups/request-group-form';
@@ -12,7 +13,7 @@ import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import {
   CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL,
@@ -24,10 +25,7 @@ import InputField from 'app/components/form/InputField';
 
 import style from 'app/containers/groups-hub/groups-hub.style';
 import style2 from 'app/pages/registration/partials/JoinHeader.style';
-import { intlShape, injectIntl } from 'react-intl';
 import style3 from './GroupCreate.style';
-
-import messages from './Groups.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -39,7 +37,7 @@ const groupsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation()
 class GroupCreate extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -47,7 +45,6 @@ class GroupCreate extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -124,7 +121,7 @@ class GroupCreate extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user, intl } = this.props;
+    const { actions, user, t } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -149,7 +146,7 @@ class GroupCreate extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={intl.formatMessage(messages.errorSubmitting)}
+              promptText={t('Alerts.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />
@@ -256,15 +253,17 @@ class GroupCreate extends Component {
     if (formIsComplete) {
       //console.log('submit the new group form and redirect to the new group page');
 
-      const createNewGroupResults = axios
-        .post(CLASSROOM_CREATENEWGROUP_ENDPOINT_URL, {
+      const createNewGroupResults = API.post(
+        CLASSROOM_CREATENEWGROUP_ENDPOINT_URL,
+        {
           groupName: this.state.newGroupFormDetails.groupName.value,
           groupDescription: this.state.newGroupFormDetails.groupDescription
             .value,
           cid: user.cid,
           at: user.at,
           token: user.token,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -434,6 +433,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'newGroupAccountForm', enableReinitialize: true })(
-    injectIntl(GroupCreate)
+    GroupCreate
   )
 );

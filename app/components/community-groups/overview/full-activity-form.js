@@ -5,15 +5,13 @@
  *
  ********************************** */
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
-import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;
-
+@withTranslation()
 class FullActivityForm extends Component {
   static propTypes = {
     topicId: number,
@@ -21,7 +19,6 @@ class FullActivityForm extends Component {
     canPost: bool,
     placeholder: string,
     uuid: string,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -32,10 +29,16 @@ class FullActivityForm extends Component {
     uuid: null,
   };
 
-  state = {};
+  state = {
+    isLoading: false,
+  };
 
   submitForm = (content, S3URLs, title, callback) => {
-    const { topicId, forumId, intl } = this.props;
+    const { topicId, forumId, t } = this.props;
+
+    this.setState(state => ({
+      isLoading: !state.isLoading,
+    }));
 
     this.props
       .createThread({
@@ -46,32 +49,44 @@ class FullActivityForm extends Component {
         forumId,
       })
       .then(data => {
+        this.setState(state => ({
+          isLoading: !state.isLoading,
+        }));
+
         const message = data.apiError
-          ? intl.formatMessage(messages.SubmitPostError)
-          : intl.formatMessage(messages.PostSubmitted);
+          ? t('Clubs.SubmitPostError')
+          : t('Clubs.PostSubmitted');
         callback(data.apiError, message);
       });
   };
 
   render() {
-    const { user, intl, placeholder } = this.props;
+    const { user, t, placeholder, toggleInfo, showInfo } = this.props;
+    const { isLoading } = this.state;
 
-    const formPlaceholder =
-      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="form-container">
         <div>
-          <FormHeader avatarURL={user.avatarURL} />
-          <SingleFieldSubmitForm
-            {...this.props}
-            submitForm={this.submitForm}
-            placeholder={formPlaceholder}
+          <FormHeader
+            avatarURL={user.avatarURL}
+            toggleInfo={toggleInfo}
+            showInfo={showInfo}
           />
+
+          {showInfo ? (
+            <SingleFieldSubmitForm
+              {...this.props}
+              submitForm={this.submitForm}
+              placeholder={formPlaceholder}
+              isLoading={isLoading}
+            />
+          ) : null}
         </div>
       </div>
     );
   }
 }
 
-export default injectIntl(FullActivityForm);
+export default FullActivityForm;

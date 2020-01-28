@@ -1,16 +1,17 @@
 /** ********************************************
  * V4 Join - Step 3 - Collect Payment Details
  ********************************************** */
+/* eslint-disable */
 
-import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import React, { Component, Fragment } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
-import { browserHistory } from 'react-router';
-import axios from 'axios';
-import { FormattedMessage } from 'react-intl';
+
+import { API } from 'app/api';
 import {
   resetLogIn,
   logUserIn,
@@ -18,16 +19,16 @@ import {
 } from 'app/modules/login/actions';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import JoinHeader from './partials/JoinHeader';
 import {
   JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
   JOIN_PAGE_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+} from 'app/services/registration/registration';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep3.style';
-import messages from './JoinStep3.messages';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -56,13 +57,9 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class JoinStep3 extends Component {
   static propTypes = propTypes;
-
-  state = {
-    paymentToken: '',
-    redirectInXSecondsOnExpiredSignupRequest: 0,
-  };
 
   componentDidMount() {
     //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
@@ -72,69 +69,67 @@ class JoinStep3 extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
     actions.resetLogIn();
+
+    window.removeEventListener('message', this.handleIframeTask);
   }
 
   handleIframeTask = e => {
     /* Verify there is data in this event) */
     if (e.data) {
-      const paymentMessageData = e.data + '';
+      const paymentMessageData = `${e.data}`;
 
-      var paymentMethod = 'creditcard';
-      var paymentNonceTokenData = null;
+      let paymentMethod = 'creditcard';
+      let paymentNonceTokenData = null;
+      //console.log(paymentMessageData);
+      let paymentDataString = paymentMessageData.split(
+        '!952bccf9afe8e4c04306f70f7bed6610'
+      );
 
+      //console.log(paymentDataString);
       /* make sure the data message we received is an ECommerce Payment Token */
-      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+      if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
-        if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__')) {
+        if (
+          paymentDataString[0].startsWith(
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
+          )
+        ) {
           paymentNonceTokenData = String.prototype.replace.call(
-            paymentMessageData,
+            paymentDataString[0],
             '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
             ''
           );
           paymentMethod = 'creditcard';
-        }
-        else if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')) {
+        } else if (
+          paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
+        ) {
           paymentNonceTokenData = String.prototype.replace.call(
-            paymentMessageData,
+            paymentDataString[0],
             '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
             ''
           );
 
           paymentMethod = 'paypal';
         }
+        //console.log(`Payment Token:${paymentNonceTokenData}`);
 
-        this.setState({ paymentMethod: paymentMethod });
-        this.setState({ paymentToken: paymentNonceTokenData });
         //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
         const activatePendingCustomerData = {
-          paymentMethod: paymentMethod,
+          paymentMethod,
           paymentToken: paymentNonceTokenData,
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
           isAstronomyClub:
-            window.localStorage.getItem('isAstronomyClub') === 'true'
-              ? true
-              : false,
-          isClassroom:
-            window.localStorage.getItem('isClassroom') === 'true'
-              ? true
-              : false,
-          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          isAstronomyClubForMembers18AndOver:
-            window.localStorage.getItem(
-              'isAstronomyClubForMembers18AndOver'
-            ) === 'true'
-              ? true
-              : false,
+            window.localStorage.getItem('isAstronomyClub') === 'true',
+          billingAddressString: paymentDataString[3],
         };
-
-        axios
-          .post(
-            JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
-            activatePendingCustomerData
-          )
+        //add string aboc to this //ADD THIS BACK AFTER TESTING
+        API.post(
+          JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
+          activatePendingCustomerData
+        )
           .then(response => {
             const res = response.data;
             if (!res.apiError) {
@@ -142,15 +137,14 @@ class JoinStep3 extends Component {
                 const { actions } = this.props;
 
                 //Cleanup local localStorage
+
+                //cleanup any hidden plan that was accessed now that a plan was redeemed.
+                window.localStorage.removeItem('enableHiddenPlanHashCode');
+
+                //cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
-                window.localStorage.removeItem('selectedSchoolId');
                 window.localStorage.removeItem('isAstronomyClub');
-                window.localStorage.removeItem('isClassroom');
-                window.localStorage.removeItem('astronomyClubName');
-                window.localStorage.removeItem(
-                  'isAstronomyClubForMembers18AndOver'
-                );
 
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;
@@ -165,8 +159,9 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
-                  actions.logUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
@@ -174,11 +169,15 @@ class JoinStep3 extends Component {
                   };
 
                   window.localStorage.removeItem('accountCreationType');
-                  actions.logGoogleUserIn(loginDataPayload);
-                  browserHistory.push('/');
+                  actions.logGoogleUserIn(loginDataPayload, {reload: false}).then(() => {
+                    browserHistory.push('/join/purchaseConfirmation/join');
+                  });
                 }
               } else {
                 /* process / display error to user */
+                document
+                  .getElementById('embeddedHostedPaymentForm')
+                  .contentWindow.captureActivationError(res);
               }
             }
           })
@@ -189,52 +188,19 @@ class JoinStep3 extends Component {
     }
   };
 
-  /* Obtain access to the join api service response and update the  redirectInX Seconds state */
-  handleJoinPageServiceResponse = result => {
-    /* update the account form details state so the correct hinText will show on each form field */
-    this.setState(() => ({
-      redirectInXSecondsOnExpiredSignupRequest:
-        result.redirectInXSecondsOnExpiredSignupRequest,
-    }));
-  };
-
   CountdownRenderer = ({ completed, minutes, seconds }) => {
+    const { t } = this.props;
     if (completed) {
       // Render a completed state
       //console.log('The countdown has completed.....');
-      return (
-        <Countdown
-          date={
-            Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest
-          }
-          renderer={this.CountdownExpiredRenderer}
-          onComplete={this.CountdownExpiredComplete}
-        />
-      );
+      return <div></div>;
     }
     // Render a countdown
     return (
       <p style={{ fontSize: '1.3em', color: 'green' }}>
-        <FormattedMessage
-          {...messages.SignupRequestExpireTime}
-          values={{ minutes: minutes, seconds: seconds }}
-        />
+        {t('Ecommerce.SignupRequestExpireTime', { minutes, seconds })}
       </p>
     );
-  };
-
-  CountdownExpiredRenderer = ({ seconds, completed }) => {
-    if (!completed) {
-      // Render a countdown to redirect to the homepage
-      return (
-        <p style={{ fontSize: '1.3em', fontWeight: 'bold', color: 'red' }}>
-          <FormattedMessage
-            {...messages.SignupRequestExpireTime}
-            values={{ seconds }}
-          />
-        </p>
-      );
-    }
   };
 
   CountdownExpiredComplete = () => {
@@ -251,7 +217,6 @@ class JoinStep3 extends Component {
 
   render() {
     const { pathname } = this.props;
-    const paymentTokenNonce = this.state.paymentToken;
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
@@ -259,67 +224,110 @@ class JoinStep3 extends Component {
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
+          requestBody={{
+            callSource: 'providePaymentDetails',
+            selectedPlanId,
+            cid: window.localStorage.getItem('pending_cid'),
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
+          }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
               {!fetchingContent && (
-                <Fragment>
-                  {joinPageRes.hasSelectedSchool === 'yes' ? (
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={CLASSROOM_JOIN_TABS}
-                    />
-                  ) : (
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
-                  )}
-                  <div className="step-root">
-                    <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-                      <PlanDetailsCard
-                        {...joinPageRes.selectedSubscriptionPlan}
-                      />
-                    </DisplayAtBreakpoint>
-                    <div className="section-heading">
-                      {joinPageRes.sectionHeading}
-                    </div>
-                    <Countdown
-                      date={
-                        Date.now() +
-                        joinPageRes.customerHasXSecondsToCompleteSignup
-                      }
-                      renderer={this.CountdownRenderer}
-                      onComplete={this.CountdownComplete}
-                    />
-                    <div className="inner-container">
-                      <DisplayAtBreakpoint
-                        screenMedium
-                        screenLarge
-                        screenXLarge
-                      >
-                        <iframe
-                          frameBorder="0"
-                          style={{ width: '100%', minHeight: '750px' }}
-                          src={joinPageRes.hostedPaymentFormURL}
+                <DeviceContext.Consumer>
+                  {({ isMobile, isDesktop, isTablet }) => (
+                    <Fragment>
+                      {joinPageRes.hasSelectedSchool === 'yes' ? (
+                        <JoinHeader
+                          mainHeading={joinPageRes.pageHeading1}
+                          subHeading={joinPageRes.pageHeading2}
+                          activeTab={pathname}
+                          tabs={CLASSROOM_JOIN_TABS}
+                          backgroundImage={
+                            isMobile
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Mobile
+                              : isDesktop
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Desktop
+                              : isTablet
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Tablet
+                              : ''
+                          }
                         />
-                      </DisplayAtBreakpoint>
+                      ) : (
+                        <JoinHeader
+                          mainHeading={joinPageRes.pageHeading1}
+                          subHeading={joinPageRes.pageHeading2}
+                          activeTab={pathname}
+                          tabs={DEFAULT_JOIN_TABS}
+                          backgroundImage={
+                            isMobile
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Mobile
+                              : isDesktop
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Desktop
+                              : isTablet
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Tablet
+                              : ''
+                          }
+                        />
+                      )}
+                      <div className="step-root">
+                        <DisplayAtBreakpoint
+                          screenMedium
+                          screenLarge
+                          screenXLarge
+                        >
+                          <PlanDetailsCard
+                            {...joinPageRes.selectedSubscriptionPlan}
+                          />
+                        </DisplayAtBreakpoint>
+                        <div className="section-heading">
+                          {joinPageRes.sectionHeading}
+                        </div>
+                        <Countdown
+                          date={
+                            Date.now() +
+                            joinPageRes.customerHasXSecondsToCompleteSignup
+                          }
+                          renderer={this.CountdownRenderer}
+                          onComplete={this.CountdownExpiredComplete}
+                        />
+                        <div className="inner-container">
+                          <DisplayAtBreakpoint
+                            screenMedium
+                            screenLarge
+                            screenXLarge
+                          >
+                            <iframe
+                              id="embeddedHostedPaymentForm"
+                              title="PaymentFormLarge"
+                              frameBorder="0"
+                              style={{ width: '100%', minHeight: '750px' }}
+                              src={joinPageRes.hostedPaymentFormURL}
+                            />
+                          </DisplayAtBreakpoint>
 
-                      <DisplayAtBreakpoint screenSmall>
-                        <iframe
-                          frameBorder="0"
-                          style={{ width: '100%', minHeight: '850px' }}
-                          src={joinPageRes.hostedPaymentFormURL}
-                        />
-                      </DisplayAtBreakpoint>
-                    </div>
-                  </div>
-                </Fragment>
+                          <DisplayAtBreakpoint screenSmall>
+                            <iframe
+                              id="embeddedHostedPaymentForm"
+                              title="PaymentFormSmall"
+                              frameBorder="0"
+                              style={{ width: '100%', minHeight: '850px' }}
+                              src={joinPageRes.hostedPaymentFormURL}
+                            />
+                          </DisplayAtBreakpoint>
+                        </div>
+                      </div>
+                    </Fragment>
+                  )}
+                </DeviceContext.Consumer>
               )}
             </Fragment>
           )}

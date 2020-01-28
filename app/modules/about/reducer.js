@@ -1,203 +1,88 @@
-import uniqueId from 'lodash/uniqueId';
-import createReducer from '../utils/createReducer';
+import { actions, constants } from 'ducks-helpers';
+import { handleActions } from 'redux-actions';
 
-import { COMMIT_FEATURES, FETCH_ABOUT_DATA_START, FETCH_ABOUT_DATA_SUCCESS } from './actions';
+export const TYPE = constants('about', [
+  '~GET_ABOUT_DATA',
+  '~GET_SECTION_DATA',
+  '~GET_SUB_SECTION_DATA',
+  'SET_ACTIVE_SUB_SECTION',
+]);
 
-// feature types
-export const CREW = 'CREW';
-export const APPRENTICE = 'APPRENTICE';
-export const ASTRONOMER = 'ASTRONOMER';
-export const APPRENTICE_TOP = 'APPRENTICE_TOP';
+export const ACTION = actions(TYPE);
 
 const initialState = {
-  sloohFeatures: [
-    {
-      id: uniqueId(),
-      type: APPRENTICE_TOP,
-      content: '',
-      tooltip: {
-        show: true,
-        content:
-          'Your payment method will not be charged if you cancel your account during the trial period.\n \n Applies to monthly subscriptions only',
-        toolTipOpen: false,
-      },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Live Telescope Feeds',
-      tooltip: { show: false, content: '', toolTipOpen: false },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Take Pictures: Unlimited',
-      tooltip: {
-        show: true,
-        content: "Includes 'piggybacking' on missions to capture images automatically",
-        toolTipOpen: false,
-      },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Control Telescopes',
-      tooltip: { show: false, content: '', toolTipOpen: false },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Monthly Reservation Limit',
-      tooltip: {
-        show: true,
-        content: '5 mission reservations per month to control any Slooh telescope',
-        toolTipOpen: false,
-      },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Target Objects: Slooh 500',
-      tooltip: {
-        show: true,
-        content: 'Point telescopes at Slooh 500 objects, the most popular objects in the night sky',
-        toolTipOpen: false,
-      },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Livecasts',
-      tooltip: { show: false, content: '', toolTipOpen: false },
-    },
-    {
-      id: uniqueId(),
-      type: APPRENTICE,
-      content: 'Community',
-      tooltip: { show: false, content: '', toolTipOpen: false },
-    },
-
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Live Telescope Feeds',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Take Pictures: Limited',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Control Telescopes',
-      liNot: true,
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Reservations',
-      liNot: true,
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Target Objects',
-      liNot: true,
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Livecasts',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: CREW,
-      content: 'Community',
-      tooltip: { show: false, content: '' },
-    },
-
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Live Telescope Feeds',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Take Pictures: Unlimited+',
-      tooltip: {
-        show: true,
-        content:
-          "Includes FITS files and 'piggybacking' on missions to capture images automatically",
-      },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Control Telescopes',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Unlimited Reservations',
-      tooltip: {
-        show: true,
-        content:
-          'No limit to the total number of mission reservations per month to control any Slooh telescope',
-      },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Target Objects: All',
-      tooltip: {
-        show: true,
-        content:
-          'Point telescopes at any object in the sky, including Slooh 500, major astro-catalogs and by entering celestial coordinates',
-      },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Livecasts',
-      tooltip: { show: false, content: '' },
-    },
-    {
-      id: uniqueId(),
-      type: ASTRONOMER,
-      content: 'Community+',
-      tooltip: { show: true, content: 'Participate in citizen science research and discovery' },
-    },
-  ],
+  isFetching: false,
   aboutData: {},
+  aboutSloohSections: {},
+  subSectionData: {},
+  activeSubSections: null,
+  serverError: null,
 };
 
-export default createReducer(initialState, {
-  [COMMIT_FEATURES](state, { payload }) {
-    return {
-      ...state,
-      sloohFeatures: payload,
-    };
+export default handleActions(
+  {
+    [TYPE.GET_ABOUT_DATA]: start,
+    [TYPE.GET_ABOUT_DATA_SUCCESS]: getAboutDataSuccess,
+    [TYPE.GET_ABOUT_DATA_ERROR]: error,
+
+    [TYPE.GET_SECTION_DATA]: start,
+    [TYPE.GET_SECTION_DATA_SUCCESS]: getSectionDataSuccess,
+    [TYPE.GET_SECTION_DATA_ERROR]: error,
+
+    [TYPE.GET_SUB_SECTION_DATA]: start,
+    [TYPE.GET_SUB_SECTION_DATA_SUCCESS]: getSubSectionDataSuccess,
+    [TYPE.GET_SUB_SECTION_DATA_ERROR]: error,
+
+    [TYPE.SET_ACTIVE_SUB_SECTION]: setActiveSubSection,
   },
-  [FETCH_ABOUT_DATA_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      aboutData: { ...payload },
-    };
-  },
-  [FETCH_ABOUT_DATA_START](state) {
-    return {
-      ...state,
-      aboutData: { ...initialState.objectData },
-    };
-  },
-});
+  initialState
+);
+
+function start(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function error(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: payload,
+  };
+}
+
+function getAboutDataSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    aboutData: payload,
+  };
+}
+
+function getSectionDataSuccess(state, { payload }) {
+  const { aboutSloohSections } = state;
+  const { sectionTag } = payload;
+  return {
+    ...state,
+    isFetching: false,
+    aboutSloohSections: { ...aboutSloohSections, [sectionTag]: payload },
+    activeSubSections: null,
+  };
+}
+
+function getSubSectionDataSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    subSectionData: payload,
+  };
+}
+
+function setActiveSubSection(state, { payload }) {
+  return {
+    ...state,
+    activeSubSections: payload,
+  };
+}

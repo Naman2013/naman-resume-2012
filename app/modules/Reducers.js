@@ -1,3 +1,4 @@
+/* eslint-disable */
 import profile from 'app/modules/profile/reducer';
 import askAstronomer from 'app/modules/ask-astronomer/reducers/reducer';
 import imageDetails from 'app/modules/image-details/reducer';
@@ -9,6 +10,7 @@ import { reducer } from 'redux-form';
 // v4
 import logIn from 'app/modules/login/reducer';
 import accountSettings from 'app/modules/account-settings/reducer';
+import customerAdminTools from 'app/modules/customer-admin-tools/reducer';
 import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import adStats from './ad-management/ad-stats';
@@ -94,7 +96,9 @@ import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
 import galleryDetails from './gallery-details/reducer';
-import fitsData from './profile-photos/reducer';
+import photoHubs from './profile-photos/reducer';
+import leaderboard from './leaderboard/reducer';
+import purchaseConfirmation from './purchase-confirmation/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -188,9 +192,12 @@ export default combineReducers({
   telescope,
   missions,
   accountSettings,
+  customerAdminTools,
   missionDetails,
   imageDetails,
   galleryDetails,
   askAstronomer,
-  fitsData,
+  photoHubs,
+  leaderboard,
+  purchaseConfirmation,
 });

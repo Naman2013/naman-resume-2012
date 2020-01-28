@@ -13,11 +13,14 @@ import SloohSlider from 'app/components/common/Slider';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import BigGuideTile from 'app/components/common/tiles/BigGuideTile/BigGuideTile';
+import { useTranslation } from 'react-i18next';
 import { getSliderProps } from './recommendedGuidesConfiguration';
+
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
 const Guides = ({ recommendedGuidesList }) => {
-  const sliderProps = getSliderProps(recommendedGuidesList);
+  const { t } = useTranslation();
+  const sliderProps = getSliderProps(recommendedGuidesList, t);
   const shortList = take(recommendedGuidesList, 2) || [];
   return (
     <div className="root-dash">

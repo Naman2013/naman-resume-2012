@@ -5,14 +5,14 @@ import './styles.scss';
 
 export class TelescopeSetup extends Component {
   render() {
-    const { selectedTelescope, telescopeList, setTelescope } = this.props;
+    const { selectedTelescope, telescopeList, setTelescope, setUpTelescopePrompt } = this.props;
     const { teleName, telescopeId } = selectedTelescope;
 
     return (
       <div className="telescope-setup">
         <div className="telescope-setup-nav">
           <div className="telescope-setup-telescope-info">
-            Set up Telescope: {teleName}
+            {setUpTelescopePrompt} {teleName}
           </div>
           <TelescopeNav
             telescopeList={telescopeList}
@@ -27,7 +27,7 @@ export class TelescopeSetup extends Component {
           <TelescopeDropdown
             telescopeList={telescopeList}
             selectedTelescope={selectedTelescope}
-            onSelect={setTelescope}
+            onSelect={telescope => setTelescope(telescope, true)}
           />
         </div>
       </div>

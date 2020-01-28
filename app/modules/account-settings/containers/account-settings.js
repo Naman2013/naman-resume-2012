@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from 'app/modules/account-settings/reducer';
 import { AccountSettings } from '../components/account-settings';
 import {
   makeIsFetchingSelector,
@@ -17,6 +18,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   fetchAccountSettingsAction,
+  getAccountPreferences: ACTION.getAccountPreferences,
 };
 
 export default compose(

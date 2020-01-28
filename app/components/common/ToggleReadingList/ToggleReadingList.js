@@ -42,6 +42,7 @@ class ToggleReadingList extends Component {
       readingListType,
       readingListPrompt,
       updateReadingInfoInList,
+      onUpdate,
     } = this.props;
     toggleReadingListState({
       listItemId: itemId,
@@ -56,15 +57,21 @@ class ToggleReadingList extends Component {
           icon: res.data.promptIconUrl,
           text: readingListPrompt ? res.data.readingListPrompt : null,
         }));
+
+        if (onUpdate) {
+          onUpdate();
+        }
       }
     });
   };
 
   render() {
     const { icon, text } = this.state;
+    const { theme } = this.props;
     return (
       <Fragment>
         <ReadingListButton
+          theme={theme}
           icon={icon}
           text={text}
           onClickEvent={this.toggleList}

@@ -13,6 +13,8 @@ import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
+import { API } from 'app/api';
+import { CancelToken } from 'axios';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 function getFieldsFromObj(obj, fields) {
@@ -33,8 +35,6 @@ function getFieldsFromObj(obj, fields) {
   }
   return result;
 }
-
-const { CancelToken } = axios;
 
 const POST = 'POST';
 const GET = 'GET';
@@ -136,12 +136,20 @@ class Request extends Component {
   };
 
   componentDidMount() {
-    this.fetchServiceContent();
+    const { serviceURL } = this.props;
+    if (serviceURL) {
+      this.fetchServiceContent();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isMatch(this.props.requestBody, nextProps.requestBody)) {
-      this.fetchServiceContent(nextProps.requestBody);
+    const { user, requestBody, serviceURL } = this.props;
+    if (
+      (!isMatch(requestBody, nextProps.requestBody) ||
+        !isMatch(user, nextProps.user)) &&
+      serviceURL
+    ) {
+      this.fetchServiceContent(nextProps.requestBody, nextProps.user);
     }
   }
 
@@ -184,9 +192,9 @@ class Request extends Component {
     }
 
     // TODO: this should go...
-    if (authorizationRedirect) {
-      actions.validateResponseAccess(result);
-    }
+    //if (authorizationRedirect) {
+    actions.validateResponseAccess(result);
+    //}
 
     // this is part of the reduce refactor suggested from earlier
     // build the models defined by the client
@@ -224,7 +232,7 @@ class Request extends Component {
     }
   }
 
-  fetchServiceContent(nextRequestBody) {
+  fetchServiceContent(nextRequestBody, nextUser) {
     const {
       serviceURL,
       method,
@@ -246,33 +254,29 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
-    const { cid, at, token, } = user;
-    let resultedUserParams = user;
+    const { cid, at, token } = nextUser || user;
+    let resultedUserParams = nextUser || user;
 
     if (userParams.length > 0)
-      resultedUserParams = getFieldsFromObj(user, userParams);
+      resultedUserParams = getFieldsFromObj(nextUser || user, userParams);
 
     if (method === POST) {
-      axios
-        .post(
-          serviceURL,
-          Object.assign(
-            {
-              cancelToken: this.source.token,
-            },
-            validatedRequestBody,
-            withoutUser ? { cid, at, token } : resultedUserParams
-          )
+      API.post(
+        serviceURL,
+        Object.assign(
+          {
+            cancelToken: this.source.token,
+          },
+          validatedRequestBody,
+          withoutUser ? { cid, at, token } : resultedUserParams
         )
-        .then(result => this.handleServiceResponse(result.data));
+      ).then(result => this.handleServiceResponse(result.data));
     }
 
     if (method === GET) {
-      axios
-        .get(serviceURL, {
-          params: Object.assign({}, validatedRequestBody),
-        })
-        .then(result => this.handleServiceResponse(result.data));
+      API.get(serviceURL, {
+        params: Object.assign({}, validatedRequestBody),
+      }).then(result => this.handleServiceResponse(result.data));
     }
   }
 

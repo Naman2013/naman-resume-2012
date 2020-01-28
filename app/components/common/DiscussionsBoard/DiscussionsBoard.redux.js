@@ -7,9 +7,11 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
+import take from 'lodash/take';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
+import { THREAD_REPLIES } from 'app/services/discussions';
 import DiscussionsThreads from './DiscussionsThreads';
 import DiscussionComments from './DiscussionComments';
 
@@ -26,6 +28,8 @@ class DiscussionsBoard extends Component {
     topLevelThread: bool,
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
+    isClub: bool,
+    jumpToThreadId: number,
   };
 
   static defaultProps = {
@@ -37,6 +41,8 @@ class DiscussionsBoard extends Component {
     topicId: null,
     topLevelThread: true,
     createThreadFormParams: {},
+    isClub: false,
+    jumpToThreadId: null,
   };
 
   state = {
@@ -45,12 +51,12 @@ class DiscussionsBoard extends Component {
     threadsCount: 0,
     commentsList: {},
     displayedComments: {},
-    discussionKey: Date.now(),
+    page: this.props.page,
   };
 
   updateThreadsProps = (threadsList, threadsCount, displayed) => {
     const newThreadsList = threadsList || this.state.threadsList;
-    const newThreadsCount = threadsCount || this.state.threadsCount;
+    const newThreadsCount = Number(threadsCount) || this.state.threadsCount;
     const displayedThreads = displayed || this.state.displayedThreads;
     const displayedComments = Object.keys(this.state.displayedComments);
     const commentsList = Object.keys(this.state.commentsList);
@@ -75,11 +81,68 @@ class DiscussionsBoard extends Component {
       threadsCount: newThreadsCount,
       displayedThreads,
       commentsList: newCommentsList,
-      discussionKey: Date.now(),
     });
   };
 
-  updateCommentsProps = (id, comments, displayed) => {
+  getReplies = (threadId, replyTo) => {
+    const {
+      callSource,
+      count,
+      topicId,
+      forumId,
+      validateResponseAccess,
+      user,
+    } = this.props;
+    const { commentsList, page } = this.state;
+
+    API.post(THREAD_REPLIES, {
+      callSource,
+      topicId,
+      threadId,
+      forumId,
+      replyTo: replyTo || threadId,
+      page: 1,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      validateResponseAccess(res);
+      if (!res.data.apiError) {
+        const { replies } = res.data;
+        const newReplies = replies.map((reply, index) => {
+          const currentReply = Object.assign({}, reply);
+          currentReply.page = 1;
+          if (
+            commentsList[threadId] &&
+            commentsList[threadId][index]?.replyId === currentReply.replyId
+          ) {
+            currentReply.showComments =
+              commentsList[threadId][index].showComments;
+          }
+          if (
+            replyTo === currentReply.replyId ||
+            threadId === currentReply.replyId
+          ) {
+            currentReply.showComments = true;
+          }
+          currentReply.key = currentReply.replyId;
+          return currentReply;
+        });
+        const displayedComments = take([].concat(replies), count).map(
+          reply => reply.replyId
+        );
+
+        this.updateCommentsProps(
+          replyTo || threadId,
+          newReplies,
+          displayedComments,
+          page
+        );
+      }
+    });
+  };
+
+  updateCommentsProps = (id, comments, displayed, newPage) => {
     this.setState(state => {
       const { commentsList, displayedComments } = state;
       const newCommentsList = Object.assign({}, commentsList);
@@ -96,6 +159,7 @@ class DiscussionsBoard extends Component {
       return {
         commentsList: newCommentsList,
         displayedComments: newDisplayedComments,
+        page: newPage,
       };
     });
   };
@@ -148,13 +212,20 @@ class DiscussionsBoard extends Component {
       count,
       errorMessage,
       forumId,
-      page,
       topicId,
       threadId,
+      jumpToThreadId,
       topLevelThread,
       createThread,
       createThreadFormParams,
+      validateResponseAccess,
+      user,
+      discussionGroupId,
+      showId,
+      isClub,
     } = props;
+
+    const { page } = this.state;
 
     const discussionsActions = {
       updateThreadsProps,
@@ -163,50 +234,61 @@ class DiscussionsBoard extends Component {
       toggleCommentsReplies,
     };
 
+    const flagParams = {
+      forumId,
+      type: callSource === 'shows' ? 'show' : callSource,
+      itemId: threadId,
+      topicId,
+      itemType: 'thread',
+      discussionGroupId: showId,
+    };
+
     return (
-      <div>
-        <ConnectUserAndResponseAccess
-          render={({ user, validateResponseAccess }) => (
-            <DeviceContext.Consumer>
-              {context => (
-                <Fragment>
-                  {topLevelThread ? (
-                    <DiscussionsThreads
-                      validateResponseAccess={validateResponseAccess}
-                      discussions={this.state}
-                      discussionsActions={discussionsActions}
-                      errorMessage={errorMessage}
-                      callSource={callSource}
-                      count={count}
-                      page={page}
-                      topicId={topicId}
-                      forumId={forumId}
-                      user={user}
-                      createThread={createThread}
-                      createThreadFormParams={createThreadFormParams}
-                      {...context}
-                    />
-                  ) : (
-                    <DiscussionComments
-                      validateResponseAccess={validateResponseAccess}
-                      discussions={this.state}
-                      discussionsActions={discussionsActions}
-                      errorMessage={errorMessage}
-                      callSource={callSource}
-                      count={count}
-                      threadId={threadId}
-                      formPlaceholder="Write a public comment"
-                      page={page}
-                      topicId={topicId}
-                      forumId={forumId}
-                      user={user}
-                    />
-                  )}
-                </Fragment>
+      <div key={`discussions-${topicId}`}>
+        <DeviceContext.Consumer>
+          {context => (
+            <Fragment>
+              {topLevelThread ? (
+                <DiscussionsThreads
+                  validateResponseAccess={validateResponseAccess}
+                  discussions={this.state}
+                  discussionsActions={discussionsActions}
+                  errorMessage={errorMessage}
+                  callSource={callSource}
+                  count={count}
+                  page={page}
+                  topicId={topicId}
+                  forumId={forumId}
+                  user={user}
+                  createThread={createThread}
+                  createThreadFormParams={createThreadFormParams}
+                  {...context}
+                  discussionGroupId={discussionGroupId}
+                  isClub={isClub}
+                  jumpToThreadId={jumpToThreadId}
+                />
+              ) : (
+                <DiscussionComments
+                  validateResponseAccess={validateResponseAccess}
+                  discussions={this.state}
+                  discussionsActions={discussionsActions}
+                  errorMessage={errorMessage}
+                  callSource={callSource}
+                  count={count}
+                  threadId={threadId}
+                  formPlaceholder="Write a public comment"
+                  page={page}
+                  topicId={topicId}
+                  forumId={forumId}
+                  user={user}
+                  getReplies={this.getReplies}
+                  updateComments
+                  flagParams={flagParams}
+                />
               )}
-            </DeviceContext.Consumer>
+            </Fragment>
           )}
-        />
+        </DeviceContext.Consumer>
       </div>
     );
   }

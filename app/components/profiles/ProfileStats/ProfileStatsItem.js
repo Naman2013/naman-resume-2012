@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import Button from '../../common/style/buttons/Button';
 import styles from './ProfileStatsItem.styles';
 
@@ -29,7 +30,7 @@ class ProfileStatsItem extends Component {
         <Button
           isActive={isActive}
           onClickEvent={() => onClickEvent(type)}
-          theme={{ borderRadius: '50%' }}
+          theme={{ borderRadius: '50%', color: astronaut }}
           text={!isActive && buttonText}
           renderIcon={isActive && this.renderIcon}
         />

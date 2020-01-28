@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const UPDATE_NOTIFICATIONS_COUNT = 'UPDATE_NOTIFICATIONS_COUNT';
 
@@ -7,27 +7,28 @@ const updateNotificationsCountAction = payload => ({
   payload,
 });
 
-export const updateNotificationsCount = payload => dispatch => dispatch(updateNotificationsCountAction(payload));
+export const updateNotificationsCount = payload => dispatch =>
+  dispatch(updateNotificationsCountAction(payload));
 
-export const dismissNotification = ({
-  eventId,
-  lang,
-  ver,
-}) => (dispatch, getState) => {
+export const dismissNotification = ({ eventId, lang, ver }) => (
+  dispatch,
+  getState
+) => {
   const { cid, at, token } = getState().user;
   const { notificationsCount } = getState().alerts;
-  return axios.post('/api/notify/markAsRead', {
+  return API.post('/api/notify/markAsRead', {
     at,
     cid,
     eventId,
     lang,
     token,
     ver,
-  })
-    .then((result) => {
-      dispatch(updateNotificationsCount({
+  }).then(result => {
+    dispatch(
+      updateNotificationsCount({
         count: notificationsCount - 1,
-      }));
-      return Object.assign({ eventId }, result.data);
-    });
+      })
+    );
+    return Object.assign({ eventId }, result.data);
+  });
 };

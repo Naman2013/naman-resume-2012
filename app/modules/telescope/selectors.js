@@ -11,16 +11,34 @@ export const makeTelescopeFetchingSelector = () =>
     state => state.isFetching
   );
 
+export const makeObservatoryListSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.observatoryList
+  );
+
 export const makeTelescopeDataSelector = () =>
   createSelector(
     selectTelescope,
     state => state.data
   );
 
+export const makeTelescopePageSetupSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.pageSetup
+  );
+
 export const makeAllSkyTimelapseSelector = () =>
   createSelector(
     selectTelescope,
     state => state.allSkyTimelapse
+  );
+
+export const makeTeidePeakCamCameraSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.teidePeakCamTimelapseWidgetResult
   );
 
 export const makeAllSkyTimelapseURLSelector = () =>
@@ -39,6 +57,12 @@ export const makeAllSkyCameraSelector = () =>
   createSelector(
     selectTelescopeOverview,
     state => state.allSkyWidgetResult
+  );
+
+export const makeSkyConditionsSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.seeingConditionsWidgetResult
   );
 
 export const makeDayNightBarPanelSelector = () =>
@@ -63,6 +87,12 @@ export const makeWeatherSatelliteSelector = () =>
   createSelector(
     selectTelescopeOverview,
     state => state.weatherSatelliteWidgetResult
+  );
+
+export const makeWeatherConditionsSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.weatherConditionsWidgetResult
   );
 
 export const makeDomeCamSelector = () =>
@@ -120,3 +150,19 @@ export const makeQueueTabReservedCommunityMissionSelector = () =>
     makeQueueTabSelector(),
     state => state.reservedCommunityMissionList[0]
   );
+
+// Widgets begin
+
+export const makeAllSkyCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.allSkyCamData
+  );
+
+export const makeDomeCamDataSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.domeCamData
+  );
+
+// Widgets end

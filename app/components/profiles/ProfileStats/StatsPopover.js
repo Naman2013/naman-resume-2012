@@ -1,7 +1,4 @@
-/** *********************************
- * V4 Profile stats popover
- *
- ********************************** */
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -19,12 +16,16 @@ class ProfileStatsItem extends Component {
     tabs: shape({}).isRequired,
   };
 
-  state = {};
-
   render() {
     const { selectedStats, title, total, show, tabs } = this.props;
 
-    const tabsList = tabs && tabs.tabsList.map((item, index) => <Tab disabled={tabs.disabledList && tabs.disabledList[index]}>{item}</Tab>);
+    const tabsList =
+      tabs &&
+      tabs.tabsList.map((item, index) => (
+        <Tab disabled={tabs.disabledList && tabs.disabledList[index]}>
+          {item}
+        </Tab>
+      ));
     const tabPanels =
       tabs && tabs.panels.map(item => <TabPanel>{item}</TabPanel>);
 

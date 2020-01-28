@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getThreadList } from '../../services/discussions/get-thread-list';
 import { createThread } from '../../services/discussions/create-thread';
 

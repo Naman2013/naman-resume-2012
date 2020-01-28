@@ -16,6 +16,7 @@ export const getDashboardPopupInfo = () => (dispatch, getState) => {
     token,
     at,
     cid,
+    callSource: "accountSettings",
   })
     .then(result => {
       dispatch(ACTION.getDashboardPopupInfoSuccess(result.data));
@@ -72,7 +73,7 @@ export const getSubscriptionPlans = data => (dispatch, getState) => {
     token,
     at,
     cid,
-    callSource: 'upgrade',
+    callSource: data.callSource || 'upgrade',
     ...data,
   })
     .then(result => dispatch(ACTION.getSubscriptionPlansSuccess(result.data)))

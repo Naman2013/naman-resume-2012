@@ -1,11 +1,12 @@
+import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import { API } from 'app/api';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import InputField from 'app/components/form/InputField';
@@ -26,15 +27,13 @@ import { primaryFont } from 'app/styles/variables/fonts';
 import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs';
 import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
-  googleClientIDModel,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+} from 'app/services/registration/registration';
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
-import messages from './Login.messages';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -42,13 +41,14 @@ const propTypes = {
     resetLogIn: PropTypes.func.isRequired,
     logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 const defaultProps = {};
 
+@withTranslation()
 class Login extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   state = {
@@ -85,11 +85,13 @@ class Login extends Component {
   };
 
   startForgotPassword = () => {
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { loginFormDetails } = this.state;
+    const newLoginFormData = cloneDeep(loginFormDetails);
+    const { t } = this.props;
 
-    if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = this.props.intl.formatMessage(
-        messages.ForgotPasswordError
+    if (loginFormDetails.loginEmailAddress.value === '') {
+      newLoginFormData.loginEmailAddress.errorText = t(
+        'Dashboard.ForgotPasswordError'
       );
 
       this.setState(() => ({
@@ -99,16 +101,12 @@ class Login extends Component {
     } else {
       this.setState(() => ({
         inForgotPasswordMode: true,
-        forgotPasswordStatusMessage: this.props.intl.formatMessage(
-          messages.ForgotPasswordRequest
-        ),
+        forgotPasswordStatusMessage: t('Dashboard.ForgotPasswordRequest'),
       }));
 
-      axios
-        .post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
-          loginEmailAddress: this.state.loginFormDetails.loginEmailAddress
-            .value,
-        })
+      API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
+        loginEmailAddress: loginFormDetails.loginEmailAddress.value,
+      })
         .then(response => {
           const { actions } = this.props;
 
@@ -132,7 +130,8 @@ class Login extends Component {
 
   //capture the change to the email address field
   handleFieldChange = ({ field, value }) => {
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { loginFormDetails } = this.state;
+    const newLoginFormData = cloneDeep(loginFormDetails);
     newLoginFormData[field].value = value;
 
     this.setState(() => ({
@@ -141,8 +140,9 @@ class Login extends Component {
   };
 
   clearCurrentErrors = () => {
+    const { loginFormDetails } = this.state;
     //clear out any login form errors
-    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const newLoginFormData = cloneDeep(loginFormDetails);
     newLoginFormData.loginEmailAddress.errorText = '';
 
     this.setState(() => ({
@@ -167,10 +167,9 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = axios
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    const googleSSOResult = API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const { actions } = this.props;
 
@@ -205,7 +204,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginFailed, intl } = this.props;
+    const { loginFailed, t } = this.props;
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
@@ -218,16 +217,22 @@ class Login extends Component {
       }),
     };
 
-    const googleProfileData = this.state.googleProfileData;
+    const {
+      inForgotPasswordMode,
+      forgotPasswordStatusMessage,
+      loginFormDetails,
+    } = this.state;
+
+    const { handleSubmit } = this.props;
 
     return (
       <div className="root">
-        {this.state.inForgotPasswordMode === true && (
+        {inForgotPasswordMode === true && (
           <div className="form">
             <div className="forgot-password-req">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: this.state.forgotPasswordStatusMessage,
+                  __html: forgotPasswordStatusMessage,
                 }}
               />
               <div className="close-button-container">
@@ -238,36 +243,32 @@ class Login extends Component {
                     color: romance,
                     border: 0,
                   }}
-                  text={intl.formatMessage(messages.Close)}
+                  text={t('Dashboard.Close')}
                   onClickEvent={this.closeForgotPassword}
                 />
               </div>
             </div>
           </div>
         )}
-        {this.state.inForgotPasswordMode === false && (
-          <form
-            className="form"
-            onSubmit={this.props.handleSubmit(this.handleSubmit)}
-          >
+        {inForgotPasswordMode === false && (
+          <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
             {loginFailed ? (
-              <div className="field-error">
-                <FormattedMessage {...messages.LoginFailed} />
+              <div className="field-error" style={{ marginLeft: '15px' }}>
+                {t('Dashboard.LoginFailed')}
               </div>
             ) : null}
-            {this.state.loginFormDetails.loginEmailAddress.errorText.length >
-              0 && (
+            {loginFormDetails.loginEmailAddress.errorText.length > 0 && (
               <div
                 className="field-error"
                 style={{ marginLeft: '10px', marginRight: '10px' }}
               >
-                {this.state.loginFormDetails.loginEmailAddress.errorText}
+                {loginFormDetails.loginEmailAddress.errorText}
               </div>
             )}
             <Field
               name="username"
               type="email"
-              label={intl.formatMessage(messages.Email)}
+              label={t('Dashboard.Email')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -275,12 +276,12 @@ class Login extends Component {
                   value: event.target.value,
                 });
               }}
-              value={this.state.loginFormDetails.loginEmailAddress.value}
+              value={loginFormDetails.loginEmailAddress.value}
             />
             <Field
               name="pwd"
               type="password"
-              label={intl.formatMessage(messages.Password)}
+              label={t('Dashboard.Password')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -288,25 +289,25 @@ class Login extends Component {
                   value: event.target.value,
                 });
               }}
-              value={this.state.loginFormDetails.password.value}
+              value={loginFormDetails.password.value}
             />
-            <Link
+            <a
               className="forgot title-link"
               onClick={event => {
                 this.startForgotPassword();
               }}
             >
               Forgot Your Password?
-            </Link>
+            </a>
 
             <Button
               theme={{ margin: '0 auto', color: astronaut }}
               type="submit"
-              text={intl.formatMessage(messages.SignWithEmail)}
+              text={t('Dashboard.SignWithEmail')}
               onClickEvent={this.clearCurrentErrors}
             />
             <div className="or-container">
-              <div className="or-text">{intl.formatMessage(messages.Or)}</div>
+              <div className="or-text">{t('Dashboard.Or')}</div>
               {/*<div className="or-line" />*/}
             </div>
             <Request
@@ -360,7 +361,7 @@ class Login extends Component {
 
             <div className="register-container">
               <span className="title-link">
-                {intl.formatMessage(messages.DontHaveAccount)}
+                {t('Dashboard.DontHaveAccount')}
               </span>
               <Link to="/join/step1">
                 <LargeButtonWithRightIcon
@@ -371,13 +372,13 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.JoinSloohToday)}
+                  text={t('Dashboard.JoinSloohToday')}
                 />
               </Link>
             </div>
             <div className="register-container">
               <span className="title-link">
-                {intl.formatMessage(messages.HaveAnInvintationCode)}
+                {t('Dashboard.HaveAnInvintationCode')}
               </span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
@@ -388,7 +389,7 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.RedeemInvitationCode)}
+                  text={t('Dashboard.RedeemInvitationCode')}
                 />
               </Link>
             </div>
@@ -402,7 +403,7 @@ class Login extends Component {
 
 const mapStateToProps = ({ appConfig, googleProfileData, logIn }) => ({
   loginFailed: logIn.loginFailed,
-  googleProfileData: googleProfileData,
+  googleProfileData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -411,6 +412,7 @@ const mapDispatchToProps = dispatch => ({
       resetLogIn,
       logUserIn,
       logGoogleUserIn,
+      closeAllMenus,
     },
     dispatch
   ),
@@ -424,6 +426,4 @@ const loginValidation = createValidator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  reduxForm({ form: 'loginForm', validate: loginValidation })(injectIntl(Login))
-);
+)(reduxForm({ form: 'loginForm', validate: loginValidation })(Login));

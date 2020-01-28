@@ -17,6 +17,11 @@ function TelescopeImageViewer({
   missionFormat,
   isInteractive,
   callSource,
+  shouldUseTransitions,
+  removeFadeTransitions,
+  isMobile,
+  currentFeed,
+  showId,
 }) {
   const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
   const teleThumbWidth = '866px';
@@ -41,9 +46,15 @@ function TelescopeImageViewer({
           clipped={clipped}
           missionFormat={missionFormat}
           viewportHeight={viewportHeight}
+          shouldUseTransitions={shouldUseTransitions}
+          removeFadeTransitions={removeFadeTransitions}
         />
 
-        <StarShareCamera />
+        <StarShareCamera
+          mobileStarShare={isMobile}
+          currentFeed={currentFeed}
+          showId={showId}
+        />
       </InteractiveViewer>
     </div>
   );
@@ -54,12 +65,16 @@ TelescopeImageViewer.defaultProps = {
   missionFormat: 'full',
   isInteractive: true,
   callSource: 'details',
+  shouldUseTransitions: true,
+  removeFadeTransitions: false,
 };
 
 TelescopeImageViewer.propTypes = {
   clipped: PropTypes.bool,
   missionFormat: PropTypes.string,
   isInteractive: PropTypes.bool,
+  shouldUseTransitions: PropTypes.bool,
+  removeFadeTransitions: PropTypes.bool,
 };
 
 export default TelescopeImageViewer;

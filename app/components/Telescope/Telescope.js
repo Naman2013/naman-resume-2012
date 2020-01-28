@@ -1,8 +1,10 @@
 // @flow
 import React, { PureComponent, Fragment } from 'react';
-import { Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import Fade from '../common/Fade';
 import FadeSVG from '../common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from '../../utils/easingFunctions';
@@ -16,11 +18,13 @@ import HowBig from './HowBig';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
+import { Modal } from '../modal';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
+import ModalTelescope from './ModalTelescope';
 
 const MAX_RESOLUTION = 250;
-const MAX_DURATION = 10000;
+const MAX_DURATION = 4000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 const MAX_FOV_FLIPS = 5;
 
@@ -42,23 +46,7 @@ const activeButtonTheme = {
   borderColor: romance,
 };
 
-type TTelescope = {
-  activeInstrumentID: string,
-  previousInstrumentID: string | void,
-  missionMetaData?: {
-    missionTargetID?: number,
-    referenceObjectScale?: number,
-    domain?: string,
-    targetObjectScale?: number,
-    targetObjectURL?: string,
-    targetObjectName?: string,
-  },
-  render?: Function,
-  increment?: number,
-  disableFullscreen?: boolean,
-};
-
-class Telescope extends PureComponent<TTelescope> {
+class Telescope extends PureComponent {
   static defaultProps = {
     increment: 5,
     render: noop,
@@ -67,19 +55,23 @@ class Telescope extends PureComponent<TTelescope> {
 
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
-    previousInstrumentID: this.props.previousInstrumentID,
+    previousInstrumentID: this.props.previousInstrumentId,
+    telescopeId: this.props.activeInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
-    horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
+    horizontalResolution: getTelescope(this.props.activeInstrumentID).PORTAL
       .horizontal,
-    verticalResolution: getTelescope(this.props.activeInstrumentID).FOV
-      .horizontal,
+    verticalResolution: getTelescope(this.props.activeInstrumentID).PORTAL
+      .vertical,
     increment: this.props.increment,
     awaitingMission: this.props.missionMetaData.missionTargetID === 0,
     transitionScale: false,
     isMaskActive: false,
     isModalActive: false,
     isGridActive: true,
+    showTitleMessage: false,
+    transitionStrokeColor: 'aqua',
+    showArrows: false,
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -93,17 +85,27 @@ class Telescope extends PureComponent<TTelescope> {
     radius: 0,
   };
 
-  componentWillReceiveProps({
-    activeInstrumentID,
-    previousInstrumentID,
-    missionMetaData,
-  }) {
-    if (activeInstrumentID !== this.props.activeInstrumentID) {
+  componentWillReceiveProps(props) {
+    const {
+      activeInstrumentID,
+      previousInstrumentId,
+      missionMetaData,
+      missionTitle,
+    } = props;
+      this.props.setPreviousInstrument(activeInstrumentID);
+    if (
+      previousInstrumentId !== null &&
+      previousInstrumentId !== activeInstrumentID
+    ) {
+      const tele = getTelescope(previousInstrumentId);
       this.setState(() => ({
-        activeInstrumentID: previousInstrumentID,
+        activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
+        telescopeId: previousInstrumentId,
+        horizontalResolution: tele.PORTAL.horizontal,
+        verticalResolution:tele.PORTAL.vertical
       }));
-      this.transitionZoomOut();
+      this.showTitleMessage();
     }
 
     if (missionMetaData.missionTargetID === 0) {
@@ -129,10 +131,22 @@ class Telescope extends PureComponent<TTelescope> {
 
   doFOVTransitionInterval = null;
 
+  showTitleMessage = () => {
+    this.setState({ showTitleMessage: true }, () => {
+      setTimeout(() => {
+        this.transitionZoomOut();
+      }, 3000);
+    });
+  };
+
   transitionZoomOut() {
     let remainingDuration = 0;
 
-    this.setState(() => ({ isTransitioningTelescope: true }));
+    this.setState(() => ({
+      isTransitioningTelescope: true,
+      showTitleMessage: false,
+      showArrows: true,
+    }));
 
     if (this.currentZoomOutTransition) {
       remainingDuration = this.currentZoomOutTransition
@@ -160,13 +174,18 @@ class Telescope extends PureComponent<TTelescope> {
   }
 
   transitionPOV() {
-    this.setState({ timesFlippedInstrumentBorder: 0 });
+    this.setState({
+      timesFlippedInstrumentBorder: 0,
+      transitionStrokeColor: 'aqua',
+      showArrows: false,
+    });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState(prevState => {
         const {
           activeInstrumentID,
           previousInstrumentID,
           timesFlippedInstrumentBorder,
+          transitionStrokeColor,
         } = prevState;
 
         if (timesFlippedInstrumentBorder >= MAX_FOV_FLIPS) {
@@ -185,8 +204,13 @@ class Telescope extends PureComponent<TTelescope> {
             previousInstrumentID === this.state.previousInstrumentID
               ? activeInstrumentID
               : previousInstrumentID,
+          transitionStrokeColor:
+            transitionStrokeColor === 'aqua' ? '#FAD59A' : 'aqua',
+          telescopeId:
+            this.state.telescopeId === this.state.previousInstrumentID
+              ? activeInstrumentID
+              : previousInstrumentID,
         };
-
         return updatedFOVFlipState;
       });
     }, 500);
@@ -199,6 +223,7 @@ class Telescope extends PureComponent<TTelescope> {
   }
 
   transitionZoomIn() {
+    this.setState({ showArrows: true });
     const targetTelescope = getTelescope(this.state.activeInstrumentID);
     this.currentZoomInTransition = this.transitionTo(
       this.telescopeTransitionComplete,
@@ -207,6 +232,7 @@ class Telescope extends PureComponent<TTelescope> {
         vertical: targetTelescope.PORTAL.vertical,
       }
     );
+    this.setState({ transitionStrokeColor: 'aqua' });
   }
 
   telescopeTransitionComplete() {
@@ -233,7 +259,7 @@ class Telescope extends PureComponent<TTelescope> {
           }));
         },
         onComplete: onCompleteCallback.bind(this),
-        ease: easingFunctions.easeInOutQuad,
+        ease: easingFunctions.easeInOutQuint,
       }
     );
   }
@@ -244,6 +270,10 @@ class Telescope extends PureComponent<TTelescope> {
 
   handleCompleteHowBigAnimation = () => {
     this.setState(() => ({ transitionScale: false }));
+  };
+
+  onHideModal = () => {
+    this.setState({ isModalActive: false });
   };
 
   render() {
@@ -261,10 +291,9 @@ class Telescope extends PureComponent<TTelescope> {
       isModalActive,
       isGridActive,
       radius,
-      missionTitle,
     } = this.state;
 
-    const { missionMetaData, disableFullscreen } = this.props;
+    const { missionTitle, missionMetaData, disableFullscreen } = this.props;
 
     const activeInstrument = getTelescope(activeInstrumentID);
     const tickSpacing = width / horizontalResolution;
@@ -284,45 +313,55 @@ class Telescope extends PureComponent<TTelescope> {
               }}
               className="portal"
             >
-              <div className="telescope-float-menu">
-                <Button
-                  renderIcon={() => <i className="fa fa-table" />}
-                  isActive={isGridActive}
-                  onClickEvent={() => {
-                    this.setState({ isGridActive: !isGridActive });
-                  }}
-                  theme={{
-                    ...(isGridActive ? activeButtonTheme : inactiveButtonTheme),
-                    marginBottom: '10px',
-                  }}
-                />
-                <Button
-                  renderIcon={() => <i className="fa fa-eye" />}
-                  isActive={isMaskActive}
-                  onClickEvent={() => {
-                    this.setState({ isMaskActive: !isMaskActive });
-                  }}
-                  theme={{
-                    ...(isMaskActive ? activeButtonTheme : inactiveButtonTheme),
-                    marginBottom: '10px',
-                  }}
-                />
-                {!disableFullscreen && (
+              {!isTransitioningTelescope && !this.state.showTitleMessage && (
+                <div className="telescope-float-menu">
                   <Button
-                    renderIcon={() => <i className="fa fa-arrows-alt" />}
-                    onClickEvent={() =>
-                      this.setState({
-                        isModalActive: true,
-                        isMaskActive: false,
-                      })
-                    }
-                    theme={inactiveButtonTheme}
+                    renderIcon={() => <i className="fa fa-table" />}
+                    isActive={isGridActive}
+                    onClickEvent={() => {
+                      this.setState({ isGridActive: !isGridActive });
+                    }}
+                    theme={{
+                      ...(isGridActive
+                        ? activeButtonTheme
+                        : inactiveButtonTheme),
+                      marginBottom: '10px',
+                    }}
                   />
-                )}
-              </div>
-              <Fade isHidden={isTransitioningTelescope}>
+                  <Button
+                    renderIcon={() => <i className="fa fa-eye" />}
+                    isActive={isMaskActive}
+                    onClickEvent={() => {
+                      this.setState({ isMaskActive: !isMaskActive });
+                    }}
+                    theme={{
+                      ...(isMaskActive
+                        ? activeButtonTheme
+                        : inactiveButtonTheme),
+                      marginBottom: '10px',
+                    }}
+                  />
+                  {!disableFullscreen && (
+                    <Button
+                      renderIcon={() => <i className="fa fa-arrows-alt" />}
+                      onClickEvent={() =>
+                        this.setState({
+                          isModalActive: true,
+                          isMaskActive: false,
+                        })
+                      }
+                      theme={inactiveButtonTheme}
+                    />
+                  )}
+                </div>
+              )}
+              <Fade
+                isHidden={
+                  isTransitioningTelescope || this.state.showTitleMessage
+                }
+              >
                 <div>
-                  {this.props.render({ viewportHeight: width }, imageData => {
+                  {this.props.render({ viewportHeight: width, fullscreenMode: disableFullscreen }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
 
                     const radiusSize = (imageHeight * 0.65) / 2;
@@ -344,16 +383,50 @@ class Telescope extends PureComponent<TTelescope> {
                  move non-scale transition elements into a component to keep this more readable
                  */}
                 <FadeSVG isHidden={transitionScale}>
-                  <FadeSVG isHidden={isTransitioningTelescope}>
+                  <FadeSVG
+                    isHidden={
+                      isTransitioningTelescope || this.state.showTitleMessage
+                    }
+                  >
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
+                  {(this.state.showTitleMessage ||
+                    isTransitioningTelescope) && (
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
+                  {this.state.showTitleMessage && (
+                    <UnitText
+                      text="Changing Field-Of-View..."
+                      x={width / 2}
+                      y={80}
+                      fontSize={width / 20}
+                      style={{
+                        fill: 'aqua',
+                        width: '100%',
+                        fontFamily: 'BrandonGrotesque-Black',
+                      }}
+                    />
+                  )}
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
                         previousInstrumentID={previousInstrumentID}
+                        telescopeId={this.state.telescopeId}
                         tickSpacing={tickSpacing}
                         canvasWidth={width}
+                        currentZoomIn={this.currentZoomInTransition}
+                        currentZoomOut={this.currentZoomOutTransition}
+                        stroke={this.state.transitionStrokeColor}
+                        showArrows={this.state.showArrows}
                       />
                     </FadeSVG>
                   )}
@@ -361,14 +434,22 @@ class Telescope extends PureComponent<TTelescope> {
                     <Fragment>
                       <TelescopeFrame
                         isGridVisible={isTransitioningTelescope}
-                        isScaleVisible={!isTransitioningTelescope}
+                        isScaleVisible={
+                          !isTransitioningTelescope &&
+                          !this.state.showTitleMessage
+                        }
                         horizontalResolution={horizontalResolution}
                         verticalResolution={verticalResolution}
                         increment={increment}
                         length={width}
                       />
 
-                      <FadeSVG isHidden={isTransitioningTelescope}>
+                      <FadeSVG
+                        isHidden={
+                          isTransitioningTelescope ||
+                          this.state.showTitleMessage
+                        }
+                      >
                         <Scale
                           dimension={width}
                           scale={
@@ -401,22 +482,28 @@ class Telescope extends PureComponent<TTelescope> {
                     </Fragment>
                   )}
                 </FadeSVG>
-                {!disableFullscreen && (
+                {!disableFullscreen && isModalActive && (
                   <Modal
-                    show={isModalActive}
+                    show
                     size="lg"
                     dialogClassName="telescope-modal"
                     centered
-                    onHide={() => this.setState({ isModalActive: false })}
+                    onHide={this.onHideModal}
                   >
-                    <Modal.Header closeButton>
-                      <Modal.Title>
-                        {missionTitle || 'No mission available'}
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Telescope {...this.props} disableFullscreen />
-                    </Modal.Body>
+                    <h3
+                      style={{
+                        color: 'white',
+                        marginTop: '-40px',
+                        marginBottom: '15px',
+                      }}
+                    >
+                      {missionTitle || 'No mission available'}
+                    </h3>
+                    <div>
+                      {isModalActive && (
+                        <ModalTelescope {...this.props} disableFullscreen />
+                      )}
+                    </div>
                   </Modal>
                 )}
 
@@ -483,4 +570,19 @@ class Telescope extends PureComponent<TTelescope> {
   }
 }
 
-export default Telescope;
+const mapStateToProps = ({ starshareCamera }) => ({
+  previousInstrumentId: starshareCamera.previousInstrumentId,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Telescope);

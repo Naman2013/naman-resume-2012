@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import { WriteObservationImageCard } from '../write-observation-image-card';
 import './styles.scss';
 
@@ -9,37 +10,55 @@ export class WriteObservationStep1 extends Component {
     const { objectId } = objectDetails;
     getMyPictures({
       viewType: 'photoRoll',
+      viewType2: 'shareMyPhotos',
       astroObjectIds: [objectId],
     });
   }
 
   render() {
-    const { myPictures, objectDetails, selectImage, imageDetails } = this.props;
-    const { imageList } = myPictures;
+    const {
+      myPictures,
+      objectDetails,
+      selectImage,
+      imageDetails,
+      isFetching,
+    } = this.props;
     const { customerImageId, scheduledMissionId } = imageDetails;
 
     return (
       <div className="write-observation-step1">
-        <h1 className="modal-h">Select an Image for your Observation.</h1>
-        <Row>
-          <Col md={6} xl={4}>
-            <WriteObservationImageCard
-              imageData={imageList[0] || {}}
-              objectDetails={objectDetails}
-              onClick={() => selectImage(imageList[0] || {})}
-              defaultCard
-            />
-          </Col>
-          {imageList.map(item => (
-            <Col md={6} xl={4}>
-              <WriteObservationImageCard
-                imageData={item}
-                objectDetails={objectDetails}
-                onClick={() => selectImage(item)}
-              />
-            </Col>
-          ))}
-        </Row>
+        {!isFetching && myPictures?.imageList?.length > 0 && (
+          <>
+            <h1 className="modal-h">Select an Image for your Observation.</h1>
+            <Row>
+              {myPictures?.imageList.map(
+                item =>
+                  item.canShareFlag && (
+                    <Col md={6} xl={4}>
+                      <WriteObservationImageCard
+                        imageData={item}
+                        objectDetails={objectDetails}
+                        onClick={() => selectImage(item)}
+                      />
+                    </Col>
+                  )
+              )}
+            </Row>
+          </>
+        )}
+        {!isFetching && myPictures?.imageList?.length === 0 && (
+          <>
+            <h1 className="modal-h">{myPictures?.missionLink?.displayTitle}</h1>
+            <p className="modal-p my-5">
+              {myPictures?.missionLink?.displaySubTitle}
+            </p>
+            <Link to={`/${myPictures?.missionLink?.buttonLink}`}>
+              <Button className="modal-btn">
+                {myPictures?.missionLink?.confirmButtonText}
+              </Button>
+            </Link>
+          </>
+        )}
       </div>
     );
   }

@@ -5,6 +5,7 @@ export default css`
   .details-root {
     display: flex;
     padding: 0;
+    position: relative;
   }
 
   .viewer {
@@ -23,7 +24,8 @@ export default css`
 
     .column {
       margin: 0 20px;
-      width: 300px;
+      width: 330px;
+      position: relative;
     }
   }
 `;

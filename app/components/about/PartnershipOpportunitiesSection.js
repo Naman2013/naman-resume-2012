@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { DeviceContext } from '../../providers/DeviceProvider';
 import Button from '../common/style/buttons/Button';
 import { envelope, phone } from '../../styles/variables/iconURLs';
 import submitPartnershipForm from '../../services/about/submit-partnership-form';
 import style from './PartnershipOpportunitiesSection.style';
-import messages from './PartnershipOpportunitiesSection.messages';
-
-const mockedData = {
-  heading1: 'Oh, The Places We’ll Go!',
-  heading2:
-    'Fusce vehicula dolor arcu sit amet blandit dolor seter mollis necelie Donec viverra eleifend lacus, vitae loreme. ',
-  contactTitle: 'Slooh Press',
-  contactPhone: '1 (877) 427-5664 x3',
-  contactEmail: 'press@slooh.com',
-};
 
 const customModalStyles = {
   content: {
@@ -42,6 +32,7 @@ const initialState = {
   message: '',
 };
 
+@withTranslation()
 class PartnershipOpportunitiesSection extends Component {
   state = {
     ...initialState,
@@ -83,10 +74,7 @@ class PartnershipOpportunitiesSection extends Component {
       response,
     } = this.state;
 
-    const {
-      intl: { formatMessage },
-      data,
-    } = this.props;
+    const { data, t } = this.props;
     const {
       sectionHeading,
       sectionHeading2,
@@ -94,6 +82,7 @@ class PartnershipOpportunitiesSection extends Component {
       infoHeading,
       infoEmailAddress,
       infoPhoneNumber,
+      infoHeading2,
     } = data;
     return (
       <DeviceContext.Consumer>
@@ -111,11 +100,7 @@ class PartnershipOpportunitiesSection extends Component {
                 role="button"
               />
               <div className="modal-header">
-                {response.success ? (
-                  <FormattedMessage {...messages.Success} />
-                ) : (
-                  <FormattedMessage {...messages.Error} />
-                )}
+                {response.success ? t('About.Success') : t('About.Error')}
               </div>
               <div className="modal-body">{response.statusMessage}</div>
             </Modal>
@@ -127,24 +112,20 @@ class PartnershipOpportunitiesSection extends Component {
               <div className="bottom-inputs">
                 <div className="inputs-row">
                   <div className="name row-item">
-                    <div className="input-label">
-                      <FormattedMessage {...messages.NameLabel} />
-                    </div>
+                    <div className="input-label">{t('About.NameLabel')}</div>
                     <input
                       className="input common-input"
-                      placeholder={formatMessage(messages.NamePlaceholder)}
+                      placeholder={t('About.NamePlaceholder')}
                       onChange={this.handleNameInput}
                       value={fullName}
                       type="text"
                     />
                   </div>
                   <div className="email row-item">
-                    <div className="input-label">
-                      <FormattedMessage {...messages.EmailLabel} />
-                    </div>
+                    <div className="input-label">{t('About.EmailLabel')}</div>
                     <input
                       className="input common-input"
-                      placeholder={formatMessage(messages.EmailPlaceholder)}
+                      placeholder={t('About.EmailPlaceholder')}
                       onChange={this.handleEmailInput}
                       value={emailAddress}
                       type="text"
@@ -154,14 +135,14 @@ class PartnershipOpportunitiesSection extends Component {
                 <textarea
                   className="text-area common-input"
                   onChange={this.handleWriteUsInput}
-                  placeholder={formatMessage(messages.MessagePlaceholder)}
+                  placeholder={t('About.MessagePlaceholder')}
                   rows="3"
                   value={message}
                 />
 
                 <div className="bottom-buttons">
                   <Button
-                    text={<FormattedMessage {...messages.Cancel} />}
+                    text={t('About.Cancel')}
                     withIntl
                     onClickEvent={this.handleCancel}
                     theme={{
@@ -171,7 +152,7 @@ class PartnershipOpportunitiesSection extends Component {
                   />
 
                   <Button
-                    text={<FormattedMessage {...messages.Submit} />}
+                    text={t('About.Submit')}
                     withIntl
                     onClickEvent={this.handleSubmit}
                     theme={{
@@ -190,6 +171,10 @@ class PartnershipOpportunitiesSection extends Component {
               </div>
               <div className="contact-data">
                 <h2 className="contact-title">{infoHeading}</h2>
+                <h2
+                  className="contact-subtitle"
+                  dangerouslySetInnerHTML={{ __html: infoHeading2 }}
+                />
                 <div className="contact-label">
                   <img src={phone} className="contact-label-icon" alt="phone" />
                   {infoPhoneNumber}
@@ -212,12 +197,6 @@ class PartnershipOpportunitiesSection extends Component {
   }
 }
 
-PartnershipOpportunitiesSection.propTypes = {
-  intl: PropTypes.shape({
-    defineMessage: PropTypes.func,
-  }).isRequired,
-};
-
 PartnershipOpportunitiesSection.defaultProps = {};
 
-export default injectIntl(PartnershipOpportunitiesSection);
+export default PartnershipOpportunitiesSection;

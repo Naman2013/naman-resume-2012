@@ -27,10 +27,22 @@ export const makeAccountDetailsSelector = () =>
     state => state.accountDetails
   );
 
+export const makeAccountPreferencesSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.accountPreferences
+  );
+
 export const makeAccountCancelSectionSelector = () =>
   createSelector(
     selectAccountSettings,
     state => state.accountCancelSection
+  );
+
+export const makeAccountEditPaymentSectionSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.editPaymentSection
   );
 
 export const makeSubscriptionPlansDataSelector = () =>

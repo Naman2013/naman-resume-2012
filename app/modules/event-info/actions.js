@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import get from 'lodash/get';
 import { fetchMoreAboutObject } from '../pulse/get-post-action';
 
@@ -28,7 +28,7 @@ export const fetchEventInfo = ({
   const { cid, at, token } = getState().user;
 
   dispatch(fetchEventInfoStart());
-  return axios.post('/api/events/getEventInfo', {
+  return API.post('/api/events/getEventInfo', {
     cid,
     at,
     token,

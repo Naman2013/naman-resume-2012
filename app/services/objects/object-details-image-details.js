@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchImageDetailsService({
   token,
@@ -6,10 +6,12 @@ export default function fetchImageDetailsService({
   cid,
   customerImageId,
 }) {
-  return axios.post('/api/images/getImageDetails', {
+  return API.post('/api/images/getImageDetails', {
     token,
     at,
     cid,
     customerImageId,
+    useShareToken: 'n',
+    callSource: 'sharedpictures',
   });
 }

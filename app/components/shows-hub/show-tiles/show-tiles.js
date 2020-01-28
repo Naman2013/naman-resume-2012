@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import ShowTile from 'app/components/common/tiles/show-tile-hub';
 import ShowExcerptTile from 'app/components/common/tiles/show-excerpt-tile-hub';
@@ -18,6 +17,7 @@ class ShowTiles extends Component {
     ).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
+    emptyText: PropTypes.string,
   };
 
   state = {
@@ -43,7 +43,13 @@ class ShowTiles extends Component {
   };
 
   render() {
-    const { shows, isMobile, updateReadingListInfo } = this.props;
+    const {
+      shows,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return shows.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -68,6 +74,7 @@ class ShowTiles extends Component {
                   <ShowExcerptTile
                     {...show}
                     updateReadingInfoInList={updateReadingListInfo}
+                    onUpdate={onUpdate}
                   />
                 </div>
               </li>
@@ -82,7 +89,7 @@ class ShowTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noShowsHub" />
+      <span dangerouslySetInnerHTML={{ __html: emptyText }} />
     );
   }
 }

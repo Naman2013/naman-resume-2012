@@ -42,6 +42,10 @@ export default css`
     color: ${shadows};
     font-weight: bold;
   }
+  
+  :global(.photohub-nav-block a:hover) {
+    color: ${shadows};
+  }
 
   :global(a.photohub-nav-active.photohub-nav-link) {
     color: ${astronaut};
@@ -56,6 +60,12 @@ export default css`
   .photohub-dropdown {
     display: flex;
     align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .photohub-dropdown :global(.root) {
+    width: 100%;
   }
 
   :global(.photohub-nav-link) {

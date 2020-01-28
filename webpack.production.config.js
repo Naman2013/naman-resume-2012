@@ -10,18 +10,15 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
-const cookieDomain = process.env.cookieDomain || '.slooh.com';
-
-// console.log(apiUrl, apiPortNumber, cookieDomain);
-
-// console.log(JSON.stringify(process.env.cookieDomain));
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
+const publicPath = path.join(__dirname, './public');
 const outPath = path.join(__dirname, './dist');
 const isProduction = process.env.NODE_ENV === 'production';
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   context: sourcePath,
@@ -30,63 +27,29 @@ module.exports = {
 
   devtool: 'source-map',
   entry: {
-    // vendors: [
-    //   'classnames',
-    //   'cookie',
-    //   'lodash',
-    //   'moment',
-    //   'moment-timezone',
-    //   'axios',
-    //   'react',
-    //   'react-addons-css-transition-group',
-    //   'react-dom',
-    //   'react-draggable',
-    //   'react-onclickoutside',
-    //   'react-redux',
-    //   'react-remarkable',
-    //   'react-router',
-    //   'react-router-redux',
-    //   'react-scroll',
-    //   'react-slick',
-    //   'react-tabs',
-    //   'react-tag-input',
-    //   'redux',
-    //   'redux-form',
-    //   'redux-logger',
-    //   'redux-thunk',
-    // ],
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
   output: {
     path: outPath,
     publicPath: '/',
     filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].chunk.js',
+    chunkFilename: 'chunks/[name].[hash].chunk.js',
   },
   resolve: {
     alias: {
       app: path.resolve(__dirname, './app/'),
       assets: path.resolve(__dirname, './app/assets/'),
     },
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        loader: 'string-replace-loader',
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        options: {
-          multiple: [
-            // string-replace loader is here to replace URL's mapped to /api in code
-            {
-              search: '/api/',
-              replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
-              flags: 'g',
-            },
-          ],
-        },
       },
-
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -135,21 +98,11 @@ module.exports = {
 
     // new WebpackMd5Hash(),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
 
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendors',
-    //   filename: 'common.js',
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: `${__dirname}/app/index.html`,
-    //   filename: 'index.html',
-    //   inject: 'body',
-    // }),
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'index.html',
@@ -186,10 +139,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: isProduction ? '[name].[hash].css' : '[name].css',
-      chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
+      filename: isProduction ? 'chunks/[name].[hash].css' : '[name].css',
+      chunkFilename: isProduction ? 'chunks/[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: publicPath, to: outPath },
+    ]),
   ],
   optimization: {
     minimize: true,
@@ -211,6 +167,7 @@ module.exports = {
         cache: true,
         sourceMap: true,
       }),
+      new OptimizeCSSAssetsPlugin({}),
     ],
     nodeEnv: 'production',
     sideEffects: true,

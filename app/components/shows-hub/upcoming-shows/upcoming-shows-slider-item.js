@@ -1,8 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import noop from 'lodash/noop';
-import uniqueId from 'lodash/uniqueId';
+import React, { Component } from 'react';
 import BigShowExcerptTile from 'app/components/common/tiles/big-show-excerpt-tile';
 import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import style from './upcoming-shows.style';
@@ -15,6 +11,7 @@ class UpcomingShowsSliderItem extends Component {
   state = {
     showInfo: false,
   };
+
   setActive = () => {
     if (!this.state.showInfo) {
       this.setState(() => ({
@@ -40,23 +37,22 @@ class UpcomingShowsSliderItem extends Component {
     } = this.props;
     const { showInfo } = this.state;
     return (
-      <div
-        className="upcoming-container"
-        onMouseOver={this.setActive}
-        onMouseLeave={this.removeActive}
-      >
+      <div className="upcoming-container">
         {!showInfo ? (
           <BigShowTile
             header={eventLabel}
             displayDate={displayDate}
             displayTime={displayTime}
             eventHostName={eventHostName}
-            key={uniqueId()}
             linkUrl={linkUrl}
             title={eventTitle}
+            onMouseEnter={this.setActive}
           />
         ) : (
-          <BigShowExcerptTile {...this.props} />
+          <BigShowExcerptTile
+            {...this.props}
+            onMouseLeave={this.removeActive}
+          />
         )}
         <style jsx>{style}</style>
       </div>

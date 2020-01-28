@@ -1,16 +1,12 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import defaultSliderConfiguration from '../Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
-
-import messages from './RecommendedObservationsSlider.messages';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 1,
+    initialSlide: 0,
     centerMode: false,
     centerPadding: '50px',
     responsive: [
@@ -39,7 +35,7 @@ const getSliderConfiguration = () =>
     ],
   });
 
-const getRecommendedObservationsItems = (imageList = []) => {
+const getRecommendedObservationsItems = (imageList = [], readOnly = false) => {
   return imageList.map(object => {
     return {
       customerImageId: parseInt(object.customerImageId, 10),
@@ -48,20 +44,21 @@ const getRecommendedObservationsItems = (imageList = []) => {
           key={imageList.customerImageId}
           {...sliderProps}
           {...object}
+          readOnly={readOnly}
         />
       ),
     };
   });
 };
 
-export const getSliderProps = (slideList = []) => {
+export const getSliderProps = (slideList = [], t, readOnly) => {
   return Object.assign(
     {
-      slideList: getRecommendedObservationsItems(slideList),
+      slideList: getRecommendedObservationsItems(slideList, readOnly),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );
 };

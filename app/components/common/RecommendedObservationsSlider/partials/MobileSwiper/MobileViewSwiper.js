@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Swiper from 'react-slick';
-import { FormattedMessage } from 'react-intl';
-
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
-import messages from './MobileViewSwiper.messages';
 
 const { arrayOf, shape } = PropTypes;
 
@@ -19,6 +18,7 @@ const emptyState = {
   commentsCount: 0,
   loading: true,
   error: false,
+  iconFileData: {},
 };
 
 const sliderConfig = {
@@ -26,6 +26,7 @@ const sliderConfig = {
   dots: true,
 };
 
+@withTranslation()
 class MobileViewSwiper extends Component {
   state = {
     ...emptyState,
@@ -40,6 +41,7 @@ class MobileViewSwiper extends Component {
     likesCount,
     error,
     linkUrl,
+    iconFileData,
   }) => {
     this.setState({
       title,
@@ -49,6 +51,7 @@ class MobileViewSwiper extends Component {
       commentsCount,
       error,
       linkUrl,
+      iconFileData,
       loading: false,
     });
   };
@@ -60,7 +63,7 @@ class MobileViewSwiper extends Component {
   };
 
   render() {
-    const { imagesList } = this.props;
+    const { imagesList, t, readOnly } = this.props;
     const {
       title,
       author,
@@ -71,6 +74,7 @@ class MobileViewSwiper extends Component {
       loading,
       error,
       linkUrl,
+      iconFileData,
     } = this.state;
 
     return (
@@ -78,7 +82,13 @@ class MobileViewSwiper extends Component {
         {!loading ? (
           <div className="top">
             <div className="title">{title}</div>
-            <div className="author">{author}</div>
+            {readOnly ? (
+              <div className="author">{author}</div>
+            ) : (
+              <Link to={iconFileData['Member']?.linkUrl}>
+                <div className="author">{author}</div>
+              </Link>
+            )}
             <div
               className="description"
               dangerouslySetInnerHTML={{ __html: description }}
@@ -86,53 +96,54 @@ class MobileViewSwiper extends Component {
           </div>
         ) : (
           <div className="top">
-            {!error ? (
-              `${<FormattedMessage {...messages.Loading} />}...`
-            ) : (
-              <FormattedMessage {...messages.ErrorWhileLoading} />
-            )}
+            {!error
+              ? `${t('Dashboard.Loading')}...`
+              : t('Dashboard.ErrorWhileLoading')}
           </div>
         )}
         <div className="swiper-container">
           <Swiper {...sliderConfig} beforeChange={this.handleSlideChange}>
-            {imagesList.map(image => (
+            {imagesList.map((image, index) => (
               <SwiperItem
                 key={image.imageTimestamp}
                 {...image}
                 currentIndex={currentIndex}
+                imageIndex={index}
                 purgeCardState={this.purgeState}
                 setObservationInfo={this.setObservationInfo}
               />
             ))}
           </Swiper>
         </div>
-        <div className="bottom">
-          <div className="buttons">
-            <div className="button">
-              <img
-                className="icon"
-                src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                alt="heart"
-              />
-              {likesCount}
+        {!readOnly && (
+          <div className="bottom">
+            <div className="buttons">
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                  alt="heart"
+                />
+                {likesCount}
+              </div>
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                  alt="comment"
+                />
+                {commentsCount}
+              </div>
+              <a href={linkUrl} className="button details">
+                {t('Dashboard.Details')}
+                <img
+                  src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                  alt="arrow-right"
+                />
+              </a>
             </div>
-            <div className="button">
-              <img
-                className="icon"
-                src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                alt="comment"
-              />
-              {commentsCount}
-            </div>
-            <a href={linkUrl} className="button details">
-              <FormattedMessage {...messages.Details} />
-              <img
-                src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                alt="arrow-right"
-              />
-            </a>
           </div>
-        </div>
+        )}
         <style jsx>{styles}</style>
       </div>
     );

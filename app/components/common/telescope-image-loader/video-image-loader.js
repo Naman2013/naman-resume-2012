@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import StarShareCamera from 'app/components/telescope-details/star-share-camera/star-share-camera';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import {
   updateActiveSSE,
@@ -11,9 +12,11 @@ import {
 import {
   setImageDataToSnapshot,
   resetImageToSnap,
+  setPreviousInstrument,
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
 import YoutubePlayer from '../YoutubePlayer/YoutubePlayer';
+import liveShows from 'app/modules/live-shows/live-shows-reducer';
 
 const SSE = 'SSE';
 
@@ -24,13 +27,23 @@ const mapDispatchToProps = dispatch => ({
       resetImageToSnap,
       updateActiveSSE,
       resetActiveSSE,
+      setPreviousInstrument,
     },
     dispatch
   ),
 });
 
+const mapStateToProps = ({ starshareCamera, liveShows }) => ({
+  snapshotList: starshareCamera.snapshotList,
+  snapshotMsg: starshareCamera.snapshotMsg,
+  snapAPIError: starshareCamera.apiError,
+  imagesLastSnapped: starshareCamera.imagesLastSnapped,
+  justSnapped: starshareCamera.justSnapped,
+  liveShowsData: liveShows.liveShowsResponse,
+});
+
 @connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )
 class VideoImageLoader extends Component {
@@ -53,6 +66,7 @@ class VideoImageLoader extends Component {
     callSource: PropTypes.string,
     autoPlay: PropTypes.number,
     showOverlay: PropTypes.bool,
+    isTelescope: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -66,6 +80,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
+    this.props.actions.setPreviousInstrument(null);
     this.props.actions.resetActiveSSE();
     this.props.actions.resetImageToSnap();
     if (cameraSourceType === SSE && teleSystem && telePort) {
@@ -123,7 +138,33 @@ class VideoImageLoader extends Component {
   }
 
   render() {
-    return <YoutubePlayer {...this.props} />;
+    const {
+      actions,
+      snapshotMsg,
+      justSnapped,
+      snapAPIError,
+      snapshotList,
+      imagesLastSnapped,
+      liveShowsData,
+      isTelescope,
+    } = this.props;
+    return (
+      <div>
+        {((liveShowsData.canStarShare &&
+          liveShowsData?.additionalFeeds?.length) ||
+          isTelescope) && (
+          <StarShareCamera
+            actions={actions}
+            snapshotMsg={snapshotMsg}
+            justSnapped={justSnapped}
+            snapAPIError={snapAPIError}
+            snapshotList={snapshotList}
+            imagesLastSnapped={imagesLastSnapped}
+          />
+        )}
+        <YoutubePlayer {...this.props} />
+      </div>
+    );
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 /***********************************
  *  V4 PhotoRollCard
@@ -5,13 +6,13 @@
  ***********************************/
 import React, { Component } from 'react';
 import cn from 'classnames';
+import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import Button from 'app/components/common/style/buttons/Button';
+import { Button } from 'react-bootstrap';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './PhotoRollCard.messages';
+
 import style from './PhotoRollCard.style';
 
 type TPhotoRollCard = {
@@ -22,16 +23,21 @@ type TPhotoRollCard = {
   user: Object,
   count: number,
   isShareToken?: boolean,
+  tagActions: Object,
+  galleryId: string,
+  typeGallery: boolean,
 };
 
+@withTranslation()
 class PhotoRollCard extends Component<TPhotoRollCard> {
   state = { menuIsVisible: false };
 
   optionsList = [
+    { label: 'Remove from This Gallery', action: 'removeFromGallery' },
     { label: 'Add to gallery', action: 'addToGallery' },
     { label: 'Delete image', action: 'remove' },
     { label: 'Write observation', action: 'redirect' },
-    { label: 'Add Tags' },
+    { label: 'Add Tags', action: 'tagging' },
     { label: 'Share Image' },
   ];
 
@@ -41,11 +47,9 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     this.setState({ width: this.blockWidth.clientWidth });
   }
 
-  onDownloadFile = () => {
-    const {
-      currentItem: { imageDownloadURL, imageDownloadFilename },
-    } = this.props;
-    downloadFile(imageDownloadURL, imageDownloadFilename);
+  onDownloadFile = (e, imageURL, imageTitle) => {
+    e.preventDefault();
+    downloadFile(imageURL, imageTitle);
   };
 
   toggleMenuVisibility = () => {
@@ -61,12 +65,22 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   };
 
   render() {
-    const { index, isDesktop, isMobile, currentItem: observation } = this.props;
+    const {
+      index,
+      isDesktop,
+      isMobile,
+      currentItem: observation,
+      tagActions,
+      typeGallery,
+      t,
+    } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
     const {
       imageTitle,
       imageURL,
+      imageDownloadURL,
+      imageDownloadFilename,
       displayDate,
       displayTime,
       telescopeName,
@@ -91,9 +105,11 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                 <AsideToggleableMenu
                   blockWidth={width}
                   visible={menuIsVisible}
+                  tagActions={tagActions}
                   optionsList={this.optionsList}
                   redirectToImage={this.redirectToImage}
                   toggleMenuVisibility={this.toggleMenuVisibility}
+                  typeGallery={typeGallery}
                   {...this.props}
                 />
                 <div className="overlay-top">
@@ -113,22 +129,35 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                 </div>
                 <div className="overlay-bottom">
                   <Button
-                    withIntl
-                    onClickEvent={this.redirectToImage()}
-                    text={<FormattedMessage {...messages.Details} />}
-                    theme={{ borderColor: '#fff', color: '#fff' }}
-                  />
-                  <div style={{ display: 'flex' }}>
+                    className="photoRoll-details-btn"
+                    onClick={this.redirectToImage()}
+                  >
+                    {t('Photos.Details')}
+                  </Button>
+                  <div
+                    style={{ display: 'flex' }}
+                    className="overlay-bottom-action"
+                  >
+                    <a
+                      href={imageDownloadURL}
+                      className="photoRoll-circle-btn btn-circle"
+                      onClick={e =>
+                        this.onDownloadFile(
+                          e,
+                          imageDownloadURL,
+                          imageDownloadFilename
+                        )
+                      }
+                      download
+                    >
+                      <span className="icon-download" />
+                    </a>
                     <Button
-                      onClickEvent={this.onDownloadFile}
-                      theme={{ borderColor: '#fff', marginRight: 10 }}
-                      icon="https://vega.slooh.com/assets/v4/icons/download.svg"
-                    />
-                    <Button
-                      onClickEvent={this.toggleMenuVisibility}
-                      theme={{ borderColor: '#fff' }}
-                      renderIcon={() => <Dots />}
-                    />
+                      className="photoRoll-circle-btn"
+                      onClick={this.toggleMenuVisibility}
+                    >
+                      <Dots />
+                    </Button>
                   </div>
                 </div>
               </div>

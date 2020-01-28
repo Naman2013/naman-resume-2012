@@ -1,7 +1,7 @@
 // @flow
 
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import './styles.scss';
 import cx from 'classnames';
@@ -23,26 +23,37 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPrefix,
     planCostPostfix,
     selectButtonText,
+    planDescription,
+    isPlanActionEnabled,
+    teaserContent,
   } = plan;
+
+  const planCostDisplay = planCostPrefix + planCost;
+
   return (
     <div className="subscription-plan">
-      <span className="header">{planHeading}</span>
-      <hr />
+      {planHeading && (
+        <Fragment>
+          <span className="header">{planHeading}</span>
+          <hr />
+        </Fragment>
+      )}
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
-        <span className="plan-cost">
-          {planCostPrefix}
-          {planCost}
-        </span>
+        <span
+          className="plan-cost"
+          dangerouslySetInnerHTML={{ __html: planCostDisplay }}
+        />
       </div>
 
       <hr />
 
       <div className="d-flex justify-content-between">
-        <span className="header">
-          UPGRADE TODAY AND GET A 14 DAY FREE TRIAL!
-        </span>
+        <span
+          className="header"
+          dangerouslySetInnerHTML={{ __html: teaserContent }}
+        />
         <span className="header">{planCostPostfix}</span>
       </div>
 
@@ -57,9 +68,26 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
           </Button>
           {!isDetailsExpanded && (
-            <Button className="animated fadeIn faster" onClick={onSelect}>
-              {selectButtonText} <span className="icon-arrow-right" />
-            </Button>
+            <Fragment>
+              {isPlanActionEnabled && (
+                <Button
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText} <span className="icon-arrow-right" />
+                </Button>
+              )}
+              {!isPlanActionEnabled && (
+                <Button
+                  disabled
+                  style={{ backgroundColor: '#D3D3D3' }}
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText}
+                </Button>
+              )}
+            </Fragment>
           )}
         </div>
       )}
@@ -83,9 +111,23 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             ) : (
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
-            <Button onClick={onSelect} className="btn-active">
-              {selectButtonText}
-            </Button>
+            <Fragment>
+              {isPlanActionEnabled && (
+                <Button className="btn-active" onClick={() => onSelect(plan)}>
+                  {selectButtonText}
+                </Button>
+              )}
+              {!isPlanActionEnabled && (
+                <Button
+                  disabled
+                  style={{ backgroundColor: '#D3D3D3' }}
+                  className="animated fadeIn faster"
+                  onClick={() => onSelect(plan)}
+                >
+                  {selectButtonText}
+                </Button>
+              )}
+            </Fragment>
           </div>
         </div>
       </Collapse>

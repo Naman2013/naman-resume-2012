@@ -81,7 +81,9 @@ export class Constellation extends Component {
       availableMissions,
       noObjects,
       reservedMission,
+      pageSetup,
     } = this.props;
+    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, choosePrompt, completeReservationPromptShort, navigationConfig, } = pageSetup;
 
     const { successModalShow } = this.state;
     return (
@@ -101,8 +103,8 @@ export class Constellation extends Component {
                   disabled={missionSlot && missionSlot.missionAvailable}
                   availableMissions={availableMissions}
                   noObjects={noObjects}
-                  description="Welcome to the Constellation! Tell us what you want to see, we’ll
-                  tell you which scope to use, and the best time to see it!"
+                  choosePrompt={choosePrompt}
+                  pageConfig={navigationConfig[1]}
                 />
               </Box>
             </div>
@@ -116,10 +118,13 @@ export class Constellation extends Component {
                     missionSlot={missionSlot}
                     onCancel={this.cancelMissionSlot}
                     onSubmit={this.reserveMissionSlot}
+                    cancelButtonCaption={cancelButtonCaption}
+                    scheduleMissionCaption={scheduleMissionCaption}
+                    completeReservationPromptShort={completeReservationPromptShort}
                   />
                 ) : (
                   <div className="reserved-mission-gag">
-                    YOUR MISSION WILL APPEAR HERE
+                    {yourMissionPrompt}
                   </div>
                 )}
               </Box>

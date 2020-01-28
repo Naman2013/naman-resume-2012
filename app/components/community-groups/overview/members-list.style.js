@@ -4,11 +4,11 @@ import {
   romance,
   glitter,
   seashell,
+  lightHeadedAstronaut,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { fullWidthBtn, profPic } from '../styles';
-import { lightHeadedAstronaut } from '../../../styles/variables/colors_tiles_v4';
 
 export const profilePicSmall = url =>
   Object.assign(profPic(url), {
@@ -78,6 +78,7 @@ export default css`
   .user-title {
     font-size: 18px;
     font-family: ${secondaryFont};
+    color: #1e1e1e;
   }
 
   .member-info {

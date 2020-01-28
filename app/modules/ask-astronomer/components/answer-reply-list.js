@@ -1,8 +1,9 @@
 import uniqueId from 'lodash/uniqueId';
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import take from 'lodash/take';
 import { bindActionCreators } from 'redux';
 import {
   replyToAnswer,
@@ -10,7 +11,6 @@ import {
 } from '../reducers/ask-astronomer-answer-discuss/actions';
 import styles from './answer-list.style';
 import AnswerReplyListItem from './answer-reply-list-item';
-import messages from './answer-reply-list.messages';
 
 const mapStateToProps = ({ astronomerAnswers, astronomerDiscuss, user }) => ({
   paginationCount: astronomerDiscuss.paginationCount,
@@ -34,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class AnswerReplyList extends Component {
   static defaultProps = {
     answerReplies: null,
@@ -45,6 +46,18 @@ class AnswerReplyList extends Component {
     repliesSubmitted: {},
   };
 
+  state = {
+    displayedReplies: [],
+    page: 1,
+  };
+
+  componentDidMount() {
+    const { answerReplies, paginationCount } = this.props;
+    this.setState({
+      displayedReplies: take(answerReplies.replies, paginationCount),
+    });
+  }
+
   handlePageChange = (paginatedSet, page) => {
     const { actions, replyId } = this.props;
     // make call to update page and displayed replies here
@@ -55,20 +68,21 @@ class AnswerReplyList extends Component {
     });
   };
 
-  loadMore = (fullDataSet, page, count) => {
-    const endIndex = count * page;
-    const updatedDataSet = fullDataSet
-      .slice(0, endIndex)
-      .map(item => item.replyId);
-
-    const { actions, replyId } = this.props;
-    // make call to update page and displayed answers here
-    actions.updateAnswerRepliesDisplayList({
+  loadMore = (page, count) => {
+    const { answerReplies } = this.props;
+    this.setState({
       page,
-      replyId,
-      displayedReplies: updatedDataSet,
+      displayedReplies: take(answerReplies.replies, count * page),
     });
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { answerReplies, paginationCount } = nextProps;
+    const { page } = prevState;
+    return {
+      displayedReplies: take(answerReplies.replies, paginationCount * page),
+    };
+  }
 
   isLastPage = (totalCount, currentPage, numberOnPage) => {
     return totalCount <= currentPage * numberOnPage;
@@ -78,7 +92,6 @@ class AnswerReplyList extends Component {
     const {
       actions,
       answerReplies,
-      displayedReplies,
       objectId,
       paginationCount,
       numberOfRepliesToAnswer,
@@ -92,7 +105,9 @@ class AnswerReplyList extends Component {
       threadId,
       topicId,
       user,
+      t,
     } = this.props;
+    const { displayedReplies, page } = this.state;
     const count = showAllReplies ? paginationCount : 1;
     const showPagination =
       showAllReplies &&
@@ -105,8 +120,7 @@ class AnswerReplyList extends Component {
           <div className="replies-list-contanier">
             <div className="num-replies">
               <span className="replies-number">
-                <FormattedMessage {...messages.Replies} />:{' '}
-                {numberOfRepliesToAnswer}
+                {t('AskAnAstronomer.Replies')}: {numberOfRepliesToAnswer}
               </span>
             </div>
             <div className="replies-list">
@@ -134,20 +148,8 @@ class AnswerReplyList extends Component {
         ) : null}
 
         <div className="text-center mt-3 mb-3">
-          {!this.isLastPage(
-            answerReplies.replies.length,
-            answerReplies.page,
-            count
-          ) && (
-            <Button
-              onClick={() =>
-                this.loadMore(
-                  answerReplies.replies,
-                  answerReplies.page + 1,
-                  count
-                )
-              }
-            >
+          {!this.isLastPage(answerReplies.replies.length, page, count) && (
+            <Button onClick={() => this.loadMore(page + 1, count)}>
               Load More
             </Button>
           )}

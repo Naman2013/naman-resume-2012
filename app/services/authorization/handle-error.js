@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const fetchHandleErrors = ({
   cidCheck,
@@ -8,8 +8,8 @@ export const fetchHandleErrors = ({
   errorCodeCheck,
   statusCodeCheck,
   currentPageId,
-}) => (
-  axios.post('/api/app/handleError', {
+}) =>
+  API.post('/api/app/handleError', {
     cidCheck,
     atCheck,
     tokenCheck,
@@ -17,5 +17,4 @@ export const fetchHandleErrors = ({
     errorCodeCheck,
     statusCodeCheck,
     currentPageId,
-  })
-);
+  });

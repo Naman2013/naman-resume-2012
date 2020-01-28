@@ -6,21 +6,21 @@
  ***********************************/
 
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import { Spinner } from 'app/components/spinner/index';
-import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
 import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
+import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import './styles.scss';
-import messages from './SubmitQuestionForm.messages';
 
 const { func, shape, string } = PropTypes;
-
+@withTranslation()
 class SubmitAnswerForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
@@ -35,7 +35,6 @@ class SubmitAnswerForm extends PureComponent {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {};
@@ -47,6 +46,9 @@ class SubmitAnswerForm extends PureComponent {
       answerText: '',
       S3URLs: [],
       uuid: '',
+      fileRef: React.createRef(),
+      uploadLoading: true,
+      toggleModal: false,
     };
     prepareReply({
       at: user.at,
@@ -55,43 +57,51 @@ class SubmitAnswerForm extends PureComponent {
     }).then(res => {
       this.setState(() => ({
         uuid: res.data.postUUID,
+        uploadLoading: false,
       }));
     });
   }
 
-  onChangeAnswerText = e => {
-    e.preventDefault();
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+  }
+
+  onChangeAnswerText = value => {
     this.setState({
-      answerText: e.target.value,
+      answerText: value,
     });
   };
 
-  handleUploadImage = event => {
+  handleUploadImage = async event => {
     event.preventDefault();
 
+    const { files } = event.target;
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
-    const data = new FormData();
-    data.append('cid', cid);
-    data.append('token', token);
-    data.append('at', at);
-    data.append('uniqueId', uuid);
-    data.append('imageClass', 'discussion');
-    data.append('attachment', event.target.files[0]);
+    this.setState({ uploadLoading: true });
+    for (let i = 0; i < files.length; i++) {
+      const data = new FormData();
+      data.append('cid', cid);
+      data.append('token', token);
+      data.append('at', at);
+      data.append('uniqueId', uuid);
+      data.append('imageClass', 'discussion');
+      data.append('attachment', files[i]);
 
-    this.setState({
-      uploadError: null,
-      uploadLoading: true,
-    });
+      this.setState({
+        uploadError: null,
+      });
 
-    setPostImages(data)
-      .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err =>
-        this.setState({
-          uploadError: err.message,
-          uploadLoading: false,
-        })
-      );
+      await setPostImages(data)
+        .then(res => this.handleUploadImageResponse(res.data))
+        .catch(err =>
+          this.setState({
+            uploadError: err.message,
+            uploadLoading: false,
+          })
+        );
+    }
+    this.setState({ uploadLoading: false });
   };
 
   submitForm = e => {
@@ -99,8 +109,8 @@ class SubmitAnswerForm extends PureComponent {
     const { answerText, S3URLs } = this.state;
 
     if (answerText.replace(/\s/g, '').length) {
-      this.props.submitForm(answerText, S3URLs);
       this.props.modalActions.closeModal();
+      return this.props.submitForm(answerText, S3URLs);
     }
   };
 
@@ -123,13 +133,16 @@ class SubmitAnswerForm extends PureComponent {
       uniqueId: uuid,
       imageClass: 'discussion',
       imageURL,
-    }).then(result => this.handleUploadImageResponse(result.data));
+    })
+      .then(result => this.handleUploadImageResponse(result.data))
+      .finally(() => {
+        this.setState({ uploadLoading: false });
+      });
   };
 
   handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
-      uploadLoading: false,
     });
   };
 
@@ -141,9 +154,28 @@ class SubmitAnswerForm extends PureComponent {
     uploadedImgCleanUp(S3URLs, cid, token, at, uuid, 'discussion');
   };
 
+  handleAddImage = () => {
+    const { fileRef } = this.state;
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  };
+
+  handleToggleModal = () => {
+    const { toggleModal } = this.state;
+    if (!toggleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    this.setState({
+      toggleModal: !this.state.toggleModal,
+    });
+  };
+
   render() {
-    const { S3URLs, uploadLoading } = this.state;
-    const { authorInfo, freshness, content, intl } = this.props;
+    const { S3URLs, uploadLoading, fileRef, toggleModal } = this.state;
+    const { authorInfo, freshness, content, t } = this.props;
 
     const { answerText } = this.state;
 
@@ -169,37 +201,37 @@ class SubmitAnswerForm extends PureComponent {
 
         <hr />
 
-        {S3URLs.length ? (
-          <>
-            <UploadImgThumb
-              src={S3URLs[0]}
-              onDelete={() => {
-                this.handleDeleteImage(S3URLs[0]);
-              }}
-            />
-            <hr />
-          </>
-        ) : null}
+        <MultiUploadImageList
+          onAddImage={this.handleAddImage}
+          imageList={S3URLs}
+          mobileVisible={toggleModal}
+          onDeleteImage={this.handleDeleteImage}
+          handleToggleModal={this.handleToggleModal}
+          useLoader={false}
+          isLoading={uploadLoading}
+        />
 
-        <textarea
+        <RichTextEditor
           className="field-input"
-          value={answerText}
+          editorValue={answerText}
           onChange={this.onChangeAnswerText}
-          placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
+          placeholder={t('AskAnAstronomer.AnswerPlaceholder')}
         />
         <div className="buttons-wrapper d-flex justify-content-between">
           <div>
             <PhotoUploadButton
+              multiple
+              setRef={fileRef}
+              handleToggleModal={this.handleToggleModal}
               handleUploadImage={this.handleUploadImage}
-              disabled={S3URLs.length}
             />
           </div>
           <div>
             <Button onClick={this.closeModal} className="mr-3">
-              {intl.formatMessage(messages.Cancel)}
+              {t('AskAnAstronomer.Cancel')}
             </Button>
             <Button onClick={this.submitForm}>
-              {intl.formatMessage(messages.Submit)}
+              {t('AskAnAstronomer.Submit')}
             </Button>
           </div>
         </div>
@@ -208,4 +240,4 @@ class SubmitAnswerForm extends PureComponent {
   }
 }
 
-export default injectIntl(SubmitAnswerForm);
+export default SubmitAnswerForm;

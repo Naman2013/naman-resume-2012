@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import flatten from 'lodash/flatten';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import IntroText from 'app/components/common/form-sections/intro-text';
 import FormSectionHeader from 'app/components/common/form-sections/section-header';
 import Tags from 'app/components/common/form-fields/tags';
 import GenericModal from 'app/components/common/v4-modals';
 import UploadImages from 'app/components/common/form-fields/upload-images';
 import Button from 'app/components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
 import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 import FormFeedbackActions from './partials/form-feedback-actions';
-import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
-import messages from './create-story-form.messages';
 
+@withTranslation()
 class CreateStoryForm extends Component {
   static propTypes = {
     cancelLabel: PropTypes.string.isRequired,
@@ -30,7 +30,6 @@ class CreateStoryForm extends Component {
       }),
     }),
     submitLabel: PropTypes.string.isRequired,
-    intl: intlShape.isRequired,
 
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
@@ -42,6 +41,7 @@ class CreateStoryForm extends Component {
       submitStory: PropTypes.func.isRequired,
     }),
   };
+
   static defaultProps = {
     actions: {},
     contentCategories: [],
@@ -65,6 +65,7 @@ class CreateStoryForm extends Component {
       },
     },
   };
+
   state = {
     bodyContent: '',
     headlineContent: '',
@@ -160,7 +161,7 @@ class CreateStoryForm extends Component {
       tags,
     } = this.state;
 
-    const { actions, user, intl } = this.props;
+    const { actions, user, t } = this.props;
 
     if (
       bodyContent &&
@@ -187,26 +188,22 @@ class CreateStoryForm extends Component {
       const missingFields = [];
 
       if (!bodyContent) {
-        missingFields.push(
-          `<li>${intl.formatMessage(messages.bodyContentErrorMessage)}</li>`
-        );
+        missingFields.push(`<li>${t('Stories.bodyContentErrorMessage')}</li>`);
       }
 
       if (!headlineContent) {
-        missingFields.push(
-          `<li>${intl.formatMessage(messages.headlineErrorMessage)}</li>`
-        );
+        missingFields.push(`<li>${t('Stories.headlineErrorMessage')}</li>`);
       }
 
       if (!selectedContentCategory) {
         missingFields.push(
-          `<li>${intl.formatMessage(messages.contentCategoryErrorMessage)}</li>`
+          `<li>${t('Stories.contentCategoryErrorMessage')}</li>`
         );
       }
 
       if (!selectedObjectCategory) {
         missingFields.push(
-          `<li>${intl.formatMessage(messages.objectCategoryErrorMessage)}</li>`
+          `<li>${t('Stories.objectCategoryErrorMessage')}</li>`
         );
       }
 
@@ -214,7 +211,7 @@ class CreateStoryForm extends Component {
         modalStyles: customModalStylesBlackOverlay,
         modalComponent: (
           <GenericModal
-            title={intl.formatMessage(messages.errorMessagePopupTitle)}
+            title={t('Stories.errorMessagePopupTitle')}
             promptText={missingFields.join('')}
             renderActions={() => (
               <Button onClickEvent={actions.closeModal} text="close" />
@@ -364,4 +361,4 @@ class CreateStoryForm extends Component {
   }
 }
 
-export default injectIntl(CreateStoryForm);
+export default CreateStoryForm;

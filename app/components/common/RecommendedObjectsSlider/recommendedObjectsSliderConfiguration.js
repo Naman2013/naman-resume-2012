@@ -1,10 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
-
-import messages from './RecommendedObjectsSlider.message';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -14,24 +10,46 @@ const getSliderConfiguration = () =>
     centerPadding: '25px',
   });
 
-const getRecommendedObjectsItems = (recommendedObjectsList = [], reservationModalShow) =>
+const getRecommendedObjectsItems = (
+  recommendedObjectsList = [],
+  reservationModalShow,
+  reservedButtonCaption,
+  optionsButtonCaption,
+  readOnly = false
+) =>
   recommendedObjectsList.map(object => ({
     render: () => (
       <RecommendedObjectsItem
         key={`${object.title} ${object.subtitle}`}
         object={object}
         reservationModalShow={reservationModalShow}
+        reservedButtonCaption={reservedButtonCaption}
+        optionsButtonCaption={optionsButtonCaption}
+        readOnly={readOnly}
       />
     ),
   }));
 
-export const getSliderProps = (slideList = [], reservationModalShow) =>
+export const getSliderProps = (
+  slideList = [],
+  reservationModalShow,
+  reservedButtonCaption,
+  optionsButtonCaption,
+  t,
+  readOnly
+) =>
   Object.assign(
     {
-      slideList: getRecommendedObjectsItems(slideList, reservationModalShow),
+      slideList: getRecommendedObjectsItems(
+        slideList,
+        reservationModalShow,
+        reservedButtonCaption,
+        optionsButtonCaption,
+        readOnly
+      ),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

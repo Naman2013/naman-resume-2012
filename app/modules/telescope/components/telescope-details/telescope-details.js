@@ -20,6 +20,8 @@ export class TelescopeDetails extends Component {
   refreshTelescopeStatusTimeout = null;
 
   componentDidMount() {
+    const { getTelescopes } = this.props;
+    getTelescopes();
     this.scaffoldPage();
   }
 
@@ -146,7 +148,11 @@ export class TelescopeDetails extends Component {
       params,
       countdownList,
       updateCurrentInstrument,
+      user,
+      dayNightBar,
+      dayNightBarPanel,
     } = this.props;
+
     if (
       !observatoryList.length ||
       !countdownList.length ||
@@ -177,7 +183,7 @@ export class TelescopeDetails extends Component {
           telescope.teleUniqueId === activeTelescope.telescopeUniqueID
       )
     );
-    
+
     return (
       <div>
         <TelescopeNavigation
@@ -191,12 +197,16 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
+
             <TelescopeOffline
+              {...this.props}
               key={`currentTelescopeId-${currentTelescope.teleId}`}
               currentTelescope={currentTelescope}
               currentObservatory={currentObservatory}
               currentInstrument={currentInstrument}
               allObservatoryTelescopeStatus={allObservatoryTelescopeStatus}
+              activeTelescopeStatus={activeTelescopeStatus}
+              observatoryList={observatoryList}
             />
           )}
         {/* Telescope: Online State */}

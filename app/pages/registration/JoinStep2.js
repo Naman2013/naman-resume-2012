@@ -3,18 +3,18 @@
  ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'app/components/form/InputField';
 import { createValidator, required } from 'app/modules/utils/validation';
-import { browserHistory } from 'react-router';
+
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
@@ -29,18 +29,17 @@ import {
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
-import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep2.style';
-import messages from './JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
+@withTranslation()
 class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -66,7 +65,6 @@ class JoinStep2 extends Component {
       isAstronomyClub:
         window.localStorage.getItem('isAstronomyClub') === 'true',
       isAgeRestricted: true,
-      isClassroom: window.localStorage.getItem('isClassroom') === 'true',
       googleProfileData: {
         googleProfileId: '',
         googleProfileEmail: '',
@@ -121,20 +119,6 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
-        astronomyClubName: {
-          label: '',
-          visible: true,
-          value: '',
-          hintText: '',
-          errorText: '',
-        },
-        astronomyClub18AndOver: {
-          label: '',
-          visible: true,
-          value: false,
-          hintText: '',
-          errorText: '',
-        },
         is13YearsAndOlder: {
           label: '',
           visible: true,
@@ -176,10 +160,6 @@ class JoinStep2 extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label =
       result.formFieldLabels.passwordverification.label;
-    newAccountFormData.astronomyClubName.label =
-      result.formFieldLabels.astronomyClubName.label;
-    newAccountFormData.astronomyClub18AndOver.label =
-      result.formFieldLabels.astronomyClub18AndOver.label;
     newAccountFormData.is13YearsAndOlder.label =
       result.formFieldLabels.is13YearsAndOlder.label;
     newAccountFormData.not13YearsOldLegalGuardianOk.label =
@@ -201,10 +181,6 @@ class JoinStep2 extends Component {
       result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText =
       result.formFieldLabels.passwordverification.hintText;
-    newAccountFormData.astronomyClubName.hintText =
-      result.formFieldLabels.astronomyClubName.hintText;
-    newAccountFormData.astronomyClub18AndOver.hintText =
-      result.formFieldLabels.astronomyClub18AndOver.hintText;
     newAccountFormData.is13YearsAndOlder.hintText =
       result.formFieldLabels.is13YearsAndOlder.hintText;
     newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
@@ -239,7 +215,7 @@ class JoinStep2 extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { intl } = this.props;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -250,7 +226,6 @@ class JoinStep2 extends Component {
     accountFormDetailsData.loginEmailAddressVerification.errorText = '';
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
-    accountFormDetailsData.astronomyClubName.errorText = '';
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
     accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
@@ -265,22 +240,22 @@ class JoinStep2 extends Component {
         */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.loginEmailAddress.value === '') {
-        accountFormDetailsData.loginEmailAddress.errorText = intl.formatMessage(
-          messages.EmailRequierMessage
+        accountFormDetailsData.loginEmailAddress.errorText = t(
+          '.EmailRequierMessage'
         );
         formIsComplete = false;
       } else {
@@ -290,8 +265,8 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddress.value !==
           accountFormDetailsData.loginEmailAddressVerification.value
         ) {
-          accountFormDetailsData.loginEmailAddressVerification.errorText = intl.formatMessage(
-            messages.EmailsDontMatchMessage
+          accountFormDetailsData.loginEmailAddressVerification.errorText = t(
+            '.EmailsDontMatchMessage'
           );
           formIsComplete = false;
         }
@@ -305,25 +280,15 @@ class JoinStep2 extends Component {
       */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
-        );
-        formIsComplete = false;
-      }
-    }
-
-    /* Special Verifications if this is an Astronomy Club */
-    if (this.state.isAstronomyClub) {
-      if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(
-          messages.AstronomyClubRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
@@ -332,8 +297,8 @@ class JoinStep2 extends Component {
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
       if (accountFormDetailsData.is13YearsAndOlder.value === null) {
-        accountFormDetailsData.is13YearsAndOlder.errorText = intl.formatMessage(
-          messages.AgeRequierMessage
+        accountFormDetailsData.is13YearsAndOlder.errorText = t(
+          '.AgeRequierMessage'
         );
         formIsComplete = false;
       } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
@@ -341,16 +306,16 @@ class JoinStep2 extends Component {
         if (
           accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
         ) {
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = intl.formatMessage(
-            messages.MinAgeErrorMessage
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
+            '.MinAgeErrorMessage'
           );
           formIsComplete = false;
         }
 
         //make sure the parent email address field is filled in.
         if (accountFormDetailsData.parentEmailAddress.value === '') {
-          accountFormDetailsData.parentEmailAddress.errorText = intl.formatMessage(
-            messages.ParentEmailRequierMessage
+          accountFormDetailsData.parentEmailAddress.errorText = t(
+            '.ParentEmailRequierMessage'
           );
           formIsComplete = false;
         }
@@ -359,8 +324,8 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = intl.formatMessage(
-        messages.PasswordRequierMessage
+      accountFormDetailsData.password.errorText = t(
+        'Ecommerce.PasswordRequierMessage'
       );
       formIsComplete = false;
     } else {
@@ -370,8 +335,8 @@ class JoinStep2 extends Component {
         accountFormDetailsData.password.value !==
         accountFormDetailsData.passwordVerification.value
       ) {
-        accountFormDetailsData.passwordVerification.errorText = intl.formatMessage(
-          messages.PasswordsDontMatchMessage
+        accountFormDetailsData.passwordVerification.errorText = t(
+          '.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }
@@ -383,13 +348,15 @@ class JoinStep2 extends Component {
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-      const customerDetailsMeetsRequirementsResult = axios
-        .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      const customerDetailsMeetsRequirementsResult = API.post(
+        VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+        {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
           selectedPlanId: window.localStorage.selectedPlanId,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -456,24 +423,12 @@ class JoinStep2 extends Component {
       selectedSchoolId,
       isAgeRestricted: this.state.isAgeRestricted,
     };
-    /* update tool/false values for Astronomy Club */
-    if (
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver
-        .value === false
-    ) {
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value =
-        'false';
-    } else {
-      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value =
-        'true';
-    }
 
     // JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
-    axios
-      .post(
-        JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
-        createPendingCustomerData
-      )
+    API.post(
+      JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+      createPendingCustomerData
+    )
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -495,14 +450,6 @@ class JoinStep2 extends Component {
               'password',
               this.state.accountFormDetails.password.value
             );
-            window.localStorage.setItem(
-              'astronomyClubName',
-              this.state.accountFormDetails.astronomyClubName.value
-            );
-            window.localStorage.setItem(
-              'isAstronomyClubForMembers18AndOver',
-              this.state.accountFormDetails.astronomyClub18AndOver.value
-            );
             // console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
           } else {
@@ -520,10 +467,9 @@ class JoinStep2 extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    axios
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -603,7 +549,7 @@ class JoinStep2 extends Component {
   };
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, t } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -613,9 +559,6 @@ class JoinStep2 extends Component {
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
-    //for classroom accounts
-    const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
-
     return (
       <div>
         <Request
@@ -623,7 +566,9 @@ class JoinStep2 extends Component {
           requestBody={{
             callSource: 'setupCredentials',
             selectedPlanId,
-            selectedSchoolId,
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
@@ -632,45 +577,24 @@ class JoinStep2 extends Component {
                 <DeviceContext.Consumer>
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
-                      {joinPageRes.hasSelectedSchool === 'yes' ? (
-                        <JoinHeader
-                          mainHeading={joinPageRes.pageHeading1}
-                          subHeading={joinPageRes.pageHeading2}
-                          activeTab={pathname}
-                          tabs={CLASSROOM_JOIN_TABS}
-                          backgroundImage={
-                            isMobile
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
-                              : isDesktop
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
-                              : isTablet
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
-                              : ''
-                          }
-                        />
-                      ) : (
-                        <JoinHeader
-                          mainHeading={joinPageRes.pageHeading1}
-                          subHeading={joinPageRes.pageHeading2}
-                          activeTab={pathname}
-                          tabs={DEFAULT_JOIN_TABS}
-                          backgroundImage={
-                            isMobile
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Mobile
-                              : isDesktop
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Desktop
-                              : isTablet
-                              ? joinPageRes.selectedSubscriptionPlan
-                                  .planSelectedBackgroundImageUrl_Tablet
-                              : ''
-                          }
-                        />
-                      )}
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                        backgroundImage={
+                          isMobile
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Mobile
+                            : isDesktop
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Desktop
+                            : isTablet
+                            ? joinPageRes.selectedSubscriptionPlan
+                                ?.planSelectedBackgroundImageUrl_Tablet
+                            : ''
+                        }
+                      />
                       <div className="step-root">
                         <DisplayAtBreakpoint
                           screenMedium
@@ -696,24 +620,6 @@ class JoinStep2 extends Component {
                               <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
                             </div>
                           */}
-
-                          {joinPageRes.hasSelectedSchool === 'yes' && (
-                            <div>
-                              <br />
-                              <p>
-                                <FormattedMessage {...messages.YourSchool} />:{' '}
-                                {joinPageRes.selectedSchool.schoolName}
-                              </p>
-                              <p style={{ fontSize: '1.0em' }}>
-                                <FormattedMessage
-                                  {...messages.YourSchoolDistrict}
-                                />
-                                : {joinPageRes.selectedSchool.districtName}
-                              </p>
-                              <br />
-                              <br />
-                            </div>
-                          )}
 
                           <Request
                             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
@@ -760,69 +666,6 @@ class JoinStep2 extends Component {
                             )}
                           />
                           <form onSubmit={this.handleSubmit}>
-                            {isAstronomyClub ? (
-                              <div className="form-section">
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails.astronomyClubName
-                                          .label,
-                                    }}
-                                  />
-                                  :
-                                  <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails.astronomyClubName
-                                          .errorText,
-                                    }}
-                                  />
-                                  <Field
-                                    className="form-field"
-                                    name="astronomyClubName"
-                                    type="name"
-                                    label={
-                                      accountFormDetails.astronomyClubName
-                                        .hintText
-                                    }
-                                    component={InputField}
-                                    onChange={event => {
-                                      this.handleFieldChange({
-                                        field: 'astronomyClubName',
-                                        value: event.target.value,
-                                      });
-                                    }}
-                                  />
-                                </div>
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails
-                                          .astronomyClub18AndOver.label,
-                                    }}
-                                  />
-                                  :
-                                  <Field
-                                    className="form-field"
-                                    name="astronomyClub18AndOver"
-                                    component={InputField}
-                                    type="checkbox"
-                                    onChange={event => {
-                                      this.handleFieldChange({
-                                        field: 'astronomyClub18AndOver',
-                                        value: event.target.value,
-                                      });
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            ) : null}
-
                             {this.state.isAgeRestricted && (
                               <div className="form-section">
                                 <div>
@@ -860,7 +703,7 @@ class JoinStep2 extends Component {
                                           });
                                         }}
                                       />{' '}
-                                      <FormattedMessage {...messages.Yes} />
+                                      {t('Ecommerce.Yes')}
                                     </label>
                                     <span style={{ paddingLeft: '15px' }}>
                                       <label>
@@ -877,7 +720,7 @@ class JoinStep2 extends Component {
                                             });
                                           }}
                                         />
-                                        <FormattedMessage {...messages.No} />
+                                        {t('Ecommerce.No')}
                                       </label>
                                     </span>
                                   </fieldset>
@@ -1260,7 +1103,7 @@ class JoinStep2 extends Component {
                                 }}
                               />
                               <button className="submit-button" type="submit">
-                                <FormattedMessage {...messages.GoToPayment} />
+                                {t('Ecommerce.GoToPayment')}
                               </button>
                             </div>
                           </form>
@@ -1295,5 +1138,5 @@ export default connect(
     form: 'joinAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
-  })(injectIntl(JoinStep2))
+  })(JoinStep2)
 );

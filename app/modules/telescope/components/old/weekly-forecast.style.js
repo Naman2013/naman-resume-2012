@@ -11,8 +11,8 @@ export default css`
     width: 100%;
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: top;
     padding: 0 40px;
     margin-top: 30px;
     border-bottom: 1px solid ${hawkesBlue};
@@ -38,21 +38,38 @@ export default css`
   .actions-list {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: absolute;
-    top: 50px;
+    top: 45px;
     width: 100%;
     padding: 0 10px;
   }
 
+  .actions-list > .forecast-action-prev,
+  .actions-list > .forecast-action-next {
+    font-size: 22px;
+  }
+
+  .actions-list > .forecast-action-prev {
+    left: 5%;
+  }
+  .actions-list > .forecast-action-next {
+    right: 5%;
+  }
   .forecast-action {
     background: none;
     border: none;
     cursor: pointer;
+    position: absolute;
   }
 
   .forecast-action:focus {
     outline: none;
+  }
+
+  .forecast-name {
+    text-align: center;
+    font-size: 13px;
   }
 
   .active-weather-condition-summary {

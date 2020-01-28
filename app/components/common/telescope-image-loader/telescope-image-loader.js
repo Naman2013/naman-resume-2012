@@ -45,6 +45,7 @@ class TelescopeImageLoader extends Component {
     loadThumbnails: PropTypes.bool,
     missionFormat: PropTypes.string,
     viewportHeight: PropTypes.number,
+    shouldUseTransitions: PropTypes.bool,
     actions: PropTypes.shape({
       resetActiveSSE: PropTypes.func.isRequired,
     }).isRequired,
@@ -55,6 +56,7 @@ class TelescopeImageLoader extends Component {
     loadThumbnails: false,
     missionFormat: null,
     viewportHeight: 0,
+    shouldUseTransitions: true,
     onImageChange: noop,
   };
 
@@ -75,6 +77,8 @@ class TelescopeImageLoader extends Component {
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
     loading: true,
+    receivedNewImage: true,
+    newMission: true,
   };
 
   componentWillMount() {
@@ -86,6 +90,8 @@ class TelescopeImageLoader extends Component {
   }
 
   componentDidUpdate() {
+    const { receivedNewImage } = this.state;
+
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
       this.setState({ loading: true, firstLoad: true });
@@ -93,7 +99,7 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const { loadThumbnails, missionTitle } = this.props;
+    const { loadThumbnails, missionTitle, removeFadeTransitions } = this.props;
 
     const {
       currentImageUrl,
@@ -119,26 +125,30 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const topImage = window.document.getElementById(this.generateImageId());
+    if (receivedNewImage) {
+      const topImage = window.document.getElementById(this.generateImageId());
+      if (topImage && !removeFadeTransitions) {
+        topImage.style.transition = 'opacity';
+        topImage.style.opacity = startingOpacity;
+        topImage.src = currentImageUrl;
+        window.getComputedStyle(topImage, null).opacity;
+        topImage.style.transition = `opacity ${adjustedFade}s`;
+        topImage.style.opacity = '1';
+      }
 
-    if (topImage) {
-      topImage.style.transition = 'opacity';
-      topImage.style.opacity = startingOpacity;
-      topImage.src = currentImageUrl;
-      window.getComputedStyle(topImage, null).opacity;
-      topImage.style.transition = `opacity ${adjustedFade}s`;
-      topImage.style.opacity = '1';
+      this.props.onImageChange({
+        imageWidth: this.imageRef.current.offsetWidth,
+        imageHeight: this.imageRef.current.offsetHeight,
+        missionTitle,
+      });
+
+      this.setState({ receivedNewImage: false });
     }
-    this.props.onImageChange({
-      imageWidth: this.imageRef.current.offsetWidth,
-      imageHeight: this.imageRef.current.offsetHeight,
-      missionTitle,
-    });
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.unmountHandler);
-    this.unmountHandler();
+    this.detachSSE();
   }
 
   unmountHandler = () => {
@@ -226,7 +236,8 @@ class TelescopeImageLoader extends Component {
         opacity and timing values to make up for lost time and sync
         the rest of the experience together
       */
-      if (firstLoad) {
+      const { shouldUseTransitions } = this.props;
+      if (firstLoad && shouldUseTransitions) {
         if (progress >= teleFade) {
           adjustedFade = 0;
           startingOpacity = 1;
@@ -263,6 +274,8 @@ class TelescopeImageLoader extends Component {
         statusCode,
         firstLoad: false,
         loading: false,
+        receivedNewImage: true,
+        newMission: scheduledMissionID !== activeTelescopeMissionID,
       });
     }
   }
@@ -292,7 +305,8 @@ class TelescopeImageLoader extends Component {
   }
 
   generateImageId() {
-    return `tele-id-${this.props.teleId}`;
+    const { teleId, fullscreenMode } = this.props;
+    return `tele-id-${teleId}${fullscreenMode ? 'fullscreen' : ''}`;
   }
 
   render() {
@@ -305,7 +319,7 @@ class TelescopeImageLoader extends Component {
       prevH,
       startingOpacity,
       adjustedFade,
-      loading,
+      newMission,
     } = this.state;
 
     const { loadThumbnails, viewportHeight } = this.props;
@@ -336,16 +350,39 @@ class TelescopeImageLoader extends Component {
       );
     }
 
+    //console.log(currentImageUrl);
+    //console.log("CurrH: " + currH);
+    //console.log("CurrW: " + currW);
+    //console.log("Viewport Height: " + viewportHeight);
+
+    const imageStyle = {
+      minHeight: viewportHeight,
+      maxHeight: viewportHeight,
+      height: viewportHeight,
+      objectFit: 'cover',
+    };
+
+    const topImageStyle = {
+      backgroundColor: newMission ? '#000' : 'transparent',
+    };
+
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
-          <img alt="" width="100%" src={previousImageUrl} draggable="false" />
+          <img
+            alt=""
+            width="100%"
+            src={previousImageUrl}
+            draggable="false"
+            style={imageStyle}
+          />
 
-          <div className="top-image">
+          <div className="top-image" style={topImageStyle}>
             <img
+              style={imageStyle}
               alt=""
               src={currentImageUrl}
-              // height={viewportHeight}
+              height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
               ref={this.imageRef}
@@ -381,7 +418,6 @@ class TelescopeImageLoader extends Component {
               width: 100%;
               height: 100%;
               position: relative;
-              background: #000;
             }
           `}
         </style>

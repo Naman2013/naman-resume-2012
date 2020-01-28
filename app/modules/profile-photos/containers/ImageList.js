@@ -2,6 +2,7 @@
  * V4 ImageList
  ***********************************/
 
+/* eslint-disable */
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import ShowMore from 'app/components/common/ShowMore';
 import {
@@ -29,16 +30,18 @@ import {
   selectTelescopeList,
   selectTimeList,
 } from 'app/modules/profile-photos/selectors';
-import { getFitsData } from 'app/modules/profile-photos/thunks';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
+import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
+import { makePrivateProfileUserDataSelector } from 'app/modules/profile/selectors';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -75,9 +78,6 @@ const mapTypeToRequestMore = {
   galleries: 'fetchMoreGalleries',
 };
 
-const getImagesCountToFetch = ({ isMobile, isTablet }) =>
-  isMobile || isTablet ? 10 : 9;
-
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
@@ -93,6 +93,9 @@ const mapDispatchToProps = dispatch => ({
       setFilters,
       getFitsData,
       setSelectedTagsTabIndex,
+      getTags,
+      setTag,
+      deleteTag,
     },
     dispatch
   ),
@@ -101,20 +104,25 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => {
   return {
     missionsList: state.myPictures.missions.response.imageList,
+    missionsEmptyMsg: state.myPictures.missions.response.emptySetDisplay,
     missionsCount: state.myPictures.missions.imageCount,
     galleryList: state.galleries.galleryList,
     galleryCount: state.galleries.galleryCount,
+    galleryEmptyMsg: state.galleries.emptySetDisplay,
     photoRollList: state.myPictures.photoRoll.response.imageList,
     photoRollCount: state.myPictures.photoRoll.imageCount,
     observationsList: state.myPictures.photoRoll.response.imageList,
+    photoRollEmptyMsg: state.myPictures.photoRoll.response.emptySetDisplay,
     observationsCount: state.myPictures.observations.imageCount,
-    fitsData: state.fitsData,
+    fitsData: state.photoHubs.fitsData,
+    tagsData: state.photoHubs.tagsData,
 
     telescopeList: selectTelescopeList()(state),
     timeList: selectTimeList()(state),
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
+    privateProfileData: makePrivateProfileUserDataSelector()(state),
   };
 };
 
@@ -125,20 +133,26 @@ const mapStateToProps = state => {
 @withRouter
 class ImageList extends Component {
   state = {
-    activePage: 1,
+    activePage: parseInt(this.props.location?.query?.page, 10) || 1,
     isFilterOpen: false,
   };
 
   componentDidMount() {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, params = {} } = this.props;
+    const { activePage } = this.state;
     const fetchImages = actions[mapTypeToRequest[type]];
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const firstImageNumber =
+      activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
+
     fetchImages({
       sharedOnly: type === 'observations',
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
+      firstImageNumber,
+      firstMissionNumber: firstImageNumber,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
     this.fetchFilters();
@@ -152,8 +166,6 @@ class ImageList extends Component {
     const fetchImages = actions[mapTypeToRequest[type]];
     const arrOfImages = this.props[mapTypeToList[type]];
 
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
-
     if (prevProps.deviceInfo.isMobile && !deviceInfo.isMobile) {
       const currentPage = Math.floor(arrOfImages.length / 10);
       const firstImageOfCurrentPage = (currentPage - 1) * 10 + 1;
@@ -164,9 +176,8 @@ class ImageList extends Component {
         sharedOnly: type === 'observations',
         firstImageNumber,
         firstMissionNumber: firstImageNumber,
-        maxImageCount: imagesToFetch,
-        maxMissionCount: imagesToFetch,
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
 
       this.setState({ activePage: currentPage <= 0 ? 1 : currentPage });
@@ -176,9 +187,10 @@ class ImageList extends Component {
       const imagesToFetchCount = arrOfImages.length * activePage;
       fetchImages({
         sharedOnly: type === 'observations',
-        maxMissionCount: Math.max(imagesToFetchCount, 10),
-        maxImageCount: Math.max(imagesToFetchCount, 10),
+        maxMissionCount: Math.max(imagesToFetchCount, 9),
+        maxImageCount: Math.max(imagesToFetchCount, 9),
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
     }
 
@@ -186,12 +198,44 @@ class ImageList extends Component {
       this.setState({ activePage: 1 });
       fetchImages({
         sharedOnly: type === 'observations',
-        maxImageCount: imagesToFetch,
-        maxMissionCount: imagesToFetch,
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
     }
   }
+
+  componentWillUnmount() {
+    this.handleFilterChange({
+      pierNumber: null,
+      observatoryId: null,
+      filterType: null,
+      timeFilter: null,
+      dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
+    });
+    this.handleApplyFilter();
+  }
+
+  fetchImages = () => {
+    const { actions, type, params = {} } = this.props;
+    const { activePage } = this.state;
+    const fetchImages = actions[mapTypeToRequest[type]];
+    const { customerUUID } = params;
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const firstImageNumber =
+      activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
+
+    fetchImages({
+      sharedOnly: type === 'observations',
+      firstImageNumber,
+      firstMissionNumber: firstImageNumber,
+      customerUUID,
+      publicGalleries: params.public ? 'y' : null,
+    });
+  };
 
   fetchFilters = () => {
     const { actions } = this.props;
@@ -203,7 +247,12 @@ class ImageList extends Component {
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
   handlePageChange = ({ activePage }) => {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const {
+      actions,
+      type,
+      params = {},
+      location: { pathname },
+    } = this.props;
     const { customerUUID } = params;
 
     // used for determine first photo sequence number and fetch next 9 photos
@@ -214,24 +263,39 @@ class ImageList extends Component {
     //  ***
 
     const fetchImages = actions[mapTypeToRequest[type]];
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+
+    browserHistory.push({
+      pathname,
+      search: `?page=${activePage}`,
+    });
 
     fetchImages({
+      sharedOnly: type === 'observations',
       firstMissionNumber: this.startFrom,
       firstImageNumber: this.startFrom,
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
     this.setState({ activePage });
   };
 
   placeholder = () => {
-    const { type } = this.props;
+    const {
+      type,
+      photoRollEmptyMsg,
+      missionsEmptyMsg,
+      galleryEmptyMsg,
+    } = this.props;
+
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
-      <div className="image-list-placeholder">The list is empty.</div>
+      <div className="image-list-placeholder">
+        {type === 'photoroll' && photoRollEmptyMsg}
+        {type === 'observations' && photoRollEmptyMsg}
+        {type === 'missions' && missionsEmptyMsg}
+        {type === 'galleries' && galleryEmptyMsg}
+      </div>
     );
   };
 
@@ -254,25 +318,28 @@ class ImageList extends Component {
   };
 
   handleApplyFilter = () => {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, params = {} } = this.props;
     const { customerUUID } = params;
 
     const fetchImages = actions[mapTypeToRequest[type]];
 
-    const imagesToFetch = getImagesCountToFetch(deviceInfo);
-
     this.setState({ activePage: 1 });
     fetchImages({
       sharedOnly: type === 'observations',
-      maxImageCount: imagesToFetch,
-      maxMissionCount: imagesToFetch,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
   };
 
   render() {
     const {
-      actions: { getFitsData, setSelectedTagsTabIndex },
+      actions: {
+        getFitsData,
+        setSelectedTagsTabIndex,
+        getTags,
+        setTag,
+        deleteTag,
+      },
       children,
       type,
       deviceInfo,
@@ -282,38 +349,52 @@ class ImageList extends Component {
       fitsData,
       timeList,
       myPicturesFilters,
+      tagsData,
+      params,
+      privateProfileData,
     } = this.props;
+    const tagActions = {
+      getTags,
+      setTag,
+      deleteTag,
+    };
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-
+    const { canUploadToPhotoHub } = privateProfileData || false;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
 
-    console.log(selectedFilters);
-
     return (
       <div className={cn}>
-        <div className="filter-dropdown-btn">
-          <FilterDropdown
-            isOpen={isFilterOpen}
-            setOpen={this.setFilterOpen}
-            onChange={this.handleFilterChange}
-            telescopeList={telescopeList}
-            timeList={timeList}
-            objectTypeList={objectTypeList}
-            selectedFilters={selectedFilters}
-            onApply={this.handleApplyFilter}
-            //tags component
-            setSelectedTagsTabIndex={setSelectedTagsTabIndex}
-            myPicturesFilters={myPicturesFilters}
-          />
-        </div>
+        {params.private && (
+          <div
+            className={cx('filter-dropdown-btn', {
+              'position-right': !canUploadToPhotoHub,
+            })}
+          >
+            <FilterDropdown
+              isOpen={isFilterOpen}
+              setOpen={this.setFilterOpen}
+              onChange={this.handleFilterChange}
+              telescopeList={telescopeList}
+              timeList={timeList}
+              objectTypeList={objectTypeList}
+              selectedFilters={selectedFilters}
+              onApply={this.handleApplyFilter}
+              //tags component
+              setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+              myPicturesFilters={myPicturesFilters}
+            />
+          </div>
+        )}
         {isFilterOpen && (
           <div className="filter-shader animated fadeIn faster" />
         )}
+
+        {canUploadToPhotoHub && <UploadPhoto onHide={this.fetchImages} />}
 
         <SelectedFilters
           {...{
@@ -351,6 +432,8 @@ class ImageList extends Component {
                           user,
                           getFitsData: type === 'missions' && getFitsData,
                           fitsData: type === 'missions' && fitsData,
+                          tagActions: type === 'photoroll' && tagActions,
+                          tagsData: type === 'photoroll' && tagsData,
                         })
                       )
                     : 'The list is empty.'}

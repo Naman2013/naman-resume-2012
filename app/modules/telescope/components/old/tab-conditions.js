@@ -24,6 +24,8 @@ const TabConditions = props => {
     domeCam,
     facilityWebcam,
     weatherSatellite,
+    weatherConditions,
+    observatoryList,
   } = props;
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
@@ -33,13 +35,6 @@ const TabConditions = props => {
           <ObsBotWidget {...props} ViewGroup="conditions" />
         </div>
       )}
-      <div className="tile-container">
-        <ConnectedAllSkyCamera
-          obsId={obsId}
-          allSkyWidgetID={currentObservatory.AllskyWidgetId}
-          AllskyTimelapseWidgetId={currentObservatory.AllskyTimelapseWidgetId}
-        />
-      </div>
 
       <div className="tile-container">
         <SkyConditions widgetID={SeeingConditionsWidgetId} obsId={obsId} />
@@ -65,19 +60,28 @@ const TabConditions = props => {
       </div>
 
       <div className="tile-container">
-        <DomCameraWidget domeCamURL={domeCam.domeCamURL} {...props} />
+        <DomCameraWidget
+          domeCamURL={domeCam.domeCamURL}
+          {...props}
+          obsId={observatoryList[0]?.obsId}
+          widgetId={currentObservatory.DomecamTimelapseWidgetId}
+        />
       </div>
 
       <div className="tile-container">
         <PicoDelTeidesWidget
           {...props}
+          obsId={currentObservatory.obsId}
+          widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
           title={facilityWebcam.title}
           facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
         />
       </div>
 
       <div className="tile-container">
-        <WeeklyForecast />
+        {weatherConditions.forecastList && (
+          <WeeklyForecast forecastList={weatherConditions.forecastList} />
+        )}
       </div>
 
       <div className="tile-container">

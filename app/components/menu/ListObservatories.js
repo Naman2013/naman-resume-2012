@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import axios from 'axios';
+import { API } from 'app/api';
 import purgeHashURL from '../../utils/purgeHashURL';
 import ListObservatoryChildren from './ListObservatoryChildren';
 
@@ -29,7 +29,7 @@ class ListObservatories extends Component {
   }
 
   serverRequest = () => {
-    axios.get(this.props.source)
+    API.get(this.props.source)
     .then((response) => {
       this.setState({
         obsList: response.data.observatoryList,

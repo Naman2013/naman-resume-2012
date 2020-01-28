@@ -1,4 +1,8 @@
-import { fetchAllWidgets } from 'app/modules/telescope-details/actions';
+import {
+  fetchAllTelescopeStatus,
+  fetchAllWidgets,
+  updateCurrentInstrument,
+} from 'app/modules/telescope-details/actions';
 import {
   fetchDomeCamAction,
   fetchObservatoryWebcam,
@@ -13,19 +17,24 @@ import {
   makeWeatherSatelliteSelector,
   makeMoonlightBarSelector,
   makeDayNightBarSelector,
+  makeWeatherConditionsSelector,
+  makeTeidePeakCamCameraSelector,
 } from 'app/modules/telescope/selectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   dayNightBarPanel: makeDayNightBarPanelSelector(),
   dayNightBar: makeDayNightBarSelector(),
   dayNightMap: makeDayNightMapSelector(),
   weatherSatellite: makeWeatherSatelliteSelector(),
+  weatherConditions: makeWeatherConditionsSelector(),
   domeCam: makeDomeCamSelector(),
   facilityWebcam: makeFacilityWebcamSelector(),
   moonlightBar: makeMoonlightBarSelector(),
+  teidePeakCam: makeTeidePeakCamCameraSelector(),
 });
 
 const mapDispatchToProps = {
@@ -33,6 +42,9 @@ const mapDispatchToProps = {
   fetchWeatherSatellite,
   fetchDomeCamAction,
   fetchObservatoryWebcam,
+  setTelescopesActiveTab: ACTION.setTelescopesActiveTab,
+  fetchAllTelescopeStatus,
+  updateCurrentInstrument,
 };
 
 export default compose(

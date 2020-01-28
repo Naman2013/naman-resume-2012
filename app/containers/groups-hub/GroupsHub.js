@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import GroupTiles from 'app/components/groups-hub/group-tiles';
 import Request from 'app/components/common/network/Request';
 import RequestGroupForm from 'app/components/community-groups/request-group-form';
@@ -24,10 +24,9 @@ import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
-import { ACTION as clubsActions } from '../../modules/clubs/reducer';
 import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'app/services/classroom/classroom.js';
+import { ACTION as clubsActions } from '../../modules/clubs/reducer';
 import style from './groups-hub.style';
-import messages from './GroupsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -47,14 +46,14 @@ const googleClassroomModel = {
     hasGoogleClassroomEnabled: resp.hasGoogleClassroomEnabled,
   }),
 };
-
+@withTranslation()
 class Groups extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: PropTypes.bool.isRequired,
   };
 
@@ -111,7 +110,7 @@ class Groups extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user, intl } = this.props;
+    const { actions, user, t } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -136,7 +135,7 @@ class Groups extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={intl.formatMessage(messages.errorSubmitting)}
+              promptText={t('Alerts.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />
@@ -185,7 +184,7 @@ class Groups extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
 
     const { groups, showPrompt, promptText } = this.state;
 
@@ -223,7 +222,7 @@ class Groups extends Component {
                         <div className="flex">
                           {serviceResponse.canRequestGroup ? (
                             <Button
-                              text={intl.formatMessage(messages.requestGroup)}
+                              text={t('Hubs.requestGroup')}
                               onClickEvent={this.requestGroup}
                             />
                           ) : null}
@@ -242,9 +241,7 @@ class Groups extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('Alerts.loading')}</div> : null}
                           {!isFetching && (
                             <GroupTiles
                               filterType={this.props.params.filterType}
@@ -298,4 +295,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(Groups));
+)(Groups);

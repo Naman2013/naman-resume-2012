@@ -11,7 +11,7 @@ export function withCoordinates(WrappedComponent) {
       checkCatalogVisibility({ catName, catalog, designation });
     };
 
-    checkTargetVisibility = (ra, dec) => {
+    checkTargetVisibility = (ra, dec, getPresetOptions = true) => {
       const {
         checkTargetVisibility,
         selectedCatalogData,
@@ -21,7 +21,7 @@ export function withCoordinates(WrappedComponent) {
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart } = selectedSlot;
 
-      checkTargetVisibility(
+      return checkTargetVisibility(
         {
           domeId,
           missionStart,
@@ -30,7 +30,8 @@ export function withCoordinates(WrappedComponent) {
           dec,
           missionType: 'coord',
         },
-        telescopeId
+        telescopeId,
+        getPresetOptions
       );
     };
 
@@ -48,7 +49,7 @@ export function withCoordinates(WrappedComponent) {
       const { objectDec, objectRA } = objectData;
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart, scheduledMissionId } = selectedSlot;
-      
+
       getMissionSlot({
         targetName,
         domeId,
@@ -62,7 +63,38 @@ export function withCoordinates(WrappedComponent) {
         telescopeId,
         ...data,
       }).then(callback);
-    };f
+    };
+
+    grabUpdatedSlot = (requestData, callback) => {
+      const {
+        grabUpdatedSlot,
+        scrollToGrabbedMission,
+        selectedTelescope,
+        selectedSlot,
+        categoryList,
+        selectedCategorySlug,
+        targetName,
+        coordinatesData,
+        processingRecipe,
+      } = this.props;
+      const { domeId, obsId, telescopeId } = selectedTelescope;
+      const { missionStart, scheduledMissionId, uniqueId } = selectedSlot;
+
+      grabUpdatedSlot({
+        targetName,
+        domeId,
+        missionStart,
+        objectType: categoryList[selectedCategorySlug].typeName,
+        objectDec: coordinatesData.dec,
+        objectRA: coordinatesData.ra,
+        obsId,
+        processingRecipe: processingRecipe.presetOption,
+        scheduledMissionId,
+        telescopeId,
+        uniqueId,
+        ...requestData,
+      }).then(callback);
+    };
 
     reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
@@ -113,6 +145,7 @@ export function withCoordinates(WrappedComponent) {
           cancelMissionSlot={this.cancelMissionSlot}
           reserveMissionSlot={this.reserveMissionSlot}
           getMissionSlot={this.getMissionSlot}
+          grabUpdatedSlot={this.grabUpdatedSlot}
         />
       );
     }

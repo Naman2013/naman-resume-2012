@@ -16,7 +16,12 @@ class Constellation extends Component {
   }
 
   getMissionSlot = () => {
-    const { getMissionSlot, selectedSlot, missionType, scrollToGrabbedMission } = this.props;
+    const {
+      getMissionSlot,
+      selectedSlot,
+      missionType,
+      scrollToGrabbedMission,
+    } = this.props;
     const { uniqueId } = selectedSlot;
 
     getMissionSlot(
@@ -59,7 +64,12 @@ class Constellation extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      pageSetup,
+      navigationConfig,
+      selectedSlot,
     } = this.props;
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const { userHasHold } = selectedSlot;
 
     return (
       <div className="reservation-constellation constellation">
@@ -79,8 +89,10 @@ class Constellation extends Component {
           onCountdownComplete={onCountdownComplete}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
-          description="Welcome to the Constellation! Tell us what you want to see - we’ll make sure that the object 
-          is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
+          pageConfig={navigationConfig.byConstellation}
+          userHasHold={userHasHold}
           byTelescope
         />
       </div>

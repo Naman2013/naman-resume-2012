@@ -6,8 +6,12 @@ import './styles.scss';
 
 class Coordinates extends Component {
   componentDidMount() {
-    const { getCategoryList } = this.props;
+    const { getCategoryList, editCoordinates, checkTargetVisibility, coordinatesData } = this.props;
+    const { ra, dec } = coordinatesData;
     getCategoryList();
+    if(editCoordinates) {
+      checkTargetVisibility(ra, dec, false);
+    }
   }
 
   componentWillUnmount() {
@@ -28,6 +32,18 @@ class Coordinates extends Component {
     );
   };
 
+  grabUpdatedSlot = () => {
+    const { grabUpdatedSlot, scrollToGrabbedMission } = this.props;
+
+    grabUpdatedSlot(
+      {
+        callSource: 'byTelescopeV4',
+        missionType: 'coord',
+      },
+      scrollToGrabbedMission
+    );
+  };
+
   render() {
     const {
       categoryList,
@@ -35,17 +51,14 @@ class Coordinates extends Component {
       setCategory,
       selectedCategorySlug,
       missionSlot,
-      resetMissionsData,
       selectedCatalog,
       selectedCatalogData,
-      reservedMissionData,
       objectData,
       setTargetName,
       targetName,
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
-      reservedMission,
       checkTargetVisibility,
       getTelescopeSlot,
       extendedTimer,
@@ -54,7 +67,14 @@ class Coordinates extends Component {
       onCountdownComplete,
       setCoordinatesData,
       coordinatesData,
+      pageSetup,
+      navigationConfig,
+      selectedSlot,
+      editCoordinates,
     } = this.props;
+
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const { userHasHold } = selectedSlot;
 
     return (
       <div className="reservation-coordinates coordinates">
@@ -63,7 +83,9 @@ class Coordinates extends Component {
           categoryListOpts={categoryListOpts}
           setCategory={setCategory}
           selectedCategorySlug={selectedCategorySlug}
-          getMissionSlot={this.getMissionSlot}
+          getMissionSlot={
+            editCoordinates ? this.grabUpdatedSlot : this.getMissionSlot
+          }
           selectedCatalog={selectedCatalog}
           selectedCatalogData={selectedCatalogData}
           checkTargetVisibility={checkTargetVisibility}
@@ -81,8 +103,11 @@ class Coordinates extends Component {
           onCountdownComplete={onCountdownComplete}
           setCoordinatesData={setCoordinatesData}
           coordinatesData={coordinatesData}
-          description="Quickly schedule a Mission by specifying the celestial coordinates that you'd like to image. Check that those coordinates 
-          are visivle from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
+          pageConfig={navigationConfig.byCoordinates}
+          userHasHold={userHasHold}
+          editCoordinates={editCoordinates}
           byTelescope
         />
       </div>

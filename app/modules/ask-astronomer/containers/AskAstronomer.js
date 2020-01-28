@@ -27,10 +27,10 @@ import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import messages from './AskAstronomer.messages';
+
 import style from './AskAstronomer.style';
 import AsideContainer from './partials/AsideContainer';
 import MainContainer from './partials/MainContainer';
@@ -44,11 +44,13 @@ const mapStateToProps = state => ({
   questions: state.astronomerQuestions.threadList,
   page: state.astronomerQuestions.page,
   totalCount: state.astronomerQuestions.threadCount,
+  pages: state.astronomerQuestions.pages, // number of total pages
   count: state.astronomerQuestions.count,
   canAnswerQuestions: state.astronomerQuestions.canAnswerQuestions,
   canReplyToAnswers: state.astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: state.astronomerQuestions.fetching,
   fetchingAnswers: state.astronomerAnswers.fetchingObj,
+  fetchingAnswersBool: state.astronomerAnswers.fetching,
   user: state.user,
   objectDetails: state.objectDetails,
   objectSpecialists: state.objectDetails.objectSpecialists,
@@ -78,6 +80,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class AskAstronomer extends Component {
   static defaultProps = {
     fetchingQuestions: false,
@@ -87,7 +90,7 @@ class AskAstronomer extends Component {
     count: 0,
     actions: {},
     objectId: '',
-    questionFilter: 'all',
+    questionFilter: 'objectonly',
   };
 
   constructor(props) {
@@ -119,17 +122,25 @@ class AskAstronomer extends Component {
     const { getAllQuestions, fetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    fetchAstronomerQuestions({ objectId, ...filter });
+    return fetchAstronomerQuestions({
+      objectId,
+      answerState: 'objectonly', // default value
+      ...filter,
+    });
   };
 
   handlePageChange = page => {
     this.fetchQuestions({ currentPage: page });
   };
 
-  submitAnswer = (params, callback) => {
-    const { actions, page } = this.props;
+  submitAnswer = (requestParams, callback) => {
+    const {
+      actions,
+      page,
+      params: { objectId },
+    } = this.props;
     return actions
-      .submitAnswerToQuestion(params)
+      .submitAnswerToQuestion({ ...requestParams, objectId })
       .then(res => callback(res.payload));
   };
 
@@ -139,28 +150,23 @@ class AskAstronomer extends Component {
     actions.askQuestion(params).then(res => callback(res.payload));
   };
 
-  showModal = () => {
+  showModal = () =>
     this.setState(() => ({
       showPrompt: true,
     }));
-  };
 
-  closeModal = () => {
+  closeModal = () =>
     this.setState(() => ({
       showPrompt: false,
     }));
-  };
 
-  setModal = ({ promptComponent, promptStyles }) => {
+  setModal = ({ promptComponent, promptStyles }) =>
     this.setState(state => ({
       promptComponent: promptComponent || state.promptComponent,
       promptStyles: promptStyles || state.promptComponent,
     }));
-  };
 
-  updateQuestionsList = filter => {
-    this.fetchQuestions({ ...filter });
-  };
+  updateQuestionsList = filter => this.fetchQuestions({ ...filter });
 
   render() {
     const {
@@ -178,11 +184,13 @@ class AskAstronomer extends Component {
       page,
       user,
       objectSpecialists,
-      intl,
+      t,
 
       fetching,
       pageData,
       questionsData,
+      fetchingAnswersBool,
+      pages,
     } = this.props;
 
     const {
@@ -252,11 +260,11 @@ class AskAstronomer extends Component {
                   <ResponsiveTwoColumnContainer
                     renderNavigationComponent={navProps => (
                       <TwoTabbedNav
-                        firstTitle={intl.formatMessage(messages.Questions)}
+                        firstTitle={t('AskAnAstronomer.Questions')}
                         secondTitle={
                           context.isMobile
-                            ? intl.formatMessage(messages.AskNow)
-                            : intl.formatMessage(messages.MVPAstronomers)
+                            ? t('AskAnAstronomer.AskNow')
+                            : t('AskAnAstronomer.MVPAstronomers')
                         }
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}
@@ -292,6 +300,8 @@ class AskAstronomer extends Component {
                         modalActions={modalActions}
                         updateQuestionsList={this.updateQuestionsList}
                         changeAnswerState={this.updateQuestionsList}
+                        fetchingAnswersBool={fetchingAnswersBool}
+                        pages={pages}
                       />
                     )}
                   />
@@ -306,4 +316,4 @@ class AskAstronomer extends Component {
   }
 }
 
-export default injectIntl(AskAstronomer);
+export default AskAstronomer;

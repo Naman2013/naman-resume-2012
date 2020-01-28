@@ -1,12 +1,16 @@
+import { actions, constants } from 'ducks-helpers';
 import cloneDeep from 'lodash/cloneDeep';
+import { SET_AVATAR_SUCCESS } from '../avatar/actions';
 import createReducer from '../utils/createReducer';
 import {
+  FETCH_DASHBOARD_FAILURE,
   FETCH_DASHBOARD_START,
   FETCH_DASHBOARD_SUCCESS,
-  FETCH_DASHBOARD_FAILURE,
   GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
 } from './actions';
-import { SET_AVATAR_SUCCESS } from '../avatar/actions';
+
+export const TYPE = constants('dashboard', ['~GET_GUEST_DASHBOARD']);
+export const ACTION = actions(TYPE);
 
 const initialState = {
   refreshIntervalSec: 300,
@@ -15,6 +19,19 @@ const initialState = {
     recommendedObjectsShow: false,
     recommendedObjectsHeading: '',
     recommendedObjectsSubHeading: '',
+  },
+  guestDashboard: {
+    Sections: {
+      Missions: {
+        APIParams: {},
+      },
+      Shows: {
+        APIParams: {},
+      },
+      Plans: {
+        APIParams: {},
+      },
+    },
   },
   error: false,
 };
@@ -35,7 +52,7 @@ export default createReducer(initialState, {
       profile: payload,
     };
   },
-  [FETCH_DASHBOARD_FAILURE](state, { payload }) {
+  [FETCH_DASHBOARD_FAILURE](state) {
     return {
       ...state,
       error: true,
@@ -55,6 +72,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       featuredObjects: payload,
+    };
+  },
+  [TYPE.GET_GUEST_DASHBOARD_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      guestDashboard: payload,
     };
   },
 });

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchWeatherForecastWidget({ obsId, widgetUniqueId }) {
-  return axios.post('/api/widget/miniWeatherPanel', {
+  return API.post('/api/widget/miniWeatherPanel', {
     obsId,
     widgetUniqueId,
   });

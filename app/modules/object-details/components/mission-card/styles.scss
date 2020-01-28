@@ -1,4 +1,4 @@
-@import '~app/styles/bootstrap/index';
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
 .missions-card {
@@ -13,6 +13,10 @@
   &.reserved {
     border-bottom: 6px solid $lightHeadedAstronaut;
     pointer-events: none;
+  }
+
+  &.profile-mission {
+    cursor: auto;
   }
 
   > div {
@@ -86,18 +90,29 @@
     align-items: center;
     padding: 0 40px;
     font-family: $primary-font;
+    position: relative;
 
-    .time {
-      width: 200px;
+    .mission-info {
+      width: 100%;
 
-      .large {
-        align-self: flex-end;
-        font-size: 60px;
-        font-weight: 400;
-        line-height: 1.13;
-        letter-spacing: 1.7px;
-        text-align: right;
-        position: relative;
+      .mission-datetime {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        .time {
+          width: 200px;
+
+          .large {
+            align-self: flex-end;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 1.13;
+            letter-spacing: 1.7px;
+            text-align: right;
+            position: relative;
+          }
+        }
       }
     }
 
@@ -106,6 +121,13 @@
       text-align: right;
       position: relative;
       right: -11px;
+    }
+
+    .actions {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 20px;
     }
   }
 
@@ -154,6 +176,10 @@
       padding-top: 20px;
       padding-bottom: 0;
       min-height: unset;
+    }
+
+    .mission-status {
+      margin-top: 10px;
     }
 
     .time {

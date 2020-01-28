@@ -1,10 +1,12 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import {
+  DayNightBar,
   ObsBotWidget,
   ObservatoryInformation,
   WeatherConditions,
 } from 'app/modules/telescope/components/old';
+import { TelescopeOfflineWidget } from 'app/modules/telescope/components/old/telescope-offline-widget';
 import { Box } from 'app/modules/telescope/components/box';
 import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
@@ -21,7 +23,13 @@ export const StatusTab = props => {
     currentObservatory,
     facilityWebcam,
     domeCam,
+    teidePeakCam,
+    dayNightBarPanel,
+    dayNightBar,
+    skyConditions,
+    observatoryList,
   } = props;
+
   return (
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
@@ -43,17 +51,22 @@ export const StatusTab = props => {
             </Col>
             <Col lg={4} md={12} sm={12}>
               <DomCameraWidget
+                obsId={observatoryList[0]?.obsId}
                 domeCam={domeCam}
                 domeCamURL={domeCam.domeCamURL}
                 activeTelescope={currentObservatory}
+                widgetId={currentObservatory.DomecamTimelapseWidgetId}
               />
             </Col>
             <Col lg={4} md={12} sm={12}>
               <PicoDelTeidesWidget
-                domeCam={domeCam}
+                obsId={currentObservatory.obsId}
+                teidePeakCam={teidePeakCam}
                 title={facilityWebcam.title}
                 activeTelescope={currentTelescope}
                 facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
+                observatoryData={currentObservatory}
+                widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
               />
             </Col>
           </Row>
@@ -63,38 +76,59 @@ export const StatusTab = props => {
       <Container>
         <Row>
           <Col lg={8}>
-            <ObservatoryInformation clockList={clockList} compactMode />
+            <TelescopeOfflineWidget
+              {...props}
+              shortFeed
+              noScroll
+              noCounter
+              noDescription
+              title="Observatory Bot"
+              ViewGroup="conditions"
+              teleSystem={currentTelescope.teleSystem}
+              clockList={clockList}
+              missionControlStatusWidgetId={
+                currentObservatory.MissionControlStatusWidgetId
+              }
+            />
             <ObsBotWidget
               {...props}
               shortFeed
               noScroll
               noCounter
               noDescription
-              title="This Just In"
+              title="Observatory Bot"
               ViewGroup="conditions"
               teleSystem={currentTelescope.teleSystem}
+              clockList={clockList}
             />
           </Col>
 
           <Col lg={4}>
             <Box header="SKY CONDITIONS">
               {/*<div className="sky-cond">test</div>*/}
-              <h4 className="h4-custom">SEEING CONDITIONS:</h4>
-              <h2 className="h2-custom">Level 3</h2>
+              <h4 className="h4-custom">{skyConditions.title}</h4>
+              <h2 className="h2-custom">
+                Level {skyConditions.seeingConditionsIndex}
+              </h2>
               <p className="p-19">
-                Almost continuous distortion with occasional brief good moments.
+                {skyConditions.seeingConditionsDescription}
               </p>
-              <hr />
-
-              <h4 className="h4-custom">Measured FWHM Telemetry:</h4>
-              <h2 className="h2-custom">N.N Arcseconds</h2>
-              <hr />
-
-              <h4 className="h4-custom">Transparency:</h4>
-              <h2 className="h2-custom">Moderate Haze</h2>
+              {/* <hr /> */}
+              {/* <h4 className="h4-custom">Measured FWHM Telemetry:</h4> */}
+              {/* <h2 className="h2-custom">N.N Arcseconds</h2> */}
+              {/* <hr /> */}
+              {/* <h4 className="h4-custom">Transparency:</h4> */}
+              {/* <h2 className="h2-custom">Moderate Haze</h2> */}
             </Box>
 
             <WeatherConditions obsId={obsId} />
+
+            {dayNightBar.dayNightRawData && (
+              <DayNightBar
+                dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
+                dayNightBar={dayNightBar}
+              />
+            )}
           </Col>
         </Row>
       </Container>

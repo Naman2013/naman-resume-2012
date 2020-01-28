@@ -18,13 +18,17 @@ type TAccountSettings = {
 
 class AccountSettings extends Component<TAccountSettings> {
   componentDidMount() {
-    const { fetchAccountSettingsAction } = this.props;
+    const { fetchAccountSettingsAction, getAccountPreferences } = this.props;
     fetchAccountSettingsAction();
+    getAccountPreferences();
   }
 
   componentDidUpdate(prevProps) {
     const { fetchAccountSettingsAction, accountDetails } = this.props;
-    if (!isEqual(prevProps.accountDetails, accountDetails)) {
+    if (
+      !isEqual(prevProps.accountDetails, accountDetails) &&
+      prevProps.accountDetailsHeading
+    ) {
       fetchAccountSettingsAction();
     }
   }

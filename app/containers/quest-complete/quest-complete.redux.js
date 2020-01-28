@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
-import QuestCompleted from './quest-complete';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import questActions from 'app/modules/quest-details/actions';
+import QuestCompleted from './quest-complete';
 
 const { bool, func, number, shape, string } = PropTypes;
 
@@ -39,7 +39,6 @@ class ConnectedQuestComplete extends Component {
 
     const userActions = {};
 
-    console.log(this.props);
     return (
       <Fragment>
         <DeviceContext.Consumer>

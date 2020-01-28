@@ -3,32 +3,34 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
+
 import { Field, reduxForm } from 'redux-form';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
   CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
 } from 'app/services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import TabbedNav from 'app/components/TabbedNav';
+import cookie from 'cookie';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep1SchoolSelection.style';
-import messages from './MembershipPlanDetailsStep.messages';
 
 const { string, arrayOf, shape } = PropTypes;
 
+@withTranslation()
 class MembershipPlanDetailsStep extends Component {
   static propTypes = {
     pathname: string,
@@ -39,7 +41,6 @@ class MembershipPlanDetailsStep extends Component {
         value: string,
       })
     ),
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -55,19 +56,12 @@ class MembershipPlanDetailsStep extends Component {
   state = {
     selectedPlanId: window.localStorage.getItem('selectedPlanId'),
     isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-    isClassroom: window.localStorage.getItem('isClassroom') === 'true',
   };
 
   continueToJoinFlow = formValues => {
     formValues.preventDefault();
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (this.state.isClassroom) {
-      browserHistory.push('/join/step1SchoolSelection');
-    } else {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step2');
-    }
+    browserHistory.push('/join/step2');
   };
 
   changeActiveTab = activeTab => {
@@ -76,7 +70,9 @@ class MembershipPlanDetailsStep extends Component {
   };
 
   render() {
-    const { pathname, tabs, activeTab, intl } = this.props;
+    const { pathname, tabs, activeTab, t } = this.props;
+    const { cid } = cookie.parse(window.document.cookie);
+
     return (
       <Fragment>
         <Request
@@ -84,27 +80,31 @@ class MembershipPlanDetailsStep extends Component {
           requestBody={{
             callSource: 'membershipspagePlanDetails',
             selectedPlanId: this.state.selectedPlanId,
+            enableHiddenPlanHashCode: window.localStorage.getItem(
+              'enableHiddenPlanHashCode'
+            ),
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <div
               className="join-root-alt"
               style={{
-                backgroundImage: `url(${
-                  serviceResponse?.selectedSubscriptionPlan
-                    ?.planSelectedBackgroundImageUrl_Desktop
-                })`,
+                backgroundImage: `url(${serviceResponse?.selectedSubscriptionPlan?.planSelectedBackgroundImageUrl_Desktop})`,
               }}
             >
               <div className="step-root">
                 {!fetchingContent && (
                   <Fragment>
                     <div className="join-root-alt-header">
-                      <h1>
-                        <FormattedMessage {...messages.JoinSlooh} />
-                      </h1>
-                      <h2>
-                        <FormattedMessage {...messages.JoinSloohTrial} />
-                      </h2>
+                      <h1
+                        dangerouslySetInnerHTML={{
+                          __html: serviceResponse.pageHeading1,
+                        }}
+                      />
+                      <h2
+                        dangerouslySetInnerHTML={{
+                          __html: serviceResponse.pageHeading2,
+                        }}
+                      />
                     </div>
                     <PlanDetailsCard
                       {...serviceResponse.selectedSubscriptionPlan}
@@ -138,14 +138,16 @@ class MembershipPlanDetailsStep extends Component {
                         >
                           <Button
                             type="button"
-                            text={intl.formatMessage(messages.GoBack)}
+                            text={t('Ecommerce.GoBack')}
                             onClickEvent={() => {
                               browserHistory.goBack();
                             }}
                           />
-                          <button className="submit-button" type="submit">
-                            <FormattedMessage {...messages.JoinNow} />
-                          </button>
+                          {!cid && (
+                            <button className="submit-button" type="submit">
+                              {t('Ecommerce.JoinNow')}
+                            </button>
+                          )}
                         </div>
                       </form>
                     </div>
@@ -168,4 +170,4 @@ const mapStateToProps = ({ user }) => ({
 export default connect(
   mapStateToProps,
   null
-)(injectIntl(MembershipPlanDetailsStep));
+)(MembershipPlanDetailsStep);

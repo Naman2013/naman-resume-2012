@@ -9,9 +9,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
-import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  profilePhotoStyle,
+  customModalStylesV4,
+} from 'app/styles/mixins/utilities';
 import Button from 'app/components/common/style/buttons/Button';
-import { customModalStylesV4 } from 'app/styles/mixins/utilities';
+
 import styles from './Host.style';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
@@ -61,6 +64,7 @@ class Hosts extends Component {
       hostTitle,
       hostGravity,
       hostGravityRankLabel,
+      hostProfileURL,
     } = this.props;
 
     return (
@@ -68,16 +72,23 @@ class Hosts extends Component {
         <div className="title-container">{title}</div>
         <Link to={hostURL}>
           <div className="info-container">
-            <span
-              className="host-name"
-              dangerouslySetInnerHTML={{ __html: hostName }}
-            />
+            <Link to={hostProfileURL}>
+              <span
+                className="host-name"
+                dangerouslySetInnerHTML={{ __html: hostName }}
+              />
+            </Link>
             <span className="icon-line-horz" />
             <div className="icon-container flex-item">
               <div className="vert-line" />
               <div className="icon-container-circle">
                 <div className="circle-icon-line">
-                  <div className="icon" style={profPic(hostPhotoURL)} />
+                  <div className="avatar-container">
+                    <div
+                      className="icon"
+                      style={{ backgroundImage: `url("${hostPhotoURL}")` }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

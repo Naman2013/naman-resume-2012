@@ -1,3 +1,4 @@
+import { projectCookieDomain } from 'app/config/project-config';
 import { browserHistory } from 'react-router';
 import cookie from 'cookie';
 import moment from 'moment';
@@ -22,8 +23,19 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-const cookieD = cookieDomain || 'localhost';
-const cookieSecure = !!cookieDomain;
+const cookieD = projectCookieDomain || 'localhost';
+const cookieSecure = !!projectCookieDomain;
+
+export async function storeUserNewAT({ at }) {
+  window.document.cookie = cookie.serialize('at', at, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
+  return at;
+}
 
 export function store({
   reload,
@@ -48,6 +60,7 @@ export function store({
     expires: futureDate,
     path: COOKIE_PATH,
   });
+
   window.document.cookie = cookie.serialize('token', token, {
     domain: cookieD,
     secure: cookieSecure,
@@ -230,6 +243,10 @@ export function destroy() {
   return dispatch => {
     dispatch(removeUser());
   };
+}
+
+export function getUserInfo() {
+  return cookie.parse(window.document.cookie);
 }
 
 /**

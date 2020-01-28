@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import moment from 'moment';
 import { fetchReservationList } from './mission-slots-by-telescope-actions';
 
@@ -16,8 +16,8 @@ export const fetchDateRanges = ({
 
   dispatch(fetchDateRangeStart());
 
-  return axios
-    .post('/api/reservation/getMissionSlotDates', {
+  return API
+      .post('/api/reservation/getMissionSlotDates', {
       token,
       at,
       cid,

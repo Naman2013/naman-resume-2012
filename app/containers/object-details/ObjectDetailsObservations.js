@@ -6,11 +6,11 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
 import GenericButton from 'app/components/common/style/buttons/Button';
@@ -27,20 +27,22 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import CardObservations from 'app/components/common/CardObservations';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
+import isEmpty from 'lodash/isEmpty';
+import { Spinner } from 'app/components/spinner/index';
 import {
+  makeObjectDetailsFetchingSelector,
   makeObjectDetailsDataSelector,
   makeObjectDataSelector,
   makeObjectSharedMemberPhotosSelector,
   makeObjectImageDetailsSelector,
 } from '../../modules/object-details/selectors';
-import {
-  makeUserSelector,
-} from '../../modules/user/selectors';
+import { makeUserSelector } from '../../modules/user/selectors';
 
-import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
 
 const mapStateToProps = createStructuredSelector({
+  isFetching: makeObjectDetailsFetchingSelector(),
   objectData: makeObjectDataSelector(),
   imageDetails: makeObjectImageDetailsSelector(),
   sharedMemberPhotos: makeObjectSharedMemberPhotosSelector(),
@@ -54,31 +56,23 @@ const mapDispatchToProps = {
   fetchSharedMemberPhotosAction,
 };
 
+const DEFAULT_PAGE = 1;
+
 @connect(
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Observations extends Component {
   state = {
-    selectedIndex: 0,
-    page: 1,
+    selectedIndex: 1,
+    page: DEFAULT_PAGE,
     writeObservationModalShow: false,
   };
 
   componentDidMount() {
-    const {
-      fetchSharedMemberPhotosAction,
-      params: { objectId },
-    } = this.props;
     const { page } = this.state;
-    const requestBody = {
-      objectId,
-      pagingMode: 'content',
-      count: 9,
-      page,
-      v4Filter: this.selectedFilter,
-    };
-    fetchSharedMemberPhotosAction(requestBody);
+    this.getObservations(page);
   }
 
   get dropdownOptions() {
@@ -99,13 +93,33 @@ class Observations extends Component {
     return currentFilterObj.value;
   }
 
+  getObservations = page => {
+    const {
+      fetchSharedMemberPhotosAction,
+      params: { objectId },
+    } = this.props;
+
+    const requestBody = {
+      objectId,
+      pagingMode: 'content',
+      count: 9,
+      page,
+      v4Filter: this.selectedFilter,
+    };
+    this.setState({ page });
+    fetchSharedMemberPhotosAction(requestBody);
+  };
+
   handleSelect = (e, selectedItem) => {
-    this.setState(() => ({
-      selectedIndex: findIndex(
-        this.dropdownOptions,
-        filter => filter.value === selectedItem.value
-      ),
-    }));
+    this.setState(
+      {
+        selectedIndex: findIndex(
+          this.dropdownOptions,
+          filter => filter.value === selectedItem.value
+        ),
+      },
+      () => this.getObservations(DEFAULT_PAGE)
+    );
   };
 
   showWriteObservationModal = () => {
@@ -116,37 +130,38 @@ class Observations extends Component {
     this.setState({ writeObservationModalShow: false });
   };
 
+  handlePageChange = ({ activePage }) => {
+    this.getObservations(activePage);
+    this.observationContainer.scrollIntoView();
+  };
+
   render() {
     const {
       objectDetails,
       sharedMemberPhotos,
-      intl,
+      t,
       fetchLikeAction,
       getMyPictures,
       user,
+      isFetching,
     } = this.props;
-    const { writeObservationModalShow } = this.state;
-
-    if (!sharedMemberPhotos.imageCount) {
-      return (
-        <p>
-          <FormattedMessage
-            {...messages.NoObservations}
-            values={{ objectTitle: objectDetails.objectTitle }}
-          />
-        </p>
-      );
-    }
-
-    const { selectedIndex } = this.state;
+    const { writeObservationModalShow, page, selectedIndex } = this.state;
+    const { pages, imageCount, imageList } = sharedMemberPhotos;
 
     return (
       <Fragment>
+        <Spinner loading={isFetching} />
+
         <ObjectDetailsSectionTitle
           title={`${objectDetails.objectTitle}'s`}
-          subTitle={intl.formatMessage(messages.Observations)}
+          subTitle={t('Objects.Observations')}
           renderNav={() => (
-            <div className="nav-actions">
+            <div
+              className="nav-actions"
+              ref={node => {
+                this.observationContainer = node;
+              }}
+            >
               <GenericButton
                 onClickEvent={this.showWriteObservationModal}
                 text="Add observation"
@@ -161,48 +176,74 @@ class Observations extends Component {
             </div>
           )}
         />
-        <CenterColumn widths={['645px', '965px', '965px']}>
-          <div className="root">
-            {sharedMemberPhotos.imageList.map(image => (
-              <Request
-                method="POST"
-                authorizationRedirect
-                serviceURL={IMAGE_DETAILS}
-                serviceExpiresFieldName="expires"
-                requestBody={{
-                  customerImageId: image.customerImageId,
-                  useShareToken: 'n',
-                  callSource: 'sharedPictures',
-                }}
-                render={({ serviceResponse: imageDetails }) => {
-                  const photoBy = imageDetails.linkableFileData
-                    ? `${imageDetails.linkableFileData['Photo by'].label} ${
-                        imageDetails.linkableFileData['Photo by'].text
-                      }`
-                    : 'Photo by';
-                  return (
-                    <CardObservations
-                      user={user}
-                      subTitle={photoBy}
-                      title={imageDetails.imageTitle}
-                      description={imageDetails.observationLog}
-                      imageUrl={imageDetails.imageURL}
-                      linkUrl={imageDetails.linkUrl}
-                      likesCount={imageDetails.likesCount}
-                      likePrompt={imageDetails.likePrompt}
-                      showLikePrompt={imageDetails.showLikePrompt}
-                      customerImageId={image.customerImageId}
-                      handleLike={fetchLikeAction}
-                      observationTimeDisplay={
-                        imageDetails.observationTimeDisplay
-                      }
-                    />
-                  );
-                }}
-              />
-            ))}
-          </div>
-        </CenterColumn>
+        {imageCount && !isFetching ? (
+          <CenterColumn widths={['645px', '965px', '965px']}>
+            <div className="root">
+              {imageList.map(image => (
+                <Request
+                  method="POST"
+                  authorizationRedirect
+                  serviceURL={IMAGE_DETAILS}
+                  serviceExpiresFieldName="expires"
+                  requestBody={{
+                    customerImageId: image.customerImageId,
+                    useShareToken: 'n',
+                    callSource: 'sharedPictures',
+                  }}
+                  render={({ serviceResponse: imageDetails }) => {
+                    const photoBy = imageDetails.linkableFileData
+                      ? `${imageDetails.linkableFileData['Photo by'].label} ${imageDetails.linkableFileData['Photo by'].text}`
+                      : 'Photo by';
+                    return (
+                      !isEmpty(imageDetails) && (
+                        <CardObservations
+                          user={user}
+                          subTitle={photoBy}
+                          observationTitle={imageDetails.observationTitle}
+                          imageTitle={imageDetails.imageTitle}
+                          description={imageDetails.observationLog}
+                          imageUrl={imageDetails.imageURL}
+                          linkUrl={imageDetails.linkUrl}
+                          likesCount={imageDetails.likesCount}
+                          likedByMe={imageDetails.likedByMe}
+                          likeTooltip={imageDetails.likeTooltip}
+                          likePrompt={imageDetails.likePrompt}
+                          showLikePrompt={imageDetails.showLikePrompt}
+                          commentsCount={imageDetails.commentsCount}
+                          iconFileData={imageDetails.iconFileData}
+                          customerImageId={image.customerImageId}
+                          handleLike={fetchLikeAction}
+                          observationTimeDisplay={
+                            imageDetails.observationTimeDisplay
+                          }
+                        />
+                      )
+                    );
+                  }}
+                />
+              ))}
+
+              {pages > 1 ? (
+                <div className="observations-pagination">
+                  <Pagination
+                    pagesPerPage={4}
+                    activePage={page}
+                    onPageChange={this.handlePageChange}
+                    totalPageCount={pages}
+                  />
+                </div>
+              ) : null}
+            </div>
+          </CenterColumn>
+        ) : null}
+
+        {!imageCount && !isFetching && (
+          <p>
+            {t('Objects.NoObservations', {
+              objectTitle: objectDetails.objectTitle,
+            })}
+          </p>
+        )}
 
         {writeObservationModalShow && (
           <ObjectObservationModal
@@ -217,8 +258,6 @@ class Observations extends Component {
   }
 }
 
-Observations.propTypes = {
-  intl: intlShape.isRequired,
-};
+Observations.propTypes = {};
 
-export default injectIntl(Observations);
+export default Observations;

@@ -114,6 +114,11 @@ export default css`
     line-height: 2;
   }
 
+  .contact-subtitle {
+    font-family: ${secondaryFont};
+    font-size: 19px;
+  }
+
   .contact-label {
     font-size: 11px;
     text-transform: uppercase;

@@ -21,6 +21,11 @@ export default css`
     padding: 25px;
     border: 1px solid ${shadows};
     border-bottom: 4px solid ${astronaut};
+    padding-top: 0px;
+  }
+
+  :global(.author-public-profile-url) {
+    height: unset !important;
   }
 
   .story-tile-root :global(a) {
@@ -34,6 +39,7 @@ export default css`
     font-family: ${secondaryFont};
     font-size: 16px;
     font-weight: 0;
+    text-transform: capitalize;
   }
 
   .sub-title {
@@ -63,6 +69,10 @@ export default css`
     width: 60%;
     margin: 0 auto;
     padding: 15px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   @media ${screenMedium} {

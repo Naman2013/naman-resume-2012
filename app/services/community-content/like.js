@@ -12,7 +12,7 @@
   likeId (required) Identifier for what is being liked.  For a post, the post ID.
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function like({
   at,
@@ -25,7 +25,7 @@ export default function like({
   type,
   objectSlug,
 }) {
-  return axios.post('/api/content/like', {
+  return API.post('/api/content/like', {
     at,
     token,
     cid,
@@ -33,7 +33,7 @@ export default function like({
     likeId,
     membershipType,
     authorId,
-    type,
+    storyType: type,
     objectSlug,
   });
 }

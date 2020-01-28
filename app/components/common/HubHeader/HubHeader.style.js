@@ -48,6 +48,7 @@ export default css`
     width: 100%;
     padding: 25px 0;
     border-bottom: 1px solid ${shadows};
+    display: flex;
   }
 
   .hub-header-title {
@@ -66,7 +67,6 @@ export default css`
   }
 
   .right-menu-nav {
-    width: 150px;
     margin-left: 28px;
     flex: 0 25%;
     display: flex;

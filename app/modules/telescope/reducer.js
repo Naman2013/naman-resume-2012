@@ -7,12 +7,21 @@ export const TYPE = constants('telescope', [
   '~GET_UPCOMING_SLOTS_BY_TELESCOPE',
   '~GET_FEATURED_OBJECTS_BY_TELESCOPE',
   '~RESERVE_COMMUNITY_MISSION',
+  '~GET_TELESCOPES',
+  'SET_TELESCOPES_ACTIVE_TAB',
+  '~GET_OBSERVATORY_LIST',
+  '~GET_ALL_SKY_CAM',
+  '~GET_DOME_CAM',
 ]);
 export const ACTION = actions(TYPE);
 
 export const initialState = {
   isFetching: false,
   serverError: null,
+
+  pageSetup: {},
+
+  telescopeActiveTab: 0,
 
   allSkyTimelapse: {
     isFetching: false,
@@ -30,6 +39,11 @@ export const initialState = {
     reservedCommunityMissionData: {},
     reservedCommunityMissionList: [],
   },
+
+  observatoryList: { observatoryList: [] },
+
+  allSkyCamData: {},
+  domeCamData: {},
 };
 
 export default handleActions(
@@ -46,9 +60,29 @@ export default handleActions(
     [TYPE.RESERVE_COMMUNITY_MISSION]: setQueueTabFetching,
     [TYPE.RESERVE_COMMUNITY_MISSION_SUCCESS]: reserveCommunityMissionSuccess,
     [TYPE.RESERVE_COMMUNITY_MISSION_ERROR]: setQueueTabServerError,
+    [TYPE.GET_TELESCOPES]: setTelescopesFetching,
+    [TYPE.GET_TELESCOPES_SUCCESS]: getTelescopesSuccess,
+    [TYPE.GET_TELESCOPES_ERROR]: setTelescopesError,
+    [TYPE.SET_TELESCOPES_ACTIVE_TAB]: setTelescopesActiveTab,
+    [TYPE.GET_OBSERVATORY_LIST]: setTelescopesFetching,
+    [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
+    [TYPE.GET_OBSERVATORY_LIST_ERROR]: setTelescopesError,
+    [TYPE.GET_ALL_SKY_CAM]: setTelescopesFetching,
+    [TYPE.GET_ALL_SKY_CAM_SUCCESS]: getAllSkyCamSuccess,
+    [TYPE.GET_ALL_SKY_CAM_ERROR]: setTelescopesError,
+    [TYPE.GET_DOME_CAM]: setTelescopesFetching,
+    [TYPE.GET_DOME_CAM_SUCCESS]: getDomeCamSuccess,
+    [TYPE.GET_DOME_CAM_ERROR]: setTelescopesError,
   },
   initialState
 );
+
+function setTelescopesActiveTab(state, action) {
+  return {
+    ...state,
+    telescopeActiveTab: action.payload,
+  };
+}
 
 function getAllSkyTimelapse(state) {
   return set(['allSkyTimelapse', 'isFetching'], true, state);
@@ -112,3 +146,75 @@ function reserveCommunityMissionSuccess(state, action) {
     },
   };
 }
+
+function setTelescopesFetching(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function setTelescopesError(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
+  };
+}
+
+function getTelescopesSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    pageSetup: {
+      ...state.pageSetup,
+      ...action.payload,
+    },
+  };
+}
+
+function getObservatoryListSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    observatoryList: {
+      ...payload,
+    },
+  };
+}
+
+// Widgets begin
+
+function getAllSkyCamSuccess(state, { payload }) {
+  const { allSkyCamData } = state;
+  const { widgetUniqueId } = payload;
+
+  return {
+    ...state,
+    isFetching: false,
+    allSkyCamData: {
+      ...allSkyCamData,
+      [widgetUniqueId]: {
+        ...payload,
+      },
+    },
+  };
+}
+
+function getDomeCamSuccess(state, { payload }) {
+  const { domeCamData } = state;
+  const { widgetUniqueId } = payload;
+
+  return {
+    ...state,
+    isFetching: false,
+    domeCamData: {
+      ...domeCamData,
+      [widgetUniqueId]: {
+        ...payload,
+      },
+    },
+  };
+}
+
+// Widgets end

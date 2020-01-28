@@ -1,17 +1,21 @@
 @import "~app/styles/variables/index";
 @import "~app/styles/mixins/utilities";
-@import '~app/styles/bootstrap/index.scss';
+@import '~app/styles/bootstrap/common';
 
 // todo GLOBAL STYLES
 .modal-open .modal {
-  background-color: rgba(#0a0c0e, 0.96);
-
   .btn.modal-btn {
     background-color: transparent;
     border-color: #fff;
     color: #fff;
     margin-top: 30px;
   }
+}
+
+.modal-backdrop.custom-modal-backdrop,
+.modal-backdrop.custom-modal-backdrop.fade {
+  opacity: 1;
+  background-color: rgba(#0a0c0e, 0.96);
 }
 
 .modal-back-btn {

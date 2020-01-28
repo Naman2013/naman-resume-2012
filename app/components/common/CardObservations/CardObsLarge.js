@@ -1,35 +1,45 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { Tooltip } from 'react-tippy';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import style from './CardObservationsLarge.style';
-import messages from './CardObsLarge.messages';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
+import './CardObsLarge.scss';
 
 const CardObsLarge = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
-    socialShareDescription,
+    iconFileData = { Member: {} },
   } = props;
+  const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
+
   const onLikeClick = () => {
-    if (!showLikePrompt) {
-      handleLike(customerImageId);
-      changeLikesNumber(likesNumber + 1);
-    }
+    return new Promise((resolve, reject) => {
+      if (!showLikePrompt) {
+        const response = handleLike(customerImageId);
+        resolve(response);
+      }
+      reject();
+    });
   };
   return (
     <Fragment>
@@ -41,7 +51,9 @@ const CardObsLarge = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
-                    <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    <Link to={iconFileData.Member.linkUrl}>
+                      <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    </Link>
                     {description && (
                       <div
                         className="i-text-box"
@@ -50,31 +62,17 @@ const CardObsLarge = props => {
                     )}
                   </div>
                   <div className="links">
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg"
-                        alt="user"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        className="linkIcon"
-                        src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png"
-                        alt="system"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg"
-                        alt="observatory"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/location_marker.png"
-                        alt="location"
-                      />
-                    </div>
+                    {Object.keys(iconFileData).map(item => (
+                      <Tooltip title={iconFileData[item].text}>
+                        {iconFileData[item].hasLink ? (
+                          <Link to={iconFileData[item].linkUrl}>
+                            <ReturnObservationIcon item={iconFileData[item]} />
+                          </Link>
+                        ) : (
+                          <ReturnObservationIcon item={iconFileData[item]} />
+                        )}
+                      </Tooltip>
+                    ))}
                   </div>
                 </div>
                 <div className="picture">
@@ -89,6 +87,8 @@ const CardObsLarge = props => {
                       isOpen={isOpen}
                       imageURL={imageUrl}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
@@ -100,6 +100,8 @@ const CardObsLarge = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}
@@ -121,36 +123,34 @@ const CardObsLarge = props => {
                     {!commentsCount ? '0' : commentsCount}
                   </div>
                   {linkUrl && (
-                    <a href={linkUrl} className="button details">
-                      {intl.formatMessage(messages.Details)}
+                    <Link to={linkUrl} className="button details">
+                      {t('Objects.ObservationsDetails')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
                       />
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
+                    : `${t('Objects.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
-            </div>
+            <div className="loading">{t('Objects.Loading')}...</div>
           )}
         </div>
       </div>
-      <style jsx>{style}</style>
     </Fragment>
   );
 };
 
 CardObsLarge.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
@@ -163,4 +163,4 @@ CardObsLarge.propTypes = {
   handleLike: PropTypes.func.isRequired,
 };
 
-export default injectIntl(CardObsLarge);
+export default CardObsLarge;

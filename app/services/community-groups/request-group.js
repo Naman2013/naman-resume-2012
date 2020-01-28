@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /** V4 request group
 
@@ -28,7 +28,7 @@ export const requestGroup = ({
   token,
   ver,
 }) => (
-  axios.post('/api/discussiongroups/requestGroup', {
+  API.post('/api/discussiongroups/requestGroup', {
     access,
     at,
     cid,

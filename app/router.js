@@ -1,11 +1,7 @@
-import DashboardPage from 'app/components/Dashboard';
-import {
-  ProfileActivity,
-  ProfileGroups,
-} from 'app/components/profiles/private-profile';
+//eslint-disable-line
+import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
-import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
 import CreateStory from 'app/containers/create-story';
 import GroupsHub from 'app/containers/groups-hub';
@@ -22,7 +18,6 @@ import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
 import QuestComplete from 'app/containers/quest-complete';
-import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
 import Reservations from 'app/containers/Reservations';
 import ShowsHub from 'app/containers/shows-hub';
@@ -30,9 +25,11 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
+import { CommunityGroupEdit } from 'app/modules/community-group-overview';
+import Dashboard from 'app/modules/dashboard/containers/dashborad';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
-import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { ImageDetailsMain } from 'app/modules/image-details';
+import { LeaderboardContainerLazy } from 'app/modules/leaderboard';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
 import Constellation from 'app/modules/missions/containers/constellation';
@@ -40,32 +37,32 @@ import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
+  GettingStartedContainer,
   PrivateProfileMain,
+  ProfileActivity,
+  ProfileDashboardContainer,
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { PurchaseConfirmationMain } from 'app/modules/purchase-confirmation';
+import {
+  QuestCompleteLazy,
+  QuestDetailsLazy,
+  QuestStepLazy,
+} from 'app/modules/quests';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
-import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
-import Community from 'app/pages/help/Community';
 import CustomerService from 'app/pages/help/CustomerService';
-import MembershipLevels from 'app/pages/help/MembershipLevels';
-import NewToSlooh from 'app/pages/help/NewToSlooh';
-import PostingGuidelines from 'app/pages/help/PostingGuidelines';
-import Privacy from 'app/pages/help/Privacy';
-import SiteFeedback from 'app/pages/help/SiteFeedback';
-import SpaceSituationRoom from 'app/pages/help/SpaceSituationRoom';
-import TelescopesAndReservations from 'app/pages/help/TelescopesAndReservations';
-import TermsAndConditions from 'app/pages/help/TermsAndConditions';
 import Galleries from 'app/pages/my-pictures/Galleries';
 import GalleryImageDetails from 'app/pages/my-pictures/GalleryImageDetails';
 import GalleryImages from 'app/pages/my-pictures/GalleryImages';
@@ -77,8 +74,8 @@ import NewMissions from 'app/pages/new-missions';
 import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
-import Quest from 'app/pages/quest-details';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
+import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
 import JoinInviteByCodeStep1 from 'app/pages/registration/JoinInviteByCodeStep1';
@@ -89,7 +86,6 @@ import JoinStep1SchoolSelection from 'app/pages/registration/JoinStep1SchoolSele
 import JoinStep2 from 'app/pages/registration/JoinStep2';
 import JoinStep3 from 'app/pages/registration/JoinStep3';
 import MembershipPlanDetailsStep from 'app/pages/registration/MembershipPlanDetailsStep';
-import Memberships from 'app/pages/registration/Memberships';
 import ResetPassword from 'app/pages/registration/ResetPassword';
 import SignIn from 'app/pages/registration/SignIn';
 import Upgrade from 'app/pages/registration/Upgrade';
@@ -99,7 +95,6 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-// import { ConnectedTelescopeDetails } from 'app/modules/telescope/components/telescope-details';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -107,7 +102,7 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
-// import { hot } from 'react-hot-loader/root';
+import { connect } from 'react-redux';
 import {
   browserHistory,
   IndexRedirect,
@@ -117,9 +112,13 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { AboutLazy } from 'app/modules/about';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
+import AccountPreferences from './modules/account-settings/containers/account-preferences';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
+import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 
 // Create an enhanced history that syncs navigation events with the store
@@ -133,15 +132,14 @@ history.listen(location => {
     location: pathname,
   });
   // todo do we need this on every page refresh?
-  store.dispatch(fetchPlayer({ pageURL: pathname }));
+  // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
-const getProfileRoutes = () => (
+const getProfileRoutes = ({ publicProfile }) => (
   <Fragment>
-    <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
     <Route path="photos" component={ProfilePhotos}>
-      <IndexRedirect to="photoroll" />
+      <IndexRedirect to={publicProfile ? 'observations' : 'photoroll'} />
       <Route path=":type" component={ImagesLayout} />
     </Route>
     <Route path="lists">
@@ -153,6 +151,8 @@ const getProfileRoutes = () => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="gettingstarted" component={GettingStartedContainer} />
+    <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
       component={GroupCreate}
@@ -163,11 +163,14 @@ const getProfileRoutes = () => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
-    <Route path="quests" component={ProfileQuests} />
+    <Route path="quests">
+      <IndexRedirect to="inprogress" />
+      <Route path=":viewType" component={ProfileQuests} />
+    </Route>
   </Fragment>
 );
 
-const AppRouter = () => (
+const AppRouter = ({ setPreviousInstrument }) => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -183,19 +186,36 @@ const AppRouter = () => (
     </Route>
 
     <Route path="/" component={App}>
-      <IndexRoute component={DashboardPage} onEnter={validateUser} />
+      <IndexRoute component={Dashboard} onEnter={validateUser} />
+      <Route
+        exact
+        path="guestDashboard"
+        component={Dashboard}
+        onEnter={validateUser}
+      />
+      <Route
+        path="guestDashboard/:abTestCallSource"
+        component={Dashboard}
+        onEnter={validateUser}
+      />
 
-      <Route path="about" component={About} onEnter={validateUser}>
+      <Route path="about" component={AboutLazy} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
-        <Route path="memberships" component={Memberships} />
-        <Route
-          path=":aboutSloohSectionId"
-          component={AboutSloohSection}
-          onEnter={validateUser}
-        />
+
+        <Route path="memberships">
+          <IndexRedirect to="individual" />
+          <Route path=":membershipViewType" />
+        </Route>
+
+        <Route path=":aboutSloohSectionId" onEnter={validateUser} />
       </Route>
 
       <Route path="join" component={Join}>
+        <Route
+          path="purchaseConfirmation(/:tab)"
+          component={PurchaseConfirmationMain}
+          onEnter={validateUser}
+        />
         <Route path="step1" component={JoinStep1} />
         <Route
           path="step1SchoolSelection"
@@ -203,6 +223,12 @@ const AppRouter = () => (
         />
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
+
+        <Route
+          path="enablePlan/:subscriptionPlanHashCode"
+          component={EnableHiddenPlan}
+        />
+
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
           component={JoinByLandingPage}
@@ -267,6 +293,11 @@ const AppRouter = () => (
         // component={ConnectedTelescopeDetails}
         component={TelescopeDetailsMain}
         onEnter={validateUser}
+        onLeave={() => {
+          if (!window.location.pathname.includes('telescope-details')) {
+            setPreviousInstrument(null);
+          }
+        }}
       >
         <Route path=":instrumentId" component={TelescopeNavigation} />
       </Route>
@@ -324,19 +355,7 @@ const AppRouter = () => (
         />
       </Route>
 
-      <Route path="help/posting-guidelines" component={PostingGuidelines} />
-      <Route path="help/new-to-slooh" component={NewToSlooh} />
-      <Route
-        path="help/telescopes-and-reservations"
-        component={TelescopesAndReservations}
-      />
-      <Route path="help/community" component={Community} />
-      <Route path="help/space-situation-room" component={SpaceSituationRoom} />
-      <Route path="help/membership-levels" component={MembershipLevels} />
       <Route path="help/customer-service" component={CustomerService} />
-      <Route path="help/site-feedback" component={SiteFeedback} />
-      <Route path="help/terms-and-conditions" component={TermsAndConditions} />
-      <Route path="help/privacy" component={Privacy} />
 
       <Route
         path="guides(/:filterType)"
@@ -448,7 +467,12 @@ const AppRouter = () => (
 
       <Route
         path="quest-details/:questId"
-        component={Quest}
+        component={QuestDetailsLazy}
+        onEnter={validateUser}
+      />
+      <Route
+        path="/quest-completion/:questId/:questCompletionModuleId"
+        component={QuestCompleteLazy}
         onEnter={validateUser}
       />
       <Route
@@ -458,7 +482,7 @@ const AppRouter = () => (
       />
       <Route
         path="quest-details/:questId/:step"
-        component={QuestStep}
+        component={QuestStepLazy}
         onEnter={validateUser}
       />
 
@@ -480,7 +504,7 @@ const AppRouter = () => (
           component={PrivateProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: false })}
         </Route>
 
         <Route
@@ -488,9 +512,15 @@ const AppRouter = () => (
           component={PublicProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: true })}
         </Route>
       </Route>
+
+      <Route
+        path="leaderboard(/:tab)"
+        component={LeaderboardContainerLazy}
+        onEnter={validateUser}
+      />
 
       <Route
         path="groups/create"
@@ -519,11 +549,16 @@ const AppRouter = () => (
         onEnter={validateUser}
         component={CommunityGroupEdit}
       />
-
       <Route
         path="community-groups/:groupId/info"
         onEnter={validateUser}
         component={GroupOverviewInfo}
+      />
+
+      <Route
+        path="community-groups/:groupId/:threadId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
       />
 
       <Route
@@ -533,8 +568,15 @@ const AppRouter = () => (
       >
         <IndexRedirect to="account-details" />
         <Route path="account-details" component={AccountDetails} />
+        <Route path="settings" component={AccountPreferences} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
+
+      <Route
+        path="admin-tools"
+        component={CustomerAdminToolsMain}
+        onEnter={validateUser}
+      />
 
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
         <IndexRedirect to="bySlooh1000" />
@@ -552,5 +594,15 @@ const AppRouter = () => (
   </Router>
 );
 
-// export default hot(AppRouter);
-export default AppRouter;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AppRouter);

@@ -5,9 +5,8 @@ import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdow
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
 import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
 import React, { memo } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
-import useOnClickOutside from 'use-onclickoutside';
 import './index.scss';
 
 type TFilterDropdown = {
@@ -41,11 +40,24 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     dateFilter: activeDateFilter,
   } = selectedFilters;
 
-  const open = () => setOpen(true);
-  const close = () => setOpen(false);
+  const resetFilters = () => {
+    onChange({
+      pierNumber: null,
+      observatoryId: null,
+      filterType: null,
+      timeFilter: null,
+      dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
+    });
+  };
 
-  const ref = React.useRef(null);
-  useOnClickOutside(ref, close);
+  const open = () => setOpen(true);
+  const close = () => {
+    resetFilters();
+    setOpen(false);
+  };
 
   const isTelescopeSelected = (observatoryId, pierNumber) => {
     const {
@@ -59,16 +71,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
 
   const handleReset = () => {
     // reset all filters
-    onChange({
-      pierNumber: null,
-      observatoryId: null,
-      filterType: null,
-      timeFilter: null,
-      dateFilter: null,
-      missionSystemTags: [],
-      missionUserTags: [],
-      pictureUserTags: [],
-    });
+    resetFilters();
     onApply();
     close();
   };
@@ -77,8 +80,14 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     <div className="filter-dropdown-wrapper">
       <Button onClick={open}>Options</Button>
 
-      {isOpen && (
-        <div className="filter-dropdown animated fadeIn faster" ref={ref}>
+      <Modal
+        show={isOpen}
+        onHide={close}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        dialogClassName="filter-modal"
+      >
+        <div className="filter-dropdown animated fadeIn faster">
           <div className="filter-dropdown-header d-flex justify-content-between">
             <span>OPTIONS</span>
             <Tooltip title="Close">
@@ -187,14 +196,14 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             <Button
               onClick={() => {
                 onApply();
-                close();
+                setOpen(false);
               }}
             >
               apply filters
             </Button>
           </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 });

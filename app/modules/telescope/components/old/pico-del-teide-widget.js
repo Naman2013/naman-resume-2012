@@ -1,4 +1,4 @@
-import DomeCamTimelapseWidget from 'app/components/telescope-details/domecam-timelapse-widget';
+import TeidePeakCamTimelapseWidget from 'app/components/telescope-details/teidepeak-cam-timelapse-widget';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import React, { Component } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
@@ -15,18 +15,16 @@ export class PicoDelTeidesWidget extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   renderTimelapseCollapsible = () => {
-    const { activeTelescope, domeCam } = this.props;
+    const { teidePeakCam, widgetId, obsId } = this.props;
     const {
-      domeCamTimelapseURL,
+      facilityWebcamTimelapseURL,
       offlineImageURL,
       onlineStatus,
       refreshIntervalSec,
       fetchingDomeCamTimelapseWidgetResult,
-    } = domeCam;
-    const { observatoryData } = activeTelescope;
-    const { obsId, DomecamTimelapseWidgetId } =
-      observatoryData || activeTelescope;
+    } = teidePeakCam;
     const { isTimelapseExpanded } = this.state;
+
     return (
       <div className="text-center">
         <Button
@@ -42,13 +40,13 @@ export class PicoDelTeidesWidget extends Component {
 
         <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
           <div id="example-collapse-text">
-            <DomeCamTimelapseWidget
+            <TeidePeakCamTimelapseWidget
               obsId={obsId}
               onlineStatus={onlineStatus}
               offlineImageURL={offlineImageURL}
               refreshIntervalSec={refreshIntervalSec}
-              domeCamTimelapseURL={domeCamTimelapseURL}
-              DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+              domeCamTimelapseURL={facilityWebcamTimelapseURL}
+              FacilityWebcamTimelapseWidgetId={widgetId}
               fetchingDomeCamTimelapseWidgetResult={
                 fetchingDomeCamTimelapseWidgetResult
               }

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes, { array, string, bool } from 'prop-types';
 import findIndex from 'lodash/findIndex';
-import { FormattedMessage } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import DropDown from 'app/components/common/DropDown';
 import styles from './question-filter.style';
-import messages from './question-filter.messages';
 
 const { func, shape } = PropTypes;
 
+@withTranslation()
 class QuestionFilter extends Component {
   static propTypes = {
     dropdownOptions: array,
@@ -29,20 +29,23 @@ class QuestionFilter extends Component {
   };
 
   get dropdownOptions() {
-    return [
-      {
-        label: <FormattedMessage {...messages.AllQuestions} />,
-        value: 'all',
-      },
-      {
-        label: <FormattedMessage {...messages.AllAnswered} />,
-        value: 'allanswered',
-      },
-      {
-        label: <FormattedMessage {...messages.AllUnanswered} />,
-        value: 'allunanswered',
-      },
-    ];
+    const { dropdownOptions, t } = this.props;
+    return (
+      dropdownOptions || [
+        {
+          label: t('AskAnAstronomer.AllQuestions'),
+          value: 'objectonly',
+        },
+        {
+          label: t('AskAnAstronomer.AllAnswered'),
+          value: 'allanswered',
+        },
+        {
+          label: t('AskAnAstronomer.AllUnanswered'),
+          value: 'allunanswered',
+        },
+      ]
+    );
   }
 
   get countText() {
@@ -73,9 +76,9 @@ class QuestionFilter extends Component {
           className="title"
           dangerouslySetInnerHTML={{ __html: countText || this.countText }}
         />
-        {showDropdown && totalCount ? (
+        {showDropdown ? (
           <DropDown
-            options={dropdownOptions || this.dropdownOptions}
+            options={this.dropdownOptions}
             selectedIndex={selectedIndex}
             handleSelect={this.handleSelect}
           />

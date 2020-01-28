@@ -4,7 +4,7 @@ import {
   getObservatoryListApi,
   getObjectListApi,
   getBySlooh1000Api,
-  getMissionSlotApi,
+  grabMissionSlotApi,
   reserveMissionSlotApi,
   getCatalogListApi,
   checkCatalogVisibilityApi,
@@ -18,6 +18,13 @@ import {
   getTelescopeSlotApi,
   checkTargetVisibilityApi,
   getCoordinatesCategoryListApi,
+  grabPiggybackApi,
+  reservePiggybackApi,
+  getMissionSlotApi,
+  grabUpdatedSlotApi,
+  updateMissionSlotApi,
+  cancelReservationApi,
+  cancelPiggybackApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -109,11 +116,12 @@ export const getMissionList = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getMissionListError(error)));
 };
 
-export const setTelescope = (telescope, getMissions) => (dispatch, getState) => {
+export const setTelescope = (telescope, getMissions) => (
+  dispatch,
+  getState
+) => {
   dispatch(ACTION.setTelescope(telescope));
-  const selectedDate = makeTelescopeSelectedDateSelector()(
-    getState()
-  );
+  const selectedDate = makeTelescopeSelectedDateSelector()(getState());
   if (getMissions) {
     dispatch(getMissionSlotDates(telescope, selectedDate.reservationDate));
   }
@@ -143,14 +151,6 @@ export const getTelescopeSlot = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getTelescopeSlotError(error)));
 };
 
-export const getCoordinatesCategoryList = () => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
-  dispatch(ACTION.getCoordinatesCategoryList());
-  return getCoordinatesCategoryListApi({ at, token, cid })
-    .then(result => dispatch(ACTION.getCoordinatesCategoryListSuccess(result.data)))
-    .catch(error => dispatch(ACTION.getCoordinatesCategoryListError(error)));
-};
-
 // missions
 export const getMissions = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -163,7 +163,7 @@ export const getMissions = () => (dispatch, getState) => {
 export const getMissionSlot = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getMissionSlot());
-  return getMissionSlotApi({ at, token, cid, ...data })
+  return grabMissionSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getMissionSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.getMissionSlotError(error)));
 };
@@ -182,6 +182,14 @@ export const cancelMissionSlot = data => (dispatch, getState) => {
   return cancelMissionSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.cancelMissionSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.cancelMissionSlotError(error)));
+};
+
+export const cancelReservation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelReservation());
+  return cancelReservationApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelReservationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelReservationError(error)));
 };
 
 // by Slooh 1000
@@ -210,7 +218,12 @@ export const getObjectList = data => (dispatch, getState) => {
     cid,
     ...data,
   })
-    .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
+    .then(result => {
+      if (!result.data.apiError) {
+        return dispatch(ACTION.getObjectListSuccess(result.data));
+      }
+      return dispatch(ACTION.getObjectListError(error));
+    })
     .catch(error => dispatch(ACTION.getObjectListError(error)));
 };
 
@@ -282,15 +295,86 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
 };
 
-export const checkTargetVisibility = (data, telescopeId) => (dispatch, getState) => {
+//coordinates
+export const checkTargetVisibility = (data, telescopeId, getPresetOptionsFlag = true) => (
+  dispatch,
+  getState
+) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.checkTargetVisibility());
   return checkTargetVisibilityApi({ at, token, cid, ...data })
     .then(result => {
       dispatch(ACTION.checkTargetVisibilitySuccess(result.data));
-      if (result.data.objectIsVisible) {
+      if (result.data.objectIsVisible && getPresetOptionsFlag) {
         dispatch(getPresetOptions(telescopeId));
       }
+      return result;
     })
     .catch(error => dispatch(ACTION.checkTargetVisibilityError(error)));
+};
+
+export const getCoordinatesCategoryList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { byCoordinates, byTelescope, } = getState().missions;
+  dispatch(ACTION.getCoordinatesCategoryList());
+  return getCoordinatesCategoryListApi({ at, token, cid })
+    .then(result => {
+        dispatch(ACTION.getCoordinatesCategoryListSuccess(result.data));
+        if (byCoordinates?.objectType) {
+          dispatch(getPresetOptions(byTelescope?.selectedTelescope?.telescopeId));
+        }
+      }
+    )
+    .catch(error => dispatch(ACTION.getCoordinatesCategoryListError(error)));
+};
+
+// Piggyback missions
+
+export const grabPiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.grabPiggyback());
+  return grabPiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.grabPiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.grabPiggybackError(error)));
+};
+
+export const reservePiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.reservePiggyback());
+  return reservePiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.reservePiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.reservePiggybackError(error)));
+};
+
+export const cancelPiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelPiggyback());
+  return cancelPiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelPiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelPiggybackError(error)));
+};
+
+// Edit coordinates
+export const getMissionSlotEdit = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getMissionSlotEdit());
+  return getMissionSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getMissionSlotEditSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getMissionSlotEditError(error)));
+};
+
+export const grabUpdatedSlot = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.grabUpdatedSlot());
+  return grabUpdatedSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.grabUpdatedSlotSuccess(result.data)))
+    .catch(error => dispatch(ACTION.grabUpdatedSlotError(error)));
+};
+
+export const updateMissionSlot = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.updateMissionSlot());
+  return updateMissionSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.updateMissionSlotSuccess(result.data)))
+    .catch(error => dispatch(ACTION.updateMissionSlotError(error)));
 };

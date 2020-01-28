@@ -12,6 +12,7 @@ import {
 import { TelescopeDetails } from 'app/modules/telescope/components/telescope-details/telescope-details';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
+import { getTelescopes } from '../thunks';
 // import { createStructuredSelector } from 'reselect';
 
 // const mapStateToProps = createStructuredSelector({});
@@ -24,6 +25,7 @@ const mapStateToProps = ({
   telescopeDetails,
   activeTelescopeMissions,
   objectDetails,
+  user,
 }) => {
   const { observatoryList } = telescopeOverview;
 
@@ -52,6 +54,7 @@ const mapStateToProps = ({
 
     activeDetailsSSE: telescopeDetails.activeSSE,
     objectDetails: objectDetails,
+    user,
   };
 };
 
@@ -64,6 +67,7 @@ const mapDispatchToProps = {
   fetchObjectDataAction,
   resetObjectData,
   updateCurrentInstrument,
+  getTelescopes,
 };
 
 export default compose(

@@ -11,6 +11,7 @@ const apiPortNumber = process.env.apiPortNumber || '';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
+const publicPath = path.join(__dirname, './public');
 const outPath = path.join(__dirname, './dist');
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -18,39 +19,9 @@ module.exports = {
   context: sourcePath,
   mode: 'development',
   entry: {
-    /*vendors: [
-      'classnames',
-      'cookie',
-      'lodash',
-      'moment',
-      'moment-timezone',
-      'axios',
-      'react',
-      'react-addons-css-transition-group',
-      'react-dom',
-      'react-draggable',
-      'react-onclickoutside',
-      'react-redux',
-      'react-remarkable',
-      'react-router',
-      'react-router-redux',
-      'react-scroll',
-      'react-slick',
-      'react-tabs',
-      'react-tag-input',
-      'redux',
-      'redux-form',
-      'redux-logger',
-      'redux-thunk',
-    ],*/
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
-  // output: {
-  //   path: `${__dirname}/dist`,
-  //   publicPath: '/',
-  //   filename: '[name].js',
-  //   sourceMapFilename: '[name].js.map',
-  // },
   output: {
     path: outPath,
     publicPath: '/',
@@ -62,10 +33,15 @@ module.exports = {
       app: path.resolve(__dirname, './app/'),
       assets: path.resolve(__dirname, './app/assets/'),
     },
+    extensions: ['.tsx', '.ts', '.js'],
   },
-  // target: 'web', // Make web variables accessible to webpack, e.g. window
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
@@ -127,7 +103,6 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
@@ -140,6 +115,9 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: publicPath, to: outPath },
+    ]),
   ],
 
   // Emit a source map for easier debugging
@@ -160,6 +138,11 @@ module.exports = {
       disableDotRule: true,
     },
     proxy: {
+      '/getHosted*.php': {
+        target: 'https://nova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
       '/api/**': {
         target: 'https://nova.slooh.com',
         changeOrigin: true,
@@ -176,7 +159,7 @@ module.exports = {
         secure: true,
       },
       '/bot/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },

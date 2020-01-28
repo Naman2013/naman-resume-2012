@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { intlShape, injectIntl } from 'react-intl';
 import GuideTiles from 'app/components/guides-hub/guide-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
@@ -18,7 +18,6 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as guidesActions } from '../../modules/guides/reducer';
 import style from './guides-hub.style';
-import messages from './GuidesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -30,14 +29,14 @@ const guidesHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation()
 class Guides extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: PropTypes.bool.isRequired,
   };
 
@@ -89,7 +88,7 @@ class Guides extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
     const { guides } = this.state;
 
     return (
@@ -135,9 +134,7 @@ class Guides extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <GuideTiles
                               updateReadingListInfo={
@@ -180,4 +177,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(Guides));
+)(Guides);

@@ -6,9 +6,10 @@ import Button from 'app/components/common/style/buttons/Button';
 import style from './show-excerpt-tile.style';
 
 const ShowTile = ({
-  airdateDisplay,
+  subTitle,
   eventId,
   eventTitle,
+  eventHostName,
   linkLabel,
   linkUrl,
   promptIconUrl,
@@ -18,6 +19,7 @@ const ShowTile = ({
   toggleReadingListFlag,
   updateReadingInfoInList,
   withinReletedSection,
+  onUpdate,
 }) => (
   <div
     className="show-tile-root"
@@ -26,7 +28,7 @@ const ShowTile = ({
     <div className="title" dangerouslySetInnerHTML={{ __html: eventTitle }} />
     <div
       className="sub-title"
-      dangerouslySetInnerHTML={{ __html: airdateDisplay }}
+      dangerouslySetInnerHTML={{ __html: eventHostName }}
     />
     <div
       className="description"
@@ -45,6 +47,7 @@ const ShowTile = ({
           readingListType={readingListType}
           readingListPrompt={null}
           promptIconUrl={promptIconUrl}
+          onUpdate={onUpdate}
         />
       ) : null}
     </div>

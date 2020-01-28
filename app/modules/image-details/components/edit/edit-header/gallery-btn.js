@@ -43,7 +43,7 @@ export const GalleryBtn = props => {
       isOpen={isOpen}
       setOpen={setOpen}
       className="ml-2 gallery-btn"
-      tooltip="Plus"
+      tooltip="Add to Gallery"
       icon={<span className="icon-plus" />}
       popoverHeader="ADD IMAGE TO GALLERY"
       popover={
@@ -68,7 +68,7 @@ export const GalleryBtn = props => {
 
           {/* SHOW BUTTON */}
           {!isInput && (
-            <Button block onClick={() => switchInput(true)}>
+            <Button block style={{ marginTop: '5px' }} onClick={() => switchInput(true)}>
               Create new Gallery
               <span className="icon-plus float-right" />
             </Button>
@@ -80,9 +80,10 @@ export const GalleryBtn = props => {
               <input
                 type="text"
                 className="observation-control observation-control-sm"
-                placeholder="Add tags to this image"
+                placeholder="Gallery name"
                 onChange={evt => setVal(evt.target.value)}
                 value={val}
+                style={{ marginTop: '5px' }}
               />
             </form>
           )}

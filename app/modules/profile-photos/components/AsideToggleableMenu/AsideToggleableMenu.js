@@ -2,15 +2,15 @@
  * V4 AsideToggleableMenu
  ********************************* */
 
+import { AddTagsAsideMenu } from 'app/modules/profile-photos/components/add-tags-aside-menu';
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
+import { useTranslation } from 'react-i18next';
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
+import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove-gallery-image';
 
 import styles from './AsideToggleableMenu.style';
-import messages from './AsideToggleableMenu.messages';
 
 const AsideToggleableMenu = props => {
   const {
@@ -27,16 +27,22 @@ const AsideToggleableMenu = props => {
     redirectToImage,
     downloadFile,
     mod,
+    tagActions = {},
+    tagsData = {},
+    galleryId,
+    typeGallery,
   } = props;
+  const { t } = useTranslation();
 
   return (
     <div
       className={mod ? `root ${mod}` : 'root'}
       style={{ width: visible ? '70%' : '0' }}
       onClick={e => e.stopPropagation()}
+      role="presentation"
     >
-      <div style={{ opacity: visible ? 1 : 0 }} className="heading">
-        <FormattedMessage {...messages.MoreOptions} />
+      <div style={!visible ? { display: 'none' } : null} className="heading">
+        {t('Photos.CardMenu.MenuTitle')}
         <i
           className="fa fa-close"
           aria-hidden="true"
@@ -46,6 +52,22 @@ const AsideToggleableMenu = props => {
 
       <div className="options-list">
         {optionsList.map(option => {
+          if (option.action === 'removeFromGallery') {
+            return typeGallery ? (
+              <div className="action-menu-container option">
+                <div
+                  className="remove-gallery-image"
+                  style={!visible ? { display: 'none' } : null}
+                >
+                  <RemoveGalleryImageBtn
+                    label={option.label}
+                    galleryId={galleryId}
+                    customerImageId={customerImageId}
+                  />
+                </div>
+              </div>
+            ) : null;
+          }
           if (option.action === 'remove') {
             return (
               <DeleteImage
@@ -56,9 +78,9 @@ const AsideToggleableMenu = props => {
                 firstImageNumber={firstImageNumber}
                 render={removeImage => (
                   <button
-                    style={{ opacity: visible ? 1 : 0 }}
+                    style={!visible ? { display: 'none' } : null}
                     onClick={removeImage}
-                    className="option"
+                    className="option delete"
                   >
                     {option.label}
                   </button>
@@ -77,7 +99,7 @@ const AsideToggleableMenu = props => {
                 asideMenuWidth={blockWidth * 0.7}
                 render={toggleMenu => (
                   <button
-                    style={{ opacity: visible ? 1 : 0 }}
+                    style={!visible ? { display: 'none' } : null}
                     onClick={toggleMenu}
                     className="option"
                   >
@@ -90,7 +112,7 @@ const AsideToggleableMenu = props => {
           if (option.action === 'redirect') {
             return (
               <button
-                style={{ opacity: visible ? 1 : 0 }}
+                style={!visible ? { display: 'none' } : null}
                 onClick={redirectToImage()}
                 className="option"
               >
@@ -101,7 +123,7 @@ const AsideToggleableMenu = props => {
           if (option.action === 'download') {
             return (
               <button
-                style={{ opacity: visible ? 1 : 0 }}
+                style={!visible ? { display: 'none' } : null}
                 onClick={downloadFile}
                 className="option"
               >
@@ -109,9 +131,30 @@ const AsideToggleableMenu = props => {
               </button>
             );
           }
+          if (option.action === 'tagging') {
+            const { tagList, isFetching } = tagsData;
+            const { setTag, getTags, deleteTag } = tagActions;
+
+            return (
+              <button
+                style={!visible ? { display: 'none' } : null}
+                className="option flex-row-reverse"
+              >
+                <AddTagsAsideMenu
+                  label={option.label}
+                  tagList={tagList}
+                  isFetching={isFetching}
+                  setTag={setTag}
+                  getTags={getTags}
+                  deleteTag={deleteTag}
+                  customerImageId={customerImageId}
+                />
+              </button>
+            );
+          }
           return (
             <button
-              style={{ opacity: visible ? 1 : 0 }}
+              style={!visible ? { display: 'none' } : null}
               onClick={option.action}
               className="option"
             >

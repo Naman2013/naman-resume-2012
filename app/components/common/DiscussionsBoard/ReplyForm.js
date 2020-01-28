@@ -6,7 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
@@ -17,7 +17,6 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
-import messages from './ReplyForm.messages';
 
 const {
   arrayOf,
@@ -29,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class ReplyForm extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -43,6 +42,7 @@ class ReplyForm extends Component {
     },
     forumId: null,
   };
+
   static propTypes = {
     avatarURL: string,
     submitReply: func.isRequired,
@@ -56,25 +56,13 @@ class ReplyForm extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
   };
 
   constructor(props) {
     super();
-    const { user } = props;
     this.state = {
       uuid: '',
     };
-
-    prepareReply({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    }).then(res => {
-      this.setState(() => ({
-        uuid: res.data.postUUID,
-      }));
-    });
   }
 
   submitForm = (content, S3URLs, callback) => {
@@ -105,11 +93,25 @@ class ReplyForm extends Component {
     );
   };
 
+  handleDisplayForm = () => {
+    const { user } = this.props;
+
+    return prepareReply({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      this.setState(() => ({
+        uuid: res.data.postUUID,
+      }));
+    });
+  };
+
   handleSubmitReply = (data, callback) => {
-    const { intl } = this.props;
+    const { t } = this.props;
     const message = data.apiError
-      ? intl.formatMessage(messages.CommentErrorText)
-      : intl.formatMessage(messages.CommentSuccessText);
+      ? t('AskAnAstronomer.CommentErrorText')
+      : t('AskAnAstronomer.CommentSuccessText');
     callback(data.apiError, message);
   };
 
@@ -123,6 +125,7 @@ class ReplyForm extends Component {
           submitForm={this.submitForm}
           placeholder={placeholder}
           uuid={this.state.uuid}
+          onDisplayForm={this.handleDisplayForm}
         />
 
         <style jsx>{`
@@ -135,4 +138,4 @@ class ReplyForm extends Component {
   }
 }
 
-export default injectIntl(ReplyForm);
+export default ReplyForm;

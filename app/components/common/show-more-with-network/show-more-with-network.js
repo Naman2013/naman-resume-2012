@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import isMatch from 'lodash/isMatch';
-import axios from 'axios';
+import { API } from 'app/api';
 import ShowMore from 'app/components/common/ShowMore';
 
 class ShowMoreWithNetwork extends Component {
@@ -23,12 +23,8 @@ class ShowMoreWithNetwork extends Component {
   };
 
   static defaultProps = {
-    onServiceResponse: (resp) => {
-      console.log(resp);
-    },
-    onPaginationChange: (q) => {
-      console.log(q);
-    },
+    onServiceResponse: (resp) => {},
+    onPaginationChange: (q) => {},
     activePageNumber: 1,
     filterOptions: {},
     count: 10,
@@ -47,7 +43,7 @@ class ShowMoreWithNetwork extends Component {
       numberOfItems: 0,
       totalNumberOfItems: 0,
     };
-    axios
+    API
       .post(props.apiURL, Object.assign({ page: props.activePageNumber }, props.filterOptions))
       .then(res => this.handleServiceResponse(res.data));
   }
@@ -61,8 +57,8 @@ class ShowMoreWithNetwork extends Component {
     const { hubActions, filterOptions } = this.props;
     if (!isMatch(filterOptions, nextProps.filterOptions)) {
       hubActions.hubGetRequestStart();
-      axios
-        .post(
+      API
+      .post(
           nextProps.apiURL,
           Object.assign({ page: nextProps.activePageNumber }, nextProps.filterOptions),
         )
@@ -77,7 +73,7 @@ class ShowMoreWithNetwork extends Component {
     onPaginationChange({ activePage: page });
     const params = Object.assign({ ...user }, filterOptions, { page });
     hubActions.hubGetRequestStart();
-    axios.post(apiURL, params).then((res) => {
+    API.post(apiURL, params).then((res) => {
       validateResponseAccess(res);
       return this.handleServiceResponse(res.data);
     });

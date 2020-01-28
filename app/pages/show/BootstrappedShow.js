@@ -7,11 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import Live from './Live';
 import Recent from './Recent';
 import Upcoming from './Upcoming';
-import CenterColumn from 'app/components/common/CenterColumn';
-import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {
@@ -40,13 +40,16 @@ class BootstrappedShow extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       isLiveShow: props.inProgressFlag,
       isUpcomingShow: props.upcomingFlag,
       isRecentShow: props.previousFlag,
+      likes: props.likesCount,
     };
 
     if (props.inProgressFlag) {
+      console.log("here");
       this.configureTimer({
         expires: props.endDate,
         timestamp: props.startDate,
@@ -54,6 +57,7 @@ class BootstrappedShow extends Component {
     }
 
     if (props.upcomingFlag) {
+      console.log("here2");
       this.configureTimer({
         expires: props.startDate,
         timestamp: props.serverTime,
@@ -68,6 +72,7 @@ class BootstrappedShow extends Component {
       });
 
       if (nextProps.inProgressFlag) {
+        console.log("here3");
         this.configureTimer({
           expires: nextProps.endDate,
           timestamp: nextProps.startDate,
@@ -92,7 +97,15 @@ class BootstrappedShow extends Component {
         isRecentShow: nextProps.previousFlag,
       });
     }
+
+    this.setState({
+      likes: nextProps.likesCount,
+    });
   }
+
+  likeResultHandler = count => {
+    this.setState({ likes: count });
+  };
 
   componentWillUnmount() {
     this.tearDown();
@@ -103,7 +116,9 @@ class BootstrappedShow extends Component {
     const milliExpires = Number(expires) * 1000;
     const milliTimestamp = Number(timestamp) * 1000;
     const remainingTime = milliExpires - milliTimestamp;
-    if (remainingTime > 1000) {
+
+    //this state can not support a show with a lead time of more than 24.9 days - 32bit signed integer limit is 2147483647
+    if ( (remainingTime > 1000) && (remainingTime < 21000000) ) {
       this.timerPointer = setTimeout(::this.setNextShowState, remainingTime);
     }
   }
@@ -133,13 +148,31 @@ class BootstrappedShow extends Component {
 
   render() {
     // const {} = this.props;
-    const { isLiveShow, isUpcomingShow, isRecentShow } = this.state;
+    const { isLiveShow, isUpcomingShow, isRecentShow, likes } = this.state;
 
     return (
       <div className="root">
-        {isLiveShow ? <Live {...this.props} /> : null}
-        {isRecentShow ? <Recent {...this.props} /> : null}
-        {isUpcomingShow ? <Upcoming {...this.props} /> : null}
+        {isLiveShow ? (
+          <Live
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isRecentShow ? (
+          <Recent
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isUpcomingShow ? (
+          <Upcoming
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
         <style jsx>{styles}</style>
       </div>
     );

@@ -82,6 +82,7 @@ class UnderlineNav extends Component {
                         itemSplitPath[itemSplitPath.length - 1] ||
                       (!activeFilter &&
                         !itemSplitPath[itemSplitPath.length - 1]),
+                    disabled: item.disabled,
                   })}
                   key={`${item.linkURL}`}
                 >

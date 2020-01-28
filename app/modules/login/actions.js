@@ -1,5 +1,6 @@
-import axios from 'axios';
-import { store as storeUser } from 'app/modules/User';
+import { closeAllMenus } from 'app/modules/global-navigation/actions';
+import { API } from 'app/api';
+import { store as storeUser, storeUserNewAT, set } from 'app/modules/User';
 
 export const LOGIN_USER_START = 'LOGIN_USER_START';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
@@ -33,41 +34,55 @@ export const resetLogIn = () => ({
   type: RESET_LOGIN_USER,
 });
 
-export const logUserIn = loginForm => dispatch => {
+export const updateUserAt = at => dispatch => {
+  return storeUserNewAT({ at }).then(() => {
+    dispatch(
+      set({
+        at,
+      })
+    );
+  });
+};
+
+export const logUserIn = (loginForm, reloadOpts = {}) => dispatch => {
   const { username, pwd } = loginForm;
 
   dispatch(logUserInStart());
 
-  return axios
-    .post('/api/users/login', {
-      username,
-      passwd: pwd,
-    })
+  return API.post('/api/users/login', {
+    username,
+    passwd: pwd,
+  })
     .then(result => {
       const { apiError } = result.data;
 
       if (apiError) {
         dispatch(logUserInFail(result.data));
       } else {
+        dispatch(closeAllMenus());
         dispatch(resetLogIn());
-        dispatch(storeUser(Object.assign({ reload: true }, result.data)));
+        dispatch(
+          storeUser(Object.assign({ reload: true, ...reloadOpts }, result.data))
+        );
       }
     })
     .catch(error => dispatch(logUserInFail(error)));
 };
 
 /* Log the user in via Google SSO */
-export const logGoogleUserIn = googleProfileResult => dispatch => {
+export const logGoogleUserIn = (
+  googleProfileResult,
+  reloadOpts = {}
+) => dispatch => {
   const { googleProfileId, googleProfileEmail } = googleProfileResult;
 
   dispatch(logGoogleUserInStart());
 
-  return axios
-    .post('/api/users/login', {
-      username: googleProfileEmail,
-      passwd: 'notrequiredforthiscall',
-      googleProfileId,
-    })
+  return API.post('/api/users/login', {
+    username: googleProfileEmail,
+    passwd: 'notrequiredforthiscall',
+    googleProfileId,
+  })
     .then(result => {
       const { apiError } = result.data;
 
@@ -75,8 +90,10 @@ export const logGoogleUserIn = googleProfileResult => dispatch => {
         dispatch(logGoogleUserInFail(result.data));
       } else {
         dispatch(resetLogIn());
-        dispatch(storeUser(result.data));
-        window.location.reload();
+        dispatch(
+          storeUser(Object.assign({ reload: true, ...reloadOpts }, result.data))
+        );
+        // window.location.reload();
       }
     })
     .catch(error => dispatch(logGoogleUserInFail(error)));

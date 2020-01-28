@@ -29,7 +29,7 @@ class FollowObjectButton extends Component {
   };
 
   toggleFollow = () => {
-    const { objectId, user } = this.props;
+    const { objectId, user, callBack } = this.props;
 
     fetchFollowObject({
       at: user.at,
@@ -42,15 +42,22 @@ class FollowObjectButton extends Component {
           icon: res.data.promptIconUrl,
           text: res.data.followPrompt,
         });
+        if (callBack) {
+          callBack();
+        }
       }
     });
   };
 
   render() {
     const { text, icon } = this.state;
+    const { width, height } = this.props;
     return (
       <GenericButton
-        theme={{ height: '40px', width: '160px' }}
+        theme={{
+          height: height !== undefined ? height : '40px',
+          width: width !== undefined ? width : '160px',
+        }}
         onClickEvent={this.toggleFollow}
         text={text}
         icon={icon}

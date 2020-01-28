@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
+import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import Button from 'app/components/common/style/buttons/Button';
 import './index.scss';
 
@@ -12,6 +12,8 @@ export class ReservationModalCountdown extends PureComponent {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      completeReservationPromptLong,
+      userHasHold,
     } = this.props;
     return (
       <div className="reservation-modal-countdown">
@@ -22,20 +24,19 @@ export class ReservationModalCountdown extends PureComponent {
             onTick={onCountdownTick}
             renderer={props => (
               <div>
-                Please complete your reservation within {props.minutes}:
-                <FormattedNumber
-                  value={props.seconds}
-                  minimumIntegerDigits={2}
-                />
+                {completeReservationPromptLong} {props.minutes}:
+                {twoDigitsTimeFormatting(props.seconds)}
               </div>
             )}
           />
         </div>
-        <Button
-          text="Hold one hour"
-          onClickEvent={buttonOnClick}
-          disabled={extendedTimer}
-        />
+        {!userHasHold && (
+          <Button
+            text="Hold one hour"
+            onClickEvent={buttonOnClick}
+            disabled={extendedTimer}
+          />
+        )}
       </div>
     );
   }

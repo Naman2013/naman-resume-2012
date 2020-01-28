@@ -324,8 +324,25 @@ img {
 // React Modal
 .ReactModal__Overlay {
   z-index: 9999;
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    cursor: pointer;
+  }
 }
 
 .lightgray-background {
   background-color: #f8f8f8;
+}
+
+.color-white {
+  color: white;
+  border-color: white;
+}
+
+// Guides
+.tile-content-container iframe {
+  max-width: 100% !important;
 }

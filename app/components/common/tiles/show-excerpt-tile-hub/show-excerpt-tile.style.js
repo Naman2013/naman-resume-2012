@@ -11,7 +11,7 @@ export default css`
   .show-tile-root {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     font-family: ${primaryFont};
     position: relative;
     background-color: ${romance};
@@ -33,7 +33,7 @@ export default css`
     margin-bottom: 10px;
     font-family: ${secondaryFont};
     font-size: 16px;
-    font-weight: 0;
+    font-weight: 400;
   }
 
   .sub-title {
@@ -50,6 +50,7 @@ export default css`
   }
 
   .description {
+    margin-top: 10px;
     font-family: ${secondaryFont};
     color: ${astronaut};
     font-size: 19px;
@@ -57,11 +58,18 @@ export default css`
   }
 
   .actions {
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 65%;
-    margin: 0 auto;
-    padding: 15px 0;
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 100%;
+  }
+
+  .actions button {
+    margin: 0 5px;
   }
 `;

@@ -32,6 +32,7 @@ import {
   FETCH_IMAGE_DETAILS_START,
   FETCH_IMAGE_DETAILS_FAIL,
   FETCH_IMAGE_DETAILS_SUCCESS,
+  FETCH_SHARED_MEMBER_PHOTOS_START,
   FETCH_SHARED_MEMBER_PHOTOS_SUCCESS,
   GET_MY_PICTURES,
   GET_MY_PICTURES_START,
@@ -156,15 +157,16 @@ const initialState = {
       linkLabel: null,
       linkUrl: null,
     },
+    showVisibilitySeason: false,
+    showMidnightCulmination: false,
   },
   objectMissions: {},
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
   objectObservation: {
-    myPictures: {
-      imageList: [],
-    },
+    isFetching: false,
+    myPictures: {},
   },
   imageDetails: {},
   sharedMemberPhotos: {},
@@ -172,9 +174,18 @@ const initialState = {
 
 export default createReducer(initialState, {
   /* SHARED MEMBER PHOTOS */
+  [FETCH_SHARED_MEMBER_PHOTOS_START](state) {
+    return {
+      ...state,
+      isFetching: true,
+      sharedMemberPhotos: {},
+    };
+  },
+
   [FETCH_SHARED_MEMBER_PHOTOS_SUCCESS](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       sharedMemberPhotos: payload,
     };
   },
@@ -359,6 +370,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       objectObservation: {
+        isFetching: true,
         ...initialState.objectObservation,
       },
     };
@@ -366,8 +378,10 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_SUCCESS](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       objectObservation: {
         ...state.objectObservation,
+        isFetching: false,
         myPictures: payload,
       },
     };
@@ -375,6 +389,10 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_FAIL](state, { payload }) {
     return {
       ...state,
+      objectObservation: {
+        ...state.objectObservation,
+        isFetching: false,
+      },
       errorBody: payload,
     };
   },

@@ -5,30 +5,31 @@
 // @flow
 import React, { PureComponent, Fragment } from 'react';
 import cn from 'classnames';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { browserHistory, Link, withRouter } from 'react-router';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
-import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
+import { customModalStylesFitDeviceScrollable } from 'app/styles/mixins/utilities';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './MissionCard.messages';
+
 import style from './MissionCard.style';
 import './fitsData.scss';
 
 type TMissionCard = {
   isDesktop: boolean,
   isMobile: boolean,
-  currentItem: Object,
+  currentItem: Record<string, any>,
 };
 
+@withTranslation()
 class MissionCard extends PureComponent<TMissionCard> {
   state = {
     menuIsVisible: false,
     width: null,
     showPrompt: false,
     modalComponent: null,
-    modalStyles: customModalStylesFitDevice,
+    modalStyles: customModalStylesFitDeviceScrollable,
   };
 
   optionsList = [
@@ -44,7 +45,8 @@ class MissionCard extends PureComponent<TMissionCard> {
   }
 
   onToggleMenuVisibility = () => {
-    this.setState({ menuIsVisible: !this.state.menuIsVisible });
+    const { menuIsVisible } = this.state;
+    this.setState({ menuIsVisible: !menuIsVisible });
   };
 
   onOpenMission = () => {
@@ -55,11 +57,10 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   onDownloadFitsData = () => {
-    const { currentItem, getFitsData } = this.props;
-    if (
-      currentItem.scheduledMissionId !==
-      this.props.fitsData.data.scheduledMissionId
-    ) {
+    const { currentItem, getFitsData, fitsData } = this.props;
+    const { data } = fitsData;
+    const { scheduledMissionId } = data;
+    if (currentItem.scheduledMissionId !== scheduledMissionId) {
       getFitsData(currentItem.scheduledMissionId).then(() => {
         const { fitsData } = this.props;
         this.setModal(fitsData);
@@ -68,7 +69,10 @@ class MissionCard extends PureComponent<TMissionCard> {
     this.showModal();
   };
 
-  onDownloadFile = (url, name) => downloadFile(url, name);
+  onDownloadFile = (e, url, name) => {
+    e.preventDefault();
+    downloadFile(url, name);
+  };
 
   setModal = modalComponent => {
     this.setState(state => ({
@@ -88,6 +92,10 @@ class MissionCard extends PureComponent<TMissionCard> {
     }));
   };
 
+  generateFitsViewerUrl = imageUrl => {
+    return `/fits-viewer/fits-viewer.html?url=${imageUrl}`;
+  };
+
   renderModalComponent = data => {
     const {
       popupTitleText,
@@ -96,15 +104,14 @@ class MissionCard extends PureComponent<TMissionCard> {
       missionObsName,
       missionPierName,
       missionDateTime,
-      ownerMembershipType,
       takenByText,
       ownerAvatarURL,
-      ownerFirstName,
-      ownerMemberSince,
       groupList,
       buttonText,
+      ownerDisplayName,
     } = data;
-    const { closeModal, onDownloadFile } = this;
+
+    const { closeModal, onDownloadFile, generateFitsViewerUrl } = this;
     return (
       <div className="fitsData">
         <h2>{popupTitleText}</h2>
@@ -119,10 +126,7 @@ class MissionCard extends PureComponent<TMissionCard> {
           <p>{takenByText}</p>
           <img src={ownerAvatarURL} alt="" />
           <p className="flex-column text-left">
-            <p>
-              <span>{ownerFirstName}</span> <span>{ownerMembershipType}</span>
-            </p>
-            <p>Member Since {ownerMemberSince}</p>
+            <p>{ownerDisplayName}</p>
           </p>
         </h5>
 
@@ -130,25 +134,41 @@ class MissionCard extends PureComponent<TMissionCard> {
           groupList.length &&
           groupList.map(({ groupIndex, groupName, groupImageList }) => {
             return (
-              <ul key={`${groupIndex}-${groupName}`}>
+              <ul
+                key={`${groupIndex}-${groupName}`}
+                className="fits-image-list"
+              >
                 <h5>{groupName}</h5>
                 {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
                   return (
-                    <li key={`${imageId}-${imageTitle}`}>
-                      <span
-                        className="cursor-pointer"
-                        onClick={() => onDownloadFile(imageURL, imageTitle)}
-                      >
-                        {imageTitle}
-                      </span>
+                    <li
+                      key={`${imageId}-${imageTitle}`}
+                      className="fits-image-item"
+                    >
+                      <div className="fits-item-title">{imageTitle}</div>
+                      <div className="fits-item-action">
+                        <a
+                          href={generateFitsViewerUrl(imageURL)}
+                          target="_blank"
+                          className="astronomical-view-btn btn btn-primary"
+                        >
+                          View FITS
+                        </a>
+                        <a
+                          href={imageURL}
+                          className="astronomical-download-btn btn-circle"
+                          onClick={e => onDownloadFile(e, imageURL, imageTitle)}
+                          download
+                        >
+                          <span className="icon-download" />
+                        </a>
+                      </div>
                     </li>
                   );
                 })}
               </ul>
             );
           })}
-
-        <p className="top-bot-20">To download: Click on image</p>
         <Button onClickEvent={closeModal} mod="auto">
           {buttonText}
         </Button>
@@ -163,6 +183,7 @@ class MissionCard extends PureComponent<TMissionCard> {
       isMobile,
       fitsData,
       currentItem: mission,
+      t,
     } = this.props;
     const inCenter = index % 3 === 1;
     const { menuIsVisible, width } = this.state;
@@ -204,7 +225,7 @@ class MissionCard extends PureComponent<TMissionCard> {
                 {displayDate}
               </div>
               <div className="mission-details-tile mission-details-images">
-                {missionImageCount} <FormattedMessage {...messages.Images} />
+                {missionImageCount} {t('Photos.Images')}
               </div>
             </div>
             <div
@@ -213,7 +234,6 @@ class MissionCard extends PureComponent<TMissionCard> {
               {telescopeName}
             </div>
 
-            <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
             {fitsIsAvailable && (
               <Fragment>
                 <div className="onhover-field show-onhover flex-row justify-content-between">
@@ -265,4 +285,4 @@ class MissionCard extends PureComponent<TMissionCard> {
   }
 }
 
-export default MissionCard;
+export default withRouter(MissionCard);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { previousShows } from '../../services/shows/previous-shows';
 
 

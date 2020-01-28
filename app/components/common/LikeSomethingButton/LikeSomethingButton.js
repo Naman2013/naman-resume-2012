@@ -12,6 +12,7 @@ import Modal from 'react-modal';
 import { likeReply } from 'app/services/discussions/like';
 import LikeButton from 'app/components/common/style/buttons/LikeButton';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { Tooltip } from 'react-tippy';
 
 import styles from './LikeSomethingButton.style';
 
@@ -109,12 +110,27 @@ class LikeHeartButton extends Component {
   };
 
   handleLikeResult = res => {
-    const { apiError, showLikePrompt, count, likePrompt } = res.data;
+    const { likeResultHandler } = this.props;
+    const {
+      apiError,
+      showLikePrompt,
+      likesCount,
+      count,
+      likePrompt,
+      likedByMe,
+      likeTooltip,
+    } = res.data;
+    const resultLikesCount = count || likesCount;
 
     if (!apiError) {
       this.setState(() => ({
-        likesCount: Number(count),
+        likesCount: Number(resultLikesCount),
+        likedByMe,
+        likeTooltip,
       }));
+      if (typeof likeResultHandler === 'function') {
+        likeResultHandler(resultLikesCount);
+      }
     }
 
     if (showLikePrompt) {
@@ -144,17 +160,33 @@ class LikeHeartButton extends Component {
   };
 
   render() {
-    const { likePrompt, likesCount, isModalOpen } = this.state;
-    const { mod, user } = this.props;
+    const {
+      likePrompt,
+      likesCount,
+      isModalOpen,
+      likedByMe: likedByMeInner,
+      likeTooltip: likeTooltipInner,
+    } = this.state;
+    const { mod, user, likedByMe, likeTooltip } = this.props;
     if (!user) return null;
+    const tooltip = likeTooltipInner || likeTooltip;
     return (
       <Fragment>
-        <LikeButton
-          mod={mod}
-          onClickEvent={this.likeItem}
-          count={likesCount}
-          alwaysShowCount
-        />
+        <Tooltip
+          disabled={!tooltip}
+          html={<div dangerouslySetInnerHTML={{ __html: tooltip }} />}
+          theme="light"
+          unmountHTMLWhenHide
+          animateFill={false}
+        >
+          <LikeButton
+            mod={mod}
+            onClickEvent={this.likeItem}
+            count={likesCount}
+            alwaysShowCount
+            likedByMe={likedByMe || likedByMeInner}
+          />
+        </Tooltip>
         <Modal
           ariaHideApp={false}
           isOpen={isModalOpen}

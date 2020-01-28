@@ -9,12 +9,15 @@ import style from './imageClickHandler.style';
 export default class ImageClickHandler extends React.Component {
   state = {
     imageId: null,
+    modalOpen: false,
   };
 
   handleClick = e => {
+    const { imageUrl } = this.props;
     if (this.state.imageId === null && e.target.tagName === 'IMG') {
       this.setState({
         imageId: e.target.getAttribute('sloohrelatedimagerecordid'),
+        modalOpen: true,
       });
     }
   };
@@ -22,15 +25,18 @@ export default class ImageClickHandler extends React.Component {
   closePopup = () => {
     this.setState({
       imageId: null,
+      modalOpen: false,
     });
   };
 
   render() {
+    const { imageUrl } = this.props;
+    const { modalOpen, imageId } = this.state;
     return (
       <div onClick={this.handleClick}>
         <Modal
           ariaHideApp={false}
-          isOpen={this.state.imageId != null}
+          isOpen={modalOpen}
           style={customModalStylesFitContent}
           onRequestClose={this.closePopup}
         >
@@ -38,7 +44,8 @@ export default class ImageClickHandler extends React.Component {
           <ImagePreview
             withMagnifier
             url={GUIDE_PANEL_IMAGE_ENDPOINT_URL}
-            id={this.state.imageId}
+            id={imageId}
+            imageUrl={imageUrl}
           />
         </Modal>
         {this.props.children}

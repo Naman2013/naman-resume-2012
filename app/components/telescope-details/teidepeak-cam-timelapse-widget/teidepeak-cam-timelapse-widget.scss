@@ -1,0 +1,17 @@
+.domecamtimelapse-video {
+  max-width: 100%;
+  height: 202px;
+  min-height: auto;
+  max-height: auto;
+}
+
+.live-domecamtimelapse {
+  display: block;
+  line-height: 1;
+
+  .generic-loading-box {
+    height: auto;
+    min-height: auto;
+    padding: 20px 0;
+  }
+}

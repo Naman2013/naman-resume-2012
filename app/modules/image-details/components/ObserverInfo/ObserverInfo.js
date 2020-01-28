@@ -9,18 +9,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
-import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  profilePhotoStyle,
+  aspectRatio,
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 import {
   astronaut,
   shadows,
   romance,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import {
-  aspectRatio,
-  backgroundImageCover,
-  dropShadowContainer,
-} from '../../../../styles/mixins/utilities';
+
 import { screenMedium } from 'app/styles/variables/breakpoints';
 
 const { arrayOf, bool, shape, string } = PropTypes;
@@ -37,6 +38,7 @@ const ObserverInfo = ({
   isDesktop,
   displayName,
   gravityRankLabel,
+  observerData,
 }) => (
   <div className="root mb-4">
     {isDesktop ? (
@@ -47,30 +49,42 @@ const ObserverInfo = ({
     <div className="observer-info-container">
       {!isDesktop ? <div className="title">Observer:</div> : null}
       <div className="flex-item">
-        <span
-          className="name"
-          dangerouslySetInnerHTML={{ __html: displayName }}
-        />
+        <Link to={observerData?.linkUrl}>
+          <span
+            className="name"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
+        </Link>
         <span
           className="gravity-desc"
           dangerouslySetInnerHTML={{ __html: gravityRankLabel }}
         />
       </div>
       <div className="avatar-container flex-item">
-        <div className="observer-avatar" style={profPic(avatarURL)} />
+        <div className="observer-avatar-container">
+          <div
+            className="observer-avatar"
+            style={{
+              backgroundImage: `url("${
+                observerData ? observerData.iconUrl : avatarURL
+              }")`,
+            }}
+          />
+        </div>
         <div className="avatar-line" />
       </div>
     </div>
 
-    <style jsx>{`
-      .root {
-        background-color: ${romance};
-        ${dropShadowContainer}
-      }
-      
-      .component-container {
-        margin: 25px;
-      }
+    <style jsx>
+      {`
+        .root {
+          background-color: ${romance};
+          ${dropShadowContainer}
+        }
+
+        .component-container {
+          margin: 25px;
+        }
 
         .title-container {
           text-transform: uppercase;
@@ -120,10 +134,6 @@ const ObserverInfo = ({
           font-weight: bold;
         }
 
-        .observer-avatar {
-          margin: 0 auto;
-        }
-
         .title {
           flex: 0 0 100%;
           font-size: 11px;
@@ -133,6 +143,24 @@ const ObserverInfo = ({
 
         .avatar-line {
           display: none;
+        }
+
+        .observer-avatar-container {
+          height: 105px;
+          width: 105px;
+          border-radius: 50%;
+          padding: 10px;
+          margin: 0 auto;
+          background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .observer-avatar-container .observer-avatar {
+          height: 100%;
+          width: 100%;
+          background-size: cover;
         }
 
         @media ${screenMedium} {
@@ -152,7 +180,7 @@ const ObserverInfo = ({
             width: 100%;
           }
 
-          .observer-avatar {
+          .observer-avatar-container {
             margin: 25px auto;
             position: relative;
             z-index: 1;

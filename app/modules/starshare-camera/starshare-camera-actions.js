@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
 export const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
@@ -8,6 +8,7 @@ export const RESET_SNAP_IMAGE_MESSAGE = 'RESET_SNAP_IMAGE_MESSAGE';
 export const RESET_SNAPSHOT_LIST = 'RESET_SNAPSHOT_LIST';
 
 export const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
+export const SET_PREVIOUS_INSTRUMENT = 'SET_PREVIOUS_INSTRUMENT';
 
 const setImageData = data => ({
   type: SET_IMAGE_DATA_TO_SNAPSHOT,
@@ -44,11 +45,16 @@ export const resetImageToSnap = () => ({
   type: RESET_IMAGE_TO_SNAP,
 });
 
+export const setPreviousInstrument = id => ({
+  type: SET_PREVIOUS_INSTRUMENT,
+  id,
+});
+
 const snapImageStart = () => ({
   type: SNAP_IMAGE_START,
 });
 
-export const snapImage = () => (dispatch, getState) => {
+export const snapImage = (data = {}) => (dispatch, getState) => {
   const {
     user: { token, at, cid },
     starshareCamera: { imageDataToSnapshot },
@@ -59,12 +65,13 @@ export const snapImage = () => (dispatch, getState) => {
   dispatch(snapImageStart());
 
   if (callSource && imageURL && imageID) {
-    return axios
+    return API
       .post('/api/images/snapImage', {
         token,
         at,
         cid,
         ...imageDataToSnapshot,
+        ...data,
       })
       .then(result => {
         if (!result.data.apiError) {

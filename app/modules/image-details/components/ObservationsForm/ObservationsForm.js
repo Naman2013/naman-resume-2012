@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import styles from './ObservationsForm.style';
-import messages from './ObservationsForm.messages';
 import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
-
+@withTranslation()
 class ObservationsForm extends Component {
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,
-    observationTitle: string,
-    observationLog: string,
     saveLabel: string,
     canShareFlag: bool,
     scheduledMissionId: oneOfType([number, string]).isRequired,
@@ -23,32 +20,23 @@ class ObservationsForm extends Component {
       token: oneOfType([number, string]).isRequired,
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
     saveLabel: '',
-    observationLog: '',
-    observationTitle: '',
     canShareFlag: true,
   };
 
-  state = { title: '', observation: '' };
+  state = { showPrompt: false, promptText: '' };
 
   onTitleChange = e => {
-    e.preventDefault();
-
-    this.setState({
-      title: e.target.value,
-    });
+    const { onTitleChange } = this.props;
+    onTitleChange(e.target.value);
   };
 
   onObservationChange = e => {
-    e.preventDefault();
-
-    this.setState({
-      observation: e.target.value,
-    });
+    const { onObservationChange } = this.props;
+    onObservationChange(e.target.value);
   };
 
   onSubmitForm = e => {
@@ -57,34 +45,52 @@ class ObservationsForm extends Component {
       actions: { setObservationTags },
       customerImageId,
       scheduledMissionId,
-      intl,
-      observationTagsError,
+      t,
+      title,
+      observation,
     } = this.props;
-    const { title, observation } = this.state;
     if (!title || !observation) {
-      window.alert(intl.formatMessage(messages.MissingRequired));
+      window.alert(t('Alerts.MissingRequired'));
     } else {
       setObservationTags(
         customerImageId,
         scheduledMissionId,
         title,
         observation
-      );
+      ).then(() => {
+        this.setState({
+          showPrompt: true,
+          promptText: 'Saved!',
+        });
+        setTimeout(() => {
+          this.closeModal();
+        }, 3000);
+      });
       this.setState(() => ({ title: '', observation: '' }));
     }
   };
 
-  closeModal = e => {
+  closeModal = () => {
+    const {
+      refetchData,
+      onSave,
+      onTitleChange,
+      onObservationChange,
+    } = this.props;
     this.setState({
       showPrompt: false,
     });
+    refetchData().then(onSave);
+    onTitleChange('');
+    onObservationChange('');
   };
 
   render() {
-    const { title, observation, showPrompt, promptText } = this.state;
+    const { title, observation } = this.props;
+    const { showPrompt, promptText } = this.state;
 
     return (
-      <div className="root observations-form">
+      <div className="root observations-form" id="img-details-obs-form">
         <form className="root-form">
           <div className="header">
             <span className="icon-person">
@@ -99,10 +105,6 @@ class ObservationsForm extends Component {
           <h2 className="h2-bigger">
             Earn Gravity, and Inspire the Slooh Community!
           </h2>
-          <p className="p-19">
-            Nam dapibus nisl vitae elit fringie lla rutrum. Aenean sollicitudin
-            do erat a massa estibulum sed metus in lorem tristique lorem dolar.
-          </p>
           <input
             type="text"
             value={title}
@@ -111,7 +113,7 @@ class ObservationsForm extends Component {
             className="observation-control"
           />
           <textarea
-            placeholder="Tell us something interesting and earn Gravity!"
+            placeholder="Tell us something interesting and informative."
             value={observation}
             onChange={this.onObservationChange}
             className="observation-control"
@@ -119,18 +121,23 @@ class ObservationsForm extends Component {
 
           <div className="text-right">
             <Button className="ml-3" onClick={this.onSubmitForm}>
-              Submit
+              Save
             </Button>
           </div>
         </form>
         <Modal
           ariaHideApp={false}
           isOpen={showPrompt}
-          style={customModalStyles}
+          style={{
+            ...customModalStyles,
+            content: { ...customModalStyles.content, maxWidth: '350px' },
+          }}
           contentLabel="Observation Form"
           onRequestClose={this.closeModal}
         >
-          <i className="fa fa-close" onClick={this.closeModal} />
+          <div className="dismiss" onClick={this.closeModal}>
+            <span className="fa fa-close" />
+          </div>
           {promptText}
         </Modal>
         <style jsx>{styles}</style>
@@ -139,4 +146,4 @@ class ObservationsForm extends Component {
   }
 }
 
-export default injectIntl(ObservationsForm);
+export default ObservationsForm;

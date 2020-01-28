@@ -7,22 +7,21 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { intlShape, injectIntl } from 'react-intl';
-import { astronaut } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from 'app/styles/variables/breakpoints';
-import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
-import { TopThreads } from '../../../modules/clubs';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 
-import MembersList from './members-list';
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
-import messages from './activity-form.messages';
+import MembersList from './members-list';
+import { TopThreads } from '../../../modules/clubs';
+import { createActivity } from '../../../modules/community-group-activity-list/actions';
+import './full-information-style.scss';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
@@ -35,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
     {
       createActivity,
       fetchGroupMembers,
+      validateResponseAccess,
     },
     dispatch
   ),
@@ -44,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class FullInformationOverview extends Component {
   static propTypes = {
     description: string,
@@ -58,6 +59,8 @@ class FullInformationOverview extends Component {
     heading: string,
     pageMeta: shape({
       canPost: bool,
+      canSeeGroupContent: bool,
+      topicId: number,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -65,7 +68,8 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
-    intl: intlShape.isRequired,
+
+    jumpToThreadId: number,
   };
 
   static defaultProps = {
@@ -77,11 +81,14 @@ class FullInformationOverview extends Component {
     heading: '',
     pageMeta: {
       canPost: false,
+      canSeeGroupContent: false,
+      topicId: null,
     },
     joinPrompt: '',
     showJoinPrompt: false,
     membersCount: 0,
     membersList: [],
+    jumpToThreadId: null,
   };
 
   render() {
@@ -104,8 +111,9 @@ class FullInformationOverview extends Component {
       showJoinPrompt,
       refreshHeader,
       user,
-      intl,
+      t,
       isEditMode,
+      jumpToThreadId,
     } = this.props;
 
     const createThreadFormParams = {
@@ -114,6 +122,7 @@ class FullInformationOverview extends Component {
       joinOrLeaveGroup,
       showJoinPrompt,
       topicId: pageMeta.topicId,
+      canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
 
@@ -136,66 +145,68 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        <ResponsiveTwoColumnContainer
-          renderNavigationComponent={navProps => (
-            <TwoTabbedNav
-              firstTitle={intl.formatMessage(messages.NavTitle)}
-              secondTitle={intl.formatMessage(messages.NavSecondTitle)}
-              firstTabIsActive={navProps.showMainContainer}
-              firstTabOnClick={navProps.onShowMainContainer}
-              secondTabIsActive={navProps.showAsideContainer}
-              secondTabOnClick={navProps.onShowAsideContainer}
-            />
-          )}
-          renderAsideContent={() =>
-            !isEditMode && (
-              <div>
-                <TopThreads
-                  topicId={pageMeta.topicId}
-                  isDesktop={context.isDesktop}
-                />
-                <MembersList
-                  membersSort={membersSort}
-                  membersList={membersList}
-                  membersCount={membersCount}
-                  leadersList={leadersList}
-                  discussionGroupId={discussionGroupId}
-                  fetchGroupMembers={actions.fetchGroupMembers}
-                  isDesktop={context.isDesktop}
-                />
-              </div>
-            )
-          }
-          isScreenSize={context.isScreenLarge}
-          renderMainContent={() =>
-            !isEditMode && (
-              <div className="discuss-container">
-                <DiscussionsBoard
-                  errorMessage={intl.formatMessage(messages.FetchingListError)}
-                  topicId={pageMeta.topicId}
-                  forumId={pageMeta.forumId}
-                  callSource="groups"
-                  createThread={actions.createActivity}
-                  createThreadFormParams={createThreadFormParams}
-                />
-              </div>
-            )
-          }
-        />
-
-        <style jsx>
-          {`
-            .root {
+        {this.props.pageMeta.canSeeGroupContent && (
+          <ResponsiveTwoColumnContainer
+            renderNavigationComponent={navProps => (
+              <TwoTabbedNav
+                firstTitle={t('Clubs.NavTitle')}
+                secondTitle={t('Clubs.NavSecondTitle')}
+                firstTabIsActive={navProps.showMainContainer}
+                firstTabOnClick={navProps.onShowMainContainer}
+                secondTabIsActive={navProps.showAsideContainer}
+                secondTabOnClick={navProps.onShowAsideContainer}
+              />
+            )}
+            renderAsideContent={() =>
+              !isEditMode &&
+              this.props.pageMeta.canSeeGroupContent && (
+                <div>
+                  <div className="popular-discussion-wrapper">
+                    <TopThreads
+                      topicId={pageMeta.topicId}
+                      isDesktop={context.isDesktop}
+                      discussionGroupId={discussionGroupId}
+                    />
+                  </div>
+                  <MembersList
+                    membersSort={membersSort}
+                    membersList={membersList}
+                    membersCount={membersCount}
+                    leadersList={leadersList}
+                    discussionGroupId={discussionGroupId}
+                    fetchGroupMembers={actions.fetchGroupMembers}
+                    isDesktop={context.isDesktop}
+                  />
+                </div>
+              )
             }
-
-            .discuss-container {
-              margin-top: 15px;
+            isScreenSize={context.isScreenLarge}
+            renderMainContent={() =>
+              !isEditMode &&
+              pageMeta.canSeeGroupContent === true && (
+                <div className="discuss-container">
+                  <DiscussionsBoard
+                    errorMessage={t('Clubs.FetchingListError')}
+                    topicId={pageMeta.topicId}
+                    forumId={pageMeta.forumId}
+                    callSource="groups"
+                    createThread={actions.createActivity}
+                    createThreadFormParams={createThreadFormParams}
+                    user={user}
+                    validateResponseAccess={actions.validateResponseAccess}
+                    discussionGroupId={discussionGroupId}
+                    jumpToThreadId={jumpToThreadId}
+                    canSeeGroupContent={pageMeta.canSeeGroupContent}
+                    isClub
+                  />
+                </div>
+              )
             }
-          `}
-        </style>
+          />
+        )}
       </div>
     );
   }
 }
 
-export default injectIntl(FullInformationOverview);
+export default FullInformationOverview;

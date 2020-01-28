@@ -1,6 +1,5 @@
 import css from 'styled-jsx/css';
 import { profilePhotoStyle } from 'app/styles/mixins/utilities';
-
 import {
   astronaut,
   geyser,
@@ -8,8 +7,7 @@ import {
   romance,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { faintShadow } from 'app/styles/variables/shadows';
-import { dropShadowContainer } from 'app/styles/mixins/utilities';
+
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export const profPic = photoUrl =>
@@ -39,6 +37,7 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
     text-transform: uppercase;
+    word-break: break-word;
   }
 
   .user-info,
@@ -60,6 +59,7 @@ export default css`
   }
   .display-name {
     margin-left: 10px;
+    color: ${astronaut};
   }
 
   .content {
@@ -91,6 +91,11 @@ export default css`
 
   .action-right {
     margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-width: 100px;
+    align-items: center;
   }
 
   .fa-close {
@@ -117,6 +122,15 @@ export default css`
     border-bottom: 0;
   }
 
+  .explainantion-item:last-child {
+    border-top: 0;
+  }
+
+  .comment-item :global(.title),
+  .comment-item :global(.content) {
+    overflow-wrap: break-word;
+  }
+
   @media ${screenMedium} {
     .date {
       visibility: visible;
@@ -127,6 +141,11 @@ export default css`
     }
 
     .action-left {
+      justify-content: space-between;
+      min-width: 110px;
+    }
+
+    .action-right {
       justify-content: space-between;
       min-width: 110px;
     }

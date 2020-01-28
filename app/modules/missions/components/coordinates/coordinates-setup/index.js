@@ -28,13 +28,10 @@ export class CoordinatesSetup extends PureComponent {
 
   render() {
     const {
-      categoryList,
       categoryListOpts,
       setCategory,
       selectedCategorySlug,
       getMissionSlot,
-      selectedCatalog,
-      selectedCatalogData,
       checkTargetVisibility,
       objectData,
       targetName,
@@ -43,7 +40,6 @@ export class CoordinatesSetup extends PureComponent {
       setProcessingRecipe,
       processingRecipe,
       disabled,
-      description,
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
@@ -52,7 +48,30 @@ export class CoordinatesSetup extends PureComponent {
       onCountdownComplete,
       setCoordinatesData,
       coordinatesData,
+      choosePrompt,
+      completeReservationPromptLong,
+      pageConfig,
+      userHasHold,
+      editCoordinates,
     } = this.props;
+    const {
+      header,
+      step1Title,
+      step1Tooltip,
+      step3TargetPrompt,
+      step3Title,
+      step3Tooltip,
+      step4ButtonCaption,
+      step4Title,
+      step4Tooltip,
+      step5Title,
+      step5Tooltip,
+      step6ButtonCaption,
+      step6Title,
+      step6Tooltip,
+      subheader,
+      subheaderEdit,
+    } = pageConfig;
 
     const { explanation } = objectData;
     const { ra, dec } = coordinatesData;
@@ -60,8 +79,8 @@ export class CoordinatesSetup extends PureComponent {
     return (
       <div className="coordinates-setup">
         <div className="row setup-header">
-          <h2>Set up by Coordinates!</h2>
-          <p>{description}</p>
+          <h2>{header}</h2>
+          <p>{editCoordinates ? subheaderEdit : subheader }</p>
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
@@ -69,6 +88,8 @@ export class CoordinatesSetup extends PureComponent {
               onCountdownTick={onCountdownTick}
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
+              completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={editCoordinates || userHasHold}
             />
           )}
         </div>
@@ -79,17 +100,17 @@ export class CoordinatesSetup extends PureComponent {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
-                  <span>Step 1 info</span>
+                  <span>{step1Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 1: Target object type</span>
+              <span>{step1Title}</span>
             </OverlayTrigger>
             <Select
               handleChange={setCategory}
               options={categoryListOpts}
               renderOption={this.renderCategoryOption}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               value={selectedCategorySlug}
               isDisabled={disabled}
             />
@@ -99,6 +120,7 @@ export class CoordinatesSetup extends PureComponent {
         <CoordinatesCalculation
           setCoordinatesData={setCoordinatesData}
           coordinatesData={coordinatesData}
+          pageConfig={pageConfig}
         />
 
         <div className="steps row">
@@ -108,16 +130,16 @@ export class CoordinatesSetup extends PureComponent {
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step2">
-                    <span>Step 3 info</span>
+                    <span>{step3Tooltip}</span>
                   </Tooltip>
                 }
               >
-                <span>Step 3: Target name (optional)</span>
+                <span>{step3Title}</span>
               </OverlayTrigger>
 
               <textarea
                 className="textarea designation"
-                placeholder="Type target name here"
+                placeholder={step3TargetPrompt}
                 value={targetName}
                 onChange={e => setTargetName(e.target.value)}
                 disabled={disabled}
@@ -129,15 +151,15 @@ export class CoordinatesSetup extends PureComponent {
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step2">
-                    <span>Step 4 info</span>
+                    <span>{step4Tooltip}</span>
                   </Tooltip>
                 }
               >
-                <span>Step 4: Check Target Visibility</span>
+                <span>{step4Title}</span>
               </OverlayTrigger>
 
               <Button
-                text="Check Visibility"
+                text={step4ButtonCaption}
                 onClickEvent={() => checkTargetVisibility(ra, dec)}
                 disabled={!selectedCategorySlug || !ra || !dec || disabled}
               />
@@ -152,11 +174,11 @@ export class CoordinatesSetup extends PureComponent {
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
-                    <span>Step 5 info</span>
+                    <span>{step5Tooltip}</span>
                   </Tooltip>
                 }
               >
-                <span>Step 5: Image processing</span>
+                <span>{step5Title}</span>
               </OverlayTrigger>
             </div>
 
@@ -192,17 +214,17 @@ export class CoordinatesSetup extends PureComponent {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step4">
-                  <span>Step 6 info</span>
+                  <span>{step6Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 6: Click or tap to define</span>
+              <span>{step6Title}</span>
             </OverlayTrigger>
           </div>
 
           <div className="col-sm-6 step-6">
             <Button
-              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
+              text={step6ButtonCaption}
               onClickEvent={getMissionSlot}
               disabled={
                 !processingRecipe.presetOption ||

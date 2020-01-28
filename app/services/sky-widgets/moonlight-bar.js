@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchMoonlightBar({ obsId, widgetUniqueId }) {
-  return axios.post('/api/widget/moonlightBar', {
+  return API.post('/api/widget/moonlightBar', {
     obsId,
     widgetUniqueId,
   });

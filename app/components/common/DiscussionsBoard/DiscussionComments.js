@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import noop from 'lodash/noop';
@@ -89,6 +89,21 @@ class DiscussionsComment extends Component {
       .filter(reply => displayed.indexOf(reply.replyId) > -1);
   }
 
+  getThreadData = () => {
+    const {
+      threadId,
+      discussions: { threadsList },
+    } = this.props;
+
+    if (threadsList.length > 0) {
+      return threadsList.filter(thread => thread.threadId === threadId)[0];
+    }
+
+    return {
+      commentPlaceholder: 'Write a public comment',
+    };
+  };
+
   handleShowMore = (paginatedSet, page) => {
     const {
       threadId,
@@ -106,7 +121,7 @@ class DiscussionsComment extends Component {
       return currentThread;
     });
     updateThreadsProps(newThreadList);
-    updateCommentsProps(threadId, null, paginatedSet);
+    updateCommentsProps(threadId, null, paginatedSet, page);
   };
 
   handleReply = (params, callback) => {
@@ -114,8 +129,10 @@ class DiscussionsComment extends Component {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { getThreads, threadId, getReplies } = this.props;
-        if(getThreads && getReplies) {
+        if (getThreads) {
           getThreads();
+        }
+        if (getReplies) {
           getReplies(threadId);
         }
         //updateThreadsProps(threadsList);
@@ -166,6 +183,7 @@ class DiscussionsComment extends Component {
       threadId,
       discussions: { commentsList, displayedComments, threadsList },
       discussionsActions: { updateCommentsProps },
+      updateComments,
     } = this.props;
     submitReply(params).then(res => {
       const { apiError, reply } = res.data;
@@ -180,7 +198,10 @@ class DiscussionsComment extends Component {
           commentsList[threadId],
           rep => rep.replyId === replyTo
         );
-        if (parentThread && parentComment) {
+        if (
+          (parentThread && parentComment) ||
+          (updateComments && parentComment)
+        ) {
           // safeguard
           if (commentsList[replyTo]) {
             const comments = commentsList[replyTo] || [];
@@ -231,8 +252,10 @@ class DiscussionsComment extends Component {
           }
         }
 
-        if(getThreads && getReplies) {
+        if (getThreads) {
           getThreads();
+        }
+        if (getReplies) {
           getReplies(threadId);
           getReplies(threadId, replyTo);
         }
@@ -258,12 +281,14 @@ class DiscussionsComment extends Component {
       topicId,
       user,
       validateResponseAccess,
+      flagParams,
     } = this.props;
 
     const { commentsList } = discussions;
 
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
+    const threadData = this.getThreadData();
 
     return (
       <div className="comment" key={uniqueId()}>
@@ -281,6 +306,7 @@ class DiscussionsComment extends Component {
               user={user}
               isDesktop={isDesktop}
               placeholder={formPlaceholder}
+              {...threadData}
             />
           ) : null}
         </div>
@@ -299,6 +325,11 @@ class DiscussionsComment extends Component {
                 };
                 return (
                   <CommentListItem
+                    flagParams={{
+                      ...flagParams,
+                      itemId: displayedComment.replyId,
+                      itemType: 'reply',
+                    }}
                     key={displayedComment.replyId}
                     validateResponseAccess={validateResponseAccess}
                     discussions={discussions}

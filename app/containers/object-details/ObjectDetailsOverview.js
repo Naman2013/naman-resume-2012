@@ -7,10 +7,10 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
@@ -32,7 +32,6 @@ import {
   fetchLikeAction,
 } from 'app/modules/object-details/actions';
 
-import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
 import ObjectRelatedTile from './ObjectRelatedTile';
 
@@ -147,6 +146,7 @@ const modelData = resp => ({
 });
 
 const obsData = resp => ({
+  ...resp,
   title: resp.imageTitle,
   subTitle: resp.displayName,
   desc: resp.observationLog,
@@ -156,12 +156,15 @@ const obsData = resp => ({
   likePrompt: resp.likePrompt,
   timeDisplay: resp.observationTimeDisplay,
   showLikePrompt: resp.showLikePrompt,
+  commentsCount: resp.commentsCount,
+  iconFileData: resp.iconFileData,
 });
 
 @connect(
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Overview extends Component {
   navigateByURl = url => {
     browserHistory.push(url);
@@ -173,7 +176,7 @@ class Overview extends Component {
       objectData,
       objectSpecialists,
       imageDetails,
-      intl,
+      t,
       user,
       actions: { fetchLikeAction },
     } = this.props;
@@ -198,29 +201,37 @@ class Overview extends Component {
           <section className="blue-tile-bg">
             <DeviceProvider>
               <SterlingTitle
-                title="Featured Observation"
+                title="Most Recent Observation"
                 theme={{
                   title: { color: 'white' },
                   subTitle: { color: 'white' },
                 }}
               />
               <CenterColumn widths={['768px', '965px', '965px']}>
-                <CardObservations
-                  user={user}
-                  title={observation.title}
-                  subTitle={observation.subTitle}
-                  description={observation.desc}
-                  imageUrl={observation.imageURL}
-                  linkUrl={observation.linkUrl}
-                  likesCount={observation.likesCount}
-                  likePrompt={observation.likePrompt}
-                  observationTimeDisplay={observation.timeDisplay}
-                  showLikePrompt={observation.showLikePrompt}
-                  handleLike={fetchLikeAction}
-                  customerImageId={
-                    modeledResult.featuredObservation.customerImageId
-                  }
-                />
+                {observation.title && (
+                  <CardObservations
+                    user={user}
+                    title={observation.title}
+                    observationTitle={imageDetails.observationTitle}
+                    imageTitle={imageDetails.imageTitle}
+                    subTitle={observation.subTitle}
+                    description={observation.desc}
+                    imageUrl={observation.imageURL}
+                    linkUrl={observation.linkUrl}
+                    likesCount={observation.likesCount}
+                    likeTooltip={observation.likeTooltip}
+                    likedByMe={observation.likedByMe}
+                    likePrompt={observation.likePrompt}
+                    observationTimeDisplay={observation.timeDisplay}
+                    showLikePrompt={observation.showLikePrompt}
+                    commentsCount={observation.commentsCount}
+                    iconFileData={observation.iconFileData}
+                    handleLike={fetchLikeAction}
+                    customerImageId={
+                      modeledResult.featuredObservation.customerImageId
+                    }
+                  />
+                )}
               </CenterColumn>
             </DeviceProvider>
           </section>
@@ -369,8 +380,8 @@ class Overview extends Component {
           )}
 
           <SterlingTitle
-            title={intl.formatMessage(messages.MVPAstronomers)}
-            subTitle={intl.formatMessage(messages.MostActive, {
+            title={t('Objects.MVPAstronomers')}
+            subTitle={t('Objects.MostActive', {
               objectTitle: objectData.objectTitle,
             })}
           />
@@ -384,10 +395,9 @@ class Overview extends Component {
               </div>
             ) : (
               <p className="error-message">
-                <FormattedMessage
-                  {...messages.NoSpecialists}
-                  values={{ objectTitle: objectData.objectTitle }}
-                />
+                {t('Objects.NoSpecialists', {
+                  objectTitle: objectData.objectTitle,
+                })}
               </p>
             )}
           </CenterColumn>
@@ -412,7 +422,6 @@ Overview.propTypes = {
     objectMagnitude: PropTypes.number.isRequired,
     hasBurnhamsData: PropTypes.bool.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(Overview);
+export default Overview;

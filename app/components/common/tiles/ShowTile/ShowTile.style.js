@@ -18,6 +18,7 @@ export default css`
     transition: width, height 0.4s ease-in-out;
     text-align: center;
     margin: 20px auto;
+    max-width: 100%;
   }
 
   .show-tile-title {

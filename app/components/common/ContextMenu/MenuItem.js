@@ -7,19 +7,19 @@ import style from './MenuItem.style';
 const MenuItem = ({ title, linkURL, iconUrl }) => (
   <Fragment>
     <li className="menu-item">
-      <span className="item-container">
-        <Link activeClassName="active" to={linkURL}>
+      <Link activeClassName="active" to={linkURL}>
+        <span className="item-container">
           <span className="dot-container">
             <MiraDot />
           </span>
           {title}
-        </Link>
+        </span>
         {iconUrl && (
           <div className="iconContainer">
             <img className="icon" src={iconUrl} />
           </div>
         )}
-      </span>
+      </Link>
     </li>
     <style jsx>{style}</style>
   </Fragment>

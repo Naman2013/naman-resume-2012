@@ -23,9 +23,15 @@ export default css`
   }
 
   .item-container {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid ${geyser};
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 35px);
+    padding-bottom: 30px;
+    padding-top: 40px;
+    margin-left: -15px;
+    padding-left: 20px;
+    position: relative;
+    top: -6px;
   }
 
   .iconContainer {
@@ -34,6 +40,10 @@ export default css`
     background-color: ${nightfall};
     border-radius: 50%;
     margin-top: 20px;
+    display: inline-block;
+    margin-top: 0px;
+    position: relative;
+    top: -6px;
   }
 
   .icon {
@@ -46,10 +56,8 @@ export default css`
 
   .menu-item :global(a) {
     display: block;
-    padding-bottom: 30px;
-    padding-top: 40px;
-    margin-left: -15px;
-    padding-left: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid ${geyser};
     font-family: ${secondaryFont};
     text-transform: capitalize;
     text-decoration: none;

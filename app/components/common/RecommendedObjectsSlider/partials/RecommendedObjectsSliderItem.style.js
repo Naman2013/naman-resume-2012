@@ -2,8 +2,10 @@ import css from 'styled-jsx/css';
 import {
   astronaut,
   shadows,
+  lightHeadedAstronaut,
 } from '../../../../styles/variables/colors_tiles_v4';
 import {
+  primaryFont,
   secondaryFont,
   AngeliquemadouceColombeFont,
 } from '../../../../styles/variables/fonts';
@@ -35,20 +37,24 @@ export default css`
     height: 100%;
   }
   .object-field {
-    color: ${astronaut};
-    font-family: ${secondaryFont};
-    font-size: 20px;
+    color: ${lightHeadedAstronaut};
     padding: 15px 0;
   }
 
   .title {
     border-top: 1px solid #c3c5c7;
+    font-family: ${secondaryFont};
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .details {
+    font-family: ${primaryFont};
     font-size: 12px;
-    letter-spacing: 0.6px;
     font-weight: bold;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
   }
 
@@ -92,5 +98,17 @@ export default css`
     text-transform: capitalize;
     position: relative;
     top: -5px;
+  }
+
+  .reserved-mission-capture {
+    font-family: ${primaryFont};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 0.92;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-align: center;
+    color: ${lightHeadedAstronaut};
+    margin-top: 30px;
   }
 `;

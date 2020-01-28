@@ -1,8 +1,11 @@
-import axios from 'axios/index';
+import { API } from 'app/api';
 
-export const FETCH_ASTRONOMER_QUESTION_LIST_START = 'FETCH_ASTRONOMER_QUESTION_LIST_START';
-export const FETCH_ASTRONOMER_QUESTION_LIST_SUCCESS = 'FETCH_ASTRONOMER_QUESTION_LIST_SUCCESS';
-export const FETCH_ASTRONOMER_QUESTION_LIST_FAIL = 'FETCH_ASTRONOMER_QUESTION_LIST_FAIL';
+export const FETCH_ASTRONOMER_QUESTION_LIST_START =
+  'FETCH_ASTRONOMER_QUESTION_LIST_START';
+export const FETCH_ASTRONOMER_QUESTION_LIST_SUCCESS =
+  'FETCH_ASTRONOMER_QUESTION_LIST_SUCCESS';
+export const FETCH_ASTRONOMER_QUESTION_LIST_FAIL =
+  'FETCH_ASTRONOMER_QUESTION_LIST_FAIL';
 
 const fetchAstronomerQuestionListStart = payload => ({
   type: FETCH_ASTRONOMER_QUESTION_LIST_START,
@@ -20,6 +23,7 @@ const fetchAstronomerQuestionListFail = payload => ({
 });
 
 // called on Profile
+// todo NOT USED
 export const fetchAstronomerQuestionList = ({
   answerState,
   appendToList = false,
@@ -30,22 +34,31 @@ export const fetchAstronomerQuestionList = ({
   const { cid, at, token } = getState().user;
   const { count } = getState().astronomerQuestionList;
   dispatch(fetchAstronomerQuestionListStart({ appendToList }));
-  return axios.post('/api/forum/getQuestionsList', {
-    answerState,
-    appendToList,
-    at,
-    callSource: 'qanda',
-    cid,
-    count,
-    lang,
-    page,
-    token,
-    ver,
-  })
-.then(result => dispatch(fetchAstronomerQuestionListSuccess(
-      Object.assign({
-        page,
-        appendToList,
-      }, result.data))))
-.catch(error => dispatch(fetchAstronomerQuestionListFail(error)));
+  return API
+      .post('/api/forum/getQuestionsList', {
+      answerState,
+      appendToList,
+      at,
+      callSource: 'qanda',
+      cid,
+      count,
+      lang,
+      page,
+      token,
+      ver,
+    })
+    .then(result =>
+      dispatch(
+        fetchAstronomerQuestionListSuccess(
+          Object.assign(
+            {
+              page,
+              appendToList,
+            },
+            result.data
+          )
+        )
+      )
+    )
+    .catch(error => dispatch(fetchAstronomerQuestionListFail(error)));
 };

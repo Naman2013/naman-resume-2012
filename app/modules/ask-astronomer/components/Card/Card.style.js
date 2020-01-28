@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  profilePhotoStyle,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 
 import {
   astronaut,
@@ -9,7 +12,6 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export const profPic = photoUrl =>
@@ -39,6 +41,10 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
     text-transform: uppercase;
+  }
+
+  .display-name {
+    color: ${astronaut};
   }
 
   .user-info,
@@ -124,6 +130,19 @@ export default css`
   .explainantion-item:first-child {
     height: 25px;
     border-bottom: 0;
+  }
+
+  .explainantion-item:nth-child(3) {
+    border-top: 0;
+  }
+
+  .object-name-container {
+    padding: 15px 0 12px;
+    border-bottom: 1px solid ${geyser};
+    font-size: 22px;
+    font-family: ${secondaryFont};
+    text-transform: none;
+    color: ${astronaut};
   }
 
   @media ${screenMedium} {

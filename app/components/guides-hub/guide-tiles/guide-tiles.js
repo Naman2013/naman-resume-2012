@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import GuideExcerptTile from 'app/components/common/tiles/guide-excerpt-tile';
@@ -19,6 +18,7 @@ class GuideTiles extends Component {
     ).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
+    emptyText: PropTypes.string,
   };
 
   state = {
@@ -44,7 +44,13 @@ class GuideTiles extends Component {
   };
 
   render() {
-    const { guides, isMobile, updateReadingListInfo } = this.props;
+    const {
+      guides,
+      isMobile,
+      updateReadingListInfo,
+      emptyText,
+      onUpdate,
+    } = this.props;
     const { activeId } = this.state;
     return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -52,7 +58,7 @@ class GuideTiles extends Component {
           {!isMobile &&
             guides.map(guide => (
               <li
-                key={uniqueId()}
+                key={guide.guideId}
                 className="tile"
                 data-id={guide.guideId}
                 onMouseOver={this.setActiveTile}
@@ -63,12 +69,13 @@ class GuideTiles extends Component {
                 </div>
                 <div
                   className={classnames('excerpt', {
-                    'show-excerpt': activeId === guide.guideId,
+                    'show-excerpt': activeId == guide.guideId,
                   })}
                 >
                   <GuideExcerptTile
                     {...guide}
                     updateReadingInfoInList={updateReadingListInfo}
+                    onUpdate={onUpdate}
                   />
                 </div>
               </li>
@@ -83,7 +90,7 @@ class GuideTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noGuides" />
+      <span dangerouslySetInnerHTML={{ __html: emptyText }} />
     );
   }
 }

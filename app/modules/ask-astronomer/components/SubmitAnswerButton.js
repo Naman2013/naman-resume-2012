@@ -12,11 +12,10 @@ import {
 } from 'app/styles/mixins/utilities';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitAnswerForm from './Modals/SubmitAnswerForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
-import messages from './SubmitAnswerButton.messages';
 
 const {
   arrayOf,
@@ -28,7 +27,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class SubmitAnswerButton extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -57,7 +56,7 @@ class SubmitAnswerButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
+
     updateQuestionsList: func.isRequired,
   };
 
@@ -80,14 +79,7 @@ class SubmitAnswerButton extends Component {
   };
 
   setFullpageAnswerModal = () => {
-    const {
-      modalActions,
-      user,
-      authorInfo,
-      freshness,
-      content,
-      intl,
-    } = this.props;
+    const { modalActions, user, authorInfo, freshness, content } = this.props;
     modalActions.setModal({
       promptComponent: (
         <FullpageForm
@@ -95,8 +87,8 @@ class SubmitAnswerButton extends Component {
           submitForm={this.submitForm}
           user={user}
           prepareCall={prepareReply}
-          submitButtonText={intl.formatMessage(messages.Reply)}
-          fieldPlaceholder={intl.formatMessage(messages.AnswerPlaceholder)}
+          submitButtonText={t('AskAnAstronomer.Reply')}
+          fieldPlaceholder={t('AskAnAstronomer.AnswerPlaceholder')}
         />
       ),
       promptStyles: modalStyleFullPage,
@@ -134,9 +126,11 @@ class SubmitAnswerButton extends Component {
 
   handleSubmitReply = data => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
-    const { modalActions, intl, updateQuestionsList } = this.props;
+    const { modalActions, updateQuestionsList } = this.props;
     const message = `${data.responseLabel}
     <p>${data.responseText}</p>`;
+
+    updateQuestionsList();
 
     modalActions.setModal({
       promptComponent: (
@@ -145,12 +139,11 @@ class SubmitAnswerButton extends Component {
           doneButtonLabel={data.doneButtonLabel}
           modalActions={modalActions}
           message={message}
-          updateQuestionsList={updateQuestionsList}
         />
       ),
       promptStyles: customModalStylesBlackOverlay,
     });
-    modalActions.showModal();
+    return modalActions.showModal();
   };
 
   render() {
@@ -160,18 +153,18 @@ class SubmitAnswerButton extends Component {
       user,
       replyButtonText,
       modalActions,
-      intl,
+      t,
     } = this.props;
 
     return (
       <div className="reply-form-container">
         <Button
-          text={intl.formatMessage(messages.SubmitAnswer)}
+          text={t('AskAnAstronomer.SubmitAnswer')}
           onClickEvent={this.setAnswerModal}
         />
         {/*<DisplayAtBreakpoint screenSmall>
           <Button
-            text={intl.formatMessage(messages.SubmitAnswer)}
+            text={t('AskAnAstronomer.SubmitAnswer')}
             onClickEvent={this.setFullpageAnswerModal}
           />
         </DisplayAtBreakpoint>*/}
@@ -180,4 +173,4 @@ class SubmitAnswerButton extends Component {
   }
 }
 
-export default injectIntl(SubmitAnswerButton);
+export default SubmitAnswerButton;

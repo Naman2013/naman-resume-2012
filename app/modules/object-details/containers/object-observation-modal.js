@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { getMyPictures } from '../actions';
 import {
+  makeObjectObservationIsFetchingSelector,
   makeObjectObservationMyPicturesSelector,
   makeObjectDetailsDataSelector,
   makeObjectImageDetailsSelector,
@@ -14,12 +15,15 @@ import { WriteObservationModal } from '../components/write-observation-modal';
 import { setObservationTags } from '../../image-details/thunks';
 import { makeUserSelector } from '../../user/selectors';
 import { shareMemberPicture } from '../../share-member-photo/actions';
+import { makeShareMemberPhotoDataSelector } from '../../share-member-photo/selectors';
 
 const mapStateToProps = createStructuredSelector({
+  isFetching: makeObjectObservationIsFetchingSelector(),
   myPictures: makeObjectObservationMyPicturesSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
   imageDetails: makeObjectImageDetailsSelector(),
   user: makeUserSelector(),
+  shareMemberPhotoData: makeShareMemberPhotoDataSelector(),
 });
 
 const mapDispatchToProps = {

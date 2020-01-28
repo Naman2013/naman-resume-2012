@@ -1,82 +1,81 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { Tooltip } from 'react-tippy';
+import cx from 'classnames';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 
 import style from './BootstrappedSliderItem.style';
-import messages from './BootstrappedSliderItem.messages';
 
 const BootstrappedObservationSliderItem = props => {
   const {
+    observationTitle,
     imageTitle,
     displayName,
     observationLog,
     imageDownloadURL,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
-    intl,
     handleLike,
-    onLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
-    socialShareDescription,
+    iconFileData,
+    readOnly,
   } = props;
   const [isOpen, openModal] = useState(false);
+  const { t } = useTranslation();
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     if (!showLikePrompt) {
-      if (handleLike) handleLike(customerImageId);
-      if (onLike) onLike(customerImageId);
       changeLikesNumber(likesNumber + 1);
+      return handleLike(customerImageId);
     }
   };
   return (
     <Fragment>
-      <div className="card-obs-wrapper">
+      <div className={cx('card-obs-wrapper', { 'read-only': readOnly })}>
         <div className="card-obs">
-          {imageTitle ? (
+          {imageDownloadURL ? (
             <Fragment>
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title h-2 h-2-bold">{imageTitle}</h2>
-                    <h5 className="author h-5 h-5-normal">{displayName}</h5>
-                    {(observationLog || socialShareDescription) && (
-                      <p className="i-text-box">
-                        {observationLog || socialShareDescription}
-                      </p>
+                    <h2 className="title">{title}</h2>
+                    {readOnly ? (
+                      <h5 className="author">{displayName}</h5>
+                    ) : (
+                      <Link to={iconFileData['Member']?.linkUrl}>
+                        <h5 className="author">{displayName}</h5>
+                      </Link>
+                    )}
+                    {observationLog && (
+                      <p
+                        className="dashboardObservationText i-text-box"
+                        dangerouslySetInnerHTML={{ __html: observationLog }}
+                      />
                     )}
                   </div>
                   <div className="links">
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg"
-                        alt="user"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        className="linkIcon"
-                        src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png"
-                        alt="system"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg"
-                        alt="observatory"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/location_marker.png"
-                        alt="location"
-                      />
-                    </div>
+                    {Object.keys(iconFileData).map(item => (
+                      <Tooltip title={iconFileData[item].text}>
+                        {iconFileData[item].hasLink && !readOnly ? (
+                          <Link to={iconFileData[item].linkUrl}>
+                            <ReturnObservationIcon item={iconFileData[item]} />
+                          </Link>
+                        ) : (
+                          <ReturnObservationIcon item={iconFileData[item]} />
+                        )}
+                      </Tooltip>
+                    ))}
                   </div>
                 </div>
                 <div className="picture">
@@ -91,58 +90,64 @@ const BootstrappedObservationSliderItem = props => {
                       isOpen={isOpen}
                       imageURL={imageDownloadURL}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
               </div>
               <div className="bottom">
                 <div className="buttons">
-                  <div className="button">
-                    <LikeSomethingButton
-                      mod="no-border"
-                      likePrompt={likePrompt}
-                      likesCount={likesNumber || likesCount}
-                      likeHandler={onLikeClick}
-                      customerId={customerImageId}
-                      showLikePrompt={showLikePrompt}
-                    >
-                      <img
-                        className="icon"
-                        src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                        alt="heart"
-                      />
-                      {!likesCount ? '0' : likesCount}
-                    </LikeSomethingButton>
-                  </div>
-                  <div className="button">
-                    <img
-                      className="icon"
-                      src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                      alt="comment"
-                    />
-                    {!commentsCount ? '0' : commentsCount}
-                  </div>
-                  {linkUrl && (
-                    <a href={linkUrl} className="button details">
-                      {intl.formatMessage(messages.Details)}
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                        alt="arrow-right"
-                      />
-                    </a>
+                  {!readOnly && (
+                    <>
+                      <div className="button">
+                        <LikeSomethingButton
+                          mod="no-border"
+                          likePrompt={likePrompt}
+                          likesCount={likesNumber || likesCount}
+                          likedByMe={likedByMe}
+                          likeTooltip={likeTooltip}
+                          likeHandler={onLikeClick}
+                          customerId={customerImageId}
+                          showLikePrompt={showLikePrompt}
+                        >
+                          <img
+                            className="icon"
+                            src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                            alt="heart"
+                          />
+                          {!likesCount ? '0' : likesCount}
+                        </LikeSomethingButton>
+                      </div>
+                      <div className="button">
+                        <img
+                          className="icon"
+                          src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                          alt="comment"
+                        />
+                        {!commentsCount ? '0' : commentsCount}
+                      </div>
+                      {linkUrl && (
+                        <Link to={linkUrl} className="button details">
+                          {t('Dashboard.Details')}
+                          <img
+                            src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                            alt="arrow-right"
+                          />
+                        </Link>
+                      )}
+                    </>
                   )}
                 </div>
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
+                    : `${t('Dashboard.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
-            </div>
+            <div className="loading">{t('Dashboard.Loading')}...</div>
           )}
         </div>
       </div>
@@ -165,4 +170,4 @@ BootstrappedObservationSliderItem.propTypes = {
   showLikePrompt: PropTypes.bool.isRequired,
 };
 
-export default injectIntl(BootstrappedObservationSliderItem);
+export default BootstrappedObservationSliderItem;

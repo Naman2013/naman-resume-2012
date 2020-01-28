@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const setTag = ({
   token,
@@ -11,7 +11,7 @@ export const setTag = ({
   uniqueId,
   text,
 }) => (
-  axios.post('/api/tags/setTag', {
+  API.post('/api/tags/setTag', {
     token,
     at,
     cid,

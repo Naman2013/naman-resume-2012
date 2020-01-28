@@ -1,20 +1,48 @@
+import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
+import { LiveActivityLoadable } from 'app/modules/live-activity';
 import React, { Fragment } from 'react';
-import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
+import { browserHistory, Link } from 'react-router';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
 import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+import {
+  screenMobile,
+  screenSmallMobile,
+} from 'app/styles/variables/breakpoints';
 import MENU_INTERFACE from './Menus/MenuInterface';
 import CenterBar from './CenterBar';
 import Button from './Button';
-import messages from './TopBar.messages';
+
+const SEARCH_LABEL = 'SEARCH';
 
 function isActive(menuName, activeMenu) {
+  if (menuName === SEARCH_LABEL) {
+    document.body.classList.add('hide-overflow');
+    document.documentElement.classList.add('hide-overflow');
+  } else {
+    document.body.classList.remove('hide-overflow');
+    document.documentElement.classList.remove('hide-overflow');
+  }
   return menuName === activeMenu;
 }
 
-const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
+const TopBar = ({
+  handleMenuClick,
+  activeMenu,
+  handleNotificationClick,
+  closeAllMenus,
+  totalViewersCount,
+  allLivecastsInProgress,
+  activityFeedMessages,
+  pubnubConnection,
+  pubnubActivityFeedChannelName,
+  userDisplayName,
+  isChatEnabled,
+  scrollActivityFeedToBottom,
+  subscribeToPubnubActivityFeedChannel,
+}) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
     activeMenu,
@@ -24,13 +52,13 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
   const alertsIsActive = isActive(activeMenu, MENU_INTERFACE.ALERTS.name);
   const userIsActive = isActive(activeMenu, MENU_INTERFACE.PROFILE.name);
 
-  const home = () => browserHistory.push('/');
   const main = () => handleMenuClick(MENU_INTERFACE.MAIN.name);
   const telescope = () => handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
   const alerts = () => handleNotificationClick(MENU_INTERFACE.ALERTS.name);
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
-  const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
+  const { t } = useTranslation();
+  // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
 
   return (
     <Fragment>
@@ -40,8 +68,17 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
             <div className="left-menu">
               <ul className="button-list">
                 <li>
-                  <Button handleClick={home} mod="no-border">
-                    <i className="i-logo_astronaut" />
+                  <Button
+                    handleClick={() => {
+                      if (user.isAuthorized) {
+                        browserHistory.push('/');
+                      } else {
+                        browserHistory.push('/guestDashboard');
+                      }
+                    }}
+                    mod="no-border"
+                  >
+                    <i className="top-nav-icon i-logo_astronaut" />
                   </Button>
                 </li>
                 <li>
@@ -51,7 +88,11 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     mod="no-border"
                   >
                     <i
-                      className={mainIsActive ? 'fa fa-close' : 'fa fa-bars'}
+                      className={
+                        mainIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-hamburger'
+                      }
                     />
                   </Button>
                 </li>
@@ -64,8 +105,8 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     <i
                       className={
                         telescopesIsActive
-                          ? 'fa fa-close'
-                          : 'i-telescope_astronaut'
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-telescope'
                       }
                     />
                   </Button>
@@ -78,7 +119,9 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   >
                     <i
                       className={
-                        searchIsActive ? 'fa fa-close' : 'fa fa-search'
+                        searchIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-search'
                       }
                     />
                   </Button>
@@ -86,9 +129,9 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
               </ul>
             </div>
 
-            <div className="center-menu">
-              <CenterBar />
-            </div>
+            {/*<div className="center-menu">*/}
+            {/*  <CenterBar />*/}
+            {/*</div>*/}
 
             <div className="right-menu">
               <ul className="button-list">
@@ -101,15 +144,41 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   </Button>
                 </li> */}
                 {user.isAuthorized ? (
-                  <li>
-                    <Button
-                      mod="no-border"
-                      isActive={alertsIsActive}
-                      handleClick={alerts}
-                    >
-                      <AlertsIcon isActive={alertsIsActive} />
-                    </Button>
-                  </li>
+                  <>
+                    <li>
+                      <LiveActivityLoadable
+                        totalViewersCount={totalViewersCount}
+                        activityFeedMessages={activityFeedMessages}
+                        pubnubConnection={pubnubConnection}
+                        pubnubActivityFeedChannelName={
+                          pubnubActivityFeedChannelName
+                        }
+                        userDisplayName={userDisplayName}
+                        isChatEnabled={isChatEnabled}
+                        onClick={closeAllMenus}
+                        scrollActivityFeedToBottom={scrollActivityFeedToBottom}
+                        subscribeToPubnubActivityFeedChannel={
+                          subscribeToPubnubActivityFeedChannel
+                        }
+                      />
+                    </li>
+                    <li>
+                      <Livecast
+                        user={user}
+                        allLivecastsInProgress={allLivecastsInProgress}
+                        onClick={closeAllMenus}
+                      />
+                    </li>
+                    <li>
+                      <Button
+                        mod="no-border"
+                        isActive={alertsIsActive}
+                        handleClick={alerts}
+                      >
+                        <AlertsIcon isActive={alertsIsActive} />
+                      </Button>
+                    </li>
+                  </>
                 ) : null}
                 <li>
                   <Button
@@ -119,15 +188,15 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     theme={
                       user.isAuthorized
                         ? {}
-                        : { width: 'auto', padding: '0 20px' }
+                        : { width: 'auto', padding: '0 5px 0 0' }
                     }
                   >
                     {user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
-                          <i className="icon i-user-astronaut" />
+                          <i className="top-nav-icon i-user-astronaut" />
                         )}
                       </Fragment>
                     )}
@@ -135,13 +204,24 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     {!user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
-                          <div className="flex-row justify-content-center">
+                          <div className="flex-row justify-content-center align-items-center">
+                            <Link className="button text" to="/join/step1">
+                              <button className="btn btn-submit free-trial-button">
+                                <div>
+                                  <span>Start Free</span>
+                                  <span>Trial</span>
+                                </div>
+                              </button>
+                            </Link>
+
+                            <div className="buttons-separator" />
+
                             <span className="text">
-                              <FormattedMessage {...messages.SignIn} />
+                              {t('Navigation.SignIn')}
                             </span>
-                            <i className="icon i-user-astronaut" />
+                            <i className="top-nav-icon i-user-astronaut" />
                           </div>
                         )}
                       </Fragment>
@@ -193,8 +273,41 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   display: inline-block;
                 }
 
-                .icon {
-                  font-size: 18px;
+                .top-nav-icon {
+                  font-size: 20px;
+                  line-height: 20px;
+                  height: 20px;
+                  display: inline-block;
+                }
+
+                .i-logo_astronaut,
+                .i-user-astronaut {
+                  /* todo make global configs for icons */
+                  width: 20px;
+                }
+
+                .free-trial-button > div {
+                  min-width: 100px;
+                  text-align: center;
+                }
+
+                .free-trial-button > div > span:first-child {
+                  margin-right: 3px;
+                }
+
+                @media ${screenMobile} {
+                  .free-trial-button {
+                    padding: 5px;
+                  }
+                }
+
+                @media ${screenSmallMobile} {
+                  .free-trial-button > div {
+                    display: flex;
+                    min-width: auto;
+                    flex-direction: column;
+                    align-items: center;
+                  }
                 }
               `}
             </style>

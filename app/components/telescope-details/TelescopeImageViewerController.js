@@ -9,23 +9,20 @@ import {
   snapImage,
   resetImageToSnap,
   resetsnapImageMsg,
+  setPreviousInstrument,
 } from 'app/modules/starshare-camera/starshare-camera-actions';
 
 class TelescopeImageViewerController extends Component {
   static propTypes = {
     activeInstrumentID: PropTypes.string.isRequired,
     render: PropTypes.func,
+    instrStarShareCamera: PropTypes.bool,
+    mobileStarShare: PropTypes.bool,
   };
 
   static defaultProps = {
     render: noop,
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeInstrumentID !== this.props.activeInstrumentID) {
-      this.previousInstrumentID = this.props.activeInstrumentID;
-    }
-  }
 
   previousInstrumentID = null;
 
@@ -41,6 +38,10 @@ class TelescopeImageViewerController extends Component {
       snapshotMsg,
       snapAPIError,
       imagesLastSnapped,
+      instrStarShareCamera,
+      previousInstrumentId,
+      missionTitle,
+      mobileStarShare,
     } = this.props;
     const actions = {
       snapImage,
@@ -49,19 +50,18 @@ class TelescopeImageViewerController extends Component {
     };
     return (
       <div>
-        <Telescope
-          activeInstrumentID={activeInstrumentID}
-          previousInstrumentID={this.previousInstrumentID}
-          render={render}
-        />
-        <StarShareCamera
-          actions={actions}
-          snapshotMsg={snapshotMsg}
-          justSnapped={justSnapped}
-          snapAPIError={snapAPIError}
-          snapshotList={snapshotList}
-          imagesLastSnapped={imagesLastSnapped}
-        />
+        {instrStarShareCamera && (
+          <StarShareCamera
+            actions={actions}
+            snapshotMsg={snapshotMsg}
+            justSnapped={justSnapped}
+            snapAPIError={snapAPIError}
+            snapshotList={snapshotList}
+            imagesLastSnapped={imagesLastSnapped}
+            mobileStarShare={mobileStarShare}
+          />
+        )}
+        <Telescope missionTitle={missionTitle} activeInstrumentID={activeInstrumentID} render={render} />
       </div>
     );
   }
@@ -73,6 +73,7 @@ const mapStateToProps = ({ starshareCamera }) => ({
   snapAPIError: starshareCamera.apiError,
   imagesLastSnapped: starshareCamera.imagesLastSnapped,
   justSnapped: starshareCamera.justSnapped,
+  previousInstrumentId: starshareCamera.previousInstrumentId,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -81,6 +82,7 @@ const mapDispatchToProps = dispatch =>
       snapImage,
       resetImageToSnap,
       resetsnapImageMsg,
+      setPreviousInstrument,
     },
     dispatch
   );
