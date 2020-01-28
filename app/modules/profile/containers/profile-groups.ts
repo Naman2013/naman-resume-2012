@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getProfileGroupList } from 'app/modules/clubs/thunks';
 import { makeGroupsListSelector } from 'app/modules/clubs/selectors';
+import { createStructuredSelector } from 'reselect';
 
-const mapStateToProps = (state: any) => {
-  return {
-    profileGroupList: makeGroupsListSelector()(state),
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  profileGroupList: makeGroupsListSelector(),
+});
 
 const mapDispatchToProps = {
   getProfileGroupList,

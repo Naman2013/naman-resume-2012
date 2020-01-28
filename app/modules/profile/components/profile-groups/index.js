@@ -16,6 +16,7 @@ import CenterColumn from '../../../../components/common/CenterColumn';
 import { ContainerWithTitle } from '../../../../components/common/ContainerWithTitle';
 import PromptWithClose from '../../../../components/community-groups/prompt-with-close';
 import GroupTiles from '../../../../components/groups-hub/group-tiles';
+import './styles.scss';
 
 @withTranslation()
 class ProfileGroups extends Component {
