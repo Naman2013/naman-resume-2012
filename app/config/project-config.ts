@@ -48,5 +48,9 @@ export const projectPubnubConf = {
   PUBNUB_FEEDS_PUBKEY: projectConf.PUBNUB_FEEDS_PUBKEY,
   PUBNUB_FEEDS_SECRETKEY: projectConf.PUBNUB_FEEDS_SECRETKEY,
 };
+
+export const projectGoogleAnalyticsPropertyId = 
+  projectConf.GOOGLE_ANALYTICS_PROPERTY_ID;
+
 export const projectGoogleOptimizeExpirianceId =
   projectConf.GOOGLE_OPTIMIZE_EXPERIMENT_IDS;
