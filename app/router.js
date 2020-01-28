@@ -132,7 +132,7 @@ history.listen(location => {
   
   //Fire a Google Analytics pageview event as the route / path changed.
   fireSloohGAPageview({
-    googleAnalyticsPropertyID: projectGoogleAnalyticsPropertyId
+    googleAnalyticsPropertyID: projectGoogleAnalyticsPropertyId,
     location: pathname,
   });
 });
