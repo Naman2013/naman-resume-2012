@@ -1,3 +1,4 @@
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
 @mixin centerChildren {
@@ -163,6 +164,59 @@
   }
 }
 
+.obs-image-magnifier {
+  > div {
+    > img {
+      max-height: 90vh;
+      max-width: 100%;
+      width: auto !important;
+    }
+  }
+}
+
+.obs-image-wrapper {
+  &.modal-dialog {
+    max-width: unset;
+    width: 100vw;
+    margin: 0;
+
+    .modal-content {
+      width: auto;
+      margin: 21px auto;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .card-obs-wrapper {
+    .card-obs {
+      width: 90%;
+
+      .top {
+        flex-direction: column;
+        padding: 40px;
+
+        .info,
+        .picture {
+          width: 100%;
+
+          .image-wrapper {
+            img {
+              height: auto;
+            }
+          }
+        }
+
+        .info {
+          .links {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (min-width: $screen-md-min) {
   .top {
     padding: 45px 0 50px;
@@ -210,29 +264,6 @@
     .image-wrapper {
       width: 300px;
       height: 300px;
-    }
-  }
-}
-
-.obs-image-magnifier {
-  > div {
-    > img {
-      max-height: 90vh;
-      max-width: 100%;
-      width: auto !important;
-    }
-  }
-}
-
-.obs-image-wrapper {
-  &.modal-dialog {
-    max-width: unset;
-    width: 100vw;
-    margin: 0;
-
-    .modal-content {
-      width: auto;
-      margin: 21px auto;
     }
   }
 }
