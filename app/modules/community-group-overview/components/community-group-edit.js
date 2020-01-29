@@ -48,13 +48,7 @@ class CommunityGroupEdit extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {
-      routeParams,
-      fetchGroupOverviewPageMeta,
-      fetchGroupInvitationPanel,
-      fetchGoogleClassroomStudentsPanel,
-      fetching,
-    } = this.props;
+    const { routeParams, fetching } = this.props;
 
     if (prevProps.routeParams.groupId !== routeParams.groupId) {
       refreshPage();
@@ -124,9 +118,11 @@ class CommunityGroupEdit extends Component {
     return (
       customerLinks &&
       customerLinks.length &&
-      customerLinks.map(member => (
+      customerLinks.map((member, index) => (
         <MemberCard
           member={member}
+          key={`member-card-invitation-code-${index}`}
+          refreshPage={this.refreshPage}
           onAddClick={() => {
             let user = {
               firstName: member.firstname,
