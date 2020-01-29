@@ -33,6 +33,7 @@
     pointer-events: auto;
     background: url($white_texture_bg);
     box-shadow: 0 0 6px 0 $shadows;
+    position: relative;
 
     .top {
       @include spaceBetweenChildren;
@@ -135,6 +136,7 @@
           @include toUpper;
           padding: 20px 15px;
           @include centerChildren;
+          cursor: pointer;
 
           &:not(:last-child) {
             border-right: 1px solid #dee0e2;
@@ -142,6 +144,10 @@
 
           .icon {
             margin-right: 8px;
+          }
+
+          img {
+            cursor: pointer;
           }
         }
 
@@ -160,6 +166,10 @@
         color: $moodyBleu;
         margin-right: 20px;
       }
+    }
+
+    .obs-card-comments {
+      text-align: left;
     }
   }
 }

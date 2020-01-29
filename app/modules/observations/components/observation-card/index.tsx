@@ -7,6 +7,8 @@ import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 import { IObservationData } from 'app/modules/observations/types';
+import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
+import ObservationComments from 'app/modules/observations/containers/observation-comments';
 
 import './styles.scss';
 
@@ -36,9 +38,13 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
       likePrompt,
       showLikePrompt,
       iconFileData,
+      commentsThreadId,
+      commentsForumId,
+      commentsTopicId,
     } = observationData;
 
     const [isOpen, openModal] = useState(false);
+    const [isDiscussionsOpen, openDiscussions] = useState(false);
     const { t } = useTranslation();
     const [likesNumber, changeLikesNumber] = useState<number>(likesCount);
     const title = observationTitle || imageTitle;
@@ -132,7 +138,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                           className="icon"
                           src="https://vega.slooh.com/assets/v4/common/comment.svg"
                           alt="comment"
-                          //onClick={(): void => openDiscussionsModal(true)}
+                          onClick={(): void => openDiscussions(true)}
                         />
                         {!commentsCount ? '0' : commentsCount}
                       </div>
@@ -154,6 +160,19 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                     : `${t('Dashboard.Loading')}...`}
                 </div>
               </div>
+
+              {isDiscussionsOpen && (
+                <ObservationComments
+                  topLevelThread={false}
+                  callSource={CALLSOURCE_PHOTOVIEW}
+                  count={10}
+                  commentsCount={commentsCount}
+                  commentsThreadId={commentsThreadId}
+                  forumId={commentsForumId}
+                  topicId={commentsTopicId}
+                  threadId={commentsThreadId}
+                />
+              )}
             </Fragment>
           ) : (
             <div className="loading">{t('Dashboard.Loading')}...</div>
