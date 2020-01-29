@@ -71,13 +71,12 @@ export const fetchGoogleClassroomStudentsPanel = groupId => (
 ) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGoogleClassroomStudentsPanelStart());
-  return API
-      .post('/api/classroom/google/importGoogleClassroomStudentsPanel', {
-      at,
-      cid,
-      token,
-      groupId,
-    })
+  return API.post('/api/classroom/google/importGoogleClassroomStudentsPanel', {
+    at,
+    cid,
+    token,
+    groupId,
+  })
     .then(result =>
       dispatch(fetchGoogleClassroomStudentsPanelSuccess(result.data))
     )
@@ -102,13 +101,12 @@ const fetchGroupInvitationPanelFail = payload => ({
 export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupInvitationPanelStart());
-  return API
-      .post('/api/classroom/getGroupInvitationPanel', {
-      at,
-      cid,
-      token,
-      groupId,
-    })
+  return API.post('/api/classroom/getGroupInvitationPanel', {
+    at,
+    cid,
+    token,
+    groupId,
+  })
     .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
     .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
 };
@@ -137,17 +135,16 @@ export const fetchGroupOverview = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupOverviewStart());
-  return API
-      .post('/api/discussiongroups/getGroupInformation', {
-      at,
-      cid,
-      discussionGroupId,
-      lang,
-      page,
-      informationView,
-      token,
-      ver,
-    })
+  return API.post('/api/discussiongroups/getGroupInformation', {
+    at,
+    cid,
+    discussionGroupId,
+    lang,
+    page,
+    informationView,
+    token,
+    ver,
+  })
     .then(result => dispatch(fetchGroupOverviewSuccess(result.data)))
     .catch(error => dispatch(fetchGroupOverviewFail(error)));
 };
@@ -175,17 +172,16 @@ export const fetchGroupMembers = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());
-  return API
-      .post('/api/discussiongroups/getGroupMembers', {
-      at,
-      cid,
-      discussionGroupId,
-      sortBy,
-      lang,
-      page,
-      token,
-      ver,
-    })
+  return API.post('/api/discussiongroups/getGroupMembers', {
+    at,
+    cid,
+    discussionGroupId,
+    sortBy,
+    lang,
+    page,
+    token,
+    ver,
+  })
     .then(result =>
       dispatch(fetchGroupMembersSuccess(Object.assign({ sortBy }, result.data)))
     )
@@ -214,15 +210,14 @@ export const fetchGroupOverviewPageMeta = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupOverviewPageMetaStart());
-  return API
-      .post('/api/page/discussionGroupPage', {
-      at,
-      cid,
-      lang,
-      token,
-      ver,
-      discussionGroupId,
-    })
+  return API.post('/api/page/discussionGroupPage', {
+    at,
+    cid,
+    lang,
+    token,
+    ver,
+    discussionGroupId,
+  })
     .then(result => {
       const { membersSort } = getState().communityGroupOverview;
       const informationMap = {
@@ -274,14 +269,13 @@ export const changeGroupDescription = ({ groupId, groupDescription }) => (
 ) => {
   const { cid, at, token } = getState().user;
   dispatch(groupDescriptionChangeStart);
-  return API
-      .post('/api/classroom/setGroupDescription', {
-      at,
-      cid,
-      token,
-      groupId,
-      groupDescription,
-    })
+  return API.post('/api/classroom/setGroupDescription', {
+    at,
+    cid,
+    token,
+    groupId,
+    groupDescription,
+  })
     .then(result => dispatch(groupDescriptionChangeSuccess(groupDescription)))
     .catch(error => dispatch(groupDescriptionChangeFail(error)));
 };
@@ -303,13 +297,12 @@ const fetchInvitePopupContentFail = payload => ({
 export const fetchInvitePopupContent = groupId => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchInvitePopupContentStart());
-  return API
-      .post('/api/classroom/getGroupInvitationPanel', {
-      at,
-      cid,
-      token,
-      groupId,
-    })
+  return API.post('/api/classroom/getGroupInvitationPanel', {
+    at,
+    cid,
+    token,
+    groupId,
+  })
     .then(res => dispatch(fetchInvitePopupContentSuccess(res.data)))
     .catch(error => dispatch(fetchInvitePopupContentFail(error)));
 };
@@ -331,14 +324,13 @@ const addExistingUserFail = payload => ({
 export const addExistingUser = (user, groupId) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(addExistingUserStart());
-  return API
-      .post('/api/registration/createCustomerLinkInvitation', {
-      cid,
-      at,
-      token,
-      groupId,
-      inviteeDetails: user,
-    })
+  return API.post('/api/registration/createCustomerLinkInvitation', {
+    cid,
+    at,
+    token,
+    groupId,
+    inviteeDetails: user,
+  })
     .then(res => dispatch(addExistingUserSuccess(res.data)))
     .catch(error => dispatch(addExistingUserFail(error)));
 };
@@ -360,14 +352,13 @@ const addGoogleUserFail = payload => ({
 export const addGoogleUser = (user, groupId) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(addGoogleUserStart());
-  return API
-      .post('/api/classroom/google/importGoogleClassroomStudent', {
-      cid,
-      at,
-      token,
-      groupId,
-      studentAccountDetails: user,
-    })
+  return API.post('/api/classroom/google/importGoogleClassroomStudent', {
+    cid,
+    at,
+    token,
+    groupId,
+    studentAccountDetails: user,
+  })
     .then(res => dispatch(addGoogleUserSuccess(res.data)))
     .catch(error => dispatch(addGoogleUserFail(error)));
 };

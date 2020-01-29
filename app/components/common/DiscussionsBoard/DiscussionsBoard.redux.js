@@ -276,7 +276,8 @@ class DiscussionsBoard extends Component {
                   callSource={callSource}
                   count={count}
                   threadId={threadId}
-                  formPlaceholder="Write a public comment"
+                  // formPlaceholder="Write a public comment"
+                  formPlaceholder="Write a comment"
                   page={page}
                   topicId={topicId}
                   forumId={forumId}

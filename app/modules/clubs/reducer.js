@@ -1,7 +1,12 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('clubs', ['~GET_CLUBS', '~GET_TOP_THREADS']);
+export const TYPE = constants('clubs', [
+  '~GET_CLUBS',
+  '~GET_TOP_THREADS',
+  '~GET_GROUP_DELETE_INVITATION',
+  '~DELETE_INVITATION',
+]);
 
 export const ACTION = actions(TYPE);
 
@@ -9,26 +14,38 @@ const initialState = {
   isFetching: false,
   topThreadsList: [],
   serverError: null,
+  groupDeleteInvitation: {},
+  deleteInvitationData: null,
 };
 
 export default handleActions(
   {
     [TYPE.GET_CLUBS]: getClubs,
     [TYPE.GET_CLUBS_SUCCESS]: getClubsSuccess,
-    [TYPE.GET_CLUBS_ERROR]: getClubsError,
-    [TYPE.GET_TOP_THREADS]: getTopThreadsStart,
+    [TYPE.GET_CLUBS_ERROR]: error,
+    [TYPE.GET_TOP_THREADS_START]: start,
     [TYPE.GET_TOP_THREADS_SUCCESS]: getTopThreadsSuccess,
-    [TYPE.GET_TOP_THREADS_ERROR]: getTopThreadsError,
+    [TYPE.GET_TOP_THREADS_ERROR]: error,
+    [TYPE.GET_GROUP_DELETE_INVITATION_START]: start,
+    [TYPE.GET_GROUP_DELETE_INVITATION_SUCCESS]: getGroupDeleteInvitationSuccess,
+    [TYPE.GET_GROUP_DELETE_INVITATION_ERROR]: error,
+    [TYPE.DELETE_INVITATION_START]: start,
+    [TYPE.DELETE_INVITATION_SUCCESS]: deleteInvitationSuccess,
+    [TYPE.DELETE_INVITATION_ERROR]: error,
   },
   initialState
 );
 
-function setFetching(state) {
+function start(state) {
   return { ...state, isFetching: true, isLoaded: false };
 }
 
-function getTopThreadsStart(state) {
-  return { ...state, isFetching: true, isLoaded: false, topThreadsList: [] };
+function error(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
+  };
 }
 
 function getTopThreadsSuccess(state, action) {
@@ -36,14 +53,6 @@ function getTopThreadsSuccess(state, action) {
     ...state,
     isFetching: false,
     topThreadsList: action.payload || [],
-  };
-}
-
-function getTopThreadsError(state, action) {
-  return {
-    ...state,
-    isFetching: false,
-    serverError: action.payload,
   };
 }
 
@@ -61,9 +70,18 @@ function getClubsSuccess(state = initialState) {
   };
 }
 
-function getClubsError(state = initialState) {
+function getGroupDeleteInvitationSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
+    groupDeleteInvitation: action.payload,
+  };
+}
+
+function deleteInvitationSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    deleteInvitationData: action.payload,
   };
 }
