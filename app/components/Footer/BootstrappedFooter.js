@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import ReactTooltip from 'react-tooltip'
 
 const Footer = ({ primaryLinks, copyrightText, logoLinks }) => (
 
@@ -18,11 +19,13 @@ const Footer = ({ primaryLinks, copyrightText, logoLinks }) => (
         ))}
       </ul>
     </div>
+    
     <ul className="footer-social buttons">
-      {logoLinks.map(item => (
+      {logoLinks.map((item,index) => (
         <li key={uniqueId()}>
-          <div class="footer-img">
-            <img src={item.link} />
+          <div class="footer-img">            
+            <ReactTooltip id={"logo"+index} place="bottom" effect="solid" />
+            <img data-tip={item.name} data-for={"logo"+index} src={item.link} />
           </div>
         </li>
       ))}
