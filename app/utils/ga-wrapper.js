@@ -11,6 +11,6 @@ export default function fireSloohGAPageview({ location }) {
   //  location,
   //});
 
-  gtag('config', window.getGoogleAnalyticsPropertyID(), {'page_path': location });
+  gtag('config', window.getGoogleAnalyticsPropertyID(), {'page_location': location });
 
 }
