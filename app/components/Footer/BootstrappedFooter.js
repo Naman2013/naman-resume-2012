@@ -25,7 +25,7 @@ const Footer = ({ primaryLinks, copyrightText, logoLinks }) => (
         <li key={uniqueId()}>
           <div class="footer-img">            
             <ReactTooltip id={"logo"+index} place="bottom" effect="solid" />
-            <img data-tip={item.name} data-for={"logo"+index} src={item.link} />
+            <img data-tip={item.tooltip} data-for={"logo"+index} src={item.link} />
           </div>
         </li>
       ))}
