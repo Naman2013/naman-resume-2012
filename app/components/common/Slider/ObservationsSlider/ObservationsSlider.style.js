@@ -90,9 +90,9 @@ export default css.global`
       0 0 no-repeat;
   }
 
-  .dash-obs .slick-list {
-    max-height: 547px;
-  }
+  // .dash-obs .slick-list {
+  //   max-height: 547px;
+  // }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     .dash-obs .slick-slider .slick-prev {
