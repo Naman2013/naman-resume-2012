@@ -144,9 +144,12 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
+      params,
+      routeParams,
       routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
+    const { subMenus } = pageMeta;
     const { showPopup, showPrompt, promptText } = this.state;
 
     const modalStyles = modalStyleFullPage;
@@ -183,6 +186,10 @@ class CommunityGroupOverview extends Component {
                   discussionGroupId={groupId}
                   isEditMode={edit}
                   jumpToThreadId={threadId}
+                  subMenus={subMenus}
+                  routeParams={routeParams}
+                  params={params}
+                  hideTitleSection
                 />
               </CenterColumn>
               <Modal
