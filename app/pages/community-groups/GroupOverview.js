@@ -244,7 +244,6 @@ class CommunityGroupOverview extends Component {
         <style jsx>{`
           .root {
             color: ${astronaut};
-            background-color: ${seashell};
           }
 
           .groupmembers-contain {
