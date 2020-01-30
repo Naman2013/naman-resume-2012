@@ -404,3 +404,30 @@ export declare interface IQuestDotMenuItem {
   title: any;
   action?: () => void;
 }
+
+export declare interface IDeleteInvitationResponse {
+  pageHeading1: string;
+  pageHeading2: string;
+  canDeleteInvitation: boolean;
+  confirmationText: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
+  gravityEarnedInThisRequest: boolean;
+}
+
+export declare interface IInvitationCustomerLinks {
+  publicProfileLinkUrl: string;
+  name: string;
+  firstname: string;
+  lastname: string;
+  emailaddress: string;
+  invitationcode: string;
+  showInvitationCode: boolean;
+  status: string;
+  lastactivity: string;
+  showClubStatus: boolean;
+  showAddButton: boolean;
+  invitationPrompt: string;
+  clubStatus: string;
+  canDeleteInvitation: boolean;
+}
