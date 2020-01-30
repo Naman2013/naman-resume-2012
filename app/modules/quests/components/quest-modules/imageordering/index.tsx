@@ -175,7 +175,8 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
 
         {(activityState === MODES.EDIT ||
           activityState === MODES.PREVIEW ||
-          activityState === MODES.REVIEW) && (
+          activityState === MODES.REVIEW ||
+          activityState === MODES.NONE) && (
           <EditMode
             imageOrderingModule={imageorderingModule}
             getImageOrderingModule={this.getImageOrderingModule}
