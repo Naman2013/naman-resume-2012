@@ -542,7 +542,9 @@ const AppRouter = ({ setPreviousInstrument }) => (
         path="community-groups/:groupId"
         onEnter={validateUser}
         component={CommunityGroupOverview}
-      />
+      >
+        <IndexRedirect to="discussions" />
+      </Route>
 
       <Route
         path="community-groups/:groupId/edit=:edit"

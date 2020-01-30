@@ -1,7 +1,7 @@
 @import '~app/styles/variables/index';
 
 .groups-navigation {
-  display: flex;
+  display: none;
   height: 65px;
   margin: 20px 0 20px;
   border-top: 1px solid $hawkesBlue;
@@ -21,5 +21,17 @@
   .groups-nav-active {
     border-bottom: 2px solid $astronaut;
     color: $astronaut;
+  }
+}
+
+@include lg() {
+  .groups-navigation {
+    display: flex;
+  }
+}
+
+@include xl() {
+  .groups-navigation {
+    display: flex;
   }
 }
