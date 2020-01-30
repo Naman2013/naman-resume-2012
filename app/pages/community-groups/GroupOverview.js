@@ -145,7 +145,7 @@ class CommunityGroupOverview extends Component {
       communityGroupOverview,
       pageMeta,
       params,
-      routeParams,
+      router: { location },
       routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
@@ -187,9 +187,10 @@ class CommunityGroupOverview extends Component {
                   isEditMode={edit}
                   jumpToThreadId={threadId}
                   subMenus={subMenus}
-                  routeParams={routeParams}
                   params={params}
+                  location={location}
                   hideTitleSection
+                  observationsTabCustomClass="groups-observations-container"
                 />
               </CenterColumn>
               <Modal

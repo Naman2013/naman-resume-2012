@@ -70,7 +70,6 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
-
     jumpToThreadId: number,
   };
 
@@ -112,7 +111,8 @@ class FullInformationOverview extends Component {
       isEditMode,
       jumpToThreadId,
       subMenus,
-      routeParams: { groupId },
+      location,
+      observationsTabCustomClass,
       params,
       hideTitleSection,
     } = this.props;
@@ -127,7 +127,7 @@ class FullInformationOverview extends Component {
       user,
     };
 
-    const currentTab = window.location.pathname.split('/').pop();
+    const currentTab = location.pathname.split('/').pop();
 
     return (
       <div className="root">
@@ -221,9 +221,9 @@ class FullInformationOverview extends Component {
           }
           observations={
             <ObjectDetailsObservations
-              groupId={groupId}
               params={params}
               hideTitleSection={hideTitleSection}
+              customClass={observationsTabCustomClass}
             />
           }
         />

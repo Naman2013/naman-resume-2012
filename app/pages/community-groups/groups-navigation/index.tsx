@@ -14,7 +14,6 @@ type TGroupsNavigationProps = {
 export const GroupsNavigation: React.FC<TGroupsNavigationProps> = React.memo(
   props => {
     const { subMenus, discussions, observations, currentTab } = props;
-    const initTab = 'discussions';
 
     return (
       <div>
@@ -24,14 +23,18 @@ export const GroupsNavigation: React.FC<TGroupsNavigationProps> = React.memo(
               to={item.link}
               activeClassName="groups-nav-active"
               className="groups-nav-link"
-              onClick={() => {}}
+              key={`groups-navigation-tab-${i}`}
             >
               {item.name}
             </Link>
           ))}
         </div>
-        {currentTab === ('discussions' || initTab) && <div>{discussions}</div>}
-        {currentTab === 'observations' && <div>{observations}</div>}
+        {currentTab === 'discussions' && (
+          <div className="groups-navigation__discussions">{discussions}</div>
+        )}
+        {currentTab === 'observations' && (
+          <div className="groups-navigation__observations">{observations}</div>
+        )}
       </div>
     );
   }

@@ -24,6 +24,12 @@
   }
 }
 
+.groups-navigation__observations {
+  .groups-observations-container.root {
+    width: 100%;
+  }
+}
+
 @include lg() {
   .groups-navigation {
     display: flex;

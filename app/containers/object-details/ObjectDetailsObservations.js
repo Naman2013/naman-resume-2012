@@ -145,6 +145,7 @@ class Observations extends Component {
       user,
       isFetching,
       hideTitleSection,
+      customClass,
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
     const { pages, imageCount, imageList } = sharedMemberPhotos;
@@ -181,7 +182,10 @@ class Observations extends Component {
         )}
 
         {imageCount && !isFetching ? (
-          <CenterColumn widths={['645px', '965px', '965px']}>
+          <CenterColumn
+            widths={['645px', '965px', '965px']}
+            customClass={customClass}
+          >
             <div className="root">
               {imageList.map(image => (
                 <Request
