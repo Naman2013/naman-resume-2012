@@ -11,8 +11,8 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
-import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import ResponsiveThreeColumnContainer from 'app/components/ResponsiveThreeColumnContainer';
+import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
@@ -128,6 +128,7 @@ class FullInformationOverview extends Component {
     };
 
     const currentTab = location.pathname.split('/').pop();
+    console.log(`context`, context);
 
     return (
       <div className="root">
@@ -153,16 +154,19 @@ class FullInformationOverview extends Component {
           currentTab={currentTab}
           discussions={
             this.props.pageMeta.canSeeGroupContent && (
-              <ResponsiveTwoColumnContainer
+              <ResponsiveThreeColumnContainer
                 // mobile view header start
                 renderNavigationComponent={navProps => (
-                  <TwoTabbedNav
-                    firstTitle={t('Clubs.NavTitle')}
+                  <ThreeTabbedNav
+                    firstTitle={t('Clubs.NavFirstTitle')}
                     secondTitle={t('Clubs.NavSecondTitle')}
+                    thirdTitle={t('Clubs.NavThirdTitle')}
                     firstTabIsActive={navProps.showMainContainer}
                     firstTabOnClick={navProps.onShowMainContainer}
-                    secondTabIsActive={navProps.showAsideContainer}
-                    secondTabOnClick={navProps.onShowAsideContainer}
+                    secondTabIsActive={navProps.showAdditionalContainer}
+                    secondTabOnClick={navProps.onShowAdditionalContainer}
+                    thirdTabIsActive={navProps.showAsideContainer}
+                    thirdTabOnClick={navProps.onShowAsideContainer}
                   />
                 )}
                 // mobile view header end
@@ -216,6 +220,7 @@ class FullInformationOverview extends Component {
                     </div>
                   )
                 }
+                isAdditionalContainerPresent
               />
             )
           }
