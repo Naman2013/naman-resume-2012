@@ -31,12 +31,12 @@ class ObservationsSlider extends Component {
     currentIndex: 0,
   };
 
-  beforeSlideChange = (old, nextIndex) => {
+  afterSlideChange = index => {
     const { sliderChange } = this.props;
     this.setState({
-      currentIndex: nextIndex,
+      currentIndex: index,
     });
-    sliderChange(nextIndex);
+    sliderChange(index);
   };
 
   render() {
@@ -47,7 +47,7 @@ class ObservationsSlider extends Component {
         {slideList.length === 0 && <div className="empty">{emptyMessage}</div>}
         {
           <div className="slider-container dash-obs">
-            <Slider {...sliderConfig} beforeChange={this.beforeSlideChange}>
+            <Slider {...sliderConfig} afterChange={this.afterSlideChange}>
               {slideList.map(slideElement => (
                 <div key={slideElement.customerImageId}>
                   {slideElement.render({ currentIndex })}

@@ -25,7 +25,7 @@ const Observations = props => {
   const sliderProps = images ? getSliderProps(longList, t, readOnly) : {};
   const shortList = take(images, 4) || [];
   const sliderChange = index => {
-    if (index > imagesCount - 2) {
+    if (index > imagesCount - 3) {
       addImage(imagesCount + 1);
     }
   };

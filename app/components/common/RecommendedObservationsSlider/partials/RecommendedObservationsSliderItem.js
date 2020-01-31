@@ -49,14 +49,15 @@ class RecommendedObservationsItem extends Component {
   };
 
   render() {
-    const { readOnly } = this.props;
+    const { readOnly, currentIndex, imageIndex } = this.props;
     const { observationData } = this.state;
-
     return (
       <ObservationCard
         observationData={observationData}
         handleLike={this.handleLike}
         readOnly={readOnly}
+        currentIndex={currentIndex}
+        imageIndex={imageIndex}
       />
     );
   }

@@ -29,10 +29,14 @@ export default css.global`
 
   .dash-obs .slick-slider .slick-prev {
     margin-left: 23px;
+    transform: none;
+    top: 250px;
   }
 
   .dash-obs .slick-slider .slick-next {
     margin-right: 23px;
+    transform: none;
+    top: 250px;
   }
 
   .dash-item-first

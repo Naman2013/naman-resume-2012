@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Tooltip } from 'react-tippy';
@@ -16,11 +16,19 @@ type ObservationCardProps = {
   observationData: IObservationData;
   handleLike: Function;
   readOnly: boolean;
+  currentIndex: number;
+  imageIndex: number;
 };
 
 export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
   props => {
-    const { observationData, handleLike, readOnly } = props;
+    const {
+      observationData,
+      handleLike,
+      readOnly,
+      currentIndex,
+      imageIndex,
+    } = props;
 
     const {
       observationTitle,
@@ -54,6 +62,12 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
         return handleLike(customerImageId);
       }
     };
+
+    useEffect(() => {
+      if (currentIndex !== imageIndex && isDiscussionsOpen) {
+        openDiscussions(false);
+      }
+    }, [currentIndex]);
 
     return (
       <div className={cx('card-obs-wrapper', { 'read-only': readOnly })}>
@@ -133,12 +147,16 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                           {!likesCount ? '0' : likesCount}
                         </LikeSomethingButton>
                       </div>
-                      <div className="button">
+                      <div
+                        className="button"
+                        onClick={(): void =>
+                          openDiscussions(!isDiscussionsOpen)
+                        }
+                      >
                         <img
                           className="icon"
                           src="https://vega.slooh.com/assets/v4/common/comment.svg"
                           alt="comment"
-                          onClick={(): void => openDiscussions(true)}
                         />
                         {!commentsCount ? '0' : commentsCount}
                       </div>
@@ -161,7 +179,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                 </div>
               </div>
 
-              {isDiscussionsOpen && (
+              {isDiscussionsOpen && !readOnly && (
                 <ObservationComments
                   topLevelThread={false}
                   callSource={CALLSOURCE_PHOTOVIEW}

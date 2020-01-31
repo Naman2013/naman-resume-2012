@@ -201,6 +201,10 @@
   .card-obs-wrapper {
     .card-obs {
       width: 80%;
+
+      .button-icon {
+        display: inline-block;
+      }
     }
   }
 }
