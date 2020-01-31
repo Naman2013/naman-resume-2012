@@ -1,9 +1,9 @@
-import { takeLatest, select, call, put } from 'redux-saga/effects';
+import { takeEvery, select, call, put } from 'redux-saga/effects';
 import { getImageorderingModuleApi } from 'app/modules/quests/api';
 import { TYPE, ACTION } from './reducer';
 
 export default function* watchFetchImageorderingModule() {
-  yield takeLatest(TYPE.GET_IMAGEORDERING_MODULE, fetchImageorderingModule);
+  yield takeEvery(TYPE.GET_IMAGEORDERING_MODULE, fetchImageorderingModule);
 }
 
 export function* fetchImageorderingModule(action: any) {

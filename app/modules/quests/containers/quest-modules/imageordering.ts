@@ -27,6 +27,7 @@ const mapStateToProps = (state: any, props: any) => ({
 const mapDispatchToProps = {
   getImageorderingModule: ACTION.getImageorderingModule,
   setImageorderingModule,
+  setImageOrderingActivityState: ACTION.setImageOrderingActivityState,
   setDataCollectionSlotImages,
   getDataCollectionSlotImages,
 };
