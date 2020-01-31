@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Experiment, Variant } from 'react-optimize';
+import { projectGoogleOptimizeExpirianceId } from 'app/config/project-config';
 import {
   IGuestDashboard,
   IDashboardFeaturedObjects,
@@ -52,6 +54,11 @@ const SECTION_TYPE: { [key: string]: string } = {
   Plans: 'Plans',
 };
 
+const GET_PLANS_CALLSOURCES = {
+  dashboard: 'dashboard',
+  dashboardB: 'dashboard-b',
+};
+
 class GuestDashboard extends Component<TGuestDashboardProps> {
   componentDidMount(): void {
     this.getGuestDashboard();
@@ -73,25 +80,13 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       this.getObservatoryList();
       getDashboardFeaturedObjects();
       this.getDashboardShows();
-      this.getSubscriptionPlans();
     });
   };
 
-  getSubscriptionPlans = (): void => {
-    const {
-      getSubscriptionPlans,
-      guestDashboard: {
-        Sections: {
-          Plans: {
-            APIParams: { callSource },
-          },
-        },
-      },
-    } = this.props;
+  getSubscriptionPlans = (callSource: string): void => {
+    const { getSubscriptionPlans } = this.props;
 
-    getSubscriptionPlans({
-      callSource,
-    });
+    getSubscriptionPlans({ callSource });
   };
 
   getDashboardShows = (): void => {
@@ -131,9 +126,11 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       TelescopePromos,
       MissionPhotosData,
     } = guestDashboard;
-    const { subscriptionPlans } = subscriptionPlansData;
+
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
+    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || {};
+    const { subscriptionPlans } = subscriptionPlansData;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -183,7 +180,36 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         );
       }
       case SECTION_TYPE.Plans: {
-        return <MembershipPlansList plans={subscriptionPlans} showSlider />;
+        return guestDashboardPlans ? (
+          <Experiment id={guestDashboardPlans}>
+            <Variant id="0">
+              <MembershipPlansList
+                plans={subscriptionPlans}
+                getSubscriptionPlans={() =>
+                  this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
+                }
+                showSlider
+              />
+            </Variant>
+            <Variant id="1">
+              <MembershipPlansList
+                plans={subscriptionPlans}
+                getSubscriptionPlans={() =>
+                  this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboardB)
+                }
+                showSlider
+              />
+            </Variant>
+          </Experiment>
+        ) : (
+          <MembershipPlansList
+            plans={subscriptionPlans}
+            getSubscriptionPlans={() =>
+              this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
+            }
+            showSlider
+          />
+        );
       }
       default: {
         return <div />;

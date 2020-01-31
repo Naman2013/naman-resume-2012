@@ -7,27 +7,47 @@
   "events.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/events.slooh.com.html"
+    "loadHtmlFile": "/config/events.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
+      "upsellPayWall_Plan": ""
+    }
   },
   "live.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/live.slooh.com.html"
+    "loadHtmlFile": "/config/live.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
+      "upsellPayWall_Plan": ""
+    }
   },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/main.slooh.com.html"
+    "loadHtmlFile": "/config/main.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
+      "upsellPayWall_Plan": ""
+    }
   },
   "www.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/www.slooh.com.html"
+    "loadHtmlFile": "/config/www.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
+      "upsellPayWall_Plan": ""
+    }
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/slooh.com.html"
+    "loadHtmlFile": "/config/slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
+      "upsellPayWall_Plan": ""
+    }
   },
   "southafrica.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -107,7 +127,11 @@
     "loadHtmlFile": "/config/eris.slooh.com.html"
   },
   "nova.slooh.com": {
-    "loadHtmlFile": "/config/nova.slooh.com.html"
+    "loadHtmlFile": "/config/nova.slooh.com.html",
+    "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
+      "guestDashboardPlans": "mB71-QJiRqaGL3_VhnLJpw",
+      "upsellPayWall_Plan": "P4jeFFYGRsO5VdXpGXxh1g"
+    }
   },
   "orion.slooh.com": {
     "loadHtmlFile": "/config/orion.slooh.com.html"

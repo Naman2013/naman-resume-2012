@@ -118,6 +118,7 @@
     "react-modal": "^3.4.5",
     "react-notification-system": "^0.2.15",
     "react-onclickoutside": "^5.3.3",
+    "react-optimize": "^2.2.0",
     "react-redux": "^5.1.0",
     "react-remarkable": "^1.1.1",
     "react-responsive": "^6.1.1",

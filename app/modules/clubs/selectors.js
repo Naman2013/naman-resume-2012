@@ -30,3 +30,9 @@ export const makeTopThreadsDataSelector = () =>
         };
       })
   );
+
+export const makeGroupDeleteInvitation = () =>
+  createSelector(
+    selectClubs,
+    state => state.groupDeleteInvitation
+  );
