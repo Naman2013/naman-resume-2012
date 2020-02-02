@@ -2,44 +2,126 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'app/components/modal';
 import { ImageorderingModuleResponse } from 'app/modules/quests/types.ts';
+import { Tooltip } from 'react-tippy';
 import './styles.scss';
+import { downloadFile } from 'app/utils/downloadFile';
+import { MODES } from 'app/modules/quests/constants/montageModule';
 
 type PreviewModeProps = {
   imageOrderingModule?: ImageorderingModuleResponse;
-  goToEdit?: () => void;
-  goToFinish?: () => void;
+  setImageOrderingModule?: (
+    activityState: string,
+    scrollIntoView?: boolean
+  ) => void;
   completed?: boolean;
 };
 
 export const PreviewMode: React.FC<PreviewModeProps> = props => {
-  const { imageOrderingModule, completed, goToEdit, goToFinish } = props;
+  const { imageOrderingModule, setImageOrderingModule } = props;
+  const {
+    previewHeading,
+    previewSubheading,
+    previewURL,
+    goBackButtonCaption,
+    backToEditButtonCaption,
+    backToEditButtonTooltipText,
+    enableBackToEditButton,
+    showBackToEditButton,
+    finishButtonTooltipText,
+    showFinishButton,
+    enableFinishButton,
+    finishButtonCaption,
+    downloadPreviewButtonTooltipText,
+    showDownloadPreviewButton,
+    previewDownloadURL,
+    enableDownloadPreviewButton,
+  } = imageOrderingModule;
 
   return (
-    <Modal show onHide={goToEdit} goBackText="GO BACK" disableGoBack={false}>
+    <Modal
+      show
+      onHide={(): void => {
+        setImageOrderingModule(MODES.BACK_TO_EDIT);
+      }}
+      goBackText={goBackButtonCaption}
+      disableGoBack={false}
+    >
       <div className="montage-preview-mode">
         <div className="montage-preview-header">
-          <h6>{imageOrderingModule.previewHeading}</h6>
-          <h2>{imageOrderingModule.previewSubheading}</h2>
+          <h6>{previewHeading}</h6>
+          <h2>{previewSubheading}</h2>
         </div>
 
         <div className="montage-preview-body">
           <img
             className="montage-preview-img"
-            src={imageOrderingModule.previewURL}
+            src={`${previewURL}?time=${Date.now()}`}
             alt="preview"
           />
         </div>
 
         <div className="montage-preview-footer">
-          {completed && (
-            <Button className="btn-white finish-btn" onClick={goToFinish}>
-              {imageOrderingModule.previewFinishButtonCaption}
-            </Button>
+          {showFinishButton && (
+            <Tooltip
+              title={finishButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="btn-white finish-btn"
+                onClick={(): void => {
+                  setImageOrderingModule(MODES.FINISH, true);
+                }}
+                disabled={!enableFinishButton}
+              >
+                {finishButtonCaption}
+              </Button>
+            </Tooltip>
           )}
 
-          <Button className="btn-white" onClick={goToEdit}>
-            {imageOrderingModule.previewBackToTasksButtonCaption}
-          </Button>
+          {showDownloadPreviewButton && (
+            <Tooltip
+              title={downloadPreviewButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="download btn-white"
+                onClick={(): void =>
+                  downloadFile(
+                    `${previewDownloadURL}?time=${Date.now()}`,
+                    previewDownloadURL.substring(
+                      previewDownloadURL.lastIndexOf('/') + 1
+                    )
+                  )
+                }
+                disabled={!enableDownloadPreviewButton}
+              >
+                <i className="icon white icon-download" />
+              </Button>
+            </Tooltip>
+          )}
+
+          {showBackToEditButton && (
+            <Tooltip
+              title={backToEditButtonTooltipText}
+              theme="light"
+              distance={10}
+              position="top"
+            >
+              <Button
+                className="btn-white"
+                onClick={(): void => {
+                  setImageOrderingModule(MODES.BACK_TO_EDIT);
+                }}
+                disabled={!enableBackToEditButton}
+              >
+                {backToEditButtonCaption}
+              </Button>
+            </Tooltip>
+          )}
         </div>
       </div>
     </Modal>

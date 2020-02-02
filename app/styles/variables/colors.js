@@ -8,6 +8,7 @@ export const blueGreen = '#7EC3C4';
 export const lightTurqoise = '#b1cfcf';
 export const lightBlue = '#B9D9D9';
 export const darkBlueGray = '#3C4A55';
+export const curiousBlue = '#337ab7';
 export const blueBlack = '#131D21';
 export const fontBlack = '#3c4a55';
 export const red = '#FC1048';

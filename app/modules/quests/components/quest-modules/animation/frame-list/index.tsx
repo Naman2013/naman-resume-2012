@@ -70,9 +70,11 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
 
   useEffect(() => {
     if (frameIndex > SLIDES_TO_SHOW && slider) {
-      slider.slickGoTo(frameIndex - 1);
+      slider.slickGoTo(
+        Math.ceil(frameIndex / SLIDES_TO_SHOW - 1) * SLIDES_TO_SHOW
+      );
     }
-  }, [frameIndex, slider]);
+  }, [slider]);
 
   return (
     <div className="frame-list">
