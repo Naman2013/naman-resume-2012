@@ -68,11 +68,21 @@ class LikeHeartButton extends Component {
     likePrompt: this.props.likePrompt,
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.likePrompt !== nextProps.likePrompt) {
-      this.setState({
-        likePrompt: nextProps.likePrompt,
-      });
+  componentWillReceiveProps(nextProps) {    
+    if (this.props.likePrompt !== nextProps.likePrompt) {           
+      if(nextProps!=undefined&&nextProps.likePrompt!=""){
+        this.setState({
+          likePrompt: nextProps.likePrompt,
+          isModalOpen:true,
+        });
+      }
+      else{
+        this.setState({
+          likePrompt: nextProps.likePrompt,
+          isModalOpen:false,
+        });
+      }
+      
     }
 
     if (this.props.likesCount !== nextProps.likesCount) {
@@ -82,7 +92,7 @@ class LikeHeartButton extends Component {
     }
   }
 
-  likeItem = e => {
+  likeItem = e => {    
     e.preventDefault();
     const {
       likeHandler,
@@ -101,10 +111,11 @@ class LikeHeartButton extends Component {
         token: user.token,
         at: user.at,
         cid: user.cid,
-      }).then(res => {
-        if (res && res.data) {
+      }).then(res => {        
+        if (res.data)        
           return this.handleLikeResult(res);
-        }
+        else
+          return this.handleLikeResult({data: res});
       });
     }
   };
@@ -120,14 +131,14 @@ class LikeHeartButton extends Component {
       likedByMe,
       likeTooltip,
     } = res.data;
-    const resultLikesCount = count || likesCount;
-
+    const resultLikesCount = count != null ? count : likesCount;    
     if (!apiError) {
       this.setState(() => ({
         likesCount: Number(resultLikesCount),
         likedByMe,
         likeTooltip,
       }));
+      
       if (typeof likeResultHandler === 'function') {
         likeResultHandler(resultLikesCount);
       }
