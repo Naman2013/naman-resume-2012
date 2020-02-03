@@ -116,6 +116,7 @@ class FullInformationOverview extends Component {
       observationsTabCustomClass,
       params,
       hideTitleSection,
+      location
     } = this.props;
 
     const createThreadFormParams = {
@@ -149,6 +150,7 @@ class FullInformationOverview extends Component {
 
         <GroupsContainer
           t={t}
+          location={location}
           subMenus={subMenus}
           context={context}
           discussionsContent={
