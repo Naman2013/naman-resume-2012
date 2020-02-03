@@ -11,14 +11,12 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
-import ResponsiveThreeColumnContainer from 'app/components/ResponsiveThreeColumnContainer';
-import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
-import { GroupsNavigation } from 'app/pages/community-groups/groups-navigation';
+import { GroupsContainer } from 'app/pages/community-groups/groups-container';
 import ObjectDetailsObservations from 'app/containers/object-details/ObjectDetailsObservations';
 import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
@@ -71,6 +69,10 @@ class FullInformationOverview extends Component {
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
     jumpToThreadId: number,
+    subMenus: {
+      name: string,
+      link: string,
+    },
   };
 
   static defaultProps = {
@@ -111,7 +113,6 @@ class FullInformationOverview extends Component {
       isEditMode,
       jumpToThreadId,
       subMenus,
-      location,
       observationsTabCustomClass,
       params,
       hideTitleSection,
@@ -126,9 +127,6 @@ class FullInformationOverview extends Component {
       canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
-
-    const currentTab = location.pathname.split('/').pop();
-    console.log(`context`, context);
 
     return (
       <div className="root">
@@ -149,82 +147,47 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        <GroupsNavigation
+        <GroupsContainer
+          t={t}
           subMenus={subMenus}
-          currentTab={currentTab}
-          discussions={
-            this.props.pageMeta.canSeeGroupContent && (
-              <ResponsiveThreeColumnContainer
-                // mobile view header start
-                renderNavigationComponent={navProps => (
-                  <ThreeTabbedNav
-                    firstTitle={t('Clubs.NavFirstTitle')}
-                    secondTitle={t('Clubs.NavSecondTitle')}
-                    thirdTitle={t('Clubs.NavThirdTitle')}
-                    firstTabIsActive={navProps.showMainContainer}
-                    firstTabOnClick={navProps.onShowMainContainer}
-                    secondTabIsActive={navProps.showAdditionalContainer}
-                    secondTabOnClick={navProps.onShowAdditionalContainer}
-                    thirdTabIsActive={navProps.showAsideContainer}
-                    thirdTabOnClick={navProps.onShowAsideContainer}
-                  />
-                )}
-                // mobile view header end
-
-                // right aside for desktop start
-                renderAsideContent={() =>
-                  !isEditMode &&
-                  this.props.pageMeta.canSeeGroupContent && (
-                    <div>
-                      <div className="popular-discussion-wrapper">
-                        <TopThreads
-                          topicId={pageMeta.topicId}
-                          isDesktop={context.isDesktop}
-                          discussionGroupId={discussionGroupId}
-                        />
-                      </div>
-                      <MembersList
-                        membersSort={membersSort}
-                        membersList={membersList}
-                        membersCount={membersCount}
-                        leadersList={leadersList}
-                        discussionGroupId={discussionGroupId}
-                        fetchGroupMembers={actions.fetchGroupMembers}
-                        isDesktop={context.isDesktop}
-                      />
-                    </div>
-                  )
-                }
-                // right aside for desktop end
-
-                // discussions dashboard for mobile & desktop
-                isScreenSize={context.isScreenLarge}
-                renderMainContent={() =>
-                  !isEditMode &&
-                  pageMeta.canSeeGroupContent === true && (
-                    <div className="discuss-container">
-                      <DiscussionsBoard
-                        errorMessage={t('Clubs.FetchingListError')}
-                        topicId={pageMeta.topicId}
-                        forumId={pageMeta.forumId}
-                        callSource="groups"
-                        createThread={actions.createActivity}
-                        createThreadFormParams={createThreadFormParams}
-                        user={user}
-                        validateResponseAccess={actions.validateResponseAccess}
-                        discussionGroupId={discussionGroupId}
-                        jumpToThreadId={jumpToThreadId}
-                        canSeeGroupContent={pageMeta.canSeeGroupContent}
-                        isClub
-                      />
-                    </div>
-                  )
-                }
-                isAdditionalContainerPresent
-              />
-            )
+          context={context}
+          discussionsContent={
+            <DiscussionsBoard
+              errorMessage={t('Clubs.FetchingListError')}
+              topicId={pageMeta.topicId}
+              forumId={pageMeta.forumId}
+              callSource="groups"
+              createThread={actions.createActivity}
+              createThreadFormParams={createThreadFormParams}
+              user={user}
+              validateResponseAccess={actions.validateResponseAccess}
+              discussionGroupId={discussionGroupId}
+              jumpToThreadId={jumpToThreadId}
+              canSeeGroupContent={pageMeta.canSeeGroupContent}
+              isClub
+            />
           }
-          observations={
+          membersContent={
+            <div>
+              <div className="popular-discussion-wrapper">
+                <TopThreads
+                  topicId={pageMeta.topicId}
+                  isDesktop={context.isDesktop}
+                  discussionGroupId={discussionGroupId}
+                />
+              </div>
+              <MembersList
+                membersSort={membersSort}
+                membersList={membersList}
+                membersCount={membersCount}
+                leadersList={leadersList}
+                discussionGroupId={discussionGroupId}
+                fetchGroupMembers={actions.fetchGroupMembers}
+                isDesktop={context.isDesktop}
+              />
+            </div>
+          }
+          observationsContent={
             <ObjectDetailsObservations
               params={params}
               hideTitleSection={hideTitleSection}
