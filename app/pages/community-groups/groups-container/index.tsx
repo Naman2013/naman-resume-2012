@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames';
 import './styles.scss';
@@ -14,23 +15,16 @@ type TGroupsContainerProps = {
   observationsContent: any;
   context: IGroupScreenContext;
   toggleNavigationTab: Function;
-  t: any;
-  location: any;
+  params: {
+    groupId: string;
+    threadId: string;
+  };
 };
 
-const groupsNavigationTabs = {
-  DISCUSSIONS: 'DISCUSSIONS',
-  OBSERVATION: 'OBSERVATIONS',
-  MEMBERS: 'MEMBERS',
-};
-
-const toggleNavigationTab = (
-  tabName: string,
-  subMenus: Array<IGroupsNavigationSubMenu>,
-  setCurrentTab: Function
-) => {
-  let newTab = tabName.toUpperCase();
-  setCurrentTab(newTab);
+const groupsNavigationTabs: { [key: string]: string } = {
+  Discussions: 'DISCUSSIONS',
+  Observations: 'OBSERVATIONS',
+  Members: 'MEMBERS',
 };
 
 export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
@@ -41,18 +35,14 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       discussionsContent,
       observationsContent,
       membersContent,
-      t,
-      location
+      params: { threadId },
     } = props;
-    const { DISCUSSIONS, OBSERVATION, MEMBERS } = groupsNavigationTabs;
-    const initTab = location.pathname.split('/').pop().toUpperCase();
-    const [currentTab, setCurrentTab] = useState(initTab);
-
+    const { t } = useTranslation();
+    const [currentTab, setCurrentTab] = useState(threadId.toUpperCase());
 
     useEffect(() => {
-
-      if (currentTab === MEMBERS) {
-        toggleNavigationTab(DISCUSSIONS, subMenus, setCurrentTab);
+      if (currentTab === groupsNavigationTabs.Members && isDesktop) {
+        setCurrentTab(threadId.toUpperCase());
       }
     }, [isDesktop]);
 
@@ -63,40 +53,32 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
             <Link
               to={item.link}
               activeClassName={cx({
-                'active': currentTab === item.name.toUpperCase(),
+                active: currentTab === groupsNavigationTabs[item.name],
               })}
               className="groups-container__navigation-tab"
               key={`groups-navigation-tab-${i}`}
-              onClick={() =>
-                toggleNavigationTab(item.name, subMenus, setCurrentTab)
-              }
+              onClick={() => setCurrentTab(groupsNavigationTabs[item.name])}
             >
               {item.name}
               <img
                 src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
                 alt=""
-                className={cx('arrow', {
-                  'is-hidden': currentTab !== item.name.toUpperCase(),
-                })}
+                className="arrow"
               />
             </Link>
           ))}
           {!isDesktop && (
             <div
               className={cx('groups-container__navigation-tab', {
-                active: currentTab === MEMBERS,
+                active: currentTab === groupsNavigationTabs.Members,
               })}
-              onClick={() =>
-                toggleNavigationTab(MEMBERS, subMenus, setCurrentTab)
-              }
+              onClick={() => setCurrentTab(groupsNavigationTabs.Members)}
             >
               {t('Clubs.NavThirdTitle')}
               <img
                 src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
                 alt=""
-                className={cx('arrow', {
-                  'is-hidden': currentTab !== MEMBERS,
-                })}
+                className="arrow"
               />
             </div>
           )}
@@ -104,19 +86,19 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
 
         <div className="groups-container__tabs">
           <div className="groups-container__tabs-desktop">
-            {currentTab === DISCUSSIONS && (
+            {currentTab === groupsNavigationTabs.Discussions && (
               <div className="groups-container__tabs-discussion">
                 {discussionsContent}
               </div>
             )}
-            {((isDesktop && currentTab === DISCUSSIONS) ||
-              currentTab === MEMBERS) && (
+            {((isDesktop && currentTab === groupsNavigationTabs.Discussions) ||
+              currentTab === groupsNavigationTabs.Members) && (
               <div className="groups-container__tabs-member">
                 {membersContent}
               </div>
             )}
           </div>
-          {currentTab === OBSERVATION && (
+          {currentTab === groupsNavigationTabs.Observations && (
             <div className="groups-container__tabs-observation">
               {observationsContent}
             </div>

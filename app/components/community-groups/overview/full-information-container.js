@@ -149,10 +149,9 @@ class FullInformationOverview extends Component {
           )}
 
         <GroupsContainer
-          t={t}
-          location={location}
           subMenus={subMenus}
           context={context}
+          params={params}
           discussionsContent={
             <DiscussionsBoard
               errorMessage={t('Clubs.FetchingListError')}
