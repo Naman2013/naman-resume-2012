@@ -3,6 +3,10 @@ import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Swiper from 'react-slick';
+import { API } from 'app/api';
+import { LIKE } from 'app/services/like';
+import { connect } from 'react-redux';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
@@ -30,28 +34,13 @@ const sliderConfig = {
 class MobileViewSwiper extends Component {
   state = {
     ...emptyState,
+    likesNumber: null,
     currentIndex: 0,
   };
 
-  setObservationInfo = ({
-    title,
-    author,
-    description,
-    commentsCount,
-    likesCount,
-    error,
-    linkUrl,
-    iconFileData,
-  }) => {
+  setObservationInfo = data => {
     this.setState({
-      title,
-      author,
-      description,
-      likesCount,
-      commentsCount,
-      error,
-      linkUrl,
-      iconFileData,
+      ...data,
       loading: false,
     });
   };
@@ -62,8 +51,27 @@ class MobileViewSwiper extends Component {
     this.setState({ currentIndex: Math.max(0, nextSlideIndex) });
   };
 
+  handleLike = () => {
+    const { user } = this.props;
+    const { customerImageId, showLikePrompt } = this.state;
+    const { token, at, cid } = user;
+
+    if (!showLikePrompt) {
+      return API.post(LIKE, {
+        cid,
+        at,
+        token,
+        likeId: customerImageId,
+      }).then(res => {
+        this.setState({
+          ...res.data,
+        });
+      });
+    }
+  };
+
   render() {
-    const { imagesList, t, readOnly } = this.props;
+    const { imagesList, t, readOnly, user } = this.props;
     const {
       title,
       author,
@@ -75,6 +83,12 @@ class MobileViewSwiper extends Component {
       error,
       linkUrl,
       iconFileData,
+      likedByMe,
+      likeTooltip,
+      customerImageId,
+      likePrompt,
+      showLikePrompt,
+      likesNumber,
     } = this.state;
 
     return (
@@ -111,49 +125,61 @@ class MobileViewSwiper extends Component {
                 imageIndex={index}
                 purgeCardState={this.purgeState}
                 setObservationInfo={this.setObservationInfo}
+                user={user}
               />
             ))}
           </Swiper>
         </div>
-        {!readOnly && (
-          <div className="bottom">
-            <div className="buttons">
-              <div className="button">
-                <img
-                  className="icon"
-                  src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                  alt="heart"
-                />
-                {likesCount}
-              </div>
-              <div className="button">
-                <img
-                  className="icon"
-                  src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                  alt="comment"
-                />
-                {commentsCount}
-              </div>
-              <a href={linkUrl} className="button details">
-                {t('Dashboard.Details')}
-                <img
-                  src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                  alt="arrow-right"
-                />
-              </a>
-            </div>
+        <div className="bottom">
+          <div className="buttons">
+            {!readOnly && (
+              <>
+                <div className="button">
+                  <LikeSomethingButton
+                    mod="no-border"
+                    likePrompt={likePrompt}
+                    likesCount={likesNumber || likesCount}
+                    likedByMe={likedByMe}
+                    likeTooltip={likeTooltip}
+                    likeHandler={this.handleLike}
+                    customerId={customerImageId}
+                    showLikePrompt={showLikePrompt}
+                  >
+                    <img
+                      className="icon"
+                      src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                      alt="heart"
+                    />
+                    {!likesCount ? '0' : likesCount}
+                  </LikeSomethingButton>
+                </div>
+                <div className="button">
+                  <img
+                    className="icon"
+                    src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                    alt="comment"
+                  />
+                  {!commentsCount ? '0' : commentsCount}
+                </div>
+                {linkUrl && (
+                  <Link to={linkUrl} className="button details">
+                    {t('Dashboard.Details')}
+                    <img
+                      src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                      alt="arrow-right"
+                    />
+                  </Link>
+                )}
+              </>
+            )}
           </div>
-        )}
+        </div>
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-MobileViewSwiper.propTypes = {
-  imagesList: arrayOf(shape({})),
-};
-MobileViewSwiper.defaultProps = {
-  imagesList: [],
-};
-export default MobileViewSwiper;
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps)(MobileViewSwiper);

@@ -36,7 +36,7 @@ const Observations = props => {
         <SloohSlider {...sliderProps} sliderChange={sliderChange} />
       </DisplayAtBreakpoint>
       <DisplayAtBreakpoint screenSmall>
-        <MobileSwiper imagesList={shortList} readOnly />
+        <MobileSwiper imagesList={shortList} readOnly={readOnly} />
       </DisplayAtBreakpoint>
       <style jsx>{`
         .root {
