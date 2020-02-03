@@ -171,6 +171,38 @@ export declare interface IQuestAnimation extends StandardResponse {
   yOffsetMax: number;
   yOffsetMin: number;
   yOffsetSmallStep: number;
+  editAnimationButtonTooltipText: string;
+  editButtonTooltipText: string;
+  enableDownloadButton: boolean;
+  enableEditAnimationButton: boolean;
+  enableEditButton: boolean;
+  enableFastButton: boolean;
+  enableFinishButton: boolean;
+  enableMediumButton: boolean;
+  enablePlayButton: boolean;
+  enableSlowButton: boolean;
+  fastButtonTooltipText: string;
+  finishButtonTooltipText: string;
+  mediumButtonTooltipText: string;
+  playButtonTooltipText: string;
+  showDownloadButton: boolean;
+  showDownloadButtonTooltip: boolean;
+  showEditAnimationButton: boolean;
+  showEditAnimationButtonTooltip: boolean;
+  showEditButton: boolean;
+  showEditButtonTooltip: boolean;
+  showFastButton: boolean;
+  showFastButtonTooltip: boolean;
+  showFinishButton: boolean;
+  showFinishButtonTooltip: boolean;
+  showMediumButton: boolean;
+  showMediumButtonTooltip: boolean;
+  showPlayButton: boolean;
+  showPlayButtonTooltip: boolean;
+  showSlowButton: boolean;
+  showSlowButtonTooltip: boolean;
+  slowButtonTooltipText: string;
+  downloadButtonTooltipText: string;
 }
 
 export declare interface IAnimationFrame {
@@ -222,6 +254,10 @@ export declare interface IQuestAnimationFrames extends StandardResponse {
   questIdIsValid: boolean;
   questUUID: string;
   requestType: string;
+  left: number;
+  top: number;
+  zoom: number;
+  activityState: string;
 }
 
 export interface RichTextInputModuleResponse extends StandardResponse {
@@ -284,10 +320,12 @@ export declare interface IQuestAnimationData {
   zoom: number;
 }
 
-export declare interface ImageorderingModuleResponse {
+export declare interface ImageorderingModuleResponse extends StandardResponse {
   activityInstructions: string;
   activityPrompt: string;
   activityTitle: string;
+  activityStatus: string;
+  activityState: string;
   correctText: string;
   gravityEarnedInThisRequest: boolean;
   incorrectText: string;
@@ -306,96 +344,239 @@ export declare interface ImageorderingModuleResponse {
   previewFinalSubheading: string;
   previewFinishButtonCaption: string;
   previewGoBackButtonCaption: string;
+  goBackButtonCaption: string;
   previewHeading: string;
   previewReviewButtonCaption: string;
   previewSubheading: string;
   previewURL: string;
+  outputURL: string;
   questId: number;
   questIdIsValid: boolean;
   questUUID: string;
-  slotArray: [];
+
+  previewButtonCaption: string;
+  enablePreviewButton: boolean;
+  showPreviewButton: boolean;
+  previewButtonTooltipText: string;
+  showPreviewButtonTooltip: boolean;
+
+  downloadPreviewButtonIconURL: string;
+  downloadPreviewButtonTooltipText: string;
+  showDownloadPreviewButton: boolean;
+  previewDownloadURL: string;
+  enableDownloadPreviewButton: boolean;
+
+  backToEditButtonCaption: string;
+  enableBackToEditButton: boolean;
+  showBackToEditButton: boolean;
+  backToEditButtonTooltipText: string;
+  showBackToEditButtonTooltip: boolean;
+
+  finishButtonCaption: string;
+  enableFinishButton: boolean;
+  showFinishButton: boolean;
+  finishButtonTooltipText: string;
+  showFinishButtonTooltip: boolean;
+
+  reviewWorkButtonCaption: string;
+  enableReviewWorkButton: boolean;
+  showReviewWorkButton: boolean;
+  reviewWorkButtonTooltipText: string;
+  showReviewWorkButtonTooltip: boolean;
+
+  editWorkButtonCaption: string;
+  enableEditWorkButton: boolean;
+  showEditWorkButton: boolean;
+  editWorkButtonTooltipText: string;
+  showEditWorkButtonTooltip: boolean;
+
+  exitReviewButtonCaption: string;
+  enableExitReviewButton: boolean;
+  showExitReviewButton: boolean;
+  exitReviewButtonTooltipText: string;
+  showExitReviewButtonTooltip: boolean;
+
+  enableDownloadButton: boolean;
+  showDownloadButton: boolean;
+  downloadButtonTooltipText: string;
+  showDownloadButtonTooltip: boolean;
+
+  slotArray: Array<IQuestDataCollectionSlot>;
   slotCount: number;
   step: number;
 }
 
-export declare interface IImageOrderingSlot {
+export declare interface IQuestDataCollectionSlotImages
+  extends StandardResponse {
+  emptySetContentsDesc: {
+    noImagesFoundPrompt: string;
+    slotObjectMissionLinks: [
+      { linkIndex: boolean; linkLabel: string; linkURL: string }
+    ];
+    sunObjectFlag: boolean;
+  };
+  noImagesFoundPrompt: string;
+  slotObjectMissionLinks: [
+    {
+      linkIndex: number;
+      linkLabel: string;
+      linkURL: string;
+    }
+  ];
+  sunObjectFlag: boolean;
+  emptySetDisplay: string;
+  emptySetFlag: boolean;
+  firstImageNumber: number;
+  gravityEarnedInThisRequest: boolean;
+  imageCount: number;
+  imageList: [];
+  maxImageCount: number;
+  moduleId: number;
+  moduleIdIsValid: boolean;
+  moduleType: string;
+  moduleUUID: string;
+  pagingMode: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  showEmptySetContentsDesc: boolean;
+  showMoreButtonCaption: string;
+  showMoreImagesIncrement: number;
+  showShowMoreButton: boolean;
+  showSlotContentsDesc: boolean;
+  slotContentsDesc: string;
+  slotContentsHeader: string;
   slotId: number;
-  slotSequence: number;
-  showSlotTitle: boolean;
-  slotTitle: string;
-  slotHasImage: boolean;
-  textPrompt: string;
-  showTextPrompt: boolean;
-  graphicalPromptURL: string;
-  showGraphicalPrompt: boolean;
-  slotIdentifier: string;
-  QuestModuleImageOrderingSlotId: number;
+  slotIdIsValid: boolean;
+  slotType: string;
+  totalImageCount: number;
+}
+
+export declare interface IQuestDataCollectionSlot {
+  CorrectAnswer: number;
+  OverlayHeight: number;
+  OverlayWidth: number;
   OverlayXpos: number;
   OverlayYpos: number;
-  OverlayWidth: number;
-  OverlayHeight: number;
-  CorrectAnswer: number;
-  enableSlotButton: boolean;
-  showSlotButton: boolean;
-  slotButtonCaption: string;
-  showSlotButtonTooltip: boolean;
-  slotButtonTooltipText: string;
-  showSlotInfo: boolean;
-  enableSlotInfo: boolean;
-  slotInfoTitle: string;
-  showSlotInfoTooltip: boolean;
-  slotInfoTooltipText: string;
-  slotInfo: {
-    showSlotContentsDesc: boolean;
-    slotContentsDesc: string;
-    showObjectDetails: boolean;
-    objectName: string;
-    imageDate: string;
-    imageTime: string;
-    telescopeName: string;
-    instrumentName: string;
-  };
-  showSlotDetails: boolean;
-  slotDetails: [];
-  showDotMenu: boolean;
-  enableDotMenu: boolean;
-  dotMenuTitle: string;
-  showDotMenuTooltip: boolean;
-  dotMenuTooltipText: string;
+  QuestModuleImageOrderingSlotId: number;
+  scoringText: string;
+  scoringTextBold: boolean;
+  contentCount: number;
+  contentType: string;
+  customerImageId: number;
   dotMenu: {
-    showCheckForMissions: boolean;
-    enableCheckForMissions: boolean;
     checkForMissionsText: string;
     checkForMissionsUrl: string;
-    showRemoveImage: boolean;
-    enableRemoveImage: boolean;
-    removeImageText: string;
-    showDownloadImage: boolean;
-    enableDownloadImage: boolean;
     downloadImageText: string;
-    showObjectInfo: boolean;
+    enableCheckForMissions: boolean;
+    enableDownloadImage: boolean;
     enableObjectInfo: boolean;
+    enableRemoveImage: boolean;
     objectInfo: {
       callSource: string;
-      objectName: string;
-      objectId: number;
-      learnAboutText: string;
-      learnAboutUrl: string;
-      showFollowPromptFlag: boolean;
+      followActionIconUrl: string;
       followPrompt: string;
       followPromptIconUrl: string;
-      followActionIconUrl: string;
+      learnAboutText: string;
+      learnAboutUrl: string;
+      objectId: number;
+      objectName: string;
+      showFollowPromptFlag: boolean;
       toggleFollowConfirmationFlag: boolean;
       toggleFollowConfirmationPrompt: string;
     };
+    removeImageText: string;
+    showCheckForMissions: boolean;
+    showDownloadImage: boolean;
+    showObjectInfo: boolean;
+    showRemoveImage: boolean;
   };
-  contentType: string;
-  contentCount: number;
+  dotMenuTitle: string;
+  dotMenuTooltipText: string;
+  enableDotMenu: boolean;
+  enableSlotButton: boolean;
+  enableSlotInfo: boolean;
+  graphicalPromptURL: string;
   imageSource: string;
-  objectId: number;
-  customerImageId: number;
   imageURL: string;
+  objectId: number;
+  showDotMenu: boolean;
+  showDotMenuTooltip: boolean;
+  showGraphicalPrompt: boolean;
+  showSlotButton: boolean;
+  showSlotButtonTooltip: boolean;
+  showSlotDetails: boolean;
+  showSlotInfo: boolean;
+  showSlotInfoTooltip: boolean;
+  showSlotTitle: boolean;
+  showTextPrompt: boolean;
+  slotButtonCaption: string;
+  slotButtonTooltipText: string;
+  slotDetails: [];
+  slotHasImage: boolean;
+  slotId: number;
+  slotIdentifier: string;
+  slotInfo: {
+    imageDate: string;
+    imageTime: string;
+    instrumentName: string;
+    objectName: string;
+    showObjectDetails: boolean;
+    showSlotContentsDesc: boolean;
+    slotContentsDesc: string;
+    telescopeName: string;
+  };
+  slotInfoTitle: string;
+  slotInfoTooltipText: string;
+  slotSequence: number;
+  slotTitle: string;
+  textPrompt: string;
   thumbnailURL: string;
+  explanation: string;
+}
+
+export declare interface IQuestDataCollectionSlotImage {
+  alreadyUsed: boolean;
+  constellation: string;
+  customerImageId: number;
+  domeId: number;
+  imageDownloadFilename: string;
+  imageDownloadURL: string;
+  imageId: number;
+  imageIndex: number;
+  imageTimeFormatted: {
+    displayDate: string;
+    displayDateTime: string;
+    displayFullMonthDayYearUTC: string;
+    displayLabel: string;
+    displayOtherTimeZones: string;
+    displayTime: string;
+    displayTimeZone: string;
+    displayUSEasternTime: string;
+    displayUSPacificTime: string;
+    displayWMDUSEasternTime: string;
+    displayWMDUSPacificTime: string;
+    displayWeekdayMonthDayUTC: string;
+    displayWeekdayMonthDayYearUTC: string;
+  };
+  imageTimestamp: number;
+  imageType: string;
+  imageURL: string;
+  instrumentName: string;
+  objectIconURL: string;
+  objectId: number;
+  objectTitle: string;
+  obsId: string;
+  observatoryName: string;
+  originX: null;
+  originY: null;
+  scheduledMissionId: number;
+  selected: boolean;
+  sysId: string;
+  telescopeId: string;
+  telescopeName: string;
+  thumbnailURL: string;
+  zoom: null;
 }
 
 export declare interface IQuestDotMenuItem {
@@ -403,4 +584,31 @@ export declare interface IQuestDotMenuItem {
   disabled: boolean;
   title: any;
   action?: () => void;
+}
+
+export declare interface IDeleteInvitationResponse {
+  pageHeading1: string;
+  pageHeading2: string;
+  canDeleteInvitation: boolean;
+  confirmationText: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
+  gravityEarnedInThisRequest: boolean;
+}
+
+export declare interface IInvitationCustomerLinks {
+  publicProfileLinkUrl: string;
+  name: string;
+  firstname: string;
+  lastname: string;
+  emailaddress: string;
+  invitationcode: string;
+  showInvitationCode: boolean;
+  status: string;
+  lastactivity: string;
+  showClubStatus: boolean;
+  showAddButton: boolean;
+  invitationPrompt: string;
+  clubStatus: string;
+  canDeleteInvitation: boolean;
 }

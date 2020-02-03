@@ -39,6 +39,15 @@
     display: none;
   }
 
+  .empty-set-content {
+    .object-mission-link {
+      .modal-p {
+        font-weight: 700;
+        color: $curiousBlue;
+      }
+    }
+  }
+
   // RESPONSIVE
   @include media-breakpoint-down(sm) {
     & {

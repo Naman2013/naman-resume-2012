@@ -2,65 +2,50 @@ import React from 'react';
 import {
   IQuestStepModule,
   ImageorderingModuleResponse,
-} from 'app/modules/quests/types.ts';
+  IQuestDataCollectionSlotImage,
+  IQuestDataCollectionSlotImages,
+  IQuestDataCollectionSlot,
+} from 'app/modules/quests/types';
 import './styles.scss';
 import { QuestStepModuleHeader } from 'app/modules/quests/components/quest-step-module-header';
+import {
+  ACTIVITY_STATES,
+  MODES,
+} from 'app/modules/quests/constants/montageModule';
 import { EditMode } from 'app/modules/quests/components/quest-modules/imageordering/edit-mode/edit';
 import { FinishMode } from 'app/modules/quests/components/quest-modules/imageordering/finish-mode';
 import { PreviewMode } from 'app/modules/quests/components/quest-modules/imageordering/preview-mode';
 
-type ImageorderingProps = {
+type TImageorderingProps = {
   module: IQuestStepModule;
   readOnly: boolean;
   routeParams: any;
   stepData: any;
-  slot?: object;
+  slot?: IQuestDataCollectionSlot;
   questId: string;
   navigateToNextStep: Function;
   getImageorderingModule: Function;
   setImageorderingModule: Function;
+  setImageOrderingActivityState: Function;
   setDataCollectionSlotImages: Function;
   refreshQuestStep: Function;
+  refreshModule: Function;
   getDataCollectionSlotImages: () => void;
   imageorderingModule: ImageorderingModuleResponse;
-  image: any;
+  image: IQuestDataCollectionSlotImage;
   loading?: boolean;
-  questDataCollectionSlotImages?: object;
+  questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user: User;
+  activityStatus: ImageorderingModuleResponse['activityStatus'];
+  mmSlotModalVisible: boolean;
 };
 
-enum Mode {
-  edit,
-  preview,
-  finish,
-  review,
-}
-
-type ImageorderingState = {
-  mode: Mode;
-};
-
-export class Imageordering extends React.PureComponent<
-  ImageorderingProps,
-  ImageorderingState
-> {
-  state = {
-    mode: Mode.edit,
-  };
+export class Imageordering extends React.PureComponent<TImageorderingProps> {
+  moduleRef = React.createRef<HTMLDivElement>();
 
   componentDidMount(): void {
     this.getImageOrderingModule();
   }
-
-  onChangeMode = (mode: Mode): void => this.setState({ mode });
-
-  goToEditMode = (): void => this.onChangeMode(Mode.edit);
-
-  goToPreviewMode = (): void => this.onChangeMode(Mode.preview);
-
-  goToFinishMode = (): void => this.onChangeMode(Mode.finish);
-
-  goToReviewMode = (): void => this.onChangeMode(Mode.review);
 
   getImageOrderingModule = (): void => {
     const { module, questId, stepData, getImageorderingModule } = this.props;
@@ -75,9 +60,51 @@ export class Imageordering extends React.PureComponent<
     });
   };
 
+  setImageOrderingModule = (
+    activityState: string,
+    scrollIntoView = false
+  ): void => {
+    const {
+      module,
+      imageorderingModule,
+      questId,
+      stepData,
+      setImageorderingModule,
+      setImageOrderingActivityState,
+      refreshQuestStep,
+    } = this.props;
+    const { questUUID } = stepData;
+    const { moduleId, moduleUUID } = module;
+
+    if (imageorderingModule.activityState === MODES.PREVIEW) {
+      setImageOrderingActivityState({
+        moduleId,
+        activityState: activityState === MODES.BACK_TO_EDIT ? 'edit' : 'finish',
+      });
+    }
+
+    setImageorderingModule({
+      questId,
+      questUUID,
+      moduleId,
+      moduleUUID,
+      button: activityState,
+    }).then(({ payload: { refreshStep, refreshModule } }: any): void => {
+      if (refreshStep) {
+        refreshQuestStep();
+      } else if (refreshModule) {
+        this.getImageOrderingModule();
+      }
+
+      if (scrollIntoView) {
+        this.moduleRef.current.scrollIntoView();
+      }
+    });
+  };
+
   setDataCollectionSlotImages = (
-    image: any,
-    selectedSlot: any,
+    image: IQuestDataCollectionSlotImage,
+    selectedSlot: IQuestDataCollectionSlot,
     deleteSlotImage?: boolean
   ): void => {
     const {
@@ -123,10 +150,7 @@ export class Imageordering extends React.PureComponent<
   };
 
   render() {
-    const { mode } = this.state;
     const {
-      module,
-      readOnly,
       imageorderingModule,
       getDataCollectionSlotImages,
       questDataCollectionSlotImages,
@@ -134,52 +158,50 @@ export class Imageordering extends React.PureComponent<
       loading,
     } = this.props;
 
+    const {
+      activityTitle,
+      activityStatus,
+      activityInstructions,
+      activityState,
+    } = imageorderingModule;
+
     return (
-      <div className="montage-module quest-qa-free-form">
+      <div className="montage-module quest-qa-free-form" ref={this.moduleRef}>
         <QuestStepModuleHeader
-          title="activityTitle"
-          completed //activityState === ACTIVITY_STATES.complete
-          sequenceText="activitySequenceText"
+          title={activityTitle}
+          completed={activityStatus === ACTIVITY_STATES.complete}
+          instructions={activityInstructions}
         />
 
-        {mode === Mode.edit && (
+        {(activityState === MODES.EDIT ||
+          activityState === MODES.PREVIEW ||
+          activityState === MODES.REVIEW ||
+          activityState === MODES.NONE) && (
           <EditMode
-            goToPreview={this.goToPreviewMode}
             imageOrderingModule={imageorderingModule}
             getImageOrderingModule={this.getImageOrderingModule}
+            setImageOrderingModule={this.setImageOrderingModule}
             getDataCollectionSlotImages={getDataCollectionSlotImages}
             questDataCollectionSlotImages={questDataCollectionSlotImages}
             setDataCollectionSlotImages={this.setDataCollectionSlotImages}
             removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
             user={user}
             loading={loading}
+            activityState={activityState}
           />
         )}
-        {mode === Mode.preview && (
+
+        {activityState === MODES.PREVIEW && (
           <PreviewMode
             imageOrderingModule={imageorderingModule}
-            completed
-            goToEdit={this.goToEditMode}
-            goToFinish={this.goToFinishMode}
+            setImageOrderingModule={this.setImageOrderingModule}
           />
         )}
-        {mode === Mode.finish && (
+
+        {activityState === MODES.FINISHED && (
           <FinishMode
             imageOrderingModule={imageorderingModule}
-            goToReview={this.goToReviewMode}
-          />
-        )}
-        {mode === Mode.review && (
-          <EditMode
-            readonly
-            imageOrderingModule={imageorderingModule}
-            getImageOrderingModule={this.getImageOrderingModule}
-            getDataCollectionSlotImages={getDataCollectionSlotImages}
-            questDataCollectionSlotImages={questDataCollectionSlotImages}
-            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
-            removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
-            user={user}
-            loading={loading}
+            setImageOrderingModule={this.setImageOrderingModule}
           />
         )}
       </div>

@@ -55,4 +55,24 @@
   .i-btn {
     margin: 0 8px;
   }
+
+  .delete-invitation-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed $astronaut;
+    border-radius: 50%;
+    cursor: pointer;
+
+    span {
+      margin-top: 3px;
+
+      &:before {
+        color: $astronaut;
+        font-size: 14px;
+      }
+    }
+  }
 }
