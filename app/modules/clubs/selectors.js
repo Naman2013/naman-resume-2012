@@ -38,6 +38,12 @@ export const makeTopThreadsDataSelector = () =>
       })
   );
 
+export const makeGroupDeleteInvitation = () =>
+  createSelector(
+    selectClubs,
+    state => state.groupDeleteInvitation
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select

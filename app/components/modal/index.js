@@ -14,7 +14,13 @@ type TModalDialog = {
 };
 
 const ModalDialog = (props: TModalDialog) => {
-  const { children, onHide, goBackText, mobileGoBackText, disableGoBack } = props;
+  const {
+    children,
+    onHide,
+    goBackText,
+    mobileGoBackText,
+    disableGoBack,
+  } = props;
 
   const backClick = e => {
     e.preventDefault();
@@ -23,16 +29,21 @@ const ModalDialog = (props: TModalDialog) => {
 
   return (
     <div className="custom-modal">
-      {disableGoBack != true && <span role="presentation" className="modal-back-btn" onClick={backClick}>
-        <span className="d-sm-none">
-          <span className="icon icon-arrow-left" />{' '}
-          {mobileGoBackText || 'GO BACK'}
+      {disableGoBack != true && (
+        <span
+          role="presentation"
+          className="modal-back-btn"
+          onClick={backClick}
+        >
+          <span className="d-sm-none">
+            <span className="icon icon-arrow-left" />{' '}
+            {mobileGoBackText || 'GO BACK'}
+          </span>
+          <span className="d-none d-sm-block">
+            <span className="icon icon-arrow-left" /> {goBackText || 'GO BACK'}
+          </span>
         </span>
-        <span className="d-none d-sm-block">
-          <span className="icon icon-arrow-left" /> {goBackText || 'GO BACK'}
-        </span>
-      </span>
-      }
+      )}
       <div className="container">{children}</div>
     </div>
   );

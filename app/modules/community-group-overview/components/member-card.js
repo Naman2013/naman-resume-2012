@@ -1,9 +1,11 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Btn from 'app/atoms/Btn';
 import './member-card.scss';
 import { Col, Row } from 'react-bootstrap';
-import noop from 'lodash/fp/noop';
+import DeleteInvitationModal from 'app/modules/clubs/containers/deleteInvitationModal';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import Modal from 'react-modal';
 
 type TMemberCard = {
   member: {
@@ -11,7 +13,6 @@ type TMemberCard = {
     clubStatus: string,
     showInvitationCode: boolean,
     showClubStatus: boolean,
-    showAddButton: boolean,
     publicProfileLinkUrl: string,
     name: string,
     lastname: string,
@@ -20,46 +21,99 @@ type TMemberCard = {
     lastactivity: string | Date,
     invitationcode: string | number,
     invitationPrompt: string,
-    showInvitationCode: boolean,
     showAddButton: boolean,
     invitationPrompt: string,
   },
+  refreshPage: Function,
 };
 
 const MemberCard = (props: TMemberCard) => {
   const [isOpen, toggleCard] = useState(false);
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [invitationIsDeleted, setInvitationIsDeleted] = useState(null);
+  const [deletedInvitationData, setDeleteExplanationMessage] = useState('');
+
   const {
     onAddClick,
+    member,
     member: {
       status,
       name,
-      publicProfileLinkUrl,
       invitationcode,
       emailaddress,
       lastactivity,
       showInvitationCode,
       showAddButton,
       invitationPrompt,
+      canDeleteInvitation,
     },
+    refreshPage,
   } = props;
+
+  const setDeleteInvitationModal = responceStatusMessage => {
+    if (responceStatusMessage) {
+      setDeleteExplanationMessage(responceStatusMessage);
+      setInvitationIsDeleted(true);
+      setTimeout(() => {
+        setInvitationIsDeleted(false);
+        refreshPage();
+      }, 3000);
+    }
+    setDeleteOpen(false);
+  };
+
   return (
     <div className="member-card i-box i-box-white">
       <Row noGutters className="member-card-row">
         <Col
-          lg={9}
-          md={9}
-          sm={9}
+          lg={8}
+          md={6}
+          sm={6}
           className="member-card-col member-card-col-pad border-right"
         >
           <h2 className="community-group-edit-title">{name}</h2>
           <h4 className="h-4 h-4-bold">{status}</h4>
         </Col>
         <Col
-          lg={3}
-          md={3}
-          sm={3}
+          lg={4}
+          md={6}
+          sm={6}
           className="member-card-col member-card-col-centered"
         >
+          {canDeleteInvitation && (
+            <div>
+              <div
+                className="delete-invitation-btn"
+                onClick={() => setDeleteOpen(true)}
+              >
+                <span className="icon-delete" />
+              </div>
+              {isDeleteOpen && (
+                <DeleteInvitationModal
+                  show
+                  onHide={invitationDeleted =>
+                    setDeleteInvitationModal(invitationDeleted)
+                  }
+                  member={member}
+                />
+              )}
+              {invitationIsDeleted && (
+                <Modal
+                  ariaHideApp={false}
+                  isOpen
+                  style={customModalStylesBlackOverlay}
+                  contentLabel="Like"
+                  onRequestClose={() => {}}
+                >
+                  <i
+                    className="fa fa-close"
+                    onClick={() => setInvitationIsDeleted(false)}
+                  />
+                  <p>{deletedInvitationData}</p>
+                </Modal>
+              )}
+            </div>
+          )}
           {isOpen ? (
             <Btn mod="circle" onClick={() => toggleCard(false)}>
               <i className="fa fa-close" />
@@ -128,10 +182,6 @@ const MemberCard = (props: TMemberCard) => {
               <h4 className="h-4">Email:</h4>
               <p>{emailaddress}</p>
             </div>
-            {/*<div className="member-card-col">*/}
-            {/*  <Btn onClick={noop}>Rescind</Btn>*/}
-            {/*  <Btn onClick={noop}>Remind</Btn>*/}
-            {/*</div>*/}
           </Col>
         </Row>
       )}
