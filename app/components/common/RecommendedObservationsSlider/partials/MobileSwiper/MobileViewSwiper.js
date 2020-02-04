@@ -7,6 +7,8 @@ import { API } from 'app/api';
 import { LIKE } from 'app/services/like';
 import { connect } from 'react-redux';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ObservationComments from 'app/modules/observations/containers/observation-comments';
+import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
@@ -36,6 +38,7 @@ class MobileViewSwiper extends Component {
     ...emptyState,
     likesNumber: null,
     currentIndex: 0,
+    isDiscussionsOpen: false,
   };
 
   setObservationInfo = data => {
@@ -48,7 +51,10 @@ class MobileViewSwiper extends Component {
   purgeState = () => this.setState({ ...emptyState });
 
   handleSlideChange = (old, nextSlideIndex) => {
-    this.setState({ currentIndex: Math.max(0, nextSlideIndex) });
+    this.setState({
+      currentIndex: Math.max(0, nextSlideIndex),
+      isDiscussionsOpen: false,
+    });
   };
 
   handleLike = () => {
@@ -89,6 +95,10 @@ class MobileViewSwiper extends Component {
       likePrompt,
       showLikePrompt,
       likesNumber,
+      commentsThreadId,
+      commentsForumId,
+      commentsTopicId,
+      isDiscussionsOpen,
     } = this.state;
 
     return (
@@ -153,7 +163,12 @@ class MobileViewSwiper extends Component {
                     {!likesCount ? '0' : likesCount}
                   </LikeSomethingButton>
                 </div>
-                <div className="button">
+                <div
+                  className="button"
+                  onClick={(): void =>
+                    this.setState({ isDiscussionsOpen: !isDiscussionsOpen })
+                  }
+                >
                   <img
                     className="icon"
                     src="https://vega.slooh.com/assets/v4/common/comment.svg"
@@ -174,6 +189,18 @@ class MobileViewSwiper extends Component {
             )}
           </div>
         </div>
+        {isDiscussionsOpen && !readOnly && (
+          <ObservationComments
+            topLevelThread={false}
+            callSource={CALLSOURCE_PHOTOVIEW}
+            count={10}
+            commentsCount={commentsCount}
+            commentsThreadId={commentsThreadId}
+            forumId={commentsForumId}
+            topicId={commentsTopicId}
+            threadId={commentsThreadId}
+          />
+        )}
         <style jsx>{styles}</style>
       </div>
     );

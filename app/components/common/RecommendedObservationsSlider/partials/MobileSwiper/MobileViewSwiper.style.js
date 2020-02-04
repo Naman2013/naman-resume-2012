@@ -111,6 +111,10 @@ export default css`
     margin-right: 8px;
   }
 
+  img {
+    cursor: pointer;
+  }
+
   :global(.mobile-swiper-root .slick-dots li) {
     background: #dee0e2;
     border-radius: 50%;
