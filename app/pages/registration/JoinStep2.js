@@ -72,6 +72,7 @@ class JoinStep2 extends Component {
         googleProfileFamilyName: '',
         googleProfilePictureURL: '',
       },
+      formIsComplete: null,
       accountFormDetails: {
         givenName: {
           label: '',
@@ -241,21 +242,21 @@ class JoinStep2 extends Component {
 
       if (accountFormDetailsData.givenName.value === '') {
         accountFormDetailsData.givenName.errorText = t(
-          '.FirstNameRequierMessage'
+          'Ecommerce.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
         accountFormDetailsData.familyName.errorText = t(
-          '.LastNameRequierMessage'
+          'Ecommerce.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.loginEmailAddress.value === '') {
         accountFormDetailsData.loginEmailAddress.errorText = t(
-          '.EmailRequierMessage'
+          'Ecommerce.EmailRequierMessage'
         );
         formIsComplete = false;
       } else {
@@ -266,7 +267,7 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddressVerification.value
         ) {
           accountFormDetailsData.loginEmailAddressVerification.errorText = t(
-            '.EmailsDontMatchMessage'
+            'Ecommerce.EmailsDontMatchMessage'
           );
           formIsComplete = false;
         }
@@ -281,14 +282,14 @@ class JoinStep2 extends Component {
 
       if (accountFormDetailsData.givenName.value === '') {
         accountFormDetailsData.givenName.errorText = t(
-          '.FirstNameRequierMessage'
+          'Ecommerce.FirstNameRequireMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
         accountFormDetailsData.familyName.errorText = t(
-          '.LastNameRequierMessage'
+          'Ecommerce.LastNameRequireMessage'
         );
         formIsComplete = false;
       }
@@ -298,7 +299,7 @@ class JoinStep2 extends Component {
       /* Make sure that the 13/Older indicator is selected with a value */
       if (accountFormDetailsData.is13YearsAndOlder.value === null) {
         accountFormDetailsData.is13YearsAndOlder.errorText = t(
-          '.AgeRequierMessage'
+          'Ecommerce.AgeRequierMessage'
         );
         formIsComplete = false;
       } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
@@ -307,7 +308,7 @@ class JoinStep2 extends Component {
           accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
         ) {
           accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
-            '.MinAgeErrorMessage'
+            'Ecommerce.MinAgeErrorMessage'
           );
           formIsComplete = false;
         }
@@ -315,7 +316,7 @@ class JoinStep2 extends Component {
         //make sure the parent email address field is filled in.
         if (accountFormDetailsData.parentEmailAddress.value === '') {
           accountFormDetailsData.parentEmailAddress.errorText = t(
-            '.ParentEmailRequierMessage'
+            'Ecommerce.ParentEmailRequierMessage'
           );
           formIsComplete = false;
         }
@@ -341,6 +342,8 @@ class JoinStep2 extends Component {
         formIsComplete = false;
       }
     }
+
+    this.setState(() => ({ formIsComplete: formIsComplete }));
 
     if (formIsComplete === true) {
       /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements and the Email Address is not already taken in the system */
@@ -555,6 +558,7 @@ class JoinStep2 extends Component {
       accountFormDetails,
       accountCreationType,
       isAstronomyClub,
+      formIsComplete,
     } = this.state;
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
@@ -1102,9 +1106,10 @@ class JoinStep2 extends Component {
                                   browserHistory.push('/join/step1');
                                 }}
                               />
+			      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
                               <button className="submit-button" type="submit">
                                 {t('Ecommerce.GoToPayment')}
-                              </button>
+                              </button>			  
                             </div>
                           </form>
                         </div>

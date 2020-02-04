@@ -19,7 +19,6 @@ import {
   setAnimationApi,
   getRichTextInputModuleApi,
   setRichTextInputModuleApi,
-  getImageorderingModuleApi,
   setImageorderingModuleApi,
 } from 'app/modules/quests/api';
 import { browserHistory } from 'react-router';
@@ -303,6 +302,7 @@ export const setAnimation = data => (dispatch, getState) => {
     token,
     ...data,
   };
+
   return setAnimationApi({ ...opts })
     .then(result => dispatch(ACTION.setAnimationSuccess(result.data)))
     .catch(error => dispatch(ACTION.setAnimationError(error)));

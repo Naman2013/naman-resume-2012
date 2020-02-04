@@ -1,5 +1,5 @@
 @import '~app/styles/bootstrap/common';
-@import '~app/styles/variables/fonts';
+@import '~app/styles/variables/index';
 
 .dc-slot-card {
   width: calc(50% - 20px);
@@ -177,11 +177,67 @@
         color: $raven;
       }
     }
+
+    .dot-menu-wrapper, .slot-info-container {
+      .quest-buttons-popover {
+        width: 280px;
+      }
+    }
+
   }
 }
 
 @include media-breakpoint-down(sm) {
   .dc-slot-card {
     width: 100%;
+  }
+}
+
+@include sm-low {
+  .dc-slot-card {
+    .dc-slot-card-actions {
+      .dot-menu-wrapper {
+        position: relative;
+
+        .quest-buttons-popover {
+          position: absolute;
+          left: -220px;
+        }
+      }
+    }
+
+    .slot-info-container {
+      position: relative;
+
+      .slot-info-wrapper {
+        .quest-buttons-popover {
+          position: absolute;
+          left: -130px;
+        }
+      }
+    }
+  }
+}
+
+@include xsm {
+  .dc-slot-card {
+    .dc-slot-card-actions {
+
+      .dot-menu-wrapper {
+        .quest-buttons-popover {
+          width: 260px;
+          left: -200px;
+        }
+      }
+
+      .slot-info-container {
+        .slot-info-wrapper {
+          .quest-buttons-popover {
+            width: 270px;
+            left: -150px;
+          }
+        }
+      }
+    }
   }
 }
