@@ -144,6 +144,8 @@ class Observations extends Component {
       getMyPictures,
       user,
       isFetching,
+      hideTitleSection,
+      customClass,
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
     const { pages, imageCount, imageList } = sharedMemberPhotos;
@@ -152,32 +154,38 @@ class Observations extends Component {
       <Fragment>
         <Spinner loading={isFetching} />
 
-        <ObjectDetailsSectionTitle
-          title={`${objectDetails.objectTitle}'s`}
-          subTitle={t('Objects.Observations')}
-          renderNav={() => (
-            <div
-              className="nav-actions"
-              ref={node => {
-                this.observationContainer = node;
-              }}
-            >
-              <GenericButton
-                onClickEvent={this.showWriteObservationModal}
-                text="Add observation"
-                icon={plus}
-                theme={{ marginRight: '10px' }}
-              />
-              <DropDown
-                options={this.dropdownOptions}
-                selectedIndex={selectedIndex}
-                handleSelect={this.handleSelect}
-              />
-            </div>
-          )}
-        />
+        {!hideTitleSection && (
+          <ObjectDetailsSectionTitle
+            title={`${objectDetails.objectTitle}'s`}
+            subTitle={t('Objects.Observations')}
+            renderNav={() => (
+              <div
+                className="nav-actions"
+                ref={node => {
+                  this.observationContainer = node;
+                }}
+              >
+                <GenericButton
+                  onClickEvent={this.showWriteObservationModal}
+                  text="Add observation"
+                  icon={plus}
+                  theme={{ marginRight: '10px' }}
+                />
+                <DropDown
+                  options={this.dropdownOptions}
+                  selectedIndex={selectedIndex}
+                  handleSelect={this.handleSelect}
+                />
+              </div>
+            )}
+          />
+        )}
+
         {imageCount && !isFetching ? (
-          <CenterColumn widths={['645px', '965px', '965px']}>
+          <CenterColumn
+            widths={['645px', '965px', '965px']}
+            customClass={customClass}
+          >
             <div className="root">
               {imageList.map(image => (
                 <Request
