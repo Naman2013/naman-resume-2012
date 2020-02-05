@@ -101,7 +101,6 @@ export class AnimationModule extends React.PureComponent<
   }
 
   componentWillUnmount(): void {
-    console.log('AAAAAA');
     window.removeEventListener('resize', this.pageResize);
     clearTimeout(this.resizeTimeout);
   }
@@ -478,7 +477,6 @@ export class AnimationModule extends React.PureComponent<
   };
 
   onPageRezise = (updateAnimation = true): void => {
-    console.log('AFDSFSKJDFNSJKDFNKSDNFJKSD');
     const { questAnimationFrames } = this.props;
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
