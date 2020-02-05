@@ -97,11 +97,12 @@ export class AnimationModule extends React.PureComponent<
     this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
-    window.addEventListener('resize', () => this.onPageRezise());
+    window.addEventListener('resize', this.pageResize);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('resize', () => this.onPageRezise());
+    console.log('AAAAAA');
+    window.removeEventListener('resize', this.pageResize);
     clearTimeout(this.resizeTimeout);
   }
 
@@ -472,7 +473,12 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
+  pageResize = () => {
+    this.onPageRezise();
+  };
+
   onPageRezise = (updateAnimation = true): void => {
+    console.log('AFDSFSKJDFNSJKDFNKSDNFJKSD');
     const { questAnimationFrames } = this.props;
     const { frameList } = questAnimationFrames;
     const newCanvasContainerWidth =
