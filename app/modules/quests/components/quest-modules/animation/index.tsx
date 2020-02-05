@@ -595,7 +595,7 @@ export class AnimationModule extends React.PureComponent<
     return this.canvas.item(frameIndex - 1);
   };
 
-  onEdit = (): any => {
+  onEdit = (initialLoad?: boolean): void => {
     const {
       activeFrame,
       questAnimation,
@@ -617,16 +617,17 @@ export class AnimationModule extends React.PureComponent<
       return item;
     });
 
-    const newZoom = zoom || magnificationDefault;
-
-    this.canvas.item(0).set({ visible: true, opacity: 1 });
-    this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
-    this.canvas.hoverCursor = 'move';
-    this.canvas.renderAll();
-    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
-      this.getAnimation()
-    );
+    if (!initialLoad) {
+      const newZoom = zoom || magnificationDefault;
+      this.canvas.item(0).set({ visible: true, opacity: 1 });
+      this.canvas.item(frameIndex - 1).set({ visible: true });
+      this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+      this.canvas.hoverCursor = 'move';
+      this.canvas.renderAll();
+      this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
+        this.getAnimation()
+      );
+    }
   };
 
   onFinish = (): any => {
@@ -669,11 +670,11 @@ export class AnimationModule extends React.PureComponent<
   setActiveStep = (step: string): void => {
     switch (step) {
       case ANIMATION_STEPS.edit: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.play: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.finished: {
@@ -681,7 +682,7 @@ export class AnimationModule extends React.PureComponent<
         break;
       }
       default: {
-        this.onEdit();
+        this.onEdit(true);
       }
     }
   };
@@ -925,7 +926,7 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="dc-slot-card-find-btn"
-                    onClick={this.onEdit}
+                    onClick={(): void => this.onEdit()}
                     disabled={!enableEditAnimationButton}
                   >
                     {editAnimationButtonCaption}
