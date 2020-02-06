@@ -26,7 +26,7 @@ class LikeHeartButton extends Component {
     showLikePrompt: bool,
     alwaysShowCount: bool,
     likePrompt: string.isRequired,
-    likesCount: number.isRequired,
+    likesCount: number.isRequired,    
     // only pass openModal if you want to use a higher component modal
     openModal: func,
     user: shape({
@@ -41,8 +41,7 @@ class LikeHeartButton extends Component {
       likeId: oneOfType([number, string]), // required for post/story
       objectSlug: string, // required for post/story
       type: string, // required for post/story
-      membershipType: string, //required for post/story
-
+      membershipType: string, //required for post/story      
       callSource: oneOfType([number, string]), //	optional for threads but required for qanda
       objectId: oneOfType([number, string]), //	optional for threads but required for qanda
       threadId: oneOfType([number, string]), // required for thread
@@ -60,30 +59,30 @@ class LikeHeartButton extends Component {
     alwaysShowCount: false,
     showLikePrompt: true,
     mod: '',
+   
+    
   };
 
   state = {
     isModalOpen: false,
     likesCount: this.props.likesCount,
     likePrompt: this.props.likePrompt,
+    
   };
 
-  componentWillReceiveProps(nextProps) {    
-    if (this.props.likePrompt !== nextProps.likePrompt) {           
-      if(nextProps!=undefined&&nextProps.likePrompt!=""){
+  componentWillReceiveProps(nextProps) {     
+    if (this.props.likePrompt !== nextProps.likePrompt) {                 
         this.setState({
-          likePrompt: nextProps.likePrompt,
-          isModalOpen:true,
+          likePrompt: nextProps.likePrompt,          
         });
-      }
-      else{
-        this.setState({
-          likePrompt: nextProps.likePrompt,
-          isModalOpen:false,
-        });
-      }
-      
+        if (nextProps!=undefined && !nextProps.likedByMe && nextProps.showLikePrompt) {
+      this.setState({
+        isModalOpen:true,
+      });
     }
+    }
+
+    
 
     if (this.props.likesCount !== nextProps.likesCount) {
       this.setState({
@@ -112,7 +111,7 @@ class LikeHeartButton extends Component {
         at: user.at,
         cid: user.cid,
       }).then(res => {        
-        if (res.data)        
+        if (res && res.data)        
           return this.handleLikeResult(res);
         else
           return this.handleLikeResult({data: res});
