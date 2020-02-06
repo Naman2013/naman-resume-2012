@@ -94,7 +94,7 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
               className={cx('frame-list-item', {
                 active: frameId === frame.frameId,
               })}
-              onClick={(): void => setActiveFrame(frame)}
+              onClick={(): void => setActiveFrame(frame, true)}
               tabIndex={0}
               role="button"
             >

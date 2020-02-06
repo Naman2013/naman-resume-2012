@@ -56,6 +56,7 @@ const BUTTON_TYPES: { [key: string]: string } = {
   SLOW: 'slow',
   MED: 'med',
   FAST: 'fast',
+  FRAME: 'frame',
 };
 
 const RESIZE_DELTA = 300;
@@ -691,7 +692,10 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  setActiveFrame = (frame: IAnimationFrame): void => {
+  setActiveFrame = (
+    frame: IAnimationFrame,
+    callSetAnimation?: boolean
+  ): void => {
     const {
       setActiveFrame,
       activeFrame,
@@ -728,6 +732,9 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
 
     setActiveFrame(frame);
+    if (callSetAnimation) {
+      this.setAnimation(frame, BUTTON_TYPES.FRAME);
+    }
   };
 
   setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
