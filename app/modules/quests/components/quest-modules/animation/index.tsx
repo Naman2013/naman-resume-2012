@@ -57,6 +57,7 @@ const BUTTON_TYPES: { [key: string]: string } = {
   MED: 'med',
   FAST: 'fast',
   FRAME: 'frame',
+  EDIT_ANIMATION: 'editAnimation',
 };
 
 const RESIZE_DELTA = 300;
@@ -600,7 +601,10 @@ export class AnimationModule extends React.PureComponent<
     return this.canvas.item(frameIndex - 1);
   };
 
-  onEdit = (initialLoad?: boolean): void => {
+  onEdit = (
+    initialLoad?: boolean,
+    buttonType: string = BUTTON_TYPES.EDIT
+  ): void => {
     const {
       activeFrame,
       questAnimation,
@@ -629,7 +633,7 @@ export class AnimationModule extends React.PureComponent<
       this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
       this.canvas.hoverCursor = 'move';
       this.canvas.renderAll();
-      this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
+      this.setAnimation(activeFrame, buttonType).then(() =>
         this.getAnimation()
       );
     }
@@ -781,6 +785,7 @@ export class AnimationModule extends React.PureComponent<
       questAnimation,
       questAnimationFrames,
       questAnimationData,
+      readOnly,
     } = this.props;
     const {
       activeAnimationStep,
@@ -889,6 +894,7 @@ export class AnimationModule extends React.PureComponent<
                 onPlay={this.onPlay}
                 disabledZoom={empty}
                 disabledMove={empty || activeFrame.frameIndex === 1}
+                onFinish={this.onFinish}
               />
             )}
 
@@ -920,6 +926,7 @@ export class AnimationModule extends React.PureComponent<
               frameList={frameList}
               activeFrame={activeFrame}
               setActiveFrame={this.setActiveFrame}
+              readOnly={readOnly}
             />
           )}
         </div>
@@ -937,7 +944,9 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="dc-slot-card-find-btn"
-                    onClick={(): void => this.onEdit()}
+                    onClick={(): void =>
+                      this.onEdit(false, BUTTON_TYPES.EDIT_ANIMATION)
+                    }
                     disabled={!enableEditAnimationButton}
                   >
                     {editAnimationButtonCaption}

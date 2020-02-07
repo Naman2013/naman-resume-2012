@@ -19,6 +19,7 @@ type EditAnimationControlsProps = {
   zoomInCanvas: () => void;
   zoomOutCanvas: () => void;
   onPlay: () => void;
+  onFinish: () => void;
   disabledZoom: boolean;
   disabledMove: boolean;
 };
@@ -44,6 +45,7 @@ export const EditAnimationControls: React.FC<
     zoomOutCanvas,
     disabledZoom,
     disabledMove,
+    onFinish,
   } = props;
   const {
     magnificationDefault,
@@ -53,6 +55,11 @@ export const EditAnimationControls: React.FC<
     showPlayButton,
     showPlayButtonTooltip,
     playButtonTooltipText,
+    showFinishButton,
+    finishButtonTooltipText,
+    showFinishButtonTooltip,
+    enableFinishButton,
+    finishButtonCaption,
   } = questAnimation;
 
   return (
@@ -160,7 +167,7 @@ export const EditAnimationControls: React.FC<
         </p>
       </div>
 
-      <div className="controls-block">
+      <div className="controls-block change-mode">
         {showPlayButton && (
           <Tooltip
             theme="dark"
@@ -175,6 +182,24 @@ export const EditAnimationControls: React.FC<
               disabled={!enablePlayButton}
             >
               {playButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {showFinishButton && (
+          <Tooltip
+            theme="dark"
+            title={finishButtonTooltipText}
+            distance={10}
+            position="top"
+            disabled={!showFinishButtonTooltip}
+          >
+            <Button
+              className="btn-white animation-view-btn finish-btn"
+              onClick={onFinish}
+              disabled={!enableFinishButton}
+            >
+              {finishButtonCaption}
             </Button>
           </Tooltip>
         )}

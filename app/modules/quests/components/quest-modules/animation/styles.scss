@@ -2,6 +2,8 @@
 @import '~app/styles/variables/index';
 
 .animation-module {
+  margin-bottom: 60px;
+
   .animation-edit,
   .animation-play,
   .animation-completed {
@@ -10,6 +12,10 @@
     &.visible {
       display: block;
     }
+  }
+
+  .animation-play {
+    margin-bottom: 30px;
   }
 
   .animation-box {
@@ -84,6 +90,24 @@
       flex-flow: row wrap;
       justify-content: center;
 
+      &.edit-controls {
+        .controls-block {
+          &.change-mode {
+            div {
+              width: 100%;
+
+              button {
+                width: 100%;
+
+                &.finish-btn {
+                  margin: 10px 0 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
       &.preview-controls {
         padding: 0 20px;
         margin-top: 30px;
@@ -115,6 +139,7 @@
               padding: 10px 0 0;
 
               button {
+                width: 100%;
                 margin-bottom: 10px;
               }
             }
@@ -180,6 +205,10 @@
 
   .animation-completed {
     margin-top: 50px;
+
+    .animation-box {
+      padding-top: 93px;
+    }
 
     .animation-completed-card {
       background-color: $black;

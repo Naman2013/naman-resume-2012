@@ -8,6 +8,7 @@ type FrameListProps = {
   frameList: Array<IAnimationFrame>;
   activeFrame: any;
   setActiveFrame: Function;
+  readOnly: boolean;
 };
 
 type SliderArrowProps = {
@@ -62,7 +63,7 @@ const PrevArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
 };
 
 export const FrameList: React.FC<FrameListProps> = React.memo(props => {
-  const { frameList, activeFrame, setActiveFrame } = props;
+  const { frameList, activeFrame, setActiveFrame, readOnly } = props;
   const { frameId, frameIndex } = activeFrame;
   const isArrowsVisible = frameList.length > 3;
 
@@ -94,7 +95,11 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
               className={cx('frame-list-item', {
                 active: frameId === frame.frameId,
               })}
-              onClick={(): void => setActiveFrame(frame, true)}
+              onClick={(): void => {
+                if (!readOnly) {
+                  setActiveFrame(frame, true);
+                }
+              }}
               tabIndex={0}
               role="button"
             >
