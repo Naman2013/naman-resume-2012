@@ -12,6 +12,7 @@ import {
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
 import { isEnter } from 'app/modules/utils/keyIdentifier';
+import { Nav, Tab } from 'react-bootstrap';
 import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
@@ -56,7 +57,7 @@ const onKeyPressed = (e: any, setOpen: Function) => {
 
 const calculateFeedMenuSize = (
   isTablet: boolean,
-  setFeedMenuSize: Function,
+  setFeedMenuSize: Function
 ) => {
   const width = isTablet ? window.screen.availWidth : 500;
   const height = isTablet ? window.screen.availHeight - 53 : 450;
@@ -176,7 +177,7 @@ export const LiveActivity = (props: TLiveActivity) => {
         handleOrientationChangeEvent
       );
     };
-  }, []);
+  }, [isTablet]);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -256,7 +257,28 @@ export const LiveActivity = (props: TLiveActivity) => {
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                <span className="h4-custom ">Live Feeds</span>
+                <Tab.Container
+                  defaultActiveKey="liveFeeds"
+                  id="tabs"
+                  unmountOnExit
+                  mountOnEnter
+                  onSelect={(key: string): void => {
+                    console.log(key);
+                  }}
+                >
+                  <Nav variant="tabs">
+                    <Nav.Item>
+                      <Nav.Link eventKey="liveFeeds">Live Feeds</Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                      <Nav.Link eventKey="onlineUsers">
+                        Who&apos;s Online
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Tab.Container>
+
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
                     <Tooltip title="Fullscreen">

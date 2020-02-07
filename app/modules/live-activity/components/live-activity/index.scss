@@ -136,6 +136,10 @@ $screenHeaderSize: 110px;
         padding: 20px;
         border-bottom: 1px solid $hawkesBlue;
 
+        .nav-tabs {
+          border-bottom: none;
+        }
+
         &-right {
           display: inline-flex;
           width: 15%;
