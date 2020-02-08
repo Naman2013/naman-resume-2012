@@ -28,7 +28,7 @@ const DiscussionsItem = props => (
       }
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
-      allowReplies
+      allowReplies={props.allowReplies}
       showTitle
       renderChildReplies={({ renderToggle }) => (
         <DiscussionComments

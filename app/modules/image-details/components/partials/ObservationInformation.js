@@ -34,7 +34,7 @@ const {
 } = PropTypes;
 
 class ObservationInformation extends Component {
-  static propTypes = {
+  static propTypes = {    
     canLikeFlag: bool,
     customerImageId: oneOfType([number, string]),
     fileData: shape({
@@ -50,7 +50,7 @@ class ObservationInformation extends Component {
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
-    }).isRequired,
+    }).isRequired,    
   };
 
   static defaultProps = {
@@ -159,9 +159,9 @@ class ObservationInformation extends Component {
       actions: { getProfileGroupList, shareMemberPicture },
       customerImageId,
       profileGroupList,
+      canShareObservations,
     } = this.props;
-
-    const { isOpen, likePrompt, count, promptText } = this.state;
+    const { isOpen, likePrompt, count, promptText } = this.state;    
     return (
       <div className="root">
         <div className="obs-container component-container clearfix">
@@ -222,9 +222,8 @@ class ObservationInformation extends Component {
                 customerImageId={customerImageId}
                 profileGroupList={profileGroupList}
                 shareMemberPhotoData={shareMemberPhotoData}
-                openSuccessShareableImageModal={
-                  this.openSuccessShareableImageModal
-                }
+                openSuccessShareableImageModal={this.openSuccessShareableImageModal}   
+                disableShare={!canShareObservations}             
               />
             </div>
           )}
