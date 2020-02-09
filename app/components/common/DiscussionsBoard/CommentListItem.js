@@ -51,6 +51,7 @@ const CommentListItem = props => (
           user={props.user}
           isDesktop={props.isDesktop}
           renderToggle={renderToggle}
+          canSubmitReplies={props.allowReplies}
         />
       )}
     />
