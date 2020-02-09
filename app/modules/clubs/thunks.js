@@ -2,6 +2,7 @@ import {
   getTopThreadsListApi,
   getGroupDeleteInvitationApi,
   deleteInvitationApi,
+  getProfileGroupsApi,
 } from './api';
 
 import { ACTION } from './reducer';
@@ -49,4 +50,13 @@ export const deleteInvitation = inviteDetails => (dispatch, getState) => {
     .catch(error => {
       dispatch(ACTION.deleteInvitationError(error));
     });
+};
+
+export const getProfileGroupList = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  return getProfileGroupsApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.getProfileGroupSuccess(result.data.groupsList))
+    )
+    .catch(error => dispatch(ACTION.getProfileGroupError(error)));
 };

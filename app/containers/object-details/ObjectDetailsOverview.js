@@ -26,6 +26,7 @@ import LailaTile from 'app/components/common/tiles/LailaTile';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import MVPAstronomer from 'app/components/common/MVPAstronomer/MVPAstronomer';
+import { ObservationCard } from 'app/modules/observations/components/observation-card';
 import {
   fetchObjectDataAction,
   fetchObjectSpecialistsAction,
@@ -208,28 +209,10 @@ class Overview extends Component {
                 }}
               />
               <CenterColumn widths={['768px', '965px', '965px']}>
-                {observation.title && (
-                  <CardObservations
-                    user={user}
-                    title={observation.title}
-                    observationTitle={imageDetails.observationTitle}
-                    imageTitle={imageDetails.imageTitle}
-                    subTitle={observation.subTitle}
-                    description={observation.desc}
-                    imageUrl={observation.imageURL}
-                    linkUrl={observation.linkUrl}
-                    likesCount={observation.likesCount}
-                    likeTooltip={observation.likeTooltip}
-                    likedByMe={observation.likedByMe}
-                    likePrompt={observation.likePrompt}
-                    observationTimeDisplay={observation.timeDisplay}
-                    showLikePrompt={observation.showLikePrompt}
-                    commentsCount={observation.commentsCount}
-                    iconFileData={observation.iconFileData}
+                {observation.linkUrl && (
+                  <ObservationCard
+                    observationData={observation}
                     handleLike={fetchLikeAction}
-                    customerImageId={
-                      modeledResult.featuredObservation.customerImageId
-                    }
                   />
                 )}
               </CenterColumn>

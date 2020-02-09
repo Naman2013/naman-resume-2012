@@ -6,6 +6,7 @@ export const TYPE = constants('clubs', [
   '~GET_TOP_THREADS',
   '~GET_GROUP_DELETE_INVITATION',
   '~DELETE_INVITATION',
+  '~GET_PROFILE_GROUP',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -16,6 +17,7 @@ const initialState = {
   serverError: null,
   groupDeleteInvitation: {},
   deleteInvitationData: null,
+  profileGroupList: [],
 };
 
 export default handleActions(
@@ -32,11 +34,17 @@ export default handleActions(
     [TYPE.DELETE_INVITATION_START]: start,
     [TYPE.DELETE_INVITATION_SUCCESS]: deleteInvitationSuccess,
     [TYPE.DELETE_INVITATION_ERROR]: error,
+    [TYPE.GET_PROFILE_GROUP]: getProfileGroup,
+    [TYPE.GET_PROFILE_GROUP_SUCCESS]: getProfileGroupSuccess,
+    [TYPE.GET_PROFILE_GROUP_ERROR]: getProfileGroupError,
   },
   initialState
 );
 
 function start(state) {
+  return { ...state, isFetching: true, isLoaded: false };
+}
+function getProfileGroup(state) {
   return { ...state, isFetching: true, isLoaded: false };
 }
 
@@ -83,5 +91,21 @@ function deleteInvitationSuccess(state, action) {
     ...state,
     isFetching: false,
     deleteInvitationData: action.payload,
+  };
+}
+
+function getProfileGroupSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    profileGroupList: action.payload || [],
+  };
+}
+
+function getProfileGroupError(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
   };
 }

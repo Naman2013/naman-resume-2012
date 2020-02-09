@@ -8,3 +8,7 @@ export const getGroupDeleteInvitationApi = data =>
 
 export const deleteInvitationApi = data =>
   API.post('/api/classroom/deleteInvitation', { ...data });
+
+export const getProfileGroupsApi = (data, callSource) => {
+  return API.post('/api/profile/groups', { ...data, ...callSource });
+};

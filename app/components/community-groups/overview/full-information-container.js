@@ -11,13 +11,13 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
-import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
+import { GroupsContainer } from 'app/pages/community-groups/groups-container';
+import ObjectDetailsObservations from 'app/containers/object-details/ObjectDetailsObservations';
 import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
@@ -68,8 +68,11 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
-
     jumpToThreadId: number,
+    subMenus: {
+      name: string,
+      link: string,
+    },
   };
 
   static defaultProps = {
@@ -89,21 +92,16 @@ class FullInformationOverview extends Component {
     membersCount: 0,
     membersList: [],
     jumpToThreadId: null,
+    subMenus: [],
   };
 
   render() {
     const {
       actions,
-      description,
-      descriptionHeading,
-      detailsHeading,
-      detailsList,
       discussionGroupId,
       context,
-      heading,
       pageMeta,
       joinOrLeaveGroup,
-      joinPrompt,
       membersCount,
       membersList,
       membersSort,
@@ -114,6 +112,12 @@ class FullInformationOverview extends Component {
       t,
       isEditMode,
       jumpToThreadId,
+      subMenus,
+      observationsTabCustomClass,
+      params,
+      hideTitleSection,
+      location
+    
     } = this.props;
 
     const createThreadFormParams = {
@@ -125,7 +129,7 @@ class FullInformationOverview extends Component {
       canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
-
+    
     return (
       <div className="root">
         {pageMeta.canEditGroup &&
@@ -145,65 +149,55 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        {this.props.pageMeta.canSeeGroupContent && (
-          <ResponsiveTwoColumnContainer
-            renderNavigationComponent={navProps => (
-              <TwoTabbedNav
-                firstTitle={t('Clubs.NavTitle')}
-                secondTitle={t('Clubs.NavSecondTitle')}
-                firstTabIsActive={navProps.showMainContainer}
-                firstTabOnClick={navProps.onShowMainContainer}
-                secondTabIsActive={navProps.showAsideContainer}
-                secondTabOnClick={navProps.onShowAsideContainer}
+        <GroupsContainer
+          subMenus={subMenus}
+          context={context}
+          params={params}
+          discussionsContent={
+            <DiscussionsBoard
+              errorMessage={t('Clubs.FetchingListError')}
+              topicId={pageMeta.topicId}
+              forumId={pageMeta.forumId}
+              callSource="groups"
+              createThread={actions.createActivity}
+              createThreadFormParams={createThreadFormParams}
+              user={user}
+              validateResponseAccess={actions.validateResponseAccess}
+              discussionGroupId={discussionGroupId}
+              jumpToThreadId={jumpToThreadId}
+              canSeeGroupContent={pageMeta.canSeeGroupContent}
+              isClub
+              canSubmitReplies={pageMeta.canSubmitReplies}
+            />
+          }
+          membersContent={
+            <div>
+              <div className="popular-discussion-wrapper">
+                <TopThreads
+                  topicId={pageMeta.topicId}
+                  isDesktop={context.isDesktop}
+                  discussionGroupId={discussionGroupId}
+                />
+              </div>
+              <MembersList
+                membersSort={membersSort}
+                membersList={membersList}
+                membersCount={membersCount}
+                leadersList={leadersList}
+                discussionGroupId={discussionGroupId}
+                fetchGroupMembers={actions.fetchGroupMembers}
+                isDesktop={context.isDesktop}
               />
-            )}
-            renderAsideContent={() =>
-              !isEditMode &&
-              this.props.pageMeta.canSeeGroupContent && (
-                <div>
-                  <div className="popular-discussion-wrapper">
-                    <TopThreads
-                      topicId={pageMeta.topicId}
-                      isDesktop={context.isDesktop}
-                      discussionGroupId={discussionGroupId}
-                    />
-                  </div>
-                  <MembersList
-                    membersSort={membersSort}
-                    membersList={membersList}
-                    membersCount={membersCount}
-                    leadersList={leadersList}
-                    discussionGroupId={discussionGroupId}
-                    fetchGroupMembers={actions.fetchGroupMembers}
-                    isDesktop={context.isDesktop}
-                  />
-                </div>
-              )
-            }
-            isScreenSize={context.isScreenLarge}
-            renderMainContent={() =>
-              !isEditMode &&
-              pageMeta.canSeeGroupContent === true && (
-                <div className="discuss-container">
-                  <DiscussionsBoard
-                    errorMessage={t('Clubs.FetchingListError')}
-                    topicId={pageMeta.topicId}
-                    forumId={pageMeta.forumId}
-                    callSource="groups"
-                    createThread={actions.createActivity}
-                    createThreadFormParams={createThreadFormParams}
-                    user={user}
-                    validateResponseAccess={actions.validateResponseAccess}
-                    discussionGroupId={discussionGroupId}
-                    jumpToThreadId={jumpToThreadId}
-                    canSeeGroupContent={pageMeta.canSeeGroupContent}
-                    isClub
-                  />
-                </div>
-              )
-            }
-          />
-        )}
+            </div>
+          }
+          observationsContent={
+            <ObjectDetailsObservations
+              params={params}
+              hideTitleSection={hideTitleSection}
+              customClass={observationsTabCustomClass}
+            />
+          }
+        />
       </div>
     );
   }

@@ -32,41 +32,35 @@ class SwiperItem extends Component {
   }
 
   fetchImageDetails = () => {
-    const { customerImageId, setObservationInfo, purgeCardState } = this.props;
+    const {
+      customerImageId,
+      setObservationInfo,
+      purgeCardState,
+      user,
+    } = this.props;
+    const { token, at, cid } = user;
     purgeCardState();
     this.setState({ imageURL: null });
     API.post(IMAGE_DETAILS, {
+      cid,
+      at,
+      token,
       customerImageId,
       useShareToken: 'n',
       callSource: 'sharedpictures',
     })
-      .then(
-        ({
-          data: {
-            imageTitle,
-            displayName,
-            observationLog,
-            imageURL,
-            commentsCount,
-            likesCount,
-            linkUrl,
-            iconFileData,
-          },
-        }) => {
-          setObservationInfo({
-            title: imageTitle,
-            author: displayName,
-            description: observationLog,
-            commentsCount,
-            likesCount,
-            linkUrl,
-            iconFileData,
-          });
-          this.setState({
-            imageURL,
-          });
-        }
-      )
+      .then(({ data }) => {
+        const { imageTitle, displayName, observationLog, imageURL } = data;
+        setObservationInfo({
+          ...data,
+          title: imageTitle,
+          author: displayName,
+          description: observationLog,
+        });
+        this.setState({
+          imageURL,
+        });
+      })
       .catch(() => {
         setObservationInfo({
           error: true,

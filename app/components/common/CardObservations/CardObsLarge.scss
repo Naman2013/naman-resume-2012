@@ -1,257 +1,256 @@
-@import '~app/styles/variables/index';
+// @import '~app/styles/variables/index';
 
-@mixin centerChildren {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// @mixin centerChildren {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-@mixin spaceBetweenChildren {
-  display: flex;
-  justify-content: space-between;
-}
+// @mixin spaceBetweenChildren {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
-@mixin borderBottom {
-  border-bottom: 1px solid $hawkesBlue;
-}
+// @mixin borderBottom {
+//   border-bottom: 1px solid $hawkesBlue;
+// }
 
-@mixin toUpper {
-  text-transform: uppercase;
-}
+// @mixin toUpper {
+//   text-transform: uppercase;
+// }
 
+// .card-obs-wrapper {
+//   width: 98%;
+//   display: flex;
+//   justify-content: center;
+//   margin-bottom: 20px;
+//   color: $lightHeadedAstronaut;
 
-.card-obs-wrapper {
-  width: 98%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  color: $lightHeadedAstronaut;
+//   .card-obs {
+//     @include spaceBetweenChildren;
+//     flex-direction: column;
+//     width: 100%;
+//     pointer-events: auto;
+//     background: url($white_texture_bg);
+//     box-shadow: 0 0 6px 0 $shadows;
 
-  .card-obs {
-    @include spaceBetweenChildren;
-    flex-direction: column;
-    width: 100%;
-    pointer-events: auto;
-    background: url($white_texture_bg);
-    box-shadow: 0 0 6px 0 $shadows;
+//     .top {
+//       @include spaceBetweenChildren;
+//       text-align: initial;
+//       width: 100%;
+//       padding: 80px 80px 50px;
 
-    .top {
-      @include spaceBetweenChildren;
-      text-align: initial;
-      width: 100%;
-      padding: 80px 80px 50px;
+//       .info {
+//         width: 60%;
+//         @include spaceBetweenChildren;
+//         flex-direction: column;
+//         padding-right: 20px;
 
-      .info {
-        width: 60%;
-        @include spaceBetweenChildren;
-        flex-direction: column;
-        padding-right: 20px;
+//         .main-info {
 
-        .main-info {
+//           .title {
+//             font-size: 24px;
+//             @include borderBottom;
+//             line-height: 0.83;
+//             padding: 12px 0;
+//           }
 
-          .title {
-            font-size: 24px;
-            @include borderBottom;
-            line-height: 0.83;
-            padding: 12px 0;
-          }
+//           a {
+//             .author {
+//               font-size: 10px;
+//               @include borderBottom;
+//               @include toUpper;
+//               padding: 4px 0;
+//               color: #415671;
+//             }
+//           }
+//         }
 
-          a {
-            .author {
-              font-size: 10px;
-              @include borderBottom;
-              @include toUpper;
-              padding: 4px 0;
-              color: #415671;
-            }
-          }
-        }
+//         .links {
+//           display: flex;
+//           z-index: 1;
 
-        .links {
-          display: flex;
-          z-index: 1;
+//           .observation-icon {
+//             display: flex;
+//             justify-content: center;
+//             width: 90px;
 
-          .observation-icon {
-            display: flex;
-            justify-content: center;
-            width: 90px;
+//             .link {
+//               @include centerChildren;
+//               border-radius: 50%;
+//               width: 40px;
+//               height: 40px;
+//               cursor: pointer;
+//               margin-right: 0;
 
-            .link {
-              @include centerChildren;
-              border-radius: 50%;
-              width: 40px;
-              height: 40px;
-              cursor: pointer;
-              margin-right: 0;
+//               .linkIcon {
+//                 width: 35px;
+//                 height: 35px;
+//                 object-fit: contain;
+//               }
 
-              .linkIcon {
-                width: 35px;
-                height: 35px;
-                object-fit: contain;
-              }
+//               .memberIcon {
+//                 filter: invert(1);
+//               }
+//             }
+//           }
+//         }
+//       }
 
-              .memberIcon {
-                filter: invert(1);
-              }
-            }
-          }
-        }
-      }
+//       .picture {
+//         width: 35%;
+//         @include centerChildren;
+//         justify-content: flex-end;
 
-      .picture {
-        width: 35%;
-        @include centerChildren;
-        justify-content: flex-end;
+//         .image-wrapper {
+//           box-shadow: 0 0 6px 0 #ced2d8;
+//           padding: 3px;
+//           margin: 0;
+//           overflow: hidden;
 
-        .image-wrapper {
-          box-shadow: 0 0 6px 0 #ced2d8;
-          padding: 3px;
-          margin: 0;
-          overflow: hidden;
+//           img {
+//             width: unset;
+//             max-width: 100%;
+//             height: 100%;
+//             position: relative;
+//             left: 50%;
+//             transform: translateX(-50%);
+//             object-fit: contain;
+//           }
+//         }
+//       }
+//     }
 
-          img {
-            width: unset;
-            max-width: 100%;
-            height: 100%;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-            object-fit: contain;
-          }
-        }
-      }
-    }
+//     .bottom {
+//       @include spaceBetweenChildren;
+//       width: 100%;
+//       height: 50px;
+//       box-shadow: inset 0 7px 9px -7px $shadows;
 
-    .bottom {
-      @include spaceBetweenChildren;
-      width: 100%;
-      height: 50px;
-      box-shadow: inset 0 7px 9px -7px $shadows;
+//       .buttons {
+//         display: flex;
+//         height: 100%;
+//         font-size: 11px;
 
-      .buttons {
-        display: flex;
-        height: 100%;
-        font-size: 11px;
+//         .button {
+//           @include toUpper;
+//           padding: 20px 15px;
+//           @include centerChildren;
 
-        .button {
-          @include toUpper;
-          padding: 20px 15px;
-          @include centerChildren;
+//           &:last-child {
+//             border-right: 1px solid #dee0e2;
+//           }
 
-          &:last-child {
-            border-right: 1px solid #dee0e2;
-          }
+//           .icon {
+//             margin-right: 8px;
+//           }
+//         }
 
-          .icon {
-            margin-right: 8px;
-          }
-        }
+//         .details {
+//           @include spaceBetweenChildren;
+//           width: 100px;
+//           align-items: center;
+//           color: $lightHeadedAstronaut;
+//         }
+//       }
 
-        .details {
-          @include spaceBetweenChildren;
-          width: 100px;
-          align-items: center;
-          color: $lightHeadedAstronaut;
-        }
-      }
+//       .capture-date {
+//         @include toUpper;
+//         @include centerChildren;
+//         font-size: 10px;
+//         color: $moodyBleu;
+//         margin-right: 20px;
+//       }
+//     }
+//   }
+// }
 
-      .capture-date {
-        @include toUpper;
-        @include centerChildren;
-        font-size: 10px;
-        color: $moodyBleu;
-        margin-right: 20px;
-      }
-    }
-  }
-}
+// @media screen and (min-width: $screen-md-min) {
+//   .top {
+//     padding: 45px 0 50px;
 
-@media screen and (min-width: $screen-md-min) {
-  .top {
-    padding: 45px 0 50px;
+//     .info {
+//       width: 48%;
+//     }
+//   }
 
-    .info {
-      width: 48%;
-    }
-  }
+//   .picture {
+//     width: 48%;
 
-  .picture {
-    width: 48%;
+//     .image-wrapper {
+//       width: 240px;
+//       height: 240px;
+//     }
+//   }
 
-    .image-wrapper {
-      width: 240px;
-      height: 240px;
-    }
-  }
+//   .top-small {
+//     padding: 30px;
+//   }
+// }
 
-  .top-small {
-    padding: 30px;
-  }
-}
+// @media screen and (min-width: $screen-lg-min) {
+//   .card-obs-wrapper {
+//     .card-obs {
+//       width: 80%;
+//     }
+//   }
 
-@media screen and (min-width: $screen-lg-min) {
-  .card-obs-wrapper {
-    .card-obs {
-      width: 80%;
-    }
-  }
+//   .image-wrapper-small {
+//     width: 240px;
+//     height: 240px;
+//   }
 
-  .image-wrapper-small {
-    width: 240px;
-    height: 240px;
-  }
+//   .top {
+//     padding: 80px 0 50px;
 
-  .top {
-    padding: 80px 0 50px;
+//     .info {
+//       width: 55%;
+//     }
+//   }
 
-    .info {
-      width: 55%;
-    }
-  }
+//   .top-small {
+//     padding: 50px;
+//   }
 
-  .top-small {
-    padding: 50px;
-  }
+//   .picture {
+//     min-width: 40%;
 
-  .picture {
-    min-width: 40%;
+//     .image-wrapper {
+//       width: 300px;
+//       height: 300px;
+//     }
+//   }
+// }
 
-    .image-wrapper {
-      width: 300px;
-      height: 300px;
-    }
-  }
-}
+// .obs-image-magnifier {
+//   > div {
+//     > img {
+//       max-height: 90vh;
+//       max-width: 100%;
+//       width: auto !important;
+//     }
+//   }
+// }
 
-.obs-image-magnifier {
-  > div {
-    > img {
-      max-height: 90vh;
-      max-width: 100%;
-      width: auto !important;
-    }
-  }
-}
+// .obs-image-wrapper {
+//   &.modal-dialog {
+//     max-width: unset;
+//     width: 100vw;
+//     margin: 0;
 
-.obs-image-wrapper {
-  &.modal-dialog {
-    max-width: unset;
-    width: 100vw;
-    margin: 0;
+//     .modal-content {
+//       width: auto;
+//       margin: 21px auto;
+//     }
+//   }
+// }
 
-    .modal-content {
-      width: auto;
-      margin: 21px auto;
-    }
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .image-wrapper {
-    width: 300px;
-    height: 300px;
-  }
-  .top {
-    padding: 80px 0 50px;
-  }
-}
+// @media screen and (min-width: 1200px) {
+//   .image-wrapper {
+//     width: 300px;
+//     height: 300px;
+//   }
+//   .top {
+//     padding: 80px 0 50px;
+//   }
+// }

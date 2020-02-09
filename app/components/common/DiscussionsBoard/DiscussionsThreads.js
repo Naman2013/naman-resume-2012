@@ -313,6 +313,7 @@ class DiscussionsThreads extends Component {
       discussionGroupId,
       jumpToThreadId,
       t,
+      canSubmitReplies,
     } = this.props;
     const {
       fetching,
@@ -321,7 +322,7 @@ class DiscussionsThreads extends Component {
       searchTermResultHeading,
     } = this.state;
     const { threadsCount } = discussions;
-
+   
     return (
       <div className="root">
         <div
@@ -359,6 +360,7 @@ class DiscussionsThreads extends Component {
         </div>
         <div className="popular-discussion">
           <TopThreads
+            
             topicId={topicId}
             isDesktop={isDesktop}
             discussionGroupId={discussionGroupId}
@@ -370,6 +372,7 @@ class DiscussionsThreads extends Component {
           createThread: this.createThread,
           isDesktop,
           isClub,
+          
         })}
         {fetching && <div>{t('AskAnAstronomer.Loading')}</div>}
         {!fetching && threadsCount === 0 ? (
@@ -415,7 +418,8 @@ class DiscussionsThreads extends Component {
                   user={user}
                   getThreads={this.getThreads}
                   getReplies={this.getReplies}
-                  jumpToThreadId={jumpToThreadId}
+                  jumpToThreadId={jumpToThreadId}                  
+                  allowReplies={canSubmitReplies}
                 />
               );
             })}

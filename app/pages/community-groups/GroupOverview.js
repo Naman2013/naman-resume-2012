@@ -144,9 +144,12 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
+      params,
+      router: { location },
       routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
+    const { subMenus } = pageMeta;
     const { showPopup, showPrompt, promptText } = this.state;
 
     const modalStyles = modalStyleFullPage;
@@ -183,6 +186,11 @@ class CommunityGroupOverview extends Component {
                   discussionGroupId={groupId}
                   isEditMode={edit}
                   jumpToThreadId={threadId}
+                  subMenus={subMenus}
+                  params={params}
+                  location={location}
+                  hideTitleSection
+                  observationsTabCustomClass="groups-observations-container"
                 />
               </CenterColumn>
               <Modal
@@ -236,7 +244,6 @@ class CommunityGroupOverview extends Component {
         <style jsx>{`
           .root {
             color: ${astronaut};
-            background-color: ${seashell};
           }
 
           .groupmembers-contain {
