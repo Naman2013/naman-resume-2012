@@ -564,12 +564,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
 
       <Route
-        path="community-groups/:groupId/discussions/:threadId"
-        onEnter={validateUser}
-        component={CommunityGroupOverview}
-      />
-
-      <Route
         path="account-settings"
         component={AccountSettingsMain}
         onEnter={validateUser}
