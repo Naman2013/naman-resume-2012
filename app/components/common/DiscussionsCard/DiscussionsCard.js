@@ -132,7 +132,7 @@ class DiscussionsCard extends PureComponent {
               {renderChildReplies ? (
                 <CommentButton
                   isActive={showComments}
-                  onClickEvent={allowReplies?toggleComments:null}
+                  onClickEvent={toggleComments}
                   count={replyToponlyCount}
                   alwaysShowCount
                 />

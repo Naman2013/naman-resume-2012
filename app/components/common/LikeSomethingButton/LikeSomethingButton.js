@@ -70,12 +70,13 @@ class LikeHeartButton extends Component {
     
   };
 
-  componentWillReceiveProps(nextProps) {     
+  componentWillReceiveProps(nextProps) {    
+    debugger; 
     if (this.props.likePrompt !== nextProps.likePrompt) {                 
         this.setState({
           likePrompt: nextProps.likePrompt,          
         });
-        if (nextProps!=undefined && !nextProps.likedByMe && nextProps.showLikePrompt) {
+        if (nextProps!=undefined && nextProps.likePrompt == "You have reached your like limit. Try again later.") {
       this.setState({
         isModalOpen:true,
       });

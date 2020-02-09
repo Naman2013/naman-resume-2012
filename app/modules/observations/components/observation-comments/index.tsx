@@ -12,6 +12,7 @@ type ObservationCommentsProps = {
   threadId: string | number;
   user: User;
   validateResponseAccess: Function;
+  canSubmitReplies: boolean;
 };
 
 export const ObservationComments: React.FC<
@@ -28,8 +29,9 @@ export const ObservationComments: React.FC<
     threadId,
     user,
     validateResponseAccess,
+    
   } = props;
-
+  
   return (
     <div className="obs-card-comments">
       <DiscussionsBoard
@@ -43,6 +45,7 @@ export const ObservationComments: React.FC<
         threadId={threadId}
         user={user}
         validateResponseAccess={validateResponseAccess}
+        canSubmitReplies={props.canSubmitReplies}
       />
     </div>
   );

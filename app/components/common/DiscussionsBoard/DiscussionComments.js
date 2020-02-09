@@ -281,14 +281,15 @@ class DiscussionsComment extends Component {
       topicId,
       user,
       validateResponseAccess,
-      flagParams,
+      flagParams,      
     } = this.props;
 
     const { commentsList } = discussions;
 
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
-    const threadData = this.getThreadData();  
+    const threadData = this.getThreadData(); 
+    debugger;
     return (
       <div className="comment" key={uniqueId()}>
         <div>
@@ -306,6 +307,7 @@ class DiscussionsComment extends Component {
               isDesktop={isDesktop}
               placeholder={formPlaceholder}
               {...threadData}
+              canSubmitReplies={canSubmitReplies}
             />
           ) : null}
         </div>

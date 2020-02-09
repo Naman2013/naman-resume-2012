@@ -49,6 +49,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
       commentsThreadId,
       commentsForumId,
       commentsTopicId,
+      canSubmitReplies,
     } = observationData;
 
     const [isOpen, openModal] = useState(false);
@@ -68,7 +69,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
         openDiscussions(false);
       }
     }, [currentIndex]);
-
+    
     return (
       <div className={cx('card-obs-wrapper', { 'read-only': readOnly })}>
         <div className="card-obs">
@@ -189,6 +190,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                   forumId={commentsForumId}
                   topicId={commentsTopicId}
                   threadId={commentsThreadId}
+                  canSubmitReplies={canSubmitReplies}
                 />
               )}
             </Fragment>

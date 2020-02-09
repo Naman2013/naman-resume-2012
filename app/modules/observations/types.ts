@@ -43,4 +43,5 @@ export declare interface IObservationData extends StandardResponse {
   socialShareDescription: string;
   photoViewFullURL: string;
   noSharingAllowedBasedOnAccountType: boolean;
+  canSubmitReplies: boolean;
 }

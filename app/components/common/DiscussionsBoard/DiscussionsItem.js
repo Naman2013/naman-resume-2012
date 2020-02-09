@@ -48,6 +48,7 @@ const DiscussionsItem = props => (
           renderToggle={renderToggle}
           getThreads={props.getThreads}
           getReplies={props.getReplies}
+          canSubmitReplies={props.allowReplies}
         />
       )}
     />
