@@ -289,7 +289,6 @@ class DiscussionsComment extends Component {
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
     const threadData = this.getThreadData(); 
-    debugger;
     return (
       <div className="comment" key={uniqueId()}>
         <div>

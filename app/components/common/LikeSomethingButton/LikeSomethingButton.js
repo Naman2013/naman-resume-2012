@@ -71,7 +71,6 @@ class LikeHeartButton extends Component {
   };
 
   componentWillReceiveProps(nextProps) {    
-    debugger; 
     if (this.props.likePrompt !== nextProps.likePrompt) {                 
         this.setState({
           likePrompt: nextProps.likePrompt,          
