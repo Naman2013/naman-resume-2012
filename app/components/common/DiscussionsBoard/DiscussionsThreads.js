@@ -279,7 +279,7 @@ class DiscussionsThreads extends Component {
   handlePageChange = ({ activePage }) => {
     const { jumpToThreadId, discussionGroupId } = this.props;
     if (jumpToThreadId) {
-      browserHistory.push(`/community-groups/${discussionGroupId}`);
+      browserHistory.push(`/community-groups/${discussionGroupId}/discussions`);
     }
     this.getThreads(this.props, activePage, true);
     this.threadsContainer.scrollIntoView();
