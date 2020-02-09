@@ -151,7 +151,7 @@ class Observations extends Component {
       customClass,
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
-    const { pages, imageCount, imageList } = sharedMemberPhotos;    
+    const { pages, imageCount, imageList } = sharedMemberPhotos;      
     return (
       <Fragment>
         <Spinner loading={isFetching} />
@@ -168,7 +168,7 @@ class Observations extends Component {
                 }}
               >
                 <GenericButton
-                  disabled={!this.props.canShareObservations}
+                  disabled={!this.props.objectData.canShareObservations}
                   onClickEvent={this.showWriteObservationModal}
                   text="Add observation"
                   icon={plus}
