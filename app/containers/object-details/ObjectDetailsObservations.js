@@ -96,11 +96,14 @@ class Observations extends Component {
   getObservations = page => {
     const {
       fetchSharedMemberPhotosAction,
-      params: { objectId },
+      params: { objectId, groupId },
     } = this.props;
+
+    const discussionGroupId = groupId;
 
     const requestBody = {
       objectId,
+      discussionGroupId,
       pagingMode: 'content',
       count: 9,
       page,
