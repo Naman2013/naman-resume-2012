@@ -13,6 +13,7 @@ type TClubListMenuProps = {
   openSuccessShareableImageModal: Function;
   customerImageId: number;
   profileGroupList: IProfileGroupList;
+  disableShare: boolean;
 };
 
 const openClubListMenuModal = (
@@ -56,12 +57,13 @@ export const ClubListPopover: React.FC<TClubListMenuProps> = React.memo(
       customerImageId,
       profileGroupList,
       openSuccessShareableImageModal,
-    } = props;
-
+      disableShare,
+    } = props;   
     return (
       show && (
         <div className="club-list-popover">
           <Button
+          disabled={disableShare}
             onClick={() =>
               openClubListMenuModal(
                 toggleShareMenu,

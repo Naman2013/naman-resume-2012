@@ -38,7 +38,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     { label: 'Delete image', action: 'remove' },
     { label: 'Write observation', action: 'redirect' },
     { label: 'Add Tags', action: 'tagging' },
-    { label: 'Share Image' },
+    { label: 'Share Image', action: 'redirect' },
   ];
 
   blockWidth = null;

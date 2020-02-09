@@ -117,6 +117,7 @@ class FullInformationOverview extends Component {
       params,
       hideTitleSection,
       location
+    
     } = this.props;
 
     const createThreadFormParams = {
@@ -128,7 +129,7 @@ class FullInformationOverview extends Component {
       canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
-
+    
     return (
       <div className="root">
         {pageMeta.canEditGroup &&
@@ -166,6 +167,7 @@ class FullInformationOverview extends Component {
               jumpToThreadId={jumpToThreadId}
               canSeeGroupContent={pageMeta.canSeeGroupContent}
               isClub
+              canSubmitReplies={pageMeta.canSubmitReplies}
             />
           }
           membersContent={
