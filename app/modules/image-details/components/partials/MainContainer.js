@@ -35,6 +35,9 @@ const MainContainer = ({
   refetchData,
   shareMemberPhotoData,
   iconFileData,
+  profileGroupList,
+  canShareObservations,
+  canSubmitReplies,
 }) => {
   const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState('');
@@ -44,7 +47,6 @@ const MainContainer = ({
     (canEditFlag && isEditMode) || (!isEditMode && !observationLog);
 
   const isLogVisible = () => !isEditMode && observationLog;
-
   return (
     <div className="image-main-container">
       {isLogVisible() && (
@@ -74,6 +76,8 @@ const MainContainer = ({
             }}
             refetchData={refetchData}
             shareMemberPhotoData={shareMemberPhotoData}
+            profileGroupList={profileGroupList}
+            canShareObservations={canShareObservations}
           />
           <br />
         </>
@@ -110,6 +114,7 @@ const MainContainer = ({
           threadId={commentsThreadId}
           user={user}
           validateResponseAccess={validateResponseAccess}
+          canSubmitReplies={canSubmitReplies}
         />
       ) : null}
     </div>

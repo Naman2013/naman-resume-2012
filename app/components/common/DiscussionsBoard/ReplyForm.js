@@ -117,16 +117,17 @@ class ReplyForm extends Component {
 
   render() {
     const { avatarURL, isDesktop, user, placeholder } = this.props;
-
+ 
     return (
       <div className="reply-form-container">
-        <RevealSubmitForm
+        {this.props.canSubmitReplies ? (<RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}
           placeholder={placeholder}
           uuid={this.state.uuid}
           onDisplayForm={this.handleDisplayForm}
-        />
+        />) : null }
+        
 
         <style jsx>{`
           .reply-form-container {

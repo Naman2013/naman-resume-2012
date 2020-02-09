@@ -4,17 +4,25 @@ import {
   getImageDetails,
   setObservationTags,
 } from 'app/modules/image-details/thunks';
+import { getProfileGroupList } from 'app/modules/clubs/thunks';
 import { shareMemberPicture } from 'app/modules/share-member-photo/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { makeByGroupsListSelectOptsSelector } from 'app/modules/clubs/selectors';
 
-const mapStateToProps = ({ user, imageDetails, shareMemberPhoto }) => {
+const mapStateToProps = state => {
+  const {
+    user,
+    imageDetails: { observationTagsError, data, isFetching },
+    shareMemberPhoto: { shareMemberPhotoData },
+  } = state;
   return {
     user,
-    observationTagsError: imageDetails.observationTagsError,
-    imageDetailsData: imageDetails.data,
-    isFetching: imageDetails.isFetching,
-    shareMemberPhotoData: shareMemberPhoto.shareMemberPhotoData,
+    observationTagsError,
+    imageDetailsData: data,
+    isFetching,
+    shareMemberPhotoData,
+    profileGroupList: makeByGroupsListSelectOptsSelector()(state),
   };
 };
 
@@ -23,6 +31,7 @@ const mapDispatchToProps = {
   validateResponseAccess,
   setObservationTags,
   shareMemberPicture,
+  getProfileGroupList,
 };
 
 export default compose(

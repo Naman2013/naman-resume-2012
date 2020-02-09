@@ -3,45 +3,34 @@
  *
  ********************************** */
 
-import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router';
 import ReactModal from 'react-modal';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
-import { Modal } from '../../modal';
-import { DeviceContext } from '../../../providers/DeviceProvider';
-import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
-import CenterColumn from '../../common/CenterColumn';
+import { Modal } from '../../../../components/modal';
+import { DeviceContext } from '../../../../providers/DeviceProvider';
+import { customModalStylesBlackOverlay } from '../../../../styles/mixins/utilities';
+import CenterColumn from '../../../../components/common/CenterColumn';
 
-import { ContainerWithTitle } from '../../common/ContainerWithTitle';
-import PromptWithClose from '../../community-groups/prompt-with-close';
-import GroupTiles from '../../groups-hub/group-tiles';
+import { ContainerWithTitle } from '../../../../components/common/ContainerWithTitle';
+import PromptWithClose from '../../../../components/community-groups/prompt-with-close';
+import GroupTiles from '../../../../components/groups-hub/group-tiles';
+import './styles.scss';
 
-import styles from './ProfileGroups.styles';
-
-const { shape, number, arrayOf } = PropTypes;
 @withTranslation()
 class ProfileGroups extends Component {
-  static defaultProps = {
-    groupsData: {},
-  };
-
-  static propTypes = {
-    groupsData: shape({
-      groupsCount: number.isRequired,
-      groupsList: arrayOf(shape({})).isRequired,
-    }),
-  };
-
   state = {
     showPrompt: false,
     promptText: '',
-    groups: this.props.groupsData.groupsList,
     showImportPopup: false,
     showCreatePopup: false,
   };
+
+  componentDidMount() {
+    const { getProfileGroupList } = this.props;
+    getProfileGroupList({ callSource: 'profile' });
+  }
 
   updateGroupItemInfo = () => {
     const { getProfile, params } = this.props;
@@ -75,9 +64,7 @@ class ProfileGroups extends Component {
       canCreateNewClubs,
       canImportGoogleClassrooms,
       createNewClubButtonText,
-      createNewClubLinkUrl,
       importGoogleClassroomsPrompt,
-      importGoogleClassroomsURL,
     } = groupControls;
 
     return (
@@ -106,25 +93,22 @@ class ProfileGroups extends Component {
   };
 
   render() {
-    const { data, groupsData } = this.props;
-    const { groupsCount, groupsList } = groupsData;
+    const { data, profileGroupList, t } = this.props;
     const { emptySetGroupsDisplay } = data;
     const {
       showPrompt,
       promptText,
-      groups,
       showImportPopup,
       showCreatePopup,
     } = this.state;
-    const { t } = this.props;
 
     return (
       <div className="profile-groups">
-        <CenterColumn>
+        <CenterColumn customClass="profile-groups-container" >
           {this.renderClubBtns()}
 
           <ContainerWithTitle title={t('Profile.MyClubs')}>
-            {groupsCount > 0 ? (
+            {profileGroupList.length > 0 ? (
               <DeviceContext.Consumer>
                 {context => (
                   <GroupTiles
@@ -132,7 +116,7 @@ class ProfileGroups extends Component {
                     closeModal={this.closeModal}
                     updateGroupItemInfo={this.updateGroupItemInfo}
                     updatePrompt={this.updatePrompt}
-                    groups={groupsList}
+                    groups={profileGroupList}
                     isMobile={context.isMobile}
                   />
                 )}
@@ -165,7 +149,6 @@ class ProfileGroups extends Component {
         >
           <GroupCreate />
         </Modal>
-        <style jsx>{styles}</style>
       </div>
     );
   }

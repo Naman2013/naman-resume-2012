@@ -1,4 +1,4 @@
-import React, { Component, useState, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import EditHeader from 'app/modules/image-details/containers/edit-header';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -8,6 +8,7 @@ import {
   CALLSOURCE_PHOTOVIEW,
   USE_SHARE_TOKEN_TRUE,
 } from 'app/modules/image-details/components/imageDetailsConfiguration';
+import { IProfileGroupList } from 'app/modules/profile-photos/types';
 import MainContainer from '../partials/MainContainer';
 import AsideContainer from '../partials/AsideContainer';
 
@@ -56,6 +57,9 @@ type TProfileActivityProps = {
   iconFileData: any;
   imageDownloadFilename: string;
   imageDownloadURL: string;
+  profileGroupList: IProfileGroupList;
+  canShareObservations: boolean;
+  canSubmitReplies: boolean;
 };
 
 type TProfileActivityState = {
@@ -107,13 +111,16 @@ export class ImageDetails extends Component<
       observationLog,
       shareMemberPhotoData,
       observationTitle,
+      profileGroupList,
+      canShareObservations,
+      canSubmitReplies,
     } = this.props;
     const { isOpenModal } = this.state;
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
     const showRightContainer =
-      rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
-
+      rightPanelDisplayFlags.filter(flag => !!flag).length > 0;   
+      debugger;
     return (
       <Fragment>
         <div className="row mb-5">
@@ -132,6 +139,7 @@ export class ImageDetails extends Component<
                     actions={actions}
                     refetchData={this.fetchData}
                     shareMemberPhotoData={shareMemberPhotoData}
+                    canShareObservations={canShareObservations}
                   />
                 ) : (
                   <Fragment>
@@ -182,6 +190,7 @@ export class ImageDetails extends Component<
               firstTabOnClick={navProps.onShowMainContainer}
               secondTabIsActive={navProps.showAsideContainer}
               secondTabOnClick={navProps.onShowAsideContainer}
+              profileGroupList={profileGroupList}
             />
           )}
           renderAsideContent={() => (

@@ -17,12 +17,10 @@ import {
   romance,
 } from 'app/styles/variables/colors_tiles_v4';
 import { likeImage } from 'app/services/my-pictures/like-image';
-import { Button } from 'react-bootstrap';
 import { Modal } from 'app/components/modal';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { customModalStyles } from 'app/styles/mixins/utilities';
-import LikeButton from 'app/components/common/style/buttons/LikeButton';
 import { WriteObservationStep3 } from 'app/modules/object-details/components/write-observation-step3';
+import { ClubListPopover } from 'app/modules/clubs/components/club-list-popover';
 
 const {
   any,
@@ -36,7 +34,7 @@ const {
 } = PropTypes;
 
 class ObservationInformation extends Component {
-  static propTypes = {
+  static propTypes = {    
     canLikeFlag: bool,
     customerImageId: oneOfType([number, string]),
     fileData: shape({
@@ -52,7 +50,7 @@ class ObservationInformation extends Component {
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
-    }).isRequired,
+    }).isRequired,    
   };
 
   static defaultProps = {
@@ -77,13 +75,15 @@ class ObservationInformation extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.likePrompt !== nextProps.likePrompt) {
+    const { likePrompt, likesCount } = this.props;
+
+    if (likePrompt !== nextProps.likePrompt) {
       this.setState({
         likePrompt: nextProps.likePrompt,
       });
     }
 
-    if (this.props.likesCount !== nextProps.likesCount) {
+    if (likesCount !== nextProps.likesCount) {
       this.setState({
         count: nextProps.likesCount,
       });
@@ -129,16 +129,9 @@ class ObservationInformation extends Component {
     }
   };
 
-  onShare = () => {
-    const {
-      actions: { shareMemberPicture },
-      customerImageId,
-    } = this.props;
-
-    shareMemberPicture({ customerImageId }).then(() => {
-      this.setState({
-        isOpen: true,
-      });
+  openSuccessShareableImageModal = () => {
+    this.setState({
+      isOpen: true,
     });
   };
 
@@ -163,9 +156,12 @@ class ObservationInformation extends Component {
       likeTooltip,
       showLikePrompt,
       iconFileData,
+      actions: { getProfileGroupList, shareMemberPicture },
+      customerImageId,
+      profileGroupList,
+      canShareObservations,
     } = this.props;
-
-    const { isOpen, likePrompt, count, promptText } = this.state;
+    const { isOpen, likePrompt, count, promptText } = this.state;    
     return (
       <div className="root">
         <div className="obs-container component-container clearfix">
@@ -219,7 +215,16 @@ class ObservationInformation extends Component {
           )}
           {canShareFlag && (
             <div className="pull-right my-3 ml-3">
-              <Button onClick={this.onShare}>Share</Button>
+              <ClubListPopover
+                show
+                getProfileGroupList={getProfileGroupList}
+                shareMemberPicture={shareMemberPicture}
+                customerImageId={customerImageId}
+                profileGroupList={profileGroupList}
+                shareMemberPhotoData={shareMemberPhotoData}
+                openSuccessShareableImageModal={this.openSuccessShareableImageModal}   
+                disableShare={!canShareObservations}             
+              />
             </div>
           )}
         </div>
