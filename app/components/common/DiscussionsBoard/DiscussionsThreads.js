@@ -367,13 +367,15 @@ class DiscussionsThreads extends Component {
             className="popular-discussion"
           />
         </div>
-        {CREATE_THREAD_FORM[callSource].render({
+        {canSubmitReplies ? (CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,
           createThread: this.createThread,
           isDesktop,
           isClub,
           
-        })}
+        })) : null}
+
+        
         {fetching && <div>{t('AskAnAstronomer.Loading')}</div>}
         {!fetching && threadsCount === 0 ? (
           <div>{t('AskAnAstronomer.NoThreads')}</div>
