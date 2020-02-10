@@ -10,6 +10,7 @@ import {
   IQuestAnimationData,
   IQuestAnimationFrames,
 } from 'app/modules/quests/types';
+import { downloadFile } from 'app/utils/downloadFile';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
@@ -810,6 +811,7 @@ export class AnimationModule extends React.PureComponent<
       downloadButtonTooltipText,
       showDownloadButtonTooltip,
       enableDownloadButton,
+      outputDownloadURL,
     } = questAnimation;
     const {
       frameList,
@@ -965,7 +967,14 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="btn-circle"
-                    onClick={() => {}}
+                    onClick={(): void =>
+                      downloadFile(
+                        `${outputDownloadURL}?time=${Date.now()}`,
+                        outputDownloadURL.substring(
+                          outputDownloadURL.lastIndexOf('/') + 1
+                        )
+                      )
+                    }
                     disabled={!enableDownloadButton}
                   >
                     <span className="icon-download" />
