@@ -40,7 +40,7 @@ export const TopThreads = memo(function TopThreads(props) {
           <div className="members-list">
             {topThreadsList?.map(x => (
               <a
-                href={`/community-groups/${discussionGroupId}/${x.threadId}`}
+                href={`/community-groups/${discussionGroupId}/discussions/${x.threadId}`}
                 className="navigation-link"
                 key={x.threadId}
               >
