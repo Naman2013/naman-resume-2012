@@ -17,6 +17,7 @@ type TGroupsContainerProps = {
   toggleNavigationTab: Function;
   params: {
     groupId: string;
+    tabId: string;
     threadId: string;
   };
 };
@@ -35,14 +36,14 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       discussionsContent,
       observationsContent,
       membersContent,
-      params: { threadId },
+      params: { tabId, threadId },
     } = props;
     const { t } = useTranslation();
-    const [currentTab, setCurrentTab] = useState(threadId.toUpperCase());
+    const [currentTab, setCurrentTab] = useState(tabId.toUpperCase());
 
     useEffect(() => {
       if (currentTab === groupsNavigationTabs.Members && isDesktop) {
-        setCurrentTab(threadId.toUpperCase());
+        setCurrentTab(tabId.toUpperCase());
       }
     }, [isDesktop]);
 
