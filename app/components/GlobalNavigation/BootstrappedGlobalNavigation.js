@@ -83,6 +83,7 @@ class GlobalNavigation extends Component {
     totalViewersCount: 0,
     allLivecastsInProgress: {},
     activityFeedMessages: [],
+    activityFeedMembers: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
 
@@ -165,6 +166,10 @@ class GlobalNavigation extends Component {
         // handle presence (users that have joined or left the channel)
 
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
+	  //update the list of Customer UUIDs online
+          this.setState({ activityFeedMembers: ['abc-def-xyz', 'abc-xyz-def-asdew', 'cbfd-9475-hyfd-as'] });
+	
+	  //update the total count of members online
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
       },
