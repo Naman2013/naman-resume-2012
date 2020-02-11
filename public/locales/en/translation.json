@@ -182,7 +182,7 @@
     "AstronomyClubRequierMessage":
     "Please enter in a name for your Astronomy Club.",
     "AgeRequierMessage":
-    "You must certify whether you are 13 years and older.",
+    "You must certify that you are 13 years or older.",
     "MinAgeErrorMessage":
     "You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.",
     "ParentEmailRequierMessage":
