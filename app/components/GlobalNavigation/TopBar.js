@@ -208,7 +208,7 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
-                            <Link className="button text" to="/about/memberships/educators">
+                            <Link className="button text" to="/about/about-slooh-education">
                               <button className="btn foreducators-button">
                                 <div>
                                   <span>Slooh</span>
