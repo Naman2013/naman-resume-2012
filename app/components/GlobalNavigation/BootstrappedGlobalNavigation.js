@@ -83,6 +83,7 @@ class GlobalNavigation extends Component {
     totalViewersCount: 0,
     allLivecastsInProgress: {},
     activityFeedMessages: [],
+    activityFeedMembers: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
 
@@ -165,6 +166,33 @@ class GlobalNavigation extends Component {
         // handle presence (users that have joined or left the channel)
 
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
+	  //update the list of Customer UUIDs online
+          this.setState({ activityFeedMembers: ['abc-def-xyz', 'abc-xyz-def-asdew', 'cbfd-9475-hyfd-as'] });
+	
+	  {/*
+	  	make sure the API: /api/app/getActiveMembersOnline is called and refresh the API based on the expires value
+	  	Request Parameters: cid, at, token, customerUUIDsList
+	  	Response:
+			membersOnlineCount: 2,
+			membersOnlineList: [
+				{
+					displayName: 'ToddR',
+					customerUUID: 'abc-def-abc',
+					linkUrl: '/.....',
+					gravityLabel: 'Level: Azophi',
+					gravity: '676'
+				},
+				{
+					displayName: 'ToddR1',
+					customerUUID: 'abc-def-xyz',
+					linkUrl: '/.....',
+					gravityLabel: 'Level: Azophi',
+					gravity: '722'
+				}
+			]
+	  /*}
+
+	  //update the total count of members online
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
       },
