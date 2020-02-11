@@ -83,6 +83,7 @@ class GlobalNavigation extends Component {
     totalViewersCount: 0,
     allLivecastsInProgress: {},
     activityFeedMessages: [],
+    activityFeedMembers: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
 
@@ -172,6 +173,30 @@ class GlobalNavigation extends Component {
 
     this.pubnub.init(this);
   }
+
+
+	  {/*
+	  	make sure the API: /api/app/getActiveMembersOnline is called at least once when this event happens and refresh the API based on the expires value
+	  	Request Parameters: cid, at, token, customerUUIDsList
+	  	Response:
+			membersOnlineCount: 2,
+			membersOnlineList: [
+				{
+					displayName: 'ToddR',
+					customerUUID: 'abc-def-abc',
+					linkUrl: '/.....',
+					gravityLabel: 'Level: Azophi',
+					gravity: '676'
+				},
+				{
+					displayName: 'ToddR1',
+					customerUUID: 'abc-def-xyz',
+					linkUrl: '/.....',
+					gravityLabel: 'Level: Azophi',
+					gravity: '722'
+				}
+			]
+	  /*}
 
   componentDidMount() {
     const { isMobile } = this.props;
