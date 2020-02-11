@@ -84,6 +84,7 @@ class GlobalNavigation extends Component {
     allLivecastsInProgress: {},
     activityFeedMessages: [],
     activityFeedMembers: [],
+    customerUUIDsList: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
 
@@ -177,7 +178,7 @@ class GlobalNavigation extends Component {
 
 	  {/*
 	  	make sure the API: /api/app/getActiveMembersOnline is called at least once when this event happens and refresh the API based on the expires value
-	  	Request Parameters: cid, at, token, customerUUIDsList
+	  	Request Parameters: cid, at, token, this.state.customerUUIDsList
 	  	Response:
 			membersOnlineCount: 2,
 			membersOnlineList: [
