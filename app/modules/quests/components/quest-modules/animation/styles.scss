@@ -19,6 +19,7 @@
   }
 
   .animation-box {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +29,27 @@
 
     > div {
       width: 100%;
+    }
+
+    .dot-menu-wrapper {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: auto;
+
+      button {
+        border-color: $romance;
+
+        &.open {
+          color: $lightHeadedAstronaut;
+          background-color: $romance;
+        }
+      }
+
+      .quest-buttons-popover {
+        width: 200px;
+        left: -145px;
+      }
     }
 
     h6 {

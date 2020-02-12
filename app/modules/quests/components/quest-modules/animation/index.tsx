@@ -11,6 +11,8 @@ import {
   IQuestAnimationFrames,
 } from 'app/modules/quests/types';
 import { downloadFile } from 'app/utils/downloadFile';
+import Dots from 'app/atoms/icons/Dots';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
@@ -41,6 +43,7 @@ type AnimationModuleState = {
   activePreviewImage: number;
   previewFrameList: Array<IAnimationFrame>;
   previewSingleStep: boolean;
+  isDotsMenuOpen: boolean;
 };
 
 const ANIMATION_STEPS: { [key: string]: string } = {
@@ -94,6 +97,7 @@ export class AnimationModule extends React.PureComponent<
     activePreviewImage: 0,
     previewFrameList: [{} as IAnimationFrame],
     previewSingleStep: false,
+    isDotsMenuOpen: false,
   };
 
   componentDidMount(): void {
@@ -168,6 +172,8 @@ export class AnimationModule extends React.PureComponent<
     zoom,
     activityState,
   }: IQuestAnimationFrames): void => {
+    fabric.filterBackend = fabric.initFilterBackend();
+    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
     this.loadImageFromUrl(0, frameList);
     this.canvas.renderAll();
     this.onPageRezise(false);
@@ -217,11 +223,13 @@ export class AnimationModule extends React.PureComponent<
       frameIndexToLoad
     ];
     const { questAnimation } = this.props;
-    const { offsetReference } = questAnimation;
+    const { offsetReference, negativeFlag } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
 
+    const filter = new fabric.Image.filters.Invert();
     const imgAttrs = {
+      filters: [filter],
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
@@ -242,10 +250,15 @@ export class AnimationModule extends React.PureComponent<
         top: empty ? 0 : -yOffset * offsetCoeff,
       });
 
+      //fabricImage.filters.push(filter);
+      //fabricImage.applyFilters();
+
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
       this.canvas.add(fabricImage);
+      console.log(this.canvas.getObjects());
+      //this.setNegativeFilter();
       this.canvas.renderAll();
 
       //if doesn't end of frame list -> load next image
@@ -253,6 +266,22 @@ export class AnimationModule extends React.PureComponent<
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
     });
+  };
+
+  setNegativeFilter = (): void => {
+    const objects = this.canvas.getObjects();
+    const filter = new fabric.Image.filters.Invert();
+    console.log(objects[0]);
+    //filter.applyTo2d({ imageData: objects[objects.length - 1] });
+    objects[objects.length - 1].filters.push(filter);
+    objects[objects.length - 1].applyFilters(
+      objects[objects.length - 1].filters,
+      objects[objects.length - 1],
+      objects[objects.length - 1].widht,
+      objects[objects.length - 1].height,
+      this.canvas
+    );
+    //this.canvas.renderAll();
   };
 
   moveTop = (stepSize: number): IAnimationFrame => {
@@ -780,6 +809,35 @@ export class AnimationModule extends React.PureComponent<
     return setAnimation(data);
   };
 
+  toggleDotsMenu = (): void => {
+    const { isDotsMenuOpen } = this.state;
+
+    this.setState({ isDotsMenuOpen: !isDotsMenuOpen });
+  };
+
+  getDotsMenuItems = (): Array<any> => {
+    const { questAnimation, activeFrame } = this.props;
+    const { dotMenu } = questAnimation;
+    const {
+      showNegative,
+      enableNegative,
+      negativeButton,
+      negativeText,
+    } = dotMenu;
+
+    return [
+      {
+        show: showNegative,
+        disabled: !enableNegative,
+        title: negativeText,
+        action: (): Promise<any> =>
+          this.setAnimation(activeFrame, negativeButton).then(() =>
+            this.getAnimation()
+          ),
+      },
+    ];
+  };
+
   render() {
     const {
       activeFrame,
@@ -793,6 +851,7 @@ export class AnimationModule extends React.PureComponent<
       activePreviewImage,
       previewFrameList,
       previewSingleStep,
+      isDotsMenuOpen,
     } = this.state;
     const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
@@ -812,6 +871,9 @@ export class AnimationModule extends React.PureComponent<
       showDownloadButtonTooltip,
       enableDownloadButton,
       outputDownloadURL,
+      showDotMenu,
+      dotMenuTooltipText,
+      enableDotMenu,
     } = questAnimation;
     const {
       frameList,
@@ -839,6 +901,38 @@ export class AnimationModule extends React.PureComponent<
           })}
         >
           <div className="animation-box">
+            {showDotMenu && activeAnimationStep === ANIMATION_STEPS.edit && (
+              <div className="dot-menu-wrapper">
+                <Tooltip
+                  title={dotMenuTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
+                  disabled={isDotsMenuOpen}
+                >
+                  <Button
+                    className={cx('quest-dot-menu-btn', {
+                      open: isDotsMenuOpen,
+                    })}
+                    onClick={this.toggleDotsMenu}
+                    disabled={!enableDotMenu || readOnly}
+                  >
+                    {!isDotsMenuOpen ? (
+                      <Dots />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
+
+                <QuestDotMenu
+                  show={isDotsMenuOpen}
+                  items={this.getDotsMenuItems()}
+                  toggle={this.toggleDotsMenu}
+                />
+              </div>
+            )}
+
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
                 <h6>{caption}</h6>

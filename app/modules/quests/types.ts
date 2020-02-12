@@ -204,6 +204,17 @@ export declare interface IQuestAnimation extends StandardResponse {
   slowButtonTooltipText: string;
   downloadButtonTooltipText: string;
   outputDownloadURL: string;
+  negativeFlag: boolean;
+  showDotMenu: boolean;
+  enableDotMenu: boolean;
+  showDotMenuTooltip: boolean;
+  dotMenuTooltipText: string;
+  dotMenu: {
+    showNegative: boolean;
+    enableNegative: boolean;
+    negativeButton: string;
+    negativeText: string;
+  };
 }
 
 export declare interface IAnimationFrame {
