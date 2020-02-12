@@ -5,10 +5,9 @@
 
 import * as Sentry from '@sentry/browser';
 
-export default function fireSloohGAPageview({ location }) {
+export default function fireSloohGAPageview({ pagePath }) {
   if (typeof gtag === 'undefined') {
-    Sentry.captureMessage('Function does not exist');
-
+    Sentry.captureMessage('gtag() function does not exist');
     return;
   }
 
@@ -18,6 +17,7 @@ export default function fireSloohGAPageview({ location }) {
   //});
 
   gtag('config', window.getGoogleAnalyticsPropertyID(), {
-    page_location: location,
+    page_location: pagePath,
+    page_path: pagePath,
   });
 }
