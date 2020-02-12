@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Spinner } from 'app/components/spinner/index';
 import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 import { DeviceContext } from 'app/providers/DeviceProvider';
+import { IProfileGroupList } from 'app/modules/profile-photos/types';
 import ImageDetailsContent from './image-details';
 import './styles.scss';
 
@@ -10,6 +11,7 @@ type TProfileActivityProps = {
   validateResponseAccess: (data: any) => Promise<any>;
   setObservationTags: (data: any) => Promise<any>;
   shareMemberPicture: (data: any) => Promise<any>;
+  getProfileGroupList: (data: any) => Promise<any>;
 
   observationTagsError: any;
   imageDetailsData: ImageDetails;
@@ -17,6 +19,7 @@ type TProfileActivityProps = {
   shareMemberPhotoData: any;
   params: any;
   user: User;
+  profileGroupList: IProfileGroupList;
 };
 
 export class ImageDetails extends Component<TProfileActivityProps> {
@@ -25,6 +28,7 @@ export class ImageDetails extends Component<TProfileActivityProps> {
       getImageDetails,
       setObservationTags,
       shareMemberPicture,
+      getProfileGroupList,
       user,
       observationTagsError,
       validateResponseAccess,
@@ -32,11 +36,13 @@ export class ImageDetails extends Component<TProfileActivityProps> {
       imageDetailsData,
       isFetching,
       shareMemberPhotoData,
+      profileGroupList,
     } = this.props;
     const actions = {
       getImageDetails,
       setObservationTags,
       shareMemberPicture,
+      getProfileGroupList,
     };
 
     return (
@@ -60,6 +66,7 @@ export class ImageDetails extends Component<TProfileActivityProps> {
                 {...context}
                 {...imageDetailsData}
                 customerImageId={customerImageId}
+                profileGroupList={profileGroupList}
               />
             </div>
           )}

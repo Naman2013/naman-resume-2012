@@ -15,7 +15,7 @@
 
 .option-container {
   position: relative;
-  min-width: 135px;
+  min-width: 126px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,6 +25,10 @@
 
   &.active {
     box-shadow: inset 0 -5px 0 $astronaut;
+  }
+
+  .i-link {
+    font-size: 13px;
   }
 }
 

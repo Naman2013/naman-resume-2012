@@ -1,5 +1,4 @@
 import { API } from 'app/api';
-import { fetchGroupActivity } from '../community-group-activity-list/actions';
 
 export const FETCH_GROUP_OVERVIEW_START = 'FETCH_GROUP_OVERVIEW_START';
 export const FETCH_GROUP_OVERVIEW_SUCCESS = 'FETCH_GROUP_OVERVIEW_SUCCESS';

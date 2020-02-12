@@ -1,5 +1,4 @@
 //eslint-disable-line
-import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import App from 'app/containers/App';
@@ -42,6 +41,7 @@ import {
   ProfileActivity,
   ProfileDashboardContainer,
   ProfileListsMain,
+  ProfileGroupsMain,
   ProfileMain,
   PublicProfileMain,
 } from 'app/modules/profile';
@@ -156,7 +156,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <IndexRedirect to="asked" />
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
-    <Route path="groups" component={ProfileGroups} />
+    <Route path="groups" component={ProfileGroupsMain} />
     <Route path="gettingstarted" component={GettingStartedContainer} />
     <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
@@ -548,7 +548,9 @@ const AppRouter = ({ setPreviousInstrument }) => (
         path="community-groups/:groupId"
         onEnter={validateUser}
         component={CommunityGroupOverview}
-      />
+      >
+        <IndexRedirect to="discussions" />
+      </Route>
 
       <Route
         path="community-groups/:groupId/edit=:edit"
@@ -562,7 +564,13 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
 
       <Route
-        path="community-groups/:groupId/:threadId"
+        path="community-groups/:groupId/:tabId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
+
+      <Route
+        path="community-groups/:groupId/:tabId/:threadId"
         onEnter={validateUser}
         component={CommunityGroupOverview}
       />

@@ -41,7 +41,6 @@ const getRecommendedObservationsItems = (imageList = [], readOnly = false) => {
       customerImageId: parseInt(object.customerImageId, 10),
       render: sliderProps => (
         <RecommendedObservationSliderItem
-          key={imageList.customerImageId}
           {...sliderProps}
           {...object}
           readOnly={readOnly}

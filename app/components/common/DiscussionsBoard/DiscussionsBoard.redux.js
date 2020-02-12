@@ -242,7 +242,6 @@ class DiscussionsBoard extends Component {
       itemType: 'thread',
       discussionGroupId: showId,
     };
-
     return (
       <div key={`discussions-${topicId}`}>
         <DeviceContext.Consumer>
@@ -266,6 +265,7 @@ class DiscussionsBoard extends Component {
                   discussionGroupId={discussionGroupId}
                   isClub={isClub}
                   jumpToThreadId={jumpToThreadId}
+                  canSubmitReplies={this.props.canSubmitReplies}
                 />
               ) : (
                 <DiscussionComments
@@ -285,6 +285,7 @@ class DiscussionsBoard extends Component {
                   getReplies={this.getReplies}
                   updateComments
                   flagParams={flagParams}
+                  canSubmitReplies={this.props.canSubmitReplies}
                 />
               )}
             </Fragment>

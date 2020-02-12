@@ -14,6 +14,10 @@ const ProfileListsContainer = React.lazy(() =>
   import('./containers/profile-lists')
 );
 
+const ProfileGroupsContainer = React.lazy(() =>
+  import('./containers/profile-groups')
+);
+
 const ProfileActivityContainer = React.lazy(() =>
   import('./containers/profile-activity')
 );
@@ -41,6 +45,14 @@ export const ProfileListsMain = props => (
     <ProfileListsContainer {...props} />
   </Suspense>
 );
+
+export const ProfileGroupsMain = props => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProfileGroupsContainer {...props} />
+    </Suspense>
+  );
+};
 
 export const ProfileActivity = props => (
   <Suspense fallback={<div>Loading...</div>}>

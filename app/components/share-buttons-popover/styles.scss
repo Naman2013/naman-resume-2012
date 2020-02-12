@@ -1,0 +1,36 @@
+@import '~app/styles/variables/index.scss';
+
+.share-buttons-popover {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  bottom: 58px;
+  left: -200px;
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+  border-bottom: 4px solid $lightHeadedAstronaut;
+
+  &.open {
+    display: block;
+  }
+
+  .share-clubs-menu {
+    margin-top: 10px;
+
+    .slooh-select-container {
+      .slooh-react-select__menu {
+        .dropdown-opt {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@include xsm {
+  .share-buttons-popover {
+    width: 280px;
+    left: -165px;
+  }
+}

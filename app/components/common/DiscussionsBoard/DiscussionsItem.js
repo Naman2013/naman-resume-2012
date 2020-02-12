@@ -28,7 +28,7 @@ const DiscussionsItem = props => (
       }
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
-      allowReplies
+      allowReplies={props.allowReplies}
       showTitle
       renderChildReplies={({ renderToggle }) => (
         <DiscussionComments
@@ -48,6 +48,7 @@ const DiscussionsItem = props => (
           renderToggle={renderToggle}
           getThreads={props.getThreads}
           getReplies={props.getReplies}
+          canSubmitReplies={props.allowReplies}
         />
       )}
     />

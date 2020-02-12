@@ -24,7 +24,7 @@ import {
 } from 'app/modules/object-details/actions';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
-import CardObservations from 'app/components/common/CardObservations';
+import { ObservationCard } from 'app/modules/observations/components/observation-card';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
@@ -96,11 +96,14 @@ class Observations extends Component {
   getObservations = page => {
     const {
       fetchSharedMemberPhotosAction,
-      params: { objectId },
+      params: { objectId, groupId },
     } = this.props;
+
+    const discussionGroupId = groupId;
 
     const requestBody = {
       objectId,
+      discussionGroupId,
       pagingMode: 'content',
       count: 9,
       page,
@@ -144,40 +147,48 @@ class Observations extends Component {
       getMyPictures,
       user,
       isFetching,
+      hideTitleSection,
+      customClass,
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
-    const { pages, imageCount, imageList } = sharedMemberPhotos;
-
+    const { pages, imageCount, imageList } = sharedMemberPhotos;      
     return (
       <Fragment>
         <Spinner loading={isFetching} />
 
-        <ObjectDetailsSectionTitle
-          title={`${objectDetails.objectTitle}'s`}
-          subTitle={t('Objects.Observations')}
-          renderNav={() => (
-            <div
-              className="nav-actions"
-              ref={node => {
-                this.observationContainer = node;
-              }}
-            >
-              <GenericButton
-                onClickEvent={this.showWriteObservationModal}
-                text="Add observation"
-                icon={plus}
-                theme={{ marginRight: '10px' }}
-              />
-              <DropDown
-                options={this.dropdownOptions}
-                selectedIndex={selectedIndex}
-                handleSelect={this.handleSelect}
-              />
-            </div>
-          )}
-        />
+        {!hideTitleSection && (
+          <ObjectDetailsSectionTitle
+            title={`${objectDetails.objectTitle}'s`}
+            subTitle={t('Objects.Observations')}
+            renderNav={() => (
+              <div
+                className="nav-actions"
+                ref={node => {
+                  this.observationContainer = node;
+                }}
+              >
+                <GenericButton
+                  disabled={!this.props.objectData.canShareObservations}
+                  onClickEvent={this.showWriteObservationModal}
+                  text="Add observation"
+                  icon={plus}
+                  theme={{ marginRight: '10px' }}
+                />
+                <DropDown
+                  options={this.dropdownOptions}
+                  selectedIndex={selectedIndex}
+                  handleSelect={this.handleSelect}
+                />
+              </div>
+            )}
+          />
+        )}
+
         {imageCount && !isFetching ? (
-          <CenterColumn widths={['645px', '965px', '965px']}>
+          <CenterColumn
+            widths={['645px', '965px', '965px']}
+            customClass={customClass}
+          >
             <div className="root">
               {imageList.map(image => (
                 <Request
@@ -190,36 +201,14 @@ class Observations extends Component {
                     useShareToken: 'n',
                     callSource: 'sharedPictures',
                   }}
-                  render={({ serviceResponse: imageDetails }) => {
-                    const photoBy = imageDetails.linkableFileData
-                      ? `${imageDetails.linkableFileData['Photo by'].label} ${imageDetails.linkableFileData['Photo by'].text}`
-                      : 'Photo by';
-                    return (
-                      !isEmpty(imageDetails) && (
-                        <CardObservations
-                          user={user}
-                          subTitle={photoBy}
-                          observationTitle={imageDetails.observationTitle}
-                          imageTitle={imageDetails.imageTitle}
-                          description={imageDetails.observationLog}
-                          imageUrl={imageDetails.imageURL}
-                          linkUrl={imageDetails.linkUrl}
-                          likesCount={imageDetails.likesCount}
-                          likedByMe={imageDetails.likedByMe}
-                          likeTooltip={imageDetails.likeTooltip}
-                          likePrompt={imageDetails.likePrompt}
-                          showLikePrompt={imageDetails.showLikePrompt}
-                          commentsCount={imageDetails.commentsCount}
-                          iconFileData={imageDetails.iconFileData}
-                          customerImageId={image.customerImageId}
-                          handleLike={fetchLikeAction}
-                          observationTimeDisplay={
-                            imageDetails.observationTimeDisplay
-                          }
-                        />
-                      )
-                    );
-                  }}
+                  render={({ serviceResponse: imageDetails }) =>
+                    !isEmpty(imageDetails) && (
+                      <ObservationCard
+                        observationData={imageDetails}
+                        handleLike={fetchLikeAction}
+                      />
+                    )
+                  }
                 />
               ))}
 

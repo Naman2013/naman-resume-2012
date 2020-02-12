@@ -281,15 +281,14 @@ class DiscussionsComment extends Component {
       topicId,
       user,
       validateResponseAccess,
-      flagParams,
+      flagParams,      
     } = this.props;
 
     const { commentsList } = discussions;
 
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
-    const threadData = this.getThreadData();
-
+    const threadData = this.getThreadData(); 
     return (
       <div className="comment" key={uniqueId()}>
         <div>
@@ -307,6 +306,7 @@ class DiscussionsComment extends Component {
               isDesktop={isDesktop}
               placeholder={formPlaceholder}
               {...threadData}
+              canSubmitReplies={canSubmitReplies}
             />
           ) : null}
         </div>
@@ -354,8 +354,9 @@ class DiscussionsComment extends Component {
           </div>
         ) : null}
 
-        <div className="flex toggle-container">
+       
           {displayedCommentsObjs.length > 0 && (
+             <div className="flex toggle-container">
             <ShowMoreFullSet
               handleShowMore={this.handleShowMore}
               fullDataSet={comments}
@@ -363,9 +364,10 @@ class DiscussionsComment extends Component {
               totalCount={comments.length}
               page={page}
             />
+            
+            </div>
           )}
           {renderToggle ? renderToggle() : null}
-        </div>
         <style jsx>{styles}</style>
       </div>
     );

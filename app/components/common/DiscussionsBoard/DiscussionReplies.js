@@ -173,7 +173,6 @@ class DiscussionsReplies extends Component {
     const comments = commentsList[replyId] || [];
     const { displayedCommentsObjs } = this;
     const threadData = this.getCommentData();
-
     return (
       <div className="comment" key={uniqueId()}>
         <div>
@@ -190,6 +189,7 @@ class DiscussionsReplies extends Component {
               user={user}
               isDesktop={isDesktop}
               {...threadData}
+              canSubmitReplies={canSubmitReplies}
             />
           ) : null}
         </div>

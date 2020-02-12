@@ -26,7 +26,7 @@ class LikeHeartButton extends Component {
     showLikePrompt: bool,
     alwaysShowCount: bool,
     likePrompt: string.isRequired,
-    likesCount: number.isRequired,
+    likesCount: number.isRequired,    
     // only pass openModal if you want to use a higher component modal
     openModal: func,
     user: shape({
@@ -41,8 +41,7 @@ class LikeHeartButton extends Component {
       likeId: oneOfType([number, string]), // required for post/story
       objectSlug: string, // required for post/story
       type: string, // required for post/story
-      membershipType: string, //required for post/story
-
+      membershipType: string, //required for post/story      
       callSource: oneOfType([number, string]), //	optional for threads but required for qanda
       objectId: oneOfType([number, string]), //	optional for threads but required for qanda
       threadId: oneOfType([number, string]), // required for thread
@@ -60,20 +59,30 @@ class LikeHeartButton extends Component {
     alwaysShowCount: false,
     showLikePrompt: true,
     mod: '',
+   
+    
   };
 
   state = {
     isModalOpen: false,
     likesCount: this.props.likesCount,
     likePrompt: this.props.likePrompt,
+    
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.likePrompt !== nextProps.likePrompt) {
+  componentWillReceiveProps(nextProps) {    
+    if (this.props.likePrompt !== nextProps.likePrompt) {                 
+        this.setState({
+          likePrompt: nextProps.likePrompt,          
+        });
+        if (nextProps!=undefined && nextProps.likePrompt == "You have reached your like limit. Try again later.") {
       this.setState({
-        likePrompt: nextProps.likePrompt,
+        isModalOpen:true,
       });
     }
+    }
+
+    
 
     if (this.props.likesCount !== nextProps.likesCount) {
       this.setState({
@@ -82,7 +91,7 @@ class LikeHeartButton extends Component {
     }
   }
 
-  likeItem = e => {
+  likeItem = e => {    
     e.preventDefault();
     const {
       likeHandler,
@@ -101,10 +110,11 @@ class LikeHeartButton extends Component {
         token: user.token,
         at: user.at,
         cid: user.cid,
-      }).then(res => {
-        if (res && res.data) {
+      }).then(res => {        
+        if (res && res.data)        
           return this.handleLikeResult(res);
-        }
+        else
+          return this.handleLikeResult({data: res});
       });
     }
   };
@@ -120,14 +130,14 @@ class LikeHeartButton extends Component {
       likedByMe,
       likeTooltip,
     } = res.data;
-    const resultLikesCount = count || likesCount;
-
+    const resultLikesCount = count != null ? count : likesCount;    
     if (!apiError) {
       this.setState(() => ({
         likesCount: Number(resultLikesCount),
         likedByMe,
         likeTooltip,
       }));
+      
       if (typeof likeResultHandler === 'function') {
         likeResultHandler(resultLikesCount);
       }
