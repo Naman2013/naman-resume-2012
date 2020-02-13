@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { browserHistory, Link } from 'react-router';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
-import { shadows, seashell, romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  shadows,
+  seashell,
+  romance,
+  astronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
 
 import {
@@ -37,6 +42,7 @@ const TopBar = ({
   totalViewersCount,
   allLivecastsInProgress,
   activityFeedMessages,
+  activityFeedMembers,
   pubnubConnection,
   pubnubActivityFeedChannelName,
   userDisplayName,
@@ -150,6 +156,7 @@ const TopBar = ({
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
                         activityFeedMessages={activityFeedMessages}
+                        activityFeedMembers={activityFeedMembers}
                         pubnubConnection={pubnubConnection}
                         pubnubActivityFeedChannelName={
                           pubnubActivityFeedChannelName
@@ -208,15 +215,18 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
-                            <Link className="button text" to="/about/about-slooh-education">
+                            <Link
+                              className="button text"
+                              to="/about/about-slooh-education"
+                            >
                               <button className="btn foreducators-button">
                                 <div>
                                   <span>Slooh</span>
-				  <span>Education</span>
+                                  <span>Education</span>
                                 </div>
                               </button>
                             </Link>
-			    <div style={{marginRight: "10px"}}/>
+                            <div style={{ marginRight: '10px' }} />
                             <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
@@ -305,27 +315,27 @@ const TopBar = ({
                   margin-right: 3px;
                 }
 
-		.foreducators-button {
-		    background: none;
-		    border: none;
-		    margin: 0;
-		    padding: 0;
-		    cursor: pointer;
-		    transition: background-color 0.25s ease-in-out;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    cursor: pointer;
-		    border-radius: 100px;
-		    padding: 10px 20px;
-		    color: ${romance};
-		    background-color: ${astronaut};
-		    text-align: left;
-		    text-transform: uppercase;
-		    font-size: 11px;
-		    font-weight: bold;
-		    font-family: ${primaryFont};
-		}
+                .foreducators-button {
+                  background: none;
+                  border: none;
+                  margin: 0;
+                  padding: 0;
+                  cursor: pointer;
+                  transition: background-color 0.25s ease-in-out;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  cursor: pointer;
+                  border-radius: 100px;
+                  padding: 10px 20px;
+                  color: ${romance};
+                  background-color: ${astronaut};
+                  text-align: left;
+                  text-transform: uppercase;
+                  font-size: 11px;
+                  font-weight: bold;
+                  font-family: ${primaryFont};
+                }
 
                 .foreducators-button > div {
                   min-width: 100px;
@@ -365,7 +375,6 @@ const TopBar = ({
                     align-items: center;
                   }
                 }
-
               `}
             </style>
           </div>

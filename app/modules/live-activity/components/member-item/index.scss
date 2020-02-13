@@ -1,0 +1,26 @@
+@import '~app/styles/variables/colors.scss';
+
+.active-member-item {
+  margin-top: 16px;
+
+  .member-name {
+    padding: 8px 0;
+    border-bottom: 1px solid $hawkesBlue;
+    font-weight: 600;
+  }
+
+  .member-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    .member-gravity-level {
+      padding-right: 8px;
+    }
+
+    .member-gravity {
+      padding-left: 8px;
+      border-left: 1px solid $hawkesBlue;
+    }
+  }
+}

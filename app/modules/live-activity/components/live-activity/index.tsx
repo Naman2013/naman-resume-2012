@@ -13,7 +13,8 @@ import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
 import { isEnter } from 'app/modules/utils/keyIdentifier';
 import { Nav, Tab } from 'react-bootstrap';
-import { FeedItem } from '../feed-item/index';
+import { FeedItem } from '../feed-item';
+import { MemberItem } from '../member-item';
 
 const enableResizing = {
   top: true,
@@ -29,13 +30,13 @@ const disableResizing = {
   bottom: false,
 };
 
-const setMessageIdToLocalStorage = (id: string) => {
+const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
 };
 
 const contentClickHandler = (e: any, setOpen: Function): void => {
   // detect click on Link
-  if (e.target instanceof HTMLAnchorElement) {
+  if (e.target instanceof window.HTMLAnchorElement) {
     const targetLink = e.target.closest('a');
     e.preventDefault();
     browserHistory.push(targetLink.href);
@@ -49,7 +50,7 @@ const contentClickHandler = (e: any, setOpen: Function): void => {
   }
 };
 
-const onKeyPressed = (e: any, setOpen: Function) => {
+const onKeyPressed = (e: any, setOpen: Function): void => {
   if (isEnter(e)) {
     contentClickHandler(e, setOpen);
   }
@@ -58,7 +59,7 @@ const onKeyPressed = (e: any, setOpen: Function) => {
 const calculateFeedMenuSize = (
   isTablet: boolean,
   setFeedMenuSize: Function
-) => {
+): void => {
   const width = isTablet ? window.screen.availWidth : 500;
   const height = isTablet ? window.screen.availHeight - 53 : 450;
   const left = -340;
@@ -72,7 +73,7 @@ const submitMessage = (
   pubnubActivityFeedChannelName: string,
   userDisplayName: string,
   myTextInputField: any
-) => {
+): void => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
@@ -119,7 +120,7 @@ const toggleActivityFeedMenu = (
   isOpen: boolean,
   subscribeToPubnubActivityFeedChannel: Function,
   isSubscribed: boolean
-) => {
+): void => {
   if (!isSubscribed) {
     subscribeToPubnubActivityFeedChannel();
   }
@@ -128,6 +129,7 @@ const toggleActivityFeedMenu = (
 
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
+  activityFeedMembers: Array<string>;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
@@ -137,13 +139,18 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
+  const LIVE_FEEDS_TAB = 'liveFeeds';
+  const MEMBERS_TAB = 'activeMembers';
+
   const rnd = useRef(null);
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
+    activityFeedMembers,
     subscribeToPubnubActivityFeedChannel,
   } = props;
+  const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
   const [isOpen, setOpen] = React.useState(false);
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
   const [boxSize, setFeedMenuSize] = useState({
@@ -164,13 +171,13 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
-    const handleOrientationChangeEvent = () => {
+    const handleOrientationChangeEvent = (): void => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
       rnd.current.updatePosition({ x: -300, y: 80 });
     };
 
     window.addEventListener('orientationchange', handleOrientationChangeEvent);
-    return () => {
+    return (): void => {
       handleOrientationChangeEvent();
       window.removeEventListener(
         'orientationchange',
@@ -262,17 +269,15 @@ export const LiveActivity = (props: TLiveActivity) => {
                   id="tabs"
                   unmountOnExit
                   mountOnEnter
-                  onSelect={(key: string): void => {
-                    console.log(key);
-                  }}
+                  onSelect={(key: string): void => setActiveTab(key)}
                 >
                   <Nav variant="tabs">
                     <Nav.Item>
-                      <Nav.Link eventKey="liveFeeds">Live Feeds</Nav.Link>
+                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Live Feeds</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
-                      <Nav.Link eventKey="onlineUsers">
+                      <Nav.Link eventKey={MEMBERS_TAB}>
                         Who&apos;s Online
                       </Nav.Link>
                     </Nav.Item>
@@ -301,34 +306,46 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
               <div className="live-activity-window-body">
-                <p
-                  style={{
-                    color: '#007bff',
-                    fontSize: '1.1em',
-                    fontStyle: 'italic',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    cursor: 'pointer',
-                  }}
-                  onClick={scrollActivityFeedToBottom}
-                  onKeyDown={scrollActivityFeedToBottom}
-                  aria-hidden
-                >
-                  jump to newest
-                </p>
-                <br />
-                <div
-                  id="live-activity-window-body-feed"
-                  className="live-activity-window-body-feed"
-                >
-                  {activityFeedMessages.map(feedItem => (
-                    <FeedItem
-                      item={feedItem}
-                      contentClickHandler={e => contentClickHandler(e, setOpen)}
-                      onKeyPressed={e => onKeyPressed(e, setOpen)}
-                    />
+                {activeTab === MEMBERS_TAB &&
+                  activityFeedMembers.map(memberItem => (
+                    <MemberItem key={memberItem} member={memberItem} />
                   ))}
-                </div>
+
+                {activeTab === LIVE_FEEDS_TAB && (
+                  <>
+                    <p
+                      style={{
+                        color: '#007bff',
+                        fontSize: '1.1em',
+                        fontStyle: 'italic',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        cursor: 'pointer',
+                      }}
+                      onClick={scrollActivityFeedToBottom}
+                      onKeyDown={scrollActivityFeedToBottom}
+                      aria-hidden
+                    >
+                      jump to newest
+                    </p>
+                    <br />
+                    <div
+                      id="live-activity-window-body-feed"
+                      className="live-activity-window-body-feed"
+                    >
+                      {activityFeedMessages.map(feedItem => (
+                        <FeedItem
+                          key={feedItem.id}
+                          item={feedItem}
+                          contentClickHandler={e =>
+                            contentClickHandler(e, setOpen)
+                          }
+                          onKeyPressed={e => onKeyPressed(e, setOpen)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
 
               {isChatEnabled === true && (

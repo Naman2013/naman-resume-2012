@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react';
+import React from 'react';
 import './index.scss';
 import * as cx from 'classnames';
 

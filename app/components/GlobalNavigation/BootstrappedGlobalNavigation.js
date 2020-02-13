@@ -17,6 +17,7 @@ import debounce from 'lodash/debounce';
 //integrate with Pubnub
 import PubNubReact from 'pubnub-react';
 import { getUserInfo } from 'app/modules/User';
+import { API } from 'app/api';
 import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import Menu from './Menu';
 import TopBar from './TopBar';
@@ -86,6 +87,8 @@ class GlobalNavigation extends Component {
     activityFeedMembers: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
+
+  ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
 
   constructor(params) {
     super(params);
@@ -166,10 +169,10 @@ class GlobalNavigation extends Component {
         // handle presence (users that have joined or left the channel)
 
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
-	  //update the list of Customer UUIDs online
-          this.setState({ activityFeedMembers: ['abc-def-xyz', 'abc-xyz-def-asdew', 'cbfd-9475-hyfd-as'] });
-	
-	  //update the total count of members online
+          //update the list of Customer UUIDs online
+          this.getActivityFeedMembers();
+
+          //update the total count of members online
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
       },
@@ -177,6 +180,22 @@ class GlobalNavigation extends Component {
 
     this.pubnub.init(this);
   }
+
+  getActivityFeedMembers = () => {
+    const { token, at, cid } = getUserInfo();
+
+    API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, { token, at, cid }).then(
+      res => {
+        this.setState({
+          activityFeedMembers: [
+            'abc-def-xyz',
+            'abc-xyz-def-asdew',
+            'cbfd-9475-hyfd-as',
+          ],
+        });
+      }
+    );
+  };
 
   componentDidMount() {
     const { isMobile } = this.props;
@@ -358,6 +377,7 @@ class GlobalNavigation extends Component {
       totalViewersCount,
       allLivecastsInProgress,
       activityFeedMessages,
+      activityFeedMembers,
     } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
@@ -390,6 +410,7 @@ class GlobalNavigation extends Component {
             totalViewersCount={totalViewersCount}
             allLivecastsInProgress={allLivecastsInProgress}
             activityFeedMessages={activityFeedMessages}
+            activityFeedMembers={activityFeedMembers}
             pubnubConnection={this.pubnub}
             pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}
