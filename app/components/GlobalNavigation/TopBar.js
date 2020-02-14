@@ -216,7 +216,7 @@ const TopBar = ({
                                 </div>
                               </button>
                             </Link>
-			    <div style={{marginRight: "10px"}}/>
+			    {/* <div style={{marginRight: "10px"}}/> */}
                             <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
@@ -250,9 +250,9 @@ const TopBar = ({
                   width: 100%;
                   background: ${seashell};
                   border-bottom: 2px solid ${shadows};
-                  height: 60px;
+                  height: 60px;                  
                 }
-
+                
                 .center-menu {
                   flex-grow: 1;
                 }
@@ -308,7 +308,7 @@ const TopBar = ({
 		.foreducators-button {
 		    background: none;
 		    border: none;
-		    margin: 0;
+		    margin: 0 10px 0 0;
 		    padding: 0;
 		    cursor: pointer;
 		    transition: background-color 0.25s ease-in-out;
@@ -354,6 +354,8 @@ const TopBar = ({
                 @media ${screenMobile} {
                   .foreducators-button {
                     padding: 5px;
+                    margin-left: 5px;
+                    margin-right: 5px;
                   }
                 }
 
