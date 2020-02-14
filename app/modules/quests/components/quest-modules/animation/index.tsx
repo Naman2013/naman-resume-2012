@@ -172,10 +172,8 @@ export class AnimationModule extends React.PureComponent<
     zoom,
     activityState,
   }: IQuestAnimationFrames): void => {
-    fabric.filterBackend = fabric.initFilterBackend();
-    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
     this.loadImageFromUrl(0, frameList);
-    this.canvas.renderAll();
+
     this.onPageRezise(false);
 
     this.vpt[4] = left ? -left : 0;
@@ -185,6 +183,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.viewportTransform[5] = top ? -top : 0;
     this.updatePan();
     this.setActiveStep(activityState);
+    this.renderFabricCanvas();
   };
 
   updatePan = (): void => {
@@ -227,9 +226,7 @@ export class AnimationModule extends React.PureComponent<
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
 
-    const filter = new fabric.Image.filters.Invert();
     const imgAttrs = {
-      filters: [filter],
       centeredScaling: offsetReference !== 'center',
       crossOrigin: 'anonymous',
       selectable: false,
@@ -250,15 +247,10 @@ export class AnimationModule extends React.PureComponent<
         top: empty ? 0 : -yOffset * offsetCoeff,
       });
 
-      //fabricImage.filters.push(filter);
-      //fabricImage.applyFilters();
-
       //scale to canvas width
       fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
       this.canvas.add(fabricImage);
-      console.log(this.canvas.getObjects());
-      //this.setNegativeFilter();
       this.canvas.renderAll();
 
       //if doesn't end of frame list -> load next image
@@ -266,22 +258,6 @@ export class AnimationModule extends React.PureComponent<
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
     });
-  };
-
-  setNegativeFilter = (): void => {
-    const objects = this.canvas.getObjects();
-    const filter = new fabric.Image.filters.Invert();
-    console.log(objects[0]);
-    //filter.applyTo2d({ imageData: objects[objects.length - 1] });
-    objects[objects.length - 1].filters.push(filter);
-    objects[objects.length - 1].applyFilters(
-      objects[objects.length - 1].filters,
-      objects[objects.length - 1],
-      objects[objects.length - 1].widht,
-      objects[objects.length - 1].height,
-      this.canvas
-    );
-    //this.canvas.renderAll();
   };
 
   moveTop = (stepSize: number): IAnimationFrame => {
@@ -536,13 +512,25 @@ export class AnimationModule extends React.PureComponent<
     //reset zoom after canvas rezise
     this.canvas.setZoom(canvasZoom);
 
-    this.canvas.renderAll();
+    this.renderFabricCanvas(canvasObjects);
     if (updateAnimation) {
       this.resizeTime = Date.now();
       if (!this.resizeTimeout) {
         this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
       }
     }
+  };
+
+  renderFabricCanvas = (objects?: any): void => {
+    const { questAnimation } = this.props;
+    const { negativeFlag } = questAnimation;
+    const canvasObjects = objects || this.canvas.getObjects();
+    const ctx = this.canvas.getContext();
+    const bgColor = negativeFlag ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0)';
+    ctx.filter = negativeFlag ? 'invert(1)' : 'none';
+
+    this.canvas.setBackgroundColor(bgColor);
+    this.canvas.renderCanvas(ctx, canvasObjects);
   };
 
   onPlay = (): void => {
@@ -688,6 +676,7 @@ export class AnimationModule extends React.PureComponent<
       getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
         ({ payload }: any): void => {
           this.canvas.setZoom(payload.magnificationDefault / 100);
+          this.renderFabricCanvas();
         }
       );
     }
