@@ -220,7 +220,7 @@ const TopBar = ({
                             <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
-                                  <span>Start Free Trail</span>
+                                  <span>Start Free Trial</span>
                                   {/* <span>Trial</span> */}
                                 </div>
                               </button>
