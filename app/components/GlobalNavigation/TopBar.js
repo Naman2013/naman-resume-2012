@@ -348,7 +348,7 @@ const TopBar = ({
                     min-width: auto;
                     flex-direction: column;
                     align-items: center;
-		    padding: 5px;
+		    padding: 0px;
                   }
                 }
 
