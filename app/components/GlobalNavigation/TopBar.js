@@ -344,7 +344,7 @@ const TopBar = ({
 
                 @media ${screenSmallMobile} {
                   .free-trial-button {
-		    padding: 0px;
+                    padding: 5px !important;
                   }
 
                   .free-trial-button > div {
