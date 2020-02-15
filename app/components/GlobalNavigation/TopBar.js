@@ -343,6 +343,10 @@ const TopBar = ({
                 }
 
                 @media ${screenSmallMobile} {
+                  .free-trial-button {
+		    padding: 0px;
+                  }
+
                   .free-trial-button > div {
                     display: flex;
                     min-width: auto;
