@@ -338,7 +338,7 @@ const TopBar = ({
 
                 @media ${screenMobile} {
                   .free-trial-button {
-                    padding: 0px;
+                    padding: 5px;
                   }
                 }
 
@@ -348,6 +348,7 @@ const TopBar = ({
                     min-width: auto;
                     flex-direction: column;
                     align-items: center;
+		    padding: 5px;
                   }
                 }
 
