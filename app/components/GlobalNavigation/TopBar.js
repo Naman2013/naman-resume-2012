@@ -338,7 +338,7 @@ const TopBar = ({
 
                 @media ${screenMobile} {
                   .free-trial-button {
-                    padding: 5px;
+                    padding: 5px !important;
                   }
                 }
 
