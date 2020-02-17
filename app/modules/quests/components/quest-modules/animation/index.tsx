@@ -795,7 +795,15 @@ export class AnimationModule extends React.PureComponent<
       scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
 
-    return setAnimation(data);
+    return setAnimation(data).then(
+      ({ payload: { refreshModule } }: any): void => {
+        if (refreshModule) {
+          this.canvas.clear();
+          this.getAnimation();
+          this.getAnimationFrames();
+        }
+      }
+    );
   };
 
   toggleDotsMenu = (): void => {
@@ -820,9 +828,7 @@ export class AnimationModule extends React.PureComponent<
         disabled: !enableNegative,
         title: negativeText,
         action: (): Promise<any> =>
-          this.setAnimation(activeFrame, negativeButton).then(() =>
-            this.getAnimation()
-          ),
+          this.setAnimation(activeFrame, negativeButton),
       },
     ];
   };
