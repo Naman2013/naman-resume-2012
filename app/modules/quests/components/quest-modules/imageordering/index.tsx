@@ -156,7 +156,7 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
       questDataCollectionSlotImages,
       user,
       loading,
-      stepData: { readOnly },
+      readOnly,
     } = this.props;
 
     const {
