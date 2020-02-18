@@ -218,11 +218,16 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ): void => {
-    const { frameIndex, imageURL, xOffset, yOffset, empty } = frameList[
-      frameIndexToLoad
-    ];
+    const {
+      frameIndex,
+      imageURL,
+      xOffset,
+      yOffset,
+      empty,
+      selected,
+    } = frameList[frameIndexToLoad];
     const { questAnimation } = this.props;
-    const { offsetReference, negativeFlag } = questAnimation;
+    const { offsetReference } = questAnimation;
     const newCanvasContainerWidth =
       this.canvasContainer.getBoundingClientRect().width - 2;
 
@@ -234,7 +239,7 @@ export class AnimationModule extends React.PureComponent<
       originX:
         offsetReference === 'center' && !empty ? offsetReference : 'left',
       originY: offsetReference === 'center' && !empty ? offsetReference : 'top',
-      visible: !(frameIndex > 1),
+      visible: frameIndex === 1 || selected,
     };
 
     fabric.util.loadImage(imageURL, (img: any): void => {

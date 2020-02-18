@@ -243,6 +243,7 @@ export declare interface IAnimationFrame {
   touched: boolean;
   xOffset: number;
   yOffset: number;
+  selected: boolean;
 }
 
 export declare interface IQuestAnimationFrames extends StandardResponse {
