@@ -129,7 +129,8 @@ const toggleActivityFeedMenu = (
 
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
-  activityFeedMembers: Array<string>;
+  activityFeedMembers: Array<any>;
+  getActivityFeedMembers: Function;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
@@ -148,6 +149,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     isChatEnabled,
     activityFeedMessages,
     activityFeedMembers,
+    getActivityFeedMembers,
     subscribeToPubnubActivityFeedChannel,
   } = props;
   const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
@@ -269,7 +271,12 @@ export const LiveActivity = (props: TLiveActivity) => {
                   id="tabs"
                   unmountOnExit
                   mountOnEnter
-                  onSelect={(key: string): void => setActiveTab(key)}
+                  onSelect={(key: string): void => {
+                    if (key === MEMBERS_TAB) {
+                      getActivityFeedMembers();
+                    }
+                    setActiveTab(key);
+                  }}
                 >
                   <Nav variant="tabs">
                     <Nav.Item>
@@ -308,7 +315,10 @@ export const LiveActivity = (props: TLiveActivity) => {
               <div className="live-activity-window-body">
                 {activeTab === MEMBERS_TAB &&
                   activityFeedMembers.map(memberItem => (
-                    <MemberItem key={memberItem} member={memberItem} />
+                    <MemberItem
+                      key={memberItem.customerId}
+                      member={memberItem}
+                    />
                   ))}
 
                 {activeTab === LIVE_FEEDS_TAB && (

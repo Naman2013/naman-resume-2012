@@ -182,45 +182,6 @@ class GlobalNavigation extends Component {
     this.pubnub.init(this);
   }
 
-  /*
-	  	make sure the API: /api/app/getActiveMembersOnline is called at least once when this event happens and refresh the API based on the expires value
-	  	Request Parameters: cid, at, token, this.state.customerUUIDsList
-	  	Response:
-			membersOnlineCount: 2,
-			membersOnlineList: [
-				{
-					displayName: 'ToddR',
-					customerUUID: 'abc-def-abc',
-					linkUrl: '/.....',
-					gravityLabel: 'Level: Azophi',
-					gravity: '676'
-				},
-				{
-					displayName: 'ToddR1',
-					customerUUID: 'abc-def-xyz',
-					linkUrl: '/.....',
-					gravityLabel: 'Level: Azophi',
-					gravity: '722'
-				}
-			]
-	  */
-
-  getActivityFeedMembers = () => {
-    const { token, at, cid } = getUserInfo();
-
-    API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, { token, at, cid }).then(
-      res => {
-        this.setState({
-          activityFeedMembers: [
-            'abc-def-xyz',
-            'abc-xyz-def-asdew',
-            'cbfd-9475-hyfd-as',
-          ],
-        });
-      }
-    );
-  };
-
   componentDidMount() {
     const { isMobile } = this.props;
     if (!isMobile) {
@@ -252,6 +213,18 @@ class GlobalNavigation extends Component {
       ],
     });
   }
+
+  getActivityFeedMembers = () => {
+    const { token, at, cid } = getUserInfo();
+
+    API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, { token, at, cid }).then(
+      ({ data: { membersOnlineList } }) => {
+        this.setState({
+          activityFeedMembers: membersOnlineList,
+        });
+      }
+    );
+  };
 
   subscribeToPubnubActivityFeedChannel = () => {
     const {
@@ -435,6 +408,7 @@ class GlobalNavigation extends Component {
             allLivecastsInProgress={allLivecastsInProgress}
             activityFeedMessages={activityFeedMessages}
             activityFeedMembers={activityFeedMembers}
+            getActivityFeedMembers={this.getActivityFeedMembers}
             pubnubConnection={this.pubnub}
             pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}

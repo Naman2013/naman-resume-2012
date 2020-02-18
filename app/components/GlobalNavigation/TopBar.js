@@ -43,6 +43,7 @@ const TopBar = ({
   allLivecastsInProgress,
   activityFeedMessages,
   activityFeedMembers,
+  getActivityFeedMembers,
   pubnubConnection,
   pubnubActivityFeedChannelName,
   userDisplayName,
@@ -157,6 +158,7 @@ const TopBar = ({
                         totalViewersCount={totalViewersCount}
                         activityFeedMessages={activityFeedMessages}
                         activityFeedMembers={activityFeedMembers}
+                        getActivityFeedMembers={getActivityFeedMembers}
                         pubnubConnection={pubnubConnection}
                         pubnubActivityFeedChannelName={
                           pubnubActivityFeedChannelName
