@@ -1,17 +1,13 @@
-import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
 import { QuestStepInfo } from 'app/modules/quests/components/quest-step-info';
 import { questShield } from 'app/styles/variables/iconURLs';
 import React from 'react';
 import cx from 'classnames';
 import './styles.scss';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router';
 import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
   const {
     children,
-    completed,
     stepData,
     questId,
     showHeader,
@@ -30,8 +26,8 @@ export const QuestStepBox = props => {
     iconURL,
     claimBadgeButtonCaption,
     showClaimBadgeButtonBottom,
-    claimBadgeButtonURL,
     stepIconURL,
+    readOnly,
   } = stepData;
   const resourcesProps = {
     resourcesButtonText: resourcesButtonCaption,
@@ -117,8 +113,10 @@ export const QuestStepBox = props => {
           {showFooterClaimButton && showClaimBadgeButtonBottom && (
             <div className="text-center ">
               <a
-                onClick={setQuestCompleted}
-                className="quest-next-step-btn btn btn-primary"
+                onClick={!readOnly && setQuestCompleted}
+                className={cx('quest-next-step-btn', 'btn', 'btn-primary', {
+                  disabled: readOnly,
+                })}
               >
                 {claimBadgeButtonCaption}
               </a>
