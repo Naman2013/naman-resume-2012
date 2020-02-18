@@ -30,6 +30,7 @@ type TEditModeProps = {
   loading?: boolean;
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user?: User;
+  readOnly?: boolean;
 };
 
 const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
@@ -46,6 +47,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     questDataCollectionSlotImages,
     user,
     loading,
+    readOnly,
   } = props;
   const {
     moduleId,
@@ -79,7 +81,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           }}
           removeDataCollectionSlotImage={removeDataCollectionSlotImage}
           user={user}
-          readOnly={activityState === MODES.REVIEW}
+          readOnly={readOnly || activityState === MODES.REVIEW}
           mmSlotModalVisible={mmSlotModalVisible}
         />
       ))}

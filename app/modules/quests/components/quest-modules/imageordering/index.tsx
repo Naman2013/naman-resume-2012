@@ -156,6 +156,7 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
       questDataCollectionSlotImages,
       user,
       loading,
+      stepData: { readOnly },
     } = this.props;
 
     const {
@@ -188,6 +189,7 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
             user={user}
             loading={loading}
             activityState={activityState}
+            readOnly={readOnly}
           />
         )}
 
