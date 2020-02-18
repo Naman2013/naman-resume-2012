@@ -115,18 +115,6 @@ const submitMessage = (
   }
 };
 
-const toggleActivityFeedMenu = (
-  setOpen: Function,
-  isOpen: boolean,
-  subscribeToPubnubActivityFeedChannel: Function,
-  isSubscribed: boolean
-): void => {
-  if (!isSubscribed) {
-    subscribeToPubnubActivityFeedChannel();
-  }
-  setOpen(!isOpen);
-};
-
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
   activityFeedMembers: Array<any>;
@@ -143,7 +131,6 @@ export const LiveActivity = (props: TLiveActivity) => {
   const LIVE_FEEDS_TAB = 'liveFeeds';
   const MEMBERS_TAB = 'activeMembers';
 
-  const rnd = useRef(null);
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
@@ -152,24 +139,31 @@ export const LiveActivity = (props: TLiveActivity) => {
     getActivityFeedMembers,
     subscribeToPubnubActivityFeedChannel,
   } = props;
+
+  const rnd = useRef(null);
+
   const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
+
   const [isOpen, setOpen] = React.useState(false);
+
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
+
+  const [isFullscreen, setFullscreen] = useState(false);
+
   const [boxSize, setFeedMenuSize] = useState({
     width: 500,
     height: 450,
     left: -340,
     top: 55,
   });
+
   const isTablet = isTabletDevice();
-  const [isFullscreen, setFullscreen] = useState(false);
+
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1] || {};
 
-  const lastMessageId = activityFeedMessage.id
-    ? activityFeedMessage.id
-    : 'null';
+  const lastMessageId = activityFeedMessage.id ? activityFeedMessage.id : null;
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
@@ -200,46 +194,37 @@ export const LiveActivity = (props: TLiveActivity) => {
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
+  const toggleActivityFeedMenu = (): void => {
+    if (!isSubscribed) {
+      subscribeToPubnubActivityFeedChannel();
+    }
+    setOpen(!isOpen);
+
+    setMessageIdToLocalStorage(lastMessageId);
+    pubNubFeedChannelSubscribingStatus(true);
+  };
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
     >
       {/* BTN */}
-      <span
+      <div
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
-        onClick={() => {
-          toggleActivityFeedMenu(
-            setOpen,
-            isOpen,
-            subscribeToPubnubActivityFeedChannel,
-            isSubscribed
-          );
-          setMessageIdToLocalStorage(lastMessageId);
-          pubNubFeedChannelSubscribingStatus(true);
-        }}
-      />
-      <span
-        role="presentation"
-        className={
-          (lastMessageId !== lastStorageMessageId &&
-            !lastMessageFromCurrentUser &&
-            !isOpen) ||
-          !isSubscribed
-            ? 'message-identifier'
-            : ''
-        }
-        onClick={() => {
-          toggleActivityFeedMenu(
-            setOpen,
-            isOpen,
-            subscribeToPubnubActivityFeedChannel,
-            isSubscribed
-          );
-          setMessageIdToLocalStorage(lastMessageId);
-          pubNubFeedChannelSubscribingStatus(true);
-        }}
-      />
+        onClick={toggleActivityFeedMenu}
+      >
+        <span
+          className={cx('message-identifier', {
+            'has-new-messages':
+              lastMessageId &&
+              lastMessageId !== lastStorageMessageId &&
+              !lastMessageFromCurrentUser &&
+              !isOpen,
+          })}
+        />
+      </div>
+
       {/* WINDOW */}
       {isOpen && (
         <div

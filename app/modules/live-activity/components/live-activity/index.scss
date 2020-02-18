@@ -72,14 +72,20 @@ $screenHeaderSize: 110px;
   }
 
   .message-identifier {
+    display: none;
     position: absolute;
     top: 17px;
+    left: 26px;
     width: 8px;
     height: 8px;
     margin-left: 9px;
     border-radius: 50%;
     background-color: $dark-red;
     cursor: pointer;
+
+    &.has-new-messages {
+      display: block;
+    }
 
     &:before {
       content: '';
