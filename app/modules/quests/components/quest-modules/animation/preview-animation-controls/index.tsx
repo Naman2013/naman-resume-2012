@@ -178,7 +178,7 @@ export const PreviewAnimationControls: React.FC<
             >
               <Button
                 className="btn-white animation-view-btn"
-                onClick={onEdit}
+                onClick={(): void => onEdit()}
                 disabled={!enableEditButton}
               >
                 {editButtonCaption}

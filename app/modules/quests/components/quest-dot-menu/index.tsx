@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { QuestButtonsPopover } from 'app/modules/quests/components/quest-buttons-popover';
 import { IQuestDotMenuItem } from 'app/modules/quests/types.ts';
 import './styles.scss';
@@ -13,13 +13,19 @@ type QuestDotMenuProps = {
 export const QuestDotMenu: React.FC<QuestDotMenuProps> = React.memo(props => {
   const { show, menuTitle, items, toggle } = props;
 
+  useEffect((): void => {
+    if (show) {
+      toggle(false);
+    }
+  }, []);
+
   return (
     show && (
       <>
         <QuestButtonsPopover isOpen>
           <div className="quest-dot-menu">
             <div className="quest-dot-menu-popover">
-              <div className="title">{menuTitle}:</div>
+              {menuTitle && <div className="title">{menuTitle}:</div>}
               <div className="content">
                 {items.map(
                   (item: IQuestDotMenuItem) =>
