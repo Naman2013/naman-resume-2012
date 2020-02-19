@@ -10,6 +10,9 @@ import {
   IQuestAnimationData,
   IQuestAnimationFrames,
 } from 'app/modules/quests/types';
+import { downloadFile } from 'app/utils/downloadFile';
+import Dots from 'app/atoms/icons/Dots';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
@@ -40,6 +43,7 @@ type AnimationModuleState = {
   activePreviewImage: number;
   previewFrameList: Array<IAnimationFrame>;
   previewSingleStep: boolean;
+  isDotsMenuOpen: boolean;
 };
 
 const ANIMATION_STEPS: { [key: string]: string } = {
@@ -56,6 +60,8 @@ const BUTTON_TYPES: { [key: string]: string } = {
   SLOW: 'slow',
   MED: 'med',
   FAST: 'fast',
+  FRAME: 'frame',
+  EDIT_ANIMATION: 'editAnimation',
 };
 
 const RESIZE_DELTA = 300;
@@ -91,17 +97,18 @@ export class AnimationModule extends React.PureComponent<
     activePreviewImage: 0,
     previewFrameList: [{} as IAnimationFrame],
     previewSingleStep: false,
+    isDotsMenuOpen: false,
   };
 
   componentDidMount(): void {
     this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
-    window.addEventListener('resize', () => this.onPageRezise());
+    window.addEventListener('resize', this.pageResize);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('resize', () => this.onPageRezise());
+    window.removeEventListener('resize', this.pageResize);
     clearTimeout(this.resizeTimeout);
   }
 
@@ -165,17 +172,20 @@ export class AnimationModule extends React.PureComponent<
     zoom,
     activityState,
   }: IQuestAnimationFrames): void => {
+    const { activeFrame } = this.props;
+    const { empty } = activeFrame;
     this.loadImageFromUrl(0, frameList);
-    this.canvas.renderAll();
+
     this.onPageRezise(false);
 
     this.vpt[4] = left ? -left : 0;
     this.vpt[5] = top ? -top : 0;
-    this.canvas.setZoom(zoom);
+    this.canvas.setZoom(empty ? 1 : zoom);
     this.canvas.viewportTransform[4] = left ? -left : 0;
     this.canvas.viewportTransform[5] = top ? -top : 0;
     this.updatePan();
     this.setActiveStep(activityState);
+    this.renderFabricCanvas();
   };
 
   updatePan = (): void => {
@@ -210,9 +220,14 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ): void => {
-    const { frameIndex, imageURL, xOffset, yOffset, empty } = frameList[
-      frameIndexToLoad
-    ];
+    const {
+      frameIndex,
+      imageURL,
+      xOffset,
+      yOffset,
+      empty,
+      selected,
+    } = frameList[frameIndexToLoad];
     const { questAnimation } = this.props;
     const { offsetReference } = questAnimation;
     const newCanvasContainerWidth =
@@ -226,7 +241,7 @@ export class AnimationModule extends React.PureComponent<
       originX:
         offsetReference === 'center' && !empty ? offsetReference : 'left',
       originY: offsetReference === 'center' && !empty ? offsetReference : 'top',
-      visible: !(frameIndex > 1),
+      visible: frameIndex === 1 || selected,
     };
 
     fabric.util.loadImage(imageURL, (img: any): void => {
@@ -472,6 +487,10 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
+  pageResize = () => {
+    this.onPageRezise();
+  };
+
   onPageRezise = (updateAnimation = true): void => {
     const { questAnimationFrames } = this.props;
     const { frameList } = questAnimationFrames;
@@ -500,13 +519,25 @@ export class AnimationModule extends React.PureComponent<
     //reset zoom after canvas rezise
     this.canvas.setZoom(canvasZoom);
 
-    this.canvas.renderAll();
+    this.renderFabricCanvas(canvasObjects);
     if (updateAnimation) {
       this.resizeTime = Date.now();
       if (!this.resizeTimeout) {
         this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
       }
     }
+  };
+
+  renderFabricCanvas = (objects?: any): void => {
+    const { questAnimation } = this.props;
+    const { negativeFlag } = questAnimation;
+    const canvasObjects = objects || this.canvas.getObjects();
+    const ctx = this.canvas.getContext();
+    const bgColor = negativeFlag ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0)';
+    ctx.filter = negativeFlag ? 'invert(1)' : 'none';
+
+    this.canvas.setBackgroundColor(bgColor);
+    this.canvas.renderCanvas(ctx, canvasObjects);
   };
 
   onPlay = (): void => {
@@ -595,7 +626,10 @@ export class AnimationModule extends React.PureComponent<
     return this.canvas.item(frameIndex - 1);
   };
 
-  onEdit = (): any => {
+  onEdit = (
+    initialLoad?: boolean,
+    buttonType: string = BUTTON_TYPES.EDIT
+  ): void => {
     const {
       activeFrame,
       questAnimation,
@@ -617,16 +651,17 @@ export class AnimationModule extends React.PureComponent<
       return item;
     });
 
-    const newZoom = zoom || magnificationDefault;
-
-    this.canvas.item(0).set({ visible: true, opacity: 1 });
-    this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
-    this.canvas.hoverCursor = 'move';
-    this.canvas.renderAll();
-    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
-      this.getAnimation()
-    );
+    if (!initialLoad) {
+      const newZoom = zoom || magnificationDefault;
+      this.canvas.item(0).set({ visible: true, opacity: 1 });
+      this.canvas.item(frameIndex - 1).set({ visible: true });
+      this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+      this.canvas.hoverCursor = 'move';
+      this.canvas.renderAll();
+      this.setAnimation(activeFrame, buttonType).then(() =>
+        this.getAnimation()
+      );
+    }
   };
 
   onFinish = (): any => {
@@ -648,6 +683,7 @@ export class AnimationModule extends React.PureComponent<
       getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
         ({ payload }: any): void => {
           this.canvas.setZoom(payload.magnificationDefault / 100);
+          this.renderFabricCanvas();
         }
       );
     }
@@ -669,11 +705,11 @@ export class AnimationModule extends React.PureComponent<
   setActiveStep = (step: string): void => {
     switch (step) {
       case ANIMATION_STEPS.edit: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.play: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.finished: {
@@ -681,12 +717,15 @@ export class AnimationModule extends React.PureComponent<
         break;
       }
       default: {
-        this.onEdit();
+        this.onEdit(true);
       }
     }
   };
 
-  setActiveFrame = (frame: IAnimationFrame): void => {
+  setActiveFrame = (
+    frame: IAnimationFrame,
+    callSetAnimation?: boolean
+  ): void => {
     const {
       setActiveFrame,
       activeFrame,
@@ -723,6 +762,9 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.renderAll();
 
     setActiveFrame(frame);
+    if (callSetAnimation) {
+      this.setAnimation(frame, BUTTON_TYPES.FRAME);
+    }
   };
 
   setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
@@ -760,7 +802,42 @@ export class AnimationModule extends React.PureComponent<
       scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
 
-    return setAnimation(data);
+    return setAnimation(data).then(
+      ({ payload: { refreshModule } }: any): void => {
+        if (refreshModule) {
+          this.canvas.clear();
+          this.getAnimation();
+          this.getAnimationFrames();
+        }
+      }
+    );
+  };
+
+  toggleDotsMenu = (): void => {
+    const { isDotsMenuOpen } = this.state;
+
+    this.setState({ isDotsMenuOpen: !isDotsMenuOpen });
+  };
+
+  getDotsMenuItems = (): Array<any> => {
+    const { questAnimation, activeFrame } = this.props;
+    const { dotMenu } = questAnimation;
+    const {
+      showNegative,
+      enableNegative,
+      negativeButton,
+      negativeText,
+    } = dotMenu;
+
+    return [
+      {
+        show: showNegative,
+        disabled: !enableNegative,
+        title: negativeText,
+        action: (): Promise<any> =>
+          this.setAnimation(activeFrame, negativeButton),
+      },
+    ];
   };
 
   render() {
@@ -769,12 +846,14 @@ export class AnimationModule extends React.PureComponent<
       questAnimation,
       questAnimationFrames,
       questAnimationData,
+      readOnly,
     } = this.props;
     const {
       activeAnimationStep,
       activePreviewImage,
       previewFrameList,
       previewSingleStep,
+      isDotsMenuOpen,
     } = this.state;
     const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
     const { zoom } = questAnimationData;
@@ -793,6 +872,10 @@ export class AnimationModule extends React.PureComponent<
       downloadButtonTooltipText,
       showDownloadButtonTooltip,
       enableDownloadButton,
+      outputDownloadURL,
+      showDotMenu,
+      dotMenuTooltipText,
+      enableDotMenu,
     } = questAnimation;
     const {
       frameList,
@@ -820,6 +903,38 @@ export class AnimationModule extends React.PureComponent<
           })}
         >
           <div className="animation-box">
+            {showDotMenu && activeAnimationStep === ANIMATION_STEPS.edit && (
+              <div className="dot-menu-wrapper">
+                <Tooltip
+                  title={dotMenuTooltipText}
+                  theme="light"
+                  distance={10}
+                  position="top"
+                  disabled={isDotsMenuOpen}
+                >
+                  <Button
+                    className={cx('quest-dot-menu-btn', {
+                      open: isDotsMenuOpen,
+                    })}
+                    onClick={this.toggleDotsMenu}
+                    disabled={!enableDotMenu || readOnly}
+                  >
+                    {!isDotsMenuOpen ? (
+                      <Dots />
+                    ) : (
+                      <i className="menu-icon-close icon-close" />
+                    )}
+                  </Button>
+                </Tooltip>
+
+                <QuestDotMenu
+                  show={isDotsMenuOpen}
+                  items={this.getDotsMenuItems()}
+                  toggle={this.toggleDotsMenu}
+                />
+              </div>
+            )}
+
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
                 <h6>{caption}</h6>
@@ -877,6 +992,7 @@ export class AnimationModule extends React.PureComponent<
                 onPlay={this.onPlay}
                 disabledZoom={empty}
                 disabledMove={empty || activeFrame.frameIndex === 1}
+                onFinish={this.onFinish}
               />
             )}
 
@@ -908,6 +1024,7 @@ export class AnimationModule extends React.PureComponent<
               frameList={frameList}
               activeFrame={activeFrame}
               setActiveFrame={this.setActiveFrame}
+              readOnly={readOnly}
             />
           )}
         </div>
@@ -925,7 +1042,9 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="dc-slot-card-find-btn"
-                    onClick={this.onEdit}
+                    onClick={(): void =>
+                      this.onEdit(false, BUTTON_TYPES.EDIT_ANIMATION)
+                    }
                     disabled={!enableEditAnimationButton}
                   >
                     {editAnimationButtonCaption}
@@ -944,7 +1063,14 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="btn-circle"
-                    onClick={() => {}}
+                    onClick={(): void =>
+                      downloadFile(
+                        `${outputDownloadURL}?time=${Date.now()}`,
+                        outputDownloadURL.substring(
+                          outputDownloadURL.lastIndexOf('/') + 1
+                        )
+                      )
+                    }
                     disabled={!enableDownloadButton}
                   >
                     <span className="icon-download" />

@@ -203,6 +203,18 @@ export declare interface IQuestAnimation extends StandardResponse {
   showSlowButtonTooltip: boolean;
   slowButtonTooltipText: string;
   downloadButtonTooltipText: string;
+  outputDownloadURL: string;
+  negativeFlag: boolean;
+  showDotMenu: boolean;
+  enableDotMenu: boolean;
+  showDotMenuTooltip: boolean;
+  dotMenuTooltipText: string;
+  dotMenu: {
+    showNegative: boolean;
+    enableNegative: boolean;
+    negativeButton: string;
+    negativeText: string;
+  };
 }
 
 export declare interface IAnimationFrame {
@@ -231,6 +243,7 @@ export declare interface IAnimationFrame {
   touched: boolean;
   xOffset: number;
   yOffset: number;
+  selected: boolean;
 }
 
 export declare interface IQuestAnimationFrames extends StandardResponse {

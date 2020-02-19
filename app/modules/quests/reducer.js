@@ -432,16 +432,17 @@ function getAnimationSuccess(state, { payload }) {
 }
 
 function getAnimationFramesSuccess(state, { payload }) {
-  const firstFrame = payload.frameList[0] || {};
+  const activeFrame = payload.frameList[payload.selectedFrameIndex - 1] || {};
+
   return {
     ...state,
     isFetching: false,
     questAnimationFrames: {
       ...payload,
     },
-    activeFrame: { ...firstFrame },
+    activeFrame: { ...activeFrame },
     questAnimationData: {
-      zoom: payload.zoom * 100,
+      zoom: Math.round(payload.zoom * 100),
     },
   };
 }
