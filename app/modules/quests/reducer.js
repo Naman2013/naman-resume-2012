@@ -432,7 +432,8 @@ function getAnimationSuccess(state, { payload }) {
 }
 
 function getAnimationFramesSuccess(state, { payload }) {
-  const activeFrame = payload.frameList[payload.selectedFrameIndex - 1] || {};
+  const firstFrame = payload.frameList[payload.selectedFrameIndex - 1];
+  const activeFrame = firstFrame.id ? firstFrame : state.activeFrame;
 
   return {
     ...state,
