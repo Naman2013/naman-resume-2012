@@ -15,7 +15,6 @@ import { IQuestDataCollectionSlot } from 'app/modules/quests/types';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 
 type TImageSlotProps = {
-  imageOrderingModule: any;
   getImageOrderingModule?: () => void;
   showMontageModuleSlotModal?: () => void;
   slot?: IQuestDataCollectionSlot;
@@ -27,7 +26,6 @@ type TImageSlotProps = {
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {
   const {
-    imageOrderingModule,
     getImageOrderingModule,
     slot,
     showMontageModuleSlotModal,
@@ -36,7 +34,6 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     readOnly,
     mmSlotModalVisible,
   } = props;
-  const { correctText } = imageOrderingModule;
   const {
     imageURL,
     enableSlotButton,
@@ -200,7 +197,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                       onClick={(): void =>
                         !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)
                       }
-                      disabled={!enableSlotInfo || readOnly}
+                      disabled={!enableSlotInfo}
                     >
                       {!isInfoMenuOpen ? (
                         <img
@@ -237,7 +234,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                       onClick={(): void =>
                         !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)
                       }
-                      disabled={!enableDotMenu || readOnly}
+                      disabled={!enableDotMenu}
                     >
                       {!isDotsMenuOpen ? (
                         <Dots theme={{ circleColor: astronaut }} />

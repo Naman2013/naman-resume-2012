@@ -72,7 +72,6 @@ export const EditMode: React.FC<TEditModeProps> = props => {
       {slotArray.map((slot: IQuestDataCollectionSlot) => (
         <ImageSlot
           key={slot.slotId}
-          imageOrderingModule={imageOrderingModule}
           getImageOrderingModule={getImageOrderingModule}
           slot={slot}
           showMontageModuleSlotModal={(): void => {
