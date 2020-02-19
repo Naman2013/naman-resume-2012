@@ -172,13 +172,15 @@ export class AnimationModule extends React.PureComponent<
     zoom,
     activityState,
   }: IQuestAnimationFrames): void => {
+    const { activeFrame } = this.props;
+    const { empty } = activeFrame;
     this.loadImageFromUrl(0, frameList);
 
     this.onPageRezise(false);
 
     this.vpt[4] = left ? -left : 0;
     this.vpt[5] = top ? -top : 0;
-    this.canvas.setZoom(zoom);
+    this.canvas.setZoom(empty ? 1 : zoom);
     this.canvas.viewportTransform[4] = left ? -left : 0;
     this.canvas.viewportTransform[5] = top ? -top : 0;
     this.updatePan();
