@@ -16,5 +16,5 @@ export default function fireSloohGAPageview({ pagePath }) {
   //  location,
   //});
 
-  gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath });
+  gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath, page_path: pagePath });
 }
