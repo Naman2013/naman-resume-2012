@@ -12,5 +12,5 @@ export default function fireSloohGAPageview({ pagePath }) {
   }
 
   //fire off a Google Analytics page-view
-  gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath, page_path: pagePath });
+  gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath });
 }
