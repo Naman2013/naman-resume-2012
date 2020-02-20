@@ -12,6 +12,12 @@
     &.visible {
       display: block;
     }
+
+    #animationCanvasContainer {
+      img {
+        display: none;
+      }
+    }
   }
 
   .animation-play {
@@ -227,6 +233,17 @@
 
   .animation-completed {
     margin-top: 50px;
+
+    #animationCanvasContainer {
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .canvas-container {
+        display: none;
+      }
+    }
 
     .animation-box {
       padding-top: 93px;

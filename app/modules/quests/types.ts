@@ -203,6 +203,7 @@ export declare interface IQuestAnimation extends StandardResponse {
   showSlowButtonTooltip: boolean;
   slowButtonTooltipText: string;
   downloadButtonTooltipText: string;
+  outputURL: string;
   outputDownloadURL: string;
   negativeFlag: boolean;
   showDotMenu: boolean;

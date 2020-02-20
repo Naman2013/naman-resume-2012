@@ -872,6 +872,7 @@ export class AnimationModule extends React.PureComponent<
       downloadButtonTooltipText,
       showDownloadButtonTooltip,
       enableDownloadButton,
+      outputURL,
       outputDownloadURL,
       showDotMenu,
       dotMenuTooltipText,
@@ -971,6 +972,7 @@ export class AnimationModule extends React.PureComponent<
               }}
             >
               <canvas id="animation-canvas" />
+              <img src={outputURL} alt="" />
             </div>
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
