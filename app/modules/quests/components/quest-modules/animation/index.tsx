@@ -478,12 +478,15 @@ export class AnimationModule extends React.PureComponent<
 
   resizeEnd = (): void => {
     const { activeFrame } = this.props;
-    if (Date.now() - this.resizeTime < RESIZE_DELTA) {
-      this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
-    } else {
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = undefined;
-      this.setAnimation(activeFrame);
+    const { activeAnimationStep } = this.state;
+    if (activeAnimationStep !== ANIMATION_STEPS.finished) {
+      if (Date.now() - this.resizeTime < RESIZE_DELTA) {
+        this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+      } else {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = undefined;
+        this.setAnimation(activeFrame);
+      }
     }
   };
 
@@ -664,15 +667,17 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  onFinish = (): any => {
+  onFinish = (initialLoad?: boolean): any => {
     const { activeFrame } = this.props;
     this.canvas.hoverCursor = 'auto';
     this.canvas.renderAll();
     this.previewAnimationStop();
     this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
-    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
-      this.getAnimation()
-    );
+    if (!initialLoad) {
+      this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
+        this.getAnimation()
+      );
+    }
   };
 
   getAnimation = (): void => {
@@ -713,7 +718,7 @@ export class AnimationModule extends React.PureComponent<
         break;
       }
       case ANIMATION_STEPS.finished: {
-        this.onFinish();
+        this.onFinish(true);
         break;
       }
       default: {
@@ -972,7 +977,7 @@ export class AnimationModule extends React.PureComponent<
               }}
             >
               <canvas id="animation-canvas" />
-              <img src={outputURL} alt="" />
+              <img src={`${outputURL}?time=${Date.now()}`} alt="" />
             </div>
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (

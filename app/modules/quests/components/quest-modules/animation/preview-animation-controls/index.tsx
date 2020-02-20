@@ -195,7 +195,7 @@ export const PreviewAnimationControls: React.FC<
             >
               <Button
                 className="btn-white animation-view-btn"
-                onClick={onFinish}
+                onClick={(): void => onFinish()}
                 disabled={!enableFinishButton}
               >
                 {finishButtonCaption}
