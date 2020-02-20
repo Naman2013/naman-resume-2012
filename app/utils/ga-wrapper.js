@@ -11,10 +11,6 @@ export default function fireSloohGAPageview({ pagePath }) {
     return;
   }
 
-  //ga('send', {
-  //  hitType: 'pageview',
-  //  location,
-  //});
-
+  //fire off a Google Analytics page-view
   gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath, page_path: pagePath });
 }

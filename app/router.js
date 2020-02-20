@@ -130,14 +130,10 @@ history.listen(location => {
   const { pathname } = location;
   
   //Fire a Google Analytics pageview event as the route / path changed.
-  fireSloohGAPageview({
-    location: pathname,
-  });
+  fireSloohGAPageview({ pagePath: pathname });
 
   {/* 1/30/2020: Added Facebook Tracker */}
-  fireSloohFBEvent({
-    location: pathname,
-  });
+  fireSloohFBEvent({ pagePath: pathname });
 
 });
 
