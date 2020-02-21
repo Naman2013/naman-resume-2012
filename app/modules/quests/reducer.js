@@ -2,6 +2,7 @@ import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
 export const TYPE = constants('quests', [
+  'START_QUEST_FETCHING',
   '~GET_QUESTS',
   '~GET_APPENDIX',
 
@@ -85,6 +86,8 @@ const initialState = {
 
 export default handleActions(
   {
+    [TYPE.START_QUEST_FETCHING]: start,
+
     // ABOUT PAGE
     [TYPE.GET_QUESTS]: start,
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
@@ -172,6 +175,7 @@ export default handleActions(
     [TYPE.GET_ANIMATION_FRAMES]: start,
     [TYPE.GET_ANIMATION_FRAMES_SUCCESS]: getAnimationFramesSuccess,
     [TYPE.GET_ANIMATION_FRAMES_ERROR]: error,
+    [TYPE.SET_ANIMATION_ERROR]: error,
 
     [TYPE.SET_ACTIVE_FRAME]: setActiveFrame,
     [TYPE.SET_ANIMATION_DATA]: setAnimationData,
@@ -197,6 +201,11 @@ export default handleActions(
 );
 
 function start(state = initialState) {
+  console.log('AAAAAAAAAA');
+  console.log('AAAAAAAAAA');
+  console.log('AAAAAAAAAA');
+  console.log('AAAAAAAAAA');
+  console.log('AAAAAAAAAA');
   return {
     ...state,
     isFetching: true,

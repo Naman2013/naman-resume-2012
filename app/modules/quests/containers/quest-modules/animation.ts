@@ -30,6 +30,7 @@ const mapDispatchToProps = {
   setActiveFrame: ACTION.setActiveFrame,
   setAnimation,
   setAnimationData: ACTION.setAnimationData,
+  startQuestFetching: ACTION.startQuestFetching,
 };
 
 export default compose(

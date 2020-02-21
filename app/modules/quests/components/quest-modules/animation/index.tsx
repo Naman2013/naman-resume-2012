@@ -36,6 +36,7 @@ type AnimationModuleProps = {
   setAnimation: Function;
   setAnimationData: Function;
   questAnimationData: IQuestAnimationData;
+  startQuestFetching: Function;
 };
 
 type AnimationModuleState = {
@@ -661,31 +662,37 @@ export class AnimationModule extends React.PureComponent<
       this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
       this.canvas.hoverCursor = 'move';
       this.canvas.renderAll();
-      this.setAnimation(activeFrame, buttonType).then(() =>
-        this.getAnimation()
-      );
+      this.setAnimation(activeFrame, buttonType).then(() => {
+        this.getAnimation().then(() => {
+          this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+        });
+      });
     }
   };
 
   onFinish = (initialLoad?: boolean): any => {
-    const { activeFrame } = this.props;
+    const { activeFrame, startQuestFetching } = this.props;
     this.canvas.hoverCursor = 'auto';
     this.canvas.renderAll();
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
     if (!initialLoad) {
+      startQuestFetching();
       this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
-        this.getAnimation()
+        this.getAnimation().then(() =>
+          this.setState({ activeAnimationStep: ANIMATION_STEPS.finished })
+        )
       );
+    } else {
+      this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
     }
   };
 
-  getAnimation = (): void => {
+  getAnimation = (): Promise<any> => {
     const { module, questId, stepData, getAnimation } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
+      return getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
         ({ payload }: any): void => {
           this.canvas.setZoom(payload.magnificationDefault / 100);
           this.renderFabricCanvas();
