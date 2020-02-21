@@ -85,6 +85,7 @@ class GlobalNavigation extends Component {
     allLivecastsInProgress: {},
     activityFeedMessages: [],
     activityFeedMembers: [],
+    activityFeedMembersExpireDate: null,
     customerUUIDsList: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
@@ -215,15 +216,26 @@ class GlobalNavigation extends Component {
   }
 
   getActivityFeedMembers = () => {
+    const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
 
-    API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, { token, at, cid }).then(
-      ({ data: { membersOnlineList } }) => {
-        this.setState({
-          activityFeedMembers: membersOnlineList,
-        });
-      }
-    );
+    if (
+      activityFeedMembersExpireDate &&
+      activityFeedMembersExpireDate > Date.now() / 1000
+    ) {
+      return;
+    }
+
+    return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
+      token,
+      at,
+      cid,
+    }).then(({ data: { membersOnlineList, expires } }) => {
+      this.setState({
+        activityFeedMembers: membersOnlineList,
+        activityFeedMembersExpireDate: expires,
+      });
+    });
   };
 
   subscribeToPubnubActivityFeedChannel = () => {

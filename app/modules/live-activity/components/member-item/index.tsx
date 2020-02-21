@@ -7,12 +7,19 @@ type TFeedItem = {
 
 export const MemberItem = (props: TFeedItem) => {
   const {
-    member: { displayName, gravityLabel, gravity },
+    member: { displayName, gravityLabel, gravity, linkUrl },
   } = props;
 
   return (
     <div className="active-member-item">
-      <div className="member-name">{displayName}</div>
+      <a
+        href={linkUrl}
+        className="member-name"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {displayName}
+      </a>
 
       <div className="member-info">
         <div className="member-gravity-level">{gravityLabel}</div>

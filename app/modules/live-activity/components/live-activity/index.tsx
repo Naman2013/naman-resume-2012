@@ -34,28 +34,6 @@ const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
 };
 
-const contentClickHandler = (e: any, setOpen: Function): void => {
-  // detect click on Link
-  if (e.target instanceof window.HTMLAnchorElement) {
-    const targetLink = e.target.closest('a');
-    e.preventDefault();
-    browserHistory.push(targetLink.href);
-
-    // if Mobile then close modal
-    const isMobile = isMobileScreen() || isTabletScreen();
-
-    if (isMobile) {
-      setOpen(false);
-    }
-  }
-};
-
-const onKeyPressed = (e: any, setOpen: Function): void => {
-  if (isEnter(e)) {
-    contentClickHandler(e, setOpen);
-  }
-};
-
 const calculateFeedMenuSize = (
   isTablet: boolean,
   setFeedMenuSize: Function
@@ -199,9 +177,33 @@ export const LiveActivity = (props: TLiveActivity) => {
       subscribeToPubnubActivityFeedChannel();
     }
     setOpen(!isOpen);
+    setActiveTab(LIVE_FEEDS_TAB);
 
     setMessageIdToLocalStorage(lastMessageId);
     pubNubFeedChannelSubscribingStatus(true);
+  };
+
+  const contentClickHandler = (e: any): void => {
+    // detect click on Link
+    if (e.target instanceof window.HTMLAnchorElement) {
+      const targetLink = e.target.closest('a');
+      e.preventDefault();
+      browserHistory.push(targetLink.href);
+
+      // if Mobile then close modal
+      const isMobile = isMobileScreen() || isTabletScreen();
+
+      if (isMobile) {
+        setOpen(false);
+        setActiveTab(LIVE_FEEDS_TAB);
+      }
+    }
+  };
+
+  const onKeyPressed = (e: any): void => {
+    if (isEnter(e)) {
+      contentClickHandler(e);
+    }
   };
 
   return (
@@ -290,58 +292,61 @@ export const LiveActivity = (props: TLiveActivity) => {
                     <div className="close-window">
                       <span
                         className="icon-close"
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpen(false);
+                          setActiveTab(LIVE_FEEDS_TAB);
+                        }}
                         role="presentation"
                       />
                     </div>
                   </Tooltip>
                 </div>
               </div>
-              <div className="live-activity-window-body">
-                {activeTab === MEMBERS_TAB &&
-                  activityFeedMembers.map(memberItem => (
+
+              {activeTab === MEMBERS_TAB && (
+                <div className="live-activity-members-list">
+                  {activityFeedMembers.map(memberItem => (
                     <MemberItem
                       key={memberItem.customerId}
                       member={memberItem}
                     />
                   ))}
+                </div>
+              )}
 
-                {activeTab === LIVE_FEEDS_TAB && (
-                  <>
-                    <p
-                      style={{
-                        color: '#007bff',
-                        fontSize: '1.1em',
-                        fontStyle: 'italic',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        cursor: 'pointer',
-                      }}
-                      onClick={scrollActivityFeedToBottom}
-                      onKeyDown={scrollActivityFeedToBottom}
-                      aria-hidden
-                    >
-                      jump to newest
-                    </p>
-                    <br />
-                    <div
-                      id="live-activity-window-body-feed"
-                      className="live-activity-window-body-feed"
-                    >
-                      {activityFeedMessages.map(feedItem => (
-                        <FeedItem
-                          key={feedItem.id}
-                          item={feedItem}
-                          contentClickHandler={e =>
-                            contentClickHandler(e, setOpen)
-                          }
-                          onKeyPressed={e => onKeyPressed(e, setOpen)}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
+              {activeTab === LIVE_FEEDS_TAB && (
+                <div className="live-activity-window-body">
+                  <p
+                    style={{
+                      color: '#007bff',
+                      fontSize: '1.1em',
+                      fontStyle: 'italic',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      cursor: 'pointer',
+                    }}
+                    onClick={scrollActivityFeedToBottom}
+                    onKeyDown={scrollActivityFeedToBottom}
+                    aria-hidden
+                  >
+                    jump to newest
+                  </p>
+                  <br />
+                  <div
+                    id="live-activity-window-body-feed"
+                    className="live-activity-window-body-feed"
+                  >
+                    {activityFeedMessages.map(feedItem => (
+                      <FeedItem
+                        key={feedItem.id}
+                        item={feedItem}
+                        contentClickHandler={contentClickHandler}
+                        onKeyPressed={onKeyPressed}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {isChatEnabled === true && (
                 <div className="live-activity-window-footer">
