@@ -224,16 +224,16 @@ const TopBar = ({
                               <button className="btn foreducators-button">
                                 <div>
                                   <span>Slooh</span>
-                                  <span>Education</span>
+                                  {/*<span>Education</span>*/}
                                 </div>
                               </button>
                             </Link>
-                            <div style={{ marginRight: '10px' }} />
+                            {/*<div style={{ marginRight: '10px' }} />*/}
                             <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
-                                  <span>Start Free</span>
-                                  <span>Trial</span>
+                                  <span>Start Free Trial</span>
+                                  {/* <span>Trial</span> */}
                                 </div>
                               </button>
                             </Link>
@@ -309,7 +309,7 @@ const TopBar = ({
                 }
 
                 .free-trial-button > div {
-                  min-width: 100px;
+                  // min-width: 100px;
                   text-align: center;
                 }
 
@@ -320,7 +320,7 @@ const TopBar = ({
                 .foreducators-button {
                   background: none;
                   border: none;
-                  margin: 0;
+                  margin: 0 10px 0 0;
                   padding: 0;
                   cursor: pointer;
                   transition: background-color 0.25s ease-in-out;
@@ -340,7 +340,7 @@ const TopBar = ({
                 }
 
                 .foreducators-button > div {
-                  min-width: 100px;
+                  // min-width: 100px;
                   text-align: center;
                 }
 
@@ -366,6 +366,8 @@ const TopBar = ({
                 @media ${screenMobile} {
                   .foreducators-button {
                     padding: 5px;
+                    margin-left: 5px;
+                    margin-right: 5px;
                   }
                 }
 

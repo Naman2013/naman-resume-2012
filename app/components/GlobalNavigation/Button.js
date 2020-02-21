@@ -58,7 +58,7 @@ const Button = ({ children, handleClick, isActive, theme, mod }) => (
 
         @media screen and (max-width: ${SCREEN_MEDIUM}px) {
           .action {
-            width: 40px;
+            width: 30px;
           }
         }
 
