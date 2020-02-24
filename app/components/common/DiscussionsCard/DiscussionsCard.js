@@ -39,7 +39,7 @@ class DiscussionsCard extends PureComponent {
       setTimeout(() => this.discussionTile.scrollIntoView(), 1000);
     }
   }
-
+ 
   render() {
     const {
       avatarURL,
@@ -73,7 +73,7 @@ class DiscussionsCard extends PureComponent {
       authorInfo,
       t,
     } = this.props;
-
+   
     return (
       <div
         className="root"
@@ -149,7 +149,9 @@ class DiscussionsCard extends PureComponent {
                   submitForm={submitReply}
                 />
               ) : null}
+               {allowReplies ? (
               <FlagButton flagParams={flagParams} />
+               ) : null }
             </div>
           </div>
         </div>

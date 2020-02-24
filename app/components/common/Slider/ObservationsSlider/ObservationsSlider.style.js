@@ -29,10 +29,14 @@ export default css.global`
 
   .dash-obs .slick-slider .slick-prev {
     margin-left: 23px;
+    transform: none;
+    top: 250px;
   }
 
   .dash-obs .slick-slider .slick-next {
     margin-right: 23px;
+    transform: none;
+    top: 250px;
   }
 
   .dash-item-first
@@ -90,9 +94,9 @@ export default css.global`
       0 0 no-repeat;
   }
 
-  .dash-obs .slick-list {
-    max-height: 547px;
-  }
+  // .dash-obs .slick-list {
+  //   max-height: 547px;
+  // }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     .dash-obs .slick-slider .slick-prev {

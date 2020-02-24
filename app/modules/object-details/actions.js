@@ -81,7 +81,7 @@ export const fetchSharedMemberPhotosAction = requestBody => (
 ) => {
   dispatch(fetchSharedMemberPhotosStart());
 
-  const { objectId, pagingMode, count, page, v4Filter } = requestBody;
+  const { objectId, discussionGroupId, pagingMode, count, page, v4Filter } = requestBody;
   const { token, at, cid } = getState().user;
 
   return fetchSharedMemberPhotosService({
@@ -89,6 +89,7 @@ export const fetchSharedMemberPhotosAction = requestBody => (
     at,
     cid,
     objectId,
+    discussionGroupId,
     pagingMode,
     count,
     page,

@@ -26,6 +26,7 @@ const Button = props => {
     'onClickEvent',
     'icon',
     'theme',
+    'disabled',
   ]);
   return (
     <button

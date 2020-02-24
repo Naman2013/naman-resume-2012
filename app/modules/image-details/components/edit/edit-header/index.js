@@ -20,6 +20,7 @@ export const EditHeader = props => {
     refetchData,
     shareMemberPhotoData,
     imageDownloadURL,
+    canShareObservations,
   } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
@@ -53,7 +54,6 @@ export const EditHeader = props => {
     refetchData();
     setShareOpen(false);
   };
-
   return (
     <Row className="edit-header">
       <Col lg={6} className="header">
@@ -67,7 +67,7 @@ export const EditHeader = props => {
             </Button>
           )}
           {!(canEditFlag && !observationLog) && !!canShareFlag && (
-            <Button onClick={onShare}>Share Observation</Button>
+            <Button disabled={!canShareObservations} onClick={onShare}>Share Observation</Button>
           )}
           <TagBtn
             objectId={customerImageId}

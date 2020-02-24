@@ -1,5 +1,9 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue, shadows, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  hawkesBlue,
+  shadows,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
@@ -14,8 +18,10 @@ const toUpper = `
 
 export default css`
   .mobile-swiper-root {
+    position: relative;
     background-color: #fff;
     box-shadow: 0 0 6px 0 ${shadows};
+    background: url('https://vega.slooh.com/assets/v4/dashboard/white-texture.png');
   }
 
   .top {
@@ -30,11 +36,19 @@ export default css`
     height: 50px;
     display: flex;
     justify-content: space-between;
-    background-image: linear-gradient(
-      to bottom,
-      #edf0f2,
-      rgba(255, 255, 255, 0)
-    );
+    box-shadow: inset 0 7px 9px -7px ${shadows};
+  }
+
+  .buttons .button:not(:last-child) {
+    border-right: 1px solid #dee0e2;
+  }
+
+  .capture-date {
+    ${toUpper}
+    ${centerChildren}
+    font-size: 10px;
+    color: ${hawkesBlue};
+    margin-right: 20px;
   }
 
   .title {
@@ -84,15 +98,21 @@ export default css`
     border-right: 1px solid #dee0e2;
   }
 
-  .details {
+  .buttons :global(.button.details) {
     display: flex;
-    width: 50%;
     justify-content: space-between;
+    width: 100px;
+    margin-left: 10px;
+    align-items: center;
     color: ${lightHeadedAstronaut};
   }
 
   .icon {
     margin-right: 8px;
+  }
+
+  img {
+    cursor: pointer;
   }
 
   :global(.mobile-swiper-root .slick-dots li) {

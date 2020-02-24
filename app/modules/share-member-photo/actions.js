@@ -23,10 +23,10 @@ export const resetShareMemberPhoto = () => ({
   type: SHARE_MEMBER_PHOTO_RESET,
 });
 
-
-export const shareMemberPicture = ({
-  customerImageId,
-}) => (dispatch, getState) => {
+export const shareMemberPicture = ({ customerImageId, discussionGroupId }) => (
+  dispatch,
+  getState
+) => {
   const { token, cid, at } = getState().user;
   dispatch(shareMemberPictureStart());
   return API.post('/api/images/shareMemberPicture', {
@@ -34,7 +34,14 @@ export const shareMemberPicture = ({
     cid,
     token,
     customerImageId,
+    discussionGroupId,
   })
-    .then(result => dispatch(shareMemberPictureSuccess(Object.assign({ customerImageId }, result.data))))
+    .then(result =>
+      dispatch(
+        shareMemberPictureSuccess(
+          Object.assign({ customerImageId }, result.data)
+        )
+      )
+    )
     .catch(error => dispatch(shareMemberPictureFail(error)));
 };

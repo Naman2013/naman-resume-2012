@@ -1,16 +1,16 @@
 /**
-  a simple wrapper against the ga global to add any required
-  defensive code to the application
-*/
+ a simple wrapper against the ga global to add any required
+ defensive code to the application
+ */
 
-export default function fireSloohGAPageview({ location }) {
-  if (typeof gtag === 'undefined') { return; }
+import * as Sentry from '@sentry/browser';
 
-  //ga('send', {
-  //  hitType: 'pageview',
-  //  location,
-  //});
+export default function fireSloohGAPageview({ pagePath }) {
+  if (typeof gtag === 'undefined') {
+    Sentry.captureMessage('gtag() function does not exist');
+    return;
+  }
 
-  gtag('config', window.getGoogleAnalyticsPropertyID(), {'page_location': location });
-
+  //fire off a Google Analytics page-view
+  gtag('config', window.getGoogleAnalyticsPropertyID(), { page_location: pagePath });
 }

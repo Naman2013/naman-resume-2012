@@ -32,6 +32,23 @@ export default css`
     font-family: ${primaryFont};
   }
 
+  button:disabled,
+  button[disabled]{
+    border: 1px dashed #d9dee4;   
+    color: #d9dee4;    
+  }
+  
+  button:disabled,
+  button[disabled] span{
+    color: #d9dee4;
+  }
+
+  button:disabled,
+  button[disabled] img.button-icon{
+    filter: invert(.2);
+  }
+  
+
   .button-container.no-border {
     border: none;
     display: flex;
@@ -76,8 +93,11 @@ export default css`
     background-color: ${astronaut};
   }
 
+
+
   .active .button-icon,
   .active .text {
     color: ${romance};
   }
+
 `;

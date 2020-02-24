@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { LIKE } from 'app/services/like';
 import SliderItem from './BootstrappedSliderItem';
+import { ObservationCard } from 'app/modules/observations/components/observation-card';
 
 const { number } = PropTypes;
 
 class RecommendedObservationsItem extends Component {
-  state = {};
+  state = {
+    observationData: {},
+  };
 
   componentDidMount() {
     const { customerImageId, user } = this.props;
@@ -23,70 +26,38 @@ class RecommendedObservationsItem extends Component {
       callSource: 'sharedpictures',
     }).then(res => {
       this.setState({
-        ...res.data,
+        observationData: { ...res.data },
       });
     });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { currentIndex, user } = this.props;
-  //   const { token, at, cid } = user;
-  //   if (
-  //     currentIndex !== nextProps.currentIndex &&
-  //     nextProps.imageIndex === nextProps.currentIndex
-  //   ) {
-  //     axios
-  //       .post(IMAGE_DETAILS, {
-  //         cid,
-  //         at,
-  //         customerImageId: nextProps.customerImageId,
-  //         token,
-  //         useShareToken: 'n',
-  //         callSource: 'sharedpictures',
-  //       })
-  //       .then(res => {
-  //         this.setState({
-  //           ...res.data,
-  //         });
-  //       });
-  //   }
-  // }
-
   handleLike = () => {
     const { user, customerImageId } = this.props;
+    const { observationData } = this.state;
     const { token, at, cid } = user;
-    API.post(LIKE, {
+
+    return API.post(LIKE, {
       cid,
       at,
       token,
       likeId: customerImageId,
     }).then(res => {
       this.setState({
-        ...res.data,
-      });
-    });
-    return API.post(IMAGE_DETAILS, {
-      cid,
-      at,
-      customerImageId,
-      token,
-      useShareToken: 'n',
-      callSource: 'sharedpictures',
-    }).then(res => {
-      this.setState({
-        ...res.data,
+        observationData: { ...observationData, ...res.data },
       });
     });
   };
 
   render() {
-    const { customerImageId, readOnly } = this.props;
+    const { readOnly, currentIndex, imageIndex } = this.props;
+    const { observationData } = this.state;
     return (
-      <SliderItem
-        {...this.state}
+      <ObservationCard
+        observationData={observationData}
         handleLike={this.handleLike}
-        customerImageId={customerImageId}
         readOnly={readOnly}
+        currentIndex={currentIndex}
+        imageIndex={imageIndex}
       />
     );
   }
