@@ -24,7 +24,6 @@ export class QuestModuleQaFreeForm extends PureComponent {
       questQaFreeForm,
       module,
       getQaFreeForm,
-      getQuestStep,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
@@ -40,7 +39,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
       action,
       answerText,
     }).then(({ payload }) => {
-      const { refreshModule, refreshStep, stepModuleId } = payload;
+      const { refreshModule, refreshStep } = payload;
 
       if (refreshStep) {
         refreshQuestStep();
