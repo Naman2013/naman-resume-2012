@@ -338,16 +338,21 @@ const TopBar = ({
 
                 @media ${screenMobile} {
                   .free-trial-button {
-                    padding: 5px;
+                    padding: 5px !important;
                   }
                 }
 
                 @media ${screenSmallMobile} {
+                  .free-trial-button {
+                    padding: 5px !important;
+                  }
+
                   .free-trial-button > div {
                     display: flex;
                     min-width: auto;
                     flex-direction: column;
                     align-items: center;
+		    padding: 0px;
                   }
                 }
 
