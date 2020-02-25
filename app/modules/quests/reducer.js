@@ -201,11 +201,6 @@ export default handleActions(
 );
 
 function start(state = initialState) {
-  console.log('AAAAAAAAAA');
-  console.log('AAAAAAAAAA');
-  console.log('AAAAAAAAAA');
-  console.log('AAAAAAAAAA');
-  console.log('AAAAAAAAAA');
   return {
     ...state,
     isFetching: true,
@@ -442,7 +437,7 @@ function getAnimationSuccess(state, { payload }) {
 
 function getAnimationFramesSuccess(state, { payload }) {
   const firstFrame = payload.frameList[payload.selectedFrameIndex - 1];
-  const activeFrame = firstFrame.id ? firstFrame : state.activeFrame;
+  const activeFrame = firstFrame.frameId ? firstFrame : state.activeFrame;
 
   return {
     ...state,

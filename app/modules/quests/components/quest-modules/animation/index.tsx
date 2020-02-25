@@ -867,7 +867,14 @@ export class AnimationModule extends React.PureComponent<
       previewSingleStep,
       isDotsMenuOpen,
     } = this.state;
-    const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
+    const {
+      caption,
+      infoArray,
+      xOffset,
+      yOffset,
+      empty,
+      frameExplanation,
+    } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const {
@@ -950,6 +957,7 @@ export class AnimationModule extends React.PureComponent<
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
+                {frameExplanation && <h4>{frameExplanation}</h4>}
                 <h6>{caption}</h6>
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
@@ -984,7 +992,9 @@ export class AnimationModule extends React.PureComponent<
               }}
             >
               <canvas id="animation-canvas" />
-              <img src={`${outputURL}?time=${Date.now()}`} alt="" />
+              {activeAnimationStep === ANIMATION_STEPS.finished && (
+                <img src={`${outputURL}?time=${Date.now()}`} alt="" />
+              )}
             </div>
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
