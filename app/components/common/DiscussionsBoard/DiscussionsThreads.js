@@ -279,7 +279,7 @@ class DiscussionsThreads extends Component {
   handlePageChange = ({ activePage }) => {
     const { jumpToThreadId, discussionGroupId } = this.props;
     if (jumpToThreadId) {
-      browserHistory.push(`/community-groups/${discussionGroupId}`);
+      browserHistory.push(`/community-groups/${discussionGroupId}/discussions`);
     }
     this.getThreads(this.props, activePage, true);
     this.threadsContainer.scrollIntoView();
@@ -313,6 +313,7 @@ class DiscussionsThreads extends Component {
       discussionGroupId,
       jumpToThreadId,
       t,
+      canSubmitReplies,
     } = this.props;
     const {
       fetching,
@@ -321,7 +322,7 @@ class DiscussionsThreads extends Component {
       searchTermResultHeading,
     } = this.state;
     const { threadsCount } = discussions;
-
+   
     return (
       <div className="root">
         <div
@@ -359,18 +360,22 @@ class DiscussionsThreads extends Component {
         </div>
         <div className="popular-discussion">
           <TopThreads
+            
             topicId={topicId}
             isDesktop={isDesktop}
             discussionGroupId={discussionGroupId}
             className="popular-discussion"
           />
         </div>
-        {CREATE_THREAD_FORM[callSource].render({
+        {canSubmitReplies ? (CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,
           createThread: this.createThread,
           isDesktop,
           isClub,
-        })}
+          
+        })) : null}
+
+        
         {fetching && <div>{t('AskAnAstronomer.Loading')}</div>}
         {!fetching && threadsCount === 0 ? (
           <div>{t('AskAnAstronomer.NoThreads')}</div>
@@ -415,7 +420,8 @@ class DiscussionsThreads extends Component {
                   user={user}
                   getThreads={this.getThreads}
                   getReplies={this.getReplies}
-                  jumpToThreadId={jumpToThreadId}
+                  jumpToThreadId={jumpToThreadId}                  
+                  allowReplies={canSubmitReplies}
                 />
               );
             })}

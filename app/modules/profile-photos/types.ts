@@ -25,3 +25,9 @@ export declare interface IMissionPhotoListItem {
   telescopeName: string;
   instrumentName: string;
 }
+
+export declare interface IProfileGroupList {
+  value: string;
+  label: string;
+  disabled: boolean;
+}

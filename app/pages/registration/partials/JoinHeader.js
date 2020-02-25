@@ -109,6 +109,7 @@ class JoinHeader extends Component {
                     activeTabValue={activeTab}
                     onTabClick={this.changeActiveTab}
                     theme={{ position: 'absolute', bottom: 0 }}
+		    isClickable={false}
                   />
                 )}
               </div>
@@ -145,6 +146,7 @@ class JoinHeader extends Component {
               tabs={tabs}
               activeTabValue={activeTab}
               onTabClick={this.changeActiveTab}
+	      isClickable={false}
             />
           )}
         </DisplayAtBreakpoint>

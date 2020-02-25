@@ -22,6 +22,7 @@ type EditAnimationControlsProps = {
   onFinish: () => void;
   disabledZoom: boolean;
   disabledMove: boolean;
+  readOnly: boolean;
 };
 
 export const EditAnimationControls: React.FC<
@@ -46,6 +47,7 @@ export const EditAnimationControls: React.FC<
     disabledZoom,
     disabledMove,
     onFinish,
+    readOnly,
   } = props;
   const {
     magnificationDefault,
@@ -79,7 +81,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveLeftRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -96,7 +98,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveRigthRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -119,7 +121,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveTopRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -136,7 +138,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveDownRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -149,14 +151,14 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white zoom-btn"
             onClick={zoomInCanvas}
-            disabled={disabledZoom}
+            disabled={readOnly || disabledZoom}
           >
             <div className="icon icon-plus" />
           </Button>
           <Button
             className="btn-white zoom-btn"
             onClick={zoomOutCanvas}
-            disabled={disabledZoom}
+            disabled={readOnly || disabledZoom}
           >
             <div className="icon icon-minus" />
           </Button>

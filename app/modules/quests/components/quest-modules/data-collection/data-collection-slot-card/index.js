@@ -25,6 +25,7 @@ export const DataCollectionSlotCard = props => {
     removeDataCollectionSlotImage,
     user,
     refreshDataCollection,
+    readOnly,
   } = props;
 
   const {
@@ -143,7 +144,7 @@ export const DataCollectionSlotCard = props => {
             <Button
               className="dc-slot-card-find-btn"
               onClick={() => showDataCollectionSlotModal(slot)}
-              disabled={!enableSlotButton}
+              disabled={readOnly || !enableSlotButton}
             >
               {slotButtonCaption}
             </Button>

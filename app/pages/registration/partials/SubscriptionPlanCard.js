@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Button from 'app/components/common/style/buttons/Button';
@@ -102,11 +102,16 @@ class SubscriptionPlanCard extends Component {
           <SubscriptionPlanCardSmall {...this.props} />
         </DisplayAtBreakpoint>
         {showDetails ? (
-          <div
-            className="inner-container"
-            id={`subscriptionPlanDetails_${planID}`}
-            dangerouslySetInnerHTML={{ __html: aboutThisPlan }}
-          />
+	  <Fragment>
+	          <div
+        	    className="inner-container"
+	            id={`subscriptionPlanDetails_${planID}`}
+        	    dangerouslySetInnerHTML={{ __html: aboutThisPlan }}
+	          />
+        	  <div style={{float: "right", marginTop: "-65px", marginRight: "50px"}}>
+			<Button text={selectButtonText} onClickEvent={setSelectedPlan} />
+		  </div>
+	  </Fragment>
         ) : null}
         <style jsx>{styles}</style>
       </div>

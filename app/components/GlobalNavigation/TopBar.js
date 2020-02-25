@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { browserHistory, Link } from 'react-router';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
-import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
+import { shadows, seashell, romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+
 import {
   screenMobile,
   screenSmallMobile,
@@ -207,11 +208,20 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
+                            <Link className="button text" to="/about/about-slooh-education">
+                              <button className="btn foreducators-button">
+                                <div>
+                                  <span>Slooh Education</span>
+				                          {/* <span>Education</span> */}
+                                </div>
+                              </button>
+                            </Link>
+			    {/* <div style={{marginRight: "10px"}}/> */}
                             <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
-                                  <span>Start Free</span>
-                                  <span>Trial</span>
+                                  <span>Start Free Trial</span>
+                                  {/* <span>Trial</span> */}
                                 </div>
                               </button>
                             </Link>
@@ -240,9 +250,9 @@ const TopBar = ({
                   width: 100%;
                   background: ${seashell};
                   border-bottom: 2px solid ${shadows};
-                  height: 60px;
+                  height: 60px;                  
                 }
-
+                
                 .center-menu {
                   flex-grow: 1;
                 }
@@ -287,7 +297,7 @@ const TopBar = ({
                 }
 
                 .free-trial-button > div {
-                  min-width: 100px;
+                  // min-width: 100px;
                   text-align: center;
                 }
 
@@ -295,20 +305,74 @@ const TopBar = ({
                   margin-right: 3px;
                 }
 
+		.foreducators-button {
+		    background: none;
+		    border: none;
+		    margin: 0 10px 0 0;
+		    padding: 0;
+		    cursor: pointer;
+		    transition: background-color 0.25s ease-in-out;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    cursor: pointer;
+		    border-radius: 100px;
+		    padding: 10px 20px;
+		    color: ${romance};
+		    background-color: ${astronaut};
+		    text-align: left;
+		    text-transform: uppercase;
+		    font-size: 11px;
+		    font-weight: bold;
+		    font-family: ${primaryFont};
+		}
+
+                .foreducators-button > div {
+                  // min-width: 100px;
+                  text-align: center;
+                }
+
+                .foreducators-button > div > span:first-child {
+                  margin-right: 3px;
+                }
+
                 @media ${screenMobile} {
                   .free-trial-button {
-                    padding: 5px;
+                    padding: 5px !important;
                   }
                 }
 
                 @media ${screenSmallMobile} {
+                  .free-trial-button {
+                    padding: 5px !important;
+                  }
+
                   .free-trial-button > div {
+                    display: flex;
+                    min-width: auto;
+                    flex-direction: column;
+                    align-items: center;
+		    padding: 0px;
+                  }
+                }
+
+                @media ${screenMobile} {
+                  .foreducators-button {
+                    padding: 5px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                  }
+                }
+
+                @media ${screenSmallMobile} {
+                  .foreducators-button > div {
                     display: flex;
                     min-width: auto;
                     flex-direction: column;
                     align-items: center;
                   }
                 }
+
               `}
             </style>
           </div>

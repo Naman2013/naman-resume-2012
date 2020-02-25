@@ -1007,6 +1007,7 @@ export class AnimationModule extends React.PureComponent<
                 disabledZoom={empty}
                 disabledMove={empty || activeFrame.frameIndex === 1}
                 onFinish={this.onFinish}
+                readOnly={readOnly}
               />
             )}
 

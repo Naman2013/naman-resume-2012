@@ -6,7 +6,6 @@ import { MissionConfirmationModal } from 'app/modules/missions/components/missio
 import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
 import './styles.scss';
-import _isEmpty from 'lodash/isEmpty';
 
 type TProfileActivityProps = {
   cancelReservation: (data: any) => Promise<any>;
