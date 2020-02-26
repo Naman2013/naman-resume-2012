@@ -99,8 +99,8 @@ class JoinHeader extends Component {
                           	login
                         	</Link>{' '} to access your account.
                       	    </span>
-                    	</>
-		    </div>
+                	   </div>
+		    	</>
                   )}		
                 </div>
                 {showTabs && (
@@ -137,9 +137,9 @@ class JoinHeader extends Component {
                 	    login
         	          </Link>{' '} to access your account.
                 	</span>
+	    	   </div>
               	</>
             	)}
-	    </div>
           </div>
           {showTabs && (
             <TabbedNav
