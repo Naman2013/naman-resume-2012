@@ -80,27 +80,28 @@ class JoinHeader extends Component {
               <div className="inner-header-container">
                 <div className="inner-header-text">
                   <div className="big">{mainHeading}</div>
-                  <div style={{display: 'inline-block'}} className="little">{subHeading}</div>
-                  {showLogin == true && (
-                    <>
-                      <span style={{display: 'inline-block'}} className="little">
-                        If you are a member or were invited to Slooh by a
-                        teacher, please{' '}
-                        <Link
-                          style={{
-                            cursor: 'pointer',
-                            textDecoration: 'none',
-                            color: '#337ab7',
-                            fontWeight: 'bold',
-                          }}
-                          onClick={this.openLoginPanel}
-                        >
-                          login
-                        </Link>{' '}
-                        to access your account.
-                      </span>
-                    </>
-                  )}
+                  <div style={{display: 'inline-block'}} className="little">{subHeading}
+	                  {showLogin == true && (
+        	            <>
+                	      <span style={{display: 'inline-block'}} className="little">
+                        	If you are a member or were invited to Slooh by a
+	                        teacher, please{' '}
+        	                <Link
+                	          style={{
+                        	    cursor: 'pointer',
+                          	    textDecoration: 'none',
+ 	                           color: '#337ab7',
+        	                    fontWeight: 'bold',
+                	          }}
+                        	  onClick={this.openLoginPanel}
+                       		 >
+                          	login
+                        	</Link>{' '}
+                        	to access your account.
+                      	    </span>
+                    	</>
+                  )}		
+		  </div>
                 </div>
                 {showTabs && (
                   <TabbedNav
@@ -118,26 +119,27 @@ class JoinHeader extends Component {
         <DisplayAtBreakpoint screenSmall>
           <div className="inner-header-text">
             <div className="big">{mainHeading}</div>
-            <div style={{display: 'inline-block'}} className="little">{subHeading}</div>
-            {showLogin == true && (
-              <>
-                <span style={{display: 'inline-block'}} className="little">
-                  If you are a member or were invited to Slooh by a teacher,
-                  please{' '}
-                  <Link
-                    style={{
-                      textDecoration: 'none',
-                      color: '#337ab7',
-                      fontWeight: 'bold',
-                    }}
-                    onClick={this.openLoginPanel}
-                  >
-                    login
-                  </Link>{' '}
-                  to access your account.
-                </span>
-              </>
-            )}
+            <div style={{display: 'inline-block'}} className="little">{subHeading}
+            	{showLogin == true && (
+              	<>
+                	<span style={{display: 'inline-block'}} className="little">
+                  	If you are a member or were invited to Slooh by a teacher,
+                  	please{' '}
+                  	<Link
+                    	style={{
+                      	textDecoration: 'none',
+                      	color: '#337ab7',
+                      	fontWeight: 'bold',
+                    	}}
+                    	onClick={this.openLoginPanel}
+                  	>
+                	    login
+        	          </Link>{' '}
+	                  to access your account.
+                	</span>
+              	</>
+            	)}
+	    </div>
           </div>
           {showTabs && (
             <TabbedNav
