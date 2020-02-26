@@ -79,11 +79,15 @@ class JoinHeader extends Component {
             {showHeading && (
               <div className="inner-header-container">
                 <div className="inner-header-text">
-                  <div className="big">{mainHeading}</div>
-			  {showLogin == false} && <div style={{display: 'inline-block'}} className="little">{subHeading}</div>
+					{showLogin == false && <div>
+					    <div className="big">{mainHeading}</div>
+						<div style={{display: 'inline-block'}} className="little">{subHeading}</div>
+					</div>
+					}
 	                  {showLogin == true && (
         	            <>
-	                    <div style={{marginTop: "-20px;", display: 'inline-block'}} className="little">{subHeading}
+					    <div style={{marginTop: "-20px"}} className="big">{mainHeading}</div>
+	                    <div style={{display: 'inline-block'}} className="little">{subHeading}
                 	      <span style={{paddingLeft: '10px'}} className="little">
                         	If you are a member or were invited to Slooh by a
 	                        teacher, please{' '}
@@ -118,11 +122,15 @@ class JoinHeader extends Component {
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
           <div className="inner-header-text">
-            <div className="big">{mainHeading}</div>
-            	{showLogin == false && <div style={{display: 'inline-block'}} className="little">{subHeading}</div>}
+            	{showLogin == false && <div>
+					<div className="big">{mainHeading}</div>
+					<div style={{display: 'inline-block'}} className="little">{subHeading}</div>
+				</div>
+				}
             	{showLogin == true && (
               	<>
-				<div style={{marginTop: '-20px', display: 'inline-block'}} className="little">{subHeading}
+				<div style={{marginTop: "-20px"}} className="big">{mainHeading}</div>
+				<div style={{display: 'inline-block'}} className="little">{subHeading}
                 	<span style={{paddingLeft: '10px'}} className="little">
                   	If you are a member or were invited to Slooh by a teacher,
                   	please{' '}
@@ -137,7 +145,7 @@ class JoinHeader extends Component {
                 	    login
         	          </Link>{' '} to access your account.
                 	</span>
-	    	   </div>
+				   </div>
               	</>
             	)}
           </div>
