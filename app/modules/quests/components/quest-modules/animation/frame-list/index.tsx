@@ -93,7 +93,9 @@ export const FrameList: React.FC<FrameListProps> = React.memo(props => {
           <div key={frame.frameId}>
             <div
               className={cx('frame-list-item', {
-                active: frameId === frame.frameId,
+                active:
+                  frameId === frame.frameId ||
+                  (readOnly && frame.frameIndex === 1),
               })}
               onClick={(): void => {
                 if (!readOnly) {

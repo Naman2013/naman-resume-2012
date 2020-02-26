@@ -210,6 +210,7 @@ export declare interface IQuestAnimation extends StandardResponse {
   enableDotMenu: boolean;
   showDotMenuTooltip: boolean;
   dotMenuTooltipText: string;
+  activityStatus: string;
   dotMenu: {
     showNegative: boolean;
     enableNegative: boolean;
@@ -237,6 +238,7 @@ export declare interface IAnimationFrame {
     telescopeName: string;
     instrumentName: string;
   };
+  frameHeader: string;
   invalid: boolean;
   negative: boolean;
   objectId: number;

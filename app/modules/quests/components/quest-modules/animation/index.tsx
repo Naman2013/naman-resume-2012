@@ -805,7 +805,6 @@ export class AnimationModule extends React.PureComponent<
       left: -this.vpt[4],
       top: -this.vpt[5],
       button,
-      serializedFramesAll: JSON.stringify(this.canvas),
       scaleX: currentItem.get('scaleX'),
       scaleY: imageScaleY,
       imageWidth: currentItem.get('width'),
@@ -868,12 +867,12 @@ export class AnimationModule extends React.PureComponent<
       isDotsMenuOpen,
     } = this.state;
     const {
-      caption,
       infoArray,
       xOffset,
       yOffset,
       empty,
       frameExplanation,
+      frameHeader,
     } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
@@ -896,10 +895,10 @@ export class AnimationModule extends React.PureComponent<
       showDotMenu,
       dotMenuTooltipText,
       enableDotMenu,
+      activityStatus,
     } = questAnimation;
     const {
       frameList,
-      activityStatus,
       activityTitle,
       activityInstructions,
       activitySequenceText,
@@ -958,7 +957,7 @@ export class AnimationModule extends React.PureComponent<
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
                 {frameExplanation && <h4>{frameExplanation}</h4>}
-                <h6>{caption}</h6>
+                <h6>{frameHeader}</h6>
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
             )}

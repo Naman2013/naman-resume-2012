@@ -76,7 +76,16 @@ const initialState = {
 
   questAnimation: {},
   questAnimationFrames: { frameList: [] },
-  activeFrame: { frameId: 1, caption: 'FRAME 1', infoArray: {} },
+  activeFrame: {
+    frameId: 1,
+    caption: 'FRAME 1',
+    infoArray: {
+      objectName: '',
+      imageDate: '',
+      imageTime: '',
+    },
+    frameHeader: '',
+  },
   questAnimationData: { zoom: null },
 
   richTextInputModules: {},
