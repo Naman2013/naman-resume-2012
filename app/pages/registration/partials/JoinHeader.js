@@ -97,7 +97,7 @@ class JoinHeader extends Component {
                        		 >
                           	login
                         	</Link>{' '}
-                        	to access your account.
+                        	&nbsp;to access your account.
                       	    </span>
                     	</>
                   )}		
@@ -135,7 +135,7 @@ class JoinHeader extends Component {
                   	>
                 	    login
         	          </Link>{' '}
-	                  to access your account.
+	                   &nbsp;to access your account.
                 	</span>
               	</>
             	)}
