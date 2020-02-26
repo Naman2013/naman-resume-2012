@@ -83,7 +83,7 @@ class JoinHeader extends Component {
                   <div style={{display: 'inline-block'}} className="little">{subHeading}
 	                  {showLogin == true && (
         	            <>
-                	      <span style={{display: 'inline-block'}} className="little">
+                	      <span style={{paddingLeft: '10px'}} className="little">
                         	If you are a member or were invited to Slooh by a
 	                        teacher, please{' '}
         	                <Link
@@ -122,7 +122,7 @@ class JoinHeader extends Component {
             <div style={{display: 'inline-block'}} className="little">{subHeading}
             	{showLogin == true && (
               	<>
-                	<span style={{display: 'inline-block'}} className="little">
+                	<span style={{paddingLeft: '10px'}} className="little">
                   	If you are a member or were invited to Slooh by a teacher,
                   	please{' '}
                   	<Link
