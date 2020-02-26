@@ -145,6 +145,12 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
+    if (isOpen) {
+      getActivityFeedMembers()
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleOrientationChangeEvent = (): void => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
       rnd.current.updatePosition({ x: -300, y: 80 });
@@ -272,7 +278,7 @@ export const LiveActivity = (props: TLiveActivity) => {
 
                     <Nav.Item>
                       <Nav.Link eventKey={MEMBERS_TAB}>
-                        Who&apos;s Online
+                        Roll Call
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>

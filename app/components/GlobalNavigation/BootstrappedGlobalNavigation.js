@@ -172,7 +172,6 @@ class GlobalNavigation extends Component {
 
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
           //update the list of Customer UUIDs online
-          this.getActivityFeedMembers();
 
           //update the total count of members online
           this.setState({ totalViewersCount: presenceEvent.occupancy });
