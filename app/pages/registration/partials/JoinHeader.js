@@ -96,8 +96,7 @@ class JoinHeader extends Component {
                         	  onClick={this.openLoginPanel}
                        		 >
                           	login
-                        	</Link>{' '}
-                        	&nbsp;to access your account.
+                        	</Link>{' '} to access your account.
                       	    </span>
                     	</>
                   )}		
@@ -134,8 +133,7 @@ class JoinHeader extends Component {
                     	onClick={this.openLoginPanel}
                   	>
                 	    login
-        	          </Link>{' '}
-	                   &nbsp;to access your account.
+        	          </Link>{' '} to access your account.
                 	</span>
               	</>
             	)}
