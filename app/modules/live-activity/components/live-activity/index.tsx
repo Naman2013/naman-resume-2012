@@ -50,7 +50,8 @@ const submitMessage = (
   pubnubConnection: any,
   pubnubActivityFeedChannelName: string,
   userDisplayName: string,
-  myTextInputField: any
+  myTextInputField: any,
+  setMemberChatState: Function
 ): void => {
   event.preventDefault();
 
@@ -84,6 +85,7 @@ const submitMessage = (
       storeInHistory: true, //override default storage options
     });
     myTextInputField.value = '';
+    setMemberChatState('sentMessage');
     setTimeout(function() {
       let liveActivityWindowBodyFeedObj = document.getElementById(
         'live-activity-window-body-feed'
@@ -96,6 +98,7 @@ const submitMessage = (
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
   activityFeedMembers: Array<any>;
+  setMemberChatState: Function;
   getActivityFeedMembers: Function;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
@@ -115,6 +118,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     activityFeedMessages,
     activityFeedMembers,
     getActivityFeedMembers,
+    setMemberChatState,
     subscribeToPubnubActivityFeedChannel,
   } = props;
 
@@ -187,6 +191,12 @@ export const LiveActivity = (props: TLiveActivity) => {
 
     setMessageIdToLocalStorage(lastMessageId);
     pubNubFeedChannelSubscribingStatus(true);
+
+    if (!isOpen) {
+      setMemberChatState('enter');
+    } else {
+      setMemberChatState('leave');
+    }
   };
 
   const contentClickHandler = (e: any): void => {
@@ -301,6 +311,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         onClick={() => {
                           setOpen(false);
                           setActiveTab(LIVE_FEEDS_TAB);
+                          setMemberChatState('leave');
                         }}
                         role="presentation"
                       />
@@ -365,7 +376,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                         props.pubnubConnection,
                         props.pubnubActivityFeedChannelName,
                         props.userDisplayName,
-                        e.target
+                        e.target,
+                        setMemberChatState,
                       )
                     }
                     onMouseDown={e => e.stopPropagation()}

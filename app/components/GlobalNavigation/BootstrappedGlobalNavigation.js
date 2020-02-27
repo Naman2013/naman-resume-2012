@@ -91,6 +91,7 @@ class GlobalNavigation extends Component {
   };
 
   ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
+  MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
 
   constructor(params) {
     super(params);
@@ -234,6 +235,17 @@ class GlobalNavigation extends Component {
         activityFeedMembers: membersOnlineList,
         activityFeedMembersExpireDate: expires,
       });
+    });
+  };
+
+  setMemberChatState = chatState => {
+    const { token, at, cid } = getUserInfo();
+
+    return API.post(this.MEMBER_CHAT_STATE_API_URL, {
+      token,
+      at,
+      cid,
+      chatState,
     });
   };
 
@@ -420,6 +432,7 @@ class GlobalNavigation extends Component {
             activityFeedMessages={activityFeedMessages}
             activityFeedMembers={activityFeedMembers}
             getActivityFeedMembers={this.getActivityFeedMembers}
+            setMemberChatState={this.setMemberChatState}
             pubnubConnection={this.pubnub}
             pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}

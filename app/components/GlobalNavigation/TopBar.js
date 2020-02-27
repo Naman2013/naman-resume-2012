@@ -50,6 +50,7 @@ const TopBar = ({
   isChatEnabled,
   scrollActivityFeedToBottom,
   subscribeToPubnubActivityFeedChannel,
+  setMemberChatState
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -158,6 +159,7 @@ const TopBar = ({
                         totalViewersCount={totalViewersCount}
                         activityFeedMessages={activityFeedMessages}
                         activityFeedMembers={activityFeedMembers}
+                        setMemberChatState={setMemberChatState}
                         getActivityFeedMembers={getActivityFeedMembers}
                         pubnubConnection={pubnubConnection}
                         pubnubActivityFeedChannelName={
