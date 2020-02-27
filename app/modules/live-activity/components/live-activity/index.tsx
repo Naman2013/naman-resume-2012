@@ -273,7 +273,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 >
                   <Nav variant="tabs">
                     <Nav.Item>
-                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Live Feeds</Nav.Link>
+                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Chat</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>

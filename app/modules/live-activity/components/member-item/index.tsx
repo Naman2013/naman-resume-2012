@@ -23,8 +23,6 @@ export const MemberItem = (props: TFeedItem) => {
 
       <div className="member-info">
         <div className="member-gravity-level">{gravityLabel}</div>
-
-        <div className="member-gravity">{gravity}</div>
       </div>
     </div>
   );
