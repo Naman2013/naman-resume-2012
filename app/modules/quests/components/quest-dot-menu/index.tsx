@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Tooltip } from 'react-tippy';
 import { QuestButtonsPopover } from 'app/modules/quests/components/quest-buttons-popover';
 import { IQuestDotMenuItem } from 'app/modules/quests/types.ts';
 import './styles.scss';
@@ -30,18 +31,26 @@ export const QuestDotMenu: React.FC<QuestDotMenuProps> = React.memo(props => {
                 {items.map(
                   (item: IQuestDotMenuItem) =>
                     item.show && (
-                      <div
-                        key={item.title}
-                        role="presentation"
-                        onClick={(): void => {
-                          if (item.action) {
-                            toggle(false);
-                            item.action();
-                          }
-                        }}
+                      <Tooltip
+                        title={item.tooltipText}
+                        theme="light"
+                        distance={10}
+                        position="top"
+                        disabled={!item.showTooltip}
                       >
-                        {item.title}
-                      </div>
+                        <div
+                          key={item.title}
+                          role="presentation"
+                          onClick={(): void => {
+                            if (item.action) {
+                              toggle(false);
+                              item.action();
+                            }
+                          }}
+                        >
+                          {item.title}
+                        </div>
+                      </Tooltip>
                     )
                 )}
               </div>

@@ -85,6 +85,7 @@ const initialState = {
       imageTime: '',
     },
     frameHeader: '',
+    dotMenuFrame: {},
   },
   questAnimationData: { zoom: null },
 
@@ -446,7 +447,7 @@ function getAnimationSuccess(state, { payload }) {
 
 function getAnimationFramesSuccess(state, { payload }) {
   const firstFrame = payload.frameList[payload.selectedFrameIndex - 1];
-  const activeFrame = firstFrame.frameId ? firstFrame : state.activeFrame;
+  const activeFrame = firstFrame.frameId ? firstFrame : payload.frameList[0];
 
   return {
     ...state,

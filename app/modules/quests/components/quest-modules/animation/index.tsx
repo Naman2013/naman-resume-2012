@@ -47,6 +47,12 @@ type AnimationModuleState = {
   isDotsMenuOpen: boolean;
 };
 
+type SetAnimationParams = {
+  frame: IAnimationFrame;
+  button?: string;
+  action?: string;
+};
+
 const ANIMATION_STEPS: { [key: string]: string } = {
   edit: 'edit',
   play: 'play',
@@ -161,7 +167,7 @@ export class AnimationModule extends React.PureComponent<
         this.canvas.getZoom() > 1 &&
         activeAnimationStep !== ANIMATION_STEPS.finished
       ) {
-        this.setAnimation(activeFrame);
+        this.setAnimation({ frame: activeFrame });
       }
     });
   };
@@ -307,7 +313,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveTop(yOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -351,7 +357,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveDown(yOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -395,7 +401,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveLeft(xOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -439,7 +445,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveRigth(xOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -456,7 +462,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.hoverCursor = 'move';
     this.canvas.setZoom(newZoom).renderAll();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
-    this.setAnimation(activeFrame);
+    this.setAnimation({ frame: activeFrame });
   };
 
   zoomOutCanvas = (): void => {
@@ -474,7 +480,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(newZoom).renderAll();
     this.updatePan();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
-    this.setAnimation(activeFrame);
+    this.setAnimation({ frame: activeFrame });
   };
 
   resizeEnd = (): void => {
@@ -486,7 +492,7 @@ export class AnimationModule extends React.PureComponent<
       } else {
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = undefined;
-        this.setAnimation(activeFrame);
+        this.setAnimation({ frame: activeFrame });
       }
     }
   };
@@ -614,7 +620,7 @@ export class AnimationModule extends React.PureComponent<
     if (!singleStep) {
       this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
       this.setState({ previewSingleStep: false });
-      this.setAnimation(activeFrame, BUTTON_TYPES[type]);
+      this.setAnimation({ frame: activeFrame, button: BUTTON_TYPES[type] });
     } else {
       this.setState({ previewSingleStep: true });
     }
@@ -662,11 +668,15 @@ export class AnimationModule extends React.PureComponent<
       this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
       this.canvas.hoverCursor = 'move';
       this.canvas.renderAll();
-      this.setAnimation(activeFrame, buttonType).then(() => {
-        this.getAnimation().then(() => {
-          this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
-        });
-      });
+      this.setAnimation({ frame: activeFrame, button: buttonType }).then(
+        ({ refreshStep, refreshModule }) => {
+          if (!refreshStep && !refreshModule) {
+            this.getAnimation().then(() => {
+              this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+            });
+          }
+        }
+      );
     }
   };
 
@@ -677,11 +687,18 @@ export class AnimationModule extends React.PureComponent<
     this.previewAnimationStop();
     if (!initialLoad) {
       startQuestFetching();
-      this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
-        this.getAnimation().then(() =>
-          this.setState({ activeAnimationStep: ANIMATION_STEPS.finished })
-        )
-      );
+      this.setAnimation({
+        frame: activeFrame,
+        button: BUTTON_TYPES.FINISH,
+      }).then(({ refreshStep, refreshModule }) => {
+        if (!refreshStep && !refreshModule) {
+          this.getAnimation().then(() =>
+            this.setState({ activeAnimationStep: ANIMATION_STEPS.finished })
+          );
+        } else {
+          this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
+        }
+      });
     } else {
       this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
     }
@@ -775,12 +792,13 @@ export class AnimationModule extends React.PureComponent<
 
     setActiveFrame(frame);
     if (callSetAnimation) {
-      this.setAnimation(frame, BUTTON_TYPES.FRAME);
+      this.setAnimation({ frame, button: BUTTON_TYPES.FRAME });
     }
   };
 
-  setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
-    const { setAnimation, module, questId } = this.props;
+  setAnimation = (setAnimationData: SetAnimationParams): Promise<any> => {
+    const { frame, button, action } = setAnimationData;
+    const { setAnimation, module, questId, refreshQuestStep } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
     const zoom = this.canvas.getZoom();
@@ -794,7 +812,7 @@ export class AnimationModule extends React.PureComponent<
       questId,
       moduleId,
       requestType: 'frame',
-      action: 'submit',
+      action: action || 'submit',
       frameIndex,
       xOffset,
       yOffset,
@@ -813,21 +831,39 @@ export class AnimationModule extends React.PureComponent<
       scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
 
-    return setAnimation(data).then(
-      ({ payload: { refreshModule } }: any): void => {
-        if (refreshModule) {
-          this.canvas.clear();
-          this.getAnimation();
-          this.getAnimationFrames();
-        }
+    return setAnimation(data).then(({ payload }: any): void => {
+      const { refreshModule, refreshStep } = payload;
+
+      if (refreshStep) {
+        refreshQuestStep();
+      } else if (refreshModule) {
+        this.canvas.clear();
+        this.getAnimation();
+        this.getAnimationFrames();
       }
-    );
+      return payload;
+    });
   };
 
   toggleDotsMenu = (): void => {
     const { isDotsMenuOpen } = this.state;
 
     this.setState({ isDotsMenuOpen: !isDotsMenuOpen });
+  };
+
+  resetFrame = (): Promise<any> => {
+    const { activeFrame, setActiveFrame } = this.props;
+
+    const item = this.getActiveCanvasItem();
+    item.set({ left: 0 });
+    this.canvas.renderAll();
+
+    const frame = { ...activeFrame, xOffset: 0, yOffset: 0 };
+    setActiveFrame(frame);
+
+    return this.setAnimation({
+      frame,
+    });
   };
 
   getDotsMenuItems = (): Array<any> => {
@@ -838,7 +874,20 @@ export class AnimationModule extends React.PureComponent<
       enableNegative,
       negativeButton,
       negativeText,
+      showResetAllFrames,
+      enableResetAllFrames,
+      resetAllFramesText,
+      showResetAllFramesTooltip,
+      resetAllFramesTooltipText,
     } = dotMenu;
+    const { dotMenuFrame } = activeFrame;
+    const {
+      showResetFrame,
+      enableResetFrame,
+      resetFrameText,
+      resetFrameTooltipText,
+      showResetFrameTooltip,
+    } = dotMenuFrame;
 
     return [
       {
@@ -846,7 +895,24 @@ export class AnimationModule extends React.PureComponent<
         disabled: !enableNegative,
         title: negativeText,
         action: (): Promise<any> =>
-          this.setAnimation(activeFrame, negativeButton),
+          this.setAnimation({ frame: activeFrame, button: negativeButton }),
+      },
+      {
+        show: showResetAllFrames,
+        disabled: !enableResetAllFrames,
+        title: resetAllFramesText,
+        showTooltip: showResetAllFramesTooltip,
+        tooltipText: resetAllFramesTooltipText,
+        action: (): Promise<any> =>
+          this.setAnimation({ frame: activeFrame, action: 'resetAllFrames' }),
+      },
+      {
+        show: showResetFrame,
+        disabled: !enableResetFrame,
+        title: resetFrameText,
+        showTooltip: showResetFrameTooltip,
+        tooltipText: resetFrameTooltipText,
+        action: (): Promise<any> => this.resetFrame(),
       },
     ];
   };
@@ -902,6 +968,7 @@ export class AnimationModule extends React.PureComponent<
       activityTitle,
       activityInstructions,
       activitySequenceText,
+      showDotMenuFrame,
     } = questAnimationFrames;
 
     return (
@@ -922,42 +989,43 @@ export class AnimationModule extends React.PureComponent<
           })}
         >
           <div className="animation-box">
-            {showDotMenu && activeAnimationStep === ANIMATION_STEPS.edit && (
-              <div className="dot-menu-wrapper">
-                <Tooltip
-                  title={dotMenuTooltipText}
-                  theme="light"
-                  distance={10}
-                  position="top"
-                  disabled={isDotsMenuOpen}
-                >
-                  <Button
-                    className={cx('quest-dot-menu-btn', {
-                      open: isDotsMenuOpen,
-                    })}
-                    onClick={this.toggleDotsMenu}
-                    disabled={!enableDotMenu || readOnly}
+            {(showDotMenu || showDotMenuFrame) &&
+              activeAnimationStep === ANIMATION_STEPS.edit && (
+                <div className="dot-menu-wrapper">
+                  <Tooltip
+                    title={dotMenuTooltipText}
+                    theme="light"
+                    distance={10}
+                    position="top"
+                    disabled={isDotsMenuOpen}
                   >
-                    {!isDotsMenuOpen ? (
-                      <Dots />
-                    ) : (
-                      <i className="menu-icon-close icon-close" />
-                    )}
-                  </Button>
-                </Tooltip>
+                    <Button
+                      className={cx('quest-dot-menu-btn', {
+                        open: isDotsMenuOpen,
+                      })}
+                      onClick={this.toggleDotsMenu}
+                      disabled={!enableDotMenu || readOnly}
+                    >
+                      {!isDotsMenuOpen ? (
+                        <Dots />
+                      ) : (
+                        <i className="menu-icon-close icon-close" />
+                      )}
+                    </Button>
+                  </Tooltip>
 
-                <QuestDotMenu
-                  show={isDotsMenuOpen}
-                  items={this.getDotsMenuItems()}
-                  toggle={this.toggleDotsMenu}
-                />
-              </div>
-            )}
+                  <QuestDotMenu
+                    show={isDotsMenuOpen}
+                    items={this.getDotsMenuItems()}
+                    toggle={this.toggleDotsMenu}
+                  />
+                </div>
+              )}
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
-                {frameExplanation && <h4>{frameExplanation}</h4>}
                 <h6>{frameHeader}</h6>
+                {frameExplanation && <h4>{frameExplanation}</h4>}
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
             )}

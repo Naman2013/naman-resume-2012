@@ -5,6 +5,12 @@
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
 
+  &.read-only {
+    .frame-list-item {
+      cursor: auto;
+    }
+  }
+
   .slick-slider {
     padding: 0;
 
