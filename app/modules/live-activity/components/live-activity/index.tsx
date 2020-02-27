@@ -111,6 +111,7 @@ type TLiveActivity = {
 export const LiveActivity = (props: TLiveActivity) => {
   const LIVE_FEEDS_TAB = 'liveFeeds';
   const MEMBERS_TAB = 'activeMembers';
+  const MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
 
   const {
     scrollActivityFeedToBottom,
@@ -182,6 +183,10 @@ export const LiveActivity = (props: TLiveActivity) => {
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
+  useEffect(() => {
+    if (!isOpen) sendMemberChatStateBeforeUnOnload();
+  }, []);
+
   const toggleActivityFeedMenu = (): void => {
     if (!isSubscribed) {
       subscribeToPubnubActivityFeedChannel();
@@ -197,6 +202,15 @@ export const LiveActivity = (props: TLiveActivity) => {
     } else {
       setMemberChatState('leave');
     }
+  };
+
+  const sendMemberChatStateBeforeUnOnload = () => {
+    const { token, at, cid } = getUserInfo();
+    const sendData = { token, at, cid, chatState: 'leave' };
+
+    window.addEventListener('unload', function() {
+      navigator.sendBeacon(MEMBER_CHAT_STATE_API_URL, JSON.stringify(sendData));
+    });
   };
 
   const contentClickHandler = (e: any): void => {
@@ -287,9 +301,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                     </Nav.Item>
 
                     <Nav.Item>
-                      <Nav.Link eventKey={MEMBERS_TAB}>
-                        Roll Call
-                      </Nav.Link>
+                      <Nav.Link eventKey={MEMBERS_TAB}>Roll Call</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Tab.Container>
@@ -377,7 +389,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         props.pubnubActivityFeedChannelName,
                         props.userDisplayName,
                         e.target,
-                        setMemberChatState,
+                        setMemberChatState
                       )
                     }
                     onMouseDown={e => e.stopPropagation()}
