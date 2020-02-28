@@ -69,6 +69,14 @@
         height: 40px;
         padding: 10px;
       }
+
+      .slot-image-info__text {
+        div {
+          min-height: 36px;
+          line-height: 36px;
+          padding: 7px 0 7px 20px;
+        }
+      }
     }
 
     h6 {
