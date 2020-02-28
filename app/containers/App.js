@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DeviceProvider from 'providers/DeviceProvider';
 import IssueWithUserAccount from 'app/modules/account-settings/containers/issue-with-user-account';
+import { initSessionToken } from 'app/utils/session';
+import { makeUserSelector } from 'app/modules/user/selectors';
 import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
@@ -20,9 +22,12 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ isLanding }) {
+function mapStateToProps(state) {
+  const { isLanding } = state;
+
   return {
     isLanding,
+    user: makeUserSelector()(state),
   };
 }
 
@@ -44,10 +49,30 @@ class App extends Component {
   constructor(props) {
     super(props);
     props.fetchEvents();
+
+    const { user } = props;
+    initSessionToken(user);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      location: { pathname },
+    } = this.props;
+    const {
+      location: { pathname: currentPahname },
+    } = nextProps;
+
+    const routeChanged = pathname !== currentPahname;
+
+    if (routeChanged) {
+      console.log(pathname);
+      console.log(currentPahname);
+    }
   }
 
   render() {
     const { isLanding } = this.props;
+
     return (
       <Suspense fallback={<div>Loading</div>}>
         <div
