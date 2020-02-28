@@ -11,7 +11,6 @@ type TQuestSlotInfoPopupProps = {
 
 export const QuestSlotInfoPopup: React.FC<TQuestSlotInfoPopupProps> = props => {
   const { slotInfo, slotInfoTitle, isInfoMenuOpen } = props;
-
   const {
     showSlotContentsDesc,
     slotContentsDesc,

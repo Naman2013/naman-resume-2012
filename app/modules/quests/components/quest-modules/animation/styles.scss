@@ -37,7 +37,8 @@
       width: 100%;
     }
 
-    .dot-menu-wrapper {
+    .dot-menu-wrapper,
+    .info-menu-wrapper {
       position: absolute;
       top: 15px;
       right: 15px;
@@ -55,6 +56,18 @@
       .quest-buttons-popover {
         width: 200px;
         left: -145px;
+      }
+    }
+
+    .info-menu-wrapper {
+      .quest-buttons-popover {
+        width: 230px;
+      }
+
+      button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
       }
     }
 

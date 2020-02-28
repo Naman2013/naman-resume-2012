@@ -6,6 +6,7 @@ import {
   getAnimation,
   getAnimationFrames,
   setAnimation,
+  setDataCollectionSlotImages,
 } from 'app/modules/quests/thunks';
 import {
   makeQuestAnimationSelector,
@@ -31,6 +32,7 @@ const mapDispatchToProps = {
   setAnimation,
   setAnimationData: ACTION.setAnimationData,
   startQuestFetching: ACTION.startQuestFetching,
+  setDataCollectionSlotImages,
 };
 
 export default compose(

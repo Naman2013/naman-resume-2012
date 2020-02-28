@@ -85,7 +85,10 @@ const initialState = {
       imageTime: '',
     },
     frameHeader: '',
-    dotMenuFrame: {},
+    dotMenuFrame: {
+      viewFrameOpacity: { viewFrameOpacity100: {} },
+      imageDetails: {},
+    },
   },
   questAnimationData: { zoom: null },
 

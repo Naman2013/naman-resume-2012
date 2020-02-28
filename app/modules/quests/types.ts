@@ -216,6 +216,8 @@ export declare interface IQuestAnimation extends StandardResponse {
     enableNegative: boolean;
     negativeButton: string;
     negativeText: string;
+    showNegativeTooltip: boolean;
+    negativeTooltipText: string;
     showResetAllFrames: boolean;
     enableResetAllFrames: boolean;
     resetAllFramesText: string;

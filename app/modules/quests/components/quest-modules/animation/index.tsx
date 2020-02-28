@@ -13,6 +13,7 @@ import {
 import { downloadFile } from 'app/utils/downloadFile';
 import Dots from 'app/atoms/icons/Dots';
 import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
@@ -37,6 +38,7 @@ type AnimationModuleProps = {
   setAnimationData: Function;
   questAnimationData: IQuestAnimationData;
   startQuestFetching: Function;
+  setDataCollectionSlotImages: Function;
 };
 
 type AnimationModuleState = {
@@ -45,6 +47,8 @@ type AnimationModuleState = {
   previewFrameList: Array<IAnimationFrame>;
   previewSingleStep: boolean;
   isDotsMenuOpen: boolean;
+  viewFrameMenuItemStep: string;
+  isInfoMenuOpen: boolean;
 };
 
 type SetAnimationParams = {
@@ -69,6 +73,12 @@ const BUTTON_TYPES: { [key: string]: string } = {
   FAST: 'fast',
   FRAME: 'frame',
   EDIT_ANIMATION: 'editAnimation',
+};
+
+const VIEW_FRAME_STEP: { [key: string]: string } = {
+  viewFrameOpacity50: 'viewFrameOpacity50',
+  viewFrameOpacity100: 'viewFrameOpacity100',
+  viewFrameOpacity0: 'viewFrameOpacity0',
 };
 
 const RESIZE_DELTA = 300;
@@ -105,6 +115,8 @@ export class AnimationModule extends React.PureComponent<
     previewFrameList: [{} as IAnimationFrame],
     previewSingleStep: false,
     isDotsMenuOpen: false,
+    viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    isInfoMenuOpen: false,
   };
 
   componentDidMount(): void {
@@ -652,7 +664,10 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.edit });
+    this.setState({
+      activeAnimationStep: ANIMATION_STEPS.edit,
+      viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    });
 
     const canvasObjects = this.canvas.getObjects();
 
@@ -695,8 +710,6 @@ export class AnimationModule extends React.PureComponent<
           this.getAnimation().then(() =>
             this.setState({ activeAnimationStep: ANIMATION_STEPS.finished })
           );
-        } else {
-          this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
         }
       });
     } else {
@@ -768,7 +781,7 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     if (frameIndex !== 1) {
-      this.canvas.item(frameIndex - 1).set({ visible: false });
+      this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0.5 });
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
@@ -790,6 +803,9 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
     this.canvas.renderAll();
 
+    this.setState({
+      viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    });
     setActiveFrame(frame);
     if (callSetAnimation) {
       this.setAnimation({ frame, button: BUTTON_TYPES.FRAME });
@@ -866,14 +882,79 @@ export class AnimationModule extends React.PureComponent<
     });
   };
 
+  removeFrameImage = (): void => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      refreshQuestStep,
+      activeFrame,
+    } = this.props;
+    const { moduleId } = module;
+    const { customerImageId, dcId, dcModuleId } = activeFrame;
+
+    setDataCollectionSlotImages({
+      moduleId: dcModuleId,
+      questId,
+      customerImageId,
+      slotId: dcId,
+      animationModuleId: moduleId,
+      deleteSlotImage: '1',
+      callSource: 'animation',
+    }).then(({ payload }: any) => {
+      if (payload.refreshStep) {
+        refreshQuestStep();
+      }
+    });
+  };
+
+  toggleViewFrame = () => {
+    const { activeFrame } = this.props;
+    const { viewFrameMenuItemStep } = this.state;
+    const { dotMenuFrame } = activeFrame;
+    const { viewFrameOpacity } = dotMenuFrame;
+    const { opacity } = viewFrameOpacity[viewFrameMenuItemStep];
+
+    const item = this.getActiveCanvasItem();
+    item.set({ opacity: opacity / 100 });
+    this.canvas.renderAll();
+
+    switch (viewFrameMenuItemStep) {
+      case VIEW_FRAME_STEP.viewFrameOpacity100: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity0,
+        });
+        break;
+      }
+      case VIEW_FRAME_STEP.viewFrameOpacity0: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity50,
+        });
+        break;
+      }
+      case VIEW_FRAME_STEP.viewFrameOpacity50: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+        });
+        break;
+      }
+      default: {
+        return;
+      }
+    }
+  };
+
   getDotsMenuItems = (): Array<any> => {
     const { questAnimation, activeFrame } = this.props;
+    const { viewFrameMenuItemStep } = this.state;
     const { dotMenu } = questAnimation;
     const {
       showNegative,
       enableNegative,
       negativeButton,
       negativeText,
+      showNegativeTooltip,
+      negativeTooltipText,
       showResetAllFrames,
       enableResetAllFrames,
       resetAllFramesText,
@@ -887,6 +968,21 @@ export class AnimationModule extends React.PureComponent<
       resetFrameText,
       resetFrameTooltipText,
       showResetFrameTooltip,
+      showRemoveThisImage,
+      enableRemoveThisImage,
+      removeThisImageText,
+      showRemoveThisImageTooltip,
+      removeThisImageTooltipText,
+      showViewFrameOpacity,
+      enableViewFrameOpacity,
+      showViewFrameOpacityTooltip,
+      viewFrameOpacityTooltipText,
+      viewFrameOpacity,
+      showImageDetails,
+      enableImageDetails,
+      showImageDetailsTooltip,
+      imageDetailsText,
+      imageDetailsTooltipText,
     } = dotMenuFrame;
 
     return [
@@ -894,6 +990,8 @@ export class AnimationModule extends React.PureComponent<
         show: showNegative,
         disabled: !enableNegative,
         title: negativeText,
+        showTooltip: showNegativeTooltip,
+        tooltipText: negativeTooltipText,
         action: (): Promise<any> =>
           this.setAnimation({ frame: activeFrame, button: negativeButton }),
       },
@@ -914,6 +1012,30 @@ export class AnimationModule extends React.PureComponent<
         tooltipText: resetFrameTooltipText,
         action: (): Promise<any> => this.resetFrame(),
       },
+      {
+        show: showRemoveThisImage,
+        disabled: !enableRemoveThisImage,
+        title: removeThisImageText,
+        showTooltip: showRemoveThisImageTooltip,
+        tooltipText: removeThisImageTooltipText,
+        action: (): void => this.removeFrameImage(),
+      },
+      {
+        show: showViewFrameOpacity,
+        disabled: !enableViewFrameOpacity,
+        title: viewFrameOpacity[viewFrameMenuItemStep].text,
+        showTooltip: showViewFrameOpacityTooltip,
+        tooltipText: viewFrameOpacityTooltipText,
+        action: (): void => this.toggleViewFrame(),
+      },
+      {
+        show: showImageDetails,
+        disabled: !enableImageDetails,
+        title: imageDetailsText,
+        showTooltip: showImageDetailsTooltip,
+        tooltipText: imageDetailsTooltipText,
+        action: (): void => this.setState({ isInfoMenuOpen: true }),
+      },
     ];
   };
 
@@ -931,6 +1053,7 @@ export class AnimationModule extends React.PureComponent<
       previewFrameList,
       previewSingleStep,
       isDotsMenuOpen,
+      isInfoMenuOpen,
     } = this.state;
     const {
       infoArray,
@@ -939,6 +1062,7 @@ export class AnimationModule extends React.PureComponent<
       empty,
       frameExplanation,
       frameHeader,
+      dotMenuFrame: { imageDetails },
     } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
@@ -991,35 +1115,56 @@ export class AnimationModule extends React.PureComponent<
           <div className="animation-box">
             {(showDotMenu || showDotMenuFrame) &&
               activeAnimationStep === ANIMATION_STEPS.edit && (
-                <div className="dot-menu-wrapper">
-                  <Tooltip
-                    title={dotMenuTooltipText}
-                    theme="light"
-                    distance={10}
-                    position="top"
-                    disabled={isDotsMenuOpen}
-                  >
-                    <Button
-                      className={cx('quest-dot-menu-btn', {
-                        open: isDotsMenuOpen,
-                      })}
-                      onClick={this.toggleDotsMenu}
-                      disabled={!enableDotMenu || readOnly}
+                <>
+                  <div className="dot-menu-wrapper">
+                    <Tooltip
+                      title={dotMenuTooltipText}
+                      theme="light"
+                      distance={10}
+                      position="top"
+                      disabled={isDotsMenuOpen}
                     >
-                      {!isDotsMenuOpen ? (
-                        <Dots />
-                      ) : (
-                        <i className="menu-icon-close icon-close" />
-                      )}
-                    </Button>
-                  </Tooltip>
+                      <Button
+                        className={cx('quest-dot-menu-btn', {
+                          open: isDotsMenuOpen,
+                        })}
+                        onClick={this.toggleDotsMenu}
+                        disabled={!enableDotMenu || readOnly}
+                      >
+                        {!isDotsMenuOpen ? (
+                          <Dots />
+                        ) : (
+                          <i className="menu-icon-close icon-close" />
+                        )}
+                      </Button>
+                    </Tooltip>
 
-                  <QuestDotMenu
-                    show={isDotsMenuOpen}
-                    items={this.getDotsMenuItems()}
-                    toggle={this.toggleDotsMenu}
-                  />
-                </div>
+                    <QuestDotMenu
+                      show={isDotsMenuOpen}
+                      items={this.getDotsMenuItems()}
+                      toggle={this.toggleDotsMenu}
+                    />
+                  </div>
+
+                  {isInfoMenuOpen && (
+                    <div className="info-menu-wrapper">
+                      <Button
+                        className="quest-info-menu-btn open"
+                        onClick={(): void =>
+                          this.setState({ isInfoMenuOpen: false })
+                        }
+                      >
+                        <i className="menu-icon-close icon-close" />
+                      </Button>
+
+                      <QuestSlotInfoPopup
+                        slotInfo={imageDetails}
+                        slotInfoTitle={imageDetails.imageDetailsTitle}
+                        isInfoMenuOpen={isInfoMenuOpen}
+                      />
+                    </div>
+                  )}
+                </>
               )}
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
