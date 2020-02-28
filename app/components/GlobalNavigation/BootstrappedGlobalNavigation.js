@@ -88,6 +88,7 @@ class GlobalNavigation extends Component {
     activityFeedMembers: [],
     customerUUIDsList: [],
     activityWindowHasBeenScrolledToBottom: false,
+    activityFeedMembersExpireDate: null,
   };
 
   ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
@@ -216,7 +217,15 @@ class GlobalNavigation extends Component {
   }
 
   getActivityFeedMembers = () => {
+    const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
+
+    if (
+      activityFeedMembersExpireDate &&
+      activityFeedMembersExpireDate > Date.now() / 1000
+    ) {
+      return;
+    }
 
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
       token,
@@ -229,6 +238,7 @@ class GlobalNavigation extends Component {
 
       this.setState({
         activityFeedMembers: membersOnlineList,
+        activityFeedMembersExpireDate: expires,
       });
     });
   };
