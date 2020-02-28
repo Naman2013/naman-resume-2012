@@ -20,6 +20,10 @@ export const QuestSlotInfoPopup: React.FC<TQuestSlotInfoPopupProps> = props => {
     telescopeName,
     instrumentName,
     showObjectDetails,
+    imageWidth,
+    imageHeight,
+    imageFormat,
+    observatoryName,
   } = slotInfo;
 
   return (
@@ -53,6 +57,26 @@ export const QuestSlotInfoPopup: React.FC<TQuestSlotInfoPopupProps> = props => {
                   <div className="slot-image-info__text__subtitle">
                     {instrumentName}
                   </div>
+                  {imageWidth && (
+                    <div className="slot-image-info__text__telescope">
+                      {imageWidth}
+                    </div>
+                  )}
+                  {imageHeight && (
+                    <div className="slot-image-info__text__telescope">
+                      {imageHeight}
+                    </div>
+                  )}
+                  {imageFormat && (
+                    <div className="slot-image-info__text__telescope">
+                      {imageFormat}
+                    </div>
+                  )}
+                  {observatoryName && (
+                    <div className="slot-image-info__text__telescope">
+                      {observatoryName}
+                    </div>
+                  )}
                 </div>
               </div>
             )}

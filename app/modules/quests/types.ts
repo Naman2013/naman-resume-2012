@@ -584,6 +584,10 @@ export declare interface IQuestDataCollectionSlot {
     showSlotContentsDesc: boolean;
     slotContentsDesc: string;
     telescopeName: string;
+    imageWidth: string;
+    imageHeight: string;
+    imageFormat: string;
+    observatoryName: string;
   };
   slotInfoTitle: string;
   slotInfoTooltipText: string;
@@ -645,6 +649,7 @@ export declare interface IQuestDotMenuItem {
   action?: () => void;
   tooltipText?: string;
   showTooltip?: boolean;
+  notCloseOnClick?: boolean;
 }
 
 export declare interface IDeleteInvitationResponse {

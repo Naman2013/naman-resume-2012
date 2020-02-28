@@ -1026,6 +1026,7 @@ export class AnimationModule extends React.PureComponent<
         title: viewFrameOpacity[viewFrameMenuItemStep].text,
         showTooltip: showViewFrameOpacityTooltip,
         tooltipText: viewFrameOpacityTooltipText,
+        notCloseOnClick: false,
         action: (): void => this.toggleViewFrame(),
       },
       {
