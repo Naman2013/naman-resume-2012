@@ -2,6 +2,7 @@ import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
 export const TYPE = constants('quests', [
+  'START_QUEST_FETCHING',
   '~GET_QUESTS',
   '~GET_APPENDIX',
 
@@ -75,7 +76,20 @@ const initialState = {
 
   questAnimation: {},
   questAnimationFrames: { frameList: [] },
-  activeFrame: { frameId: 1, caption: 'FRAME 1', infoArray: {} },
+  activeFrame: {
+    frameId: 1,
+    caption: 'FRAME 1',
+    infoArray: {
+      objectName: '',
+      imageDate: '',
+      imageTime: '',
+    },
+    frameHeader: '',
+    dotMenuFrame: {
+      viewFrameOpacity: { viewFrameOpacity100: {} },
+      imageDetails: {},
+    },
+  },
   questAnimationData: { zoom: null },
 
   richTextInputModules: {},
@@ -85,6 +99,8 @@ const initialState = {
 
 export default handleActions(
   {
+    [TYPE.START_QUEST_FETCHING]: start,
+
     // ABOUT PAGE
     [TYPE.GET_QUESTS]: start,
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
@@ -172,6 +188,7 @@ export default handleActions(
     [TYPE.GET_ANIMATION_FRAMES]: start,
     [TYPE.GET_ANIMATION_FRAMES_SUCCESS]: getAnimationFramesSuccess,
     [TYPE.GET_ANIMATION_FRAMES_ERROR]: error,
+    [TYPE.SET_ANIMATION_ERROR]: error,
 
     [TYPE.SET_ACTIVE_FRAME]: setActiveFrame,
     [TYPE.SET_ANIMATION_DATA]: setAnimationData,
@@ -433,7 +450,7 @@ function getAnimationSuccess(state, { payload }) {
 
 function getAnimationFramesSuccess(state, { payload }) {
   const firstFrame = payload.frameList[payload.selectedFrameIndex - 1];
-  const activeFrame = firstFrame.id ? firstFrame : state.activeFrame;
+  const activeFrame = firstFrame.frameId ? firstFrame : payload.frameList[0];
 
   return {
     ...state,

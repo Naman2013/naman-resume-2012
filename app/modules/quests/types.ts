@@ -203,17 +203,26 @@ export declare interface IQuestAnimation extends StandardResponse {
   showSlowButtonTooltip: boolean;
   slowButtonTooltipText: string;
   downloadButtonTooltipText: string;
+  outputURL: string;
   outputDownloadURL: string;
   negativeFlag: boolean;
   showDotMenu: boolean;
   enableDotMenu: boolean;
   showDotMenuTooltip: boolean;
   dotMenuTooltipText: string;
+  activityStatus: string;
   dotMenu: {
     showNegative: boolean;
     enableNegative: boolean;
     negativeButton: string;
     negativeText: string;
+    showNegativeTooltip: boolean;
+    negativeTooltipText: string;
+    showResetAllFrames: boolean;
+    enableResetAllFrames: boolean;
+    resetAllFramesText: string;
+    showResetAllFramesTooltip: boolean;
+    resetAllFramesTooltipText: string;
   };
 }
 
@@ -236,6 +245,7 @@ export declare interface IAnimationFrame {
     telescopeName: string;
     instrumentName: string;
   };
+  frameHeader: string;
   invalid: boolean;
   negative: boolean;
   objectId: number;
@@ -271,6 +281,42 @@ export declare interface IQuestAnimationFrames extends StandardResponse {
   top: number;
   zoom: number;
   activityState: string;
+  showDotMenuFrame: boolean;
+  enableDotMenuFrame: boolean;
+  dotMenuFrame: {
+    showResetFrame: boolean;
+    enableResetFrame: boolean;
+    resetFrameText: string;
+    showResetFrameTooltip: boolean;
+    resetFrameTooltipText: string;
+    showRemoveThisImage: boolean;
+    enableRemoveThisImage: boolean;
+    removeThisImageText: string;
+    showRemoveThisImageTooltip: boolean;
+    removeThisImageTooltipText: string;
+    showViewFrameOpacity: boolean;
+    enableViewFrameOpacity: boolean;
+    showViewFrameOpacityTooltip: boolean;
+    viewFrameOpacityTooltipText: string;
+    viewFrameOpacity: any;
+    showImageDetails: boolean;
+    enableImageDetails: boolean;
+    showImageDetailsTooltip: boolean;
+    imageDetailsText: string;
+    imageDetailsTooltipText: string;
+    imageDetails: {
+      imageDetailsTitle: string;
+      objectName: string;
+      imageDate: string;
+      imageTime: string;
+      imageWidth: string;
+      imageHeight: string;
+      imageFormat: string;
+      observatoryName: string;
+      telescopeName: string;
+      instrumentName: string;
+    };
+  };
 }
 
 export interface RichTextInputModuleResponse extends StandardResponse {
@@ -538,6 +584,10 @@ export declare interface IQuestDataCollectionSlot {
     showSlotContentsDesc: boolean;
     slotContentsDesc: string;
     telescopeName: string;
+    imageWidth: string;
+    imageHeight: string;
+    imageFormat: string;
+    observatoryName: string;
   };
   slotInfoTitle: string;
   slotInfoTooltipText: string;
@@ -597,6 +647,9 @@ export declare interface IQuestDotMenuItem {
   disabled: boolean;
   title: any;
   action?: () => void;
+  tooltipText?: string;
+  showTooltip?: boolean;
+  notCloseOnClick?: boolean;
 }
 
 export declare interface IDeleteInvitationResponse {

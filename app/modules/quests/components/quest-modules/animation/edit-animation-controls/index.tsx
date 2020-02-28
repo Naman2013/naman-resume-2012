@@ -198,7 +198,7 @@ export const EditAnimationControls: React.FC<
           >
             <Button
               className="btn-white animation-view-btn finish-btn"
-              onClick={onFinish}
+              onClick={(): void => onFinish()}
               disabled={!enableFinishButton}
             >
               {finishButtonCaption}

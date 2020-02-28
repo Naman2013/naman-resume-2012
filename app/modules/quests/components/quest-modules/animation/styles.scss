@@ -12,6 +12,12 @@
     &.visible {
       display: block;
     }
+
+    #animationCanvasContainer {
+      img {
+        display: none;
+      }
+    }
   }
 
   .animation-play {
@@ -31,7 +37,8 @@
       width: 100%;
     }
 
-    .dot-menu-wrapper {
+    .dot-menu-wrapper,
+    .info-menu-wrapper {
       position: absolute;
       top: 15px;
       right: 15px;
@@ -49,6 +56,26 @@
       .quest-buttons-popover {
         width: 200px;
         left: -145px;
+      }
+    }
+
+    .info-menu-wrapper {
+      .quest-buttons-popover {
+        width: 270px;
+      }
+
+      button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+      }
+
+      .slot-image-info__text {
+        div {
+          min-height: 36px;
+          line-height: 36px;
+          padding: 7px 0 7px 20px;
+        }
       }
     }
 
@@ -227,6 +254,17 @@
 
   .animation-completed {
     margin-top: 50px;
+
+    #animationCanvasContainer {
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .canvas-container {
+        display: none;
+      }
+    }
 
     .animation-box {
       padding-top: 93px;
