@@ -42,7 +42,7 @@ export const QuestDotMenu: React.FC<QuestDotMenuProps> = React.memo(props => {
                           key={item.title}
                           role="presentation"
                           onClick={(): void => {
-                            if (item.notCloseOnClick) {
+                            if (!item.notCloseOnClick) {
                               toggle(false);
                             }
                             if (item.action) {
