@@ -101,6 +101,7 @@ class RelatedObject extends Component {
 
   state = {
     promptText: this.props.followPrompt,
+    iconURL: this.props.followPromptIconUrl,
     modalIsOpen: false,
   };
 
@@ -108,6 +109,7 @@ class RelatedObject extends Component {
     if (this.props.followPrompt !== nextProps.followPrompt) {
       this.setState({
         promptText: nextProps.followPrompt,
+        iconURL: nextProps.followPromptIconUrl,
       });
     }
   }
@@ -121,9 +123,10 @@ class RelatedObject extends Component {
       token,
       objectId,
     }).then(res => {
-      if (!res.data.apiError) {
+      if (!res.data.apiError) {      
         this.setState({
-          promptText: res.data.followPrompt,
+          promptText: res.data.followPrompt,      
+          iconURL: res.data.promptIconUrl,
         });
       }
     });
@@ -160,7 +163,7 @@ class RelatedObject extends Component {
       t,
     } = this.props;
 
-    const { promptText, modalIsOpen } = this.state;
+    const { promptText, modalIsOpen, iconURL } = this.state;
     const hide = relatedObjectsCount === 0;
 
     const { list } = dataBlocks;
@@ -211,7 +214,8 @@ class RelatedObject extends Component {
         </div>
         <div className="action-area">
           {showFollowPromptFlag ? (
-            <Button
+          <Button
+              icon={iconURL}
               onClickEvent={this.onToggleFollow}
               text={promptText}
               className="action-area-button"
