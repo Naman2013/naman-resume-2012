@@ -4,12 +4,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DeviceProvider from 'providers/DeviceProvider';
 import IssueWithUserAccount from 'app/modules/account-settings/containers/issue-with-user-account';
+import { initSessionToken } from 'app/utils/session';
+import { makeUserSelector } from 'app/modules/user/selectors';
 import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
 import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
+
+import { fireSloohPageView } from 'app/utils/slooh-pageview-wrapper';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -20,9 +24,12 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ isLanding }) {
+function mapStateToProps(state) {
+  const { isLanding } = state;
+
   return {
     isLanding,
+    user: makeUserSelector()(state),
   };
 }
 
@@ -44,10 +51,40 @@ class App extends Component {
   constructor(props) {
     super(props);
     props.fetchEvents();
+
+    const { user } = props;
+    initSessionToken(user);
+
+    const {
+      location: { pathname },
+    } = this.props;
+
+    // Slooh page view tracker for application load event
+    fireSloohPageView({ pagePath: pathname });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      location: { pathname },
+    } = this.props;
+    const {
+      location: { pathname: currentPathname },
+    } = nextProps;
+
+    const routeChanged = pathname !== currentPathname;
+
+    if (routeChanged) {
+      //console.log(pathname);
+      //console.log(currentPathname);
+  
+     // Slooh page view tracker when route changes
+     fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });
+    }
   }
 
   render() {
     const { isLanding } = this.props;
+
     return (
       <Suspense fallback={<div>Loading</div>}>
         <div

@@ -26,6 +26,15 @@ export const removeUser = createAction(REMOVE_USER);
 const cookieD = projectCookieDomain || 'localhost';
 const cookieSecure = !!projectCookieDomain;
 
+export function storeSessionToken(token) {
+  window.document.cookie = cookie.serialize('sloohSiteSessionToken', token, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
 export async function storeUserNewAT({ at }) {
   window.document.cookie = cookie.serialize('at', at, {
     domain: cookieD,
