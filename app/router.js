@@ -102,7 +102,6 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import fireSloohGAPageview from 'app/utils/ga-wrapper';
 import fireSloohFBEvent from 'app/utils/fb-wrapper';
-import { fireSloohPageView } from 'app/utils/slooh-pageview-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -139,9 +138,6 @@ history.listen(location => {
 
   // 1/30/2020: Added Facebook Tracker
   fireSloohFBEvent({ pagePath: pathname });
-
-  // Slooh page view tracker
-  fireSloohPageView({ pagePath: pathname });
 });
 
 const getProfileRoutes = ({ publicProfile }) => (

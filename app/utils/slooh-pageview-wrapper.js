@@ -3,23 +3,40 @@ import { getUserInfo } from 'app/modules/User';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
-const logPageVisit = pageURI => {
-  const { cid, at, token } = getUserInfo();
+const logPageVisit = (pagePath) => {
+  const { cid, at, token, sloohSiteSessionToken } = getUserInfo();
 
-  const requestData = {
-    cid,
-    at,
-    token,
-    trackingIdType: 'customer',
-    pageURI,
-  };
+  let finalRequestData = null;
+  
+  if ( (cid) && (at) && (token)) {
+	const requestData = {
+		cid,
+		at,
+		token,
+		trackingIdType: 'customer',
+		pageURI: pagePath.pagePath,
+	    	referringPageURL: pagePath.referringPageURL,
+	  };
+	  finalRequestData = requestData;
+  }
+  else {
+ 	//guest
 
-  API.post(LOG_PAGE_VISIT_API_URL, requestData).then(response => {
-    console.log('logPageVisit');
-    console.log(response);
+	const requestData = {
+		sloohSiteSessionToken,
+		trackingIdType: 'guest',
+		pageURI: pagePath.pagePath,
+	    	referringPageURL: pagePath.referringPageURL,
+	  };
+	  finalRequestData = requestData;
+  }
+
+  API.post(LOG_PAGE_VISIT_API_URL, finalRequestData).then(response => {
+    //console.log('logPageVisit');
+    //console.log(response);
   });
 };
 
 export const fireSloohPageView = (pagePath, referringPageURL) => {
-  // logPageVisit(pagePath);
+  logPageVisit(pagePath, referringPageURL);
 };

@@ -13,6 +13,8 @@ import GlobalNavigation from '../components/GlobalNavigation';
 import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
+import { fireSloohPageView } from 'app/utils/slooh-pageview-wrapper';
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
@@ -52,6 +54,13 @@ class App extends Component {
 
     const { user } = props;
     initSessionToken(user);
+
+    const {
+      location: { pathname },
+    } = this.props;
+
+    // Slooh page view tracker for application load event
+    fireSloohPageView({ pagePath: pathname });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,14 +68,17 @@ class App extends Component {
       location: { pathname },
     } = this.props;
     const {
-      location: { pathname: currentPahname },
+      location: { pathname: currentPathname },
     } = nextProps;
 
-    const routeChanged = pathname !== currentPahname;
+    const routeChanged = pathname !== currentPathname;
 
     if (routeChanged) {
-      console.log(pathname);
-      console.log(currentPahname);
+      //console.log(pathname);
+      //console.log(currentPathname);
+  
+     // Slooh page view tracker when route changes
+     fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });
     }
   }
 
