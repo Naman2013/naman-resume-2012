@@ -150,7 +150,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
-    console.log('aaaa')
+    //console.log('aaaa')
     if (isOpen) {
       getActivityFeedMembers()
     }
@@ -290,7 +290,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                   unmountOnExit
                   mountOnEnter
                   onSelect={(key: string): void => {
-                    console.log(`key`, key)
+                    //console.log(`key`, key)
                     if (key === MEMBERS_TAB) {
                       getActivityFeedMembers();
                     }
