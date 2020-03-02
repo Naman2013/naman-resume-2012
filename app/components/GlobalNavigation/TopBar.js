@@ -223,10 +223,9 @@ const TopBar = ({
                               className="button text"
                               to="/about/about-slooh-education"
                             >
-                              <button className="btn foreducators-button">
+                              <button className="btn btn-submit foreducators-button">
                                 <div>
-                                  <span>Slooh</span>
-                                  {/*<span>Education</span>*/}
+                                  <span>Slooh Education</span>
                                 </div>
                               </button>
                             </Link>
