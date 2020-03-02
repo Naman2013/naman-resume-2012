@@ -321,7 +321,7 @@ const TopBar = ({
                 .foreducators-button {
                   background: none;
                   border: none;
-                  margin: 0 10px 0 0;
+                  margin: 0 10px 0 0 !important;
                   padding: 0;
                   cursor: pointer;
                   transition: background-color 0.25s ease-in-out;
@@ -330,7 +330,7 @@ const TopBar = ({
                   align-items: center;
                   cursor: pointer;
                   border-radius: 100px;
-                  padding: 10px 20px;
+                  padding: 10px 20px !important;
                   color: ${romance};
                   background-color: ${astronaut} !important;
                   text-align: left;
@@ -371,9 +371,9 @@ const TopBar = ({
 
                 @media ${screenMobile} {
                   .foreducators-button {
-                    padding: 5px;
-                    margin-left: 5px;
-                    margin-right: 5px;
+                    padding: 5px !important;
+                    margin-left: 5px !important;
+                    margin-right: 5px !important;
                   }
                 }
 
