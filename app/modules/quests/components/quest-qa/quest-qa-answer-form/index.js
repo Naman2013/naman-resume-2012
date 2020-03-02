@@ -69,7 +69,7 @@ export const QuestQaAnswerForm = props => {
         <textarea
           className="quest-qa-answer-field"
           placeholder={textInputPlaceholder}
-          readOnly={textInputReadOnly}
+          readOnly={readOnly || textInputReadOnly}
           onChange={onChange}
           value={answerText}
           maxLength={textInputMaxChars}
@@ -82,7 +82,7 @@ export const QuestQaAnswerForm = props => {
           onChange={setRichTextHtml}
           editorValue={richTextHtml}
           placeholder=""
-          readOnly={textInputReadOnly}
+          readOnly={readOnly || textInputReadOnly}
           hasInitialValue={Boolean(answerText)}
         />
       )}
@@ -109,7 +109,7 @@ export const QuestQaAnswerForm = props => {
               className="quest-qa-answer-input-field"
               id={`qa-fill-blanks-question-${question.questionId}`}
               placeholder={textInputPlaceholder}
-              readOnly={textInputReadOnly}
+              readOnly={readOnly || textInputReadOnly}
               onChange={e => onChange(e, question.questionIndex)}
               value={answers[question.questionIndex].answerText}
               maxLength={textInputMaxChars}
@@ -130,10 +130,10 @@ export const QuestQaAnswerForm = props => {
             <div
               key={`qa-multiple-choice-answer-${answer.answerId}`}
               className={`qa-multiple-choice-answer${
-                moduleReadOnly ? ' disabled' : ''
+                readOnly || moduleReadOnly ? ' disabled' : ''
               }`}
               onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
-              disabled={moduleReadOnly}
+              disabled={readOnly || moduleReadOnly}
             >
               <div className="qa-multiple-choice-answer-item-container">
                 <div className="qa-multiple-choice-answer-label">

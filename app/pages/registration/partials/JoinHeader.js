@@ -79,29 +79,33 @@ class JoinHeader extends Component {
             {showHeading && (
               <div className="inner-header-container">
                 <div className="inner-header-text">
-                  <div className="big">{mainHeading}</div>
-                  <div className="little">{subHeading}</div>
-                  {showLogin == true && (
-                    <>
-                      <br />
-                      <div className="little">
-                        If you are a member or were invited to Slooh by a
-                        teacher, please{' '}
-                        <Link
-                          style={{
-                            cursor: 'pointer',
-                            textDecoration: 'none',
-                            color: '#337ab7',
-                            fontWeight: 'bold',
-                          }}
-                          onClick={this.openLoginPanel}
-                        >
-                          login
-                        </Link>{' '}
-                        to access your account.
-                      </div>
-                    </>
-                  )}
+					{showLogin == false && <div>
+					    <div className="big">{mainHeading}</div>
+						<div style={{display: 'inline-block'}} className="little">{subHeading}</div>
+					</div>
+					}
+	                  {showLogin == true && (
+        	            <>
+					    <div style={{marginTop: "-20px"}} className="big">{mainHeading}</div>
+	                    <div style={{display: 'inline-block'}} className="little">{subHeading}
+                	      <span style={{paddingLeft: '10px'}} className="little">
+                        	If you are a member or were invited to Slooh by a
+	                        teacher, please{' '}
+        	                <Link
+                	          style={{
+                        	    cursor: 'pointer',
+                          	    textDecoration: 'none',
+ 	                           color: '#337ab7',
+        	                    fontWeight: 'bold',
+                	          }}
+                        	  onClick={this.openLoginPanel}
+                       		 >
+                          	login
+                        	</Link>{' '} to access your account.
+                      	    </span>
+                	   </div>
+		    	</>
+                  )}		
                 </div>
                 {showTabs && (
                   <TabbedNav
@@ -118,28 +122,32 @@ class JoinHeader extends Component {
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
           <div className="inner-header-text">
-            <div className="big">{mainHeading}</div>
-            <div className="little">{subHeading}</div>
-            {showLogin == true && (
-              <>
-                <br />
-                <div className="little">
-                  If you are a member or were invited to Slooh by a teacher,
-                  please{' '}
-                  <Link
-                    style={{
-                      textDecoration: 'none',
-                      color: '#337ab7',
-                      fontWeight: 'bold',
-                    }}
-                    onClick={this.openLoginPanel}
-                  >
-                    login
-                  </Link>{' '}
-                  to access your account.
-                </div>
-              </>
-            )}
+            	{showLogin == false && <div>
+					<div className="big">{mainHeading}</div>
+					<div style={{display: 'inline-block'}} className="little">{subHeading}</div>
+				</div>
+				}
+            	{showLogin == true && (
+              	<>
+				<div style={{marginTop: "-20px"}} className="big">{mainHeading}</div>
+				<div style={{display: 'inline-block'}} className="little">{subHeading}
+                	<span style={{paddingLeft: '10px'}} className="little">
+                  	If you are a member or were invited to Slooh by a teacher,
+                  	please{' '}
+                  	<Link
+                    	style={{
+                      	textDecoration: 'none',
+                      	color: '#337ab7',
+                      	fontWeight: 'bold',
+                    	}}
+                    	onClick={this.openLoginPanel}
+                  	>
+                	    login
+        	          </Link>{' '} to access your account.
+                	</span>
+				   </div>
+              	</>
+            	)}
           </div>
           {showTabs && (
             <TabbedNav

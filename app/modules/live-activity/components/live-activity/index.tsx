@@ -12,7 +12,9 @@ import {
 import cx from 'classnames';
 import { getUserInfo } from 'app/modules/User';
 import { isEnter } from 'app/modules/utils/keyIdentifier';
-import { FeedItem } from '../feed-item/index';
+import { Nav, Tab } from 'react-bootstrap';
+import { FeedItem } from '../feed-item';
+import { MemberItem } from '../member-item';
 
 const enableResizing = {
   top: true,
@@ -28,36 +30,14 @@ const disableResizing = {
   bottom: false,
 };
 
-const setMessageIdToLocalStorage = (id: string) => {
+const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
-};
-
-const contentClickHandler = (e: any, setOpen: Function): void => {
-  // detect click on Link
-  if (e.target instanceof HTMLAnchorElement) {
-    const targetLink = e.target.closest('a');
-    e.preventDefault();
-    browserHistory.push(targetLink.href);
-
-    // if Mobile then close modal
-    const isMobile = isMobileScreen() || isTabletScreen();
-
-    if (isMobile) {
-      setOpen(false);
-    }
-  }
-};
-
-const onKeyPressed = (e: any, setOpen: Function) => {
-  if (isEnter(e)) {
-    contentClickHandler(e, setOpen);
-  }
 };
 
 const calculateFeedMenuSize = (
   isTablet: boolean,
-  setFeedMenuSize: Function,
-) => {
+  setFeedMenuSize: Function
+): void => {
   const width = isTablet ? window.screen.availWidth : 500;
   const height = isTablet ? window.screen.availHeight - 53 : 450;
   const left = -340;
@@ -70,8 +50,9 @@ const submitMessage = (
   pubnubConnection: any,
   pubnubActivityFeedChannelName: string,
   userDisplayName: string,
-  myTextInputField: any
-) => {
+  myTextInputField: any,
+  setMemberChatState: Function
+): void => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
@@ -104,6 +85,7 @@ const submitMessage = (
       storeInHistory: true, //override default storage options
     });
     myTextInputField.value = '';
+    setMemberChatState('sentMessage');
     setTimeout(function() {
       let liveActivityWindowBodyFeedObj = document.getElementById(
         'live-activity-window-body-feed'
@@ -113,20 +95,11 @@ const submitMessage = (
   }
 };
 
-const toggleActivityFeedMenu = (
-  setOpen: Function,
-  isOpen: boolean,
-  subscribeToPubnubActivityFeedChannel: Function,
-  isSubscribed: boolean
-) => {
-  if (!isSubscribed) {
-    subscribeToPubnubActivityFeedChannel();
-  }
-  setOpen(!isOpen);
-};
-
 type TLiveActivity = {
   activityFeedMessages: Array<any>;
+  activityFeedMembers: Array<any>;
+  setMemberChatState: Function;
+  getActivityFeedMembers: Function;
   pubnubConnection: Record<string, any>;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
@@ -136,47 +109,68 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
-  const rnd = useRef(null);
+  const LIVE_FEEDS_TAB = 'liveFeeds';
+  const MEMBERS_TAB = 'activeMembers';
+  const MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
+
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
     activityFeedMessages,
+    activityFeedMembers,
+    getActivityFeedMembers,
+    setMemberChatState,
     subscribeToPubnubActivityFeedChannel,
   } = props;
+
+  const rnd = useRef(null);
+
+  const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
+
   const [isOpen, setOpen] = React.useState(false);
+
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
+
+  const [isFullscreen, setFullscreen] = useState(false);
+
   const [boxSize, setFeedMenuSize] = useState({
     width: 500,
     height: 450,
     left: -340,
     top: 55,
   });
+
   const isTablet = isTabletDevice();
-  const [isFullscreen, setFullscreen] = useState(false);
+
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1] || {};
 
-  const lastMessageId = activityFeedMessage.id
-    ? activityFeedMessage.id
-    : 'null';
+  const lastMessageId = activityFeedMessage.id ? activityFeedMessage.id : null;
   const lastMessageFromCurrentUser = activityFeedMessage.currentUser;
 
   useEffect(() => {
-    const handleOrientationChangeEvent = () => {
+    console.log('aaaa')
+    if (isOpen) {
+      getActivityFeedMembers()
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleOrientationChangeEvent = (): void => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
       rnd.current.updatePosition({ x: -300, y: 80 });
     };
 
     window.addEventListener('orientationchange', handleOrientationChangeEvent);
-    return () => {
+    return (): void => {
       handleOrientationChangeEvent();
       window.removeEventListener(
         'orientationchange',
         handleOrientationChangeEvent
       );
     };
-  }, []);
+  }, [isTablet]);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -190,46 +184,80 @@ export const LiveActivity = (props: TLiveActivity) => {
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
+  useEffect(() => {
+    if (!isOpen) sendMemberChatStateBeforeUnOnload();
+  }, []);
+
+  const toggleActivityFeedMenu = (): void => {
+    if (!isSubscribed) {
+      subscribeToPubnubActivityFeedChannel();
+    }
+    setOpen(!isOpen);
+    setActiveTab(LIVE_FEEDS_TAB);
+
+    setMessageIdToLocalStorage(lastMessageId);
+    pubNubFeedChannelSubscribingStatus(true);
+
+    if (!isOpen) {
+      setMemberChatState('enter');
+    } else {
+      setMemberChatState('leave');
+    }
+  };
+
+  const sendMemberChatStateBeforeUnOnload = () => {
+    const { token, at, cid } = getUserInfo();
+    const sendData = { token, at, cid, chatState: 'leave' };
+
+    window.addEventListener('unload', function() {
+      navigator.sendBeacon(MEMBER_CHAT_STATE_API_URL, JSON.stringify(sendData));
+    });
+  };
+
+  const contentClickHandler = (e: any): void => {
+    // detect click on Link
+    if (e.target instanceof window.HTMLAnchorElement) {
+      const targetLink = e.target.closest('a');
+      e.preventDefault();
+      browserHistory.push(targetLink.href);
+
+      // if Mobile then close modal
+      const isMobile = isMobileScreen() || isTabletScreen();
+
+      if (isMobile) {
+        setOpen(false);
+        setActiveTab(LIVE_FEEDS_TAB);
+      }
+    }
+  };
+
+  const onKeyPressed = (e: any): void => {
+    if (isEnter(e)) {
+      contentClickHandler(e);
+    }
+  };
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
     >
       {/* BTN */}
-      <span
+      <div
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
-        onClick={() => {
-          toggleActivityFeedMenu(
-            setOpen,
-            isOpen,
-            subscribeToPubnubActivityFeedChannel,
-            isSubscribed
-          );
-          setMessageIdToLocalStorage(lastMessageId);
-          pubNubFeedChannelSubscribingStatus(true);
-        }}
-      />
-      <span
-        role="presentation"
-        className={
-          (lastMessageId !== lastStorageMessageId &&
-            !lastMessageFromCurrentUser &&
-            !isOpen) ||
-          !isSubscribed
-            ? 'message-identifier'
-            : ''
-        }
-        onClick={() => {
-          toggleActivityFeedMenu(
-            setOpen,
-            isOpen,
-            subscribeToPubnubActivityFeedChannel,
-            isSubscribed
-          );
-          setMessageIdToLocalStorage(lastMessageId);
-          pubNubFeedChannelSubscribingStatus(true);
-        }}
-      />
+        onClick={toggleActivityFeedMenu}
+      >
+        <span
+          className={cx('message-identifier', {
+            'has-new-messages':
+              lastMessageId &&
+              lastMessageId !== lastStorageMessageId &&
+              !lastMessageFromCurrentUser &&
+              !isOpen,
+          })}
+        />
+      </div>
+
       {/* WINDOW */}
       {isOpen && (
         <div
@@ -256,7 +284,30 @@ export const LiveActivity = (props: TLiveActivity) => {
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                <span className="h4-custom ">Live Feeds</span>
+                <Tab.Container
+                  defaultActiveKey="liveFeeds"
+                  id="tabs"
+                  unmountOnExit
+                  mountOnEnter
+                  onSelect={(key: string): void => {
+                    console.log(`key`, key)
+                    if (key === MEMBERS_TAB) {
+                      getActivityFeedMembers();
+                    }
+                    setActiveTab(key);
+                  }}
+                >
+                  <Nav variant="tabs">
+                    <Nav.Item>
+                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Chat</Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                      <Nav.Link eventKey={MEMBERS_TAB}>Roll Call</Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Tab.Container>
+
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
                     <Tooltip title="Fullscreen">
@@ -271,43 +322,62 @@ export const LiveActivity = (props: TLiveActivity) => {
                     <div className="close-window">
                       <span
                         className="icon-close"
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpen(false);
+                          setActiveTab(LIVE_FEEDS_TAB);
+                          setMemberChatState('leave');
+                        }}
                         role="presentation"
                       />
                     </div>
                   </Tooltip>
                 </div>
               </div>
-              <div className="live-activity-window-body">
-                <p
-                  style={{
-                    color: '#007bff',
-                    fontSize: '1.1em',
-                    fontStyle: 'italic',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    cursor: 'pointer',
-                  }}
-                  onClick={scrollActivityFeedToBottom}
-                  onKeyDown={scrollActivityFeedToBottom}
-                  aria-hidden
-                >
-                  jump to newest
-                </p>
-                <br />
-                <div
-                  id="live-activity-window-body-feed"
-                  className="live-activity-window-body-feed"
-                >
-                  {activityFeedMessages.map(feedItem => (
-                    <FeedItem
-                      item={feedItem}
-                      contentClickHandler={e => contentClickHandler(e, setOpen)}
-                      onKeyPressed={e => onKeyPressed(e, setOpen)}
+
+              {activeTab === MEMBERS_TAB && (
+                <div className="live-activity-members-list">
+                  {activityFeedMembers.map(memberItem => (
+                    <MemberItem
+                      key={memberItem.customerId}
+                      member={memberItem}
                     />
                   ))}
                 </div>
-              </div>
+              )}
+
+              {activeTab === LIVE_FEEDS_TAB && (
+                <div className="live-activity-window-body">
+                  <p
+                    style={{
+                      color: '#007bff',
+                      fontSize: '1.1em',
+                      fontStyle: 'italic',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      cursor: 'pointer',
+                    }}
+                    onClick={scrollActivityFeedToBottom}
+                    onKeyDown={scrollActivityFeedToBottom}
+                    aria-hidden
+                  >
+                    jump to newest
+                  </p>
+                  <br />
+                  <div
+                    id="live-activity-window-body-feed"
+                    className="live-activity-window-body-feed"
+                  >
+                    {activityFeedMessages.map(feedItem => (
+                      <FeedItem
+                        key={feedItem.id}
+                        item={feedItem}
+                        contentClickHandler={contentClickHandler}
+                        onKeyPressed={onKeyPressed}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {isChatEnabled === true && (
                 <div className="live-activity-window-footer">
@@ -320,7 +390,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                         props.pubnubConnection,
                         props.pubnubActivityFeedChannelName,
                         props.userDisplayName,
-                        e.target
+                        e.target,
+                        setMemberChatState
                       )
                     }
                     onMouseDown={e => e.stopPropagation()}

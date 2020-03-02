@@ -17,9 +17,11 @@ import debounce from 'lodash/debounce';
 //integrate with Pubnub
 import PubNubReact from 'pubnub-react';
 import { getUserInfo } from 'app/modules/User';
+import { API } from 'app/api';
 import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import Menu from './Menu';
 import TopBar from './TopBar';
+import { setupLiveActivityTimer } from 'app/services/live-activity/timer';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -84,8 +86,13 @@ class GlobalNavigation extends Component {
     allLivecastsInProgress: {},
     activityFeedMessages: [],
     activityFeedMembers: [],
+    customerUUIDsList: [],
     activityWindowHasBeenScrolledToBottom: false,
+    activityFeedMembersExpireDate: null,
   };
+
+  ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
+  MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
 
   constructor(params) {
     super(params);
@@ -166,10 +173,9 @@ class GlobalNavigation extends Component {
         // handle presence (users that have joined or left the channel)
 
         if (presenceEvent.channel === pubnubActivityFeedChannelName) {
-	  //update the list of Customer UUIDs online
-          this.setState({ activityFeedMembers: ['abc-def-xyz', 'abc-xyz-def-asdew', 'cbfd-9475-hyfd-as'] });
-	
-	  //update the total count of members online
+          //update the list of Customer UUIDs online
+
+          //update the total count of members online
           this.setState({ totalViewersCount: presenceEvent.occupancy });
         }
       },
@@ -209,6 +215,44 @@ class GlobalNavigation extends Component {
       ],
     });
   }
+
+  getActivityFeedMembers = () => {
+    const { activityFeedMembersExpireDate } = this.state;
+    const { token, at, cid } = getUserInfo();
+
+    if (
+      activityFeedMembersExpireDate &&
+      activityFeedMembersExpireDate > Date.now() / 1000
+    ) {
+      return;
+    }
+
+    return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
+      token,
+      at,
+      cid,
+    }).then(({ data: { membersOnlineList, expires } }) => {
+      setupLiveActivityTimer(expires * 1000 - Date.now(), () => {
+        this.getActivityFeedMembers();
+      });
+
+      this.setState({
+        activityFeedMembers: membersOnlineList,
+        activityFeedMembersExpireDate: expires,
+      });
+    });
+  };
+
+  setMemberChatState = chatState => {
+    const { token, at, cid } = getUserInfo();
+
+    return API.post(this.MEMBER_CHAT_STATE_API_URL, {
+      token,
+      at,
+      cid,
+      chatState,
+    });
+  };
 
   subscribeToPubnubActivityFeedChannel = () => {
     const {
@@ -358,6 +402,7 @@ class GlobalNavigation extends Component {
       totalViewersCount,
       allLivecastsInProgress,
       activityFeedMessages,
+      activityFeedMembers,
     } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
@@ -390,6 +435,9 @@ class GlobalNavigation extends Component {
             totalViewersCount={totalViewersCount}
             allLivecastsInProgress={allLivecastsInProgress}
             activityFeedMessages={activityFeedMessages}
+            activityFeedMembers={activityFeedMembers}
+            getActivityFeedMembers={this.getActivityFeedMembers}
+            setMemberChatState={this.setMemberChatState}
             pubnubConnection={this.pubnub}
             pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}

@@ -19,8 +19,10 @@ type EditAnimationControlsProps = {
   zoomInCanvas: () => void;
   zoomOutCanvas: () => void;
   onPlay: () => void;
+  onFinish: () => void;
   disabledZoom: boolean;
   disabledMove: boolean;
+  readOnly: boolean;
 };
 
 export const EditAnimationControls: React.FC<
@@ -44,6 +46,8 @@ export const EditAnimationControls: React.FC<
     zoomOutCanvas,
     disabledZoom,
     disabledMove,
+    onFinish,
+    readOnly,
   } = props;
   const {
     magnificationDefault,
@@ -53,6 +57,11 @@ export const EditAnimationControls: React.FC<
     showPlayButton,
     showPlayButtonTooltip,
     playButtonTooltipText,
+    showFinishButton,
+    finishButtonTooltipText,
+    showFinishButtonTooltip,
+    enableFinishButton,
+    finishButtonCaption,
   } = questAnimation;
 
   return (
@@ -72,7 +81,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveLeftRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -89,7 +98,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveRigthRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -112,7 +121,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveTopRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-left" />
           </Button>
@@ -129,7 +138,7 @@ export const EditAnimationControls: React.FC<
             onMouseLeave={(): void => {
               moveDownRelease(true);
             }}
-            disabled={disabledMove}
+            disabled={readOnly || disabledMove}
           >
             <div className="icon icon-slider-right" />
           </Button>
@@ -142,14 +151,14 @@ export const EditAnimationControls: React.FC<
           <Button
             className="btn-white zoom-btn"
             onClick={zoomInCanvas}
-            disabled={disabledZoom}
+            disabled={readOnly || disabledZoom}
           >
             <div className="icon icon-plus" />
           </Button>
           <Button
             className="btn-white zoom-btn"
             onClick={zoomOutCanvas}
-            disabled={disabledZoom}
+            disabled={readOnly || disabledZoom}
           >
             <div className="icon icon-minus" />
           </Button>
@@ -160,7 +169,7 @@ export const EditAnimationControls: React.FC<
         </p>
       </div>
 
-      <div className="controls-block">
+      <div className="controls-block change-mode">
         {showPlayButton && (
           <Tooltip
             theme="dark"
@@ -175,6 +184,24 @@ export const EditAnimationControls: React.FC<
               disabled={!enablePlayButton}
             >
               {playButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
+
+        {showFinishButton && (
+          <Tooltip
+            theme="dark"
+            title={finishButtonTooltipText}
+            distance={10}
+            position="top"
+            disabled={!showFinishButtonTooltip}
+          >
+            <Button
+              className="btn-white animation-view-btn finish-btn"
+              onClick={(): void => onFinish()}
+              disabled={!enableFinishButton}
+            >
+              {finishButtonCaption}
             </Button>
           </Tooltip>
         )}

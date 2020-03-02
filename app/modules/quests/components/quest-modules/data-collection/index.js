@@ -53,15 +53,12 @@ export class QuestModuleDataCollection extends PureComponent {
       module,
       questId,
       setDataCollectionSlotImages,
-      getDataCollection,
-      getQuestStep,
-      stepData,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
     const { customerImageId } = image;
-    const { stepModuleId } = stepData;
     const { selectedSlot } = this.state;
+
     setDataCollectionSlotImages({
       moduleId,
       questId,

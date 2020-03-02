@@ -127,14 +127,17 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 // handle to the listen callback on changes to the history
 history.listen(location => {
+  console.log(location);
+  // console.log(document.referrer);
+  // console.log(window.location);
+  // console.log(window.history);
   const { pathname } = location;
-  
-  //Fire a Google Analytics pageview event as the route / path changed.
+
+  // Fire a Google Analytics pageview event as the route / path changed.
   fireSloohGAPageview({ pagePath: pathname });
 
-  {/* 1/30/2020: Added Facebook Tracker */}
+  // 1/30/2020: Added Facebook Tracker
   fireSloohFBEvent({ pagePath: pathname });
-
 });
 
 const getProfileRoutes = ({ publicProfile }) => (

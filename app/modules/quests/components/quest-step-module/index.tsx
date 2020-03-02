@@ -82,6 +82,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             key={`quest-qa-multiplechoice-${module.moduleId}`}
             questId={routeParams.questId}
             refreshQuestStep={refreshQuestStep}
+            readOnly={readOnly}
           />
         );
 
@@ -101,6 +102,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             questId={routeParams.questId}
             key={module.moduleId}
             readOnly={readOnly}
+            refreshQuestStep={refreshQuestStep}
           />
         );
 

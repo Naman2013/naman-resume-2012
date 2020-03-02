@@ -30,12 +30,6 @@ const TabConditions = props => {
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
     <div>
-      {currentTelescope.teleHasNeoView && (
-        <div className="tile-container">
-          <ObsBotWidget {...props} ViewGroup="conditions" />
-        </div>
-      )}
-
       <div className="tile-container">
         <SkyConditions widgetID={SeeingConditionsWidgetId} obsId={obsId} />
       </div>
