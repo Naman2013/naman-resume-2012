@@ -127,7 +127,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 // handle to the listen callback on changes to the history
 history.listen(location => {
-  console.log(location);
+  //console.log(location);
   // console.log(document.referrer);
   // console.log(window.location);
   // console.log(window.history);
