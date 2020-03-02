@@ -2,6 +2,8 @@
 @import '~app/styles/variables/index';
 
 .animation-module {
+  margin-bottom: 60px;
+
   .animation-edit,
   .animation-play,
   .animation-completed {
@@ -10,9 +12,20 @@
     &.visible {
       display: block;
     }
+
+    #animationCanvasContainer {
+      img {
+        display: none;
+      }
+    }
+  }
+
+  .animation-play {
+    margin-bottom: 30px;
   }
 
   .animation-box {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +35,48 @@
 
     > div {
       width: 100%;
+    }
+
+    .dot-menu-wrapper,
+    .info-menu-wrapper {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: auto;
+
+      button {
+        border-color: $romance;
+
+        &.open {
+          color: $lightHeadedAstronaut;
+          background-color: $romance;
+        }
+      }
+
+      .quest-buttons-popover {
+        width: 200px;
+        left: -145px;
+      }
+    }
+
+    .info-menu-wrapper {
+      .quest-buttons-popover {
+        width: 270px;
+      }
+
+      button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+      }
+
+      .slot-image-info__text {
+        div {
+          min-height: 36px;
+          line-height: 36px;
+          padding: 7px 0 7px 20px;
+        }
+      }
     }
 
     h6 {
@@ -84,6 +139,24 @@
       flex-flow: row wrap;
       justify-content: center;
 
+      &.edit-controls {
+        .controls-block {
+          &.change-mode {
+            div {
+              width: 100%;
+
+              button {
+                width: 100%;
+
+                &.finish-btn {
+                  margin: 10px 0 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
       &.preview-controls {
         padding: 0 20px;
         margin-top: 30px;
@@ -115,6 +188,7 @@
               padding: 10px 0 0;
 
               button {
+                width: 100%;
                 margin-bottom: 10px;
               }
             }
@@ -180,6 +254,21 @@
 
   .animation-completed {
     margin-top: 50px;
+
+    #animationCanvasContainer {
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .canvas-container {
+        display: none;
+      }
+    }
+
+    .animation-box {
+      padding-top: 93px;
+    }
 
     .animation-completed-card {
       background-color: $black;

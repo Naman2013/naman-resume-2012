@@ -10,6 +10,10 @@ import {
   IQuestAnimationData,
   IQuestAnimationFrames,
 } from 'app/modules/quests/types';
+import { downloadFile } from 'app/utils/downloadFile';
+import Dots from 'app/atoms/icons/Dots';
+import { QuestDotMenu } from 'app/modules/quests/components/quest-dot-menu';
+import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-info-popup';
 import { FrameList } from './frame-list';
 import { EditAnimationControls } from './edit-animation-controls';
 import { PreviewAnimationControls } from './preview-animation-controls';
@@ -33,6 +37,8 @@ type AnimationModuleProps = {
   setAnimation: Function;
   setAnimationData: Function;
   questAnimationData: IQuestAnimationData;
+  startQuestFetching: Function;
+  setDataCollectionSlotImages: Function;
 };
 
 type AnimationModuleState = {
@@ -40,6 +46,15 @@ type AnimationModuleState = {
   activePreviewImage: number;
   previewFrameList: Array<IAnimationFrame>;
   previewSingleStep: boolean;
+  isDotsMenuOpen: boolean;
+  viewFrameMenuItemStep: string;
+  isInfoMenuOpen: boolean;
+};
+
+type SetAnimationParams = {
+  frame: IAnimationFrame;
+  button?: string;
+  action?: string;
 };
 
 const ANIMATION_STEPS: { [key: string]: string } = {
@@ -56,6 +71,14 @@ const BUTTON_TYPES: { [key: string]: string } = {
   SLOW: 'slow',
   MED: 'med',
   FAST: 'fast',
+  FRAME: 'frame',
+  EDIT_ANIMATION: 'editAnimation',
+};
+
+const VIEW_FRAME_STEP: { [key: string]: string } = {
+  viewFrameOpacity50: 'viewFrameOpacity50',
+  viewFrameOpacity100: 'viewFrameOpacity100',
+  viewFrameOpacity0: 'viewFrameOpacity0',
 };
 
 const RESIZE_DELTA = 300;
@@ -91,17 +114,20 @@ export class AnimationModule extends React.PureComponent<
     activePreviewImage: 0,
     previewFrameList: [{} as IAnimationFrame],
     previewSingleStep: false,
+    isDotsMenuOpen: false,
+    viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    isInfoMenuOpen: false,
   };
 
   componentDidMount(): void {
     this.initCanvas();
     this.getAnimation();
     this.getAnimationFrames();
-    window.addEventListener('resize', () => this.onPageRezise());
+    window.addEventListener('resize', this.pageResize);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('resize', () => this.onPageRezise());
+    window.removeEventListener('resize', this.pageResize);
     clearTimeout(this.resizeTimeout);
   }
 
@@ -153,7 +179,7 @@ export class AnimationModule extends React.PureComponent<
         this.canvas.getZoom() > 1 &&
         activeAnimationStep !== ANIMATION_STEPS.finished
       ) {
-        this.setAnimation(activeFrame);
+        this.setAnimation({ frame: activeFrame });
       }
     });
   };
@@ -165,17 +191,20 @@ export class AnimationModule extends React.PureComponent<
     zoom,
     activityState,
   }: IQuestAnimationFrames): void => {
+    const { activeFrame } = this.props;
+    const { empty } = activeFrame;
     this.loadImageFromUrl(0, frameList);
-    this.canvas.renderAll();
+
     this.onPageRezise(false);
 
     this.vpt[4] = left ? -left : 0;
     this.vpt[5] = top ? -top : 0;
-    this.canvas.setZoom(zoom);
+    this.canvas.setZoom(empty ? 1 : zoom);
     this.canvas.viewportTransform[4] = left ? -left : 0;
     this.canvas.viewportTransform[5] = top ? -top : 0;
     this.updatePan();
     this.setActiveStep(activityState);
+    this.renderFabricCanvas();
   };
 
   updatePan = (): void => {
@@ -210,9 +239,14 @@ export class AnimationModule extends React.PureComponent<
     frameIndexToLoad: number,
     frameList: Array<IAnimationFrame>
   ): void => {
-    const { frameIndex, imageURL, xOffset, yOffset, empty } = frameList[
-      frameIndexToLoad
-    ];
+    const {
+      frameIndex,
+      imageURL,
+      xOffset,
+      yOffset,
+      empty,
+      selected,
+    } = frameList[frameIndexToLoad];
     const { questAnimation } = this.props;
     const { offsetReference } = questAnimation;
     const newCanvasContainerWidth =
@@ -226,7 +260,7 @@ export class AnimationModule extends React.PureComponent<
       originX:
         offsetReference === 'center' && !empty ? offsetReference : 'left',
       originY: offsetReference === 'center' && !empty ? offsetReference : 'top',
-      visible: !(frameIndex > 1),
+      visible: frameIndex === 1 || selected,
     };
 
     fabric.util.loadImage(imageURL, (img: any): void => {
@@ -291,7 +325,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveTop(yOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -335,7 +369,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveDown(yOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -379,7 +413,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveLeft(xOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -423,7 +457,7 @@ export class AnimationModule extends React.PureComponent<
     clearInterval(this.moveButtonPressInterval);
     if (!mouseLeave) {
       const frame = this.moveRigth(xOffsetSmallStep);
-      this.setAnimation(frame);
+      this.setAnimation({ frame });
     }
   };
 
@@ -440,7 +474,7 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.hoverCursor = 'move';
     this.canvas.setZoom(newZoom).renderAll();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
-    this.setAnimation(activeFrame);
+    this.setAnimation({ frame: activeFrame });
   };
 
   zoomOutCanvas = (): void => {
@@ -458,18 +492,25 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.setZoom(newZoom).renderAll();
     this.updatePan();
     setAnimationData({ zoom: Math.round(newZoom * 100) });
-    this.setAnimation(activeFrame);
+    this.setAnimation({ frame: activeFrame });
   };
 
   resizeEnd = (): void => {
     const { activeFrame } = this.props;
-    if (Date.now() - this.resizeTime < RESIZE_DELTA) {
-      this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
-    } else {
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = undefined;
-      this.setAnimation(activeFrame);
+    const { activeAnimationStep } = this.state;
+    if (activeAnimationStep !== ANIMATION_STEPS.finished) {
+      if (Date.now() - this.resizeTime < RESIZE_DELTA) {
+        this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
+      } else {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = undefined;
+        this.setAnimation({ frame: activeFrame });
+      }
     }
+  };
+
+  pageResize = () => {
+    this.onPageRezise();
   };
 
   onPageRezise = (updateAnimation = true): void => {
@@ -500,13 +541,25 @@ export class AnimationModule extends React.PureComponent<
     //reset zoom after canvas rezise
     this.canvas.setZoom(canvasZoom);
 
-    this.canvas.renderAll();
+    this.renderFabricCanvas(canvasObjects);
     if (updateAnimation) {
       this.resizeTime = Date.now();
       if (!this.resizeTimeout) {
         this.resizeTimeout = setTimeout(this.resizeEnd, RESIZE_DELTA);
       }
     }
+  };
+
+  renderFabricCanvas = (objects?: any): void => {
+    const { questAnimation } = this.props;
+    const { negativeFlag } = questAnimation;
+    const canvasObjects = objects || this.canvas.getObjects();
+    const ctx = this.canvas.getContext();
+    const bgColor = negativeFlag ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0)';
+    ctx.filter = negativeFlag ? 'invert(1)' : 'none';
+
+    this.canvas.setBackgroundColor(bgColor);
+    this.canvas.renderCanvas(ctx, canvasObjects);
   };
 
   onPlay = (): void => {
@@ -579,7 +632,7 @@ export class AnimationModule extends React.PureComponent<
     if (!singleStep) {
       this.previewAnimationInterval = setInterval(this.nextPreviewImage, speed);
       this.setState({ previewSingleStep: false });
-      this.setAnimation(activeFrame, BUTTON_TYPES[type]);
+      this.setAnimation({ frame: activeFrame, button: BUTTON_TYPES[type] });
     } else {
       this.setState({ previewSingleStep: true });
     }
@@ -595,7 +648,10 @@ export class AnimationModule extends React.PureComponent<
     return this.canvas.item(frameIndex - 1);
   };
 
-  onEdit = (): any => {
+  onEdit = (
+    initialLoad?: boolean,
+    buttonType: string = BUTTON_TYPES.EDIT
+  ): void => {
     const {
       activeFrame,
       questAnimation,
@@ -608,7 +664,10 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.edit });
+    this.setState({
+      activeAnimationStep: ANIMATION_STEPS.edit,
+      viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    });
 
     const canvasObjects = this.canvas.getObjects();
 
@@ -617,37 +676,56 @@ export class AnimationModule extends React.PureComponent<
       return item;
     });
 
-    const newZoom = zoom || magnificationDefault;
-
-    this.canvas.item(0).set({ visible: true, opacity: 1 });
-    this.canvas.item(frameIndex - 1).set({ visible: true });
-    this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
-    this.canvas.hoverCursor = 'move';
-    this.canvas.renderAll();
-    this.setAnimation(activeFrame, BUTTON_TYPES.EDIT).then(() =>
-      this.getAnimation()
-    );
+    if (!initialLoad) {
+      const newZoom = zoom || magnificationDefault;
+      this.canvas.item(0).set({ visible: true, opacity: 1 });
+      this.canvas.item(frameIndex - 1).set({ visible: true });
+      this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+      this.canvas.hoverCursor = 'move';
+      this.canvas.renderAll();
+      this.setAnimation({ frame: activeFrame, button: buttonType }).then(
+        ({ refreshStep, refreshModule }) => {
+          if (!refreshStep && !refreshModule) {
+            this.getAnimation().then(() => {
+              this.canvas.setZoom(activeFrame.empty ? 1 : newZoom / 100);
+            });
+          }
+        }
+      );
+    }
   };
 
-  onFinish = (): any => {
-    const { activeFrame } = this.props;
+  onFinish = (initialLoad?: boolean): any => {
+    const { activeFrame, startQuestFetching } = this.props;
     this.canvas.hoverCursor = 'auto';
     this.canvas.renderAll();
     this.previewAnimationStop();
-    this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
-    this.setAnimation(activeFrame, BUTTON_TYPES.FINISH).then(() =>
-      this.getAnimation()
-    );
+    if (!initialLoad) {
+      startQuestFetching();
+      this.setAnimation({
+        frame: activeFrame,
+        button: BUTTON_TYPES.FINISH,
+      }).then(({ refreshStep, refreshModule }) => {
+        if (!refreshStep && !refreshModule) {
+          this.getAnimation().then(() =>
+            this.setState({ activeAnimationStep: ANIMATION_STEPS.finished })
+          );
+        }
+      });
+    } else {
+      this.setState({ activeAnimationStep: ANIMATION_STEPS.finished });
+    }
   };
 
-  getAnimation = (): void => {
+  getAnimation = (): Promise<any> => {
     const { module, questId, stepData, getAnimation } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
+      return getAnimation({ questId, questUUID, moduleId, moduleUUID }).then(
         ({ payload }: any): void => {
           this.canvas.setZoom(payload.magnificationDefault / 100);
+          this.renderFabricCanvas();
         }
       );
     }
@@ -669,24 +747,27 @@ export class AnimationModule extends React.PureComponent<
   setActiveStep = (step: string): void => {
     switch (step) {
       case ANIMATION_STEPS.edit: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.play: {
-        this.onEdit();
+        this.onEdit(true);
         break;
       }
       case ANIMATION_STEPS.finished: {
-        this.onFinish();
+        this.onFinish(true);
         break;
       }
       default: {
-        this.onEdit();
+        this.onEdit(true);
       }
     }
   };
 
-  setActiveFrame = (frame: IAnimationFrame): void => {
+  setActiveFrame = (
+    frame: IAnimationFrame,
+    callSetAnimation?: boolean
+  ): void => {
     const {
       setActiveFrame,
       activeFrame,
@@ -700,7 +781,7 @@ export class AnimationModule extends React.PureComponent<
     const { frameList } = questAnimationFrames;
 
     if (frameIndex !== 1) {
-      this.canvas.item(frameIndex - 1).set({ visible: false });
+      this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0.5 });
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
@@ -722,11 +803,18 @@ export class AnimationModule extends React.PureComponent<
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
     this.canvas.renderAll();
 
+    this.setState({
+      viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+    });
     setActiveFrame(frame);
+    if (callSetAnimation) {
+      this.setAnimation({ frame, button: BUTTON_TYPES.FRAME });
+    }
   };
 
-  setAnimation = (frame: IAnimationFrame, button?: string): Promise<any> => {
-    const { setAnimation, module, questId } = this.props;
+  setAnimation = (setAnimationData: SetAnimationParams): Promise<any> => {
+    const { frame, button, action } = setAnimationData;
+    const { setAnimation, module, questId, refreshQuestStep } = this.props;
     const { moduleId } = module;
     const { offsetReference, frameIndex, xOffset, yOffset } = frame;
     const zoom = this.canvas.getZoom();
@@ -740,7 +828,7 @@ export class AnimationModule extends React.PureComponent<
       questId,
       moduleId,
       requestType: 'frame',
-      action: 'submit',
+      action: action || 'submit',
       frameIndex,
       xOffset,
       yOffset,
@@ -751,7 +839,6 @@ export class AnimationModule extends React.PureComponent<
       left: -this.vpt[4],
       top: -this.vpt[5],
       button,
-      serializedFramesAll: JSON.stringify(this.canvas),
       scaleX: currentItem.get('scaleX'),
       scaleY: imageScaleY,
       imageWidth: currentItem.get('width'),
@@ -760,7 +847,197 @@ export class AnimationModule extends React.PureComponent<
       scaledImageHeight: imageHeight * imageScaleY * zoom,
     };
 
-    return setAnimation(data);
+    return setAnimation(data).then(({ payload }: any): void => {
+      const { refreshModule, refreshStep } = payload;
+
+      if (refreshStep) {
+        refreshQuestStep();
+      } else if (refreshModule) {
+        this.canvas.clear();
+        this.getAnimation();
+        this.getAnimationFrames();
+      }
+      return payload;
+    });
+  };
+
+  toggleDotsMenu = (): void => {
+    const { isDotsMenuOpen } = this.state;
+
+    this.setState({ isDotsMenuOpen: !isDotsMenuOpen });
+  };
+
+  resetFrame = (): Promise<any> => {
+    const { activeFrame, setActiveFrame } = this.props;
+
+    const item = this.getActiveCanvasItem();
+    item.set({ left: 0 });
+    this.canvas.renderAll();
+
+    const frame = { ...activeFrame, xOffset: 0, yOffset: 0 };
+    setActiveFrame(frame);
+
+    return this.setAnimation({
+      frame,
+    });
+  };
+
+  removeFrameImage = (): void => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      refreshQuestStep,
+      activeFrame,
+    } = this.props;
+    const { moduleId } = module;
+    const { customerImageId, dcId, dcModuleId } = activeFrame;
+
+    setDataCollectionSlotImages({
+      moduleId: dcModuleId,
+      questId,
+      customerImageId,
+      slotId: dcId,
+      animationModuleId: moduleId,
+      deleteSlotImage: '1',
+      callSource: 'animation',
+    }).then(({ payload }: any) => {
+      if (payload.refreshStep) {
+        refreshQuestStep();
+      }
+    });
+  };
+
+  toggleViewFrame = () => {
+    const { activeFrame } = this.props;
+    const { viewFrameMenuItemStep } = this.state;
+    const { dotMenuFrame } = activeFrame;
+    const { viewFrameOpacity } = dotMenuFrame;
+    const { opacity } = viewFrameOpacity[viewFrameMenuItemStep];
+
+    const item = this.getActiveCanvasItem();
+    item.set({ opacity: opacity / 100 });
+    this.canvas.renderAll();
+
+    switch (viewFrameMenuItemStep) {
+      case VIEW_FRAME_STEP.viewFrameOpacity100: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity0,
+        });
+        break;
+      }
+      case VIEW_FRAME_STEP.viewFrameOpacity0: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity50,
+        });
+        break;
+      }
+      case VIEW_FRAME_STEP.viewFrameOpacity50: {
+        this.setState({
+          viewFrameMenuItemStep: VIEW_FRAME_STEP.viewFrameOpacity100,
+        });
+        break;
+      }
+      default: {
+        return;
+      }
+    }
+  };
+
+  getDotsMenuItems = (): Array<any> => {
+    const { questAnimation, activeFrame } = this.props;
+    const { viewFrameMenuItemStep } = this.state;
+    const { dotMenu } = questAnimation;
+    const {
+      showNegative,
+      enableNegative,
+      negativeButton,
+      negativeText,
+      showNegativeTooltip,
+      negativeTooltipText,
+      showResetAllFrames,
+      enableResetAllFrames,
+      resetAllFramesText,
+      showResetAllFramesTooltip,
+      resetAllFramesTooltipText,
+    } = dotMenu;
+    const { dotMenuFrame } = activeFrame;
+    const {
+      showResetFrame,
+      enableResetFrame,
+      resetFrameText,
+      resetFrameTooltipText,
+      showResetFrameTooltip,
+      showRemoveThisImage,
+      enableRemoveThisImage,
+      removeThisImageText,
+      showRemoveThisImageTooltip,
+      removeThisImageTooltipText,
+      showViewFrameOpacity,
+      enableViewFrameOpacity,
+      showViewFrameOpacityTooltip,
+      viewFrameOpacityTooltipText,
+      viewFrameOpacity,
+      showImageDetails,
+      enableImageDetails,
+      showImageDetailsTooltip,
+      imageDetailsText,
+      imageDetailsTooltipText,
+    } = dotMenuFrame;
+
+    return [
+      {
+        show: showNegative,
+        disabled: !enableNegative,
+        title: negativeText,
+        showTooltip: showNegativeTooltip,
+        tooltipText: negativeTooltipText,
+        action: (): Promise<any> =>
+          this.setAnimation({ frame: activeFrame, button: negativeButton }),
+      },
+      {
+        show: showResetAllFrames,
+        disabled: !enableResetAllFrames,
+        title: resetAllFramesText,
+        showTooltip: showResetAllFramesTooltip,
+        tooltipText: resetAllFramesTooltipText,
+        action: (): Promise<any> =>
+          this.setAnimation({ frame: activeFrame, action: 'resetAllFrames' }),
+      },
+      {
+        show: showResetFrame,
+        disabled: !enableResetFrame,
+        title: resetFrameText,
+        showTooltip: showResetFrameTooltip,
+        tooltipText: resetFrameTooltipText,
+        action: (): Promise<any> => this.resetFrame(),
+      },
+      {
+        show: showRemoveThisImage,
+        disabled: !enableRemoveThisImage,
+        title: removeThisImageText,
+        showTooltip: showRemoveThisImageTooltip,
+        tooltipText: removeThisImageTooltipText,
+        action: (): void => this.removeFrameImage(),
+      },
+      {
+        show: showViewFrameOpacity,
+        disabled: !enableViewFrameOpacity,
+        title: viewFrameOpacity[viewFrameMenuItemStep].text,
+        showTooltip: showViewFrameOpacityTooltip,
+        tooltipText: viewFrameOpacityTooltipText,
+        notCloseOnClick: true,
+        action: (): void => this.toggleViewFrame(),
+      },
+      {
+        show: showImageDetails,
+        disabled: !enableImageDetails,
+        title: imageDetailsText,
+        showTooltip: showImageDetailsTooltip,
+        tooltipText: imageDetailsTooltipText,
+        action: (): void => this.setState({ isInfoMenuOpen: true }),
+      },
+    ];
   };
 
   render() {
@@ -769,14 +1046,25 @@ export class AnimationModule extends React.PureComponent<
       questAnimation,
       questAnimationFrames,
       questAnimationData,
+      readOnly,
     } = this.props;
     const {
       activeAnimationStep,
       activePreviewImage,
       previewFrameList,
       previewSingleStep,
+      isDotsMenuOpen,
+      isInfoMenuOpen,
     } = this.state;
-    const { caption, infoArray, xOffset, yOffset, empty } = activeFrame;
+    const {
+      infoArray,
+      xOffset,
+      yOffset,
+      empty,
+      frameExplanation,
+      frameHeader,
+      dotMenuFrame: { imageDetails },
+    } = activeFrame;
     const { zoom } = questAnimationData;
     const { objectName, imageDate, imageTime } = infoArray;
     const {
@@ -793,13 +1081,19 @@ export class AnimationModule extends React.PureComponent<
       downloadButtonTooltipText,
       showDownloadButtonTooltip,
       enableDownloadButton,
+      outputURL,
+      outputDownloadURL,
+      showDotMenu,
+      dotMenuTooltipText,
+      enableDotMenu,
+      activityStatus,
     } = questAnimation;
     const {
       frameList,
-      activityStatus,
       activityTitle,
       activityInstructions,
       activitySequenceText,
+      showDotMenuFrame,
     } = questAnimationFrames;
 
     return (
@@ -820,9 +1114,64 @@ export class AnimationModule extends React.PureComponent<
           })}
         >
           <div className="animation-box">
+            {(showDotMenu || showDotMenuFrame) &&
+              activeAnimationStep === ANIMATION_STEPS.edit && (
+                <>
+                  <div className="dot-menu-wrapper">
+                    <Tooltip
+                      title={dotMenuTooltipText}
+                      theme="light"
+                      distance={10}
+                      position="top"
+                      disabled={isDotsMenuOpen}
+                    >
+                      <Button
+                        className={cx('quest-dot-menu-btn', {
+                          open: isDotsMenuOpen,
+                        })}
+                        onClick={this.toggleDotsMenu}
+                        disabled={!enableDotMenu || readOnly}
+                      >
+                        {!isDotsMenuOpen ? (
+                          <Dots />
+                        ) : (
+                          <i className="menu-icon-close icon-close" />
+                        )}
+                      </Button>
+                    </Tooltip>
+
+                    <QuestDotMenu
+                      show={isDotsMenuOpen}
+                      items={this.getDotsMenuItems()}
+                      toggle={this.toggleDotsMenu}
+                    />
+                  </div>
+
+                  {isInfoMenuOpen && (
+                    <div className="info-menu-wrapper">
+                      <Button
+                        className="quest-info-menu-btn open"
+                        onClick={(): void =>
+                          this.setState({ isInfoMenuOpen: false })
+                        }
+                      >
+                        <i className="menu-icon-close icon-close" />
+                      </Button>
+
+                      <QuestSlotInfoPopup
+                        slotInfo={imageDetails}
+                        slotInfoTitle={imageDetails.imageDetailsTitle}
+                        isInfoMenuOpen={isInfoMenuOpen}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+
             {activeAnimationStep === ANIMATION_STEPS.edit && (
               <>
-                <h6>{caption}</h6>
+                <h6>{frameHeader}</h6>
+                {frameExplanation && <h4>{frameExplanation}</h4>}
                 <h4>{`${objectName} ${imageDate} ${imageTime}`}</h4>
               </>
             )}
@@ -856,6 +1205,9 @@ export class AnimationModule extends React.PureComponent<
               }}
             >
               <canvas id="animation-canvas" />
+              {activeAnimationStep === ANIMATION_STEPS.finished && (
+                <img src={`${outputURL}?time=${Date.now()}`} alt="" />
+              )}
             </div>
 
             {activeAnimationStep === ANIMATION_STEPS.edit && (
@@ -877,6 +1229,8 @@ export class AnimationModule extends React.PureComponent<
                 onPlay={this.onPlay}
                 disabledZoom={empty}
                 disabledMove={empty || activeFrame.frameIndex === 1}
+                onFinish={this.onFinish}
+                readOnly={readOnly}
               />
             )}
 
@@ -908,6 +1262,7 @@ export class AnimationModule extends React.PureComponent<
               frameList={frameList}
               activeFrame={activeFrame}
               setActiveFrame={this.setActiveFrame}
+              readOnly={readOnly}
             />
           )}
         </div>
@@ -925,7 +1280,9 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="dc-slot-card-find-btn"
-                    onClick={this.onEdit}
+                    onClick={(): void =>
+                      this.onEdit(false, BUTTON_TYPES.EDIT_ANIMATION)
+                    }
                     disabled={!enableEditAnimationButton}
                   >
                     {editAnimationButtonCaption}
@@ -944,7 +1301,14 @@ export class AnimationModule extends React.PureComponent<
                 >
                   <Button
                     className="btn-circle"
-                    onClick={() => {}}
+                    onClick={(): void =>
+                      downloadFile(
+                        `${outputDownloadURL}?time=${Date.now()}`,
+                        outputDownloadURL.substring(
+                          outputDownloadURL.lastIndexOf('/') + 1
+                        )
+                      )
+                    }
                     disabled={!enableDownloadButton}
                   >
                     <span className="icon-download" />
