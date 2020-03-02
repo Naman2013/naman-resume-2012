@@ -332,7 +332,7 @@ const TopBar = ({
                   border-radius: 100px;
                   padding: 10px 20px;
                   color: ${romance};
-                  background-color: ${astronaut};
+                  background-color: ${astronaut} !important;
                   text-align: left;
                   text-transform: uppercase;
                   font-size: 11px;
