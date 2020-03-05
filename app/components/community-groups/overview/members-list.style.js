@@ -50,7 +50,7 @@ export default css`
     ${fullWidthBtn}
   }
 
-  .sort-button {
+  a.sort-button {
     position: relative;
     color: ${glitter};
     background-color: ${astronaut};
@@ -58,11 +58,18 @@ export default css`
     text-align: center;
     height: 100%;
     cursor: pointer;
+    
   }
 
-  .sort-button.active {
+  a.sort-button:hover{
     color: ${romance};
   }
+
+  
+  a.sort-button.active {
+    color: ${romance};
+  }
+
   .pic {
     margin: 0 5px;
   }
