@@ -119,8 +119,7 @@ export class ImageDetails extends Component<
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
     const showRightContainer =
-      rightPanelDisplayFlags.filter(flag => !!flag).length > 0;   
-      debugger;
+      rightPanelDisplayFlags.filter(flag => !!flag).length > 0;  
     return (
       <Fragment>
         <div className="row mb-5">

@@ -48,7 +48,7 @@ const MainContainer = ({
 
   const isLogVisible = () => !isEditMode && observationLog;
   return (
-    <div className="image-main-container">
+    <div className="image-main-container" id="image-main-container">
       {isLogVisible() && (
         <>
           <ObservationInformation

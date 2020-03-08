@@ -33,15 +33,19 @@ export const EditHeader = props => {
     downloadFile(imageDownloadURL, imageDownloadFilename);
   };
 
-  const onShare = () => {
-    const {
-      actions: { shareMemberPicture },
-      customerImageId,
-    } = props;
+  const onShare = () => {   
+    window.scrollTo(
+      0,
+      document.getElementById('image-main-container').offsetTop
+    );
+    // const {
+    //   actions: { shareMemberPicture },
+    //   customerImageId,
+    // } = props;
 
-    shareMemberPicture({ customerImageId }).then(data => {
-      setShareOpen(true);
-    });
+    // shareMemberPicture({ customerImageId }).then(data => {
+    //   setShareOpen(true);
+    // });
   };
 
   const onWriteObservation = () =>
