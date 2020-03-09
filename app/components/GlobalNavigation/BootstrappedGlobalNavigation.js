@@ -22,6 +22,7 @@ import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import Menu from './Menu';
 import TopBar from './TopBar';
 import { setupLiveActivityTimer } from 'app/services/live-activity/timer';
+import QuestBreadCrumb from './breadcrumb';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -447,6 +448,7 @@ class GlobalNavigation extends Component {
               this.subscribeToPubnubActivityFeedChannel
             }
           />
+          <QuestBreadCrumb/>
         </div>
 
         <Menu
