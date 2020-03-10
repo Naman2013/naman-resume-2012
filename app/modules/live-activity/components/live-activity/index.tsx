@@ -236,12 +236,13 @@ export const LiveActivity = (props: TLiveActivity) => {
       contentClickHandler(e);
     }
   };
-
+  
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
     >
       {/* BTN */}
+      {props.isChatEnabled?(
       <div
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
@@ -257,7 +258,7 @@ export const LiveActivity = (props: TLiveActivity) => {
           })}
         />
       </div>
-
+      ):null}
       {/* WINDOW */}
       {isOpen && (
         <div
