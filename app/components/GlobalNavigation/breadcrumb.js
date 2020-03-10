@@ -2,9 +2,10 @@ import React from 'react';
 
 const QuestBreadCrumb = ({  }) => (
     <div>
-    <div className="breadcrumb">
-        <div className="icon" ></div>
-        <h4>A Mystery of the Island Universes</h4>
+    <div className="breadcrumb">        
+        {/* <div className="icon" ></div> */}
+        <h4 className="boldtxt"><b>Return to Quest:&nbsp;</b></h4>
+        <h4 className="normaltxt">Mystery of the Island Universes</h4>
     </div>
 
 <style jsx>
@@ -15,7 +16,7 @@ const QuestBreadCrumb = ({  }) => (
     margin-top: 60px;
     background-color: #FFF;
     width: 100%;
-    padding: 0px 0px 0px 10px;    
+    padding: 8px 0px 0px 10px;    
     border-bottom: 2px solid #ced2d8;
     
   }
@@ -30,6 +31,17 @@ const QuestBreadCrumb = ({  }) => (
     width: 25px;
     height: 25px;
     float: left;
+  }
+
+  .breadcrumb.normaltxt{
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  .breadcrumb.boldtxt{
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+
   }
 
   .breadcrumb .icon h4{
