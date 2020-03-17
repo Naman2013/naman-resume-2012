@@ -4,7 +4,7 @@ const QuestBreadCrumb = ({  }) => (
     <div>
     <div className="breadcrumb">        
         {/* <div className="icon" ></div> */}
-        <h4 className="boldtxt"><b>Return to Quest:&nbsp;</b></h4>
+        <h4><b>Return to Quest:&nbsp;</b></h4>
         <h4 className="normaltxt">Mystery of the Island Universes</h4>
     </div>
 
