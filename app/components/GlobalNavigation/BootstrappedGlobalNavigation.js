@@ -21,7 +21,7 @@ import { API } from 'app/api';
 import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import Menu from './Menu';
 import TopBar from './TopBar';
-import { setupLiveActivityTimer } from 'app/services/live-activity/timer';
+import { setupLiveActivityTimer, stopLiveActivityTimer } from 'app/services/live-activity/timer';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -231,11 +231,16 @@ class GlobalNavigation extends Component {
       token,
       at,
       cid,
-    }).then(({ data: { membersOnlineList, expires } }) => {
-      setupLiveActivityTimer(expires * 1000 - Date.now(), () => {
-        this.getActivityFeedMembers();
-      });
-
+    }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
+      const milliExpires = expires * 1000;
+      const milliTimestamp = timestamp * 1000;
+      const remainingTime = milliExpires - milliTimestamp;
+      if (remainingTime > 1000) {
+        setupLiveActivityTimer(remainingTime, () => {        
+          this.getActivityFeedMembers();
+        });
+      }
+     
       this.setState({
         activityFeedMembers: membersOnlineList,
         activityFeedMembersExpireDate: expires,
@@ -244,8 +249,10 @@ class GlobalNavigation extends Component {
   };
 
   setMemberChatState = chatState => {
+    if(chatState=='leave')
+      stopLiveActivityTimer();
     const { token, at, cid } = getUserInfo();
-
+    
     return API.post(this.MEMBER_CHAT_STATE_API_URL, {
       token,
       at,
