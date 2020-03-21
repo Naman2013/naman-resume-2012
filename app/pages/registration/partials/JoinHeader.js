@@ -89,8 +89,7 @@ class JoinHeader extends Component {
 					    <div style={{marginTop: "-20px"}} className="big">{mainHeading}</div>
 	                    <div style={{display: 'inline-block'}} className="little">{subHeading}
                 	      <span style={{paddingLeft: '10px'}} className="little">
-                        	If you are a member or were invited to Slooh by a
-	                        teacher, please{' '}
+                        	If you are already a member or received an invitation to Slooh from your teacher, please{' '}
         	                <Link
                 	          style={{
                         	    cursor: 'pointer',
