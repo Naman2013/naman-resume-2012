@@ -221,12 +221,12 @@ class GlobalNavigation extends Component {
     const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
 
-    if (
-      activityFeedMembersExpireDate &&
-      activityFeedMembersExpireDate > Date.now() / 1000
-    ) {
-      return;
-    }
+    // if (
+    //   activityFeedMembersExpireDate &&
+    //   activityFeedMembersExpireDate > Date.now() / 1000
+    // ) {
+    //   return;
+    // }
     console.log("getActiveMembersOnline api Called");
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
       token,
