@@ -220,13 +220,7 @@ class GlobalNavigation extends Component {
     console.log("getActivityFeedMembers method Called");
     const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
-
-    // if (
-    //   activityFeedMembersExpireDate &&
-    //   activityFeedMembersExpireDate > Date.now() / 1000
-    // ) {
-    //   return;
-    // }
+    stopLiveActivityTimer();   
     console.log("getActiveMembersOnline api Called");
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
       token,
@@ -258,7 +252,8 @@ class GlobalNavigation extends Component {
 
   setMemberChatState = chatState => {
     if(chatState=='leave')
-      stopLiveActivityTimer();
+      stopLiveActivityTimer();    
+      
     const { token, at, cid } = getUserInfo();
     
     return API.post(this.MEMBER_CHAT_STATE_API_URL, {
