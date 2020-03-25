@@ -117,7 +117,7 @@ class JoinStep1 extends Component {
                                         >
                                           <SubscriptionPlanCard
                                             {...subscriptionPlan}
-                                            expanded={index === 0}
+                                            expanded={false}
                                             setSelectedPlan={() =>
                                               this.setSelectedPlan(
                                                 subscriptionPlan.planID,

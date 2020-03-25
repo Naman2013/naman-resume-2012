@@ -52,7 +52,7 @@ export default css`
 
   a.sort-button {
     position: relative;
-    color: ${glitter};
+    color: ${glitter} !important;
     background-color: ${astronaut};
     flex: 1 1 0;
     text-align: center;
@@ -62,12 +62,12 @@ export default css`
   }
 
   a.sort-button:hover{
-    color: ${romance};
+    color: ${romance} !important;
   }
 
   
   a.sort-button.active {
-    color: ${romance};
+    color: ${romance} !important;
   }
 
   .pic {

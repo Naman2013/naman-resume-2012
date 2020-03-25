@@ -99,7 +99,7 @@ class SubscriptionPlanCard extends Component {
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
-          <SubscriptionPlanCardSmall {...this.props} />
+          <SubscriptionPlanCardSmall {...this.props} viewPlanDetails={this.toggleDetails}/>
         </DisplayAtBreakpoint>
         {showDetails ? (
 	  <Fragment>
