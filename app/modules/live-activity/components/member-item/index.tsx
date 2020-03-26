@@ -15,7 +15,7 @@ export const MemberItem = (props: TFeedItem) => {
       <a
         href={linkUrl}
         className="member-name"
-        target="_blank"
+        // target="_blank"
         rel="noopener noreferrer"
       >
         {displayName}
