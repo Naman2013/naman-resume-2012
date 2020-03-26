@@ -341,6 +341,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                     <MemberItem
                       key={memberItem.customerId}
                       member={memberItem}
+                      contentClickHandler={contentClickHandler}
+                      onKeyPressed={onKeyPressed}
                     />
                   ))}
                 </div>

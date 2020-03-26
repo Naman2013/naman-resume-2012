@@ -3,23 +3,29 @@ import './index.scss';
 
 type TFeedItem = {
   member: Record<string, any>;
+  contentClickHandler: (e: any) => void;
+  onKeyPressed: (e: any) => void;
 };
 
 export const MemberItem = (props: TFeedItem) => {
   const {
-    member: { displayName, gravityLabel, gravity, linkUrl },
+    member: { displayName, gravityLabel, gravity, linkUrl }, contentClickHandler, onKeyPressed
   } = props;
 
   return (
     <div className="active-member-item">
-      <a
-        href={linkUrl}
-        className="member-name"
-        // target="_blank"
-        rel="noopener noreferrer"
+      <span
+        onKeyDown={onKeyPressed}
+        onClick={contentClickHandler}     
+        tabIndex={0}
+        role="button"       
+        className="member-name"       
       >
-        {displayName}
-      </a>
+        <a
+          href={linkUrl}>
+          {displayName}
+        </a>
+      </span>
 
       <div className="member-info">
         <div className="member-gravity-level">{gravityLabel}</div>
