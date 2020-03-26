@@ -217,31 +217,22 @@ class GlobalNavigation extends Component {
   }
 
   getActivityFeedMembers = () => {
-    console.log("getActivityFeedMembers method Called");
     const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
     stopLiveActivityTimer();   
-    console.log("getActiveMembersOnline api Called");
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
       token,
       at,
       cid,
     }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
       const milliExpires = expires * 1000;
-      const milliTimestamp = timestamp * 1000;
-      console.log("getActiveMembersOnline api response");
-      console.log("timestamp (in ms): "+milliTimestamp);
-      console.log("Expires: (in ms)"+milliExpires);
-      console.log("timestamp: "+new Date(timestamp).toString());
-      console.log("Expires: "+new Date(milliTimestamp).toString());      
+      const milliTimestamp = timestamp * 1000;      
       const remainingTime = milliExpires - milliTimestamp;
       if (remainingTime > 1000) {
-        console.log("added Timer");
         setupLiveActivityTimer(remainingTime, () => {        
           this.getActivityFeedMembers();
         });
       }
-      console.log("state changed");
       this.setState({
         activityFeedMembers: membersOnlineList,
         activityFeedMembersExpireDate: expires,

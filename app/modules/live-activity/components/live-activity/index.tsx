@@ -292,9 +292,9 @@ export const LiveActivity = (props: TLiveActivity) => {
                   mountOnEnter
                   onSelect={(key: string): void => {
                     //console.log(`key`, key)
-                    if (key === MEMBERS_TAB) {
-                      getActivityFeedMembers();
-                    }
+                    // if (key === MEMBERS_TAB) {
+                    //   getActivityFeedMembers();
+                    // }
                     setActiveTab(key);
                   }}
                 >
