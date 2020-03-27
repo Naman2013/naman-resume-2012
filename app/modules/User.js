@@ -35,6 +35,10 @@ export function storeSessionToken(token) {
   });
 }
 
+export function deleteSessionToken() {
+	document.cookie = "sloohSiteSessionToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
 export function storeMarketingTrackingId(marketingTrackingId) {
   window.document.cookie = cookie.serialize('sloohMarketingTrackingId', marketingTrackingId, {
     domain: cookieD,
@@ -42,6 +46,10 @@ export function storeMarketingTrackingId(marketingTrackingId) {
     expires: futureDate,
     path: COOKIE_PATH,
   });
+}
+
+export function deleteMarketingTrackingId() {
+	document.cookie = "sloohMarketingTrackingId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
 export async function storeUserNewAT({ at }) {
