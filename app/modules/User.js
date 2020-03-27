@@ -38,7 +38,7 @@ export function storeSessionToken(token) {
 }
 
 export function deleteSessionToken() {
-	const [removeCookie] = useCookies(['name']);
+	const [removeCookie] = useCookies();
 	removeCookie("sloohSiteSessionToken");
 }
 
@@ -52,7 +52,7 @@ export function storeMarketingTrackingId(marketingTrackingId) {
 }
 
 export function deleteMarketingTrackingId() {
-	const [removeCookie] = useCookies(['name']);
+	const [removeCookie] = useCookies();
 	removeCookie("sloohMarketingTrackingId");
 }
 
@@ -82,7 +82,7 @@ export function storeQuestBreadCrumbDetails(questId, questTitle) {
 }
 
 export function deleteQuestBreadCrumbDetails() {
-	const [removeCookie] = useCookies(['name']);
+	const [removeCookie] = useCookies();
 	removeCookie("sloohQuestBreadCrumbQuestId");
 	removeCookie("sloohQuestBreadCrumbQuestTitle");
 	removeCookie("sloohQuestBreadCrumbQuestLinkURL");
