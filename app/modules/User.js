@@ -6,6 +6,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
+import { useCookies } from 'react-cookie';
+
 export const EXPIRATION_DAYS = 90;
 export const COOKIE_PATH = '/';
 export const futureDate = moment()
@@ -36,7 +38,8 @@ export function storeSessionToken(token) {
 }
 
 export function deleteSessionToken() {
-	document.cookie = "sloohSiteSessionToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	const [removeCookie] = useCookies(['name']);
+	removeCookie("sloohSiteSessionToken");
 }
 
 export function storeMarketingTrackingId(marketingTrackingId) {
@@ -49,7 +52,8 @@ export function storeMarketingTrackingId(marketingTrackingId) {
 }
 
 export function deleteMarketingTrackingId() {
-	document.cookie = "sloohMarketingTrackingId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	const [removeCookie] = useCookies(['name']);
+	removeCookie("sloohMarketingTrackingId");
 }
 
 export function storeQuestBreadCrumbDetails(questId, questTitle) {
@@ -78,9 +82,11 @@ export function storeQuestBreadCrumbDetails(questId, questTitle) {
 }
 
 export function deleteQuestBreadCrumbDetails() {
-	document.cookie = "sloohQuestBreadCrumbQuestId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-	document.cookie = "sloohQuestBreadCrumbQuestTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-	document.cookie = "sloohQuestBreadCrumbQuestLinkURL=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	const [removeCookie] = useCookies(['name']);
+	removeCookie("sloohQuestBreadCrumbQuestId");
+	removeCookie("sloohQuestBreadCrumbQuestTitle");
+	removeCookie("sloohQuestBreadCrumbQuestLinkURL");
+
 }
 
 export async function storeUserNewAT({ at }) {
