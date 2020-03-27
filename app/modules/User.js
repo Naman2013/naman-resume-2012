@@ -6,8 +6,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
-import { useCookies } from 'react-cookie';
-
 export const EXPIRATION_DAYS = 90;
 export const COOKIE_PATH = '/';
 export const futureDate = moment()
@@ -38,8 +36,12 @@ export function storeSessionToken(token) {
 }
 
 export function deleteSessionToken() {
-	const [removeCookie] = useCookies();
-	removeCookie("sloohSiteSessionToken");
+  window.document.cookie = cookie.serialize('sloohSiteSessionToken', token, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
 }
 
 export function storeMarketingTrackingId(marketingTrackingId) {
@@ -52,8 +54,12 @@ export function storeMarketingTrackingId(marketingTrackingId) {
 }
 
 export function deleteMarketingTrackingId() {
-	const [removeCookie] = useCookies();
-	removeCookie("sloohMarketingTrackingId");
+  window.document.cookie = cookie.serialize('sloohMarketingTrackingId', marketingTrackingId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
 }
 
 export function storeQuestBreadCrumbDetails(questId, questTitle) {
@@ -78,14 +84,30 @@ export function storeQuestBreadCrumbDetails(questId, questTitle) {
     expires: futureDate,
     path: COOKIE_PATH,
   });
-
 }
 
 export function deleteQuestBreadCrumbDetails() {
-	const [removeCookie] = useCookies();
-	removeCookie("sloohQuestBreadCrumbQuestId");
-	removeCookie("sloohQuestBreadCrumbQuestTitle");
-	removeCookie("sloohQuestBreadCrumbQuestLinkURL");
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestId', questId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestTitle', questTitle, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+
+  let questLinkURL = "/quest-details/" + questId;
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questLinkURL, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
 
 }
 
