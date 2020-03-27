@@ -13,9 +13,7 @@ const logPageVisit = (pagePath) => {
 		cid,
 		at,
 		token,
-		trackingId: cid,
-		trackingIdType: 'customer',
-		sessionToken: sloohSiteSessionToken,
+		siteSessionToken: sloohSiteSessionToken,
 		marketingTrackingId: sloohMarketingTrackingId,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
@@ -34,8 +32,7 @@ const logPageVisit = (pagePath) => {
 	//console.log(sloohMarketingTrackingId);
 
 	const requestData = {
-		trackingId: sloohSiteSessionToken,
-		trackingIdType: 'guest',
+		siteSessionToken: sloohSiteSessionToken,
 		marketingTrackingId: sloohMarketingTrackingId,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
