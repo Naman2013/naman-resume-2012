@@ -12,11 +12,8 @@ import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 
 import { API } from 'app/api';
-import {
-  resetLogIn,
-  logUserIn,
-  logGoogleUserIn,
-} from 'app/modules/login/actions';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'app/modules/login/actions';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
@@ -27,6 +24,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 
 import styles from './JoinStep3.style';
 
@@ -78,6 +76,9 @@ class JoinStep3 extends Component {
     if (e.data) {
       const paymentMessageData = `${e.data}`;
 
+      //determine if there is a slooh session token or slooh marketing tracking id
+      const { sloohSiteSessionToken, sloohMarketingTrackingId } = getUserInfo();
+
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
       //console.log(paymentMessageData);
@@ -111,8 +112,8 @@ class JoinStep3 extends Component {
 
           paymentMethod = 'paypal';
         }
-        //console.log(`Payment Token:${paymentNonceTokenData}`);
 
+        //console.log(`Payment Token:${paymentNonceTokenData}`);
         //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
@@ -124,8 +125,10 @@ class JoinStep3 extends Component {
           isAstronomyClub:
             window.localStorage.getItem('isAstronomyClub') === 'true',
           billingAddressString: paymentDataString[3],
+	  sloohSiteSessionToken,
+	  sloohMarketingTrackingId,
         };
-        //add string aboc to this //ADD THIS BACK AFTER TESTING
+
         API.post(
           JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
           activatePendingCustomerData
@@ -136,8 +139,15 @@ class JoinStep3 extends Component {
               if (res.status === 'success') {
                 const { actions } = this.props;
 
-                //Cleanup local localStorage
+		//fire off the Purchase Facebook Event
+		const myCID = window.localStorage.getItem('pending_cid');
+		fireSloohFBPurchaseEvent( {
+			cid: myCID, 
+			planName: res.PlanName,
+			planCostInUSD: res.PlanCostInUSD,
+		});
 
+                //Cleanup local localStorage
                 //cleanup any hidden plan that was accessed now that a plan was redeemed.
                 window.localStorage.removeItem('enableHiddenPlanHashCode');
 
@@ -195,10 +205,23 @@ class JoinStep3 extends Component {
       //console.log('The countdown has completed.....');
       return <div></div>;
     }
+
+    let minutesStr = parseInt(minutes);
+    if (minutes < 1) {
+	//make sure the seconds has a leading zero where needed.
+	minutesStr = "0" + parseInt(minutes);
+    }
+
+    let secondsStr = parseInt(seconds);
+    if (seconds < 10) {
+	//make sure the seconds has a leading zero where needed.
+	secondsStr = "0" + parseInt(seconds);
+    }
+
     // Render a countdown
     return (
       <p style={{ fontSize: '1.3em', color: 'green' }}>
-        {t('Ecommerce.SignupRequestExpireTime', { minutes, seconds })}
+        {t('Ecommerce.SignupRequestExpireTime', { minutes: minutesStr, seconds: secondsStr })}
       </p>
     );
   };

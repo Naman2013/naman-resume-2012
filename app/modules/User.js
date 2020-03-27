@@ -35,6 +35,54 @@ export function storeSessionToken(token) {
   });
 }
 
+export function deleteSessionToken() {
+	document.cookie = "sloohSiteSessionToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+export function storeMarketingTrackingId(marketingTrackingId) {
+  window.document.cookie = cookie.serialize('sloohMarketingTrackingId', marketingTrackingId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
+export function deleteMarketingTrackingId() {
+	document.cookie = "sloohMarketingTrackingId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+export function storeQuestBreadCrumbDetails(questId, questTitle) {
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestId', questId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestTitle', questTitle, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
+  let questLinkURL = "/quest-details/" + questId;
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questLinkURL, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
+}
+
+export function deleteQuestBreadCrumbDetails() {
+	document.cookie = "sloohQuestBreadCrumbQuestId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "sloohQuestBreadCrumbQuestTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "sloohQuestBreadCrumbQuestLinkURL=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
 export async function storeUserNewAT({ at }) {
   window.document.cookie = cookie.serialize('at', at, {
     domain: cookieD,
