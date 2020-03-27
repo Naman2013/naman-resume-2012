@@ -53,7 +53,6 @@ export function deleteMarketingTrackingId() {
 }
 
 export function storeQuestBreadCrumbDetails(questId, questTitle) {
-
   window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestId', questId, {
     domain: cookieD,
     secure: cookieSecure,
@@ -67,11 +66,21 @@ export function storeQuestBreadCrumbDetails(questId, questTitle) {
     expires: futureDate,
     path: COOKIE_PATH,
   });
+
+  let questLinkURL = "/quest-details/" + questId;
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questLinkURL, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
 }
 
 export function deleteQuestBreadCrumbDetails() {
 	document.cookie = "sloohQuestBreadCrumbQuestId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	document.cookie = "sloohQuestBreadCrumbQuestTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "sloohQuestBreadCrumbQuestLinkURL=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
 export async function storeUserNewAT({ at }) {
