@@ -1,5 +1,5 @@
 /**
-  a simple wrapper for the Facebook Pixel
+  A wrapper for the Facebook Pixel
 */
 
 export default function fireSloohFBEvent({ pagePath }) {

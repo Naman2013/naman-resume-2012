@@ -35,6 +35,15 @@ export function storeSessionToken(token) {
   });
 }
 
+export function storeMarketingTrackingId(marketingTrackingId) {
+  window.document.cookie = cookie.serialize('sloohMarketingTrackingId', marketingTrackingId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
 export async function storeUserNewAT({ at }) {
   window.document.cookie = cookie.serialize('at', at, {
     domain: cookieD,
