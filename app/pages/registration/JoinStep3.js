@@ -24,6 +24,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 
 import styles from './JoinStep3.style';
 
@@ -138,6 +139,14 @@ class JoinStep3 extends Component {
               if (res.status === 'success') {
                 const { actions } = this.props;
 
+		//fire off the Purchase Facebook Event
+		const myCID = window.localStorage.getItem('pending_cid');
+		fireSloohFBPurchaseEvent( {
+			cid: myCID, 
+			planName: res.PlanName,
+			planCostInUSD: res.PlanCostInUSD,
+		});
+
                 //Cleanup local localStorage
                 //cleanup any hidden plan that was accessed now that a plan was redeemed.
                 window.localStorage.removeItem('enableHiddenPlanHashCode');
@@ -146,10 +155,6 @@ class JoinStep3 extends Component {
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('isAstronomyClub');
-
-		//cleanup the slooh site session token and slooh marketing tracking id on a successful purchase.
-		deleteSessionToken();
-		deleteMarketingTrackingId();
 
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;

@@ -1,8 +1,8 @@
 /**
-  A wrapper for the Facebook Pixel
+  A wrapper for specific Facebook Events
 */
 
-export default function fireSloohFBEvent({ pagePath }) {
+export function fireSloohFBPurchaseEvent(myprops) {
   if (typeof fbq === 'undefined') {
 	//console.log('Facebook pixel fbq function not found.....');
 	//ideally send a Sentry error...
@@ -10,22 +10,18 @@ export default function fireSloohFBEvent({ pagePath }) {
   }
 
     /* 1/30/2020 - Track Facebook - Complete Registration Events */
-
     /* 3/26/2020 - Track Facebook - Changed from Complete Registration Events to Purchase Events */
-
-    if (pagePath == "/join/purchaseConfirmation/join") {
 	fbq('track', 'Purchase',
   		{
-    			value: 300.00,
+    			value: myprops.planCostInUSD,
     			currency: 'USD',
     			contents: [
       				{
-        				id: 'Astronomer',
+        				id: myprops.planName,
         				quantity: 1
       				}
 			],
     			content_type: 'product'
   		}
 	);
-    }
 }

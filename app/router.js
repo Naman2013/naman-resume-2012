@@ -101,7 +101,6 @@ import validateRegistrationPaths from 'app/route-functions/validateRegistrationP
 import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import fireSloohGAPageview from 'app/utils/ga-wrapper';
-import fireSloohFBEvent from 'app/utils/fb-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -134,10 +133,7 @@ history.listen(location => {
   const { pathname } = location;
 
   // Fire a Google Analytics pageview event as the route / path changed.
-  fireSloohGAPageview({ pagePath: pathname });
-
-  // 1/30/2020: Added Facebook Tracker
-  fireSloohFBEvent({ pagePath: pathname });
+  fireSloohGAPageview({ pagePath: pathname });	
 });
 
 const getProfileRoutes = ({ publicProfile }) => (
