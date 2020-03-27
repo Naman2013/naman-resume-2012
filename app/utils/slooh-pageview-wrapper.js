@@ -13,9 +13,7 @@ const logPageVisit = (pagePath) => {
 		cid,
 		at,
 		token,
-		trackingId: cid,
-		trackingIdType: 'customer',
-		sessionToken: sloohSiteSessionToken,
+		siteSessionToken: sloohSiteSessionToken,
 		marketingTrackingId: sloohMarketingTrackingId,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
@@ -23,6 +21,8 @@ const logPageVisit = (pagePath) => {
 	  finalRequestData = requestData;
 
 	//the session token and marketing tracking id will only get logged on the purchase confirmation page visit once.
+	console.log(pagePath.pagePath);
+
 	if (pagePath.pagePath == "/join/purchaseConfirmation/join") {
 		//cleanup the slooh site session token and slooh marketing tracking id on a successful purchase.
 		deleteSessionToken();
@@ -34,8 +34,7 @@ const logPageVisit = (pagePath) => {
 	//console.log(sloohMarketingTrackingId);
 
 	const requestData = {
-		trackingId: sloohSiteSessionToken,
-		trackingIdType: 'guest',
+		siteSessionToken: sloohSiteSessionToken,
 		marketingTrackingId: sloohMarketingTrackingId,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
