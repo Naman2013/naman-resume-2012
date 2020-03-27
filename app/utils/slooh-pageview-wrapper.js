@@ -4,7 +4,7 @@ import { getUserInfo } from 'app/modules/User';
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
 const logPageVisit = (pagePath) => {
-  const { cid, at, token, sloohSiteSessionToken } = getUserInfo();
+  const { cid, at, token, sloohSiteSessionToken, sloohMarketingTrackingId } = getUserInfo();
 
   let finalRequestData = null;
   
@@ -22,10 +22,12 @@ const logPageVisit = (pagePath) => {
   }
   else {
  	//guest
+	//console.log(sloohMarketingTrackingId);
 
 	const requestData = {
 		trackingId: sloohSiteSessionToken,
 		trackingIdType: 'guest',
+		marketingTrackingId: sloohMarketingTrackingId,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
 	  };
