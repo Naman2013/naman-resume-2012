@@ -85,7 +85,6 @@ class App extends Component {
 
   render() {
     const { isLanding } = this.props;
-    const { sloohSiteSessionToken } = getUserInfo();
 
     return (
       <Suspense fallback={<div>Loading</div>}>
@@ -93,7 +92,7 @@ class App extends Component {
           style={{ overflow: 'hidden' }}
           className={`wrapper ${isLanding ? 'is-landing' : null}`}
         >
-          {sloohSiteSessionToken && <DeviceProvider>
+          <DeviceProvider>
             <PageMetaManagement />
 
             <IssueWithUserAccount />
@@ -106,8 +105,7 @@ class App extends Component {
               <div className="clearfix">{this.props.children}</div>
             </section>
             <Footer />
-          </DeviceProvider>
-	  }
+          </DeviceProvider>	  
           <style jsx>
             {`
               .v4 {
