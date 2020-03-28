@@ -77,7 +77,8 @@ export function storeQuestBreadCrumbDetails(questId, questTitle) {
     path: COOKIE_PATH,
   });
 
-  let questLinkURL = "/quest-details/" + questId;
+  // let questLinkURL = "/quest-details/" + questId;
+  let questLinkURL = questId;
   window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questLinkURL, {
     domain: cookieD,
     secure: cookieSecure,
@@ -101,7 +102,8 @@ export function deleteQuestBreadCrumbDetails() {
     path: COOKIE_PATH,
   });
 
-  let questLinkURL = "/quest-details/" + questId;
+  // let questLinkURL = "/quest-details/" + questId;
+  let questLinkURL = questId;
   window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', '', {
     domain: cookieD,
     secure: cookieSecure,

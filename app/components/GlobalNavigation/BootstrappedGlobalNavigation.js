@@ -424,7 +424,8 @@ class GlobalNavigation extends Component {
       isChatEnabled = userInfoIsChatEnabled;
       displayName = userInfoName;
     }
-
+    const { sloohQuestBreadCrumbQuestTitle, sloohQuestBreadCrumbQuestLinkURL } = getUserInfo();
+  
     return (
       <div className="root">
         <div className="top-bar">
@@ -448,7 +449,11 @@ class GlobalNavigation extends Component {
               this.subscribeToPubnubActivityFeedChannel
             }
           />
-          <QuestBreadCrumb/>
+         
+          <QuestBreadCrumb
+            sloohQuestBreadCrumbQuestTitle={sloohQuestBreadCrumbQuestTitle}
+            sloohQuestBreadCrumbQuestLinkURL={sloohQuestBreadCrumbQuestLinkURL}
+          />
         </div>
 
         <Menu

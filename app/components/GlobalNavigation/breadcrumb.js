@@ -1,11 +1,11 @@
 import React from 'react';
 
-const QuestBreadCrumb = ({  }) => (
+const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQuestLinkURL }) => (
+  (sloohQuestBreadCrumbQuestLinkURL ?
     <div>
-    <div className="breadcrumb">        
-        {/* <div className="icon" ></div> */}
-        <h4><b>Return to Quest:&nbsp;</b></h4>
-        <h4 className="normaltxt">Mystery of the Island Universes</h4>
+    <div className="breadcrumb">  
+        <a href={sloohQuestBreadCrumbQuestLinkURL}><h4><b>Return to Quest:&nbsp;</b></h4>
+        <h4 className="normaltxt">{sloohQuestBreadCrumbQuestTitle}</h4></a>
     </div>
 
 <style jsx>
@@ -16,7 +16,7 @@ const QuestBreadCrumb = ({  }) => (
     margin-top: 60px;
     background-color: #FFF;
     width: 100%;
-    padding: 8px 0px 0px 10px;    
+    padding: 8px 0px 8px 10px;    
     border-bottom: 2px solid #ced2d8;
     
   }
@@ -43,13 +43,20 @@ const QuestBreadCrumb = ({  }) => (
     font-size: 16px;
 
   }
-
-  .breadcrumb .icon h4{
+  .breadcrumb a{
     display: inline;
     cursor: pointer;
-  }`}
+    color: #41566f;
+  }
+
+  .breadcrumb a h4{
+    display: inline;
+    cursor: pointer;
+  }
+  
+  `}
   </style>
-  </div>
+  </div>:null)
 );
 
 export default QuestBreadCrumb;
