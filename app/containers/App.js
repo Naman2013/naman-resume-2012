@@ -7,6 +7,7 @@ import IssueWithUserAccount from 'app/modules/account-settings/containers/issue-
 import { initSessionToken } from 'app/utils/session';
 import { makeUserSelector } from 'app/modules/user/selectors';
 import PageMetaManagement from '../components/PageMetaManagement';
+import { getUserInfo } from 'app/modules/User';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
@@ -84,6 +85,7 @@ class App extends Component {
 
   render() {
     const { isLanding } = this.props;
+    const { sloohSiteSessionToken } = getUserInfo();
 
     return (
       <Suspense fallback={<div>Loading</div>}>
@@ -91,7 +93,7 @@ class App extends Component {
           style={{ overflow: 'hidden' }}
           className={`wrapper ${isLanding ? 'is-landing' : null}`}
         >
-          <DeviceProvider>
+          {sloohSiteSessionToken && <DeviceProvider>
             <PageMetaManagement />
 
             <IssueWithUserAccount />
@@ -105,6 +107,7 @@ class App extends Component {
             </section>
             <Footer />
           </DeviceProvider>
+	  }
           <style jsx>
             {`
               .v4 {
