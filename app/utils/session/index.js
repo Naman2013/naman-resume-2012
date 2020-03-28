@@ -11,9 +11,9 @@ export const initSessionToken = ({ isAuthorized }) => {
     return;
   }
 
-  const { sloohSiteSessionToken } = cookie.parse(window.document.cookie);
+  const { _sloohatid } = cookie.parse(window.document.cookie);
 
-  if (!sloohSiteSessionToken) {
+  if (!_sloohatid) {
 	API.post(GENERATE_SESSION_API_URL).then(({ data: { sloohSessionToken } }) => {
 		storeSessionToken(sloohSessionToken);
 	});

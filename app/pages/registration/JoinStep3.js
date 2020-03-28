@@ -77,7 +77,7 @@ class JoinStep3 extends Component {
       const paymentMessageData = `${e.data}`;
 
       //determine if there is a slooh session token or slooh marketing tracking id
-      const { sloohSiteSessionToken, sloohMarketingTrackingId } = getUserInfo();
+      const { _sloohsstkn, _sloohatid } = getUserInfo();
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
@@ -125,8 +125,8 @@ class JoinStep3 extends Component {
           isAstronomyClub:
             window.localStorage.getItem('isAstronomyClub') === 'true',
           billingAddressString: paymentDataString[3],
-	  sloohSiteSessionToken,
-	  sloohMarketingTrackingId,
+	  sloohSiteSessionToken: _sloohsstkn,
+	  sloohMarketingTrackingId: _sloohatid,
         };
 
         API.post(

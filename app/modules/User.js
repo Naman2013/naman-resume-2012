@@ -27,7 +27,7 @@ const cookieD = projectCookieDomain || 'localhost';
 const cookieSecure = !!projectCookieDomain;
 
 export function storeSessionToken(token) {
-  window.document.cookie = cookie.serialize('sloohSiteSessionToken', token, {
+  window.document.cookie = cookie.serialize('_sloohsstkn', token, {
     domain: cookieD,
     secure: cookieSecure,
     expires: futureDate,
@@ -36,7 +36,7 @@ export function storeSessionToken(token) {
 }
 
 export function deleteSessionToken() {
-  window.document.cookie = cookie.serialize('sloohSiteSessionToken', '', {
+  window.document.cookie = cookie.serialize('_sloohsstkn', '', {
     domain: cookieD,
     secure: cookieSecure,
     expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
@@ -45,7 +45,7 @@ export function deleteSessionToken() {
 }
 
 export function storeMarketingTrackingId(marketingTrackingId) {
-  window.document.cookie = cookie.serialize('sloohMarketingTrackingId', marketingTrackingId, {
+  window.document.cookie = cookie.serialize('_sloohatid', marketingTrackingId, {
     domain: cookieD,
     secure: cookieSecure,
     expires: futureDate,
@@ -54,7 +54,7 @@ export function storeMarketingTrackingId(marketingTrackingId) {
 }
 
 export function deleteMarketingTrackingId() {
-  window.document.cookie = cookie.serialize('sloohMarketingTrackingId', '', {
+  window.document.cookie = cookie.serialize('_sloohatid', '', {
     domain: cookieD,
     secure: cookieSecure,
     expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
