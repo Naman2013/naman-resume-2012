@@ -18,6 +18,7 @@ import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
+import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 
 import styles from 'app/pages/registration/JoinStep3.style';
 
@@ -91,6 +92,9 @@ const handleIframeTaskUpgrade = (e, props) => {
 
       //console.log('Payment Token!! ' + paymentNonceTokenData);
 
+      //determine if there is a sslooh marketing tracking id
+      const { _sloohatid } = getUserInfo();
+
       /* Process the Customer's Activation and Sign the User into the website */
       const upgradeCustomerData = {
         cid: getUserInfo().cid,
@@ -102,8 +106,8 @@ const handleIframeTaskUpgrade = (e, props) => {
         paymentMethod,
         paymentToken: paymentNonceTokenData,
         billingAddressString: paymentDataString[3],
-        isAstronomyClub:
-          window.localStorage.getItem('isAstronomyClub') === 'true'
+        isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+	sloohMarketingTrackingId: _sloohatid,
       };
       //add string aboc to this //ADD THIS BACK AFTER TESTING
       API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
@@ -111,6 +115,13 @@ const handleIframeTaskUpgrade = (e, props) => {
           const res = response.data;
           if (!res.apiError) {
             if (res.status === 'success') {
+		//fire off the Purchase Facebook Event
+		fireSloohFBPurchaseEvent( {
+			cid: getUserInfo().cid, 
+			planName: res.PlanName,
+			planCostInUSD: res.PlanCostInUSD,
+		});
+
               //Cleanup local localStorage
               window.localStorage.removeItem('pending_cid');
               window.localStorage.removeItem('selectedPlanId');
