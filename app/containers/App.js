@@ -25,10 +25,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const { isLanding } = state;
+  const { isLanding} = state;
 
   return {
-    isLanding,
+    isLanding,    
     user: makeUserSelector()(state),
   };
 }
@@ -39,22 +39,23 @@ function mapStateToProps(state) {
 )
 class App extends Component {
   static propTypes = {
+    isSessionInitialized: PropTypes.bool,
     isLanding: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    fetchEvents: PropTypes.func.isRequired,
+    fetchEvents: PropTypes.func.isRequired,    
   };
 
   static defaultProps = {
     isLanding: false,
+    isSessionInitialized: false,
   };
-
+  state={   
+    isSessionInitialized: false,
+  }
+  
   constructor(props) {
     super(props);
     props.fetchEvents();
-
-    const { user } = props;
-    initSessionToken(user);
-
     const {
       location: { pathname },
     } = this.props;
@@ -63,10 +64,16 @@ class App extends Component {
     fireSloohPageView({ pagePath: pathname });
   }
 
+  async componentDidMount(){    
+    const { user } = this.props; 
+    const res = await (initSessionToken(user,this));
+    this.setState({isSessionInitialized: res});
+  }
+
   componentWillReceiveProps(nextProps) {
     const {
-      location: { pathname },
-    } = this.props;
+      location: { pathname },      
+    } = this.props;    
     const {
       location: { pathname: currentPathname },
     } = nextProps;
@@ -84,13 +91,15 @@ class App extends Component {
 
   render() {
     const { isLanding } = this.props;
-
+    const { isSessionInitialized } = this.state;    
     return (
       <Suspense fallback={<div>Loading</div>}>
+        
         <div
           style={{ overflow: 'hidden' }}
-          className={`wrapper ${isLanding ? 'is-landing' : null}`}
+          className={`wrapper ${isLanding  ? 'is-landing' : null}`}
         >
+          {isSessionInitialized? 
           <DeviceProvider>
             <PageMetaManagement />
 
@@ -105,6 +114,7 @@ class App extends Component {
             </section>
             <Footer />
           </DeviceProvider>
+             :null} 
           <style jsx>
             {`
               .v4 {
@@ -118,7 +128,7 @@ class App extends Component {
               }
             `}
           </style>
-        </div>
+        </div>      
       </Suspense>
     );
   }
