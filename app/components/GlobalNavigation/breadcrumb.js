@@ -50,8 +50,7 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
   }
 
   .breadcrumb a h4{
-    display: inline;
-    cursor: pointer;
+    display: inline; 
   }
   
   `}

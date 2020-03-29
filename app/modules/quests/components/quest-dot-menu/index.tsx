@@ -3,7 +3,7 @@ import { Tooltip } from 'react-tippy';
 import { QuestButtonsPopover } from 'app/modules/quests/components/quest-buttons-popover';
 import { IQuestDotMenuItem } from 'app/modules/quests/types.ts';
 import './styles.scss';
-import { storeQuestBreadCrumbDetails } from 'app/modules/User'
+
 
 type QuestDotMenuProps = {
   show?: boolean;
@@ -46,8 +46,7 @@ export const QuestDotMenu: React.FC<QuestDotMenuProps> = React.memo(props => {
                             if (!item.notCloseOnClick) {
                               toggle(false);
                             }
-                            if (item.action) {                             
-                              storeQuestBreadCrumbDetails(window.location.pathname, item.title);
+                            if (item.action) {   
                               item.action();
                             }
                           }}
