@@ -15,7 +15,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
-import { getUserInfo } from 'app/modules/User';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
@@ -121,6 +121,10 @@ const handleIframeTaskUpgrade = (e, props) => {
 			planName: res.PlanName,
 			planCostInUSD: res.PlanCostInUSD,
 		});
+
+		//clean up any session or marketing tracking id
+		deleteSessionToken();
+		deleteMarketingTrackingId();
 
               //Cleanup local localStorage
               window.localStorage.removeItem('pending_cid');
