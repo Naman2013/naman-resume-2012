@@ -7,7 +7,6 @@ import IssueWithUserAccount from 'app/modules/account-settings/containers/issue-
 import { initSessionToken } from 'app/utils/session';
 import { makeUserSelector } from 'app/modules/user/selectors';
 import PageMetaManagement from '../components/PageMetaManagement';
-import { getUserInfo } from 'app/modules/User';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
@@ -26,7 +25,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const { isLanding } = state;
+  const { isLanding} = state;
 
   return {
     isLanding,
@@ -40,6 +39,7 @@ function mapStateToProps(state) {
 )
 class App extends Component {
   static propTypes = {
+    isSessionInitialized: PropTypes.bool,
     isLanding: PropTypes.bool,
     children: PropTypes.node.isRequired,
     fetchEvents: PropTypes.func.isRequired,
@@ -47,19 +47,26 @@ class App extends Component {
 
   static defaultProps = {
     isLanding: false,
+    isSessionInitialized: false,
   };
+  state={
+    isSessionInitialized: false,
+  }
 
   constructor(props) {
     super(props);
     props.fetchEvents();
 
-    const { user } = props;
-    initSessionToken(user);
+  }
 
+
+  async componentDidMount(){
+    const { user } = this.props;
+    const res = await (initSessionToken(user,this));
+    this.setState({isSessionInitialized: res});
     const {
       location: { pathname },
     } = this.props;
-
     // Slooh page view tracker for application load event
     fireSloohPageView({ pagePath: pathname });
   }
@@ -77,7 +84,7 @@ class App extends Component {
     if (routeChanged) {
       //console.log(pathname);
       //console.log(currentPathname);
-  
+
      // Slooh page view tracker when route changes
      fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });
     }
@@ -85,13 +92,15 @@ class App extends Component {
 
   render() {
     const { isLanding } = this.props;
-
+    const { isSessionInitialized } = this.state;
     return (
       <Suspense fallback={<div>Loading</div>}>
+
         <div
           style={{ overflow: 'hidden' }}
-          className={`wrapper ${isLanding ? 'is-landing' : null}`}
+          className={`wrapper ${isLanding  ? 'is-landing' : null}`}
         >
+          {isSessionInitialized?
           <DeviceProvider>
             <PageMetaManagement />
 
@@ -105,7 +114,8 @@ class App extends Component {
               <div className="clearfix">{this.props.children}</div>
             </section>
             <Footer />
-          </DeviceProvider>	  
+          </DeviceProvider>
+             :null}
           <style jsx>
             {`
               .v4 {

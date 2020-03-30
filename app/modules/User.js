@@ -70,7 +70,6 @@ export function storeQuestBreadCrumbDetails(questURL, questTitle) {
     path: COOKIE_PATH,
   });
 
-  let questLinkURL = "/quest-details/" + questId;
   window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questURL, {
     domain: cookieD,
     secure: cookieSecure,
@@ -87,14 +86,12 @@ export function deleteQuestBreadCrumbDetails() {
     path: COOKIE_PATH,
   });
 
-  let questLinkURL = "/quest-details/" + questId;
   window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', '', {
     domain: cookieD,
     secure: cookieSecure,
     expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
     path: COOKIE_PATH,
   });
-
 }
 
 export async function storeUserNewAT({ at }) {

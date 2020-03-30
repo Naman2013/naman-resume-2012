@@ -4,18 +4,25 @@ import { storeSessionToken } from 'app/modules/User';
 
 const GENERATE_SESSION_API_URL = '/api/app/generateSessionToken';
 
-export const initSessionToken = ({ isAuthorized }) => {
+const generateSessionToken = async () => {
+  //console.log('generateSessionToken');
+  let res = await API.post(GENERATE_SESSION_API_URL);
+  storeSessionToken(res.data.sloohSessionToken);
+  return true;
+};
+
+export const initSessionToken = async ({ isAuthorized }, props) => {
   //console.log('initSessionToken');
   //console.log('isAuthorized', isAuthorized);
   if (isAuthorized) {
-    return;
+    return true;
   }
 
-  const { _sloohatid } = cookie.parse(window.document.cookie);
+  const { sloohSiteSessionToken } = cookie.parse(window.document.cookie);
 
-  if (!_sloohatid) {
-	API.post(GENERATE_SESSION_API_URL).then(({ data: { sloohSessionToken } }) => {
-		storeSessionToken(sloohSessionToken);
-	});
+  if (!sloohSiteSessionToken) {
+    return await generateSessionToken();
   }
+  else
+    return true;
 };

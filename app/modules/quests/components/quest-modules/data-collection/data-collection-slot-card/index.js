@@ -13,6 +13,7 @@ import { QuestSlotInfoPopup } from 'app/modules/quests/components/quest-slot-inf
 import Dots from 'app/atoms/icons/Dots';
 import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
+import { storeQuestBreadCrumbDetails } from 'app/modules/User'
 
 const onDownloadImage = url => {
   downloadFile(url, url.substring(url.lastIndexOf('/') + 1));
@@ -26,6 +27,8 @@ export const DataCollectionSlotCard = props => {
     user,
     refreshDataCollection,
     readOnly,
+    questTitle,
+    questURL,
   } = props;
 
   const {
@@ -102,7 +105,10 @@ export const DataCollectionSlotCard = props => {
       show: showObjectInfo,
       disabled: !enableObjectInfo,
       title: learnAboutText,
-      action: () => browserHistory.push(learnAboutUrl),
+      action: () => {
+        storeQuestBreadCrumbDetails(questURL, questTitle);
+        browserHistory.push(learnAboutUrl);
+      },
     },
     {
       show: showObjectInfo,
@@ -120,7 +126,7 @@ export const DataCollectionSlotCard = props => {
       ),
     },
   ];
-
+ 
   return (
     <div className="dc-slot-card">
       <div className="dc-slot-card-number">
