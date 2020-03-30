@@ -62,7 +62,7 @@ class App extends Component {
   async componentDidMount(){    
     const { user } = this.props;    
     if(!user.isAuthorized){
-      console.log("Initializing Session Token");
+      //console.log("Initializing Session Token");
       const res = await (initSessionToken(user,this));
       this.setState({isSessionInitialized: res});      
       const {
@@ -73,8 +73,8 @@ class App extends Component {
       this.setState({isSessionInitialized: true});
     }    
 
-      // Slooh page view tracker for application load event
-      fireSloohPageView({ pagePath: pathname });  
+    // Slooh page view tracker for application load event
+    fireSloohPageView({ pagePath: pathname });  
   }
 
   componentWillReceiveProps(nextProps) {
