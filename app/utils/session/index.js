@@ -21,7 +21,7 @@ export const initSessionToken = async ({ isAuthorized }, props) => {
   const { sloohSiteSessionToken } = cookie.parse(window.document.cookie);
 
   if (!sloohSiteSessionToken) {
-    return await generateSessionToken(handlesessionreturn);    
+    return await generateSessionToken();    
   }
   else
     return true;
