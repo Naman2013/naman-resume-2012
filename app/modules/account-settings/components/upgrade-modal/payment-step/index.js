@@ -46,7 +46,7 @@ const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
     <p
       style={{ backgroundColor: '#f2f2f2', fontSize: '1.3em', color: 'green' }}
     >
-      {t('Ecommerce.SignupRequestExpireTimeOnUpgrade', { minutesStr, secondsStr })}
+      {t('Ecommerce.SignupRequestExpireTimeOnUpgrade', { minutes: minutesStr, seconds: secondsStr })}
     </p>
   );
 };
