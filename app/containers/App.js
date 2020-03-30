@@ -55,17 +55,17 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    props.fetchEvents();
-    const {
-      location: { pathname },
-    } = this.props;
+    props.fetchEvents();   
 
   }
 
   async componentDidMount(){    
     const { user } = this.props; 
     const res = await (initSessionToken(user,this));
-    this.setState({isSessionInitialized: res});    
+    this.setState({isSessionInitialized: res});
+    const {
+      location: { pathname },
+    } = this.props;
     // Slooh page view tracker for application load event
     fireSloohPageView({ pagePath: pathname });
   }
