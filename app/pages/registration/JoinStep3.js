@@ -208,8 +208,8 @@ class JoinStep3 extends Component {
 
     let minutesStr = parseInt(minutes);
     if (minutes < 1) {
-	//make sure the seconds has a leading zero where needed.
-	minutesStr = "0" + parseInt(minutes);
+	//make sure the minutes does not have a leading zero where needed.
+	minutesStr = parseInt(minutes);
     }
 
     let secondsStr = parseInt(seconds);

@@ -29,11 +29,24 @@ const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
     return <div></div>;
   }
   // Render a countdown
+
+    let minutesStr = parseInt(minutes);
+    if (minutes < 1) {
+	//make sure the minutes does not have a leading zero where needed.
+	minutesStr = parseInt(minutes);
+    }
+
+    let secondsStr = parseInt(seconds);
+    if (seconds < 10) {
+	//make sure the seconds has a leading zero where needed.
+	secondsStr = "0" + parseInt(seconds);
+    }
+
   return (
     <p
       style={{ backgroundColor: '#f2f2f2', fontSize: '1.3em', color: 'green' }}
     >
-      {t('Ecommerce.SignupRequestExpireTimeOnUpgrade', { minutes, seconds })}
+      {t('Ecommerce.SignupRequestExpireTimeOnUpgrade', { minutesStr, secondsStr })}
     </p>
   );
 };
