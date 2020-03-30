@@ -4,7 +4,7 @@ import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
 const logPageVisit = (pagePath) => {
-  const { cid, at, token, sloohSiteSessionToken, sloohMarketingTrackingId } = getUserInfo();
+  const { cid, at, token, _sloohsstkn, _sloohatid } = getUserInfo();
 
   let finalRequestData = null;
   
@@ -13,8 +13,8 @@ const logPageVisit = (pagePath) => {
 		cid,
 		at,
 		token,
-		siteSessionToken: sloohSiteSessionToken,
-		marketingTrackingId: sloohMarketingTrackingId,
+		siteSessionToken: _sloohsstkn,
+		marketingTrackingId: _sloohatid,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
 	  };
@@ -31,11 +31,11 @@ const logPageVisit = (pagePath) => {
   }
   else {
  	//guest
-	//console.log(sloohMarketingTrackingId);
+	//console.log(_sloohatid);
 
 	const requestData = {
-		siteSessionToken: sloohSiteSessionToken,
-		marketingTrackingId: sloohMarketingTrackingId,
+		siteSessionToken: _sloohsstkn,
+		marketingTrackingId: _sloohatid,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
 	  };

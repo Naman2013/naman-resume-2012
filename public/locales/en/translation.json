@@ -196,15 +196,15 @@
     "No": "No",
     "GoToPayment": "Next Step",
     "SignupRequestExpireTime":
-    "This signup request will expire in {{minutes}}:{{seconds}}.",
+    "This signup request will expire in {{minutes}}:{{seconds}}",
     "SignupRequestExpiered":
-    "Signup request expired...redirecting to the homepage in 00:{{seconds}}.",
+    "Signup request expired...redirecting to the homepage in 00:{{seconds}}",
     "SignupRequestExpireTimeOnUpgrade":
-    "This request will expire in {{minutes}}:{{seconds}}.",
+    "This request will expire in {{minutes}}:{{seconds}}",
     "SignupRequestExpieredOnUpgrade":
-    "Request expired...redirecting to the homepage in 00:{{seconds}}.",
-    "JoinSlooh": "ONE WEEK FREE TRIAL",
-    "JoinSloohTrial": "Join today and get a one week free trial",
+    "Request expired...redirecting to the homepage in 00:{{seconds}}",
+    "JoinSlooh": "",
+    "JoinSloohTrial": "",
     "JoinNow": "Join Now",
     "Login": "Login",
     "Home": "Home"

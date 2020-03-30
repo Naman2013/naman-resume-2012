@@ -77,7 +77,7 @@ class JoinStep3 extends Component {
       const paymentMessageData = `${e.data}`;
 
       //determine if there is a slooh session token or slooh marketing tracking id
-      const { sloohSiteSessionToken, sloohMarketingTrackingId } = getUserInfo();
+      const { _sloohsstkn, _sloohatid } = getUserInfo();
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
@@ -125,8 +125,8 @@ class JoinStep3 extends Component {
           isAstronomyClub:
             window.localStorage.getItem('isAstronomyClub') === 'true',
           billingAddressString: paymentDataString[3],
-	  sloohSiteSessionToken,
-	  sloohMarketingTrackingId,
+	  sloohSiteSessionToken: _sloohsstkn,
+	  sloohMarketingTrackingId: _sloohatid,
         };
 
         API.post(
@@ -208,8 +208,8 @@ class JoinStep3 extends Component {
 
     let minutesStr = parseInt(minutes);
     if (minutes < 1) {
-	//make sure the seconds has a leading zero where needed.
-	minutesStr = "0" + parseInt(minutes);
+	//make sure the minutes does not have a leading zero where needed.
+	minutesStr = parseInt(minutes);
     }
 
     let secondsStr = parseInt(seconds);
