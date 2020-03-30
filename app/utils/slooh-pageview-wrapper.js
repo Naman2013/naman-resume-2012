@@ -1,5 +1,5 @@
 import { API } from 'app/api';
-import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails() } from 'app/modules/User';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
@@ -27,6 +27,12 @@ const logPageVisit = (pagePath) => {
 		//cleanup the slooh site session token and slooh marketing tracking id on a successful purchase.
 		deleteSessionToken();
 		deleteMarketingTrackingId();
+	}
+	else if (pagePath.pagePath.startsWith("/profile/private") == true) {
+		deleteQuestBreadCrumbDetails()
+	}
+	else if (pagePath.pagePath.startsWith("/quest-details") == true) {
+		deleteQuestBreadCrumbDetails()
 	}
   }
   else {
