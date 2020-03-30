@@ -59,21 +59,15 @@ class App extends Component {
 
   }
 
-  async componentDidMount(){    
-    const { user } = this.props;    
-    if(!user.isAuthorized){
-      const res = await (initSessionToken(user,this));
-      this.setState({isSessionInitialized: res});      
-      const {
-        location: { pathname },
-      } = this.props;
-      // Slooh page view tracker for application load event
-      fireSloohPageView({ pagePath: pathname });
-    }
-    else{
-      this.setState({isSessionInitialized: true});
-    }    
-  
+  async componentDidMount(){  
+    const { user } = this.props;       
+    const res = await (initSessionToken(user,this));  
+    this.setState({isSessionInitialized: res});    
+    const {
+      location: { pathname },
+    } = this.props;
+    // Slooh page view tracker for application load event
+    fireSloohPageView({ pagePath: pathname });
   }
 
   componentWillReceiveProps(nextProps) {
