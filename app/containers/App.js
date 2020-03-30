@@ -62,6 +62,7 @@ class App extends Component {
   async componentDidMount(){    
     const { user } = this.props;    
     if(!user.isAuthorized){
+      console.log("Initializing Session Token");
       const res = await (initSessionToken(user,this));
       this.setState({isSessionInitialized: res});      
       const {
