@@ -196,7 +196,7 @@
     "No": "No",
     "GoToPayment": "Next Step",
     "SignupRequestExpireTime":
-    "This signup request will expire in {{minutes}}:{{seconds}}.",
+    "This signup request will expire in {{minutes}}:{{seconds}}",
     "SignupRequestExpiered":
     "Signup request expired...redirecting to the homepage in 00:{{seconds}}.",
     "SignupRequestExpireTimeOnUpgrade":
