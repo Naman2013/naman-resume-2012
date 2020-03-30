@@ -59,6 +59,7 @@ class App extends Component {
 
   }
 
+<<<<<<< HEAD
   async componentDidMount(){  
     const { user } = this.props;       
     const res = await (initSessionToken(user,this));  
@@ -68,6 +69,24 @@ class App extends Component {
     } = this.props;
     // Slooh page view tracker for application load event
     fireSloohPageView({ pagePath: pathname });
+=======
+  async componentDidMount(){    
+    const { user } = this.props;    
+    if(!user.isAuthorized){
+      //console.log("Initializing Session Token");
+      const res = await (initSessionToken(user,this));
+      this.setState({isSessionInitialized: res});      
+      const {
+        location: { pathname },
+      } = this.props;
+    }
+    else{
+      this.setState({isSessionInitialized: true});
+    }    
+
+    // Slooh page view tracker for application load event
+    fireSloohPageView({ pagePath: pathname });  
+>>>>>>> 979cac80ee2885751e1c8a40ee5b4fb702bb59d8
   }
 
   componentWillReceiveProps(nextProps) {
