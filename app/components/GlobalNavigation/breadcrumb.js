@@ -9,10 +9,10 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
   (sloohQuestBreadCrumbQuestLinkURL ?
     <div>
     <div className="breadcrumb">  
-    <span onClick={() => contentClickHandler(sloohQuestBreadCrumbQuestLinkURL)} role="button">
-        <h4><b>Return to Quest:&nbsp;</b></h4>
-        <h4 className="normaltxt">{sloohQuestBreadCrumbQuestTitle}</h4>
-    </span>
+	    <span onClick={() => contentClickHandler(sloohQuestBreadCrumbQuestLinkURL)} role="button">
+        	<h4 className="breadcrumbBoldtxt">Return to Quest:&nbsp;</h4>
+        	<h4 className="breadcrumbNormaltxt">{sloohQuestBreadCrumbQuestTitle}</h4>
+    	    </span>
     </div>
 
 <style jsx>
@@ -40,16 +40,17 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
     float: left;
   }
 
-  .breadcrumb.normaltxt{
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 12px;
-  }
-
-  .breadcrumb.boldtxt{
+  .breadcrumbNormaltxt{
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 14px;
-
   }
+
+  .breadcrumbBoldtxt{
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
   .breadcrumb span{
     display: inline;
     cursor: pointer;
