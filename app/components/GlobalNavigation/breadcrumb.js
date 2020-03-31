@@ -23,7 +23,7 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
     margin-top: 60px;
     background-color: #FFF;
     width: 100%;
-    padding: 2px 0px 2px 10px;    
+    padding: 4px 0px 2px 10px;    
     border-bottom: 2px solid #ced2d8;
     
   }
