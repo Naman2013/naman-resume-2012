@@ -42,12 +42,12 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
 
   .breadcrumb.normaltxt{
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .breadcrumb.boldtxt{
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 
   }
   .breadcrumb span{
