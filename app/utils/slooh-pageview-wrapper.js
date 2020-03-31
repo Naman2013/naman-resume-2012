@@ -29,10 +29,12 @@ const logPageVisit = (pagePath) => {
 		deleteMarketingTrackingId();
 	}
 	else if (pagePath.pagePath.startsWith("/profile/private") == true) {
-		deleteQuestBreadCrumbDetails()
+		console.log("Delete the Quest Breadcrumbs");
+		deleteQuestBreadCrumbDetails();
 	}
 	else if (pagePath.pagePath.startsWith("/quest-details") == true) {
-		deleteQuestBreadCrumbDetails()
+		console.log("Delete the Quest Breadcrumbs");
+		deleteQuestBreadCrumbDetails();
 	}
   }
   else {
@@ -46,6 +48,9 @@ const logPageVisit = (pagePath) => {
 	    	referringPageURL: pagePath.referringPageURL,
 	  };
 	  finalRequestData = requestData;
+
+	  //make sure that any requests as a guest remove any breadcrumb details
+	  deleteQuestBreadCrumbDetails();
   }
 
   API.post(LOG_PAGE_VISIT_API_URL, finalRequestData).then(response => {
