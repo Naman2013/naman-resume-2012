@@ -27,10 +27,69 @@ const cookieD = projectCookieDomain || 'localhost';
 const cookieSecure = !!projectCookieDomain;
 
 export function storeSessionToken(token) {
-  window.document.cookie = cookie.serialize('sloohSiteSessionToken', token, {
+  window.document.cookie = cookie.serialize('_sloohsstkn', token, {
     domain: cookieD,
     secure: cookieSecure,
     expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
+export function deleteSessionToken() {
+  window.document.cookie = cookie.serialize('_sloohsstkn', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+}
+
+export function storeMarketingTrackingId(marketingTrackingId) {
+  window.document.cookie = cookie.serialize('_sloohatid', marketingTrackingId, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
+export function deleteMarketingTrackingId() {
+  window.document.cookie = cookie.serialize('_sloohatid', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+}
+
+export function storeQuestBreadCrumbDetails(questURL, questTitle) {
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestTitle', questTitle, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', questURL, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
+export function deleteQuestBreadCrumbDetails() {
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestTitle', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+
+  window.document.cookie = cookie.serialize('sloohQuestBreadCrumbQuestLinkURL', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
     path: COOKIE_PATH,
   });
 }
