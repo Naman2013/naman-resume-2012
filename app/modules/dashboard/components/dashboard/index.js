@@ -5,6 +5,7 @@ import {
 } from 'app/services/dashboard/timer';
 import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
 import GuestDashboard from '../guest-dashboard';
+import {fireSloohMarketingTrackingStartEvent} from 'app/utils/slooh-marketing-wrapper';
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -16,6 +17,15 @@ export class Dashboard extends Component {
       router.push('/profile/private');
     }
     if (!user.isAuthorized) {
+      if (params.marketingTrackingId) {
+	//console.log("Pushing to guest dashboard with the marketing tracking id: " + params.marketingTrackingId);
+
+	//capture any marketing tracking info
+	fireSloohMarketingTrackingStartEvent(params.marketingTrackingId);
+
+	//send the user to the guest dashboard
+        router.push(`/guestDashboard`);
+      }
       if (params.abTestCallSource) {
         router.push(`/guestDashboard/${params.abTestCallSource}`);
       } else {

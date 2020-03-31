@@ -94,12 +94,14 @@ export class QuestModuleDataCollection extends PureComponent {
     const { slotArray } = questDataCollection;
     const { moduleId } = module;
     const { dcSlotModalVisible, selectedSlot } = this.state;
-
+    
     return (
       <div className="data-collection-module">
         <div className="data-collection-slot-list">
           {slotArray?.map(slot => (
             <DataCollectionSlotCard
+              questTitle={this.props.stepData.questTitle}
+              questURL={this.props.stepData.questURL}
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
