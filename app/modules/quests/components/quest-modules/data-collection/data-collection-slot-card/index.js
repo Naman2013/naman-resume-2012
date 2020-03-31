@@ -29,6 +29,7 @@ export const DataCollectionSlotCard = props => {
     readOnly,
     questTitle,
     questURL,
+    returnURL,
   } = props;
 
   const {
@@ -106,7 +107,7 @@ export const DataCollectionSlotCard = props => {
       disabled: !enableObjectInfo,
       title: learnAboutText,
       action: () => {
-        storeQuestBreadCrumbDetails(questURL, questTitle);
+        storeQuestBreadCrumbDetails(returnURL, questTitle);
         browserHistory.push(learnAboutUrl);
       },
     },

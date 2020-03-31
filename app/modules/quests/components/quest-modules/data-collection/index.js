@@ -102,6 +102,7 @@ export class QuestModuleDataCollection extends PureComponent {
             <DataCollectionSlotCard
               questTitle={this.props.stepData.questTitle}
               questURL={this.props.stepData.questURL}
+	      returnURL={this.props.stepData.returnURL}
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
