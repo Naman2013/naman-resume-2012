@@ -1,5 +1,5 @@
 import { API } from 'app/api';
-import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails() } from 'app/modules/User';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails } from 'app/modules/User';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
