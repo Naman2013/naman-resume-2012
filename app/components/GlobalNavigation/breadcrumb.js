@@ -1,11 +1,18 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
+
+const contentClickHandler = (link) => {  
+    browserHistory.push(link);
+};
 
 const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQuestLinkURL }) => (
   (sloohQuestBreadCrumbQuestLinkURL ?
     <div>
     <div className="breadcrumb">  
-        <a href={sloohQuestBreadCrumbQuestLinkURL}><h4><b>Return to Quest:&nbsp;</b></h4>
-        <h4 className="normaltxt">{sloohQuestBreadCrumbQuestTitle}</h4></a>
+    <span onClick={() => contentClickHandler(sloohQuestBreadCrumbQuestLinkURL)} role="button">
+        <h4><b>Return to Quest:&nbsp;</b></h4>
+        <h4 className="normaltxt">{sloohQuestBreadCrumbQuestTitle}</h4>
+    </span>
     </div>
 
 <style jsx>
@@ -43,13 +50,13 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
     font-size: 16px;
 
   }
-  .breadcrumb a{
+  .breadcrumb span{
     display: inline;
     cursor: pointer;
     color: #41566f;
   }
 
-  .breadcrumb a h4{
+  .breadcrumb span h4{
     display: inline; 
   }
   
