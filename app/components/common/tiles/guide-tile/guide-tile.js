@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 import { guideCorner } from 'app/styles/variables/iconURLs';
 import style from './guide-tile.style';
 
-const GuideTile = ({ title, subTitle, linkUrl, theme }) => (
+const GuideTile = ({ title, subTitle, linkUrl, theme, handleBacktoQuest }) => (
   <div className="guide-tile-root" style={theme}>
-    <Link to={linkUrl}>
+    <Link to={linkUrl} onClick={handleBacktoQuest}>
       <div className="guide-tile-frame">
         <img alt="" className="top-left" src={guideCorner} />
         <img alt="" className="top-right" src={guideCorner} />

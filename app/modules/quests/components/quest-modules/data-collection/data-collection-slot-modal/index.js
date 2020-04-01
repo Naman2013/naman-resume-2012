@@ -6,6 +6,7 @@ import Pagination from 'app/components/common/pagination/v4-pagination/paginatio
 import { Spinner } from 'app/components/spinner/index';
 import { DataCollectionImageCard } from '../data-collection-image-card';
 import './styles.scss';
+import { storeQuestBreadCrumbDetails } from 'app/modules/User'
 
 export class DataCollectionSlotModal extends Component {
   state = {
@@ -71,6 +72,8 @@ export class DataCollectionSlotModal extends Component {
       selectedSlot,
       setDataCollectionSlotImages,
       loading,
+      questTitle,
+      returnURL,
     } = this.props;
     const { activePage } = this.state;
     const {
@@ -88,7 +91,7 @@ export class DataCollectionSlotModal extends Component {
       showEmptySetContentsDesc,
       emptySetContentsDesc,
     } = questDataCollectionSlotImages;
-
+  
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
         <div className="image-selection-modal">
@@ -129,7 +132,7 @@ export class DataCollectionSlotModal extends Component {
                       className="object-mission-link"
                       key={`object-mission-link-${link.linkIndex}`}
                     >
-                      <Link to={link.linkURL} className="modal-p">
+                      <Link to={link.linkURL} onClick={() => storeQuestBreadCrumbDetails( returnURL, questTitle)} className="modal-p">
                         {link.linkLabel}
                       </Link>
                     </div>
