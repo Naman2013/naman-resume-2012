@@ -100,7 +100,10 @@ export const DataCollectionSlotCard = props => {
       show: showCheckForMissions,
       disabled: !enableCheckForMissions,
       title: checkForMissionsText,
-      action: () => browserHistory.push(checkForMissionsUrl),
+      action: () => {
+        storeQuestBreadCrumbDetails(returnURL, questTitle);
+        browserHistory.push(checkForMissionsUrl);
+      },
     },
     {
       show: showObjectInfo,
