@@ -124,6 +124,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
       case questModuleType.imageordering:
         return (
           <Imageordering
+            handleBacktoQuest={handleBacktoQuest}
             module={module}
             moduleId={module.moduleId}
             questId={routeParams.questId}
