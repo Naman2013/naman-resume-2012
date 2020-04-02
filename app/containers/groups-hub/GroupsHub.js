@@ -241,7 +241,7 @@ class Groups extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{t('Alerts.loading')}</div> : null}
+                          {isFetching ? <div>{t('Clubs.Loading')}</div> : null}
                           {!isFetching && (
                             <GroupTiles
                               filterType={this.props.params.filterType}

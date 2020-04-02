@@ -21,7 +21,8 @@ import { API } from 'app/api';
 import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import Menu from './Menu';
 import TopBar from './TopBar';
-import { setupLiveActivityTimer } from 'app/services/live-activity/timer';
+import { setupLiveActivityTimer, stopLiveActivityTimer } from 'app/services/live-activity/timer';
+import QuestBreadCrumb from './breadcrumb';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -219,33 +220,34 @@ class GlobalNavigation extends Component {
   getActivityFeedMembers = () => {
     const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
-
-    if (
-      activityFeedMembersExpireDate &&
-      activityFeedMembersExpireDate > Date.now() / 1000
-    ) {
-      return;
-    }
-
+    stopLiveActivityTimer();   
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
       token,
       at,
       cid,
-    }).then(({ data: { membersOnlineList, expires } }) => {
-      setupLiveActivityTimer(expires * 1000 - Date.now(), () => {
-        this.getActivityFeedMembers();
-      });
-
+    }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
+      const milliExpires = expires * 1000;
+      const milliTimestamp = timestamp * 1000;      
+      const remainingTime = milliExpires - milliTimestamp;
+      if (remainingTime > 1000) {
+        setupLiveActivityTimer(remainingTime, () => {        
+          this.getActivityFeedMembers();
+        });
+      }
       this.setState({
         activityFeedMembers: membersOnlineList,
         activityFeedMembersExpireDate: expires,
       });
     });
+    
   };
 
   setMemberChatState = chatState => {
+    if(chatState=='leave')
+      stopLiveActivityTimer();    
+      
     const { token, at, cid } = getUserInfo();
-
+    
     return API.post(this.MEMBER_CHAT_STATE_API_URL, {
       token,
       at,
@@ -446,8 +448,7 @@ class GlobalNavigation extends Component {
             subscribeToPubnubActivityFeedChannel={
               this.subscribeToPubnubActivityFeedChannel
             }
-          />
-                
+          />         
         </div>
         
         <Menu

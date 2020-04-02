@@ -91,10 +91,10 @@ class SingleFieldSubmitForm extends Component {
     });
 
   submitForm = e => {
-    e.preventDefault();
+    e.preventDefault();   
     const { formText, S3URLs, formTitle } = this.state;
     const { toggleInfo, submitForm } = this.props;
-    submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+    submitForm(formText, S3URLs, formTitle, this.handleSubmit);  
     // toggleInfo(e);
   };
 
@@ -118,21 +118,23 @@ class SingleFieldSubmitForm extends Component {
         if (!res.data.apiError) {
           this.setState({
             uuid: res.data.postUUID,
-          });
+          });         
         }
       });
-    } else {
+    } else {      
       this.setState({
         showPopup: true,
         responseMessage: message || t('Alerts.FormIssueText'),
-      });
+      });     
     }
   };
 
   closeModal = e => {
+    const { toggleInfo} = this.props;
+    toggleInfo(e);
     this.setState({
       showPopup: false,
-    });
+    });    
   };
 
   handleUploadImage = event => {
@@ -225,7 +227,7 @@ class SingleFieldSubmitForm extends Component {
       uploadLoading,
       fileRef,
     } = this.state;
-
+    
     return (
       <div className="form-container discuss-form-wrapper">
         <Spinner loading={isLoading} />

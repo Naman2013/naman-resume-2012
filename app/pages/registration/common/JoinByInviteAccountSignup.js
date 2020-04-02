@@ -514,7 +514,7 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    console.log(googleMessageData);
+    // console.log(googleMessageData);
   };
 
   render() {
