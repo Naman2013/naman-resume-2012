@@ -32,7 +32,7 @@ export class QuestModuleDataCollection extends PureComponent {
       module,
       questId,
       setDataCollectionSlotImages,
-      refreshQuestStep,
+      refreshQuestStep,      
     } = this.props;
     const { moduleId } = module;
     setDataCollectionSlotImages({
@@ -90,6 +90,7 @@ export class QuestModuleDataCollection extends PureComponent {
       readOnly,
       loading,
       user,
+      handleBacktoQuest,
     } = this.props;
     const { slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -102,7 +103,8 @@ export class QuestModuleDataCollection extends PureComponent {
             <DataCollectionSlotCard
               questTitle={this.props.stepData.questTitle}
               questURL={this.props.stepData.questURL}
-	            returnURL={this.props.stepData.returnURL}
+              returnURL={this.props.stepData.returnURL}
+              handleBacktoQuest={handleBacktoQuest}
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
@@ -118,6 +120,7 @@ export class QuestModuleDataCollection extends PureComponent {
           <DataCollectionSlotModal
             questTitle={this.props.stepData.questTitle}
             returnURL={this.props.stepData.returnURL}
+            handleBacktoQuest={handleBacktoQuest}
             show
             onHide={this.closeDataCollectionSlotModal}
             questDataCollectionSlotImages={questDataCollectionSlotImages}

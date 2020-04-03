@@ -43,6 +43,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             navigateToNextStep={navigateToNextStep}
             readOnly={readOnly}
             refreshQuestStep={refreshQuestStep}
+            handleBacktoQuest={handleBacktoQuest}
           />
         );
 

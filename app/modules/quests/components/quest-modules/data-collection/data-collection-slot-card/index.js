@@ -30,6 +30,7 @@ export const DataCollectionSlotCard = props => {
     questTitle,
     questURL,
     returnURL,
+    handleBacktoQuest,
   } = props;
 
   const {
@@ -101,7 +102,8 @@ export const DataCollectionSlotCard = props => {
       disabled: !enableCheckForMissions,
       title: checkForMissionsText,
       action: () => {
-        storeQuestBreadCrumbDetails(returnURL, questTitle);
+        handleBacktoQuest();
+        // storeQuestBreadCrumbDetails(returnURL, questTitle);
         browserHistory.push(checkForMissionsUrl);
       },
     },
@@ -110,7 +112,8 @@ export const DataCollectionSlotCard = props => {
       disabled: !enableObjectInfo,
       title: learnAboutText,
       action: () => {
-        storeQuestBreadCrumbDetails(returnURL, questTitle);
+        handleBacktoQuest();
+        // storeQuestBreadCrumbDetails(returnURL, questTitle);
         browserHistory.push(learnAboutUrl);
       },
     },
