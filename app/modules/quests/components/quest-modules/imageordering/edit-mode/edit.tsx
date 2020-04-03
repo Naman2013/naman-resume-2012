@@ -31,6 +31,7 @@ type TEditModeProps = {
   questDataCollectionSlotImages?: IQuestDataCollectionSlotImages;
   user?: User;
   readOnly?: boolean;
+  handleBacktoQuest: Function;
 };
 
 const INITIAL_SELECTED_SLOT = {} as IQuestDataCollectionSlot;
@@ -48,6 +49,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
     user,
     loading,
     readOnly,
+    handleBacktoQuest,
   } = props;
   const {
     moduleId,
@@ -66,7 +68,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
   } = imageOrderingModule;
   const [mmSlotModalVisible, openMMSlotModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(INITIAL_SELECTED_SLOT);
-
+  
   return (
     <div>
       {slotArray.map((slot: IQuestDataCollectionSlot) => (
@@ -82,6 +84,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           user={user}
           readOnly={readOnly || activityState === MODES.REVIEW}
           mmSlotModalVisible={mmSlotModalVisible}
+          handleBacktoQuest={handleBacktoQuest}
         />
       ))}
 
@@ -100,6 +103,7 @@ export const EditMode: React.FC<TEditModeProps> = props => {
           moduleId={moduleId}
           questId={questId}
           loading={loading}
+          handleBacktoQuest={handleBacktoQuest}
         />
       )}
 

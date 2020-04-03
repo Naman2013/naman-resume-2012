@@ -1,5 +1,5 @@
 import { API } from 'app/api';
-import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails } from 'app/modules/User';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
@@ -28,6 +28,9 @@ const logPageVisit = (pagePath) => {
 		deleteSessionToken();
 		deleteMarketingTrackingId();
 	}
+	else if (pagePath.pagePath.startsWith("/quest-details") == true) {
+		deleteQuestBreadCrumbDetails();
+	}
   }
   else {
  	//guest
@@ -40,6 +43,9 @@ const logPageVisit = (pagePath) => {
 	    	referringPageURL: pagePath.referringPageURL,
 	  };
 	  finalRequestData = requestData;
+
+	  //make sure that any requests as a guest remove any breadcrumb details
+	  deleteQuestBreadCrumbDetails();
   }
 
   API.post(LOG_PAGE_VISIT_API_URL, finalRequestData).then(response => {

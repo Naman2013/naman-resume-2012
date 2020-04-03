@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { questModuleType } from 'app/modules/quests/data';
-import { IQuestStepModule } from 'app/modules/quests/types';
+import { IQuestStepModule, IQuestStep } from 'app/modules/quests/types';
 import AnimationModule from 'app/modules/quests/containers/quest-modules/animation';
 import RichTextModule from 'app/modules/quests/containers/quest-modules/rich-text-input';
 import Imageordering from 'app/modules/quests/containers/quest-modules/imageordering';
@@ -17,6 +17,7 @@ type QuestStepModuleProps = {
   routeParams: any;
   navigateToNextStep: Function;
   refreshQuestStep: Function;
+  handleBacktoQuest: Function;
 };
 
 export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
@@ -27,6 +28,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
       routeParams,
       navigateToNextStep,
       refreshQuestStep,
+      handleBacktoQuest,
     } = props;
     const { moduleType } = module;
 
@@ -41,6 +43,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
             navigateToNextStep={navigateToNextStep}
             readOnly={readOnly}
             refreshQuestStep={refreshQuestStep}
+            handleBacktoQuest={handleBacktoQuest}
           />
         );
 
@@ -89,6 +92,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
       case questModuleType.guidepanel:
         return (
           <QuestModuleGuidePanel
+            handleBacktoQuest={handleBacktoQuest}
             module={module}
             key={`quest-text-output-${module.moduleId}`}
             readOnly={readOnly}
@@ -121,6 +125,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
       case questModuleType.imageordering:
         return (
           <Imageordering
+            handleBacktoQuest={handleBacktoQuest}
             module={module}
             moduleId={module.moduleId}
             questId={routeParams.questId}

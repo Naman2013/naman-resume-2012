@@ -22,6 +22,7 @@ type TImageSlotProps = {
   user?: User;
   readOnly: boolean;
   mmSlotModalVisible: boolean;
+  handleBacktoQuest: Function;
 };
 
 export const ImageSlot: React.FC<TImageSlotProps> = props => {
@@ -33,6 +34,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
     user,
     readOnly,
     mmSlotModalVisible,
+    handleBacktoQuest,
   } = props;
   const {
     imageURL,
@@ -109,13 +111,19 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
       show: showCheckForMissions,
       disabled: !enableCheckForMissions,
       title: checkForMissionsText,
-      action: (): void => browserHistory.push(checkForMissionsUrl),
+      action: (): void => {
+        handleBacktoQuest();
+        browserHistory.push(checkForMissionsUrl);
+      }
     },
     {
       show: showObjectInfo,
       disabled: !enableObjectInfo,
       title: learnAboutText,
-      action: (): void => browserHistory.push(learnAboutUrl),
+      action: (): void => {
+        handleBacktoQuest();
+        browserHistory.push(learnAboutUrl);
+      },
     },
     {
       show: showObjectInfo,
@@ -244,7 +252,7 @@ export const ImageSlot: React.FC<TImageSlotProps> = props => {
                     </Button>
                   </Tooltip>
 
-                  <QuestDotMenu
+                  <QuestDotMenu                  
                     show={isDotsMenuOpen}
                     menuTitle={dotMenuTitle}
                     items={dotMenuItems}

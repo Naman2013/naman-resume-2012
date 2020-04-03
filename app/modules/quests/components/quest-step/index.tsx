@@ -8,7 +8,7 @@ import {IQuestStep, IQuestStepModule} from 'app/modules/quests/types';
 import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
 import './styles.scss';
-
+import { storeQuestBreadCrumbDetails } from 'app/modules/User'
 
 type TQuestStepProps = {
   moduleList: Array<IQuestStepModule[]>;
@@ -230,6 +230,7 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
               >
                 {modules.map(module =>
                   <QuestStepModule
+                    handleBacktoQuest={() => storeQuestBreadCrumbDetails(stepData.returnURL, stepData.questTitle)}
                     key={module.moduleId}
                     module={module}
                     readOnly={readOnly}

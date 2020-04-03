@@ -337,7 +337,7 @@ class JoinStep2 extends Component {
         accountFormDetailsData.passwordVerification.value
       ) {
         accountFormDetailsData.passwordVerification.errorText = t(
-          '.PasswordsDontMatchMessage'
+          'Ecommerce.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }
@@ -548,7 +548,7 @@ class JoinStep2 extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    console.log(googleMessageData);
+    // console.log(googleMessageData);
   };
 
   render() {
