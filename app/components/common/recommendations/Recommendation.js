@@ -186,8 +186,8 @@ class Recommendation extends Component {
   }
 
   handleLoadNewReservationError(error) {
-    console.log('there was an error with fetching the reservation info...');
-    console.log(error);
+    // console.log('there was an error with fetching the reservation info...');
+    // console.log(error);
   }
 
   onSuccessReserveNewMission = () => {

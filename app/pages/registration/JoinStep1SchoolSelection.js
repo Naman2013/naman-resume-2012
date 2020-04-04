@@ -141,14 +141,14 @@ class JoinStep1SchoolSelectionGeneral extends Component {
 
   handleSubmit = values => {
     //formValues.preventDefault();
-    console.log(values);
+    // console.log(values);
 
     if (!values.isNewSchool) {
       if (values.school) {
         window.localStorage.setItem('selectedSchoolId', values.school);
         browserHistory.push('/join/step2');
       } else {
-        console.log("nothing is selected, can't continue...");
+        // console.log("nothing is selected, can't continue...");
       }
     } else {
       const {

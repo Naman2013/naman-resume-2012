@@ -105,7 +105,8 @@
     "PrivateGroup": "Private Club",
     "Submit": "Submit",
     "Search": "Search",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "Loading": "Loading"
   },
   "Dashboard": {
     "RedeemInvitationCode": "Redeem Invitation Code",

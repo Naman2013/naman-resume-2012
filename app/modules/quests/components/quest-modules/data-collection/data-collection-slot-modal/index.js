@@ -70,7 +70,8 @@ export class DataCollectionSlotModal extends Component {
       questDataCollectionSlotImages,
       selectedSlot,
       setDataCollectionSlotImages,
-      loading,
+      loading,      
+      handleBacktoQuest,
     } = this.props;
     const { activePage } = this.state;
     const {
@@ -88,7 +89,7 @@ export class DataCollectionSlotModal extends Component {
       showEmptySetContentsDesc,
       emptySetContentsDesc,
     } = questDataCollectionSlotImages;
-
+  
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
         <div className="image-selection-modal">
@@ -129,7 +130,7 @@ export class DataCollectionSlotModal extends Component {
                       className="object-mission-link"
                       key={`object-mission-link-${link.linkIndex}`}
                     >
-                      <Link to={link.linkURL} className="modal-p">
+                      <Link to={link.linkURL} onClick={handleBacktoQuest} className="modal-p">
                         {link.linkLabel}
                       </Link>
                     </div>

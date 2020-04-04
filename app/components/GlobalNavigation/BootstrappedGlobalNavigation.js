@@ -425,8 +425,7 @@ class GlobalNavigation extends Component {
       isChatEnabled = userInfoIsChatEnabled;
       displayName = userInfoName;
     }
-    const { sloohQuestBreadCrumbQuestTitle, sloohQuestBreadCrumbQuestLinkURL } = getUserInfo();
-  
+      
     return (
       <div className="root">
         <div className="top-bar">
@@ -451,7 +450,7 @@ class GlobalNavigation extends Component {
             }
           />         
         </div>
-
+        
         <Menu
           title={leftMenuContent.title}
           handleClose={this.closeAll}
