@@ -156,8 +156,12 @@ export const finalizeTelescopeSlot = ({
     grabType: 'notarget',
     finalizeReservation: true,
   })
-    .then(result => console.log(result))
-    .catch(error => console.log(error));
+    .then(result => {
+      // console.log(result)
+    })
+    .catch(error => {
+      // console.log(error)
+    });
 };
 
 export const refreshListings = () => (dispatch, getState) => {

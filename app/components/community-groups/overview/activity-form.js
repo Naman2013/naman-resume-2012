@@ -28,7 +28,7 @@ class ActivityForm extends Component {
 
   state = {
     uuid: null,
-    showInfo: true,
+    showInfo: false,
   };
 
   componentDidMount() {

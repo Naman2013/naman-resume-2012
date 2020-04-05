@@ -146,7 +146,7 @@ class ResetPassword extends Component {
         passwordFormData.passwordverification.value
       ) {
         passwordFormData.passwordverification.errorText = t(
-          '.PasswordsDontMatchMessage'
+          'Ecommerce.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }

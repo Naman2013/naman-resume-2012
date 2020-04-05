@@ -93,6 +93,8 @@ export declare interface IQuestStep extends StandardResponse {
   gravityEarnedInThisRequest: boolean;
   questCompletionList: { questCompletionModuleId: string }[];
   stepsInThisQuest: StepsInQuest;
+  returnURL: String;
+  questTitle: String;
 }
 
 export declare interface StepMenuItem {
