@@ -91,6 +91,10 @@
     "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
     "loadHtmlFile": "/config/india.slooh.com.html"
   },
+  "sweden.slooh.com": {
+    "productID": "bf134f00-7554-11ea-a953-062dce25bfa1",
+    "loadHtmlFile": "/config/sweden.slooh.com.html"
+  },
   "china-dev.slooh.com": {
     "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4",
     "loadHtmlFile": "/config/china-dev.slooh.com.html"
@@ -118,6 +122,10 @@
   "india-dev.slooh.com": {
     "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
     "loadHtmlFile": "/config/india-dev.slooh.com.html"
+  },
+  "sweden-dev.slooh.com": {
+    "productID": "bf134f00-7554-11ea-a953-062dce25bfa1",
+    "loadHtmlFile": "/config/sweden-dev.slooh.com.html"
   },
   "localhost": {
     "COOKIE_DOMAIN": null,
