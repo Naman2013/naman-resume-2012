@@ -46,7 +46,7 @@ export class AvailbleMissionTile extends Component {
       showLearnButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
-
+    
     return (
       <div className="mission-tile">
         <div className="countdown">
@@ -90,12 +90,14 @@ export class AvailbleMissionTile extends Component {
         {communityMissions && (
           <div className="actions community-mission-actions">
             <div>
-              {!piggyback || showLearnButton ? (
+              {/* {!piggyback == undefined || showLearnButton ? ( */}
+                {showLearnButton ? (
                 <Link to={learnButtonLink} className="learn-btn">
                   <Button text={learnButtonCaption} />
                 </Link>
               ) : null}
-              {!piggyback || showFollowPromptFlag ? (
+              {/* {!piggyback || showFollowPromptFlag ? ( */}
+                {showFollowPromptFlag ? (
                 <FollowObjectButton
                   objectId={objectId}
                   user={user}
