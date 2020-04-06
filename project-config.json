@@ -92,6 +92,8 @@
     "loadHtmlFile": "/config/india.slooh.com.html"
   },
   "sweden.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
     "productID": "bf134f00-7554-11ea-a953-062dce25bfa1",
     "loadHtmlFile": "/config/sweden.slooh.com.html"
   },
