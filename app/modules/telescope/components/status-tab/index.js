@@ -28,11 +28,17 @@ export const StatusTab = props => {
     dayNightBar,
     skyConditions,
     observatoryList,
+    activeTelescopeStatus,
   } = props;
+
+showStatusMessage: false
+statusMessage: ""
 
   return (
     <div className="animated fadeIn faster status-tab">
+      
       <div className="telescope-views">
+	{activeTelescopeStatus.showStatusMessage === true && <div style={{marginLeft: "100px", fontSize: "1.3em", paddingBottom: "30px"}}>{activeTelescopeStatus.statusMessage}</div>}
         <Container>
           <Row>
             <Col lg={4} md={12} sm={12}>
