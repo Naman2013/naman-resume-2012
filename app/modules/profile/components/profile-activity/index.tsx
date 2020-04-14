@@ -103,8 +103,7 @@ class ProfileActivity extends React.Component<
     
     cancelPiggyback({ scheduledMissionId }).then(() => {
       this.setState({ cancelPiggybackModalVisible: false });
-      // getPrivateProfile();
-      debugger;
+      // getPrivateProfile();      
       getPrivateProfileMissions(); 
     });
   };
