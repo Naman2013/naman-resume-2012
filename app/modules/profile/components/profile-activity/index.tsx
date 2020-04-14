@@ -84,14 +84,15 @@ class ProfileActivity extends React.Component<
   };
 
   cancelReservation = () => {
-    const { cancelReservation, getPrivateProfile } = this.props;
+    const { cancelReservation, getPrivateProfile, getPrivateProfileMissions } = this.props;
     const { selectedSlot } = this.state;
 
     cancelReservation({
       scheduledMissionId: selectedSlot.scheduledMissionId,
     }).then(() => {
       this.setState({ cancelReservationModalVisible: false });
-      getPrivateProfile();
+      // getPrivateProfile();
+      getPrivateProfileMissions(); 
     });
   };
 
@@ -183,7 +184,7 @@ class ProfileActivity extends React.Component<
       cancelMissionDialogPrompt,
       cancelPiggybackDialogPrompt,
     } = selectedSlot;
-
+    debugger;
     return (
       <div className="profile-activity">
         <MissionConfirmationModal
