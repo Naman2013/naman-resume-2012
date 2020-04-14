@@ -51,8 +51,8 @@ const SECTION_TYPE: { [key: string]: string } = {
   Clubs: 'Clubs',
   Shows: 'Shows',
   Quests: 'Quests',
-  PlansTop: 'Plans',
-  PlansBottom: 'Plans',
+  PlansTop: 'PlansTop',
+  PlansBottom: 'PlansBottom',
 };
 
 const GET_PLANS_CALLSOURCES = {
