@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { withRouter } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { Experiment, Variant } from 'react-optimize';
@@ -51,7 +51,8 @@ const SECTION_TYPE: { [key: string]: string } = {
   Clubs: 'Clubs',
   Shows: 'Shows',
   Quests: 'Quests',
-  Plans: 'Plans',
+  PlansTop: 'Plans',
+  PlansBottom: 'Plans',
 };
 
 const GET_PLANS_CALLSOURCES = {
@@ -144,10 +145,12 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Missions: {
+      
+	  case SECTION_TYPE.Missions: {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
-      case SECTION_TYPE.MissionsPhotos: {
+      
+	  case SECTION_TYPE.MissionsPhotos: {
         return (
           <MissionPhotosSlider
             imageList={imageList}
@@ -156,12 +159,14 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Observations: {
+      
+	  case SECTION_TYPE.Observations: {
         return (
           <RecommendedObservations imageList={CommunityObservations} readOnly />
         );
       }
-      case SECTION_TYPE.Clubs: {
+      
+	  case SECTION_TYPE.Clubs: {
         return (
           <ClubsList
             clubsList={RecommendedClubs}
@@ -170,9 +175,11 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Shows: {
+      
+	  case SECTION_TYPE.Shows: {
         return <ShowsSlider showsList={dashboardShowsList} readOnly />;
       }
+	  
       case SECTION_TYPE.Quests: {
         return (
           <RecommendedQuestsList
@@ -182,18 +189,10 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Plans: {
-        return guestDashboardPlans ? (
+
+      case SECTION_TYPE.PlansTop: {
+        return (
           <Experiment id={guestDashboardPlans}>
-            <Variant id="0">
-              <MembershipPlansList
-                plans={subscriptionPlans}
-                getSubscriptionPlans={() =>
-                  this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
-                }
-                showSlider
-              />
-            </Variant>
             <Variant id="1">
               <MembershipPlansList
                 plans={subscriptionPlans}
@@ -204,15 +203,19 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
               />
             </Variant>
           </Experiment>
-        ) : (
-          <MembershipPlansList
-            plans={subscriptionPlans}
-            getSubscriptionPlans={() =>
-              this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
-            }
-            showSlider
-          />
-        );
+        )
+	  }
+
+      case SECTION_TYPE.PlansBottom: {
+        return ( 
+			<MembershipPlansList
+				plans={subscriptionPlans}
+				getSubscriptionPlans={() =>
+					this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboardB)
+				}
+				showSlider
+			/>
+		)
       }
       default: {
         return <div />;
