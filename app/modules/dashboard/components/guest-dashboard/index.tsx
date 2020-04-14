@@ -44,6 +44,7 @@ type TGuestDashboardProps = {
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
+  PlansTop: 'PlansTop',
   Telescopes: 'Telescopes',
   Missions: 'Missions',
   MissionsPhotos: 'MissionsPhotos',
@@ -51,7 +52,6 @@ const SECTION_TYPE: { [key: string]: string } = {
   Clubs: 'Clubs',
   Shows: 'Shows',
   Quests: 'Quests',
-  PlansTop: 'PlansTop',
   PlansBottom: 'PlansBottom',
 };
 
