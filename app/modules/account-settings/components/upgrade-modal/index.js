@@ -44,10 +44,12 @@ const didMount = (props: TUpgradeModal) => () => {
   window.localStorage.removeItem('isAstronomyClub');
 };
 
+
 export const UpgradeModal = (props: TUpgradeModal) => {
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
-  useEffect(didMount(props), []);
-
+  debugger;
+  useEffect(didMount(props), [props.subscriptionPlansCallSource]);
+  
   const {
     show,
     onHide,
@@ -85,7 +87,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     };
   }
-
+  
   return (
     <>
       <Modal
