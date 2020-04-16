@@ -109,7 +109,7 @@ class SingleFieldSubmitForm extends Component {
         formTitle: '',
         S3URLs: [],
       });
-
+      setTimeout(()=>{this.closeModal(new Event('click'))},2000);
       prepareThread({
         at: user.at,
         token: user.token,
@@ -126,6 +126,7 @@ class SingleFieldSubmitForm extends Component {
         showPopup: true,
         responseMessage: message || t('Alerts.FormIssueText'),
       });     
+      setTimeout(()=>{this.closeModal(new Event('click'))},2000);
     }
   };
 

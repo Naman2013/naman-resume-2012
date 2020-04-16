@@ -51,16 +51,17 @@ const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
   );
 };
 
-const CountdownExpiredComplete = () => {
+const CountdownExpiredComplete = (props) => {
   // console.log('Redirecting the user away from this page....');
-
+  props.closeModal();
   /* reset all browser localstorage data points for the Join flow */
-  window.localStorage.removeItem('selectedPlanId');
-  window.localStorage.removeItem('accountCreationType');
-  window.localStorage.removeItem('join_accountFormDetails');
-  window.localStorage.removeItem('googleProfileId');
-  browserHistory.push('/');
-  window.location.reload();
+  // window.localStorage.removeItem('selectedPlanId');
+  // window.localStorage.removeItem('accountCreationType');
+  // window.localStorage.removeItem('join_accountFormDetails');
+  // window.localStorage.removeItem('googleProfileId');
+  // browserHistory.push('/');
+  // window.location.reload(); 
+  
 };
 
 const handleIframeTaskUpgrade = (e, props) => {
@@ -257,7 +258,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                           renderer={cprops => (
                             <CountdownRenderer {...cprops} t={t} />
                           )}
-                          onComplete={CountdownExpiredComplete}
+                          onComplete={() => CountdownExpiredComplete(props) }
                         />
                       </div>
                       <div
