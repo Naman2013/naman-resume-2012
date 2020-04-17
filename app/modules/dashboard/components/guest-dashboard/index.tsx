@@ -133,7 +133,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
-    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || {};
+    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || false;
     const { subscriptionPlans } = subscriptionPlansData;
 
     switch (section) {
@@ -230,7 +230,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
   render() {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
-    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || {};
+    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || false;
 
     return (
       <div className="dashboard-layout">
@@ -250,7 +250,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-	  {guestDashboardPlans.keys().length > 0 && <Experiment id={guestDashboardPlans}>
+	  {guestDashboardPlans !== false 0 && <Experiment id={guestDashboardPlans}>
 			<Variant id="0">
 				{Object.keys(Sections).map((section: string) => {
 					const { Index, Title, SubTitle, HideSection } = Sections[section];
@@ -293,7 +293,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 			</Experiment>
 
 	  }
-	  {guestDashboardPlans.keys().length === 0 && Object.keys(Sections).map((section: string) => {
+	  {guestDashboardPlans === false && Object.keys(Sections).map((section: string) => {
 		const { Index, Title, SubTitle, HideSection } = Sections[section];
 
 		return (
