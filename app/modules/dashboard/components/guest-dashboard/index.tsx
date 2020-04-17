@@ -134,8 +134,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
     const { subscriptionPlans } = subscriptionPlansData;
-    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || null;
-
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {} 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
         return (
@@ -226,7 +225,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
   render() {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
-    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || null;
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
 
     return (
       <div className="dashboard-layout">
