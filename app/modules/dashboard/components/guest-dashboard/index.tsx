@@ -135,6 +135,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { imageList } = MissionPhotosData;
     const { subscriptionPlans } = subscriptionPlansData;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {} 
+	console.log(guestDashboardGoogleExperienceId);
+	
     switch (section) {
       case SECTION_TYPE.Telescopes: {
         return (
