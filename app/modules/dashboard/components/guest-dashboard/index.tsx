@@ -135,7 +135,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { imageList } = MissionPhotosData;
     const { subscriptionPlans } = subscriptionPlansData;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {} 
-	console.log(guestDashboardGoogleExperienceId);
+	console.log("hello:" + guestDashboardGoogleExperienceId);
 	
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -228,6 +228,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
+	console.log("hello2:" + guestDashboardGoogleExperienceId);
 
     return (
       <div className="dashboard-layout">
