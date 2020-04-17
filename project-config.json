@@ -9,8 +9,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/events.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
-      "upsellPayWall_Plan": ""
+      "guestDashboardGoogleExperienceId": "uWFYgTLmS4adf-uOH2h5Kw"
     }
   },
   "live.slooh.com": {
@@ -18,8 +17,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/live.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
-      "upsellPayWall_Plan": ""
+      "guestDashboardGoogleExperienceId": "uWFYgTLmS4adf-uOH2h5Kw"
     }
   },
   "main.slooh.com": {
@@ -27,8 +25,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/main.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
-      "upsellPayWall_Plan": ""
+      "guestDashboardGoogleExperienceId": "uWFYgTLmS4adf-uOH2h5Kw"
     }
   },
   "www.slooh.com": {
@@ -36,8 +33,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/www.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
-      "upsellPayWall_Plan": ""
+      "guestDashboardGoogleExperienceId": "uWFYgTLmS4adf-uOH2h5Kw"
     }
   },
   "slooh.com": {
@@ -45,8 +41,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "uWFYgTLmS4adf-uOH2h5Kw",
-      "upsellPayWall_Plan": ""
+      "guestDashboardGoogleExperienceId": "uWFYgTLmS4adf-uOH2h5Kw"
     }
   },
   "southafrica.slooh.com": {
@@ -139,8 +134,7 @@
   "nova.slooh.com": {
     "loadHtmlFile": "/config/nova.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardPlans": "PVOaVXknQQKpyv2eSCDbgg",
-      "upsellPayWall_Plan": "P4jeFFYGRsO5VdXpGXxh1g"
+      "guestDashboardGoogleExperienceId": "PVOaVXknQQKpyv2eSCDbgg"
     }
   },
   "orion.slooh.com": {
