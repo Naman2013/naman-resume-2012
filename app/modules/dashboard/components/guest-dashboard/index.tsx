@@ -203,8 +203,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
             </Variant>
           </Experiment>
           ): (
-			<Fragment/>
-		  )
+		<Fragment/>
+	  )
       }
 
       case SECTION_TYPE.PlansBottom: {
@@ -250,7 +250,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-          return (guestDashboardPlans ? <Experiment id={guestDashboardPlans}>
+	  {guestDashboardPlans.keys().length > 0 && <Experiment id={guestDashboardPlans}>
 			<Variant id="0">
 				{Object.keys(Sections).map((section: string) => {
 					const { Index, Title, SubTitle, HideSection } = Sections[section];
@@ -292,8 +292,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 					</Variant>
 			</Experiment>
 
-	  ): (
-	    	{Object.keys(Sections).map((section: string) => {
+	  }
+	  {guestDashboardPlans.keys().length === 0 && Object.keys(Sections).map((section: string) => {
 		const { Index, Title, SubTitle, HideSection } = Sections[section];
 
 		return (
@@ -310,8 +310,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 				/>
 			)
 		);
-		})} 
-	  )
+	   })}  
+	  }
         </div>
       </div>
     );
