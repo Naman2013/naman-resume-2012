@@ -250,7 +250,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-          {guestDashboardPlans && <Experiment id={guestDashboardPlans}>
+          return (guestDashboardPlans ? <Experiment id={guestDashboardPlans}>
 			<Variant id="0">
 				{Object.keys(Sections).map((section: string) => {
 					const { Index, Title, SubTitle, HideSection } = Sections[section];
@@ -291,7 +291,27 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 					})}              
 					</Variant>
 			</Experiment>
-		}
+
+	  ): (
+	    	{Object.keys(Sections).map((section: string) => {
+		const { Index, Title, SubTitle, HideSection } = Sections[section];
+
+		return (
+			  !HideSection &&
+			Index && 
+			section != "PlansTop" &&
+			(
+				<DashboardPanelItem
+					key={`dashboard-section-0${Index}`}
+					orderNumber={`0${Index}`}
+					title={Title}
+					subtitle={SubTitle}
+					render={(): void => this.getSectionComponent(section)}
+				/>
+			)
+		);
+		})} 
+	  )
         </div>
       </div>
     );
