@@ -192,7 +192,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       }
 
       case SECTION_TYPE.PlansTop: {
-        return guestDashboardGoogleExperienceId !== null && (<Experiment id={guestDashboardGoogleExperienceId}>
+        return guestDashboardGoogleExperienceId !== 'undefined' && (<Experiment id={guestDashboardGoogleExperienceId}>
             <Variant id="1">
               <MembershipPlansList
                 plans={subscriptionPlans}
@@ -228,7 +228,6 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
-	console.log("hello2:" + guestDashboardGoogleExperienceId);
 
     return (
       <div className="dashboard-layout">
@@ -248,7 +247,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-			{guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
+			{guestDashboardGoogleExperienceId !== 'undefined' && <Experiment id={guestDashboardGoogleExperienceId}>
 				<Variant id="0">
 					{Object.keys(Sections).map((section: string) => {
 						const { Index, Title, SubTitle, HideSection } = Sections[section];
@@ -290,7 +289,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 						</Variant>
 				</Experiment>
 		  }
-		  {guestDashboardGoogleExperienceId === null && <Fragment>
+		  {guestDashboardGoogleExperienceId === 'undefined' && <Fragment>
 			{Object.keys(Sections).map((section: string) => {
 				const { Index, Title, SubTitle, HideSection } = Sections[section];
 
