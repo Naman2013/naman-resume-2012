@@ -133,8 +133,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
-    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || false;
     const { subscriptionPlans } = subscriptionPlansData;
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || null;
 
     switch (section) {
       case SECTION_TYPE.Telescopes: {
@@ -191,7 +191,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       }
 
       case SECTION_TYPE.PlansTop: {
-        return guestDashboardPlans ? (<Experiment id={guestDashboardPlans}>
+        return guestDashboardGoogleExperienceId !== null && (<Experiment id={guestDashboardGoogleExperienceId}>
             <Variant id="1">
               <MembershipPlansList
                 plans={subscriptionPlans}
@@ -202,13 +202,11 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
               />
             </Variant>
           </Experiment>
-          ): (
-		<Fragment/>
-	  )
+		)
       }
 
       case SECTION_TYPE.PlansBottom: {
-        return guestDashboardPlans ? ( 
+        return ( 
 			<MembershipPlansList
 				plans={subscriptionPlans}
 				getSubscriptionPlans={() =>
@@ -216,8 +214,6 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 				}
 				showSlider
 			/>
-		): (
-			<Fragment/>
 		)
       }
 
@@ -230,7 +226,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
   render() {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
-    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || false;
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || null;
 
     return (
       <div className="dashboard-layout">
@@ -250,35 +246,16 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-	  {guestDashboardPlans !== false 0 && <Experiment id={guestDashboardPlans}>
-			<Variant id="0">
-				{Object.keys(Sections).map((section: string) => {
-					const { Index, Title, SubTitle, HideSection } = Sections[section];
-
-					return (
-					  !HideSection &&
-						Index && 
-						section != "PlansTop" &&
-					(
-						<DashboardPanelItem
-							key={`dashboard-section-0${Index}`}
-							orderNumber={`0${Index}`}
-							title={Title}
-							subtitle={SubTitle}
-							render={(): void => this.getSectionComponent(section)}
-						/>
-						)
-					  );
-				})}  
-				</Variant>
-            
-				<Variant id="1">
-					   {Object.keys(Sections).map((section: string) => {
+			{guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
+				<Variant id="0">
+					{Object.keys(Sections).map((section: string) => {
 						const { Index, Title, SubTitle, HideSection } = Sections[section];
 
 						return (
 						  !HideSection &&
-							Index && (
+							Index && 
+							section != "PlansTop" &&
+						(
 							<DashboardPanelItem
 								key={`dashboard-section-0${Index}`}
 								orderNumber={`0${Index}`}
@@ -288,31 +265,50 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 							/>
 							)
 						  );
-					})}              
+					})}  
 					</Variant>
-			</Experiment>
+				
+					<Variant id="1">
+						   {Object.keys(Sections).map((section: string) => {
+							const { Index, Title, SubTitle, HideSection } = Sections[section];
 
-	  }
-	  {guestDashboardPlans === false && Object.keys(Sections).map((section: string) => {
-		const { Index, Title, SubTitle, HideSection } = Sections[section];
+							return (
+							  !HideSection &&
+								Index && (
+								<DashboardPanelItem
+									key={`dashboard-section-0${Index}`}
+									orderNumber={`0${Index}`}
+									title={Title}
+									subtitle={SubTitle}
+									render={(): void => this.getSectionComponent(section)}
+								/>
+								)
+							  );
+						})}              
+						</Variant>
+				</Experiment>
+		  }
+		  {guestDashboardGoogleExperienceId === null && <Fragment>
+			{Object.keys(Sections).map((section: string) => {
+				const { Index, Title, SubTitle, HideSection } = Sections[section];
 
-		return (
-			  !HideSection &&
-			Index && 
-			section != "PlansTop" &&
-			(
-				<DashboardPanelItem
-					key={`dashboard-section-0${Index}`}
-					orderNumber={`0${Index}`}
-					title={Title}
-					subtitle={SubTitle}
-					render={(): void => this.getSectionComponent(section)}
-				/>
-			)
-		);
-	   })}  
-	  }
-        </div>
+				return (
+					!HideSection &&
+					Index && 
+					section != "PlansTop" &&
+					(<DashboardPanelItem
+						key={`dashboard-section-0${Index}`}
+						orderNumber={`0${Index}`}
+						title={Title}
+						subtitle={SubTitle}
+						render={(): void => this.getSectionComponent(section)}
+					/>)
+				);
+			})
+			}
+		    </Fragment>
+		  }
+		</div>
       </div>
     );
   }
