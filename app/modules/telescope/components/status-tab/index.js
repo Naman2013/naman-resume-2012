@@ -37,9 +37,9 @@ statusMessage: ""
   return (
     <div className="animated fadeIn faster status-tab">
       
-      <div className="telescope-views">
-	{activeTelescopeStatus.showStatusMessage === true && <div style={{marginLeft: "100px", fontSize: "1.3em", paddingBottom: "30px"}}>{activeTelescopeStatus.statusMessage}</div>}
+      <div className="telescope-views">	
         <Container>
+        {activeTelescopeStatus.showStatusMessage === true && <div style={{marginLeft: "10px", fontSize: "1.3em", paddingBottom: "30px"}}>{activeTelescopeStatus.statusMessage}</div>}
           <Row>
             <Col lg={4} md={12} sm={12}>
               <ConnectedAllSkyCamera
