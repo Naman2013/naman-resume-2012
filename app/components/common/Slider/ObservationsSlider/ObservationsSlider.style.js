@@ -27,6 +27,18 @@ export default css.global`
     margin-right: -87px;
   }
 
+  @media (max-width: 900px){
+    .slick-prev {
+      margin-left: -25px;
+    }
+  }
+
+  @media (max-width: 900px){
+    .slick-next {
+      margin-right: -25px;
+    }
+  }  
+
   .dash-obs .slick-slider .slick-prev {
     margin-left: 23px;
     transform: none;
