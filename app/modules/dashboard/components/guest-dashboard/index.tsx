@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { withRouter } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { Experiment, Variant } from 'react-optimize';
@@ -44,6 +44,7 @@ type TGuestDashboardProps = {
 };
 
 const SECTION_TYPE: { [key: string]: string } = {
+  PlansTop: 'PlansTop',
   Telescopes: 'Telescopes',
   Missions: 'Missions',
   MissionsPhotos: 'MissionsPhotos',
@@ -51,7 +52,7 @@ const SECTION_TYPE: { [key: string]: string } = {
   Clubs: 'Clubs',
   Shows: 'Shows',
   Quests: 'Quests',
-  Plans: 'Plans',
+  PlansBottom: 'PlansBottom',
 };
 
 const GET_PLANS_CALLSOURCES = {
@@ -132,9 +133,10 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 
     const { observatoryList } = observatoryListData;
     const { imageList } = MissionPhotosData;
-    const { guestDashboardPlans } = projectGoogleOptimizeExpirianceId || {};
     const { subscriptionPlans } = subscriptionPlansData;
-
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {} 
+	console.log("hello:" + guestDashboardGoogleExperienceId);
+	
     switch (section) {
       case SECTION_TYPE.Telescopes: {
         return (
@@ -144,10 +146,12 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Missions: {
+      
+	  case SECTION_TYPE.Missions: {
         return <RecommendedObjects {...recommendedObjects} readOnly />;
       }
-      case SECTION_TYPE.MissionsPhotos: {
+      
+	  case SECTION_TYPE.MissionsPhotos: {
         return (
           <MissionPhotosSlider
             imageList={imageList}
@@ -156,12 +160,14 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Observations: {
+      
+	  case SECTION_TYPE.Observations: {
         return (
           <RecommendedObservations imageList={CommunityObservations} readOnly />
         );
       }
-      case SECTION_TYPE.Clubs: {
+      
+	  case SECTION_TYPE.Clubs: {
         return (
           <ClubsList
             clubsList={RecommendedClubs}
@@ -170,9 +176,11 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Shows: {
+      
+	  case SECTION_TYPE.Shows: {
         return <ShowsSlider showsList={dashboardShowsList} readOnly />;
       }
+	  
       case SECTION_TYPE.Quests: {
         return (
           <RecommendedQuestsList
@@ -182,18 +190,9 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           />
         );
       }
-      case SECTION_TYPE.Plans: {
-        return guestDashboardPlans ? (
-          <Experiment id={guestDashboardPlans}>
-            <Variant id="0">
-              <MembershipPlansList
-                plans={subscriptionPlans}
-                getSubscriptionPlans={() =>
-                  this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
-                }
-                showSlider
-              />
-            </Variant>
+
+      case SECTION_TYPE.PlansTop: {
+        return guestDashboardGoogleExperienceId !== null && (<Experiment id={guestDashboardGoogleExperienceId}>
             <Variant id="1">
               <MembershipPlansList
                 plans={subscriptionPlans}
@@ -204,16 +203,21 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
               />
             </Variant>
           </Experiment>
-        ) : (
-          <MembershipPlansList
-            plans={subscriptionPlans}
-            getSubscriptionPlans={() =>
-              this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboard)
-            }
-            showSlider
-          />
-        );
+		)
       }
+
+      case SECTION_TYPE.PlansBottom: {
+        return ( 
+			<MembershipPlansList
+				plans={subscriptionPlans}
+				getSubscriptionPlans={() =>
+					this.getSubscriptionPlans(GET_PLANS_CALLSOURCES.dashboardB)
+				}
+				showSlider
+			/>
+		)
+      }
+
       default: {
         return <div />;
       }
@@ -223,6 +227,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
   render() {
     const { guestDashboard } = this.props;
     const { Sections } = guestDashboard;
+    const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
 
     return (
       <div className="dashboard-layout">
@@ -242,23 +247,69 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
         </div>
 
         <div className="sections-wrapper">
-          {Object.keys(Sections).map((section: string) => {
-            const { Index, Title, SubTitle, HideSection } = Sections[section];
+			{guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
+				<Variant id="0">
+					{Object.keys(Sections).map((section: string) => {
+						const { Index, Title, SubTitle, HideSection } = Sections[section];
 
-            return (
-              !HideSection &&
-              Index && (
-                <DashboardPanelItem
-                  key={`dashboard-section-0${Index}`}
-                  orderNumber={`0${Index}`}
-                  title={Title}
-                  subtitle={SubTitle}
-                  render={(): void => this.getSectionComponent(section)}
-                />
-              )
-            );
-          })}
-        </div>
+						return (
+						  !HideSection &&
+							Index && 
+							section != "PlansTop" &&
+						(
+							<DashboardPanelItem
+								key={`dashboard-section-0${Index}`}
+								orderNumber={`0${Index}`}
+								title={Title}
+								subtitle={SubTitle}
+								render={(): void => this.getSectionComponent(section)}
+							/>
+							)
+						  );
+					})}  
+					</Variant>
+				
+					<Variant id="1">
+						   {Object.keys(Sections).map((section: string) => {
+							const { Index, Title, SubTitle, HideSection } = Sections[section];
+
+							return (
+							  !HideSection &&
+								Index && (
+								<DashboardPanelItem
+									key={`dashboard-section-0${Index}`}
+									orderNumber={`0${Index}`}
+									title={Title}
+									subtitle={SubTitle}
+									render={(): void => this.getSectionComponent(section)}
+								/>
+								)
+							  );
+						})}              
+						</Variant>
+				</Experiment>
+		  }
+		  {guestDashboardGoogleExperienceId === null && <Fragment>
+			{Object.keys(Sections).map((section: string) => {
+				const { Index, Title, SubTitle, HideSection } = Sections[section];
+
+				return (
+					!HideSection &&
+					Index && 
+					section != "PlansTop" &&
+					(<DashboardPanelItem
+						key={`dashboard-section-0${Index}`}
+						orderNumber={`0${Index}`}
+						title={Title}
+						subtitle={SubTitle}
+						render={(): void => this.getSectionComponent(section)}
+					/>)
+				);
+			})
+			}
+		    </Fragment>
+		  }
+		</div>
       </div>
     );
   }

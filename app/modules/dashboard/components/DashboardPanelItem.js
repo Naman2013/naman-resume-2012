@@ -14,7 +14,7 @@ const PanelItem = ({ orderNumber, render, title, subtitle }) => (
   <div className={`dash-item${orderNumber === 1 ? '-first' : ''}`}>
     <div className="outer-well">
       <div className="inner-well">
-        <h5>{`0${orderNumber}`.slice(-2)}</h5>
+        {/* <h5>{`0${orderNumber}`.slice(-2)}</h5> */}
         <h1
           style={{ fontSize: '1.5em' }}
           dangerouslySetInnerHTML={{ __html: title }}

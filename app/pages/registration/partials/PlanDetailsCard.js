@@ -48,8 +48,8 @@ const PlanDetailsCard = props => {
         </div>
         <div className="plan-cost-container">
           <div className="plan-cost padded-top-bottom">
-            <span dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
-            <span dangerouslySetInnerHTML={{ __html: planCost }} />
+            <span className="small-scr" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+            <span className="small-scr" dangerouslySetInnerHTML={{ __html: planCost }} />
           </div>
           <span
             className="emphasize post-cost"
