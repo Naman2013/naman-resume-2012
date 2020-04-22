@@ -54,7 +54,7 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
   .breadcrumb span{
     display: inline;
     cursor: pointer;
-    color: #41566f;
+    color: #FF0000;
   }
 
   .breadcrumb span h4{
