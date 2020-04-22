@@ -22,17 +22,18 @@ export class Nav extends Component {
   };
 
   render() {
-    const { items } = this.props;
+    const { items, getMissions } = this.props;
     const opts = this.getDropDownOpts(items);
     const selectedInd = this.getSelectedIndex(opts);
-
+   
     return (
       <div className="nav-container container-fluid">
         {/* Navigation Items */}
         <ul className="list-inline nav-items d-none d-sm-block">
           {items.map(el => (
             <li key={el.linkURL} className="list-inline-item">
-              <Link activeClassName="active-menu-item" to={el.linkURL}>
+              {el.locked && <img alt="" className="icon" src={el.lockedIconURL} />}
+              <Link activeClassName="active-menu-item" to={el.linkURL} onClick={getMissions}>
                 {el.title}
               </Link>
             </li>
@@ -47,6 +48,13 @@ export class Nav extends Component {
             options={opts}
           />
         </div>
+        <style jsx>{`
+
+        .icon {
+          padding: 10px;
+        }
+        
+        `}</style>
       </div>
     );
   }

@@ -51,10 +51,21 @@ export class CatalogSetup extends Component {
       step4Title,
       step4Tooltip,
       subheader,
+      locked,
     } = pageConfig;
-
-    return (
+    debugger;
+    return (      
       <div className="catalog-setup">
+        {(isModalOpen ? (
+        <UpgradeModal
+          // upsell={true}
+          subscriptionPlansCallSource={navigationConfig[3].upsellCallSource}          
+          upsell={navigationConfig[3].showUpsellCard}
+          subscriptionPlansCallSource={callSource}          
+          show={isModalOpen}
+          onHide={() => this.setState({isModalOpen: false})}
+        />
+      ): (<div>
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{subheader}</p>
@@ -88,7 +99,7 @@ export class CatalogSetup extends Component {
               options={catalogListOpts}
               placeholder={choosePrompt}
               value={selectedCatalog}
-              isDisabled={disabled}
+              isDisabled={disabled || locked}
             />
           </div>
         </div>
@@ -110,8 +121,8 @@ export class CatalogSetup extends Component {
               className="textarea designation"
               placeholder={step2DesignationPrompt}
               value={designation}
-              onChange={e => setDesignation(e.target.value)}
-              disabled={disabled}
+              onChange={locked ? () => {} : e => setDesignation(e.target.value)}
+              disabled={disabled || locked}
             />
 
             <div className="designation-format">
@@ -198,6 +209,8 @@ export class CatalogSetup extends Component {
             />
           </div>
         </div>
+        </div>
+        ))}
       </div>
     );
   }
