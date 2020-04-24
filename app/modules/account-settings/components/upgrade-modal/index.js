@@ -30,10 +30,13 @@ const didMount = (props: TUpgradeModal) => () => {
     getSubscriptionPlans,
     selectedPlan,
     subscriptionPlansCallSource,
+    upsellCallSource,
+    upsell
   } = props;
   getSubscriptionPlans({
     selectedPlan,
     callSource: subscriptionPlansCallSource,
+    upsellCallSource: upsellCallSource,
     enableHiddenPlanHashCode: window.localStorage.getItem(
       'enableHiddenPlanHashCode'
     ),
@@ -58,6 +61,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     disableGoBack,
     preSelectedPlan,
     storeUserNewAT,
+    upsellCallSource,
+    upsell,
   } = props;
 
   const [selectedPlan, setSelectedPlan] = useState(null);

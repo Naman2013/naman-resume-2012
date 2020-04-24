@@ -5,6 +5,8 @@ import { MissionsList } from '../missions-list';
 import { ReservationModal } from '../telescope-reservation/reservation-modal';
 import { FeaturedObjectsModal } from '../../../telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from '../mission-success-modal';
+import UpgradeModal from '../../../../modules/account-settings/containers/upgrade-modal';
+import { browserHistory } from 'react-router';
 import './styles.scss';
 
 export class Telescope extends Component {
@@ -14,7 +16,20 @@ export class Telescope extends Component {
     reservationPiggybackVisible: false,
     successModalShow: false,
     editCoordinates: false,
+    callSource: "",
+    upsellCallSource: "",
   };
+
+  closeModal=() => {
+    browserHistory.push(`/missions/bySlooh1000`);
+  }
+
+  showUpsell=(threedots, dotname)=>{
+        this.setState({      
+          callSource: this.props.pageSetup.navigationConfig[3].upsellCallSource + (threedots ? dotname : ""),
+          isModalOpen: true,
+        });
+  }
 
   componentDidMount() {
     this.getMissionSlotDates();
@@ -168,10 +183,19 @@ export class Telescope extends Component {
       reservationPiggybackVisible,
       successModalShow,
       editCoordinates,
-    } = this.state;
-
+      callSource,  
+    } = this.state;   
     return (
       <div className="by-telescope">
+         {navigationConfig[3].locked ? (
+         <UpgradeModal
+          upsell={navigationConfig[3].showUpsellCard}
+          subscriptionPlansCallSource={"upsell"}          
+          upsellCallSource={"missionhub-bytelescope"}           
+          show={navigationConfig[3].locked}
+          onHide={this.closeModal}
+        />
+        ):
         <div className="container">
           <TelescopeSetup
             selectedTelescope={selectedTelescope}
@@ -200,6 +224,7 @@ export class Telescope extends Component {
               navigationConfig={navigationConfig[3]}
               editCoordinates={editCoordinates}
               show
+              showDialog={this.showUpsell}
             />
           )}
 
@@ -233,6 +258,7 @@ export class Telescope extends Component {
             missionSlot={piggyBackMissionSlot}
           />
         </div>
+       }
       </div>
     );
   }
