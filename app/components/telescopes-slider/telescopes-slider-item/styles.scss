@@ -7,7 +7,7 @@
   margin-bottom: 20px;
 
   .telescopes-slider-item {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     background: url($white_texture_bg);
     box-shadow: 0 0 6px 0 $shadows;
@@ -20,7 +20,7 @@
     @include media-breakpoint-up(md) {
       flex-flow: row nowrap;
       align-items: flex-start;
-      width: 95%;
+      width: 96%;
       padding: 40px;
       padding-top: 0px;
       padding-bottom: 0px;
@@ -32,7 +32,7 @@
     }
 
     @include media-breakpoint-up(lg) {
-      width: 80%;
+      width: 96%;
     }
 
     .telescope-info {

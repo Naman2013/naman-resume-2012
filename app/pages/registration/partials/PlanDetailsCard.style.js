@@ -43,6 +43,16 @@ export default css`
     padding: 15px;
     border-left: 1px solid ${shadows};
   }
+  @media only screen (min-width: 400px) and (max-width: 500px) {
+    .small-scr {
+      font-size: 35px;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .small-scr {
+      font-size: 25px;
+    }
+  }
 
   .plan-cost {
     font-family: ${primaryFont};

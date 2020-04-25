@@ -25,16 +25,22 @@ class ProfileGroups extends Component {
     promptText: '',
     showImportPopup: false,
     showCreatePopup: false,
+    profileGroupList: [],    
   };
 
+  componentWillReceiveProps(props) {
+    this.setState({profileGroupList: props.profileGroupList});
+}
   componentDidMount() {
     const { getProfileGroupList } = this.props;
-    getProfileGroupList({ callSource: 'profile' });
+    getProfileGroupList({ callSource: 'profile' }); 
   }
 
-  updateGroupItemInfo = () => {
-    const { getProfile, params } = this.props;
-    getProfile(params.customerUUID);
+  updateGroupItemInfo = (id, resData) => {
+    // const { getProfile, params } = this.props;
+    // getProfile(params.customerUUID);
+    const { profileGroupList } = this.state;    
+    this.setState({profileGroupList: profileGroupList.filter(group=>  group.discussionGroupId !== id)});
   };
 
   updatePrompt = data => {
@@ -66,7 +72,6 @@ class ProfileGroups extends Component {
       createNewClubButtonText,
       importGoogleClassroomsPrompt,
     } = groupControls;
-
     return (
       <Fragment>
         {canCreateNewClubs && (
@@ -93,15 +98,15 @@ class ProfileGroups extends Component {
   };
 
   render() {
-    const { data, profileGroupList, t } = this.props;
+    const { data, t } = this.props;
     const { emptySetGroupsDisplay } = data;
     const {
       showPrompt,
       promptText,
       showImportPopup,
-      showCreatePopup,
-    } = this.state;
-
+      showCreatePopup,  
+      profileGroupList,
+        } = this.state;
     return (
       <div className="profile-groups">
         <CenterColumn customClass="profile-groups-container" >
