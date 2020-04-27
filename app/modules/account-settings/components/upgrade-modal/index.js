@@ -30,8 +30,7 @@ const didMount = (props: TUpgradeModal) => () => {
     getSubscriptionPlans,
     selectedPlan,
     subscriptionPlansCallSource,
-    upsellCallSource,
-    upsell
+    upsellCallSource,    
   } = props;
   getSubscriptionPlans({
     selectedPlan,
@@ -61,8 +60,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     disableGoBack,
     preSelectedPlan,
     storeUserNewAT,
-    upsellCallSource,
-    upsell,
+    upsellCallSource,    
   } = props;
 
   const [selectedPlan, setSelectedPlan] = useState(null);

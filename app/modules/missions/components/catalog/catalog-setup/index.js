@@ -4,16 +4,9 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
-import UpgradeModal from '../../../../account-settings/containers/upgrade-modal';
-import { browserHistory } from 'react-router';
 import './styles.scss';
 
 export class CatalogSetup extends Component {
-
-  closeModal=() => {
-    browserHistory.push(`/missions/bySlooh1000`);
-  }
-
   render() {
     const {
       catalogListOpts,
@@ -59,19 +52,9 @@ export class CatalogSetup extends Component {
       step4Tooltip,
       subheader,
       locked,
-      showUpsellCard,
     } = pageConfig;    
     return (      
-      <div className="catalog-setup">
-        {(showUpsellCard ? (          
-        <UpgradeModal
-          upsell={showUpsellCard}
-          subscriptionPlansCallSource={"upsell"}          
-          upsellCallSource={"missionhub-bycatalog"}       
-          show={locked}
-          onHide={this.closeModal}
-        />
-      ): (<div>
+      <div className="catalog-setup">        
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{subheader}</p>
@@ -214,9 +197,7 @@ export class CatalogSetup extends Component {
               }
             />
           </div>
-        </div>
-        </div>
-        ))}
+        </div>        
       </div>
     );
   }

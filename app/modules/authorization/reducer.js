@@ -38,7 +38,7 @@ const initialState = {
 
   issueWithUserAccountModalVisible: false,
   subscriptionPlansCallSource: null,
-
+  upsellCallSource: null,
   signInReturnURL: '',
 };
 
@@ -102,11 +102,12 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state, { payload }) {
+  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state, { payload, upsellCallSource }) {   
     return {
       ...state,
       issueWithUserAccountModalVisible: true,
       subscriptionPlansCallSource: payload,
+      upsellCallSource: upsellCallSource
     };
   },
   [HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {

@@ -8,6 +8,7 @@ import {
   makeErrorDataSelector,
   makeIssueWithUserAccountModalVisibleSelector,
   makeSubscriptionPlansCallSourceSelector,
+  makeupsellCallSourceSelector,
 } from '../../authorization/selectors';
 import { IssueWithUserAccount } from '../components/issue-with-user-account';
 
@@ -15,6 +16,7 @@ const mapStateToProps = createStructuredSelector({
   errorData: makeErrorDataSelector(),
   isModalVisible: makeIssueWithUserAccountModalVisibleSelector(),
   subscriptionPlansCallSource: makeSubscriptionPlansCallSourceSelector(),
+  upsellCallSource: makeupsellCallSourceSelector(),
 });
 
 const mapDispatchToProps = {

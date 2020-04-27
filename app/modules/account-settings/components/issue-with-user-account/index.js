@@ -8,6 +8,7 @@ const IssueWithUserAccount = props => {
     hideIssueWithUserAccountModal,
     isModalVisible,
     subscriptionPlansCallSource,
+    upsellCallSource,
   } = props;
   const onHideModal = onlyCloseModal => {
     hideIssueWithUserAccountModal();
@@ -21,6 +22,7 @@ const IssueWithUserAccount = props => {
       onHide={onHideModal}
       errorData={errorData}
       subscriptionPlansCallSource={subscriptionPlansCallSource}
+      upsellCallSource={upsellCallSource}
     />
   ) : null;
 };

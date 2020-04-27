@@ -23,6 +23,7 @@ export class MissionsList extends Component {
       getMissionSlots,
       grabPiggyback,
       editCoordinates,
+      locked
     } = this.props;
 
     return (
@@ -45,6 +46,7 @@ export class MissionsList extends Component {
               getMissionSlots={getMissionSlots}
               grabPiggyback={grabPiggyback}
               editCoordinates={editCoordinates}
+              locked={locked}
             />
           ))}
 

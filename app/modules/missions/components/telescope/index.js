@@ -20,17 +20,6 @@ export class Telescope extends Component {
     upsellCallSource: "",
   };
 
-  closeModal=() => {
-    browserHistory.push(`/missions/bySlooh1000`);
-  }
-
-  showUpsell=(threedots, dotname)=>{
-        this.setState({      
-          callSource: this.props.pageSetup.navigationConfig[3].upsellCallSource + (threedots ? dotname : ""),
-          isModalOpen: true,
-        });
-  }
-
   componentDidMount() {
     this.getMissionSlotDates();
   }
@@ -52,8 +41,9 @@ export class Telescope extends Component {
   };
 
   grabPiggyback = mission => {
-    const { grabPiggyback } = this.props;
+    const { grabPiggyback, pageSetup } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
+    if(!pageSetup.navigationConfig[3].locked)
     grabPiggyback({
       callSource: 'byTelescopeV4',
       scheduledMissionId,
@@ -177,25 +167,16 @@ export class Telescope extends Component {
       piggybackReservedMission,
     } = this.props;
     const { setUpTelescopePrompt, navigationConfig } = pageSetup;
+    const { locked } = navigationConfig[3];
     const {
       reservationModalVisible,
       refreshCountdownLive,
       reservationPiggybackVisible,
       successModalShow,
-      editCoordinates,
-      callSource,  
-    } = this.state;   
+      editCoordinates,        
+    } = this.state;  
     return (
-      <div className="by-telescope">
-         {navigationConfig[3].locked ? (
-         <UpgradeModal
-          upsell={navigationConfig[3].showUpsellCard}
-          subscriptionPlansCallSource={"upsell"}          
-          upsellCallSource={"missionhub-bytelescope"}           
-          show={navigationConfig[3].locked}
-          onHide={this.closeModal}
-        />
-        ):
+      <div className="by-telescope">        
         <div className="container">
           <TelescopeSetup
             selectedTelescope={selectedTelescope}
@@ -214,6 +195,7 @@ export class Telescope extends Component {
             grabPiggyback={this.grabPiggyback}
             editCoordinates={this.getMissionSlot}
             showDateArrows
+            locked={locked}
           />
 
           {reservationModalVisible && (
@@ -223,8 +205,7 @@ export class Telescope extends Component {
               pageSetup={pageSetup}
               navigationConfig={navigationConfig[3]}
               editCoordinates={editCoordinates}
-              show
-              showDialog={this.showUpsell}
+              show              
             />
           )}
 
@@ -257,8 +238,7 @@ export class Telescope extends Component {
             reservedMission={piggybackReservedMission}
             missionSlot={piggyBackMissionSlot}
           />
-        </div>
-       }
+        </div>       
       </div>
     );
   }
