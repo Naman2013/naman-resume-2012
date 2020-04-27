@@ -9,8 +9,8 @@ export class Missions extends Component {
   };
 
   fetchData = () => {
-    const { getMissions } = this.props;
-    getMissions();
+    const { getMissions } = this.props;    
+    getMissions(window.location.pathname);
   };
 
   render() {

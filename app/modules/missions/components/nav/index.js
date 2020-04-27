@@ -33,7 +33,7 @@ export class Nav extends Component {
           {items.map(el => (
             <li key={el.linkURL} className="list-inline-item">
               {el.locked && <img alt="" className="icon" src={el.lockedIconURL} />}
-              <Link activeClassName="active-menu-item" to={el.linkURL} onClick={()=>getMissions(el.tabName)}>
+              <Link activeClassName="active-menu-item" to={el.linkURL} onClick={()=>getMissions(el.linkURL)}>
                 {el.title}
               </Link>
             </li>
