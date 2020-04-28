@@ -71,14 +71,16 @@ export class QueueTab extends Component {
   }
 
   getTelescopeSlot = (mission, finalizeReservation = false) => {
-    const { getTelescopeSlot, setSelectedSlot } = this.props;
+    const { getTelescopeSlot, setSelectedSlot, offlineQueueTab } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
+    const callSource = offlineQueueTab ? "telescope-offline-queue" : "telescope-online-queue";
     setSelectedSlot(mission);
     getTelescopeSlot({
       finalizeReservation: finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
+      callSource,
     }).then(({ payload }) => {
       const { apiError, statusCode } = payload;
       if(!apiError && (statusCode < 400 || statusCode >= 500)){
@@ -199,7 +201,7 @@ export class QueueTab extends Component {
       editCoordinates,
     } = this.state;
     const { navigationConfig } = pageSetup;
-
+    
     return (
       <div className={`animated fadeIn faster queue-tab${
         mobileMissionList ? ' mobile-missions-list' : ''
