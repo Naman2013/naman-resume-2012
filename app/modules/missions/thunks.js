@@ -56,7 +56,7 @@ export const getMissionSlotsByTelescope = (
 
 export const getMissionSlotDates = (
   { obsId, telescopeId, domeId },
-  requestedDate = '', callSource
+  requestedDate = ''
 ) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getMissionSlotDates());
@@ -67,8 +67,7 @@ export const getMissionSlotDates = (
     domeId,
     obsId,
     telescopeId,
-    requestedDate,
-    callSource,
+    requestedDate,    
   })
     .then(result => {
       dispatch(ACTION.getMissionSlotDatesSuccess(result.data));

@@ -34,8 +34,8 @@ export class Telescope extends Component {
   getMissionSlotDates = (requestedDate = '') => {    
     const { getMissionSlotDates, selectedTelescope } = this.props;
     this.setState({ refreshCountdownLive: false });
-    const callSource="missionhub-bytelescope";
-    getMissionSlotDates(selectedTelescope, requestedDate, callSource).then(() =>
+    
+    getMissionSlotDates(selectedTelescope, requestedDate).then(() =>
       this.setState({ refreshCountdownLive: true })
     );
   };
@@ -54,12 +54,14 @@ export class Telescope extends Component {
   getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
+    const callSource="missionhub-bytelescope";
     setSelectedSlot(mission);
     getTelescopeSlot({
       finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
+      callSource,
     }).then(() => this.setState({ reservationModalVisible: true }));
   };
 
