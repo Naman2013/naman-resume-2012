@@ -31,10 +31,10 @@ export class Nav extends Component {
         {/* Navigation Items */}
         <ul className="list-inline nav-items d-none d-sm-block">
           {items.map(el => (
-            <li key={el.linkURL} className="list-inline-item">
-              {el.locked && <img alt="" className="icon" src={el.lockedIconURL} />}
+            <li key={el.linkURL} className="list-inline-item">              
               <Link activeClassName="active-menu-item" to={el.linkURL} onClick={()=>getMissions(el.linkURL)}>
-                {el.title}
+              {el.locked && <img alt="" className="icon" src={el.lockedIconURL} />}
+              {el.title}
               </Link>
             </li>
           ))}

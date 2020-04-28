@@ -156,7 +156,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     };
   }
-  debugger;
   return (
     <>
       <Modal
@@ -180,10 +179,9 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
-                } else {
-                  debugger;
-                  if(subscriptionPlansData.hasPaymentInfoOnFile, subscriptionPlansCallSource)
-                    upgradeUser(selectedPlan,upsellCallSource);
+                } else {                  
+                  if(subscriptionPlansData.hasPaymentInfoOnFile)
+                    upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource);
                   else
                     setStep('PAYMENT');
                 }
