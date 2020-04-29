@@ -13,6 +13,30 @@
       "upsellPayWall_Plan": ""
     }
   },
+  "www.astronomyfair.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "COOKIE_DOMAIN": ".astronomyfair.com",
+    "loadHtmlFile": "/config/www.astronomyfair.com.html",
+  },
+  "astronomyfair.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "COOKIE_DOMAIN": ".astronomyfair.com",
+    "loadHtmlFile": "/config/astronomyfair.com.html",
+  },
+  "www.starparty.live": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "COOKIE_DOMAIN": ".starparty.live",
+    "loadHtmlFile": "/config/www.starparty.live.html",
+  },
+  "starparty.live": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "COOKIE_DOMAIN": ".starparty.live",
+    "loadHtmlFile": "/config/starparty.live.html",
+  },
   "live.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
