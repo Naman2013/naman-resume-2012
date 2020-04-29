@@ -7,7 +7,7 @@ import './styles.scss';
 
 export class QuestModuleGuidePanel extends PureComponent {
   componentDidMount = () => {
-    const { module, params, getQuestGuidePanel } = this.props;
+    const { module, params, getQuestGuidePanel} = this.props;
     const { questId } = params;
     const { moduleId } = module;
 
@@ -15,7 +15,7 @@ export class QuestModuleGuidePanel extends PureComponent {
   };
 
   render() {
-    const { questGuidePanel, module } = this.props;
+    const { questGuidePanel, module, handleBacktoQuest } = this.props;
     const { moduleId } = module;
     const {
       title,
@@ -49,7 +49,7 @@ export class QuestModuleGuidePanel extends PureComponent {
               dangerouslySetInnerHTML={{ __html: description }}
             />
             {hasLink && (
-              <Link to={linkUrl}>
+              <Link to={linkUrl} onClick={handleBacktoQuest}>
                 <Button className="guide-panel-guide-link">
                   <span>{linkLabel}</span>
                   <img
@@ -64,6 +64,7 @@ export class QuestModuleGuidePanel extends PureComponent {
 
           <div className="guide-panel-guide-card">
             <GuideTile
+              handleBacktoQuest={handleBacktoQuest}
               title={imageLabel}
               subTitle={imageTitle}
               linkUrl={imageLinkUrl}

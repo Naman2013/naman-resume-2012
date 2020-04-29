@@ -1,5 +1,5 @@
 import { API } from 'app/api';
-import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails } from 'app/modules/User';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
 
@@ -21,12 +21,15 @@ const logPageVisit = (pagePath) => {
 	  finalRequestData = requestData;
 
 	//the session token and marketing tracking id will only get logged on the purchase confirmation page visit once.
-	console.log(pagePath.pagePath);
+	//console.log(pagePath.pagePath);
 
 	if (pagePath.pagePath == "/join/purchaseConfirmation/join") {
 		//cleanup the slooh site session token and slooh marketing tracking id on a successful purchase.
 		deleteSessionToken();
 		deleteMarketingTrackingId();
+	}
+	else if (pagePath.pagePath.startsWith("/quest-details") == true) {
+		deleteQuestBreadCrumbDetails();
 	}
   }
   else {
@@ -40,6 +43,9 @@ const logPageVisit = (pagePath) => {
 	    	referringPageURL: pagePath.referringPageURL,
 	  };
 	  finalRequestData = requestData;
+
+	  //make sure that any requests as a guest remove any breadcrumb details
+	  deleteQuestBreadCrumbDetails();
   }
 
   API.post(LOG_PAGE_VISIT_API_URL, finalRequestData).then(response => {

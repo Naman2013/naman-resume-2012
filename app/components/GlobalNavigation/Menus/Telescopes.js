@@ -17,14 +17,17 @@ import MenuTitleBar from './partials/MenuTitleBar';
 import TELESCOPE_CONFIGURATION, {
   modelTelescopesFromObsList,
 } from './telescopeConfiguration';
+import { getUserInfo } from 'app/modules/User';
 
 const Telescopes = () => {
+  const { token, at, cid } = getUserInfo();
   const { t } = useTranslation();
   return (
     <Request
       serviceURL={OBSERVATORIES_COMPACT}
       method="GET"
       model={modelTelescopesFromObsList}
+      requestBody={{ cid, at, token }}
       render={({
         fetchingContent,
         modeledResponses: { TELESCOPES_ONLY },

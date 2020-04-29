@@ -46,8 +46,8 @@ const didMount = (props: TUpgradeModal) => () => {
 
 export const UpgradeModal = (props: TUpgradeModal) => {
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
-  useEffect(didMount(props), []);
-
+    useEffect(didMount(props), [props.subscriptionPlansCallSource]);
+  
   const {
     show,
     onHide,
@@ -85,7 +85,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     };
   }
-
+  
   return (
     <>
       <Modal

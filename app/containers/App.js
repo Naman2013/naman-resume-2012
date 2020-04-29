@@ -14,6 +14,8 @@ import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 import { fireSloohPageView } from 'app/utils/slooh-pageview-wrapper';
+import QuestBreadCrumb from '../components/GlobalNavigation/breadcrumb';
+import { getUserInfo } from 'app/modules/User';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -93,6 +95,7 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     const { isSessionInitialized } = this.state;
+    const { sloohQuestBreadCrumbQuestTitle, sloohQuestBreadCrumbQuestLinkURL } = getUserInfo();
     return (
       <Suspense fallback={<div>Loading</div>}>
 
@@ -108,9 +111,13 @@ class App extends Component {
 
             <nav className="navigation">
               <GlobalNavigation />
+              <QuestBreadCrumb
+                sloohQuestBreadCrumbQuestTitle={sloohQuestBreadCrumbQuestTitle}
+                sloohQuestBreadCrumbQuestLinkURL={sloohQuestBreadCrumbQuestLinkURL}
+              />
             </nav>
-
-            <section className="app-content-container clearfix v4">
+            
+            <section className="app-content-container clearfix v4" style={{marginTop: (sloohQuestBreadCrumbQuestLinkURL ? "85px" : "60px")}}>
               <div className="clearfix">{this.props.children}</div>
             </section>
             <Footer />
@@ -119,7 +126,7 @@ class App extends Component {
           <style jsx>
             {`
               .v4 {
-                margin-top: 60px !important;
+                margin-top: 60px;
                 position: relative;
                 z-index: 1;
               }

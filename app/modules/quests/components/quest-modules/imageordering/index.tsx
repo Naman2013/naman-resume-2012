@@ -38,6 +38,7 @@ type TImageorderingProps = {
   user: User;
   activityStatus: ImageorderingModuleResponse['activityStatus'];
   mmSlotModalVisible: boolean;
+  handleBacktoQuest: Function;
 };
 
 export class Imageordering extends React.PureComponent<TImageorderingProps> {
@@ -157,6 +158,7 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
       user,
       loading,
       readOnly,
+      handleBacktoQuest,
     } = this.props;
 
     const {
@@ -190,6 +192,7 @@ export class Imageordering extends React.PureComponent<TImageorderingProps> {
             loading={loading}
             activityState={activityState}
             readOnly={readOnly}
+            handleBacktoQuest={handleBacktoQuest}
           />
         )}
 

@@ -1,11 +1,18 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
+
+const contentClickHandler = (link) => {  
+    browserHistory.push(link);
+};
 
 const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQuestLinkURL }) => (
   (sloohQuestBreadCrumbQuestLinkURL ?
     <div>
     <div className="breadcrumb">  
-        <a href={sloohQuestBreadCrumbQuestLinkURL}><h4><b>Return to Quest:&nbsp;</b></h4>
-        <h4 className="normaltxt">{sloohQuestBreadCrumbQuestTitle}</h4></a>
+	    <span onClick={() => contentClickHandler(sloohQuestBreadCrumbQuestLinkURL)} role="button">
+        	<h4 className="breadcrumbBoldtxt">Return to Quest:&nbsp;</h4>
+        	<h4 className="breadcrumbNormaltxt">{sloohQuestBreadCrumbQuestTitle}</h4>
+    	    </span>
     </div>
 
 <style jsx>
@@ -16,7 +23,7 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
     margin-top: 60px;
     background-color: #FFF;
     width: 100%;
-    padding: 8px 0px 8px 10px;    
+    padding: 4px 0px 2px 10px;    
     border-bottom: 2px solid #ced2d8;
     
   }
@@ -33,23 +40,24 @@ const QuestBreadCrumb = ({sloohQuestBreadCrumbQuestTitle,sloohQuestBreadCrumbQue
     float: left;
   }
 
-  .breadcrumb.normaltxt{
+  .breadcrumbNormaltxt{
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
   }
 
-  .breadcrumb.boldtxt{
+  .breadcrumbBoldtxt{
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 16px;
-
+    font-size: 12px;
+    font-weight: bold;
   }
-  .breadcrumb a{
+
+  .breadcrumb span{
     display: inline;
     cursor: pointer;
-    color: #41566f;
+    color: #FF0000;
   }
 
-  .breadcrumb a h4{
+  .breadcrumb span h4{
     display: inline; 
   }
   

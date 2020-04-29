@@ -2,7 +2,7 @@
 
 .telescopes-slider-container {
   margin: 0 auto;
-  max-width: 780px;
+  max-width: 644px;
   display: flex;
   justify-content: center;
 
@@ -12,11 +12,11 @@
 
     .slick-slider {
       .slick-prev {
-        margin-left: 23px;
+        // margin-left: 23px;
       }
 
       .slick-next {
-        margin-right: 23px;
+        // margin-right: 23px;
       }
     }
 
@@ -37,6 +37,6 @@
 
 @media only screen and (min-width: 1200px) {
   .telescopes-slider-container {
-    max-width: 1180px;
+    max-width: 965px;
   }
 }

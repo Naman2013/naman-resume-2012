@@ -5,6 +5,13 @@
   //padding-top: 40px;
   margin-left: -10px;
 
+
+  .activeTelescopeStatus {
+	margin-left: 100px;
+	font-size: 1.3em;
+	padding-bottom: 30px;
+  }
+
   .telescope-views {
     margin-bottom: 40px;
     box-shadow: 0 16px 30px -5px $shadows;
@@ -14,7 +21,6 @@
       min-height: 520px;
     }
   }
-
 
   .weather {
     .temp-value {

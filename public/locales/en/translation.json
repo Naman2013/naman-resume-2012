@@ -105,7 +105,8 @@
     "PrivateGroup": "Private Club",
     "Submit": "Submit",
     "Search": "Search",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "Loading": "Loading"
   },
   "Dashboard": {
     "RedeemInvitationCode": "Redeem Invitation Code",
@@ -331,7 +332,9 @@
     "AskAnAstronomer": "Ask an Astronomer",
     "ViewGuide": "View Guide",
     "MyClubs": "Clubs",
-    "Groups": "Clubs"
+    "Groups": "Clubs",
+    "AskedQuestions": "Asked Questions",
+    "AnsweredQuestions": "Answered Questions"
   },
   "Quests": {
     "Close": "Close",
