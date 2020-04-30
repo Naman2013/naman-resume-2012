@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Countdown from 'react-countdown-now';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import { ThreeDotsMenu } from '../three-dots-menu';
+import { Tooltip } from 'react-tippy';
 import './styles.scss';
 
 const SLOT_STATUS = {
@@ -32,6 +33,9 @@ export class MissionTimeSlot extends PureComponent {
       showDotMenuMobile,
       showNoReservations,
       noReservationsExplanation,
+      showJoiningMission,
+      joiningMissionIconURL,
+      joiningMissionTooltipText,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -44,7 +48,7 @@ export class MissionTimeSlot extends PureComponent {
         : () => {};
 
     const title = showNoReservations ? noReservationsExplanation : slotTitle;
-
+    
     return (
       <div
         className={`missions-list-item${
@@ -92,7 +96,16 @@ export class MissionTimeSlot extends PureComponent {
                 )}
               </Fragment>
             )}
+            {showJoiningMission ? ( 
+              <Tooltip
+              className="mission-tooltip"
+              title={joiningMissionTooltipText}
+              position="top"
+              theme="light">
+                  <img alt="" className="mission-icon" src={joiningMissionIconURL} />
+              </Tooltip>) : null}
           </div>
+          
         </div>
         <div className="right">
           <div className="actions">
@@ -160,6 +173,14 @@ export class MissionTimeSlot extends PureComponent {
                 )}
               </Fragment>
             )}
+            {showJoiningMission ? ( 
+              <Tooltip
+              className="mission-tooltip"
+              title={joiningMissionTooltipText}
+              position="top"
+              theme="light">
+                  <img alt="" className="mission-icon" src={joiningMissionIconURL} />
+              </Tooltip>) : null}
           </div>
         </div>
       </div>

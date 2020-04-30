@@ -27,7 +27,7 @@ export class MissionCard extends PureComponent {
       displayTime,
       displayTimeZone,
     } = missionStartFormatted;
-
+    debugger;
     return (
       <div
         className={`missions-card${userHasReservation ? ' reserved' : ''}${
