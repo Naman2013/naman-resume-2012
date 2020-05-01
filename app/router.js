@@ -206,8 +206,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
       />
 
-      <Redirect from="scouts" to="/memberships" />
-
       <Route path="about" component={AboutLazy} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
 
@@ -607,7 +605,8 @@ const AppRouter = ({ setPreviousInstrument }) => (
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
 
     <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
-    
+
+    <Redirect from="/scouts" to="/memberships" />    
     <Redirect from="*" to="/" />
   </Router>
 );
