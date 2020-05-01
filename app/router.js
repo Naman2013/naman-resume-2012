@@ -607,7 +607,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
     <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
 
     <Redirect from="*" to="/" />
-    <Redirect from="/scouts" to="/memberships" />    
   </Router>
 );
 
