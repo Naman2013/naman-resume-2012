@@ -13,7 +13,7 @@
   cursor: auto;
 
   &.reserved {
-    pointer-events: none;
+    // pointer-events: none;
 
     .reserved-mission-capture {
       font-family: $primary-font;
@@ -28,6 +28,7 @@
 
       .mission-tooltip{
             margin-left: auto;
+            float: right;
       }
       
       .mission-icon{
@@ -102,7 +103,9 @@
     float: right;
     margin-left: 20px;
   }
-
+  .mission-tooltip{
+    float: right;
+}
 
   .mission-time {
     border-bottom: 1px solid $hawkesBlue;

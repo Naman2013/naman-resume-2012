@@ -118,7 +118,8 @@ export default css`
   .mission-icon{
     width: 35px;
     height: 35px;
-    display: unset;    
+    display: unset;  
+    margin-Top: -15px;  
   }
 
   .mission-icon-right{
