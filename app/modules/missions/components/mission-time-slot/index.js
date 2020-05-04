@@ -79,7 +79,7 @@ export class MissionTimeSlot extends PureComponent {
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
-                {noReservationsExplanation ? null : <span>Scheduled by:</span>}
+                {noReservationsExplanation ? null : <span>Scheduled by: </span>}
 
                 {ownerAvatarURL && (
                   <img
@@ -156,7 +156,12 @@ export class MissionTimeSlot extends PureComponent {
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
-                <span>Scheduled by:</span>
+                <div>
+                <span>Scheduled by: </span>
+
+                {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
 
                 {ownerAvatarURL && (
                   <img
@@ -167,10 +172,7 @@ export class MissionTimeSlot extends PureComponent {
                     alt=""
                   />
                 )}
-
-                {!showSloohUser && (
-                  <div className="owner-name">{ownerDisplayName}</div>
-                )}
+                </div>
               </Fragment>
             )}
             {showJoiningMission ? ( 
