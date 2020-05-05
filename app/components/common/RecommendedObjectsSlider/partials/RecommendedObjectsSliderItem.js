@@ -64,6 +64,7 @@ const RecommendedObjectsItem = ({
           <div className="telescope-name">{telescopeName}</div>
         </div>
       </div>
+      <div className="center-div">
       {missionAvailable && !userHasReservation && !readOnly && [(
         <Button
           onClickEvent={() => reservationModalShow(object)}
@@ -79,7 +80,7 @@ const RecommendedObjectsItem = ({
                   <img alt="" className="mission-icon-right" src={joiningMissionIconURL} />
               </Tooltip>) : null)
       ]}
-
+      </div>
       {userHasReservation && reservedButtonCaption && (
         <div className="reserved-mission-capture">
           {/* {reservedButtonCaption} */}
