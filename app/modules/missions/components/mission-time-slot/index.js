@@ -82,6 +82,7 @@ export class MissionTimeSlot extends PureComponent {
                 {noReservationsExplanation ? null : <span>Scheduled by: </span>}
 
                 {ownerAvatarURL && (
+                  <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
                     className={`owner-avatar${
                       showSloohUser ? ' slooh-user' : ''
@@ -89,6 +90,7 @@ export class MissionTimeSlot extends PureComponent {
                     src={ownerAvatarURL}
                     alt=""
                   />
+                  </div>
                 )}
 
                 {!showSloohUser && (
@@ -150,20 +152,21 @@ export class MissionTimeSlot extends PureComponent {
             </div>
             <div className="other">{displayOtherTimeZones}</div>
           </div>
-
-          <div className="mission-owner">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? (
+          <div className="mission-schedule">
+          {SLOT_STATUS.AVAILABLE === slotStatus ? (
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
                 <div>
-                <span>Scheduled by: </span>
-
-                {!showSloohUser && (
-                  <div className="owner-name">{ownerDisplayName}</div>
-                )}
-
-                {ownerAvatarURL && (
+                <span>Scheduled by: </span>               
+                </div>
+              </Fragment>
+            )}
+          </div>
+          <div className="mission-owner">
+            
+             {ownerAvatarURL && (
+                  <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
                     className={`owner-avatar${
                       showSloohUser ? ' slooh-user' : ''
@@ -171,10 +174,11 @@ export class MissionTimeSlot extends PureComponent {
                     src={ownerAvatarURL}
                     alt=""
                   />
+                  </div>
                 )}
-                </div>
-              </Fragment>
-            )}
+                 {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
             {showJoiningMission ? ( 
               <Tooltip
               className="mission-tooltip"
