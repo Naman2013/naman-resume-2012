@@ -32,6 +32,7 @@ export class CatalogSetup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
 
     const { explanation } = objectData;
@@ -52,7 +53,7 @@ export class CatalogSetup extends Component {
       step4Tooltip,
       subheader,
     } = pageConfig;
-
+    
     return (
       <div className="catalog-setup">
         <div className="row setup-header">
@@ -67,6 +68,7 @@ export class CatalogSetup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           )}
         </div>

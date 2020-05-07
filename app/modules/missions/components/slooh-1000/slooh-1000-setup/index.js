@@ -47,6 +47,7 @@ export class Slooh1000Setup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded
     } = this.props;
     const {
       header,
@@ -74,6 +75,7 @@ export class Slooh1000Setup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           )}
         </div>

@@ -101,6 +101,9 @@ export class ReservationModalContent extends Component {
       pageSetup,
       navigationConfig,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
+      timestamp,
+      currenttime,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
@@ -153,6 +156,9 @@ export class ReservationModalContent extends Component {
                   scrollToGrabbedMission={this.scrollToGrabbedMission}
                   pageSetup={pageSetup}
                   navigationConfig={navigationConfig}
+                  showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+                  timestamp={timestamp}
+                  currenttime={currenttime}
                 />
               </Box>
             </div>

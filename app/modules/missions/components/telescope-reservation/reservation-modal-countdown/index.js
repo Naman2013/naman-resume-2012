@@ -14,12 +14,14 @@ export class ReservationModalCountdown extends PureComponent {
       onCountdownComplete,
       completeReservationPromptLong,
       userHasHold,
-    } = this.props;
+      showHoldOneHourButtonWhenExpanded
+    } = this.props;    
+    
     return (
       <div className="reservation-modal-countdown">
         <div className="countdown">
           <Countdown
-            date={Date.now() + countdown}
+            date={countdown}
             onComplete={onCountdownComplete}
             onTick={onCountdownTick}
             renderer={props => (
@@ -30,7 +32,7 @@ export class ReservationModalCountdown extends PureComponent {
             )}
           />
         </div>
-        {!userHasHold && (
+        {!userHasHold && showHoldOneHourButtonWhenExpanded &&(
           <Button
             text="Hold one hour"
             onClickEvent={buttonOnClick}

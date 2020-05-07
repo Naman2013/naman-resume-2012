@@ -53,6 +53,7 @@ export class CoordinatesSetup extends PureComponent {
       pageConfig,
       userHasHold,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
     const {
       header,
@@ -90,6 +91,7 @@ export class CoordinatesSetup extends PureComponent {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={editCoordinates || userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           )}
         </div>

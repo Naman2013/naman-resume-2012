@@ -127,6 +127,18 @@ export const makeQueueTabUpcomingSlotsDataSelector = () =>
     state => state.upcomingSlotsData
   );
 
+export const makeQueueTabTimeStamp = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.timestamp
+  );
+  
+export const makeQueueTabLocalTimeStamp = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => new Date().getTime()
+  );
+
 export const makeQueueTabIsFetchingSelector = () =>
   createSelector(
     makeQueueTabSelector(),

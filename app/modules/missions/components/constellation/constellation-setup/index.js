@@ -29,6 +29,7 @@ export class ConstellationSetup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
     const {
       header,
@@ -56,6 +57,7 @@ export class ConstellationSetup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           )}
         </div>

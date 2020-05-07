@@ -15,6 +15,8 @@ import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
   makeTelescopePageSetupSelector,
+  makeQueueTabTimeStamp,
+  makeQueueTabLocalTimeStamp,
 } from '../selectors';
 import {
   getTelescopeSlot,
@@ -36,6 +38,8 @@ import { makeUserSelector } from '../../user/selectors';
 const mapStateToProps = createStructuredSelector({
   isFetching: makeQueueTabIsFetchingSelector(),
   upcomingSlotsData: makeQueueTabUpcomingSlotsDataSelector(),
+  timestamp: makeQueueTabTimeStamp(),
+  currenttime: makeQueueTabLocalTimeStamp(),
   selectedSlot: makeTelescopeSelectedSlotSelector(),
   featuredObjectsData: makeQueueTabFeaturedObjectsDataSelector(),
   reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),

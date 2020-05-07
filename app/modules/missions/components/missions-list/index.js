@@ -23,8 +23,10 @@ export class MissionsList extends Component {
       getMissionSlots,
       grabPiggyback,
       editCoordinates,
+      timestamp,
+      currenttime,
     } = this.props;
-
+    
     return (
       <div className="missions-list">
         <MissionsDaySelector
@@ -45,6 +47,8 @@ export class MissionsList extends Component {
               getMissionSlots={getMissionSlots}
               grabPiggyback={grabPiggyback}
               editCoordinates={editCoordinates}
+              timestamp={timestamp}
+              currenttime={currenttime}
             />
           ))}
 

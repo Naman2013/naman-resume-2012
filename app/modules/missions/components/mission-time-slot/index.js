@@ -18,6 +18,8 @@ export class MissionTimeSlot extends PureComponent {
       getMissionSlots,
       grabPiggyback,
       editCoordinates,
+      timestamp,
+      currenttime,
     } = this.props;
     const {
       slotStatus,
@@ -47,8 +49,7 @@ export class MissionTimeSlot extends PureComponent {
         ? () => getTelescopeSlot()
         : () => {};
 
-    const title = showNoReservations ? noReservationsExplanation : slotTitle;
-    
+    const title = showNoReservations ? noReservationsExplanation : slotTitle;    
     return (
       <div
         className={`missions-list-item${
@@ -64,7 +65,7 @@ export class MissionTimeSlot extends PureComponent {
             {title}{' '}
             {expires > 0 && userHasHold && (
               <Countdown
-                date={expires * 1000}
+                date={((expires*1000) + (currenttime-(timestamp*1000)))}
                 onComplete={getMissionSlots}
                 renderer={props => (
                   <span>
@@ -142,7 +143,18 @@ export class MissionTimeSlot extends PureComponent {
           </div>
 
           <div className="mission-title">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : title}
+            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : title}{' '}
+            {expires > 0 && userHasHold && (
+              <Countdown
+                date={((expires*1000) + (currenttime-(timestamp*1000)))}
+                onComplete={getMissionSlots}
+                renderer={props => (
+                  <span>
+                    {props.minutes}:{twoDigitsTimeFormatting(props.seconds)}
+                  </span>
+                )}
+              />
+            )}
           </div>
 
           <div className="time">

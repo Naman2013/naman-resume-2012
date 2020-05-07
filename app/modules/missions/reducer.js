@@ -642,7 +642,7 @@ function setTelescopeDate(state, action) {
   };
 }
 
-function getMissionSlotsByTelescopeSuccess(state, action) {
+function getMissionSlotsByTelescopeSuccess(state, action) {  
   return {
     ...state,
     isFetching: false,
@@ -653,11 +653,13 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
       missionList: action.payload.missionList,
       scrollToSMID: action.payload.scrollToSMID,
       missionListLodaded: true,
+      timestamp: action.payload.timestamp,
+      currenttime: new Date().getTime(),
     },
   };
 }
 
-function getTelescopeSlotSuccess(state, action) {
+function getTelescopeSlotSuccess(state, action) {  
   return {
     ...state,
     isFetching: false,

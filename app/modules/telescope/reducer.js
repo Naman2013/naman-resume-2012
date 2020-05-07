@@ -120,6 +120,7 @@ function getUpcomingSlotsByTelescopeSuccess(state, action) {
       ...state.queueTab,
       isFetching: false,
       upcomingSlotsData: action.payload,
+      timestamp: action.payload.timestamp,
     },
   };
 }

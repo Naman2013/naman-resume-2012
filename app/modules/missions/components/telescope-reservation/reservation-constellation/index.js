@@ -67,6 +67,7 @@ class Constellation extends Component {
       pageSetup,
       navigationConfig,
       selectedSlot,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
     const { userHasHold } = selectedSlot;
@@ -94,6 +95,7 @@ class Constellation extends Component {
           pageConfig={navigationConfig.byConstellation}
           userHasHold={userHasHold}
           byTelescope
+          showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
         />
       </div>
     );
