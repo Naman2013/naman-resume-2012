@@ -11,6 +11,14 @@ export class StoryDetails extends Component {
     this.fetchData();
   };
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.params.postId !== this.props.params.postId){
+      const { getStoryDetails, params } = nextProps;
+      const { postId } = params;
+      getStoryDetails(postId);
+    }      
+  }
+
   fetchData = () => {
     const { getStoryDetails, params } = this.props;
     const { postId } = params;
