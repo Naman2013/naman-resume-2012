@@ -21,7 +21,7 @@ export class ReservationModalCountdown extends PureComponent {
       <div className="reservation-modal-countdown">
         <div className="countdown">
           <Countdown
-            date={countdown}
+            date={Date.now() + countdown}
             onComplete={onCountdownComplete}
             onTick={onCountdownTick}
             renderer={props => (

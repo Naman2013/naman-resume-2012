@@ -4,6 +4,7 @@ import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import { ThreeDotsMenu } from '../three-dots-menu';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
+import { browserHistory } from 'react-router';
 
 const SLOT_STATUS = {
   AVAILABLE: 'available',
@@ -11,6 +12,9 @@ const SLOT_STATUS = {
 };
 
 export class MissionTimeSlot extends PureComponent {
+  navigateToPublicProfile(link){
+    browserHistory.push(link);
+  }
   render() {
     const {
       timeSlot,
@@ -19,7 +23,7 @@ export class MissionTimeSlot extends PureComponent {
       grabPiggyback,
       editCoordinates,
       timestamp,
-      currenttime,
+      currenttime      
     } = this.props;
     const {
       slotStatus,
@@ -38,6 +42,8 @@ export class MissionTimeSlot extends PureComponent {
       showJoiningMission,
       joiningMissionIconURL,
       joiningMissionTooltipText,
+      hasLinkFlag,
+      linkUrl,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -49,7 +55,7 @@ export class MissionTimeSlot extends PureComponent {
         ? () => getTelescopeSlot()
         : () => {};
 
-    const title = showNoReservations ? noReservationsExplanation : slotTitle;    
+    const title = showNoReservations ? noReservationsExplanation : slotTitle; 
     return (
       <div
         className={`missions-list-item${
@@ -80,8 +86,8 @@ export class MissionTimeSlot extends PureComponent {
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
-                {noReservationsExplanation ? null : <span>Scheduled by: </span>}
-
+                {noReservationsExplanation ? null : <span>Scheduled by: </span>}                
+                <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
                 {ownerAvatarURL && (
                   <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
@@ -97,6 +103,7 @@ export class MissionTimeSlot extends PureComponent {
                 {!showSloohUser && (
                   <div className="owner-name">{ownerDisplayName}</div>
                 )}
+               </div>
               </Fragment>
             )}
             {showJoiningMission ? ( 
@@ -175,8 +182,8 @@ export class MissionTimeSlot extends PureComponent {
               </Fragment>
             )}
           </div>
-          <div className="mission-owner">
-            
+          <div className="mission-owner">     
+          <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
              {ownerAvatarURL && (
                   <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
@@ -190,7 +197,8 @@ export class MissionTimeSlot extends PureComponent {
                 )}
                  {!showSloohUser && (
                   <div className="owner-name">{ownerDisplayName}</div>
-                )}
+                )}          
+            </div>     
             {showJoiningMission ? ( 
               <Tooltip
               className="mission-tooltip"

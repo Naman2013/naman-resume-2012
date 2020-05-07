@@ -10,21 +10,21 @@ import './styles.scss';
 export class ReservationModalTabs extends PureComponent {
   constructor(props) {
     super(props);
-    const { selectedSlot, timestamp, currenttime } = this.props;
-    // const expiresCountdown = selectedSlot.expires * 1000 - Date.now();
-    const expiresCountdown = ((selectedSlot.expires * 1000) + (currenttime - (timestamp*1000)));
+    const { selectedSlot, timestamp } = this.props;
+    const expiresCountdown = selectedSlot.expires * 1000 - Date.now();    
     this.state = {
-      countdown: selectedSlot.expires ? expiresCountdown : (Date.now() + 300000),
+      // countdown: selectedSlot.expires ? expiresCountdown :  300000,
+      countdown:  300000,
     };
   }
 
   onCountdownTick = data => {
-    this.setState({ countdown: Date.now() +data.total });
+    this.setState({ countdown: data.total });
   };
 
   getTelescopeSlot = () => {
     const { getTelescopeSlot } = this.props;
-    this.setState({ countdown: Date.now()+3600000 });
+    this.setState({ countdown: 3600000 });
     getTelescopeSlot();
   };
 
