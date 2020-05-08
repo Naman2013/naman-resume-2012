@@ -12,6 +12,22 @@ export default css`
     padding: 40px;
   }
 
+  .photo-container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  mission-tooltip{
+    margin-left: auto;
+    margin-top: auto;
+  }
+
+  .mission-icon{
+    width: 60px;
+    height: 50px;
+    margin-left: 10px;      
+  }
+
   .title {
     margin: 0;
     margin-bottom: 30px;
@@ -23,6 +39,9 @@ export default css`
 
   .profile-photo {
     margin-bottom: 20px;
+    cursor: pointer;
+    // width: 75px;
+    // height: 75px;
   }
 
   .profile-name {
@@ -33,6 +52,7 @@ export default css`
     font-size: 20px;
     border-bottom: 1px solid ${hawkesBlue};
     padding-bottom: 15px;
+    cursor: pointer;
   }
 
   .list-attributes {
