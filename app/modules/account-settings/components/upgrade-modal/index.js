@@ -17,6 +17,10 @@ import React, { useEffect, useState } from 'react';
 import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 import { UPGRADE_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import { API } from 'app/api';
+import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
+import Button from 'app/components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import Popup from 'react-modal';
 
 type TUpgradeModal = {
   show: boolean,
@@ -44,14 +48,13 @@ const didMount = (props: TUpgradeModal) => () => {
       'enableHiddenPlanHashCode'
     ),
   });
-
+  
   //clear localStorage
   window.localStorage.removeItem('selectedSchoolId');
   window.localStorage.removeItem('isAstronomyClub');
 };
 
-const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource)=>{
-  debugger; 
+const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource)=>{   
   const { _sloohatid } = getUserInfo();
   const upgradeCustomerData = {
     cid: getUserInfo().cid,
@@ -131,6 +134,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
        
   } = props;
 
+  const {confirmationPopupDetails} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   let buttonText = 'GO BACK';
@@ -181,7 +185,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                   setStep('DOWNGRADE');
                 } else {                  
                   if(subscriptionPlansData.hasPaymentInfoOnFile)
-                    upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource);
+                    // upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource);
+                    setStep('CONFIRM');
                   else
                     setStep('PAYMENT');
                 }
@@ -208,13 +213,37 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'PAYMENT' && (
-          <PaymentStep
-            conditionType={props.subscriptionPlansCallSource}
-            selectedPlan={selectedPlan}
-            closeModal={onHide}
-            storeUserNewAT={storeUserNewAT}
-          />
+        {step === 'CONFIRM' && (
+          <Popup
+          ariaHideApp={false}
+          isOpen={true}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Confirmation"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={()=>{setStep('SELECT_PLAN');}}
+        >
+          <div className="confirm-dialog">
+            <PlanDetailsCard
+            {...selectedPlan}
+            />
+            <div className="actions">
+              {confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}
+              {confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
+                onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource)}}
+                text={confirmationPopupDetails.confirmBtnTxt}
+              /> : null}
+            </div>
+          </div>
+        </Popup>          
+        )}
+
+        {step === 'PAYMENT' && (        
+            <PaymentStep
+              conditionType={props.subscriptionPlansCallSource}
+              selectedPlan={selectedPlan}
+              closeModal={onHide}
+              storeUserNewAT={storeUserNewAT}
+            />                    
         )}
 
         {step === 'CANCEL' && <CancelStep {...props} />}
@@ -227,6 +256,17 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           />
         )}
       </Modal>
+      <style jsx>{`
+          .confirm-dialog {
+            background-color: #FFF;            
+          }
+
+          .actions{
+            display: flex;       
+            justify-content: space-between;   
+            height: 39px;  
+          }
+        `}</style>
     </>
   );
 };
