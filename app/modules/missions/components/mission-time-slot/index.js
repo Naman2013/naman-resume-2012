@@ -44,6 +44,8 @@ export class MissionTimeSlot extends PureComponent {
       joiningMissionTooltipText,
       hasLinkFlag,
       linkUrl,
+      showSlotPrompt,
+      slotPromptText,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -56,6 +58,7 @@ export class MissionTimeSlot extends PureComponent {
         : () => {};
 
     const title = showNoReservations ? noReservationsExplanation : slotTitle; 
+    
     return (
       <div
         className={`missions-list-item${
@@ -83,10 +86,10 @@ export class MissionTimeSlot extends PureComponent {
           </div>
           <div className="mission-owner">
             {SLOT_STATUS.AVAILABLE === slotStatus ? (
-              <span>Reserve this slot soon!</span>
+              <span>{slotPromptText} </span>
             ) : (
               <Fragment>
-                {noReservationsExplanation ? null : <span>Scheduled by: </span>}                
+                {noReservationsExplanation && !showSlotPrompt ? null : <span>{slotPromptText} </span>}                
                 <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
                 {ownerAvatarURL && (
                   <div className={`${showSloohUser ? '':'avatar-container'}`}>
@@ -173,14 +176,14 @@ export class MissionTimeSlot extends PureComponent {
           </div>
           <div className="mission-schedule">
           {SLOT_STATUS.AVAILABLE === slotStatus ? (
-              <span>Reserve this slot soon!</span>
-            ) : (
+              <span>{slotPromptText}</span>
+            ) : showSlotPrompt ? (
               <Fragment>
                 <div>
-                <span>Scheduled by: </span>               
+                <span>{slotPromptText}</span>               
                 </div>
               </Fragment>
-            )}
+            ):null}
           </div>
           <div className="mission-owner">     
           <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
