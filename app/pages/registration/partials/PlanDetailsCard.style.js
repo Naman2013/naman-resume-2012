@@ -86,6 +86,14 @@ export default css`
     align-items: center;
   }
 
+  .flex-without-padding {
+    display: flex;
+    // padding: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .audience-type {
     font-family: ${secondaryFont};
     font-size: 18px;

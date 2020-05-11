@@ -88,7 +88,7 @@ export const customModalStylesBlackOverlay = {
     maxWidth: '650px',
     minWidth: '300px',
     border: 0,
-    padding: '50px 25px',
+    padding: '20px 25px',
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, .7)',
@@ -101,7 +101,7 @@ export const customModalStylesFitDevice = {
     maxWidth: '90vw',
     minWidth: '300px',
     border: 0,
-    padding: '50px 25px',
+    padding: '20px 25px',
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, .7)',

@@ -25,12 +25,12 @@ const EditPayment = props => {
     <>
     <DeviceContext.Consumer>
       {context => (
-        <div className="top-bot-40 left-right-minus-20">
+        <div className={(onbtnClick ? "top-bot-10 " : "top-bot-40 ")+"left-right-minus-20"}>
 
           <Row noGutters>
             <AccountDetailsHeader title="Payment Details" />
             <Container>
-              <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
+              <div className={onbtnClick ? "i-box i-box-white pad-10" : "i-box i-box-white pad-40 margin-bot-10 min-height-150"}>
                 <Row>
                   <Col md={7}>
                     <h2 className="h-4">{editPaymentMethod}</h2>
