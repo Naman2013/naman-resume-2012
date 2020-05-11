@@ -18,6 +18,7 @@ const EditPayment = props => {
     curPaymentInfo,
   } = props.editPaymentSection;
 
+  const {onbtnClick}=props;
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
@@ -39,7 +40,7 @@ const EditPayment = props => {
                     {curPaymentInfo.hasExpirationDate === true && <h2 className="h-2 h3-md text-no-transform">Expiration Date: {curPaymentInfo.expirationDate}</h2>}
                   </Col>
                   <Col md={5} className="row-reverse">
-                    {canUserEditPayment == true && <Btn onClick={() => setModalOpen(true)}>{editPaymentButtonText}</Btn>}
+                    {canUserEditPayment == true && <Btn onClick={onbtnClick ? onbtnClick : () => setModalOpen(true)}>{editPaymentButtonText}</Btn>}
                   </Col>
                 </Row>
               </div>

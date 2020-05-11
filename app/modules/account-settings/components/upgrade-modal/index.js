@@ -21,6 +21,7 @@ import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import Button from 'app/components/common/style/buttons/Button';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import Popup from 'react-modal';
+import { EditPayment } from '../account-details/edit-payment';
 
 type TUpgradeModal = {
   show: boolean,
@@ -130,11 +131,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     disableGoBack,
     preSelectedPlan,
     storeUserNewAT,
-    upsellCallSource, 
-       
+    upsellCallSource    
   } = props;
 
-  const {confirmationPopupDetails} =subscriptionPlansData;
+  const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   let buttonText = 'GO BACK';
@@ -159,7 +159,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       browserHistory.push('/');
       window.location.reload();
     };
-  }
+  } 
   return (
     <>
       <Modal
@@ -181,6 +181,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 isFetching,                
               }}
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
+                selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
                 } else {                  
@@ -213,7 +214,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'CONFIRM' && (
+        {step === 'CONFIRM' &&(
           <Popup
           ariaHideApp={false}
           isOpen={true}
@@ -226,6 +227,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             <PlanDetailsCard
             {...selectedPlan}
             />
+              <EditPayment {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
             <div className="actions">
               {confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}
               {confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
