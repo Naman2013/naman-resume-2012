@@ -13,7 +13,7 @@ const navigateToPublicProfile = (link) =>{
 const ScheduledByTile = ({ scheduledBy, targetName, likeCount, showJoiningMission, joiningMissionTooltipText, joiningMissionIconURL, ownerAvatarURL, hasLinkFlag, linkUrl }) => (
   <div className="scheduled-by-tile-root">
     <h3 className="title">Mission scheduled by:</h3>
-    <div className="photo-container">
+    <div className="avatar-container">
       <img onClick={hasLinkFlag ? ()=>{navigateToPublicProfile(linkUrl)} : null} 
         className="profile-photo"
         alt="scheduled mission member"

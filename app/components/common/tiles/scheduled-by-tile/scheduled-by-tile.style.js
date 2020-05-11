@@ -17,6 +17,21 @@ export default css`
     justify-content: space-between;
   }
 
+  .avatar-container {
+    margin-right: 10px;
+    margin-left: 5px;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+    background-size: cover;
+    border-radius: 100%;
+    cursor: pointer; 
+    // margin: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   mission-tooltip{
     margin-left: auto;
     margin-top: auto;
