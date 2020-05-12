@@ -226,13 +226,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           onRequestClose={()=>{setStep('SELECT_PLAN');}}
         >
           <div className="confirm-dialog">
-          <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
+          <AccountDetailsHeader  hrclass={"hr left-right-15"} headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
                <Col md={12}>
-                    <h2 className="h-2 h3-md text-no-transform">{selectedPlan.accountCardSection.accountCardHeading2}</h2>
-		               <br/>
+                    <h2 className="h-2 h3-md text-no-transform">{selectedPlan.accountCardSection.accountCardHeading2}</h2>		               
                 </Col>
                 
-            <PlanDetailsCard
+            <PlanDetailsCard 
             {...selectedPlan}
             flexClass={'flex-without-padding'}
             />
