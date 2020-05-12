@@ -217,14 +217,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         )}
 
         {step === 'CONFIRM' &&(
-          <Popup
-          ariaHideApp={false}
-          isOpen={true}
-          style={customModalStylesBlackOverlay}
-          contentLabel="Confirmation"
-          shouldCloseOnOverlayClick={false}
-          onRequestClose={()=>{setStep('SELECT_PLAN');}}
-        >
+        //   <Popup
+        //   ariaHideApp={false}
+        //   isOpen={true}
+        //   style={customModalStylesBlackOverlay}
+        //   contentLabel="Confirmation"
+        //   shouldCloseOnOverlayClick={false}
+        //   onRequestClose={()=>{setStep('SELECT_PLAN');}}
+        // >
           <div className="confirm-dialog">
           <AccountDetailsHeader  hrclass={"hr left-right-15"} headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
                <Col md={12}>
@@ -245,7 +245,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               /> : null}
             </div>
           </div>
-        </Popup>          
+        // </Popup>          
         )}
 
         {step === 'PAYMENT' && (        
@@ -269,7 +269,17 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       </Modal>
       <style jsx>{`
           .confirm-dialog {
-            background-color: #FFF;            
+            background-color: #FFF;
+            padding: 20px;      
+            border-radius: 4px;
+            border: 0px;             
+            outline: none;  
+            width: 50%;
+            margin: 0 auto;
+            max-width: 650px;
+            min-width: 300px;
+            // margin-right: -50%;
+            // transform: translate(-50%, -50%);
           }
 
           .actions{

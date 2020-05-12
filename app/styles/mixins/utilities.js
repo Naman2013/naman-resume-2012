@@ -91,7 +91,7 @@ export const customModalStylesBlackOverlay = {
     padding: '20px 25px',
   },
   overlay: {
-    backgroundColor: 'rgba(60,70,85, 0.96);',
+    backgroundColor: 'rgba(60,70,85, 1);',
   },
 };
 
