@@ -21,7 +21,9 @@ import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import Button from 'app/components/common/style/buttons/Button';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import Popup from 'react-modal';
-import { EditPayment } from '../account-details/edit-payment';
+import { EditPaymentNew } from '../account-details/edit-payment-new';
+import { AccountDetailsHeader } from '../account-details/header';
+import { Col } from 'react-bootstrap';
 
 type TUpgradeModal = {
   show: boolean,
@@ -224,11 +226,18 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           onRequestClose={()=>{setStep('SELECT_PLAN');}}
         >
           <div className="confirm-dialog">
+          <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
+               <Col md={12}>
+                    <h2 className="h-2 h3-md text-no-transform">{selectedPlan.accountCardSection.accountCardHeading2}</h2>
+		               <br/>
+                </Col>
+                
             <PlanDetailsCard
             {...selectedPlan}
             flexClass={'flex-without-padding'}
             />
-              <EditPayment {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
+               
+              <EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
             <div className="actions">
               {confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}
               {confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
