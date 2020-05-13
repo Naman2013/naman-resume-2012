@@ -15,7 +15,7 @@ const ScheduledByTile = ({ scheduledBy, targetName, likeCount, showJoiningMissio
     <h3 className="title">CURRENT MISSION:</h3>
     <div className="mission-title">{targetName}</div>
 
-    <h3 className="title">Mission scheduled by:</h3>
+    <h3 className="scheduled-by">Mission scheduled by:</h3>
     <div className="profile">
         <div className={`${showSloohUser ? '':'avatar-container'}`}>
           <img onClick={hasLinkFlag ? ()=>{navigateToPublicProfile(linkUrl)} : null} 

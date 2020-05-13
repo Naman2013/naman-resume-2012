@@ -9,7 +9,7 @@ import { faintShadow } from 'app/styles/variables/shadows';
 export default css`
   .scheduled-by-tile-root {
     ${faintShadow}
-    padding: 40px;
+    padding: 30px;
   }
 
   .photo-container{
@@ -32,7 +32,7 @@ export default css`
     background-size: cover;
     border-radius: 100%;
     cursor: auto; 
-    // margin: 10px;
+    margin: 5px;
     // display: flex;
     // justify-content: space-between;
   }
@@ -51,12 +51,24 @@ export default css`
   .title {
     margin: 0;
     padding-bottom: 10px;
-    padding-top: 10px;
+    // padding-top: 10px;
+    // margin-bottom: 30px;
+    font-family: ${primaryFont};
+    color: #41566f;;
+    text-transform: uppercase;
+    font-size: 11px;    
+  }
+
+  .scheduled-by{
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 20px;
     // margin-bottom: 30px;
     font-family: ${primaryFont};
     color: #41566f;;
     text-transform: uppercase;
     font-size: 11px;
+    font-weight: 700;
   }
 
   .profile-photo {
@@ -69,12 +81,13 @@ export default css`
 
   .profile-name {
     margin: 0;
+    padding-top: 10px;
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};
     font-weight: normal;
     font-size: 20px;
-    border-bottom: 1px solid ${hawkesBlue};
-    padding-bottom: 15px;
+    // border-bottom: 1px solid ${hawkesBlue};
+    // padding-bottom: 15px;
     cursor: auto;
   }
 
@@ -118,7 +131,7 @@ export default css`
   .mission-title {
       min-height: 65px;
       padding-top: 10px;
-      padding-bottom: 5px;
+      padding-bottom: 15px;
       border-bottom: 1px solid $hawkesBlue;
       font-family: $secondary-font;
       font-size: 20px;
