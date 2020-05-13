@@ -8,6 +8,11 @@ import { CoordinatesCalculation } from '../coordinates-calculation';
 import './styles.scss';
 
 export class CoordinatesSetup extends PureComponent {
+
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
@@ -77,6 +82,8 @@ export class CoordinatesSetup extends PureComponent {
     const { explanation } = objectData;
     const { ra, dec } = coordinatesData;
 
+    const { showHoldOneHourButton } = this.state;
+
     return (
       <div className="coordinates-setup">
         <div className="row setup-header">
@@ -92,6 +99,7 @@ export class CoordinatesSetup extends PureComponent {
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={editCoordinates || userHasHold}
               showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
@@ -227,7 +235,7 @@ export class CoordinatesSetup extends PureComponent {
           <div className="col-sm-6 step-6">
             <Button
               text={step6ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={
                 !processingRecipe.presetOption ||
                 !selectedCategorySlug ||

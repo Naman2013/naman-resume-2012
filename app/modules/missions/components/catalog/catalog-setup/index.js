@@ -13,6 +13,10 @@ export class CatalogSetup extends Component {
   //   selectedCatalog ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
   // }
 
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
   render() {
     const {
       catalogListOpts,
@@ -59,7 +63,8 @@ export class CatalogSetup extends Component {
       step4Tooltip,
       subheader,
     } = pageConfig;
-    
+    const { showHoldOneHourButton } = this.state;
+
     return (
       <div className="catalog-setup">
         <div className="row setup-header">
@@ -75,6 +80,7 @@ export class CatalogSetup extends Component {
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
               showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
@@ -197,7 +203,7 @@ export class CatalogSetup extends Component {
           <div className="col-sm-6 step-4">
             <Button
               text={step4ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={
                 !designation ||
                 !processingRecipe.presetOption ||

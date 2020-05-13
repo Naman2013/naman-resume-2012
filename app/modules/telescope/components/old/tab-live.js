@@ -47,6 +47,7 @@ const TabLive = ({
             ownerAvatarURL={mission.ownerAvatarURL}
             hasLinkFlag={mission.hasLinkFlag}
             linkUrl={mission.linkUrl}
+            showSloohUser={mission.showSloohUser}
           />
         </div>
       </Fragment>

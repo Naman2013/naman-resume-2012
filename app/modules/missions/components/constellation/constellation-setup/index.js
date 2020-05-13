@@ -12,7 +12,10 @@ export class ConstellationSetup extends Component {
   //   const {selectedObjectId, getMissionSlot} = this.props;   
   //   selectedObjectId ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
   // }
-  
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
   render() {
     const {
       constellationListOpt,
@@ -48,6 +51,7 @@ export class ConstellationSetup extends Component {
       step3Tooltip,
       subheader,
     } = pageConfig;
+    const { showHoldOneHourButton } = this.state;
 
     return (
       <div className="constellation-setup">
@@ -64,6 +68,7 @@ export class ConstellationSetup extends Component {
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
               showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
@@ -140,7 +145,7 @@ export class ConstellationSetup extends Component {
           <div className="col-sm-6 step-3">
             <Button
               text={step3ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={!selectedConstellation || !selectedObjectId || disabled}
             />
           </div>

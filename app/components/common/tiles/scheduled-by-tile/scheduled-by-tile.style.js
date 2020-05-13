@@ -17,6 +17,11 @@ export default css`
     justify-content: space-between;
   }
 
+  .profile{
+    display: flex;
+    justify-content: space-between;
+  }
+
   .avatar-container {
     margin-right: 10px;
     margin-left: 5px;
@@ -26,10 +31,10 @@ export default css`
     background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
     background-size: cover;
     border-radius: 100%;
-    cursor: pointer; 
+    cursor: auto; 
     // margin: 10px;
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
   }
 
   mission-tooltip{
@@ -45,18 +50,21 @@ export default css`
 
   .title {
     margin: 0;
-    margin-bottom: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    // margin-bottom: 30px;
     font-family: ${primaryFont};
-    color: ${lightHeadedAstronaut};
+    color: #41566f;;
     text-transform: uppercase;
     font-size: 11px;
   }
 
   .profile-photo {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    border-radius: 50%;
     cursor: pointer;
-    // width: 75px;
-    // height: 75px;
+    width: 30px;
+    height: 30px;
   }
 
   .profile-name {
@@ -67,7 +75,7 @@ export default css`
     font-size: 20px;
     border-bottom: 1px solid ${hawkesBlue};
     padding-bottom: 15px;
-    cursor: pointer;
+    cursor: auto;
   }
 
   .list-attributes {
@@ -87,7 +95,7 @@ export default css`
   }
 
   .list-attributes li:first-child {
-    border-right: 1px solid ${hawkesBlue};
+    // border-right: 1px solid ${hawkesBlue};
     flex: 2;
   }
 
@@ -98,4 +106,24 @@ export default css`
   .list-attributes li:last-child img {
     padding-right: 10px;
   }
+
+  .slooh-user {
+    width: 80px;
+    height: auto;
+    border-radius: 0;
+    margin-left: 5px;  
+    // cursor: auto;      
+  }
+
+  .mission-title {
+      min-height: 65px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $hawkesBlue;
+      font-family: $secondary-font;
+      font-size: 20px;
+      line-height: 1.4;
+      border-bottom: 1px solid ${hawkesBlue};
+  }
+
 `;

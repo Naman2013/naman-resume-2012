@@ -8,6 +8,11 @@ import './styles.scss';
 import { getMissions } from 'app/modules/missions/thunks';
 
 export class Slooh1000Setup extends Component {
+
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+  
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
@@ -66,6 +71,8 @@ export class Slooh1000Setup extends Component {
       subheader,
     } = pageConfig;
     
+    const { showHoldOneHourButton } = this.state;
+    
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
@@ -81,6 +88,7 @@ export class Slooh1000Setup extends Component {
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
               showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
@@ -159,7 +167,7 @@ export class Slooh1000Setup extends Component {
           <div className="col-sm-6 step-3">
             <Button
               text={step3ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={!selectedCategorySlug || !selectedObjectId || disabled}
             />
           </div>
