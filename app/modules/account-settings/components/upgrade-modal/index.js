@@ -250,8 +250,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
 		   <br/>
 	           <div className="confirm-dialog">
               		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
-          	</div>
-	</Fragment>   
+          	   </div>
+	 </Fragment>   
         // </Popup>       
         )}
 
