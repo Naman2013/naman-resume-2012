@@ -225,6 +225,9 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         //   shouldCloseOnOverlayClick={false}
         //   onRequestClose={()=>{setStep('SELECT_PLAN');}}
         // >
+	  <Fragment>
+          <h1 className="modal-h">{selectedPlan.accountCardSection.accountCardHeading}</h1>
+          <p className="modal-p mb-5">{selectedPlan.accountCardSection.accountCardHeading2}</p>
           <div className="confirm-dialog">
           <AccountDetailsHeader  hrclass={"hr left-right-15"} headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
                <Col md={12}>
@@ -245,7 +248,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               /> : null}
             </div>
           </div>
-        // </Popup>          
+        // </Popup>       
+	</Fragment>   
         )}
 
         {step === 'PAYMENT' && (        
@@ -276,7 +280,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             outline: none;  
             width: 100%;
             margin: 0 auto;
-	    margin-top: -50px;
             max-width: 80%;
             min-width: 300px;
             // margin-right: -50%;
