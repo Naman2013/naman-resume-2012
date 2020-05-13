@@ -8,10 +8,10 @@ import './styles.scss';
 
 export class CatalogSetup extends Component {
 
-  callgetMissionSlot(){
-    const {selectedCatalog, getMissionSlot} = this.props;   
-    selectedCatalog ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
-  }
+  // callgetMissionSlot(){
+  //   const {selectedCatalog, getMissionSlot} = this.props;   
+  //   selectedCatalog ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  // }
 
   render() {
     const {
@@ -163,7 +163,8 @@ export class CatalogSetup extends Component {
                         ? ' selected'
                         : ''
                     }`}
-                    onClick={() => {setProcessingRecipe(item); this.callgetMissionSlot();}}
+                    // onClick={() => {setProcessingRecipe(item); this.callgetMissionSlot();}}
+                    onClick={() => setProcessingRecipe(item)}
                   >
                     <div className="processing-list-item-title">
                       {item.presetDisplayName}
@@ -179,7 +180,7 @@ export class CatalogSetup extends Component {
           </div>
         </div>
 
-        {/* <div className="steps row">
+        <div className="steps row">
           <div className="col-sm-6 step-4">
             <OverlayTrigger
               placement="top"
@@ -205,7 +206,7 @@ export class CatalogSetup extends Component {
               }
             />
           </div>
-        </div> */}
+        </div>
       </div>
     );
   }

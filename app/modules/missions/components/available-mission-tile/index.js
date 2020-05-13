@@ -18,7 +18,7 @@ export class AvailbleMissionTile extends Component {
   constructor(props) {
     super(props);    
     this.state = {      
-      countdown:  100000,
+      countdown:  300000,
     };
   }
 
