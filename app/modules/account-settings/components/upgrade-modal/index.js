@@ -238,7 +238,9 @@ export const UpgradeModal = (props: TUpgradeModal) => {
            		 	{...selectedPlan}
             			flexClass={'flex-without-padding'}
             		/>
-               
+               	   </div>
+		   <br/>
+	           <div className="confirm-dialog">
               		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
             		<div className="actions">
         	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
