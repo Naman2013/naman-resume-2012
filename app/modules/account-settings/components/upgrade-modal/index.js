@@ -12,7 +12,7 @@ import { Link, browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 import '../../styles.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 import { UPGRADE_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
@@ -226,30 +226,30 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         //   onRequestClose={()=>{setStep('SELECT_PLAN');}}
         // >
 	  <Fragment>
-          <h1 className="modal-h">{selectedPlan.accountCardSection.accountCardHeading}</h1>
-          <p className="modal-p mb-5">{selectedPlan.accountCardSection.accountCardHeading2}</p>
-          <div className="confirm-dialog">
-          <AccountDetailsHeader  hrclass={"hr left-right-15"} headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
-               <Col md={12}>
-                    <h2 className="h-2 h3-md text-no-transform">{selectedPlan.accountCardSection.accountCardHeading2}</h2>		               
-                </Col>
+	          <h1 className="modal-h">{selectedPlan.accountCardSection.accountCardHeading}</h1>
+        	  <p className="modal-p mb-5">{selectedPlan.accountCardSection.accountCardHeading2}</p>
+	          <div className="confirm-dialog">
+        	  	<AccountDetailsHeader  hrclass={"hr left-right-15"} headerClass={'h-2 h-2-md text-no-transform'} title={selectedPlan.accountCardSection.accountCardHeading} />
+              		 <Col md={12}>
+                    		<h2 className="h-2 h3-md text-no-transform">{selectedPlan.accountCardSection.accountCardHeading2}</h2>		               
+                	</Col>
                 
-            <PlanDetailsCard 
-            {...selectedPlan}
-            flexClass={'flex-without-padding'}
-            />
+            		<PlanDetailsCard 
+           		 	{...selectedPlan}
+            			flexClass={'flex-without-padding'}
+            		/>
                
-              <EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
-            <div className="actions">
-              {confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}
-              {confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
-                onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource)}}
-                text={confirmationPopupDetails.confirmBtnTxt}
-              /> : null}
-            </div>
-          </div>
-        // </Popup>       
+              		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
+            		<div className="actions">
+        	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
+        	      		{confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
+        	        		onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource)}}
+                			text={confirmationPopupDetails.confirmBtnTxt}
+              			/> : null}
+            		</div>
+          	</div>
 	</Fragment>   
+        // </Popup>       
         )}
 
         {step === 'PAYMENT' && (        
