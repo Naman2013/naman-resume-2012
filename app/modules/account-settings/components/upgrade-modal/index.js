@@ -280,7 +280,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             outline: none;  
             width: 100%;
             margin: 0 auto;
-            max-width: 80%;
+            max-width: 100%;
             min-width: 300px;
             // margin-right: -50%;
             // transform: translate(-50%, -50%);
