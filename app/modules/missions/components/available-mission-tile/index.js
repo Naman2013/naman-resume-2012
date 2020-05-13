@@ -14,6 +14,18 @@ const getMissionTime = timestamp =>
   moment.utc(moment.unix(timestamp)).format('HH:mm');
 
 export class AvailbleMissionTile extends Component {
+
+  constructor(props) {
+    super(props);    
+    this.state = {      
+      countdown:  100000,
+    };
+  }
+
+  onCountdownTick = data => {
+    this.setState({ countdown: data.total });
+  };
+
   render() {
     const {
       onSubmit,
@@ -46,14 +58,16 @@ export class AvailbleMissionTile extends Component {
       showLearnButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
-    
+    const { countdown }=this.state;
+
     return (
       <div className="mission-tile">
         <div className="countdown">
           {onSubmit && !byTelescope && (
             <Countdown
-              date={Date.now() + 5 * 60 * 1000}
+              date={Date.now() + countdown}
               onComplete={onCancel}
+              onTick={this.onCountdownTick}
               renderer={props => (
                 <div>
                   {completeReservationPromptShort || 'Reservation ends in'}{' '}

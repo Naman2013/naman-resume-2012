@@ -10,11 +10,12 @@ import './styles.scss';
 export class ReservationModalTabs extends PureComponent {
   constructor(props) {
     super(props);
-    const { selectedSlot, timestamp } = this.props;
-    const expiresCountdown = selectedSlot.expires * 1000 - Date.now();    
+    const { selectedSlot, timestamp,currenttime } = this.props;
+    // const expiresCountdown = selectedSlot.expires * 1000 - Date.now();     
+    const expiresCountdown= (((selectedSlot.expires * 1000 ) + (currenttime-(timestamp*1000))) - new Date().getTime());    
     this.state = {
-      // countdown: selectedSlot.expires ? expiresCountdown :  300000,
-      countdown:  300000,
+      countdown: selectedSlot.expires && expiresCountdown < 300000 ? expiresCountdown :  300000,
+      // countdown:  300000,
     };
   }
 

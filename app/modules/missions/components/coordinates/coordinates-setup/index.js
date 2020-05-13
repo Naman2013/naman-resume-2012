@@ -98,16 +98,16 @@ export class CoordinatesSetup extends PureComponent {
 
         <div className="steps row">
           <div className="col-sm-12 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setCategory}
               options={categoryListOpts}
@@ -128,16 +128,16 @@ export class CoordinatesSetup extends PureComponent {
         <div className="steps row">
           <div className="col-md-6 step-3-4">
             <div className="step-3">
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step2">
                     <span>{step3Tooltip}</span>
                   </Tooltip>
                 }
-              >
+              > */}
                 <span>{step3Title}</span>
-              </OverlayTrigger>
+              {/* </OverlayTrigger> */}
 
               <textarea
                 className="textarea designation"
@@ -149,16 +149,16 @@ export class CoordinatesSetup extends PureComponent {
             </div>
 
             <div className="step-4">
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step2">
                     <span>{step4Tooltip}</span>
                   </Tooltip>
                 }
-              >
+              > */}
                 <span>{step4Title}</span>
-              </OverlayTrigger>
+              {/* </OverlayTrigger> */}
 
               <Button
                 text={step4ButtonCaption}
@@ -172,16 +172,16 @@ export class CoordinatesSetup extends PureComponent {
 
           <div className="col-md-6 step-5">
             <div className="step-header">
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
                     <span>{step5Tooltip}</span>
                   </Tooltip>
                 }
-              >
+              > */}
                 <span>{step5Title}</span>
-              </OverlayTrigger>
+              {/* </OverlayTrigger> */}
             </div>
 
             <div className={`processing-list${disabled ? ' disabled' : ''}`}>
@@ -212,16 +212,16 @@ export class CoordinatesSetup extends PureComponent {
 
         <div className="steps row">
           <div className="col-sm-6 step-6">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step4">
                   <span>{step6Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step6Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
           </div>
 
           <div className="col-sm-6 step-6">

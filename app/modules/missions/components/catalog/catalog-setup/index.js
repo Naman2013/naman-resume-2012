@@ -7,6 +7,12 @@ import { ReservationModalCountdown } from '../../telescope-reservation/reservati
 import './styles.scss';
 
 export class CatalogSetup extends Component {
+
+  callgetMissionSlot(){
+    const {selectedCatalog, getMissionSlot} = this.props;   
+    selectedCatalog ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  }
+
   render() {
     const {
       catalogListOpts,
@@ -75,16 +81,16 @@ export class CatalogSetup extends Component {
 
         <div className="steps row">
           <div className="col-sm-12 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setCatalog}
               options={catalogListOpts}
@@ -97,16 +103,16 @@ export class CatalogSetup extends Component {
 
         <div className="steps row">
           <div className="col-sm-6 step-2">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
                   <span>{step2Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step2Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
 
             <textarea
               className="textarea designation"
@@ -135,16 +141,16 @@ export class CatalogSetup extends Component {
 
           <div className="col-sm-6 step-3">
             <div className="step-header">
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
                     <span>{step3Tooltip}</span>
                   </Tooltip>
                 }
-              >
+              > */}
                 <span>{step3Title}</span>
-              </OverlayTrigger>
+              {/* </OverlayTrigger> */}
             </div>
 
             <div className={`processing-list${disabled ? ' disabled' : ''}`}>
@@ -157,7 +163,7 @@ export class CatalogSetup extends Component {
                         ? ' selected'
                         : ''
                     }`}
-                    onClick={() => setProcessingRecipe(item)}
+                    onClick={() => {setProcessingRecipe(item); this.callgetMissionSlot();}}
                   >
                     <div className="processing-list-item-title">
                       {item.presetDisplayName}
@@ -173,7 +179,7 @@ export class CatalogSetup extends Component {
           </div>
         </div>
 
-        <div className="steps row">
+        {/* <div className="steps row">
           <div className="col-sm-6 step-4">
             <OverlayTrigger
               placement="top"
@@ -199,7 +205,7 @@ export class CatalogSetup extends Component {
               }
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

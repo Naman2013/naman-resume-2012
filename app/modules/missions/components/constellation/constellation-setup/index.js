@@ -7,6 +7,12 @@ import { ReservationModalCountdown } from '../../telescope-reservation/reservati
 import './styles.scss';
 
 export class ConstellationSetup extends Component {
+
+  callgetMissionSlot(){
+    const {selectedObjectId, getMissionSlot} = this.props;   
+    selectedObjectId ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  }
+  
   render() {
     const {
       constellationListOpt,
@@ -64,16 +70,16 @@ export class ConstellationSetup extends Component {
 
         <div className="steps row">
           <div className="col-sm-6 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setConstellation}
               options={constellationListOpt}
@@ -84,18 +90,18 @@ export class ConstellationSetup extends Component {
           </div>
 
           <div className="col-sm-6 step-2">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
                   <span>{step2Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step2Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
-              handleChange={setObject}
+              handleChange={(e)=>{setObject(e); this.callgetMissionSlot()}}
               options={objectListOpts}
               placeholder={choosePrompt}
               isDisabled={objectListOpts.length === 0 || disabled}
@@ -116,7 +122,7 @@ export class ConstellationSetup extends Component {
           </div>
         </div>
 
-        <div className="steps row">
+        {/* <div className="steps row">
           <div className="col-sm-6 messages">
             <OverlayTrigger
               placement="top"
@@ -137,7 +143,7 @@ export class ConstellationSetup extends Component {
               disabled={!selectedConstellation || !selectedObjectId || disabled}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
