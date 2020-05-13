@@ -276,6 +276,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             outline: none;  
             width: 100%;
             margin: 0 auto;
+	    margin-top: -50px;
             max-width: 80%;
             min-width: 300px;
             // margin-right: -50%;
