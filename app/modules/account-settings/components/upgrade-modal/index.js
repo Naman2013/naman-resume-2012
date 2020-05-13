@@ -238,10 +238,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
            		 	{...selectedPlan}
             			flexClass={'flex-without-padding'}
             		/>
-               	   </div>
-		   <br/>
-	           <div className="confirm-dialog">
-              		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
+
             		<div className="actions">
         	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
         	      		{confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
@@ -249,6 +246,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 			text={confirmationPopupDetails.confirmBtnTxt}
               			/> : null}
             		</div>
+               	   </div>
+		   <br/>
+	           <div className="confirm-dialog">
+              		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
           	</div>
 	</Fragment>   
         // </Popup>       
