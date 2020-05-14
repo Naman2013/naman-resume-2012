@@ -20,7 +20,7 @@ export class ReservationModalCountdown extends PureComponent {
     
     return (
       <div className="reservation-modal-countdown">
-        <div className="countdown">
+        <div className="col-lg-6 countdown">
           <Countdown
             date={Date.now() + countdown}
             onComplete={onCountdownComplete}
@@ -35,6 +35,7 @@ export class ReservationModalCountdown extends PureComponent {
         </div>
         {!userHasHold && showHoldOneHourButtonWhenExpanded && showHoldOneHourButton &&(
           <Button
+          className="col-lg-6"
             text="Hold one hour"
             onClickEvent={buttonOnClick}
             disabled={extendedTimer}
