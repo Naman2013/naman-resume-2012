@@ -90,7 +90,7 @@ export class Constellation extends Component {
       <div className="constellation">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <Box>
                 <ConstellationSetup
                   constellationListOpt={constellationListOpt}
@@ -109,7 +109,7 @@ export class Constellation extends Component {
               </Box>
             </div>
             <div
-              className="col-lg-4 reserved-mission"
+              className="col-lg-12 reserved-mission"
               ref={node => (this.grabedMissionTile = node)}
             >
               <Box inside>

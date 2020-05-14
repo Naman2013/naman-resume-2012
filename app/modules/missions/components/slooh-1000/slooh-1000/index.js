@@ -97,7 +97,7 @@ export class Slooh1000 extends Component {
       <div className="slooh-1000">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <Box>
                 <Slooh1000Setup
                   categoryList={categoryList}
@@ -117,7 +117,7 @@ export class Slooh1000 extends Component {
               </Box>
             </div>
             <div
-              className="col-lg-4 reserved-mission"
+              className="col-lg-12 reserved-mission"
               ref={node => (this.grabedMissionTile = node)}
             >
               <Box inside>
