@@ -32,6 +32,8 @@ type TUpgradeModal = {
   subscriptionPlansData: any,
   selectedPlan?: Shape,
   isFetching: boolean,
+  returnLinkType: String,
+  returnLinkLabel: String,
 };
 
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
@@ -41,7 +43,7 @@ const didMount = (props: TUpgradeModal) => () => {
     getSubscriptionPlans,
     selectedPlan,
     subscriptionPlansCallSource,
-    upsellCallSource,    
+    upsellCallSource,        
   } = props;
   getSubscriptionPlans({
     selectedPlan,
@@ -133,13 +135,15 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     disableGoBack,
     preSelectedPlan,
     storeUserNewAT,
-    upsellCallSource    
+    upsellCallSource,    
+    returnLinkType,
+    returnLinkLabel,
   } = props;
 
   const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  let buttonText = 'GO BACK';
+  let buttonText = (returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK';
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
 
