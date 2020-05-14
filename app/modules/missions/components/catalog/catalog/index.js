@@ -11,6 +11,11 @@ export class Catalog extends Component {
     successModalShow: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.successModalShow !== this.state.successModalShow)
+      window.scrollTo(0,0);
+  }
+
   componentDidMount = () => {
     const { getCatalogList } = this.props;
     getCatalogList({ callSource: 'byCatalogV4' });

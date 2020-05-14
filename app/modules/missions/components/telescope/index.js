@@ -21,14 +21,11 @@ export class Telescope extends Component {
     this.getMissionSlotDates();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const { scrolledToSlot, missionListLodaded, scrollToSMID } = this.props;
     if (scrollToSMID && !scrolledToSlot && missionListLodaded) {
       this.scrollToSlot();
-    }   
-    if(this.state.reservationModalVisible!==prevState.reservationModalVisible){
-      window.scrollTo(0,0);
-    }
+    } 
   }
 
   getMissionSlotDates = (requestedDate = '') => {
@@ -178,7 +175,7 @@ export class Telescope extends Component {
     } = this.state;
     
     return (
-      <div className="by-telescope" id="by-telescope">
+      <div className="by-telescope">
         <div className="container">
           <TelescopeSetup
             selectedTelescope={selectedTelescope}

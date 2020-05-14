@@ -12,6 +12,11 @@ export class Constellation extends Component {
     successModalShow: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.successModalShow !== this.state.successModalShow)
+      window.scrollTo(0,0);
+  }
+
   componentDidMount() {
     const { getConstellationList } = this.props;
     getConstellationList({ callSource: 'byConstellationV4' });

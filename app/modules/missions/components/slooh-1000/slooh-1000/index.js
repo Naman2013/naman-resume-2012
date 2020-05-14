@@ -12,6 +12,11 @@ export class Slooh1000 extends Component {
     successModalShow: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.successModalShow !== this.state.successModalShow)
+      window.scrollTo(0,0);
+  }
+
   componentDidMount() {
     const { getCategoryList, resetMissionsData } = this.props;
     resetMissionsData();
