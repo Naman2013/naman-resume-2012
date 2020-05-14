@@ -34,6 +34,7 @@ type TUpgradeModal = {
   isFetching: boolean,
   returnLinkType: String,
   returnLinkLabel: String,
+  returnLinkUrl: String,
 };
 
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
@@ -138,6 +139,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     upsellCallSource,    
     returnLinkType,
     returnLinkLabel,
+    returnLinkUrl,
   } = props;
 
   const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;

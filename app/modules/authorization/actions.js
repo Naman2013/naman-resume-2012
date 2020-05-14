@@ -42,10 +42,13 @@ const fetchErrorsSuccess = payload => ({
   payload,
 });
 
-export const showIssueWithUserAccountModal = (payload, upsellCallSource) => ({
+export const showIssueWithUserAccountModal = (payload, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl) => ({
   type: SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
   payload,
-  upsellCallSource
+  upsellCallSource,
+  upsellReturnLinkLabel, 
+  upsellReturnLinkType, 
+  upsellReturnLinkUrl
 });
 
 export const hideIssueWithUserAccountModal = () => ({
@@ -159,7 +162,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const FORCED_SLOOH_CREW_STATUS_CODE = 419;
   const UPSELL_STATUS_CODE = 420;
 
-  const { apiError, errorCode, statusCode, loginError, upsellCallSource } = apiResponse;
+  const { apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
   //console.log(statusCode);
 
   let subscriptionPlansCallSource = '';
@@ -210,7 +213,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       })
     );
 
-    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource, upsellCallSource, user));
+    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl, user));
     return false;
   }
 

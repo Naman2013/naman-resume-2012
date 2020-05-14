@@ -9,6 +9,10 @@ import {
   makeIssueWithUserAccountModalVisibleSelector,
   makeSubscriptionPlansCallSourceSelector,
   makeupsellCallSourceSelector,
+  makeupsellReturnLinkLabelSelector,
+  makeupsellReturnLinkTypeSelector,
+  makeupsellReturnLinkUrlSelector,
+
 } from '../../authorization/selectors';
 import { IssueWithUserAccount } from '../components/issue-with-user-account';
 
@@ -17,6 +21,9 @@ const mapStateToProps = createStructuredSelector({
   isModalVisible: makeIssueWithUserAccountModalVisibleSelector(),
   subscriptionPlansCallSource: makeSubscriptionPlansCallSourceSelector(),
   upsellCallSource: makeupsellCallSourceSelector(),
+  upsellReturnLinkLabel: makeupsellReturnLinkLabelSelector(),
+  upsellReturnLinkType: makeupsellReturnLinkTypeSelector(),
+  upsellReturnLinkUrl: makeupsellReturnLinkUrlSelector(),
 });
 
 const mapDispatchToProps = {

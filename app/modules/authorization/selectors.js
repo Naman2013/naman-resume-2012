@@ -25,3 +25,21 @@ export const makeSubscriptionPlansCallSourceSelector = () =>
     selectAuthorization,
     state => state.upsellCallSource
   );
+
+  export const makeupsellReturnLinkLabelSelector = () =>
+  createSelector(
+    selectAuthorization,
+    state => state.upsellReturnLinkLabel
+  );
+
+  export const makeupsellReturnLinkTypeSelector = () =>
+  createSelector(
+    selectAuthorization,
+    state => state.upsellReturnLinkType
+  );
+
+  export const makeupsellReturnLinkUrlSelector = () =>
+  createSelector(
+    selectAuthorization,
+    state => state.upsellReturnLinkUrl
+  );
