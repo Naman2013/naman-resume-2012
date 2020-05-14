@@ -28,7 +28,7 @@ const EditPaymentNew = props => {
       {context => (
         <div className="bot-20">
           <Row noGutters>
-            <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} hrclass={"hr left-right-15"} title={editPaymentHeading} showhr={true}/>
+            <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} hrclass={"hr margin-top-10 left-right-15"} title={editPaymentHeading} showhr={true}/>
             
             <Container className="container-no-pad">
             <h2 className="h-2 h3-md col-md-12 text-no-transform">{editPaymentHeading2}</h2>            
