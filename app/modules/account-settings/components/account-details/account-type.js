@@ -141,7 +141,7 @@ const AccountType = props => {
           show={isModalOpen}
           onHide={() => setModalOpen(false)}
           returnLinkType = {"close"}
-          returnLinkLabel = {"Cancel"}
+          returnLinkLabel = {"CANCEL"}
         />
       )}
     </>
