@@ -3,7 +3,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import { Col, Container, Row } from 'react-bootstrap';
 
 const AccountDetailsHeader = props => {
-  const { title, noEdit, headerClass, hrclass } = props;
+  const { title, noEdit, headerClass, hrclass, showhr } = props;
   return (
     <DeviceContext.Consumer>
       {context => (
@@ -17,8 +17,8 @@ const AccountDetailsHeader = props => {
             >
               <h2 className={ headerClass || "h-2 h-2-primary h-2-bold"}>{title}</h2>
             </Col>
-
-            <hr className={hrclass || "hr margin-top-10 pad-bot-15 left-right-15" }/>
+            {showhr && (<hr className={hrclass || "hr margin-top-10 pad-bot-15 left-right-15" }/>)}
+            
           </Row>
         </Container>
       )}

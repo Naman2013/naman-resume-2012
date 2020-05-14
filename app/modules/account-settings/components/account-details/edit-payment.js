@@ -27,7 +27,7 @@ const EditPayment = props => {
         <div className="top-bot-40 left-right-minus-20">
 
           <Row noGutters>
-            <AccountDetailsHeader title={editPaymentHeading} />
+            <AccountDetailsHeader title={editPaymentHeading} showhr={true}/>
             <Container>
               <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
                 <Row>

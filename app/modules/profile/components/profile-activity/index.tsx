@@ -185,7 +185,7 @@ class ProfileActivity extends React.Component<
       cancelMissionDialogPrompt,
       cancelPiggybackDialogPrompt,
     } = selectedSlot;
-    debugger;
+    
     return (
       <div className="profile-activity">
         <MissionConfirmationModal

@@ -58,7 +58,7 @@ export class PurchaseConfirmation extends React.PureComponent<
           )}
 
         <div className="top-bot-10 left-right-minus-20">
-          <AccountDetailsHeader title={pageHeading2} />
+          <AccountDetailsHeader title={pageHeading2} showhr={true}/>
           <Container>
             <p dangerouslySetInnerHTML={{ __html: explainationText }} />
           </Container>
