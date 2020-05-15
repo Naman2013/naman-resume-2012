@@ -24,6 +24,8 @@ import Popup from 'react-modal';
 import { EditPaymentNew } from '../account-details/edit-payment-new';
 import { AccountDetailsHeader } from '../account-details/header';
 import { Col } from 'react-bootstrap';
+import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
+import { setSatelliteViewWidget } from 'app/modules/Telescope-Overview';
 
 type TUpgradeModal = {
   show: boolean,
@@ -60,76 +62,77 @@ const didMount = (props: TUpgradeModal) => () => {
   window.localStorage.removeItem('isAstronomyClub');
 };
 
-const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource)=>{   
-  const { _sloohatid } = getUserInfo();
-  const upgradeCustomerData = {
-    cid: getUserInfo().cid,
-    at: getUserInfo().at,
-    token: getUserInfo().token,
-    customerId: getUserInfo().cid,
-    selectedPlanId: plan.planID,
-    conditionType: subscriptionPlansCallSource,
-    upsellCallSource: upsellCallSource, 
-    // paymentMethod,
-    processUsingExistingPaymentInfo: true,
-    // paymentToken: paymentNonceTokenData,
-    // billingAddressString: paymentDataString[3],
-    // isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-    sloohMarketingTrackingId: _sloohatid,
-  };
-  //add string aboc to this //ADD THIS BACK AFTER TESTING
-  API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
-    .then(response => {
-      const res = response.data;
-      if (!res.apiError) {
-        if (res.status === 'success') {
-  //fire off the Purchase Facebook Event
-  fireSloohFBPurchaseEvent( {
-    cid: getUserInfo().cid, 
-    planName: res.PlanName,
-    planCostInUSD: res.PlanCostInUSD,
-  });
-
-  //clean up any session or marketing tracking id
-  deleteSessionToken();
-  deleteMarketingTrackingId();
-
-          //Cleanup local localStorage
-          window.localStorage.removeItem('pending_cid');
-          window.localStorage.removeItem('selectedPlanId');
-          window.localStorage.removeItem('isAstronomyClub');
-
-          /* cleanup local storage */
-          window.localStorage.removeItem('accountCreationType');
-          window.localStorage.removeItem('username');
-          window.localStorage.removeItem('password');
-
-          //upgradeCustomer needs to return new "AT"
-          //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-          props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-            props.closeModal(true);
-
-           let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-           browserHistory.push( confirmationPageURL );
-
-           //browserHistory.push('/');
-          });
-        }
-      }
-    })
-    .catch(err => {
-      throw ('Error: ', err);
-    });
-}
-
 export const UpgradeModal = (props: TUpgradeModal) => {
-  const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
-    useEffect(didMount(props), [props.subscriptionPlansCallSource]);
+  const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource)=>{   
+    const { _sloohatid } = getUserInfo();
+    const upgradeCustomerData = {
+      cid: getUserInfo().cid,
+      at: getUserInfo().at,
+      token: getUserInfo().token,
+      customerId: getUserInfo().cid,
+      selectedPlanId: plan.planID,
+      conditionType: subscriptionPlansCallSource,
+      upsellCallSource: upsellCallSource, 
+      // paymentMethod,
+      processUsingExistingPaymentInfo: true,
+      // paymentToken: paymentNonceTokenData,
+      // billingAddressString: paymentDataString[3],
+      // isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+      sloohMarketingTrackingId: _sloohatid,
+    };
+    setisFetching(true);
+    //add string aboc to this //ADD THIS BACK AFTER TESTING
+    API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
+      .then(response => {
+        const res = response.data;
+        setisFetching(false);
+        if (!res.apiError) {
+          if (res.status === 'success') {
+    //fire off the Purchase Facebook Event
+    fireSloohFBPurchaseEvent( {
+      cid: getUserInfo().cid, 
+      planName: res.PlanName,
+      planCostInUSD: res.PlanCostInUSD,
+    });
   
+    //clean up any session or marketing tracking id
+    deleteSessionToken();
+    deleteMarketingTrackingId();
+  
+            //Cleanup local localStorage
+            window.localStorage.removeItem('pending_cid');
+            window.localStorage.removeItem('selectedPlanId');
+            window.localStorage.removeItem('isAstronomyClub');
+  
+            /* cleanup local storage */
+            window.localStorage.removeItem('accountCreationType');
+            window.localStorage.removeItem('username');
+            window.localStorage.removeItem('password');
+
+            //upgradeCustomer needs to return new "AT"
+            //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
+            this.props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
+              props.closeModal(true);
+              
+             let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+             browserHistory.push( confirmationPageURL );
+  
+             //browserHistory.push('/');
+            });
+          }          
+        }
+      })
+      .catch(err => {
+        throw ('Error: ', err);        
+      });
+  }
+  const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
+  
+    useEffect(didMount(props), [props.subscriptionPlansCallSource]);
+    
   const {
     show,
-    onHide,
-    isFetching,
+    onHide,    
     subscriptionPlansData,
     subscriptionPlansCallSource,
     errorData, // errors from issue with user account modal
@@ -141,10 +144,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     returnLinkLabel,
     returnLinkUrl,
   } = props;
-
+  const [isFetching, setisFetching]=useState(props.isFetching);
   const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
-
+  useEffect(() => {setisFetching(props.isFetching);}, [props.isFetching]);
   let buttonText = (returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK';
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
@@ -191,10 +194,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
-                } else {                  
+                } else { 
                   if(subscriptionPlansData.hasPaymentInfoOnFile){
                     selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
-                    setStep('CONFIRM');
+                    setStep('CONFIRM');                    
                   }
                   else
                     setStep('PAYMENT');
