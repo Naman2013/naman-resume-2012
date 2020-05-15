@@ -189,12 +189,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 isFetching,                
               }}
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
-                selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
+                selectedPlan.editPaymentSection.curPaymentInfo=selectedPlan.curPaymentInfo;
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
                 } else {                  
                   if(subscriptionPlansData.hasPaymentInfoOnFile)
-                    // upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource);
                     setStep('CONFIRM');
                   else
                     setStep('PAYMENT');
