@@ -98,8 +98,9 @@ export default css`
   .invited-by .inviter {
     border-top: 1px solid #ced2d8;
     border-bottom: 1px solid #ced2d8;
-    padding: 40px 0;
-    margin: 20px 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 5px 0;
     font-size: 24px;
     font-family: ${secondaryFont};
     width: 100%;
