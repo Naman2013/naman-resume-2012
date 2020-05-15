@@ -192,13 +192,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
                 } else {                  
-<<<<<<< HEAD
                   if(subscriptionPlansData.hasPaymentInfoOnFile){
                     selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
-                    // upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource);
-=======
-                  if(subscriptionPlansData.hasPaymentInfoOnFile)
->>>>>>> 9c001a5acb0643193b3819de87769d35351338de
                     setStep('CONFIRM');
                   }
                   else
