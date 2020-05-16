@@ -25,7 +25,7 @@ import { EditPaymentNew } from '../account-details/edit-payment-new';
 import { AccountDetailsHeader } from '../account-details/header';
 import { Col } from 'react-bootstrap';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
-import { setSatelliteViewWidget } from 'app/modules/Telescope-Overview';
+import {PurchaseConfirmationMain} from 'app/modules/purchase-confirmation'
 
 type TUpgradeModal = {
   show: boolean,
@@ -112,10 +112,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             //upgradeCustomer needs to return new "AT"
             //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
             props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-              
-              props.onHide();
-             let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-             browserHistory.push( confirmationPageURL );
+              setStep("FINAL");
+            //   props.onHide();
+            //  let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+            //  browserHistory.push( confirmationPageURL );
   
              //browserHistory.push('/');
             });
@@ -128,7 +128,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       })
       .catch(err => {
         throw ('Error: ', err);        
-      });
+      });   
   }
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
   
@@ -293,6 +293,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </Popup>
         )}
 
+        {step === 'FINAL' && (
+          <div className="confirm-dialog">
+           <PurchaseConfirmationMain    
+           conditionType={'upsell'}     
+           />
+           </div>
+        )}
+        
         {step === 'PAYMENT' && (        
             <PaymentStep
               conditionType={props.subscriptionPlansCallSource}

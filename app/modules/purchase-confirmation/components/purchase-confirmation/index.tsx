@@ -8,17 +8,20 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 type TPurchaseConfirmationProps = {
-  getPurchaseConfirmation: () => void;
+  getPurchaseConfirmation: Function;
   purchaseConfirmationData: IPurchaseConfirmationResponse;
   isLoading: boolean;
+  conditionType: String;
+  routeParams: any;
 };
 
 export class PurchaseConfirmation extends React.PureComponent<
   TPurchaseConfirmationProps
 > {
   componentDidMount(): void {
-    const { getPurchaseConfirmation } = this.props;
-    getPurchaseConfirmation();
+    const { getPurchaseConfirmation} = this.props;
+    const conditionType=this.props.conditionType || this.props.routeParams.tab;
+    getPurchaseConfirmation(conditionType);
   }
 
   render(): React.ReactNode {
