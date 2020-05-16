@@ -18,8 +18,8 @@ const IssueWithUserAccount = props => {
     // if (!onlyCloseModal) {    
         // browserHistory.goBack();
     // }
-    if(upsellReturnLinkType === "navigate")
-      browserHistory.push(upsellReturnLinkUrl);
+    // if(upsellReturnLinkType === "navigate")
+    //   browserHistory.push(upsellReturnLinkUrl);
   };
   
   return isModalVisible ? (

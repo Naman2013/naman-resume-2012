@@ -63,7 +63,7 @@ const didMount = (props: TUpgradeModal) => () => {
 };
 
 export const UpgradeModal = (props: TUpgradeModal) => {
-  const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource)=>{   
+  const upgradeUser=(plan, upsellCallSource, subscriptionPlansCallSource, props)=>{   
     const { _sloohatid } = getUserInfo();
     const upgradeCustomerData = {
       cid: getUserInfo().cid,
@@ -108,12 +108,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             window.localStorage.removeItem('accountCreationType');
             window.localStorage.removeItem('username');
             window.localStorage.removeItem('password');
-
+            
             //upgradeCustomer needs to return new "AT"
             //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-            this.props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-              props.closeModal(true);
+            props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
               
+              props.onHide();
              let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
              browserHistory.push( confirmationPageURL );
   
@@ -174,8 +174,16 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       onHide();
       browserHistory.push('/');
       window.location.reload();
-    };
+    };    
   } 
+
+  if(returnLinkType === "navigate"){
+    onCloseFunc = ()=> {
+      onHide();
+      browserHistory.push(returnLinkUrl);
+    }
+  }
+  
   return (
     <>
       <Modal
@@ -253,7 +261,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             		<div className="actions">
         	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
         	      		{confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
-        	        		onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource)}}
+        	        		onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource, props)}}
                 			text={confirmationPopupDetails.confirmBtnTxt}
               			/> : null}
             		</div>
