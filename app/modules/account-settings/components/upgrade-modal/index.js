@@ -119,6 +119,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   
              //browserHistory.push('/');
             });
+          }
+          else{
+            setErrorState(res);
+            // setStep("ERROR");
           }          
         }
       })
@@ -147,6 +151,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   const [isFetching, setisFetching]=useState(props.isFetching);
   const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [errorstate, setErrorState] = useState(null);
   useEffect(() => {setisFetching(props.isFetching);}, [props.isFetching]);
   let buttonText = (returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK';
   let onCloseFunc = onHide;
@@ -261,12 +266,32 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         // </Popup>       
         )}
 
+        {errorstate &&(
+            <Popup
+          // ariaHideApp={false}
+          isOpen={true}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Error"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={()=>{setStep('SELECT_PLAN');}}
+        >
+          <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={errorstate.statusTitle} showhr={true}/>
+          <div className="container">
+            <h4>{errorstate.debugMsgs} </h4>
+            </div>
+            <div className="actions-err-btn">
+          <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null)}} text={errorstate.statusBtnTxt} /> 
+          </div>
+          </Popup>
+        )}
+
         {step === 'PAYMENT' && (        
             <PaymentStep
               conditionType={props.subscriptionPlansCallSource}
               selectedPlan={selectedPlan}
               closeModal={onHide}
               storeUserNewAT={storeUserNewAT}
+              Error
             />                    
         )}
 
@@ -299,6 +324,13 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             display: flex;       
             justify-content: space-between;   
             height: 39px;  
+          }
+
+          .actions-err-btn{
+            display: flex;       
+            justify-content: center;   
+            height: 39px;  
+            margin-top: 20px;
           }
         `}</style>
     </>
