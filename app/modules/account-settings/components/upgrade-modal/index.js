@@ -2,7 +2,7 @@
 
 import { Modal } from 'app/components/modal';
 import { Spinner } from 'app/components/spinner/index';
-import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
+import { PaymentStepNew } from 'app/modules/account-settings/components/upgrade-modal/payment-step-new';
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
@@ -112,7 +112,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             //upgradeCustomer needs to return new "AT"
             //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
             props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-              setStep("FINAL");
+               onPaymentSuccess(res);                            
             //   props.onHide();
             //  let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
             //  browserHistory.push( confirmationPageURL );
@@ -121,7 +121,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             });
           }
           else{
-            setErrorState(res);
+             onPaymentError(res);
             // setStep("ERROR");
           }          
         }
@@ -130,6 +130,21 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         throw ('Error: ', err);        
       });   
   }
+
+  const onPaymentError=(error)=>{
+      setErrorState(error);
+  }
+
+  const onPaymentSuccess=(res)=>{
+    setConditionType(res.conditionType);
+    onCloseFunc=()=>{
+      browserHistory.push('/');
+      window.location.reload();
+    }
+    setButtonText("CLOSE");
+    setStep("FINAL");
+  }
+
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
   
     useEffect(didMount(props), [props.subscriptionPlansCallSource]);
@@ -152,8 +167,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   const {confirmationPopupDetails, curPaymentInfo} =subscriptionPlansData;
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [errorstate, setErrorState] = useState(null);
-  useEffect(() => {setisFetching(props.isFetching);}, [props.isFetching]);
-  let buttonText = (returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK';
+  const [conditionType, setConditionType] = useState('');
+  useEffect(() => {setisFetching(props.isFetching);}, [props.isFetching]); 
+  const [buttonText, setButtonText]=useState((returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK') ;
+  // useEffect(() => {setButtonText((returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK');}, [buttonText]);
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
 
@@ -166,7 +183,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     props.subscriptionPlansCallSource == 'expired' ||
     props.subscriptionPlansCallSource == 'expiredrecently'
   ) {
-    buttonText = 'LOGOUT';
+    if(buttonText!=='LOGOUT')
+      setButtonText('LOGOUT');    
     onCloseFunc = dispatch => {
       //Force Logout the User - They have opted to not buy a Slooh Plan
       destroySession();
@@ -180,10 +198,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   if(returnLinkType === "navigate"){
     onCloseFunc = ()=> {
       onHide();
-      browserHistory.push(returnLinkUrl);
+      if (step !== "FINAL")
+        browserHistory.push(returnLinkUrl);
+      else
+          window.location.reload();
     }
   }
-  
   return (
     <>
       <Modal
@@ -296,15 +316,18 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         {step === 'FINAL' && (  
               <PurchaseConfirmationMain    
               newHeader={true}
-              conditionType={'upsell'}     
+              conditionType={conditionType}   
+              closeModal={()=>{onHide(); window.location.reload();}}  
               />
         )}
         
         {step === 'PAYMENT' && (        
-            <PaymentStep
+            <PaymentStepNew
               conditionType={props.subscriptionPlansCallSource}
               selectedPlan={selectedPlan}
               closeModal={onHide}
+              onError={onPaymentError}
+              onSuccess={onPaymentSuccess}
               storeUserNewAT={storeUserNewAT}
               Error
             />                    
