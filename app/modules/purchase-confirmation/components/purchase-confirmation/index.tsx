@@ -13,6 +13,7 @@ type TPurchaseConfirmationProps = {
   isLoading: boolean;
   conditionType: String;
   routeParams: any;
+  newHeader: boolean;
 };
 
 export class PurchaseConfirmation extends React.PureComponent<
@@ -25,21 +26,29 @@ export class PurchaseConfirmation extends React.PureComponent<
   }
 
   render(): React.ReactNode {
-    const { isLoading, purchaseConfirmationData } = this.props;
+    const { isLoading, purchaseConfirmationData, newHeader } = this.props;
     const {
       pageHeading1,
       pageHeading2,
       gettingStartedBtn,
-      explainationText,
+      explainationText,     
     } = purchaseConfirmationData;
     if (isLoading) return <Spinner loading={isLoading} />;
     return (
-      <>
-        <HubHeader
+      <>        
+        {newHeader ? (
+            <div>
+              <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
+              <p className="modal-p mb-5" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
+            </div>
+            ):(
+          <HubHeader
           showIcon
           icon="https://vega.slooh.com/assets/v4/icons/slooh_logo_astronaut.svg"
           title={pageHeading1}
         />
+        )}
+        <div className="confirm-dialog">
         {purchaseConfirmationData &&
           purchaseConfirmationData.accountTypeSection && (
             <AccountType
@@ -73,6 +82,14 @@ export class PurchaseConfirmation extends React.PureComponent<
               </Link>
             </div>
           )}
+        </div>
+        <style>{`
+          .confirm-dialog {
+            background-color: #FFF;
+            // padding: 10px; 
+          }
+          `}
+          </style>
         </div>
       </>
     );

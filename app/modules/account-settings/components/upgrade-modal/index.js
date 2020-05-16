@@ -293,12 +293,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </Popup>
         )}
 
-        {step === 'FINAL' && (
-          <div className="confirm-dialog">
-           <PurchaseConfirmationMain    
-           conditionType={'upsell'}     
-           />
-           </div>
+        {step === 'FINAL' && (  
+              <PurchaseConfirmationMain    
+              newHeader={true}
+              conditionType={'upsell'}     
+              />
         )}
         
         {step === 'PAYMENT' && (        
