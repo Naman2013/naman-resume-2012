@@ -199,9 +199,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     onCloseFunc = ()=> {
       onHide();
       if (step !== "FINAL")
-        browserHistory.push(returnLinkUrl);
-      else
-          window.location.reload();
+        browserHistory.push(returnLinkUrl);              
+      window.location.reload();
     }
   }
   return (
