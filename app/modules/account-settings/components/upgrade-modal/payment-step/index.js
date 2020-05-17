@@ -19,7 +19,7 @@ import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/
 import { resetLogIn } from 'app/modules/login/actions';
 import { useTranslation } from 'react-i18next';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
-
+import fireSloohGAPageview from 'app/utils/ga-wrapper';
 import styles from 'app/pages/registration/JoinStep3.style';
 
 const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
@@ -129,6 +129,9 @@ const handleIframeTaskUpgrade = (e, props) => {
           const res = response.data;
           if (!res.apiError) {
             if (res.status === 'success') {
+
+              fireSloohGAPageview({ pagePath: "/join/purchaseConfirmation/" + res.conditionType });	
+
 		//fire off the Purchase Facebook Event
 		fireSloohFBPurchaseEvent( {
 			cid: getUserInfo().cid, 

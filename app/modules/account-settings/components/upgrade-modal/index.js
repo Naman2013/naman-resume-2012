@@ -26,6 +26,7 @@ import { AccountDetailsHeader } from '../account-details/header';
 import { Col } from 'react-bootstrap';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 import {PurchaseConfirmationMain} from 'app/modules/purchase-confirmation'
+import fireSloohGAPageview from 'app/utils/ga-wrapper';
 
 type TUpgradeModal = {
   show: boolean,
@@ -87,12 +88,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         const res = response.data;
         setisFetching(false);
         if (!res.apiError) {
-          if (res.status === 'success') {
+          if (res.status === 'success') { 
+                       
+          fireSloohGAPageview({ pagePath: "/join/purchaseConfirmation/" + res.conditionType });	
     //fire off the Purchase Facebook Event
     fireSloohFBPurchaseEvent( {
       cid: getUserInfo().cid, 
       planName: res.PlanName,
-      planCostInUSD: res.PlanCostInUSD,
+      planCostInUSD: res.PlanCostInUSD,      
     });
   
     //clean up any session or marketing tracking id
@@ -194,12 +197,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     };    
   } 
-
-  if(returnLinkType === "navigate"){
-    onCloseFunc = ()=> {
+  
+  if(returnLinkType === "navigate"){    
+    onCloseFunc = ()=> {      
       onHide();
       if (step !== "FINAL")
-        browserHistory.push(returnLinkUrl);              
+        browserHistory.push(returnLinkUrl);     
       window.location.reload();
     }
   }
