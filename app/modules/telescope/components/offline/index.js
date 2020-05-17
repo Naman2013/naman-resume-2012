@@ -67,6 +67,7 @@ export default class TelescopeOffline extends Component {
       weatherConditions,
       observatoryList,
       skyConditions,
+      activeTelescopeStatus,
     } = this.props;
 
     return (
@@ -123,6 +124,7 @@ export default class TelescopeOffline extends Component {
                 weatherConditions={weatherConditions}
                 skyConditions={skyConditions}
                 observatoryList={observatoryList}
+		activeTelescopeStatus={activeTelescopeStatus}
               />
             </Tab.Pane>
             {currentInstrument.instrImageSourceType !== 'video' && (

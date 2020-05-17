@@ -27,14 +27,26 @@ export default css.global`
     margin-right: -87px;
   }
 
+  @media (max-width: 900px){
+    .slick-prev {
+      margin-left: -25px;
+    }
+  }
+
+  @media (max-width: 900px){
+    .slick-next {
+      margin-right: -25px;
+    }
+  }  
+
   .dash-obs .slick-slider .slick-prev {
-    margin-left: 23px;
+    // margin-left: 20px;
     transform: none;
     top: 250px;
   }
 
   .dash-obs .slick-slider .slick-next {
-    margin-right: 23px;
+    // margin-right: 20px;
     transform: none;
     top: 250px;
   }
@@ -100,13 +112,13 @@ export default css.global`
 
   @media (min-width: 768px) and (max-width: 1024px) {
     .dash-obs .slick-slider .slick-prev {
-      margin-left: 0;
-      left: -10vh;
+      // margin-left: 0;
+      // left: -10vh;
     }
 
     .dash-obs .slick-slider .slick-next {
-      margin-right: 0;
-      right: -10vh;
+      // margin-right: 0;
+      // right: -10vh;
     }
   }
 `;
