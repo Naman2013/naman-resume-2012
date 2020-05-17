@@ -18,7 +18,8 @@ export class QueueTab extends Component {
     reservationModalVisible: false,
     reservationPiggybackVisible: false,
     successModalShow: false,
-    editCoordinates: false
+    editCoordinates: false,
+    showHoldOneHourButtonWhenExpanded: false,
   };
 
   componentDidMount(){
@@ -72,8 +73,8 @@ export class QueueTab extends Component {
 
   getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot, offlineQueueTab } = this.props;
-    const { scheduledMissionId, uniqueId } = mission;
-    const callSource = offlineQueueTab ? "telescope-offline-queue" : "telescope-online-queue";
+    const { scheduledMissionId, uniqueId, showHoldOneHourButtonWhenExpanded } = mission;
+    const callSource = offlineQueueTab ? "telescope-offline-queue" : "telescope-online-queue";    
     setSelectedSlot(mission);
     getTelescopeSlot({
       finalizeReservation: finalizeReservation,
@@ -84,7 +85,7 @@ export class QueueTab extends Component {
     }).then(({ payload }) => {
       const { apiError, statusCode } = payload;
       if(!apiError && (statusCode < 400 || statusCode >= 500)){
-        this.setState({ reservationModalVisible: true });
+        this.setState({ reservationModalVisible: true, showHoldOneHourButtonWhenExpanded: showHoldOneHourButtonWhenExpanded });
       }
     });
   };
@@ -191,6 +192,8 @@ export class QueueTab extends Component {
       piggyBackMissionSlot,
       piggybackReservedMissionData,
       piggybackReservedMission,
+      timestamp,
+      currenttime,
     } = this.props;
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption, requestedSlotCount } = upcomingSlotsData;
@@ -199,6 +202,7 @@ export class QueueTab extends Component {
       reservationPiggybackVisible,
       successModalShow,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
     } = this.state;
     const { navigationConfig } = pageSetup;
     
@@ -233,6 +237,8 @@ export class QueueTab extends Component {
             getMissionSlots={() => this.getUpcomingSlotsByTelescope(requestedSlotCount)}
             grabPiggyback={this.grabPiggyback}
             editCoordinates={this.getMissionSlot}
+            timestamp={timestamp}
+            currenttime={currenttime}
           />
 
           {reservationModalVisible && (
@@ -243,6 +249,9 @@ export class QueueTab extends Component {
               navigationConfig={navigationConfig[0]}
               editCoordinates={editCoordinates}
               show
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              timestamp={timestamp}
+              currenttime={currenttime}
             />
           )}
 

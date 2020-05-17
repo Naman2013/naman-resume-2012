@@ -41,6 +41,13 @@ const TabLive = ({
             scheduledBy={mission.ownerDisplayName}
             targetName={mission.objectTitle}
             likeCount={mission.missionLikeCount}
+            showJoiningMission={mission.showJoiningMission}
+            joiningMissionTooltipText={mission.joiningMissionTooltipText}
+            joiningMissionIconURL={mission.joiningMissionIconURL}
+            ownerAvatarURL={mission.ownerAvatarURL}
+            hasLinkFlag={mission.hasLinkFlag}
+            linkUrl={mission.linkUrl}
+            showSloohUser={mission.showSloohUser}
           />
         </div>
       </Fragment>

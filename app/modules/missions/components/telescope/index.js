@@ -18,7 +18,8 @@ export class Telescope extends Component {
     editCoordinates: false,
     callSource: "",
     upsellCallSource: "",
-  };
+    showHoldOneHourButtonWhenExpanded: false,
+  };  
 
   componentDidMount() {
     this.getMissionSlotDates();
@@ -28,7 +29,7 @@ export class Telescope extends Component {
     const { scrolledToSlot, missionListLodaded, scrollToSMID } = this.props;
     if (scrollToSMID && !scrolledToSlot && missionListLodaded) {
       this.scrollToSlot();
-    }
+    } 
   }
 
   getMissionSlotDates = (requestedDate = '') => {    
@@ -48,21 +49,19 @@ export class Telescope extends Component {
       callSource: 'byTelescopeV4',
       scheduledMissionId,
       uniqueId,
-    }).then(() => this.setState({ reservationPiggybackVisible: true }));
+    }).then(() => this.setState({ reservationPiggybackVisible: true}));
   };
 
   getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
-    const { scheduledMissionId, uniqueId } = mission;
     const callSource="missionhub-bytelescope";
-    setSelectedSlot(mission);
+    const { scheduledMissionId, uniqueId, showHoldOneHourButtonWhenExpanded  } = mission;
     getTelescopeSlot({
-      finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
-      callSource,
-    }).then(() => this.setState({ reservationModalVisible: true }));
+      callSource,    
+    }).then(() => this.setState({ reservationModalVisible: true, showHoldOneHourButtonWhenExpanded: showHoldOneHourButtonWhenExpanded  }));
   };
 
   reservationModalHide = (cancelMission = true) => {
@@ -83,7 +82,7 @@ export class Telescope extends Component {
       reservationPiggybackVisible: false,
       successModalShow: false,
       editCoordinates: false,
-    });
+    }); 
   };
 
   reservationComplete = () => {
@@ -162,6 +161,8 @@ export class Telescope extends Component {
       selectedDate,
       missionList,
       missionListRefreshInterval,
+      timestamp,
+      currenttime,
       pageSetup,
       piggyBackMissionSlot,
       user,
@@ -175,8 +176,10 @@ export class Telescope extends Component {
       refreshCountdownLive,
       reservationPiggybackVisible,
       successModalShow,
-      editCoordinates,        
-    } = this.state;  
+      editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
+    } = this.state;
+    
     return (
       <div className="by-telescope">        
         <div className="container">
@@ -198,6 +201,8 @@ export class Telescope extends Component {
             editCoordinates={this.getMissionSlot}
             showDateArrows
             locked={locked}
+            timestamp={timestamp}
+            currenttime={currenttime}
           />
 
           {reservationModalVisible && (
@@ -207,7 +212,10 @@ export class Telescope extends Component {
               pageSetup={pageSetup}
               navigationConfig={navigationConfig[3]}
               editCoordinates={editCoordinates}
-              show              
+              show
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              timestamp={timestamp}
+              currenttime={currenttime}
             />
           )}
 

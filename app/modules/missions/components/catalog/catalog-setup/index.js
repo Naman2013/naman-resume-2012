@@ -7,6 +7,16 @@ import { ReservationModalCountdown } from '../../telescope-reservation/reservati
 import './styles.scss';
 
 export class CatalogSetup extends Component {
+
+  // callgetMissionSlot(){
+  //   const {selectedCatalog, getMissionSlot} = this.props;   
+  //   selectedCatalog ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  // }
+
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
   render() {
     const {
       catalogListOpts,
@@ -32,6 +42,7 @@ export class CatalogSetup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
 
     const { explanation } = objectData;
@@ -52,9 +63,12 @@ export class CatalogSetup extends Component {
       step4Tooltip,
       subheader,
       locked,
-    } = pageConfig;    
-    return (      
-      <div className="catalog-setup">        
+    } = pageConfig;       
+    
+    const { showHoldOneHourButton } = this.state;
+
+    return (
+      <div className="catalog-setup">
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{subheader}</p>
@@ -67,22 +81,24 @@ export class CatalogSetup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
 
         <div className="steps row">
           <div className="col-sm-12 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setCatalog}
               options={catalogListOpts}
@@ -95,16 +111,16 @@ export class CatalogSetup extends Component {
 
         <div className="steps row">
           <div className="col-sm-6 step-2">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
                   <span>{step2Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step2Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
 
             <textarea
               className="textarea designation"
@@ -133,16 +149,16 @@ export class CatalogSetup extends Component {
 
           <div className="col-sm-6 step-3">
             <div className="step-header">
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
                     <span>{step3Tooltip}</span>
                   </Tooltip>
                 }
-              >
+              > */}
                 <span>{step3Title}</span>
-              </OverlayTrigger>
+              {/* </OverlayTrigger> */}
             </div>
 
             <div className={`processing-list${disabled ? ' disabled' : ''}`}>
@@ -155,6 +171,7 @@ export class CatalogSetup extends Component {
                         ? ' selected'
                         : ''
                     }`}
+                    // onClick={() => {setProcessingRecipe(item); this.callgetMissionSlot();}}
                     onClick={() => setProcessingRecipe(item)}
                   >
                     <div className="processing-list-item-title">
@@ -188,7 +205,7 @@ export class CatalogSetup extends Component {
           <div className="col-sm-6 step-4">
             <Button
               text={step4ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={
                 !designation ||
                 !processingRecipe.presetOption ||

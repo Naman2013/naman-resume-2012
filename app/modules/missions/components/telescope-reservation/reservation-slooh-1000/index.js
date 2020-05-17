@@ -70,11 +70,12 @@ class Slooh1000 extends Component {
       pageSetup,
       navigationConfig,
       selectedSlot,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
 
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
     const { userHasHold } = selectedSlot;
-
+    
     return (
       <div className="reservation-slooh-1000 slooh-1000">
         <Slooh1000Setup
@@ -99,6 +100,7 @@ class Slooh1000 extends Component {
           pageConfig={navigationConfig.bySlooh1000}
           userHasHold={userHasHold}
           byTelescope
+          showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
         />
       </div>
     );

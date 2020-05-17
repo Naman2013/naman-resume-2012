@@ -7,6 +7,15 @@ import { ReservationModalCountdown } from '../../telescope-reservation/reservati
 import './styles.scss';
 
 export class ConstellationSetup extends Component {
+
+  // callgetMissionSlot(){
+  //   const {selectedObjectId, getMissionSlot} = this.props;   
+  //   selectedObjectId ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  // }
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
   render() {
     const {
       constellationListOpt,
@@ -29,6 +38,7 @@ export class ConstellationSetup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
     const {
       header,
@@ -41,6 +51,7 @@ export class ConstellationSetup extends Component {
       step3Tooltip,
       subheader,
     } = pageConfig;
+    const { showHoldOneHourButton } = this.state;
 
     return (
       <div className="constellation-setup">
@@ -56,22 +67,24 @@ export class ConstellationSetup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
 
         <div className="steps row">
           <div className="col-sm-6 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setConstellation}
               options={constellationListOpt}
@@ -82,18 +95,19 @@ export class ConstellationSetup extends Component {
           </div>
 
           <div className="col-sm-6 step-2">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
                   <span>{step2Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step2Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setObject}
+              // handleChange={(e)=>{setObject(e); this.callgetMissionSlot()}}
               options={objectListOpts}
               placeholder={choosePrompt}
               isDisabled={objectListOpts.length === 0 || disabled}
@@ -131,7 +145,7 @@ export class ConstellationSetup extends Component {
           <div className="col-sm-6 step-3">
             <Button
               text={step3ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={!selectedConstellation || !selectedObjectId || disabled}
             />
           </div>

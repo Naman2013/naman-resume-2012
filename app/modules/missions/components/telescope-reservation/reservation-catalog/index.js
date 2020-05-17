@@ -50,11 +50,12 @@ class Catalog extends Component {
       pageSetup,
       navigationConfig,
       selectedSlot,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
 
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
     const { userHasHold } = selectedSlot;
-
+    
     return (
       <div className="reservation-catalog catalog">
         <CatalogSetup
@@ -81,6 +82,7 @@ class Catalog extends Component {
           pageConfig={navigationConfig.byCatalog}
           userHasHold={userHasHold}
           byTelescope
+          showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
         />
       </div>
     );
