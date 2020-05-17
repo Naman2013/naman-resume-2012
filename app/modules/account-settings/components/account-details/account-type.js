@@ -140,7 +140,7 @@ const AccountType = props => {
           subscriptionPlansCallSource="upgrade"
           show={isModalOpen}
           onHide={() => setModalOpen(false)}
-          returnLinkType = {"close"}
+          returnLinkType = {"closeandrefresh"}
           returnLinkLabel = {"CANCEL"}
         />
       )}

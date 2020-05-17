@@ -105,7 +105,7 @@ export default class MembershipPlansList extends Component {
             preSelectedPlan={selectedPlan}
             subscriptionPlansCallSource={subscriptionPlansCallSource}
             onHide={() => this.setUpgradeModalOpen(false)}
-            returnLinkType = {"close"}
+            returnLinkType = {"closeandrefresh"}
             returnLinkLabel = {"CANCEL"}
           />
         )}
