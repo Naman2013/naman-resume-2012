@@ -206,6 +206,13 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     }
   }
+  if(returnLinkType === "closeandrefresh"){
+    onCloseFunc = ()=> {      
+      onHide();      
+      window.location.reload();
+    }
+  }
+  
   return (
     <>
       <Modal
