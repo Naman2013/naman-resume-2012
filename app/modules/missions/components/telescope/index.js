@@ -5,6 +5,8 @@ import { MissionsList } from '../missions-list';
 import { ReservationModal } from '../telescope-reservation/reservation-modal';
 import { FeaturedObjectsModal } from '../../../telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from '../mission-success-modal';
+import UpgradeModal from '../../../../modules/account-settings/containers/upgrade-modal';
+import { browserHistory } from 'react-router';
 import './styles.scss';
 
 export class Telescope extends Component {
@@ -14,6 +16,8 @@ export class Telescope extends Component {
     reservationPiggybackVisible: false,
     successModalShow: false,
     editCoordinates: false,
+    callSource: "",
+    upsellCallSource: "",
   };
 
   componentDidMount() {
@@ -27,18 +31,19 @@ export class Telescope extends Component {
     }
   }
 
-  getMissionSlotDates = (requestedDate = '') => {
+  getMissionSlotDates = (requestedDate = '') => {    
     const { getMissionSlotDates, selectedTelescope } = this.props;
     this.setState({ refreshCountdownLive: false });
-
+    
     getMissionSlotDates(selectedTelescope, requestedDate).then(() =>
       this.setState({ refreshCountdownLive: true })
     );
   };
 
   grabPiggyback = mission => {
-    const { grabPiggyback } = this.props;
+    const { grabPiggyback, pageSetup } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
+    if(!pageSetup.navigationConfig[3].locked)
     grabPiggyback({
       callSource: 'byTelescopeV4',
       scheduledMissionId,
@@ -49,12 +54,14 @@ export class Telescope extends Component {
   getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
+    const callSource="missionhub-bytelescope";
     setSelectedSlot(mission);
     getTelescopeSlot({
       finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
+      callSource,
     }).then(() => this.setState({ reservationModalVisible: true }));
   };
 
@@ -162,16 +169,16 @@ export class Telescope extends Component {
       piggybackReservedMission,
     } = this.props;
     const { setUpTelescopePrompt, navigationConfig } = pageSetup;
+    const { locked } = navigationConfig[3];
     const {
       reservationModalVisible,
       refreshCountdownLive,
       reservationPiggybackVisible,
       successModalShow,
-      editCoordinates,
-    } = this.state;
-
+      editCoordinates,        
+    } = this.state;  
     return (
-      <div className="by-telescope">
+      <div className="by-telescope">        
         <div className="container">
           <TelescopeSetup
             selectedTelescope={selectedTelescope}
@@ -190,6 +197,7 @@ export class Telescope extends Component {
             grabPiggyback={this.grabPiggyback}
             editCoordinates={this.getMissionSlot}
             showDateArrows
+            locked={locked}
           />
 
           {reservationModalVisible && (
@@ -199,7 +207,7 @@ export class Telescope extends Component {
               pageSetup={pageSetup}
               navigationConfig={navigationConfig[3]}
               editCoordinates={editCoordinates}
-              show
+              show              
             />
           )}
 
@@ -232,7 +240,7 @@ export class Telescope extends Component {
             reservedMission={piggybackReservedMission}
             missionSlot={piggyBackMissionSlot}
           />
-        </div>
+        </div>       
       </div>
     );
   }

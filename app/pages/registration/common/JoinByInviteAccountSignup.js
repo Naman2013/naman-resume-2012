@@ -605,24 +605,12 @@ class JoinByInviteAccountSignup extends Component {
                                 __html: joinPageRes.invitedBy.heading,
                               }}
                             />
-                            <br />
                             <span
                               className="form-label inviter"
                               dangerouslySetInnerHTML={{
                                 __html: joinPageRes.invitedBy.displayName,
                               }}
                             />
-                            <br />
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  joinPageRes.invitedBy.displayRole +
-                                  ' for ' +
-                                  joinPageRes.invitedBy.organizationName,
-                              }}
-                            />
-                            <br />
                           </div>
                         </div>
                         <div className="form-section split">

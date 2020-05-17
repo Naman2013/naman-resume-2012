@@ -17,6 +17,7 @@ export class MissionTimeSlot extends PureComponent {
       getMissionSlots,
       grabPiggyback,
       editCoordinates,
+      locked,
     } = this.props;
     const {
       slotStatus,
@@ -40,7 +41,7 @@ export class MissionTimeSlot extends PureComponent {
     } = missionStartFormatted;
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
-        ? () => getTelescopeSlot()
+        ? locked ? () => {}:() => getTelescopeSlot()
         : () => {};
 
     const title = showNoReservations ? noReservationsExplanation : slotTitle;

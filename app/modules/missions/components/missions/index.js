@@ -9,8 +9,8 @@ export class Missions extends Component {
   };
 
   fetchData = () => {
-    const { getMissions } = this.props;
-    getMissions();
+    const { getMissions } = this.props;    
+    getMissions(window.location.pathname);
   };
 
   render() {
@@ -40,7 +40,7 @@ export class Missions extends Component {
           showIcon
           renderNav={() => (
             <div className="navigation-bar">
-              <Nav items={navigationConfig} location={location} />
+              <Nav items={navigationConfig} location={location} getMissions={this.props.getMissions}/>
             </div>
           )}
         />

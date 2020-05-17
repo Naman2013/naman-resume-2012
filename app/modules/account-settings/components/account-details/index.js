@@ -83,6 +83,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
               <Row noGutters>
                 <AccountDetailsHeader
                   title={accountDetails.accountDetailsHeading}
+                  showhr={true}
                 />
               </Row>
             </div>
