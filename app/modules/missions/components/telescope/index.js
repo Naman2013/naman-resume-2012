@@ -58,6 +58,7 @@ export class Telescope extends Component {
     const { scheduledMissionId, uniqueId, showHoldOneHourButtonWhenExpanded  } = mission;
     setSelectedSlot(mission);
     getTelescopeSlot({
+      finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
