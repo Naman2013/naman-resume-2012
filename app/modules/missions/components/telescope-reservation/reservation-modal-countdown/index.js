@@ -17,7 +17,7 @@ export class ReservationModalCountdown extends PureComponent {
       showHoldOneHourButtonWhenExpanded,
       showHoldOneHourButton
     } = this.props;    
-    debugger;
+   
     return (
       <div className="reservation-modal-countdown">
         <div className="col-lg-6 countdown">

@@ -29,7 +29,7 @@ export function withSlooh1000(WrappedComponent) {
 
     reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
-      debugger;
+ 
       reserveMissionSlot({
         callSource,
         catName: missionSlot.catName,
