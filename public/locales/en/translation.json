@@ -275,7 +275,10 @@
     "Sorry, there are no stories available for {{objectTitle}} at this time.",
     "ObservationsDetails": "Details",
     "ReadMore": "read more",
-    "ReadLess": "read less"
+    "ReadLess": "read less",
+    "ErrorStatusTitle": "'Houston, we have a problem..'",
+    "ErrorStatusMsg": "The system encountered an unknown error.",
+    "ErrorStatusBtnTxt": "OK"
   },
   "Photos": {
     "PhotoRoll": "Photo roll",

@@ -37,7 +37,7 @@ export class MissionSuccessModal extends Component {
       hasRelatedStory,
       relatedStory = {},
     } = reservedMission;
-  
+
     return (
       <Modal
         show={show}
@@ -53,7 +53,7 @@ export class MissionSuccessModal extends Component {
           {missionSlot && (
             <AvailbleMissionTile
               missionSlot={missionSlot}
-              tip={missionSlot.tip}
+              tip={reservedMissionData.tip}
             />
           )}
 
