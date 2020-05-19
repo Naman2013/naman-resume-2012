@@ -326,7 +326,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               <PurchaseConfirmationMain    
               newHeader={true}
               conditionType={conditionType}   
-              closeModal={()=>{onHide(); window.location.reload();}}  
+              // closeModal={()=>{onHide(); window.location.reload();}}  
+              closeModal={onCloseFunc}
               />
         )}
         
