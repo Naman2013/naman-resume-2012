@@ -165,13 +165,15 @@ const handleIframeTaskUpgrade = (e, props) => {
                //browserHistory.push('/');
               });
             }
+	    else {
+	            /* process / display error to user */
+        	    document
+            		.getElementById('embeddedHostedPaymentForm')
+			.contentWindow.captureActivationError(res);
+	    }
           }
           else{
             props.onError(res);
-            /* process / display error to user */
-            document
-            	.getElementById('embeddedHostedPaymentForm')
-		.contentWindow.captureActivationError(res);
           }
         })
         .catch(err => {
