@@ -35,7 +35,7 @@ const ScheduledByTile = ({ scheduledBy, targetName, likeCount, showJoiningMissio
     </div>
     
     
-    <h4 className="profile-name" onClick={hasLinkFlag ? ()=>{navigateToPublicProfile(linkUrl)} : null} >{scheduledBy}</h4>
+    <h4 className={"profile-name "+ hasLinkFlag ? "cursor-pointer" : ""} onClick={hasLinkFlag ? ()=>{navigateToPublicProfile(linkUrl)} : null} >{scheduledBy}</h4>
     {/* <ul className="list-attributes">
       <li>{targetName}</li>
       <li>

@@ -71,6 +71,10 @@ export default css`
     font-weight: 700;
   }
 
+  .cursor-pointer{
+    cursor: pointer;
+  }
+
   .profile-photo {
     // margin-bottom: 20px;
     border-radius: 50%;
