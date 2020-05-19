@@ -168,6 +168,10 @@ const handleIframeTaskUpgrade = (e, props) => {
           }
           else{
             props.onError(res);
+            /* process / display error to user */
+            document
+            	.getElementById('embeddedHostedPaymentForm')
+		.contentWindow.captureActivationError(res);
           }
         })
         .catch(err => {
