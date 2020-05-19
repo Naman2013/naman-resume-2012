@@ -134,7 +134,7 @@ class Missions extends Component {
       successModalShow,
       missionListExpired,
     } = this.state;
-
+    
     return (
       <Fragment>
         <Spinner loading={isFetching} />
@@ -163,7 +163,7 @@ class Missions extends Component {
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    onClickHandler={() => this.reservationModalShow(item)}
+                    onClickHandler={item.missionAvailable ? () => this.reservationModalShow(item) : null}
                   />
                 </div>
               ))}
