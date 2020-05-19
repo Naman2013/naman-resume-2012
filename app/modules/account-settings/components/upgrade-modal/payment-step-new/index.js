@@ -286,6 +286,7 @@ export const PaymentStepNew = (props: TPaymentStep) => {
                           screenXLarge
                         >
                           <iframe
+			    id="embeddedHostedPaymentForm"
                             frameBorder="0"
                             style={{ width: '100%', minHeight: '750px' }}
                             src={joinPageRes.hostedPaymentFormURL}
