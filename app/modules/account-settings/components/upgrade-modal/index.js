@@ -314,7 +314,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         >
           <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={errorstate.statusTitle} showhr={true}/>
           <div className="container">
-            <h4>{errorstate.debugMsgs} </h4>
+            <h4>{errorstate.statusMessage} </h4>
             </div>
             <div className="actions-err-btn">
           <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null)}} text={errorstate.statusBtnTxt} /> 
