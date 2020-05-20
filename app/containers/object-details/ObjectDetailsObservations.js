@@ -149,9 +149,10 @@ class Observations extends Component {
       isFetching,
       hideTitleSection,
       customClass,
+      params: { groupId },
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
-    const { pages, imageCount, imageList } = sharedMemberPhotos;      
+    const { pages, imageCount, imageList } = sharedMemberPhotos; 
     return (
       <Fragment>
         <Spinner loading={isFetching} />
@@ -200,6 +201,7 @@ class Observations extends Component {
                     customerImageId: image.customerImageId,
                     useShareToken: 'n',
                     callSource: 'sharedPictures',
+                    discussionGroupId: groupId,
                   }}
                   render={({ serviceResponse: imageDetails }) =>
                     !isEmpty(imageDetails) && (
