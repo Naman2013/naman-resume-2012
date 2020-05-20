@@ -48,6 +48,7 @@ export default css`
     font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
+    min-height: 90px;
   }
 
   .details {
@@ -97,7 +98,7 @@ export default css`
     letter-spacing: normal;
     text-transform: capitalize;
     position: relative;
-    top: -5px;
+    // top: -5px;
   }
 
   .reserved-mission-capture {
@@ -110,5 +111,24 @@ export default css`
     text-align: center;
     color: ${lightHeadedAstronaut};
     margin-top: 30px;
+  }
+  .mission-tooltip{
+    margin-left: auto;
+  }
+  .center-div{
+    text-align: center;
+  }
+  .mission-icon{
+    width: 35px;
+    height: 35px;
+    display: unset;  
+    // margin-Top: -15px;  
+  }
+
+  .mission-icon-right{
+    width: 35px;
+    height: 35px; 
+    display: unset;
+    margin-left: 20px;
   }
 `;

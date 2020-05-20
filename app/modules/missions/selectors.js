@@ -509,6 +509,18 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
     state => state.missionListRefreshInterval
   );
 
+export const makeTelescopeMissionTimeStamp = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.timestamp
+  );
+  
+export const makeTelescopeMissionLocalTimeStamp = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.currenttime
+  );
+
 export const makeTelescopeMissionscrollToSMIDSelector = () =>
   createSelector(
     makeByTelescopeSelector(),

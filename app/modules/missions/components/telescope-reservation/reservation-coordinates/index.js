@@ -71,6 +71,7 @@ class Coordinates extends Component {
       navigationConfig,
       selectedSlot,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
     } = this.props;
 
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
@@ -109,6 +110,7 @@ class Coordinates extends Component {
           userHasHold={userHasHold}
           editCoordinates={editCoordinates}
           byTelescope
+          showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
         />
       </div>
     );

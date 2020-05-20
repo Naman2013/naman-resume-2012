@@ -11,6 +11,9 @@ export class ReservationModal extends Component {
       pageSetup,
       navigationConfig,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
+      timestamp,
+      currenttime,
     } = this.props;
     return (
       <Modal
@@ -27,6 +30,9 @@ export class ReservationModal extends Component {
           pageSetup={pageSetup}
           navigationConfig={navigationConfig}
           editCoordinates={editCoordinates}
+          showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+          timestamp={timestamp}
+          currenttime={currenttime}
         />
       </Modal>
     );

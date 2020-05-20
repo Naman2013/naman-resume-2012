@@ -13,7 +13,7 @@
   cursor: auto;
 
   &.reserved {
-    pointer-events: none;
+    // pointer-events: none;
 
     .reserved-mission-capture {
       font-family: $primary-font;
@@ -25,6 +25,18 @@
       height: 40px;
       display: flex;
       align-items: center;
+
+      .mission-tooltip{
+            margin-left: auto;
+            float: right;
+      }
+      
+      .mission-icon{
+        width: 50px;
+        height: 50px;
+        // margin-right: 10px;      
+      }
+
     }
   }
 
@@ -53,7 +65,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    
     .mission-date {
       font-family: $primary-font;
       font-size: 12px;
@@ -79,6 +91,22 @@
     right: -20px;
   }
 
+  .mission-icon{
+    width: 35px;
+    height: 35px;
+    display: unset;    
+  }
+
+  .mission-icon-right{
+    width: 50px;
+    height: 50px; 
+    float: right;
+    margin-left: 20px;
+  }
+  .mission-tooltip{
+    float: right;
+}
+
   .mission-time {
     border-bottom: 1px solid $hawkesBlue;
     padding: 15px 0;
@@ -94,6 +122,7 @@
       .timezone {
         right: unset;
       }
+      
     }
 
     .other {

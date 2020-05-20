@@ -17,3 +17,13 @@
   flex-direction: row-reverse;
   align-items: center;
 }
+
+.container-no-pad{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.thick-shadow{
+  box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5);
+  border: 1px solid #ced2d8;
+}

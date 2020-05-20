@@ -38,7 +38,10 @@ const initialState = {
 
   issueWithUserAccountModalVisible: false,
   subscriptionPlansCallSource: null,
-
+  upsellCallSource: null,
+  upsellReturnLinkLabel: null, 
+  upsellReturnLinkType: null, 
+  upsellReturnLinkUrl: null,
   signInReturnURL: '',
 };
 
@@ -102,11 +105,15 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state, { payload }) {
+  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state, { payload, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl }) {   
     return {
       ...state,
       issueWithUserAccountModalVisible: true,
       subscriptionPlansCallSource: payload,
+      upsellCallSource: upsellCallSource,
+      upsellReturnLinkLabel: upsellReturnLinkLabel, 
+      upsellReturnLinkType: upsellReturnLinkType, 
+      upsellReturnLinkUrl: upsellReturnLinkUrl
     };
   },
   [HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {

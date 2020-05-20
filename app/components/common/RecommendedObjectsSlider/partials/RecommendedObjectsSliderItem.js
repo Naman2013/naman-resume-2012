@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../style/buttons/Button';
-
+import { Tooltip } from 'react-tippy';
 import styles from './RecommendedObjectsSliderItem.style';
 
 const getIconStyle = iconURL => ({
@@ -29,13 +29,16 @@ const RecommendedObjectsItem = ({
     telescopeName,
     missionAvailable,
     userHasReservation,
+    showJoiningMission,
+    joiningMissionTooltipText,
+    joiningMissionIconURL,
   } = object;
   const {
     displayWeekdayMonthDayYearUTC,
     displayTime,
     displayTimeZone,
   } = missionStartFormatted;
-
+  
   return (
     <div className="card-object">
       <div className="object-icon">
@@ -61,16 +64,35 @@ const RecommendedObjectsItem = ({
           <div className="telescope-name">{telescopeName}</div>
         </div>
       </div>
-      {missionAvailable && !userHasReservation && !readOnly && (
+      <div className="center-div">
+      {missionAvailable && !userHasReservation && !readOnly && [(
         <Button
           onClickEvent={() => reservationModalShow(object)}
           text={optionsButtonCaption}
-          theme={{ margin: '30px auto 0', width: '140px' }}
-        />
-      )}
-
+          theme={{ margin: '30px auto 0', width: '140px', display: 'inline-flex' }}
+        />),
+        (showJoiningMission ? ( 
+              <Tooltip
+              className="mission-tooltip"
+              title={joiningMissionTooltipText}
+              position="top"
+              theme="light">
+                  <img alt="" className="mission-icon-right" src={joiningMissionIconURL} />
+              </Tooltip>) : null)
+      ]}
+      </div>
       {userHasReservation && reservedButtonCaption && (
-        <div className="reserved-mission-capture">{reservedButtonCaption}</div>
+        <div className="reserved-mission-capture">
+          {/* {reservedButtonCaption} */}
+          {showJoiningMission ? ( 
+              <Tooltip
+              className="mission-tooltip"
+              title={joiningMissionTooltipText}
+              position="top"
+              theme="light">
+                  <img alt="" className="mission-icon" src={joiningMissionIconURL} />
+              </Tooltip>) : null}
+          </div>
       )}
       <style jsx>{styles}</style>
     </div>

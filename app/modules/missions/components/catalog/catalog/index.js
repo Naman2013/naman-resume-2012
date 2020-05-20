@@ -11,6 +11,11 @@ export class Catalog extends Component {
     successModalShow: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.successModalShow !== this.state.successModalShow)
+      window.scrollTo(0,0);
+  }
+
   componentDidMount = () => {
     const { getCatalogList } = this.props;
     getCatalogList({ callSource: 'byCatalogV4' });
@@ -93,7 +98,7 @@ export class Catalog extends Component {
       <div className="catalog">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <Box>
                 <CatalogSetup
                   catalogListOpts={catalogListOpts}
@@ -115,7 +120,7 @@ export class Catalog extends Component {
               </Box>
             </div>
             <div
-              className="col-lg-4 reserved-mission"
+              className="col-lg-12 reserved-mission"
               ref={node => (this.grabedMissionTile = node)}
             >
               <Box inside>

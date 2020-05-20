@@ -6,10 +6,10 @@ export default function* watchGetPurchaseConfirmation() {
   yield takeLatest(TYPE.GET_PURCHASE_CONFIRMATION, getPurchaseConfirmation);
 }
 
-export function* getPurchaseConfirmation() {
+export function* getPurchaseConfirmation(conditionType: any) {
   try {
     const { at, token, cid } = yield select(state => state.user);
-    const payload = { at, token, cid };
+    const payload = { at, token, cid, conditionType: conditionType.payload };
     const resp = yield call(getPurchaseConfirmationApi, payload);
     yield put(ACTION.getPurchaseConfirmationSuccess(resp.data));
   } catch (error) {

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import './styles.scss';
 
 export class FeaturedObjectCard extends PureComponent {
@@ -17,13 +18,17 @@ export class FeaturedObjectCard extends PureComponent {
       objectIconURL,
       missionAvailable,
       userHasReservation,
+      showJoiningMission,
+      joiningMissionTooltipText,
+      joiningMissionIconURL,
+      telescopeName,
     } = featureObject;
     const {
       displayTime,
       displayTimeZone,
       displayWeekdayMonthDayUTC,
     } = missionStartFormatted;
-
+    
     return (
       <div
         className={`featured-object-card${
@@ -39,23 +44,31 @@ export class FeaturedObjectCard extends PureComponent {
           <div className="large">
             {displayTime}
             <span className="timezone">{displayTimeZone}</span>
-          </div>
+            {showJoiningMission ? (   
+              <Tooltip
+              className="mission-tooltip"
+              title={joiningMissionTooltipText}
+              position="top"
+              theme="light">
+                  <img alt="" className="mission-icon-right" src={joiningMissionIconURL} />
+              </Tooltip>) : null}
+          </div>          
         </div>
 
         <div className="featured-object-card-footer">
           <div className="mission-date">{displayWeekdayMonthDayUTC}</div>
-
+          <div className="mission-date">{ telescopeName }</div>
           {missionAvailable && !userHasReservation && !readOnly && (
             <Button className="option-btn" onClick={onOptionClick}>
               {optionsButtonCaption || 'Options'}
             </Button>
-          )}
+            )}
 
-          {userHasReservation && reservedButtonCaption && (
+          {/* {userHasReservation && reservedButtonCaption && (
             <div className="reserved-mission-capture">
-              {reservedButtonCaption}
+              {reservedButtonCaption}             
             </div>
-          )}
+          )} */}
         </div>
       </div>
     );

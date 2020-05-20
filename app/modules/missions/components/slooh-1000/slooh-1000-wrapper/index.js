@@ -23,12 +23,13 @@ export function withSlooh1000(WrappedComponent) {
         obsId: selectedObjectData.obsId,
         scheduledMissionId: selectedObjectData.scheduledMissionId,
         telescopeId: selectedObjectData.telescopeId,
+        slotType: selectedObjectData.slotType,
       }).then(callback);
     };
 
     reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
-
+ 
       reserveMissionSlot({
         callSource,
         catName: missionSlot.catName,
@@ -52,6 +53,7 @@ export function withSlooh1000(WrappedComponent) {
         telescopeId: missionSlot.telescopeId,
         telescopeName: missionSlot.telescopeName,
         uniqueId: missionSlot.uniqueId,
+        slotType: missionSlot.slotType,
       }).then(callback);
     };
 

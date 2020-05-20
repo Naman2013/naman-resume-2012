@@ -30,7 +30,7 @@ export class RecommendedObjects extends Component {
   getDashboardFeaturedObjects = () => {
     const { getDashboardFeaturedObjects } = this.props;
     stopFeaturedObjectsExpireTimer();
-    getDashboardFeaturedObjects().then(({ payload }) => {
+    getDashboardFeaturedObjects('').then(({ payload }) => {
       const timerTime = payload.expires - payload.timestamp;
       setupFeaturedObjectsExpireTimer(timerTime, () =>
         this.getDashboardFeaturedObjects()

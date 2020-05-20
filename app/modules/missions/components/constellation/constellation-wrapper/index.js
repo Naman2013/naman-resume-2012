@@ -23,6 +23,7 @@ export function withConstellation(WrappedComponent) {
         obsId: selectedObjectData.obsId,
         scheduledMissionId: selectedObjectData.scheduledMissionId,
         telescopeId: selectedObjectData.telescopeId,
+        slotType: selectedObjectData.slotType,
       }).then(callback);
     };
 
@@ -52,6 +53,7 @@ export function withConstellation(WrappedComponent) {
         telescopeId: missionSlot.telescopeId,
         telescopeName: missionSlot.telescopeName,
         uniqueId: missionSlot.uniqueId,
+        slotType: missionSlot.slotType,
       }).then(callback);
     };
 
