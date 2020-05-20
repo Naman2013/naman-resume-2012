@@ -5,8 +5,14 @@ import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
+import { getMissions } from 'app/modules/missions/thunks';
 
 export class Slooh1000Setup extends Component {
+
+  state={
+    showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+  
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
@@ -24,6 +30,10 @@ export class Slooh1000Setup extends Component {
       </div>
     );
   };
+  // callgetMissionSlot(){
+  //   const {selectedObjectId, getMissionSlot} = this.props;   
+  //   selectedObjectId ? getMissionSlot() : setTimeout(this.callgetMissionSlot.bind(this), 1000);;    
+  // }
 
   render() {
     const {
@@ -47,6 +57,7 @@ export class Slooh1000Setup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
+      showHoldOneHourButtonWhenExpanded
     } = this.props;
     const {
       header,
@@ -59,7 +70,9 @@ export class Slooh1000Setup extends Component {
       step3Tooltip,
       subheader,
     } = pageConfig;
-
+    
+    const { showHoldOneHourButton } = this.state;
+    
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
@@ -74,22 +87,24 @@ export class Slooh1000Setup extends Component {
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
               userHasHold={userHasHold}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+              showHoldOneHourButton={showHoldOneHourButton}
             />
           )}
         </div>
 
         <div className="steps row">
           <div className="col-sm-6 step-1">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
                   <span>{step1Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step1Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
               handleChange={setCategory}
               options={categoryListOpts}
@@ -101,17 +116,18 @@ export class Slooh1000Setup extends Component {
           </div>
 
           <div className="col-sm-6 step-2">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
                   <span>{step2Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step2Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
             <Select
+              // handleChange={(e)=>{setObject(e); this.callgetMissionSlot()}}
               handleChange={setObject}
               options={objectListOpts}
               placeholder={choosePrompt}
@@ -132,8 +148,8 @@ export class Slooh1000Setup extends Component {
               </div>
             )}
           </div>
-        </div>
-
+        </div>      
+        
         <div className="steps row">
           <div className="col-sm-6 messages">
             <OverlayTrigger
@@ -151,7 +167,7 @@ export class Slooh1000Setup extends Component {
           <div className="col-sm-6 step-3">
             <Button
               text={step3ButtonCaption}
-              onClickEvent={getMissionSlot}
+              onClickEvent={()=>{getMissionSlot(); this.setState({showHoldOneHourButton:false});}}
               disabled={!selectedCategorySlug || !selectedObjectId || disabled}
             />
           </div>

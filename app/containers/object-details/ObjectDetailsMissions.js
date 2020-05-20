@@ -37,6 +37,11 @@ import DeviceProvider from '../../providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../components/common/CenterColumn';
 import './ObjectDetailsMissions.scss';
+import Button1 from 'app/components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import Popup from 'react-modal';
+import { AccountDetailsHeader } from 'app/modules/account-settings/components/account-details/header';
+
 
 const mapStateToProps = createStructuredSelector({
   missionData: makeObjectDetailsMissionsSelector(),
@@ -63,6 +68,7 @@ class Missions extends Component {
     selectedMission: {},
     successModalShow: false,
     missionListExpired: false,
+    errorPopup: false,
   };
 
   componentDidMount() {
@@ -98,8 +104,13 @@ class Missions extends Component {
       callSource,
       scheduledMissionId,
       missionStart,
-    }).then(() =>
-      this.setState({ successModalShow: true, reservationModalVisible: false })
+    }).then(() =>{
+      const { reservedCommunityMissionData } = this.props;
+      if(reservedCommunityMissionData.apiError)
+        this.setState({reservationModalVisible: false, errorPopup: true});
+      else
+         this.setState({ successModalShow: true, reservationModalVisible: false });
+    }
     );
   };
 
@@ -125,7 +136,7 @@ class Missions extends Component {
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
-      isFetching,
+      isFetching,      
     } = this.props;
     const { missionCount, missionList, explanation } = missionData;
     const {
@@ -133,8 +144,9 @@ class Missions extends Component {
       selectedMission,
       successModalShow,
       missionListExpired,
+      errorPopup,
     } = this.state;
-
+    
     return (
       <Fragment>
         <Spinner loading={isFetching} />
@@ -163,7 +175,7 @@ class Missions extends Component {
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    onClickHandler={() => this.reservationModalShow(item)}
+                    onClickHandler={item.missionAvailable ? () => this.reservationModalShow(item) : null}
                   />
                 </div>
               ))}
@@ -187,10 +199,38 @@ class Missions extends Component {
         <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
-          reservedMissionData={selectedMission}
+          reservedMissionData={reservedCommunityMission}
           reservedMission={reservedCommunityMissionData}
           missionSlot={reservedCommunityMission}
         />
+
+        {errorPopup &&(
+          <Popup
+          // ariaHideApp={false}
+          isOpen={true}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Error"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={()=>{this.setState({errorPopup: false})}}
+          >
+          <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={t('Objects.ErrorStatusTitle')} showhr={true}/>
+          <div className="container">
+            <h4>{t('Objects.ErrorStatusMsg')} </h4>
+            </div>
+            <div className="actions-err-btn">
+          <Button1 onClickEvent={()=>{this.setState({errorPopup: false})}} text={t('Objects.ErrorStatusBtnTxt')} /> 
+          </div>
+          </Popup>
+        )}
+        )}
+        <style jsx>{`         
+          .actions-err-btn{
+            display: flex;       
+            justify-content: center;   
+            height: 39px;  
+            margin-top: 20px;
+          }
+        `}</style>
       </Fragment>
     );
   }

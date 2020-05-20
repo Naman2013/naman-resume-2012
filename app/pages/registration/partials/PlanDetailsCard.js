@@ -31,11 +31,12 @@ const PlanDetailsCard = props => {
     planName,
     planId,
     startDateText,
+    flexClass,
   } = props;
 
   return (
     <div className="root">
-      <div className="flex">
+      <div className={flexClass || "flex"}>
         <div className="plan-details-container">
           <div
             className="plan-name "

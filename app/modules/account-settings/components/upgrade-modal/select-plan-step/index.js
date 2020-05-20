@@ -40,7 +40,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
       {subscriptionPlans.map(plan => (
         <SubscriptionPlan
           plan={plan}
-          expanded={Boolean(selectedPlan)}
+          expanded={false}
           onSelect={onSelect}
         />
       ))}

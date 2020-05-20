@@ -120,7 +120,7 @@ export const updateTelescopeActiveMission = ({
   const { queueTab, telescopeActiveTab } = getState().telescope;
   const { currentObservatory, currentTelescope } = getState().telescopeDetails;
   const { upcomingSlotsData } = queueTab;
-
+ 
   dispatch(
     fetchingMissionData({
       telescopeId,
@@ -141,12 +141,12 @@ export const updateTelescopeActiveMission = ({
       format,
       scheduledMissionId,
     })
-    .then(result => {
+    .then(result => {    
       if (format === FORMAT_COMPACT) {
         dispatch(
           updateActiveMissionCompact({ telescopeId, payload: result.data })
         );
-        if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+        if(telescopeActiveTab === "1") { // 1 === QUEUE TAB INDEX
           dispatch(
             getUpcomingSlotsByTelescope({
               callSource: 'onlineQueue',
@@ -190,7 +190,7 @@ export const updateTelescopeActiveMission = ({
             }
           }
 
-          if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+          if(telescopeActiveTab === "1") { // 1 === QUEUE TAB INDEX
             dispatch(
               getUpcomingSlotsByTelescope({
                 callSource: 'onlineQueue',

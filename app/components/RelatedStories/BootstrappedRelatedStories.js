@@ -38,11 +38,11 @@ class BootstrappedRelatedStories extends Component {
     };
 
     const theme = isMobile ? mobileStyles : nonMobileStyles;
-
+    
     return (
       <div className="root">
         {relatedStoriesList.map(item => (
-          <Link to={item.linkUrl} key={`story-${item.showId}`}>
+          <Link to={item.linkUrl} key={`story-${item.postId}`}>
             <AveryTile
               title={item.title}
               iconUrl={item.imageUrl}

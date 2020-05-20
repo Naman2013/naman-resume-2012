@@ -330,16 +330,16 @@ export class CoordinatesCalculation extends PureComponent {
     return (
       <div className="steps row">
         <div className="col-sm-12 step-2">
-          <OverlayTrigger
+          {/* <OverlayTrigger
             placement="top"
             overlay={
               <Tooltip id="tooltip-step2">
                 <span>{step2Tooltip}</span>
               </Tooltip>
             }
-          >
+          > */}
             <span>{step2Title}</span>
-          </OverlayTrigger>
+          {/* </OverlayTrigger> */}
 
           <div className="input-row">
             <div className="row-title col-md-1">{step2RAHMSPrompt.RA}</div>

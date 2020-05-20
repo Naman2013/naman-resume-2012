@@ -129,15 +129,15 @@ const handleIframeTaskUpgrade = (e, props) => {
           const res = response.data;
           if (!res.apiError) {
             if (res.status === 'success') {
-
+              
               fireSloohGAPageview({ pagePath: "/join/purchaseConfirmation/" + res.conditionType });	
 
-		//fire off the Purchase Facebook Event
-		fireSloohFBPurchaseEvent( {
-			cid: getUserInfo().cid, 
-			planName: res.PlanName,
-			planCostInUSD: res.PlanCostInUSD,
-		});
+              //fire off the Purchase Facebook Event
+              fireSloohFBPurchaseEvent( {
+                cid: getUserInfo().cid, 
+                planName: res.PlanName,
+                planCostInUSD: res.PlanCostInUSD,
+              });
 
 		//clean up any session or marketing tracking id
 		deleteSessionToken();
@@ -156,14 +156,24 @@ const handleIframeTaskUpgrade = (e, props) => {
               //upgradeCustomer needs to return new "AT"
               //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
               props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-                props.closeModal(true);
+                props.onSuccess(res);
+              //   props.closeModal(true);
 
-               let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-               browserHistory.push( confirmationPageURL );
+              //  let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+              //  browserHistory.push( confirmationPageURL );
 
                //browserHistory.push('/');
               });
             }
+	    else {
+	            /* process / display error to user */
+        	    document
+            		.getElementById('embeddedHostedPaymentForm')
+			.contentWindow.captureActivationError(res);
+	    }
+          }
+          else{
+            props.onError(res);
           }
         })
         .catch(err => {
@@ -175,8 +185,8 @@ const handleIframeTaskUpgrade = (e, props) => {
 
 type TPaymentStep = { selectedPlan?: Shape };
 
-export const PaymentStep = (props: TPaymentStep) => {
-  const { selectedPlan, conditionType } = props;
+export const PaymentStepNew = (props: TPaymentStep) => {
+  const { selectedPlan, conditionType} = props;
   const selectedPlanId = selectedPlan.planID;
   const { t } = useTranslation();
   const pathname = '';
@@ -209,7 +219,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                   <Fragment>
                     <h1 className="modal-h">{joinPageRes.pageHeading1}</h1>
                     <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
-                      <JoinHeader
+                      {/* <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
                         showHeading={false}
@@ -228,8 +238,10 @@ export const PaymentStep = (props: TPaymentStep) => {
                                 ?.planSelectedBackgroundImageUrl_Tablet
                             : ''
                         }
-                      />
-                    <div style={{ marginTop: '-100px' }} className="step-root">
+                      /> */}
+                    <div 
+                    // style={{ marginTop: '-100px' }} 
+                    className="step-root-new">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
@@ -274,6 +286,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                           screenXLarge
                         >
                           <iframe
+			    id="embeddedHostedPaymentForm"
                             frameBorder="0"
                             style={{ width: '100%', minHeight: '750px' }}
                             src={joinPageRes.hostedPaymentFormURL}

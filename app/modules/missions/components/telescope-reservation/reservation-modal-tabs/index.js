@@ -10,10 +10,12 @@ import './styles.scss';
 export class ReservationModalTabs extends PureComponent {
   constructor(props) {
     super(props);
-    const { selectedSlot } = this.props;
-    const expiresCountdown = selectedSlot.expires * 1000 - Date.now();
+    const { selectedSlot, timestamp,currenttime } = this.props;
+    // const expiresCountdown = selectedSlot.expires * 1000 - Date.now();     
+    const expiresCountdown= (((selectedSlot.expires * 1000 ) + (currenttime-(timestamp*1000))) - new Date().getTime());    
     this.state = {
-      countdown: selectedSlot.expires ? expiresCountdown : 300000,
+      countdown: selectedSlot.expires && expiresCountdown < 300000 ? expiresCountdown :  300000,
+      // countdown:  300000,
     };
   }
 
@@ -62,9 +64,10 @@ export class ReservationModalTabs extends PureComponent {
       navigationConfig,
       editCoordinates,
       grabUpdatedSlot,
+      showHoldOneHourButtonWhenExpanded,       
     } = this.props;
     const { countdown } = this.state;
-
+    
     return (
       <div className="reservation-modal-tabs">
         <Tabs
@@ -99,6 +102,7 @@ export class ReservationModalTabs extends PureComponent {
               scrollToGrabbedMission={scrollToGrabbedMission}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
@@ -123,6 +127,7 @@ export class ReservationModalTabs extends PureComponent {
               scrollToGrabbedMission={scrollToGrabbedMission}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
@@ -148,6 +153,7 @@ export class ReservationModalTabs extends PureComponent {
               scrollToGrabbedMission={scrollToGrabbedMission}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig}
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">
@@ -177,6 +183,7 @@ export class ReservationModalTabs extends PureComponent {
               editCoordinates={editCoordinates}
               grabUpdatedSlot={grabUpdatedSlot}
               byTelescope
+              showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
             />
           </Tab>
         </Tabs>

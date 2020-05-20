@@ -20,6 +20,12 @@ export default css`
     color: ${astronaut};
   }
 
+  .step-root-new {
+    margin: 0 auto;
+    width: 100%;
+    color: ${astronaut};
+  }
+
   .inner-container {
     padding: 25px;
     width: 100%;
@@ -40,6 +46,10 @@ export default css`
   @media ${screenMedium} {
     .step-root {
       width: 600px;
+    }
+
+    .step-root-new {
+      width: 100%;
     }
   }
 `;

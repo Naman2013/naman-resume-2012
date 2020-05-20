@@ -101,6 +101,9 @@ export class ReservationModalContent extends Component {
       pageSetup,
       navigationConfig,
       editCoordinates,
+      showHoldOneHourButtonWhenExpanded,
+      timestamp,
+      currenttime,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
@@ -137,7 +140,7 @@ export class ReservationModalContent extends Component {
 
         <div className="telescope-reservation-modal-content">
           <div className="row">
-            <div className="col-lg-8 setup-block">
+            <div className="col-lg-12 setup-block">
               <Box>
                 <ReservationModalSlotInfo
                   timeSlot={selectedSlot}
@@ -153,12 +156,15 @@ export class ReservationModalContent extends Component {
                   scrollToGrabbedMission={this.scrollToGrabbedMission}
                   pageSetup={pageSetup}
                   navigationConfig={navigationConfig}
+                  showHoldOneHourButtonWhenExpanded={showHoldOneHourButtonWhenExpanded}
+                  timestamp={timestamp}
+                  currenttime={currenttime}
                 />
               </Box>
             </div>
 
             <div
-              className="col-lg-4 reserved-mission"
+              className="col-lg-12 reserved-mission"
               ref={node => (this.grabedMissionTile = node)}
             >
               <Box inside>
