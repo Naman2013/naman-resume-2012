@@ -144,8 +144,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       browserHistory.push('/');
       window.location.reload();
     }
-    setButtonText("CLOSE");
     setStep("FINAL");
+    setButtonText("CLOSE");    
   }
 
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
@@ -186,16 +186,24 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     props.subscriptionPlansCallSource == 'expired' ||
     props.subscriptionPlansCallSource == 'expiredrecently'
   ) {
-    if(buttonText!=='LOGOUT')
-      setButtonText('LOGOUT');    
-    onCloseFunc = dispatch => {
-      //Force Logout the User - They have opted to not buy a Slooh Plan
-      destroySession();
-      removeUser();
-      onHide();
-      browserHistory.push('/');
-      window.location.reload();
-    };    
+    if(buttonText!=='LOGOUT' && step !== "FINAL"){
+        setButtonText('LOGOUT');    
+        onCloseFunc = dispatch => {
+        //Force Logout the User - They have opted to not buy a Slooh Plan
+        destroySession();
+        removeUser();
+        onHide();
+        browserHistory.push('/');
+        window.location.reload();
+        };    
+    } 
+    else{
+      onCloseFunc = ()=> {      
+        onHide();      
+        window.location.reload();
+      }
+    }   
+
   } 
   
   if(returnLinkType === "navigate"){    

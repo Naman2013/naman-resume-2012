@@ -64,118 +64,117 @@ const CountdownExpiredComplete = (props) => {
   
 };
 
-const handleIframeTaskUpgrade = (e, props) => {
-  /* Verify there is data in this event) */
-  if (e.data) {
-    const paymentMessageData = `${e.data}`;
-
-    let paymentMethod = 'creditcard';
-    let paymentNonceTokenData = null;
-    //console.log(paymentMessageData);
-    let paymentDataString = paymentMessageData.split(
-      '!952bccf9afe8e4c04306f70f7bed6610'
-    );
-
-    //console.log(paymentDataString);
-    /* make sure the data message we received is an ECommerce Payment Token */
-    if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
-      //Check to see if the payment token is a credit card payment token or a paypal payment token
-      if (
-        paymentDataString[0].startsWith(
-          '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
-        )
-      ) {
-        paymentNonceTokenData = String.prototype.replace.call(
-          paymentDataString[0],
-          '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
-          ''
-        );
-        paymentMethod = 'creditcard';
-      } else if (
-        paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
-      ) {
-        paymentNonceTokenData = String.prototype.replace.call(
-          paymentDataString[0],
-          '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
-          ''
-        );
-
-        paymentMethod = 'paypal';
-      }
-      //console.log('Payment Token:' + paymentNonceTokenData);
-
-      //console.log('Payment Token!! ' + paymentNonceTokenData);
-
-      //determine if there is a sslooh marketing tracking id
-      const { _sloohatid } = getUserInfo();
-
-      /* Process the Customer's Activation and Sign the User into the website */
-      const upgradeCustomerData = {
-        cid: getUserInfo().cid,
-        at: getUserInfo().at,
-        token: getUserInfo().token,
-        customerId: getUserInfo().cid,
-        selectedPlanId: paymentDataString[1],
-        conditionType: paymentDataString[2],
-        paymentMethod,
-        paymentToken: paymentNonceTokenData,
-        billingAddressString: paymentDataString[3],
-        isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-	sloohMarketingTrackingId: _sloohatid,
-      };
-      //add string aboc to this //ADD THIS BACK AFTER TESTING
-      API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
-        .then(response => {
-          const res = response.data;
-          if (!res.apiError) {
-            if (res.status === 'success') {
-
-              fireSloohGAPageview({ pagePath: "/join/purchaseConfirmation/" + res.conditionType });	
-
-		//fire off the Purchase Facebook Event
-		fireSloohFBPurchaseEvent( {
-			cid: getUserInfo().cid, 
-			planName: res.PlanName,
-			planCostInUSD: res.PlanCostInUSD,
-		});
-
-		//clean up any session or marketing tracking id
-		deleteSessionToken();
-		deleteMarketingTrackingId();
-
-              //Cleanup local localStorage
-              window.localStorage.removeItem('pending_cid');
-              window.localStorage.removeItem('selectedPlanId');
-              window.localStorage.removeItem('isAstronomyClub');
-
-              /* cleanup local storage */
-              window.localStorage.removeItem('accountCreationType');
-              window.localStorage.removeItem('username');
-              window.localStorage.removeItem('password');
-
-              //upgradeCustomer needs to return new "AT"
-              //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
-              props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
-                props.closeModal(true);
-
-               let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
-               browserHistory.push( confirmationPageURL );
-
-               //browserHistory.push('/');
-              });
-            }
-          }
-        })
-        .catch(err => {
-          throw ('Error: ', err);
-        });
-    } //end token payment decision processing (credit card vs. paypal)
-  } //end e.data
-}; //end handleIframeTaskUpgrade
-
 type TPaymentStep = { selectedPlan?: Shape };
 
 export const PaymentStep = (props: TPaymentStep) => {
+  const handleIframeTaskUpgrade = (e) => {
+    /* Verify there is data in this event) */
+    if (e.data) {
+      const paymentMessageData = `${e.data}`;
+  
+      let paymentMethod = 'creditcard';
+      let paymentNonceTokenData = null;
+      //console.log(paymentMessageData);
+      let paymentDataString = paymentMessageData.split(
+        '!952bccf9afe8e4c04306f70f7bed6610'
+      );
+  
+      //console.log(paymentDataString);
+      /* make sure the data message we received is an ECommerce Payment Token */
+      if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+        //Check to see if the payment token is a credit card payment token or a paypal payment token
+        if (
+          paymentDataString[0].startsWith(
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
+          )
+        ) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentDataString[0],
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
+            ''
+          );
+          paymentMethod = 'creditcard';
+        } else if (
+          paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
+        ) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentDataString[0],
+            '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
+            ''
+          );
+  
+          paymentMethod = 'paypal';
+        }
+        //console.log('Payment Token:' + paymentNonceTokenData);
+  
+        //console.log('Payment Token!! ' + paymentNonceTokenData);
+  
+        //determine if there is a sslooh marketing tracking id
+        const { _sloohatid } = getUserInfo();
+        window.removeEventListener('message', handleIframeTaskUpgrade);
+        /* Process the Customer's Activation and Sign the User into the website */
+        const upgradeCustomerData = {
+          cid: getUserInfo().cid,
+          at: getUserInfo().at,
+          token: getUserInfo().token,
+          customerId: getUserInfo().cid,
+          selectedPlanId: paymentDataString[1],
+          conditionType: paymentDataString[2],
+          paymentMethod,
+          paymentToken: paymentNonceTokenData,
+          billingAddressString: paymentDataString[3],
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+    sloohMarketingTrackingId: _sloohatid,
+        };
+        //add string aboc to this //ADD THIS BACK AFTER TESTING
+        API.post(UPGRADE_CUSTOMER_ENDPOINT_URL, upgradeCustomerData)
+          .then(response => {
+            const res = response.data;
+            if (!res.apiError) {
+              if (res.status === 'success') {
+  
+                fireSloohGAPageview({ pagePath: "/join/purchaseConfirmation/" + res.conditionType });	
+  
+      //fire off the Purchase Facebook Event
+      fireSloohFBPurchaseEvent( {
+        cid: getUserInfo().cid, 
+        planName: res.PlanName,
+        planCostInUSD: res.PlanCostInUSD,
+      });
+  
+      //clean up any session or marketing tracking id
+      deleteSessionToken();
+      deleteMarketingTrackingId();
+  
+                //Cleanup local localStorage
+                window.localStorage.removeItem('pending_cid');
+                window.localStorage.removeItem('selectedPlanId');
+                window.localStorage.removeItem('isAstronomyClub');
+  
+                /* cleanup local storage */
+                window.localStorage.removeItem('accountCreationType');
+                window.localStorage.removeItem('username');
+                window.localStorage.removeItem('password');
+  
+                //upgradeCustomer needs to return new "AT"
+                //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
+                props.storeUserNewAT(res.newAccountTypeNbr).then(() => {
+                  props.closeModal(true);
+  
+                 let confirmationPageURL = '/join/purchaseConfirmation/' + res.conditionType;
+                 browserHistory.push( confirmationPageURL );
+  
+                 //browserHistory.push('/');
+                });
+              }
+            }
+          })
+          .catch(err => {
+            throw ('Error: ', err);
+          });
+      } //end token payment decision processing (credit card vs. paypal)
+    } //end e.data
+  }; //end handleIframeTaskUpgrade
   const { selectedPlan, conditionType } = props;
   const selectedPlanId = selectedPlan.planID;
   const { t } = useTranslation();
@@ -184,8 +183,8 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.removeEventListener('message', e => handleIframeTaskUpgrade(e, props));
-  window.addEventListener('message', e => handleIframeTaskUpgrade(e, props));
+  window.removeEventListener('message', handleIframeTaskUpgrade);
+  window.addEventListener('message', handleIframeTaskUpgrade);
 
   return (
     <>
