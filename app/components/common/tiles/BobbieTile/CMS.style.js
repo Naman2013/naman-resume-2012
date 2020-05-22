@@ -186,6 +186,17 @@ export default css`
     font-weight: bold;
   }
 
+  .__html-blob-content-container__ :global(sup) {
+    font-size: 0.8em !important;
+    top: 0.3em; 
+  }
+
+  .__html-blob-content-container__ :global(sub) {
+    bottom: -1.35em;
+    font-size: 0.8em !important;
+    padding-left: 0px !important;
+  }
+
   @media ${screenMedium} {
     .__html-blob-content-container__,
     .read-duration {
