@@ -188,11 +188,11 @@ export default css`
 
   .__html-blob-content-container__ :global(sup) {
     font-size: 0.8em !important;
-    top: 0.3em; 
+    top: 0.6em; 
   }
 
   .__html-blob-content-container__ :global(sub) {
-    bottom: -1.35em;
+    bottom: -1.45em;
     font-size: 0.8em !important;
     padding-left: 0px !important;
   }
