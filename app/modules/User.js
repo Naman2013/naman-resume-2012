@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
-export const EXPIRATION_DAYS = 90;
+export const EXPIRATION_DAYS = 7;
 export const COOKIE_PATH = '/';
 export const futureDate = moment()
   .add(EXPIRATION_DAYS, 'day')
