@@ -262,6 +262,9 @@ const GroupsHeader = ({
 
           .header-img {
             transform: translateY(-90%);
+	    margin-top: 175px;
+	    min-height: 190px;
+	    min-width: auto;
           }
 
           .image-and-main-container {
