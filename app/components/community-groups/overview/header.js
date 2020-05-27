@@ -49,22 +49,25 @@ const GroupsHeader = ({
   pendingPrompt,
   pendingPromptFlag,
   headerGraphic,
+  headerGraphicContainerBackgroundColor,
   headerGraphicBackgroundColor,
 }) => {
   const { t } = useTranslation();
 
+  const headerGraphicContainerStyle = {
+	backgroundColor: headerGraphicContainerBackgroundColor,
+  }
+
   const headerGraphicStyle = {
-    backgroundColor: headerGraphicBackgroundColor,
-    maxWidth: 300,
-    maxHeight: 200,
+	backgroundColor: headerGraphicBackgroundColor,
   }
 
   return (
     <div className="root">
       <div className="image-and-main-container">
         {!condensed ? (
-          <div style={headerGraphicStyle} className="groups-header-image">
-	    <img className="header-img" src={headerGraphic}/>
+          <div style={headerGraphicContainerStyle} className="groups-header-image">
+	    <img style={headerGraphicStyle} className="header-img" src={headerGraphic}/>
           </div>
         ) : null}
         <div className="main-container">
