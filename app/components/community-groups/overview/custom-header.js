@@ -73,7 +73,7 @@ const CustomGroupsHeader = ({
         ) : null}
         <div className="main-container">
           <div
-            className="groups-header-title desktop-hide"
+            className="groups-header-title desktop-hide textCenter"
             dangerouslySetInnerHTML={{ __html: title }}
           />
           <LabeledTitleTiles
@@ -200,6 +200,10 @@ const CustomGroupsHeader = ({
           font-family: ${secondaryFont};
         }
 
+        .textCenter{
+          text-align: center;
+        }
+
         .groups-header-information {
           font-family: ${secondaryFont};
           font-size: 19px;
@@ -302,7 +306,7 @@ const CustomGroupsHeader = ({
           }
 
           .customImage{
-            width: 100%;
+            width: 90%;
             height: 100%;
           }
 

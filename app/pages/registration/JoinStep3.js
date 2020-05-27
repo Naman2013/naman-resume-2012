@@ -124,6 +124,8 @@ class JoinStep3 extends Component {
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
           isAstronomyClub:
             window.localStorage.getItem('isAstronomyClub') === 'true',
+            clubCodeA: window.localStorage.getItem('clubCodeA'),
+            clubCodeB: window.localStorage.getItem('clubCodeB'),
           billingAddressString: paymentDataString[3],
 	  sloohSiteSessionToken: _sloohsstkn,
 	  sloohMarketingTrackingId: _sloohatid,
@@ -155,7 +157,8 @@ class JoinStep3 extends Component {
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('isAstronomyClub');
-
+                window.localStorage.removeItem('clubCodeA');
+                window.localStorage.removeItem('clubCodeB');
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;
                 if (accountCreationType === 'userpass') {
@@ -168,6 +171,7 @@ class JoinStep3 extends Component {
                   window.localStorage.removeItem('accountCreationType');
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
+                 
 
                   actions.logUserIn(loginDataPayload, {reload: false}).then(() => {
                     browserHistory.push('/join/purchaseConfirmation/join');

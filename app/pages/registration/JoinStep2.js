@@ -1193,14 +1193,14 @@ class JoinStep2 extends Component {
                                     }}
                                   />
                                   : {joinPageRes.formFieldLabels.discussionGroupCode.hintText}
-                                  <span
+                                  {/* <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         accountFormDetails.discussionGroupCode
                                           .errorText,
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div className="flex-container">
                                   <div className="form-field-quater">
@@ -1239,6 +1239,14 @@ class JoinStep2 extends Component {
                                     />
                                   </div>
                                 </div>
+                                <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.discussionGroupCode
+                                          .errorText,
+                                    }}
+                                  />
                               </div>
                             ) : null}
 
