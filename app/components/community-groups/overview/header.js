@@ -48,17 +48,23 @@ const GroupsHeader = ({
   updatePrompt,
   pendingPrompt,
   pendingPromptFlag,
+  headerGraphic,
+  headerGraphicBackgroundColor,
 }) => {
   const { t } = useTranslation();
+
+  const headerGraphicStyle = {
+    backgroundColor: headerGraphicBackgroundColor,
+    maxWidth: 300,
+    maxHeight: 200,
+  }
+
   return (
     <div className="root">
       <div className="image-and-main-container">
         {!condensed ? (
-          <div className="groups-header-image">
-            <img
-              className="header-img"
-              src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
-            />
+          <div style={headerGraphicStyle} className="groups-header-image">
+	    <img className="header-img" src={headerGraphic}/>
           </div>
         ) : null}
         <div className="main-container">
@@ -173,7 +179,6 @@ const GroupsHeader = ({
           margin: 0 auto;
           height: 200px;
           width: 300px;
-          background-color: ${nightfall};
           text-align: center;
         }
 
@@ -247,7 +252,6 @@ const GroupsHeader = ({
             align-items: center;
             display: flex;
             flex-direction: row;
-            height: 450px;
             justify-content: center;
             padding: 0;
             ${dropShadowContainer}
