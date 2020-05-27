@@ -34,15 +34,7 @@ import ReactDOM from 'react-dom';
 import styles from './JoinStep2.style';
 
 const { string, func } = PropTypes;
-const maxLength = max => value => {
-  let v;
-  let result = value.length > max;
-  if(result === false) {
-    if(!(value && /[^a-zA-Z0-9 ]/i.test(value)))
-      v = value;
-  } 
-  return v;
-};
+
 let inputs = {};
 @withTranslation()
 class JoinStep2 extends Component {
@@ -55,14 +47,24 @@ class JoinStep2 extends Component {
     change: noop,
   };
 
+  maxLength = (max, fieldName) => (value, previousValue, allValues) => {
+    let v;
+    let result = value.length > max;
+    if(result === false) {
+      if(!(value && /[^a-zA-Z0-9 ]/i.test(value))){
+        v = value;
+        this.handleFieldChange({
+          field: fieldName,
+          value: v,
+        });
+      }
+    }      
+    return v;
+  };
+
   handleLiscenceText1=(text)=>{
     if(text.length==5)
       ReactDOM.findDOMNode(inputs['codeB']).focus();
-
-    this.handleFieldChange({
-        field: 'codeA',
-        value: text,
-      });
   }
 
   
@@ -1213,7 +1215,7 @@ class JoinStep2 extends Component {
                                       }
                                       component={InputField}
                                       onChange={event => {this.handleLiscenceText1(event.target.value);}}
-                                      normalize={maxLength(5)}
+                                      normalize={this.maxLength(5,'codeA')}
                                     />
                                     </div>
                                     <h1>-</h1>
@@ -1232,7 +1234,7 @@ class JoinStep2 extends Component {
                                           field: 'codeB',
                                           value: event.target.value,
                                         });}}
-                                      normalize={maxLength(5)}
+                                      normalize={this.maxLength(5, 'codeB')}
                                       ref={input => { inputs['codeB'] = input }}
                                     />
                                   </div>
