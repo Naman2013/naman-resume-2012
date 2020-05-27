@@ -72,7 +72,7 @@ const GroupsHeader = ({
         ) : null}
         <div className="main-container">
           <div
-            className="groups-header-title desktop-hide"
+            className="groups-header-title desktop-hide textCenter"
             dangerouslySetInnerHTML={{ __html: title }}
           />
           <LabeledTitleTiles
@@ -189,6 +189,10 @@ const GroupsHeader = ({
           font-size: 22px;
           padding: 15px 0;
           font-family: ${secondaryFont};
+        }
+
+        .textCenter{
+          text-align: center;
         }
 
         .groups-header-information {

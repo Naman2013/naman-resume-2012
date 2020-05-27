@@ -6,10 +6,15 @@ import cloneDeep from 'lodash/cloneDeep';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
-export const EXPIRATION_DAYS = 7;
+export const EXPIRATION_DAYS = 90;
+export const SESSION_MARKETING_TRACKING_EXPIRATION_DAYS = 7;
 export const COOKIE_PATH = '/';
 export const futureDate = moment()
   .add(EXPIRATION_DAYS, 'day')
+  .toDate();
+
+export const session_marketing_futureDate = moment()
+  .add(SESSION_MARKETING_TRACKING_EXPIRATION_DAYS, 'day')
   .toDate();
 
 const SET_USER = 'SET_USER';
@@ -30,7 +35,7 @@ export function storeSessionToken(token) {
   window.document.cookie = cookie.serialize('_sloohsstkn', token, {
     domain: cookieD,
     secure: cookieSecure,
-    expires: futureDate,
+    expires: session_marketing_futureDate,
     path: COOKIE_PATH,
   });
 }
@@ -48,7 +53,7 @@ export function storeMarketingTrackingId(marketingTrackingId) {
   window.document.cookie = cookie.serialize('_sloohatid', marketingTrackingId, {
     domain: cookieD,
     secure: cookieSecure,
-    expires: futureDate,
+    expires: session_marketing_futureDate,
     path: COOKIE_PATH,
   });
 }
