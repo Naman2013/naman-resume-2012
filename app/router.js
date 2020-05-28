@@ -256,11 +256,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
-      <Route
+      {/* <Route
         path="telescope-overview/:observatoryId"
         component={TelescopeOverview}
         onEnter={validateUser}
-      />
+      /> */}
 
       <Route
         path="reservations"
