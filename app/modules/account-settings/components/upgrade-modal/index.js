@@ -180,7 +180,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   if (step == 'CANCEL') {
     myDisableGoBack = true;
   }
-
+  
   if (
     props.subscriptionPlansCallSource == 'forcedsloohcrew' ||
     props.subscriptionPlansCallSource == 'expired' ||
@@ -188,15 +188,25 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   ) {
     if(buttonText!=='LOGOUT' && step !== "FINAL"){
         setButtonText('LOGOUT');    
-        onCloseFunc = dispatch => {
+        // onCloseFunc = dispatch => {
+        // //Force Logout the User - They have opted to not buy a Slooh Plan
+        // destroySession();
+        // removeUser();
+        // onHide();
+        // browserHistory.push('/');
+        // window.location.reload();
+        // };    
+    } 
+    else if(buttonText==='LOGOUT'){
+      onCloseFunc = dispatch => {
         //Force Logout the User - They have opted to not buy a Slooh Plan
         destroySession();
         removeUser();
         onHide();
         browserHistory.push('/');
         window.location.reload();
-        };    
-    } 
+        };   
+    }
     else{
       onCloseFunc = ()=> {      
         onHide();      
