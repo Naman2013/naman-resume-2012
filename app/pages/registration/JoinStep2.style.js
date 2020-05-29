@@ -20,6 +20,12 @@ export default css`
     color: ${astronaut};
   }
 
+  .step-root-upsell {
+    margin: 0 auto;
+    width: 100%;
+    color: ${astronaut};
+  }
+
   .inner-container {
     padding: 25px;
     width: 100%;
@@ -158,6 +164,10 @@ export default css`
       width: 600px;
     }
 
+    .step-root-upsell {
+      width: 75%;
+    }
+
     .form-section.split {
       flex-direction: row;
     }
@@ -189,5 +199,9 @@ export default css`
     align-items: center;
     text-align: center;
     font-size: 50px;
+  }
+
+  .left-align{
+    justify-content: start;
   }
 `;

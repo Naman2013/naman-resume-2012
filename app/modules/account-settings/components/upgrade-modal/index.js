@@ -27,6 +27,7 @@ import { Col } from 'react-bootstrap';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 import {PurchaseConfirmationMain} from 'app/modules/purchase-confirmation'
 import fireSloohGAPageview from 'app/utils/ga-wrapper';
+import ConfirmationUpsellForm from 'app/pages/registration/ConfirmationUpsellForm';
 
 type TUpgradeModal = {
   show: boolean,
@@ -255,12 +256,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 if (subscriptionPlansCallSource == 'downgrade') {
                   setStep('DOWNGRADE');
                 } else { 
-                  if(subscriptionPlansData.hasPaymentInfoOnFile){
-                    selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
-                    setStep('CONFIRM');                    
-                  }
-                  else
-                    setStep('PAYMENT');
+                  // if(subscriptionPlansData.hasPaymentInfoOnFile){
+                  //   selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
+                    setStep('CONFIRMATION-FORM');                    
+                //   }
+                //   else
+                //     setStep('PAYMENT');
                 }
               }}
               setSelectedPlan={setSelectedPlan}
@@ -283,6 +284,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
               </div>
             )}
           </>
+        )}
+
+        {step === 'CONFIRMATION-FORM' &&(
+          <ConfirmationUpsellForm 
+            selectedPlanId={selectedPlan.planID}
+            onCancelClick={()=>{setStep('SELECT_PLAN')}}
+            onContinueClick={()=>{subscriptionPlansData.hasPaymentInfoOnFile ?  (selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo, setStep('CONFIRM')) : setStep('PAYMENT')}}
+          /> 
         )}
 
         {step === 'CONFIRM' &&(
