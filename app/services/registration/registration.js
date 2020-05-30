@@ -24,4 +24,6 @@ export const FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL = '/api/registration/fo
 
 export const EDIT_PAYMENT_ENDPOINT_URL='/api/registration/editPayment';
 
+export const VERIFY_CLUB_CODE_ENDPOINT_URL='/api/registration/verifyClubCode';
+
 export const UPDATE_ACCOUNT_DETAILS_ENDPOINT_URL='/api/registration/updateAccountDetails';

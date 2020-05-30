@@ -24,6 +24,7 @@ import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+  VERIFY_CLUB_CODE_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
@@ -259,7 +260,7 @@ class JoinStep2 extends Component {
     const{accountFormDetails} = this.state;
     const{codeA, codeB} = accountFormDetails;
     if(codeA.value !== "" || codeB.value !== "" ){
-      API.post("/api/registration/verifyClubCode"      ,
+      API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
       {
         clubCodeA: codeA.value,
         clubCodeB: codeB.value,
