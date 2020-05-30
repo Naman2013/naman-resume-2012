@@ -290,7 +290,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           <ConfirmationUpsellForm 
             selectedPlanId={selectedPlan.planID}
             onCancelClick={()=>{setStep('SELECT_PLAN')}}
-            onContinueClick={()=>{subscriptionPlansData.hasPaymentInfoOnFile ?  (selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo, setStep('CONFIRM')) : setStep('PAYMENT')}}
+            onContinueClick={()=>{subscriptionPlansData.hasPaymentInfoOnFile ?  (selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo, setStep('CONFIRM'), window.scrollTo(0,0)) : setStep('PAYMENT')}}
+            onError={(error)=>{setErrorState(error);}}
           /> 
         )}
 

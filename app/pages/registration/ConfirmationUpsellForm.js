@@ -71,7 +71,7 @@ class ConfirmationUpsellForm extends Component {
 
   
   constructor(props) {
-    super(props);
+    super(props);    
     window.localStorage.setItem('accountCreationType', 'userpass');
 
     /* Configure the default state for:
@@ -238,6 +238,38 @@ class ConfirmationUpsellForm extends Component {
     newAccountFormData.parentEmailAddress.hintText =
       result.formFieldLabels.parentEmailAddress.hintText;
 
+      newAccountFormData.givenName.value = result.formFieldLabels.firstname.currentValue;
+      newAccountFormData.familyName.value = result.formFieldLabels.lastname.currentValue;
+      newAccountFormData.displayName.value =
+        result.formFieldLabels.displayname.currentValue;   
+      newAccountFormData.is13YearsAndOlder.value =
+        result.formFieldLabels.is13YearsAndOlder.currentValue;
+      newAccountFormData.not13YearsOldLegalGuardianOk.value =
+        result.formFieldLabels.not13YearsOldLegalGuardianOk.currentValue;
+      newAccountFormData.parentEmailAddress.value =
+        result.formFieldLabels.parentEmailAddress.currentValue;
+
+        this.props.change(
+          'givenName',
+          result.formFieldLabels.firstname.currentValue
+        );
+
+        this.props.change(
+          'familyName',
+          result.formFieldLabels.lastname.currentValue
+        );
+
+        this.props.change(
+          'parentEmailAddress',
+          result.formFieldLabels.parentEmailAddress.currentValue
+        );       
+
+        this.props.change(
+          'displayName',
+          result.formFieldLabels.displayname.currentValue
+        );
+
+
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -297,7 +329,7 @@ class ConfirmationUpsellForm extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { t, selectedPlanId, onContinueClick } = this.props;
+    const { t, selectedPlanId, onContinueClick, onError } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -447,6 +479,9 @@ class ConfirmationUpsellForm extends Component {
           const res=response.data;
           if(!res.apiError && res.status !== "failed"){
               onContinueClick();
+          }
+          else{
+            onError(res);
           }
 
         }).catch(err => {
@@ -654,7 +689,7 @@ class ConfirmationUpsellForm extends Component {
   // processGoogleFailureResponse = googleMessageData => {
   //   // console.log(googleMessageData);
   // };
-
+  
   render() {
     const { pathname, t, selectedPlanId, onCancelClick, onContinueClick } = this.props;
     const {
@@ -677,9 +712,9 @@ class ConfirmationUpsellForm extends Component {
             ),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
-          render={({ fetchingContent, serviceResponse: joinPageRes }) => (
+          render={({ fetchingContent, serviceResponse: joinPageRes }) => (           
             <Fragment>
-              {!fetchingContent && selectedPlanId && (
+              {!fetchingContent && selectedPlanId && (                              
                 <DeviceContext.Consumer>
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
@@ -803,6 +838,7 @@ class ConfirmationUpsellForm extends Component {
                                       <Field
                                         name="13andOlder"
                                         label="Yes"
+                                        checked={accountFormDetails.is13YearsAndOlder.value}
                                         component="input"
                                         type="radio"
                                         value="13andolder"
@@ -823,6 +859,7 @@ class ConfirmationUpsellForm extends Component {
                                           component="input"
                                           type="radio"
                                           value="under13"
+                                          checked={!accountFormDetails.is13YearsAndOlder.value}
                                           onClick={event => {
                                             this.handleFieldChange({
                                               field: 'is13YearsAndOlder',
@@ -915,10 +952,6 @@ class ConfirmationUpsellForm extends Component {
                                           value: event.target.value,
                                         });
                                       }}
-                                      value={
-                                        accountFormDetails.parentEmailAddress
-                                          .value
-                                      }
                                     />
                                     <br />
                                   </div>
@@ -953,7 +986,6 @@ class ConfirmationUpsellForm extends Component {
                                       value: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.givenName.value}
                                 />
                               </div>
 
@@ -983,8 +1015,7 @@ class ConfirmationUpsellForm extends Component {
                                       field: 'familyName',
                                       value: event.target.value,
                                     });
-                                  }}
-                                  value={accountFormDetails.familyName.value}
+                                  }}                                  
                                 />
                               </div>
                             </div>
@@ -1005,13 +1036,13 @@ class ConfirmationUpsellForm extends Component {
                                 type="name"
                                 className="form-field"
                                 label={accountFormDetails.displayName.hintText}
-                                component={InputField}
+                                component={InputField}                                
                                 onChange={event => {
                                   this.handleFieldChange({
                                     field: 'displayName',
                                     value: event.target.value,
                                   });
-                                }}
+                                }}                                
                               />
                             </div>
 
@@ -1301,21 +1332,21 @@ class ConfirmationUpsellForm extends Component {
   }
 }
 
-const mapStateToProps = ({ joinAccountForm }) => ({
-  joinAccountForm,
+const mapStateToProps = ({ updateAccountDetailsForm }) => ({
+  updateAccountDetailsForm, 
 });
 
-const joinStep2Validation = createValidator({
+const ConfirmationUpsellFormValidation = createValidator({
   username: [required],
 });
 
 export default connect(
   mapStateToProps,
-  null
+  null 
 )(
   reduxForm({
-    form: 'joinAccountForm',
-    validate: joinStep2Validation,
-    enableReinitialize: true,
+    form: 'updateAccountDetailsForm',
+    validate: ConfirmationUpsellFormValidation,
+    enableReinitialize: true,    
   })(ConfirmationUpsellForm)
 );
