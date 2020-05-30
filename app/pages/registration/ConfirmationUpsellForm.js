@@ -906,7 +906,7 @@ class ConfirmationUpsellForm extends Component {
                                           .not13YearsOldLegalGuardianOk.hintText
                                       }
                                       component="input"
-                                      value={
+                                      checked={
                                         accountFormDetails
                                           .not13YearsOldLegalGuardianOk.value
                                       }
