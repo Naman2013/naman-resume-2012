@@ -24,17 +24,19 @@ import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+  VERIFY_CLUB_CODE_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
-
+import ReactDOM from 'react-dom';
 import styles from './JoinStep2.style';
 
 const { string, func } = PropTypes;
 
+let inputs = {};
 @withTranslation()
 class JoinStep2 extends Component {
   static propTypes = {
@@ -46,6 +48,27 @@ class JoinStep2 extends Component {
     change: noop,
   };
 
+  maxLength = (max, fieldName) => (value, previousValue, allValues) => {
+    let v;
+    let result = value.length > max;
+    if(result === false) {
+      if(!(value && /[^a-zA-Z0-9 ]/i.test(value))){
+        v = value;
+        this.handleFieldChange({
+          field: fieldName,
+          value: v,
+        });
+      }
+    }      
+    return v;
+  };
+
+  handleLiscenceText1=(text)=>{
+    if(text.length==5)
+      ReactDOM.findDOMNode(inputs['codeB']).focus();
+  }
+
+  
   constructor(props) {
     super(props);
     window.localStorage.setItem('accountCreationType', 'userpass');
@@ -142,6 +165,27 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
+        discussionGroupCode:{
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        codeA: {
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        codeB: {
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
       },
     };
   }
@@ -161,13 +205,15 @@ class JoinStep2 extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label =
       result.formFieldLabels.passwordverification.label;
+    newAccountFormData.discussionGroupCode.label =
+      result.formFieldLabels.discussionGroupCode.label;
     newAccountFormData.is13YearsAndOlder.label =
       result.formFieldLabels.is13YearsAndOlder.label;
     newAccountFormData.not13YearsOldLegalGuardianOk.label =
       result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
     newAccountFormData.parentEmailAddress.label =
       result.formFieldLabels.parentEmailAddress.label;
-
+      
     newAccountFormData.givenName.hintText =
       result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText =
@@ -182,6 +228,8 @@ class JoinStep2 extends Component {
       result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText =
       result.formFieldLabels.passwordverification.hintText;
+    newAccountFormData.discussionGroupCode.hintText =
+      result.formFieldLabels.discussionGroupCode.hintText;
     newAccountFormData.is13YearsAndOlder.hintText =
       result.formFieldLabels.is13YearsAndOlder.hintText;
     newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
@@ -207,6 +255,38 @@ class JoinStep2 extends Component {
     }));
   };
 
+  handleClubCode = formValues => {    
+    formValues.preventDefault();
+    const{accountFormDetails} = this.state;
+    const{codeA, codeB} = accountFormDetails;
+    if(codeA.value !== "" || codeB.value !== "" ){
+      API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
+      {
+        clubCodeA: codeA.value,
+        clubCodeB: codeB.value,
+        selectedPlanId: window.localStorage.selectedPlanId,
+      }
+    ).then(response => {
+        const res = response.data;
+        if (!res.apiError && res.status !== "failed") {
+          window.localStorage.setItem('clubCodeA', codeA.value);
+          window.localStorage.setItem('clubCodeB', codeB.value);
+          this.handleSubmit(formValues);
+        }
+        else{
+          accountFormDetails.discussionGroupCode.errorText='';
+          const accountFormDetailsData = cloneDeep(accountFormDetails);
+          accountFormDetailsData.discussionGroupCode.errorText = res.statusMessage;
+          this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+        }
+      });
+    }
+    else{
+      this.handleSubmit(formValues);      
+    }
+    
+  }
+
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
@@ -227,6 +307,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.loginEmailAddressVerification.errorText = '';
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
+    accountFormDetailsData.discussionGroupCode.errorText = '';
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
     accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
@@ -357,6 +438,8 @@ class JoinStep2 extends Component {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
+            clubCodeA: this.state.accountFormDetails.codeA.value,
+            clubCodeB: this.state.accountFormDetails.codeB.value,
           selectedPlanId: window.localStorage.selectedPlanId,
         }
       )
@@ -669,7 +752,7 @@ class JoinStep2 extends Component {
                               </Fragment>
                             )}
                           />
-                          <form onSubmit={this.handleSubmit}>
+                          <form onSubmit={this.handleClubCode}>
                             {this.state.isAgeRestricted && (
                               <div className="form-section">
                                 <div>
@@ -1098,6 +1181,76 @@ class JoinStep2 extends Component {
                                 />
                               </div>
                             ) : null}
+
+                            {accountFormDetails.codeA.visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        joinPageRes.formFieldLabels
+                                          .discussionGroupCode.label,
+                                    }}
+                                  />
+                                  : {joinPageRes.formFieldLabels.discussionGroupCode.hintText}
+                                  {/* <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.discussionGroupCode
+                                          .errorText,
+                                    }}
+                                  /> */}
+                                </div>
+                                <div className="flex-container">
+                                  <div className="form-field-quater">
+                                    <Field
+                                      ref={input => { inputs['codeA'] = input }}
+                                      name="codeA"
+                                      type="text"
+                                      className="form-field"
+                                      label={''
+                                        // accountFormDetails.discussionGroupCode
+                                        //   .hintText
+                                      }
+                                      component={InputField}
+                                      onChange={event => {this.handleLiscenceText1(event.target.value);}}
+                                      normalize={this.maxLength(5,'codeA')}
+                                    />
+                                    </div>
+                                    <h1>-</h1>
+                                    <div className="form-field-quater">
+                                    <Field
+                                      name="codeB"
+                                      type="text"
+                                      className="form-field"
+                                      label={''
+                                        // accountFormDetails.discussionGroupCode
+                                        //   .hintText
+                                      }
+                                      component={InputField}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'codeB',
+                                          value: event.target.value,
+                                        });}}
+                                      normalize={this.maxLength(5, 'codeB')}
+                                      ref={input => { inputs['codeB'] = input }}
+                                    />
+                                  </div>
+                                </div>
+                                <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.discussionGroupCode
+                                          .errorText,
+                                    }}
+                                  />
+                              </div>
+                            ) : null}
+
                             <div className="button-container">
                               <Button
                                 type="button"
@@ -1106,7 +1259,7 @@ class JoinStep2 extends Component {
                                   browserHistory.push('/join/step1');
                                 }}
                               />
-			      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
+			                      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
                               <button className="submit-button" type="submit">
                                 {t('Ecommerce.GoToPayment')}
                               </button>			  

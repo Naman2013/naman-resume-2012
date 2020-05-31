@@ -109,6 +109,9 @@ class Request extends Component {
 
     // list of fields that should be added as params to the request
     userParams: PropTypes.arrayOf(PropTypes.string),
+
+    //call even the props value is not matched for telecscope call
+    callLink: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -126,7 +129,7 @@ class Request extends Component {
     serviceFetchStartHandler: null,
     requestBody: {},
     withoutUser: false,
-    userParams: [],
+    userParams: [],    
   };
 
   state = {
@@ -146,7 +149,7 @@ class Request extends Component {
     const { user, requestBody, serviceURL } = this.props;
     if (
       (!isMatch(requestBody, nextProps.requestBody) ||
-        !isMatch(user, nextProps.user)) &&
+        !isMatch(user, nextProps.user) || nextProps.callLink) &&
       serviceURL
     ) {
       this.fetchServiceContent(nextProps.requestBody, nextProps.user);
