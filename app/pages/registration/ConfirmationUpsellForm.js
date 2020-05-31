@@ -383,7 +383,7 @@ class ConfirmationUpsellForm extends Component {
                                           component="input"
                                           type="radio"
                                           value="under13"
-                                          checked={!accountFormDetails.is13YearsAndOlder.value}
+                                          checked={accountFormDetails.is13YearsAndOlder.value !== null ? !accountFormDetails.is13YearsAndOlder.value : false}
                                           onClick={event => {
                                             this.handleFieldChange({
                                               field: 'is13YearsAndOlder',
