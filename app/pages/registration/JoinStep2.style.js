@@ -7,7 +7,7 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import { screenLarge, screenMedium, screenMobile, screenSmallMobile } from 'app/styles/variables/breakpoints';
 import {
   backgroundImageCover,
   dropShadowContainer,
@@ -15,6 +15,12 @@ import {
 
 export default css`
   .step-root {
+    margin: 0 auto;
+    width: 100%;
+    color: ${astronaut};
+  }
+
+  .step-root-upsell {
     margin: 0 auto;
     width: 100%;
     color: ${astronaut};
@@ -51,6 +57,10 @@ export default css`
 
   .form-section {
     border-bottom: 1px solid ${shadows};
+    padding: 15px 0;
+  }
+
+  .form-section-padding{    
     padding: 15px 0;
   }
 
@@ -145,9 +155,17 @@ export default css`
     outline: none;
   }
 
+  .flex-container{
+    display: flex;
+  }
+
   @media ${screenMedium} {
     .step-root {
       width: 600px;
+    }
+
+    .step-root-upsell {
+      width: 75%;
     }
 
     .form-section.split {
@@ -157,5 +175,33 @@ export default css`
     .form-field-half {
       width: 50%;
     }
+
+    .form-field-quater {
+      width: 25%;
+    }
+  }
+  
+  @media ${screenMobile} {
+    .form-field-quater {
+      width: 45%;
+    }
+  }
+  @media ${screenSmallMobile} {
+    .form-field-quater {
+      width: 45%;
+    }
+  }
+
+
+  h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+  }
+
+  .left-align{
+    justify-content: start;
   }
 `;

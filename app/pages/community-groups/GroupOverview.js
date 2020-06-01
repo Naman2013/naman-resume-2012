@@ -36,6 +36,7 @@ import {
   fetchGroupOverviewPageMeta,
   fetchGroupOverview,
 } from 'app/modules/community-group-overview/actions';
+import CustomGroupsHeader from 'app/components/community-groups/overview/custom-header';
 
 const mapStateToProps = ({ communityGroupOverview }) => ({
   communityGroupOverview,
@@ -157,7 +158,7 @@ class CommunityGroupOverview extends Component {
     modalStyles.content = Object.assign(modalStyleFullPage.content, {
       backgroundColor: seashell,
     });
-
+    
     return (
       <div className="root">
         <DeviceContext.Consumer>
@@ -167,6 +168,19 @@ class CommunityGroupOverview extends Component {
                 widths={['768px', '940px', '940px']}
                 theme={{ paddingTop: '25px' }}
               >
+                {pageMeta.useCustomLogoLayout ? 
+                <CustomGroupsHeader
+                isEditMode={edit}
+                condensed={false}
+                showInformation={this.showInformation}
+                joinOrLeaveGroup={this.joinLeaveGroup}
+                discussionGroupId={groupId}
+                updatePrompt={this.updatePrompt}
+                {...context}
+                {...communityGroupOverview}
+                {...pageMeta}
+              />
+                :
                 <Header
                   isEditMode={edit}
                   condensed={false}
@@ -178,7 +192,7 @@ class CommunityGroupOverview extends Component {
                   {...communityGroupOverview}
                   {...pageMeta}
                 />
-
+                }
                 <FullInformationOverview
                   refreshHeader={this.refreshHeader}
                   joinOrLeaveGroup={this.joinLeaveGroup}

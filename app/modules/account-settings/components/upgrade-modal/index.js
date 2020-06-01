@@ -27,6 +27,7 @@ import { Col } from 'react-bootstrap';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 import {PurchaseConfirmationMain} from 'app/modules/purchase-confirmation'
 import fireSloohGAPageview from 'app/utils/ga-wrapper';
+import ConfirmationUpsellForm from 'app/pages/registration/ConfirmationUpsellForm';
 
 type TUpgradeModal = {
   show: boolean,
@@ -147,7 +148,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     setStep("FINAL");
     setButtonText("CLOSE");    
   }
-
+  
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
   
     useEffect(didMount(props), [props.subscriptionPlansCallSource]);
@@ -172,31 +173,45 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   const [errorstate, setErrorState] = useState(null);
   const [conditionType, setConditionType] = useState('');
   useEffect(() => {setisFetching(props.isFetching);}, [props.isFetching]); 
-  const [buttonText, setButtonText]=useState((returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK') ;
-  // useEffect(() => {setButtonText((returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK');}, [buttonText]);
+  const [buttonText, setButtonText]=useState((returnLinkType && returnLinkType === "close") ? returnLinkLabel : 'GO BACK') ; 
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
+
+  const ConfirmationFormContinueClick=()=>{
+    if(subscriptionPlansData.hasPaymentInfoOnFile){
+      selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;     
+      setStep('CONFIRM');      
+    }
+    else
+      setStep('PAYMENT')
+  }
+
+  const scrollModalTop=()=>{
+    document.getElementsByClassName('modal')[0].scrollTop=0;
+  }
 
   if (step == 'CANCEL') {
     myDisableGoBack = true;
   }
-
+  
   if (
     props.subscriptionPlansCallSource == 'forcedsloohcrew' ||
     props.subscriptionPlansCallSource == 'expired' ||
     props.subscriptionPlansCallSource == 'expiredrecently'
   ) {
     if(buttonText!=='LOGOUT' && step !== "FINAL"){
-        setButtonText('LOGOUT');    
-        onCloseFunc = dispatch => {
+        setButtonText('LOGOUT');  
+    } 
+    else if(buttonText==='LOGOUT'){
+      onCloseFunc = dispatch => {
         //Force Logout the User - They have opted to not buy a Slooh Plan
         destroySession();
         removeUser();
         onHide();
         browserHistory.push('/');
         window.location.reload();
-        };    
-    } 
+        };   
+    }
     else{
       onCloseFunc = ()=> {      
         onHide();      
@@ -220,10 +235,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     }
   }
-  
+ 
   return (
     <>
-      <Modal
+      <Modal        
         show={show}
         onHide={onCloseFunc}
         goBackText={buttonText}
@@ -241,17 +256,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 selectedPlan,
                 isFetching,                
               }}
-              goNext={(subscriptionPlansCallSource, selectedPlan) => {
-                if (subscriptionPlansCallSource == 'downgrade') {
+              goNext={(subscriptionPlansCallSource, selectedPlan) => {                 
+                if (subscriptionPlansCallSource == 'downgrade')
                   setStep('DOWNGRADE');
-                } else { 
-                  if(subscriptionPlansData.hasPaymentInfoOnFile){
-                    selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
-                    setStep('CONFIRM');                    
-                  }
-                  else
-                    setStep('PAYMENT');
-                }
+                else                   
+                  setStep('CONFIRMATION-FORM');  
               }}
               setSelectedPlan={setSelectedPlan}
             />
@@ -275,16 +284,18 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'CONFIRM' &&(
-        //   <Popup
-        //   ariaHideApp={false}
-        //   isOpen={true}
-        //   style={customModalStylesBlackOverlay}
-        //   contentLabel="Confirmation"
-        //   shouldCloseOnOverlayClick={false}
-        //   onRequestClose={()=>{setStep('SELECT_PLAN');}}
-        // >
-	  <Fragment>
+        {step === 'CONFIRMATION-FORM' &&(
+          <ConfirmationUpsellForm 
+            selectedPlanId={selectedPlan.planID}
+            onCancelClick={()=>{setStep('SELECT_PLAN');scrollModalTop();}}
+            onContinueClick={ConfirmationFormContinueClick}
+            onError={(error)=>{setErrorState(error);}}
+            conditionType={subscriptionPlansCallSource}
+          /> 
+        )}
+
+        {step === 'CONFIRM' &&(        
+	        <Fragment>
 	          <h1 className="modal-h">{selectedPlan.accountCardSection.pageHeading1}</h1>
         	  <p className="modal-p mb-5">{selectedPlan.accountCardSection.pageHeading2}</p>
 	          <div className="confirm-dialog">
@@ -296,19 +307,19 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             		/>
 
             		<div className="actions">
-        	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
+        	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');scrollModalTop();}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
         	      		{confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
         	        		onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource, props)}}
                 			text={confirmationPopupDetails.confirmBtnTxt}
               			/> : null}
             		</div>
                	   </div>
-		   <br/>
-	           <div className="confirm-dialog">
+		            <br/>
+	              <div className="confirm-dialog">
               		<EditPaymentNew {...selectedPlan} onbtnClick={()=>{setStep('PAYMENT');}}/>
-          	   </div>
-	 </Fragment>   
-        // </Popup>       
+          	    </div>
+	            </Fragment>   
+           
         )}
 
         {errorstate &&(
@@ -318,14 +329,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           style={customModalStylesBlackOverlay}
           contentLabel="Error"
           shouldCloseOnOverlayClick={false}
-          onRequestClose={()=>{setStep('SELECT_PLAN');}}
+          onRequestClose={()=>{setStep('SELECT_PLAN');setErrorState(null);scrollModalTop();}}
         >
           <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={errorstate.statusTitle} showhr={true}/>
           <div className="container">
             <h4>{errorstate.statusMessage} </h4>
             </div>
             <div className="actions-err-btn">
-          <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null)}} text={errorstate.statusBtnTxt} /> 
+          <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null);scrollModalTop();}} text={errorstate.statusBtnTxt} /> 
           </div>
           </Popup>
         )}
@@ -333,8 +344,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         {step === 'FINAL' && (  
               <PurchaseConfirmationMain    
               newHeader={true}
-              conditionType={conditionType}   
-              // closeModal={()=>{onHide(); window.location.reload();}}  
+              conditionType={conditionType}              
               closeModal={onCloseFunc}
               />
         )}

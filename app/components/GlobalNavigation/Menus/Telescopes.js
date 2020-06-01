@@ -19,15 +19,16 @@ import TELESCOPE_CONFIGURATION, {
 } from './telescopeConfiguration';
 import { getUserInfo } from 'app/modules/User';
 
-const Telescopes = () => {
+const Telescopes = (props) => {
   const { token, at, cid } = getUserInfo();
-  const { t } = useTranslation();
+  const { t } = useTranslation();   
   return (
     <Request
       serviceURL={OBSERVATORIES_COMPACT}
       method="GET"
       model={modelTelescopesFromObsList}
-      requestBody={{ cid, at, token }}
+      callLink={props.isOpen}
+      // requestBody={{ cid, at, token }}
       render={({
         fetchingContent,
         modeledResponses: { TELESCOPES_ONLY },

@@ -27,7 +27,7 @@ import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
 
 const { string } = PropTypes;
 
-const GroupsHeader = ({
+const CustomGroupsHeader = ({
   condensed = false,
   description,
   isMobile,
@@ -61,12 +61,13 @@ const GroupsHeader = ({
   const headerGraphicStyle = {
 	backgroundColor: headerGraphicBackgroundColor,
   }
+  
 
   return (
     <div className="root">
       <div className="image-and-main-container">
         {!condensed ? (
-          <div style={headerGraphicContainerStyle} className="groups-header-image">
+          <div style={headerGraphicContainerStyle} className="groups-header-image desktop-hide">
 	    <img style={headerGraphicStyle} className="header-img" src={headerGraphic}/>
           </div>
         ) : null}
@@ -133,7 +134,11 @@ const GroupsHeader = ({
           )}
         </div>
       </div>
-
+      {!condensed ? (
+          <div style={headerGraphicContainerStyle} className="customImageContainer">
+	    <img style={headerGraphicStyle} className="customImage" src={headerGraphic}/>
+          </div>
+        ) : null}
       {!condensed ? (
         <div className="info-container">
           <div className="info-inner-container">
@@ -165,6 +170,10 @@ const GroupsHeader = ({
         }
 
         .info-container {
+          display: none;
+        }
+
+        .customImageContainer{
           display: none;
         }
 
@@ -226,7 +235,7 @@ const GroupsHeader = ({
         @media ${screenMedium} {
           .root {
             margin: 0 auto;
-            height: 400px;
+            height: 300px;
             ${dropShadowContainer}
           }
 
@@ -277,7 +286,7 @@ const GroupsHeader = ({
             display: flex;
             flex-direction: column;
             height: 100%;
-            justify-content: flex-start;
+            justify-content: center;
             margin: 0 auto;
             width: 300px;
           }
@@ -287,6 +296,18 @@ const GroupsHeader = ({
             flex: 1 1 0;
             display: block;
             align-items: center;
+          }
+
+          .customImageContainer{
+            display:block;
+            width: 40%;
+            height: 100%;
+            padding: 15px;
+          }
+
+          .customImage{
+            width: 90%;
+            height: 100%;
           }
 
           .info-inner-container {
@@ -328,4 +349,4 @@ const GroupsHeader = ({
   );
 };
 
-export default GroupsHeader;
+export default CustomGroupsHeader;

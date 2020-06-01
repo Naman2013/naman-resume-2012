@@ -95,7 +95,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-import TelescopeOverview from 'app/pages/telescope-overview';
+// import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
 import validateUser from 'app/route-functions/validateUser';
@@ -256,11 +256,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
-      <Route
+      {/* <Route
         path="telescope-overview/:observatoryId"
         component={TelescopeOverview}
         onEnter={validateUser}
-      />
+      /> */}
 
       <Route
         path="reservations"
