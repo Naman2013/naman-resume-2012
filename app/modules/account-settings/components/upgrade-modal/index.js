@@ -148,7 +148,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     setStep("FINAL");
     setButtonText("CLOSE");    
   }
-
+  
   const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
   
     useEffect(didMount(props), [props.subscriptionPlansCallSource]);
@@ -179,14 +179,16 @@ export const UpgradeModal = (props: TUpgradeModal) => {
 
   const ConfirmationFormContinueClick=()=>{
     if(subscriptionPlansData.hasPaymentInfoOnFile){
-      selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;
-      setStep('CONFIRM');
-      window.scrollTo(0,0);
+      selectedPlan.editPaymentSection.curPaymentInfo=curPaymentInfo;     
+      setStep('CONFIRM');      
     }
     else
       setStep('PAYMENT')
   }
 
+  const scrollModalTop=()=>{
+    document.getElementsByClassName('modal')[0].scrollTop=0;
+  }
 
   if (step == 'CANCEL') {
     myDisableGoBack = true;
@@ -233,10 +235,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       window.location.reload();
     }
   }
-  
+ 
   return (
     <>
-      <Modal
+      <Modal        
         show={show}
         onHide={onCloseFunc}
         goBackText={buttonText}
@@ -254,7 +256,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 selectedPlan,
                 isFetching,                
               }}
-              goNext={(subscriptionPlansCallSource, selectedPlan) => {
+              goNext={(subscriptionPlansCallSource, selectedPlan) => {                 
                 if (subscriptionPlansCallSource == 'downgrade')
                   setStep('DOWNGRADE');
                 else                   
@@ -285,7 +287,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         {step === 'CONFIRMATION-FORM' &&(
           <ConfirmationUpsellForm 
             selectedPlanId={selectedPlan.planID}
-            onCancelClick={()=>{setStep('SELECT_PLAN')}}
+            onCancelClick={()=>{setStep('SELECT_PLAN');scrollModalTop();}}
             onContinueClick={ConfirmationFormContinueClick}
             onError={(error)=>{setErrorState(error);}}
           /> 
@@ -304,7 +306,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             		/>
 
             		<div className="actions">
-        	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
+        	      		{confirmationPopupDetails.showCancelBtn ? <Button onClickEvent={()=>{setStep('SELECT_PLAN');scrollModalTop();}} text={confirmationPopupDetails.cancelBtnTxt} /> : null}	
         	      		{confirmationPopupDetails.showConfirmBtn ? <Button isActive={true}
         	        		onClickEvent={()=>{upgradeUser(selectedPlan,upsellCallSource, subscriptionPlansCallSource, props)}}
                 			text={confirmationPopupDetails.confirmBtnTxt}
@@ -326,14 +328,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           style={customModalStylesBlackOverlay}
           contentLabel="Error"
           shouldCloseOnOverlayClick={false}
-          onRequestClose={()=>{setStep('SELECT_PLAN');}}
+          onRequestClose={()=>{setStep('SELECT_PLAN');setErrorState(null);scrollModalTop();}}
         >
           <AccountDetailsHeader headerClass={'h-2 h-2-md text-no-transform'} title={errorstate.statusTitle} showhr={true}/>
           <div className="container">
             <h4>{errorstate.statusMessage} </h4>
             </div>
             <div className="actions-err-btn">
-          <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null)}} text={errorstate.statusBtnTxt} /> 
+          <Button onClickEvent={()=>{setStep('SELECT_PLAN');setErrorState(null);scrollModalTop();}} text={errorstate.statusBtnTxt} /> 
           </div>
           </Popup>
         )}
