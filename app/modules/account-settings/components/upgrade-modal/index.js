@@ -290,6 +290,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             onCancelClick={()=>{setStep('SELECT_PLAN');scrollModalTop();}}
             onContinueClick={ConfirmationFormContinueClick}
             onError={(error)=>{setErrorState(error);}}
+            conditionType={subscriptionPlansCallSource}
           /> 
         )}
 
