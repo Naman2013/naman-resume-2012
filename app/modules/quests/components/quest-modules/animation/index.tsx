@@ -262,27 +262,29 @@ export class AnimationModule extends React.PureComponent<
       originY: offsetReference === 'center' && !empty ? offsetReference : 'top',
       visible: frameIndex === 1 || selected,
     };
-
-    fabric.util.loadImage(imageURL, (img: any): void => {
+    
+    fabric.Image.fromURL(imageURL, (img: any): void => {
       //load image to fabric
-      const fabricImage = new fabric.Image(img, imgAttrs);
+      // const fabricImage = new fabric.Image(img, imgAttrs);
 
-      const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
-      fabricImage.set({
-        left: empty ? 0 : xOffset * offsetCoeff,
-        top: empty ? 0 : -yOffset * offsetCoeff,
-      });
+      // const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
+      // fabricImage.set({
+      //   left: empty ? 0 : xOffset * offsetCoeff,
+      //   top: empty ? 0 : -yOffset * offsetCoeff,
+      // });
 
       //scale to canvas width
-      fabricImage.scaleToWidth(this.canvas.getWidth());
+      img.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
-      this.canvas.add(fabricImage);
+      this.canvas.add(img);
       this.canvas.renderAll();
 
       //if doesn't end of frame list -> load next image
       if (frameIndexToLoad + 1 < frameList.length) {
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
+    },null,{
+      crossOrigin: 'anonymous'
     });
   };
 
@@ -812,7 +814,7 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  setAnimation = (setAnimationData: SetAnimationParams): Promise<any> => {
+  setAnimation = (setAnimationData: SetAnimationParams): Promise<any> => {    
     const { frame, button, action } = setAnimationData;
     const { setAnimation, module, questId, refreshQuestStep } = this.props;
     const { moduleId } = module;
