@@ -283,7 +283,11 @@ export class AnimationModule extends React.PureComponent<
       if (frameIndexToLoad + 1 < frameList.length) {
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
-    });
+    },null,
+    {
+      crossOrigin: 'anonymous'
+    }       
+    );
   };
 
   moveTop = (stepSize: number): IAnimationFrame => {
