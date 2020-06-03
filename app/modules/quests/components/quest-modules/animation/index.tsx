@@ -266,12 +266,12 @@ export class AnimationModule extends React.PureComponent<
     fabric.Image.fromURL(imageURL, (img: any): void => {
       //load image to fabric
       // const fabricImage = new fabric.Image(img, imgAttrs);
-
-      // const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
-      // fabricImage.set({
-      //   left: empty ? 0 : xOffset * offsetCoeff,
-      //   top: empty ? 0 : -yOffset * offsetCoeff,
-      // });
+      img.set(imgAttrs);
+      const offsetCoeff = newCanvasContainerWidth / img.get('width');
+      img.set({
+        left: empty ? 0 : xOffset * offsetCoeff,
+        top: empty ? 0 : -yOffset * offsetCoeff,
+      });
 
       //scale to canvas width
       img.scaleToWidth(this.canvas.getWidth());
