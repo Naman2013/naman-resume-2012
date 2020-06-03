@@ -263,28 +263,26 @@ export class AnimationModule extends React.PureComponent<
       visible: frameIndex === 1 || selected,
     };
     
-    fabric.Image.fromURL(imageURL, (img: any): void => {
+    fabric.util.loadImage(imageURL, (img: any): void => {
       //load image to fabric
-      // const fabricImage = new fabric.Image(img, imgAttrs);
-      img.set(imgAttrs);
-      const offsetCoeff = newCanvasContainerWidth / img.get('width');
-      img.set({
+      const fabricImage = new fabric.Image(img, imgAttrs);
+
+      const offsetCoeff = newCanvasContainerWidth / fabricImage.get('width');
+      fabricImage.set({
         left: empty ? 0 : xOffset * offsetCoeff,
         top: empty ? 0 : -yOffset * offsetCoeff,
       });
 
       //scale to canvas width
-      img.scaleToWidth(this.canvas.getWidth());
+      fabricImage.scaleToWidth(this.canvas.getWidth());
       //then add it to canvas
-      this.canvas.add(img);
+      this.canvas.add(fabricImage);
       this.canvas.renderAll();
 
       //if doesn't end of frame list -> load next image
       if (frameIndexToLoad + 1 < frameList.length) {
         this.loadImageFromUrl(frameIndexToLoad + 1, frameList);
       }
-    },null,{
-      crossOrigin: 'anonymous'
     });
   };
 
