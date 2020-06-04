@@ -781,9 +781,12 @@ export class AnimationModule extends React.PureComponent<
     const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
-
-    if (frameIndex !== 1) {
-      this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0.5 });
+    debugger;
+    if (frameIndex !== 1 ) {
+      if(!activeFrame.empty )
+          this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0.5 });
+      else
+        this.canvas.item(frameIndex - 1).set({ visible: false });
     }
 
     if (frameList[frameIndex - 1].empty && !frame.empty) {
@@ -800,7 +803,8 @@ export class AnimationModule extends React.PureComponent<
       this.canvas.setZoom(1);
       this.canvas.viewportTransform[4] = 0;
       this.canvas.viewportTransform[5] = 0;
-    }
+      // this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0 });
+    }    
 
     this.canvas.item(frame.frameIndex - 1).set({ visible: true });
     this.canvas.renderAll();
