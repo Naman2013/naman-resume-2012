@@ -1,0 +1,55 @@
+
+
+
+.header-txt{   
+    position: static;       
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #000000;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    align-self: flex-start;
+    margin-right: 24px;
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.header-txt-active,.header-txt:hover{
+    position: static;  
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration-line: underline;
+
+    color: #000000;
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin-right: 24px ;
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.main{
+     /* Inside Auto Layout */
+     padding: 24px 24px;
+     background: #FAFAFA;
+}
+
+ul{
+    padding: 0px;
+}

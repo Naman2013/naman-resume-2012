@@ -35,6 +35,8 @@ import Constellation from 'app/modules/missions/containers/constellation';
 import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
+import { NewDashboard } from 'app/modules/new-dashboard/index'
+
 import {
   GettingStartedContainer,
   PrivateProfileMain,
@@ -194,6 +196,14 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={Dashboard}
         onEnter={validateUser}
       />
+
+      <Route
+        exact
+        path="NewDashboard"
+        component={NewDashboard}
+        onEnter={validateUser}
+      />
+
       <Route
         path="guestDashboard/:abTestCallSource"
         component={Dashboard}

@@ -1,0 +1,35 @@
+
+
+.badge-main{
+    padding: 24px 0px;
+}
+
+.badge-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;    
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.iconempty{
+   width: 25px;
+   height: 25px;  
+   min-height: 25px;
+   border-radius: 35px;
+   background-color: #C4C4C4;   
+   margin:2px;    
+}
+
+.badgelist{
+    display: flex;
+    flex-wrap: wrap;
+}

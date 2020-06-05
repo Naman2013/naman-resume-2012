@@ -1,0 +1,58 @@
+
+
+.progress-card-main{
+    /* padding: 0px 10px; */
+    background: #FAFAFA;
+}
+
+
+.currentProgress{
+    /* position: absolute;
+    width: 39px;
+    height: 14px;
+    left: 715px;
+    top: 163px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+    
+    text-align: right;
+    
+    color: #000000;
+}
+
+.nextLevelName{
+    
+    /* position: absolute;
+    width: 78px;
+    height: 14px;
+    left: 922px;
+    top: 163px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #828282;
+}
+
+.info{
+    padding:3px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-bar{
+    background-color: #C6C6C6 !important;
+}
+
+

@@ -1,0 +1,30 @@
+
+
+.main{
+    padding: 24px;
+}
+
+.heading{
+    /* position: absolute;       
+    top: 96px;     */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    
+    color: #000000;
+}
+
+.subHeading{
+    /* position: absolute;    
+    top: 134px; */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+  
+    color: #BDBDBD;
+     
+}

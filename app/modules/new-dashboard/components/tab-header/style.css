@@ -1,0 +1,66 @@
+
+
+
+.tab-header-txt{   
+    position: static;
+    display: flex;
+    flex-direction: row;
+    /* width: 84px;
+    height: 14px;
+    left: 24px;
+    top: 12px; */
+    padding: 12px 24px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+    
+    
+    color: #202020;
+    
+    
+    /* Inside Auto Layout */
+    
+    flex: none;
+    order: 0;
+    align-self: center;    
+    margin-right: 24px;
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.tab-header-txt-active{
+    display: flex;
+    flex-direction: row;
+    padding: 12px 24px;
+
+    position: static;
+    /* width: 129px;
+    height: 38px;
+    left: 0px;
+    top: 0px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    background: #202020;
+    border-radius: 8px;
+    color: #FFFFFF;   
+
+    flex: none;
+    order: 0;
+    align-self: center;    
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.tab-header-main{    
+     padding: 0px 0px 24px 24px;     
+}
