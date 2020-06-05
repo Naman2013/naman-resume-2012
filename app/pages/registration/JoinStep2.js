@@ -18,6 +18,7 @@ import { createValidator, required } from 'app/modules/utils/validation';
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { getUserInfo } from 'app/modules/User';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -237,6 +238,13 @@ class JoinStep2 extends Component {
     newAccountFormData.parentEmailAddress.hintText =
       result.formFieldLabels.parentEmailAddress.hintText;
 
+    newAccountFormData.codeA.value =
+      result.formFieldLabels.discussionGroupCodeA.currentValue;
+    newAccountFormData.codeB.value =
+      result.formFieldLabels.discussionGroupCodeB.currentValue;
+
+      this.props.change('codeA',result.formFieldLabels.discussionGroupCodeA.currentValue);
+      this.props.change('codeB',result.formFieldLabels.discussionGroupCodeB.currentValue);
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -643,9 +651,9 @@ class JoinStep2 extends Component {
       isAstronomyClub,
       formIsComplete,
     } = this.state;
-
+    const { _sloohatid } = getUserInfo();
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
-
+    
     return (
       <div>
         <Request
@@ -653,6 +661,7 @@ class JoinStep2 extends Component {
           requestBody={{
             callSource: 'setupCredentials',
             selectedPlanId,
+            marketingTrackingId: _sloohatid,
             enableHiddenPlanHashCode: window.localStorage.getItem(
               'enableHiddenPlanHashCode'
             ),
@@ -1210,6 +1219,7 @@ class JoinStep2 extends Component {
                                       name="codeA"
                                       type="text"
                                       className="form-field"
+                                      disabled={joinPageRes.formFieldLabels.discussionGroupCodeA.currentValue && joinPageRes.formFieldLabels.discussionGroupCodeA.currentValue !== ""}
                                       label={''
                                         // accountFormDetails.discussionGroupCode
                                         //   .hintText
@@ -1224,7 +1234,8 @@ class JoinStep2 extends Component {
                                     <Field
                                       name="codeB"
                                       type="text"
-                                      className="form-field"
+                                      className="form-field"                                      
+                                      disabled={joinPageRes.formFieldLabels.discussionGroupCodeB.currentValue && joinPageRes.formFieldLabels.discussionGroupCodeB.currentValue !== ""}                              // input={{disabled:  accountFormDetails.codeB.value && accountFormDetails.codeB.value !== ""}}
                                       label={''
                                         // accountFormDetails.discussionGroupCode
                                         //   .hintText
