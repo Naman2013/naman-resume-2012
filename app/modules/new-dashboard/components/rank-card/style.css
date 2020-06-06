@@ -1,0 +1,93 @@
+
+
+.rank-main{
+    padding: 24px 0px;
+}
+
+.rank-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;    
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.rank-id{
+    /* position: static;
+    width: 46px;
+    height: 19px;
+    left: 0px;
+    top: 0px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+
+    color: #969696;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 8px 0px;
+}
+
+.rank-name{
+    /* position: static;
+    width: 104px;
+    height: 19px;
+    left: 54px;
+    top: 0px; */
+    width: 100%;
+    margin-left: 5dp;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    align-self: center;
+    padding: 8px 0px 8px 8px;
+}
+
+.rank-gp{
+    /* position: absolute;
+    width: 18px;
+    height: 19px;
+    right: 0px;
+    top: 8px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}

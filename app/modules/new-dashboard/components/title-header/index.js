@@ -11,9 +11,9 @@ export class TitleHeader extends Component{
         const subHeading = "Discover and Observe";
 
         return (
-            <div className="main">
-                <h2 className="heading">{heading}</h2>               
-                <h4 className="subHeading">{subHeading}</h4>
+            <div className="title-main">
+                <h2 className="title-heading">{heading}</h2>               
+                <h4 className="title-subHeading">{subHeading}</h4>
             </div>   
         );
     }

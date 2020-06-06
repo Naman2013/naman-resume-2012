@@ -1,10 +1,10 @@
 
 
-.main{
-    padding: 24px;
+.title-main{
+    padding: 24px 0px;
 }
 
-.heading{
+.title-heading{
     /* position: absolute;       
     top: 96px;     */
     font-family: Roboto;
@@ -16,7 +16,7 @@
     color: #000000;
 }
 
-.subHeading{
+.title-subHeading{
     /* position: absolute;    
     top: 134px; */
     font-family: Roboto;

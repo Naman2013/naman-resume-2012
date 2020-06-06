@@ -10,7 +10,7 @@ export class DashboardHeader extends Component{
         const headings = ["Explore the Universe", "Observatory and Missions", "Photo", "Community Exploration"];
         const activeHeading="Explore the Universe";
         return (
-            <div className="main">
+            <div className="header-main">
                 <ul>
                     {headings.map(heading=>(
                         <li className={"header-txt" + (activeHeading === heading ? "-active": "")} key={heading} >

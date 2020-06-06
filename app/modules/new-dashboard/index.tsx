@@ -7,7 +7,9 @@ import { TabHeader } from "./components/tab-header";
 import { ProfileCard} from "./components/profile-card";
 import { BadgeList } from "./components/badge-list";
 import { GravityActions } from "./components/gravity-actions";
-
+import { ObjectList } from "./components/object-list"
+import { DomainGP } from "./components/domain-gp";
+import { RankCard } from "./components/rank-card";
 
 export class NewDashboard extends Component{
     
@@ -21,7 +23,11 @@ export class NewDashboard extends Component{
                     
                     <TitleHeader/>
 
-                    <TabHeader/>
+                    <TabHeader
+                        headings={["Explore Quests", "Explore Objects"]}
+                        activeHeading={"Explore Quests"}
+                        spaceequally={false}
+                    />
 
                     
                 </div>
@@ -29,6 +35,18 @@ export class NewDashboard extends Component{
                     <ProfileCard/>
                     <BadgeList/>
                     <GravityActions/>
+                    <ObjectList
+                        heading={"Most Active Objects"}
+                    />
+                    <ObjectList
+                        heading={"Most Popular Observations"}
+                    />
+                    <DomainGP
+                        heading={"GP by Domain"}
+                    />
+                    <RankCard
+                        heading={"Your Rank"}
+                    />
                 </div>
             </div>
         );
