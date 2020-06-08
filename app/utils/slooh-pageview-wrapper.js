@@ -64,8 +64,7 @@ export const veritySloohId= async ()=>{
 	const { _sloohatid } = getUserInfo();
 	if(_sloohatid !== undefined){
 		const requestData = { sloohMarketingTrackingId: _sloohatid };
-		let response = await API.post(VERIFY_MARKETING_ID, requestData);
-			debugger;	
+		let response = await API.post(VERIFY_MARKETING_ID, requestData);				
 			if(!response.data.apiError){
 				if(response.data.status === "failed"){
 					if( response.data.statusAction === "InvalidMarketingTrackingID" || response.data.statusAction === "ExpiredMarketingTrackingID" ){
