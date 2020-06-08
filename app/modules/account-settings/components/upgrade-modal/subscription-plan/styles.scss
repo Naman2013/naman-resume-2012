@@ -33,4 +33,18 @@
     line-height: 45px;
     font-weight: 300;
   }
+
+  .plan-cost-strike {
+    //font-family: BrandonGrotesque;
+    font-family: $primary-font;
+    font-size: 45px;
+    line-height: 45px;
+    font-weight: 300;
+    text-decoration: line-through;
+    padding-bottom: 10px;
+  }
+
+  .grid{
+    display: grid;
+  }
 }
