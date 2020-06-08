@@ -61,7 +61,7 @@ export const fireSloohPageView = (pagePath, referringPageURL) => {
 };
 
 export const veritySloohId= async ()=>{
-	const { cid, at, token, _sloohsstkn, _sloohatid } = getUserInfo();
+	const { _sloohatid } = getUserInfo();
 	if(_sloohatid !== undefined){
 		const requestData = { sloohMarketingTrackingId: _sloohatid };
 		let response = await API.post(VERIFY_MARKETING_ID, requestData);
