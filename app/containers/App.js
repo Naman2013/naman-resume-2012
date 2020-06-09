@@ -61,9 +61,9 @@ class App extends Component {
     
   }
 
-  async componentWillMount(){
-    const res1=await veritySloohId();  
-  }
+  // async componentWillMount(){
+  //   const res1=await veritySloohId();  
+  // }
 
   async componentDidMount(){
     const { user } = this.props;
@@ -73,7 +73,8 @@ class App extends Component {
       location: { pathname },
     } = this.props;
     // Slooh page view tracker for application load event
-    fireSloohPageView({ pagePath: pathname });    
+    fireSloohPageView({ pagePath: pathname }); 
+    const res1=await veritySloohId();     
   }
 
    componentWillReceiveProps(nextProps) {
