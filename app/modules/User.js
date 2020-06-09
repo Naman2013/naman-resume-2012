@@ -49,6 +49,24 @@ export function deleteSessionToken() {
   });
 }
 
+export function storeShowOffer(offer) {
+  window.document.cookie = cookie.serialize('_showOffer', offer, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: session_marketing_futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
+export function deleteShowOffer() {
+  window.document.cookie = cookie.serialize('_showOffer', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+}
+
 export function storeMarketingTrackingId(marketingTrackingId) {
   window.document.cookie = cookie.serialize('_sloohatid', marketingTrackingId, {
     domain: cookieD,
@@ -312,7 +330,7 @@ export const logout = () => {
 
 export function destroy() {
   destroySession();
-
+  deleteShowOffer();
   return dispatch => {
     dispatch(removeUser());
   };

@@ -23,6 +23,10 @@ import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
 import DashboardPanelItem from '../DashboardPanelItem';
 import './styles.scss';
+import Popup from 'react-modal';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import DashboardOffer from 'app/components/dashboard-offer';
+import { getUserInfo } from 'app/modules/User';
 
 type TGuestDashboardProps = {
   guestDashboard: IGuestDashboard;
@@ -61,8 +65,19 @@ const GET_PLANS_CALLSOURCES = {
 };
 
 class GuestDashboard extends Component<TGuestDashboardProps> {
+
+  state={
+    showOfferPopup: true
+  }
+
   componentDidMount(): void {
     this.getGuestDashboard();
+    const { _showOffer } = getUserInfo();
+    this.setState({showOfferPopup: !(_showOffer ? _showOffer : false)});
+  }
+
+  handleClosePopup = () => {
+
   }
 
   getObservatoryList = (): void => {
@@ -226,8 +241,9 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 
   render() {
     const { guestDashboard } = this.props;
-    const { Sections } = guestDashboard;
+    const { Sections, enableDashboardOfferPopup, dashboardOfferPopupCallSource } = guestDashboard;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
+    const { showOfferPopup } = this.state;
 
     return (
       <div className="dashboard-layout">
@@ -310,6 +326,22 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 		    </Fragment>
 		  }
 		</div>
+      {enableDashboardOfferPopup && showOfferPopup && (
+         <Popup
+         // ariaHideApp={false}
+         isOpen={true}
+         style={customModalStylesBlackOverlay}
+         contentLabel="Error"
+         shouldCloseOnOverlayClick={false}
+         onRequestClose={this.handleClosePopup}
+         >
+          <DashboardOffer   
+              onClose={()=>this.setState({showOfferPopup: false})}          
+              callSource={dashboardOfferPopupCallSource}             	
+          />
+         </Popup>
+      )}
+
       </div>
     );
   }

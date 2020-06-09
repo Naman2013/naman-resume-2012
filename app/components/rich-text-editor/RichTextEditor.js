@@ -342,9 +342,9 @@ class RichTextEditor extends React.Component {
           <InlineStyleControls
             readOnly={readOnly}
             editorState={editorState}
-            onToggle={this.toggleInlineStyle}
+            onToggle={this.toggleInlineStyle}            
           />
-          <div className="RichEditor-controls">
+          <div className="RichEditor-controls-inline">
             <span
               className={`fa fa-link ${linkClass}`}
               role="button"
