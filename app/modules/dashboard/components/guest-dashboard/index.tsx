@@ -327,7 +327,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 		    </Fragment>
 		  }
 		</div>
-      {enableDashboardOfferPopup && showOfferPopup && (
+      {enableDashboardOfferPopup && showOfferPopup && (_sloohatid !== undefined) &&(
          <Popup
          // ariaHideApp={false}
          isOpen={true}
