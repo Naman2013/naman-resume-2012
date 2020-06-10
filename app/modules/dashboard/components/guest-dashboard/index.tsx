@@ -244,7 +244,8 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { Sections, enableDashboardOfferPopup, dashboardOfferPopupCallSource } = guestDashboard;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
     const { showOfferPopup } = this.state;
-
+    const { _sloohatid } = getUserInfo();
+    
     return (
       <div className="dashboard-layout">
         <div className="dash-hero">
@@ -326,7 +327,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 		    </Fragment>
 		  }
 		</div>
-      {enableDashboardOfferPopup && showOfferPopup && (
+      {enableDashboardOfferPopup && showOfferPopup && (_sloohatid !== undefined) &&(
          <Popup
          // ariaHideApp={false}
          isOpen={true}
