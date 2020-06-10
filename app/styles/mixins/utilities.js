@@ -95,6 +95,19 @@ export const customModalStylesBlackOverlay = {
   },
 };
 
+export const customModalStylesBlackHalfOverlay = {
+  content: {
+    ...defaultModalContent,
+    maxWidth: '650px',
+    minWidth: '300px',
+    border: 0,
+    padding: '20px 25px',
+  },
+  overlay: {
+    backgroundColor: 'rgba(60,70,85, 0.5)',
+  },
+};
+
 export const customModalStylesFitDevice = {
   content: {
     ...defaultModalContent,

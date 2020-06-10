@@ -15,6 +15,7 @@ import { isEnter } from 'app/modules/utils/keyIdentifier';
 import { Nav, Tab } from 'react-bootstrap';
 import { FeedItem } from '../feed-item';
 import { MemberItem } from '../member-item';
+import { API } from 'app/api';
 
 const enableResizing = {
   top: true,
@@ -51,7 +52,8 @@ const submitMessage = (
   pubnubActivityFeedChannelName: string,
   userDisplayName: string,
   myTextInputField: any,
-  setMemberChatState: Function
+  setMemberChatState: Function,
+  props: any
 ): void => {
   event.preventDefault();
 
@@ -92,6 +94,21 @@ const submitMessage = (
       );
       liveActivityWindowBodyFeedObj.scrollIntoView(false);
     }, 1000);
+    const { token, at, cid } = getUserInfo();  
+    const { activityFeedMembers } = props;
+    API.post("/api/app/postChatMessage", {      
+      at,
+      token,
+      cid,
+      message,
+      localUserTimestampInMilliseconds: new Date().getTime(),
+      numUsersWithChatOpen: activityFeedMembers.length, 
+    }).then(result => {     
+          //success
+    })
+    .catch(error => {
+        //error
+    });  
   }
 };
 
@@ -394,7 +411,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                         props.pubnubActivityFeedChannelName,
                         props.userDisplayName,
                         e.target,
-                        setMemberChatState
+                        setMemberChatState,
+                        props
                       )
                     }
                     onMouseDown={e => e.stopPropagation()}

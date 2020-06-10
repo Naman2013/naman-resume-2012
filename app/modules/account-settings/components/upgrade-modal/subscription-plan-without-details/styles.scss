@@ -19,6 +19,10 @@
     text-transform: uppercase;
   }
 
+  .mar-left{
+    margin-left: 10px;
+  }
+
   .plan-name {
     //font-family: AGaramondPro;
     font-family: $secondary-font;
@@ -37,7 +41,7 @@
   .plan-cost {
     //font-family: BrandonGrotesque;
     font-family: $primary-font;
-    font-size: 45px;
+    font-size: 28px;
     line-height: 45px;
     font-weight: 300;
   }
@@ -45,7 +49,7 @@
   .plan-cost-strike {
     //font-family: BrandonGrotesque;
     font-family: $primary-font;
-    font-size: 45px;
+    font-size: 28px;
     line-height: 45px;
     font-weight: 300;
     text-decoration: line-through;

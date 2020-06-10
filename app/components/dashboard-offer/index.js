@@ -56,7 +56,7 @@ class DashboardOffer extends Component{
                         role="button"
                         />
                         <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
-                        <p className="modal-p mb-5" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
+                        <p className="modal-p mb-5 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
                         <hr/>
                         {subscriptionPlans.map(plan => (
                             <SubscriptionPlanNoDetails
@@ -79,6 +79,10 @@ class DashboardOffer extends Component{
 
                     .cursor{
                         cursor: pointer;
+                    }
+
+                    .font-18{
+                        font-size: 18px;
                     }
                     `}
                 </style>

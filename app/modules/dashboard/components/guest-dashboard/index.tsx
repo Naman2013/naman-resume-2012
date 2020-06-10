@@ -24,7 +24,7 @@ import DashHeroMobile from '../hero/DashboardHeroMobile';
 import DashboardPanelItem from '../DashboardPanelItem';
 import './styles.scss';
 import Popup from 'react-modal';
-import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { customModalStylesBlackHalfOverlay } from 'app/styles/mixins/utilities';
 import DashboardOffer from 'app/components/dashboard-offer';
 import { getUserInfo } from 'app/modules/User';
 
@@ -327,11 +327,11 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 		    </Fragment>
 		  }
 		</div>
-      {enableDashboardOfferPopup && showOfferPopup && (_sloohatid !== undefined) &&(
+      {enableDashboardOfferPopup && showOfferPopup && (
          <Popup
          // ariaHideApp={false}
          isOpen={true}
-         style={customModalStylesBlackOverlay}
+         style={customModalStylesBlackHalfOverlay}
          contentLabel="Error"
          shouldCloseOnOverlayClick={false}
          onRequestClose={this.handleClosePopup}

@@ -68,7 +68,7 @@ export const SubscriptionPlanNoDetails = (props: TSubscriptionPlan) => {
           className="header"
           dangerouslySetInnerHTML={{ __html: teaserContent }}
         />
-        <span className="header">{planCostPostfix}</span>
+        <span className="header mar-left">{" | " + planCostPostfix}</span>
       </div>
 
       <hr />     
