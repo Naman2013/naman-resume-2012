@@ -52,8 +52,7 @@ export function deleteSessionToken() {
 export function storeShowOffer(offer) {
   window.document.cookie = cookie.serialize('_showOffer', offer, {
     domain: cookieD,
-    secure: cookieSecure,
-    expires: session_marketing_futureDate,
+    secure: cookieSecure,   
     path: COOKIE_PATH,
   });
 }
@@ -61,8 +60,7 @@ export function storeShowOffer(offer) {
 export function deleteShowOffer() {
   window.document.cookie = cookie.serialize('_showOffer', '', {
     domain: cookieD,
-    secure: cookieSecure,
-    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    secure: cookieSecure,    
     path: COOKIE_PATH,
   });
 }

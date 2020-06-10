@@ -36,7 +36,7 @@ class DashboardOffer extends Component{
             plansdata: []
         };
         this.getSubscriptions(props.callSource);
-        // storeShowOffer(true);
+        storeShowOffer(true);
     }
 
     render() {

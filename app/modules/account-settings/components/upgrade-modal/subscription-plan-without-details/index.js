@@ -74,26 +74,28 @@ export const SubscriptionPlanNoDetails = (props: TSubscriptionPlan) => {
       <hr />     
          
             <Fragment>
-              {isPlanActionEnabled && (
-                <Button
-                  isActive={true}
-                  mod="white-text right"
-                  onClickEvent={onSelect}
-                >
-                  {selectButtonText} 
-                  {/* <span className="icon-arrow-right" /> */}
-                </Button>
-              )}
-              {!isPlanActionEnabled && (
-                <Button
-                  disabled
-                  style={{ backgroundColor: '#D3D3D3' }}
-                  className="animated fadeIn faster"
-                  onClickEvent={onSelect}
-                >
-                  {selectButtonText}
-                </Button>
-              )}
+              <div className="right">
+                  {isPlanActionEnabled && (
+                    <Button
+                      isActive={true}
+                      mod="white-text"
+                      onClickEvent={onSelect}
+                    >
+                      {selectButtonText} 
+                      {/* <span className="icon-arrow-right" /> */}
+                    </Button>
+                  )}
+                  {!isPlanActionEnabled && (
+                    <Button
+                      disabled
+                      style={{ backgroundColor: '#D3D3D3' }}
+                      className="animated fadeIn faster"
+                      onClickEvent={onSelect}
+                    >
+                      {selectButtonText}
+                    </Button>
+                  )}
+              </div>              
             </Fragment>
     </div>
   );
