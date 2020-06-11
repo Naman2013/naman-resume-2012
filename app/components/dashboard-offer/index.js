@@ -46,9 +46,9 @@ class DashboardOffer extends Component{
     render() {
         const { onClose } = this.props;
         const { plansdata } = this.state;
-        const { pageHeading1, pageHeading2, subscriptionPlans, selectBtnLinkURL } = plansdata;
+        const { pageHeading1, pageHeading2A, pageHeading2B, subscriptionPlans, selectBtnLinkURL } = plansdata;
         const { isLoading } = this.state;
-
+        
         return(
             <div className="min-height">
                 <Spinner loading={isLoading} />
@@ -60,7 +60,10 @@ class DashboardOffer extends Component{
                         role="button"
                         />
                         <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
-                        <p className="modal-p mb-5 font-18 two-columns" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
+                        <div className="two-columns">
+                            <p className="modal-p mb-5 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2A }}/>                            
+                            <p className="modal-p mb-5 font-18 margin-left" dangerouslySetInnerHTML={{ __html: pageHeading2B }}/>                                                        
+                        </div>                        
                         <hr/>
                         {subscriptionPlans.map(plan => (
                             <SubscriptionPlanNoDetails
@@ -94,6 +97,10 @@ class DashboardOffer extends Component{
                         display: flex;
                         text-align: justify;
                     }                    
+                    
+                    .margin-left{
+                        margin-left: 15px;
+                    }
 
                     @media ${screenMobile} {
                         .two-columns{
@@ -102,6 +109,9 @@ class DashboardOffer extends Component{
                         }
                         .min-height{                            
                             width: auto;                        
+                        }
+                        .margin-left{
+                            margin-left: 0px;
                         }
                     }
 
@@ -112,6 +122,9 @@ class DashboardOffer extends Component{
                         }
                         .min-height{                            
                             width: auto;                        
+                        }
+                        .margin-left{
+                            margin-left: 0px;
                         }
                     }
                     `}
