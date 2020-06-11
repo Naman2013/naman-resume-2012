@@ -131,6 +131,21 @@ class DashboardOffer extends Component{
                         .margin-left{
                             margin-left: 0px;
                         }
+                        .center-txt{
+                            text-align: center;
+                            margin-bottom: 3px;
+                            font-size: 2rem;
+                        }
+                        .mb-5 {
+                            margin-bottom: 10px !important;
+                        }     
+                        .right{
+                            float: unset;
+                        }
+                        .font-18{
+                            font-size: 16px;
+                        }
+                      
                     }
                     `}
                 </style>
