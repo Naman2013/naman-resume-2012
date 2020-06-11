@@ -8,12 +8,8 @@ export class RankCard extends Component{
 
     
     render() {
-        const {heading} = this.props;
-        const rankList = [{rank: "2065", gpPoints: "49", text: "Serenity Henry"},
-                            {rank: "2064", gpPoints: "48", text: "Harold Russell"},
-                            {rank: "2063", gpPoints: "46", text: "Colleen Henry"},
-                            {rank: "2062", gpPoints: "46", text: "Tanya Pena"},
-                            {rank: "2061", gpPoints: "45", text: "Bruce Mccoy"}];
+        const {heading, rankList, showRowCount, showMoreButton} = this.props;
+        const showmorebtntext = "Show More";
 
         return (
             <div className="rank-main">
@@ -24,14 +20,18 @@ export class RankCard extends Component{
                         spaceequally={true}
                     />
                     <table>
-                        {rankList.map(rank=>(
+                        {rankList.slice(0, showRowCount === 0 ? rankList.length : showRowCount).map(rank=>(
                             <tr>
                                 <td className="rank-id">#{rank.rank}</td>
                                 <td className="rank-name">{rank.text}</td>
                                 <td className="rank-gp">{rank.gpPoints}</td>
                             </tr>
                         ))}
-                    </table>                                   
+                    </table> 
+                    {showMoreButton && (
+                        <h2 className="rank-show-more-button">{showmorebtntext}</h2>
+                    )}
+                        
             </div>   
         );
     }

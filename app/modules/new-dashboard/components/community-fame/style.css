@@ -1,0 +1,62 @@
+
+
+.community-fame-main{
+    padding: 24px 0px;
+}
+
+.community-fame-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;    
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.community-flex-layout{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.community-gp-card{  
+    width: 90px;
+    height: 102px;    
+    margin: 10px 0px;
+    background: #E8E8E8;
+    border-radius: 4px;
+}
+
+.community-gp-points{   
+   
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    margin-top: 20px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.community-gp-txt{   
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #000000;
+}

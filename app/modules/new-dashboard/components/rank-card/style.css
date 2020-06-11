@@ -91,3 +91,24 @@
 
     color: #000000;
 }
+
+.rank-show-more-button{    
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+    cursor: pointer;
+    color: #4172BD;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 10px 0px;
+}

@@ -1,0 +1,22 @@
+
+
+.gp-main{
+    padding: 10px 0px;   
+
+    /* background: url(image.png); */
+    background-color: #1C304E;
+    border-radius: 8px;
+    margin: 10px 0px;
+}
+
+.gp-txt{    
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    
+    color: #FFFFFF;
+}
