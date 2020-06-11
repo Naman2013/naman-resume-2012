@@ -78,10 +78,10 @@ const submitMessage = (
       },
     };
     setMessageIdToLocalStorage(null);
-
+    
     //publish the message
     pubnubConnection.publish({
-      message: event.target.value,
+      message,
       channel: pubnubActivityFeedChannelName,
       sendByPost: false, // true to send via post
       storeInHistory: true, //override default storage options
@@ -100,7 +100,7 @@ const submitMessage = (
       at,
       token,
       cid,
-      message,
+      message: event.target.value,
       localUserTimestampInMilliseconds: new Date().getTime(),
       numUsersWithChatOpen: activityFeedMembers.length, 
     }).then(result => {     

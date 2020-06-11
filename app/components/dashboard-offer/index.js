@@ -59,7 +59,7 @@ class DashboardOffer extends Component{
                         onClick={onClose}
                         role="button"
                         />
-                        <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
+                        <h1 className="modal-h center-txt" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
                         <div className="two-columns">
                             <p className="modal-p mb-5 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2A }}/>                            
                             <p className="modal-p mb-5 font-18 margin-left" dangerouslySetInnerHTML={{ __html: pageHeading2B }}/>                                                        
@@ -80,6 +80,11 @@ class DashboardOffer extends Component{
                         float: right;
                     }
                     
+                    .center-txt{
+                        text-align: center;
+                        margin-bottom: 40px;
+                    }
+
                     .min-height{
                         min-height: 200px;
                         width: 770px;                        
@@ -99,7 +104,7 @@ class DashboardOffer extends Component{
                     }                    
                     
                     .margin-left{
-                        margin-left: 15px;
+                        margin-left: 30px;
                     }
 
                     @media ${screenMobile} {
