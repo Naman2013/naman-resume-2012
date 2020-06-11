@@ -98,7 +98,7 @@ export const customModalStylesBlackOverlay = {
 export const customModalStylesBlackHalfOverlay = {
   content: {
     ...defaultModalContent,
-    maxWidth: '650px',
+    maxWidth: '820px',
     minWidth: '300px',
     border: 0,
     padding: '20px 25px',

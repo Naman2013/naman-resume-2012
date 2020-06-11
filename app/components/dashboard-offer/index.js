@@ -5,7 +5,11 @@ import { getSubscriptionPlansApi } from '../../modules/account-settings/api';
 import { getUserInfo } from 'app/modules/User';
 import { storeShowOffer } from 'app/modules/User';
 import { browserHistory } from 'react-router';
-
+import {
+    screenMobile,
+    screenSmallMobile,
+  } from 'app/styles/variables/breakpoints';
+  
 class DashboardOffer extends Component{    
 
     getSubscriptions = (callSource) => {
@@ -56,7 +60,7 @@ class DashboardOffer extends Component{
                         role="button"
                         />
                         <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
-                        <p className="modal-p mb-5 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
+                        <p className="modal-p mb-5 font-18 two-columns" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
                         <hr/>
                         {subscriptionPlans.map(plan => (
                             <SubscriptionPlanNoDetails
@@ -74,7 +78,8 @@ class DashboardOffer extends Component{
                     }
                     
                     .min-height{
-                        min-height: 200px;                        
+                        min-height: 200px;
+                        width: 770px;                        
                     }
 
                     .cursor{
@@ -83,6 +88,31 @@ class DashboardOffer extends Component{
 
                     .font-18{
                         font-size: 18px;
+                    }
+
+                    .two-columns{
+                        display: flex;
+                        text-align: justify;
+                    }                    
+
+                    @media ${screenMobile} {
+                        .two-columns{
+                            display: unset;
+                            text-align: justify;
+                        }
+                        .min-height{                            
+                            width: auto;                        
+                        }
+                    }
+
+                    @media ${screenSmallMobile} {
+                        .two-columns{
+                            display: unset;
+                            text-align: justify;
+                        }
+                        .min-height{                            
+                            width: auto;                        
+                        }
                     }
                     `}
                 </style>
