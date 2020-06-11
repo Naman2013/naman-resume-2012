@@ -104,7 +104,7 @@ class DashboardOffer extends Component{
                     }                    
                     
                     .margin-left{
-                        margin-left: 30px;
+                        margin-left: 50px;
                     }
 
                     @media ${screenMobile} {
