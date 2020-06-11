@@ -78,7 +78,7 @@ const submitMessage = (
       },
     };
     setMessageIdToLocalStorage(null);
-    
+
     //publish the message
     pubnubConnection.publish({
       message,
@@ -86,7 +86,7 @@ const submitMessage = (
       sendByPost: false, // true to send via post
       storeInHistory: true, //override default storage options
     });
-    myTextInputField.value = '';
+    
     setMemberChatState('sentMessage');
     setTimeout(function() {
       let liveActivityWindowBodyFeedObj = document.getElementById(
@@ -109,6 +109,7 @@ const submitMessage = (
     .catch(error => {
         //error
     });  
+    myTextInputField.value = '';
   }
 };
 
