@@ -104,6 +104,9 @@ export default css`
     :global(.reveal-form-input) {
       width: 400px;
     }
+    .reveal-submit-form{
+      width: 600px
+    }
   }
 
   @media ${screenLarge} {
@@ -112,6 +115,10 @@ export default css`
     }
     :global(.reveal-form-input) {
       width: 400px;
+    }
+
+    .reveal-submit-form{
+      width: 700px
     }
   }
 `;

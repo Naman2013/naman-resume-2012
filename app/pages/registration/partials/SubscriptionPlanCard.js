@@ -52,6 +52,8 @@ class SubscriptionPlanCard extends Component {
       selectButtonText,
       setSelectedPlan,
       teaserContent,
+      planIsDiscounted,
+      originalPlanCost
     } = this.props;
 
     const { showDetails } = this.state;
@@ -71,9 +73,15 @@ class SubscriptionPlanCard extends Component {
                 />
                 <div className="audience-type">{planAudienceType}</div>
               </div>
-              <div className="plan-cost">
+              <div className="plan-cost">  
+              {planIsDiscounted && (
+                  <div div className="plan-cost-strike">
+                    <span dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+                    <span dangerouslySetInnerHTML={{ __html: originalPlanCost }} />                    
+                  </div>
+                )}            
                 <span dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
-                <span dangerouslySetInnerHTML={{ __html: planCost }} />
+                <span dangerouslySetInnerHTML={{ __html: planCost }} />                
               </div>
             </div>
             <div className="flex border-bottom padded-top-bottom">

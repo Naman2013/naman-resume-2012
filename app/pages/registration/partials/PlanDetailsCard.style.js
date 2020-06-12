@@ -43,14 +43,30 @@ export default css`
     padding: 15px;
     border-left: 1px solid ${shadows};
   }
+
+  .small-scr-strike {
+    font-size: 45px;
+    text-decoration: line-through;
+  }
+
   @media only screen (min-width: 400px) and (max-width: 500px) {
     .small-scr {
       font-size: 35px;
     }
+
+    .small-scr-strike {
+      font-size: 35px;
+      text-decoration: line-through;
+    }
   }
   @media only screen and (max-width: 400px) {
     .small-scr {
+      font-size: 25px;      
+    }
+    
+    .small-scr-strike {
       font-size: 25px;
+      text-decoration: line-through;
     }
   }
 
@@ -67,6 +83,10 @@ export default css`
 
   .padded-top-bottom {
     padding: 15px 0;
+  }
+
+  .no-padded{
+    padding: 0px;
   }
 
   .post-cost {

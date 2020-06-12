@@ -661,7 +661,7 @@ class JoinStep2 extends Component {
           requestBody={{
             callSource: 'setupCredentials',
             selectedPlanId,
-            marketingTrackingId: _sloohatid,
+            sloohMarketingTrackingId: _sloohatid,
             enableHiddenPlanHashCode: window.localStorage.getItem(
               'enableHiddenPlanHashCode'
             ),

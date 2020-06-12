@@ -152,16 +152,16 @@ export class Slooh1000Setup extends Component {
         
         <div className="steps row">
           <div className="col-sm-6 messages">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step3">
                   <span>{step3Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step3Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
           </div>
 
           <div className="col-sm-6 step-3">
