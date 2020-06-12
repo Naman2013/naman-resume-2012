@@ -61,8 +61,8 @@ class DashboardOffer extends Component{
                         />
                         <h1 className="modal-h center-txt" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
                         <div className="two-columns">
-                            <p className="modal-p mb-5 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2A }}/>                            
-                            <p className="modal-p mb-5 font-18 margin-left" dangerouslySetInnerHTML={{ __html: pageHeading2B }}/>                                                        
+                            <p className="modal-p mb-2 font-18" dangerouslySetInnerHTML={{ __html: pageHeading2A }}/>                            
+                            <p className="modal-p mb-2 font-18 margin-left" dangerouslySetInnerHTML={{ __html: pageHeading2B }}/>                                                        
                         </div>                        
                         <hr/>
                         {subscriptionPlans.map(plan => (
@@ -81,8 +81,8 @@ class DashboardOffer extends Component{
                     }
                     
                     .center-txt{
-                        text-align: center;
-                        margin-bottom: 40px;
+                        // text-align: center;
+                        margin-bottom: 15px;
                     }
 
                     .min-height{
@@ -136,7 +136,7 @@ class DashboardOffer extends Component{
                             margin-bottom: 3px;
                             font-size: 2rem;
                         }
-                        .mb-5 {
+                        .mb-2 {
                             margin-bottom: 10px !important;
                         }     
                         .right{
