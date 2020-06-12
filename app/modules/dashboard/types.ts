@@ -106,6 +106,8 @@ export declare interface IGuestDashboard extends StandardResponse {
     imageList: Array<IDashboardMissionPhotosData>;
   };
   customClass: string;
+  enableDashboardOfferPopup: boolean;
+  dashboardOfferPopupCallSource: string;
 }
 
 export declare interface IFeaturedObjectsMission {

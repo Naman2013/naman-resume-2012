@@ -1,7 +1,9 @@
 import { API } from 'app/api';
 import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId, deleteQuestBreadCrumbDetails } from 'app/modules/User';
+import { browserHistory } from 'react-router';
 
 const LOG_PAGE_VISIT_API_URL = '/api/app/logPageVisit';
+const VERIFY_MARKETING_ID = '/api/app/verifySloohATId';
 
 const logPageVisit = (pagePath) => {
   const { cid, at, token, _sloohsstkn, _sloohatid } = getUserInfo();
@@ -57,3 +59,26 @@ const logPageVisit = (pagePath) => {
 export const fireSloohPageView = (pagePath, referringPageURL) => {
   logPageVisit(pagePath, referringPageURL);
 };
+
+export const veritySloohId= async ()=>{
+	const { _sloohatid } = getUserInfo();
+	if(_sloohatid !== undefined){
+		const requestData = { sloohMarketingTrackingId: _sloohatid };
+		let response = await API.post(VERIFY_MARKETING_ID, requestData);				
+			if(!response.data.apiError){
+				if(response.data.status === "failed"){
+					if( response.data.statusAction === "InvalidMarketingTrackingID" || response.data.statusAction === "ExpiredMarketingTrackingID" ){
+						deleteSessionToken();
+						deleteMarketingTrackingId();						  
+						
+					}
+				}
+				else if(response.data.status === "success"){
+					if(response.data.redirectUserToURI){
+						browserHistory.push(response.data.redirectUserToURI);
+					}
+				}
+			}
+	}
+	
+}

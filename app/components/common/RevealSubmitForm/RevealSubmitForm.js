@@ -307,6 +307,7 @@ class RevealSubmitForm extends Component {
           }}
           contentLabel="Comment"
           onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={false}
         >
           {modalDescription ? (
             <p

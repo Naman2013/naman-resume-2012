@@ -49,11 +49,14 @@ class SubscriptionPlanCardSmall extends Component {
       setSelectedPlan,
       viewPlanDetails,
       isPlanActionEnabled,
+      planIsDiscounted,
+      originalPlanCost
     } = this.props;
 
     const { showDetails } = this.state;
 
-    const planCostDetails = planCostPrefix + planCost + " " + planCostPostfix;
+    const planCostDetails = planCostPrefix + planCost + " " + (planIsDiscounted ? "" :planCostPostfix);
+    const dicountedplanCostDetails = planCostPrefix + originalPlanCost;
     return (
       <div className="root">
         <img src={imageUrl} className="plan-image" />
@@ -66,10 +69,18 @@ class SubscriptionPlanCardSmall extends Component {
 	          <div className="audience-type">{planAudienceType}</div>
 	  </div>
           <div className="emphasize border-top border-bottom padded-top-bottom">
+          {planIsDiscounted && (                  
+                    <span className="plan-cost-small"><span className="plan-cost-small-strike" dangerouslySetInnerHTML={{ __html: dicountedplanCostDetails }} /> | </span>
+                )}
             <span
               className="plan-cost-small"
               dangerouslySetInnerHTML={{ __html: planCostDetails }}
-            />
+            />    
+                {planIsDiscounted && (
+                  <div>                    
+                    <br/> {planCostPostfix}
+                  </div>
+                )}    
           </div>
           <div className="flex padded-top-bottom">
             <div>

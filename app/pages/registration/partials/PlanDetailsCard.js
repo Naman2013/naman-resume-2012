@@ -32,8 +32,10 @@ const PlanDetailsCard = props => {
     planId,
     startDateText,
     flexClass,
+    planIsDiscounted,
+    originalPlanCost,
   } = props;
-
+  
   return (
     <div className="root">
       <div className={flexClass || "flex"}>
@@ -48,10 +50,16 @@ const PlanDetailsCard = props => {
           </div>
         </div>
         <div className="plan-cost-container">
+        {planIsDiscounted && (
+            <div className="plan-cost no-padded">
+              <span className="small-scr-strike" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+              <span className="small-scr-strike" dangerouslySetInnerHTML={{ __html: originalPlanCost }} />
+            </div>
+          )}   
           <div className="plan-cost padded-top-bottom">
             <span className="small-scr" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
             <span className="small-scr" dangerouslySetInnerHTML={{ __html: planCost }} />
-          </div>
+          </div>                 
           <span
             className="emphasize post-cost"
             dangerouslySetInnerHTML={{ __html: planCostPostfix }}
