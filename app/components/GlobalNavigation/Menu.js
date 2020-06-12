@@ -68,6 +68,7 @@ const Menu = props => {
             transition-property: left, right;
             transition-duration: 0.15s;
             transition-timing-function: ease-in-out;
+            display: flex;
           }
 
           .menu-list {
