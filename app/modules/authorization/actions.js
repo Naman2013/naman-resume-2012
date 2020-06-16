@@ -168,6 +168,8 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
+  console.log(apiResponse);
+
   if (statusCode === UNAUTHORIZED_STATUS_CODE) {
     //session issues....send the user to the homepage, they likely tried accessing on a second device.
     triggerUserAccountIssueModal = false;
