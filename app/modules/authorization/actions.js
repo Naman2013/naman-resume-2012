@@ -106,12 +106,14 @@ export const fetchErrors = () => (dispatch, getState) => {
       const { responseType, responseURL } = result.data;
 
       if (responseType === MEMBER_UPSELL) {
+        console.log("here0");
         dispatch(push('/'));
         dispatch(openUpsellModal());
       }
 
       if (responseType === GOTO_HOMEPAGE) {
         dispatch(push('/'));
+	console.log("here-1");
       }
 
       if (responseType === LOGIN_UPSELL) {
@@ -132,9 +134,11 @@ export const fetchErrors = () => (dispatch, getState) => {
       }
 
       if (responseType === GOTO_URL) {
+	consolelog("here-2");
         window.location.href = decodeURIComponent(responseURL);
       }
 
+	console.log("here-3");
       // TODO: this may need to happen during other parts of resolution
       dispatch(resetErrorState());
     });
@@ -144,6 +148,8 @@ export const fetchErrors = () => (dispatch, getState) => {
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
   const user = getUserInfo();
+
+  console.log(user);
 
   /*****************************************
    * POSSIBLE HTTP RESPONSE CODES....
@@ -164,7 +170,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const UPSELL_STATUS_CODE = 420;
 
   const { apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
-  //console.log(statusCode);
 
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
