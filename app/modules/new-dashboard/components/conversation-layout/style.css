@@ -1,0 +1,120 @@
+
+
+.conversation-main{
+    /* position: absolute; */
+    /* width: 643px; */
+    
+    /* left: 24px;
+    top: 3490px; */
+
+    background: #FAFAFA;
+    border-radius: 8px;
+    padding: 24px;
+    
+}
+
+.message-container{
+   padding: 10px 0px;   
+}
+
+.conversation-date{
+    /* position: absolute;
+    width: 111px;
+    height: 14px;
+    left: 290px;
+    top: 3538px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    /* identical to box height */
+
+    padding: 15px 0px;
+    color: rgba(32, 32, 32, 0.4);
+}
+
+.message-content{
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: row;
+    padding: 16px 24px;
+
+    /* position: absolute; */
+    width: 400px;
+    /* height: 102px;
+    left: 48px;
+    top: 3584px; */
+
+    background: #F0F5FC;
+    border-radius: 4px;
+    
+}
+
+.col-left{
+    flex: 0.25;
+}
+
+.col-right{
+    flex: 1;
+}
+
+.message-text{
+    /* position: static;
+    width: 314px;
+    height: 42px;
+    left: 0px;
+    top: 0px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 150%;
+    /* or 21px */
+
+
+    color: #202020;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: flex-start;
+    margin: 0px 10px;
+}
+
+.highlight{
+    font-weight: bold;
+    color: #2375f1;
+}
+
+.message-time{
+    /* position: static;
+    width: 57px;
+    height: 18px;
+    left: 0px;
+    top: 31px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+    /* identical to box height, or 18px */
+
+
+    color: #202020;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    align-self: flex-start;
+    margin: 0px 10px;
+}

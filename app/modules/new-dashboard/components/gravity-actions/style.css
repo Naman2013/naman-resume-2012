@@ -34,6 +34,7 @@
     margin: 5px;
     display: flex;
     justify-content: center;
+    /* background: url("https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg"); */
     background: #2398AB;
     border: 2px solid #6FCEDE;
     box-sizing: border-box;

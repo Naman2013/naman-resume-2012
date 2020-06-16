@@ -7,9 +7,8 @@ export class TitleHeader extends Component{
 
     
     render() {
-        const heading = "Explore the Universe";
-        const subHeading = "Discover and Observe";
-
+        const { heading, subHeading } = this.props;
+        
         return (
             <div className="title-main">
                 <h2 className="title-heading">{heading}</h2>               

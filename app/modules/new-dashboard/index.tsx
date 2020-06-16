@@ -15,6 +15,8 @@ import { CommunityClubList } from "./components/community-club-list";
 import { Observatories } from "./components/observatories";
 import { UpcomingMissionList }  from "./components/upcoming-mission-list";
 import { PhotoHub } from "./components/photo-hub";
+import { ImageSlider } from "./components/image-slider";
+import { RecentCommunityActivities } from "./components/recent-community-activities";
 
 export class NewDashboard extends Component{
     
@@ -26,13 +28,17 @@ export class NewDashboard extends Component{
                 <div className="left">
                     <DashboardHeader/>
                     <div className="left-contents">
-                        <TitleHeader/>
+                        <TitleHeader
+                            heading = {"Explore the Universe"}
+                            subHeading = {"Discover and Observe"}
+                        />
 
                         <TabHeader
                             headings={["Explore Quests", "Explore Objects"]}
                             activeHeading={"Explore Quests"}
                             spaceequally={false}
                         />
+
                         <Observatories/>
                         
                         <UpcomingMissionList
@@ -42,6 +48,7 @@ export class NewDashboard extends Component{
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"},
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"}]}
                         />
+
                         <UpcomingMissionList
                             heading={"Past Missions"}
                             missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
@@ -49,12 +56,25 @@ export class NewDashboard extends Component{
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"}]}
                             scheduleMission={false}
                         />
+
                         <PhotoHub
                             heading={"Phot Hub (1 New)"}                            
                             headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
                             selectedheader={"Photo Roll"}
                             headerspaceequally={false}
                             
+                        />
+
+                        <TitleHeader
+                            heading = {"Community Exploration"}
+                            subHeading = {"Latest Community Insights"}
+                        />
+
+                        <ImageSlider
+                        />
+
+                        <RecentCommunityActivities
+                            heading={"Recent Community Activities"}
                         />
                     </div>
                 </div>
