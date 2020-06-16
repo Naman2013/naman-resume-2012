@@ -1,0 +1,48 @@
+.upcoming-mission-card{
+    padding: 2em;    
+    background: #FAFAFA;
+    border-radius: 8px; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.upcoming-time{
+   
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+    
+    padding: 5px 0px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.upcoming-telescope{   
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.upcoming-obj-name{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #000000;    
+
+}
+
+.pad-top-10{
+    padding-top: 10px;
+}

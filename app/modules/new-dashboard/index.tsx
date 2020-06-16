@@ -11,6 +11,10 @@ import { ObjectList } from "./components/object-list"
 import { DomainGP } from "./components/domain-gp";
 import { RankCard } from "./components/rank-card";
 import { CommunityFame } from "./components/community-fame";
+import { CommunityClubList } from "./components/community-club-list";
+import { Observatories } from "./components/observatories";
+import { UpcomingMissionList }  from "./components/upcoming-mission-list";
+import { PhotoHub } from "./components/photo-hub";
 
 export class NewDashboard extends Component{
     
@@ -21,16 +25,38 @@ export class NewDashboard extends Component{
             <div className="row">
                 <div className="left">
                     <DashboardHeader/>
-                    
-                    <TitleHeader/>
+                    <div className="left-contents">
+                        <TitleHeader/>
 
-                    <TabHeader
-                        headings={["Explore Quests", "Explore Objects"]}
-                        activeHeading={"Explore Quests"}
-                        spaceequally={false}
-                    />
-
-                    
+                        <TabHeader
+                            headings={["Explore Quests", "Explore Objects"]}
+                            activeHeading={"Explore Quests"}
+                            spaceequally={false}
+                        />
+                        <Observatories/>
+                        
+                        <UpcomingMissionList
+                            heading={"Upcoming Missions"}
+                            scheduleMission={true}
+                            missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"}]}
+                        />
+                        <UpcomingMissionList
+                            heading={"Past Missions"}
+                            missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"}]}
+                            scheduleMission={false}
+                        />
+                        <PhotoHub
+                            heading={"Phot Hub (1 New)"}                            
+                            headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
+                            selectedheader={"Photo Roll"}
+                            headerspaceequally={false}
+                            
+                        />
+                    </div>
                 </div>
                 <div className="right">
                     <ProfileCard/>
@@ -100,6 +126,14 @@ export class NewDashboard extends Component{
                                     {rank: "15", gpPoints: "45547", text: "Bruce Mccoy"}]}
                         showRowCount={10}
                         showMoreButton={true}
+                    />
+                    <CommunityClubList
+                        heading={"Top Community Clubs"}
+                        clubList={[{rank: "1", gpPoints: "9547 GP", text: "Ad Asta", admin: "Paul Cox | 1304 Members"},
+                                    {rank: "2", gpPoints: "1054 GP", text: "Astronomy for the Soul", admin: "Paul Cox | 954 Members"},
+                                    {rank: "3", gpPoints: "457 GP", text: "Are We Alone?", admin: "Paul Cox | 847 Members"},
+                                    {rank: "4", gpPoints: "46034", text: "Tanya Pena", admin: ""}]}
+                        showRowCount={3}                       
                     />
                 </div>
             </div>

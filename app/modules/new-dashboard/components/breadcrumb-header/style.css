@@ -46,7 +46,7 @@
 
 .header-main{
      /* Inside Auto Layout */
-     padding: 24px 0px;
+     padding: 24px 24px;
      background: #FAFAFA;
 }
 

@@ -1,0 +1,41 @@
+.mission-card{
+    padding: 2em;    
+    background: #FFFFFF;
+    border-radius: 8px; 
+    margin-right: 10px;
+    width: 200px;
+}
+
+.time{
+   
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #202020;
+}
+
+.scheduled-by{        
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;    
+    color: rgba(32, 32, 2, 0.8);
+}
+
+.obj-name{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    color: #000000;
+}

@@ -1,0 +1,128 @@
+
+
+
+.tab-header-status-txt{   
+    position: static;
+    display: flex;
+    flex-direction: row;
+    /* width: 84px;
+    height: 14px;
+    left: 24px;
+    top: 12px; */
+    padding: 12px 15px;    
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    background: #FAFAFA;
+    border-radius: 8px;
+    color: #000000;
+    
+    
+    /* Inside Auto Layout */    
+   
+    margin-right: 24px;
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.tab-header-status-txt-active{
+    display: flex;
+    flex-direction: row;
+    padding: 12px 24px;
+
+    position: static;
+    /* width: 129px;
+    height: 38px;
+    left: 0px;
+    top: 0px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    background: #202020;
+    border-radius: 8px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    color: #FFFFFF;     
+    list-style-type: none;
+    display: inline-block; 
+    cursor: pointer;   
+}
+
+.tab-header-status-main{    
+     padding: 0px 0px 0px 0px;     
+}
+
+.space-equally{
+    width: 50%;
+    text-align: center;
+    margin-right: 0px;
+}
+
+.online{
+    /* position: absolute;
+    width: 40px;
+    height: 16px;
+    left: 361px;
+    top: 784px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+
+    color: #17BF28;
+
+    margin: 5px 0px;
+}
+
+.offline{
+    /* position: absolute;
+    width: 160px;
+    height: 16px;
+    left: 77px;
+    top: 784px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+
+    color: #C4C4C4;
+    margin: 5px 0px;
+}
+
+.dot {
+    height: 6px;
+    width: 6px;    
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
+}
+
+.online-bg{
+    background-color: #17BF28;
+}
+
+.offline-bg{
+    background-color: #C4C4C4;
+}

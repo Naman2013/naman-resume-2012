@@ -1,0 +1,173 @@
+
+
+.observatory-main{
+    padding: 24px 0px;
+}
+
+.observatory-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 25px;  
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.observatory-content{
+    /* position: absolute;
+    width: 643px;
+    height: 655px;
+    left: 24px;
+    top: 832px; */
+
+    background: #FAFAFA;
+    border-radius: 8px;
+    padding: 20px;
+    
+}
+
+.observatory-row{
+    display: flex;
+}
+
+.observatory-col{
+    flex: 1; 
+    
+    padding: 2em;    
+    background: #FFFFFF;
+    border-radius: 8px;   
+}
+
+
+.observatory-col-left{
+    flex: 1; 
+    
+    padding: 2em;    
+    background: #FFFFFF;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.observatory-col-right{
+    flex: 1; 
+    
+    padding: 2em;    
+    background: #FFFFFF;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.observatory-col-txt{
+    /* position: absolute;
+    width: 112px;
+    height: 14px;
+    left: 72px;
+    top: 880px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #808080;
+}
+
+.observatory-col-value{
+    /* position: absolute;
+    width: 66px;
+    height: 16px;
+    left: 72px;
+    top: 898px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #202020;
+}
+
+.flex-point3{
+    flex: 0.3;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.temp-value{    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #000000;
+}
+
+.values{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+.reason{
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 150%;
+    /* or 18px */
+
+    width:50%;
+
+    color: rgba(32, 32, 32, 0.8);
+}
+
+.level{    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 150%;
+    /* identical to box height, or 18px */
+
+
+    color: #F39629;    
+}
+
+.pad5{
+    padding: 5px 0px;
+}
+
+.observatory-heading2{    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+    margin-bottom: 10px;
+}
+

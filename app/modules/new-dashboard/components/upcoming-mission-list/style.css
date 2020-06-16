@@ -1,0 +1,59 @@
+
+
+.upcoming-main{
+    padding: 24px 0px;
+}
+
+.upcoming-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;    
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.upcoming-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.schedule-mission-card{
+    padding: 2em;    
+    background: #FAFAFA;
+    border-radius: 8px; 
+    margin-right: 10px;    
+    width: 200px;
+}
+
+.schedule-misssion-title{   
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.schedule-mission-subtitle{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    /* identical to box height */
+
+
+    color: rgba(32, 32, 32, 0.8);
+}
