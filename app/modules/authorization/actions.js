@@ -131,7 +131,6 @@ export const fetchErrors = () => (dispatch, getState) => {
       }
 
       if (responseType === GOTO_URL) {
-	consolelog("here-2");
         window.location.href = decodeURIComponent(responseURL);
       }
 
