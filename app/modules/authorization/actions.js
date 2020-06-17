@@ -106,18 +106,15 @@ export const fetchErrors = () => (dispatch, getState) => {
       const { responseType, responseURL } = result.data;
 
       if (responseType === MEMBER_UPSELL) {
-        console.log("here0");
         dispatch(push('/'));
         dispatch(openUpsellModal());
       }
 
       if (responseType === GOTO_HOMEPAGE) {
         dispatch(push('/'));
-	console.log("here-1");
       }
 
       if (responseType === LOGIN_UPSELL) {
-	console.log("here1");
         destroySession();
         dispatch(removeUser());
         dispatch(push('/'));
@@ -138,7 +135,6 @@ export const fetchErrors = () => (dispatch, getState) => {
         window.location.href = decodeURIComponent(responseURL);
       }
 
-	console.log("here-3");
       // TODO: this may need to happen during other parts of resolution
       dispatch(resetErrorState());
     });
@@ -149,7 +145,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
   const user = getUserInfo();
 
-  console.log(user);
 
   /*****************************************
    * POSSIBLE HTTP RESPONSE CODES....
@@ -174,10 +169,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
-  console.log(apiResponse.statusCode);
-
   if (statusCode === UNAUTHORIZED_STATUS_CODE) {
-	console.log("here2");
     //session issues....send the user to the homepage, they likely tried accessing on a second device.
     triggerUserAccountIssueModal = false;
 
@@ -186,7 +178,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     dispatch(push('/'));
     dispatch(window.location.reload());
   } else if (statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE) {
-	console.log("here3");
     //paywall
     triggerUserAccountIssueModal = false;
 
