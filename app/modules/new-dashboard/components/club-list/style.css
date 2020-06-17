@@ -1,10 +1,10 @@
 
 
-.upcoming-main{
+.club-list-main{
     padding: 24px 0px;
 }
 
-.upcoming-heading{
+.club-list-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -14,47 +14,44 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
-    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 21px;
+    
     color: #000000;
 }
 
-.upcoming-list{
+.club-list{
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
 }
 
-.schedule-mission-card{
+.club-explore-card{
     padding: 2em;    
-    background: #FAFAFA;
-    border-radius: 8px; 
-    margin-right: 10px;
-    margin-bottom: 10px;    
+    background: #202020;
+    border-radius: 8px;
+    margin-right: 10px;    
     width: 200px;
+    margin-bottom: 10px;   
 }
 
-.schedule-misssion-title{   
+.club-title{   
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-    /* identical to box height */
-
-
-    color: #000000;
+    font-size: 14px;
+    line-height: 16px;
+    
+    color: #FFFFFF;
 }
 
-.schedule-mission-subtitle{
+.club-subtitle{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;
-    /* identical to box height */
-
-
-    color: rgba(32, 32, 32, 0.8);
+    margin-top: 10px;
+    
+    color: rgba(255, 255, 255, 0.8);
 }

@@ -1,0 +1,40 @@
+.club-card{
+    padding: 2em;    
+    background: #213043;
+    border-radius: 8px; 
+    margin-right: 15px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.club-type{  
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 10px;
+
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.club-info{       
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.club-name{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+    color: #FFFFFF;   
+}

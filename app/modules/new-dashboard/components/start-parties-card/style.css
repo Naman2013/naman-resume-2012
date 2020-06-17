@@ -1,14 +1,13 @@
 .star-party-card{ 
-    margin-right: 10px;
+    margin-right: 15px;
     margin-bottom: 10px;
     
     display: flex;
     flex-direction: column;
     padding: 16px 24px;
-
-    position: absolute;
-    width: 309px;  
-    background: rgba(27,43,56,0.7), url(http://lorempixel.com/800/600/nature/2);
+    
+    width: 300px;  
+    background: rgba(27,43,56,0.9);
     background-size:cover;
     border-radius: 8px;
 }
@@ -19,25 +18,27 @@
     display: flex;
     flex-direction: row;
     padding: 8px 12px;
-
-    /* position: static;
-    width: 134px;
-    height: 32px;
-    left: 24px;
-    top: 16px; */
+    width: fit-content;  
 
     background: rgba(14, 43, 86, 0.6);
     backdrop-filter: blur(4px);
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 8px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #FFFFFF;
 
     /* Inside Auto Layout */
 
     flex: none;
-    order: 0;
-    align-self: flex-start;
-    margin: 0px 8px;
+    text-align: center;
+    order: 0;    
+    /* margin: 10px 0px; */
 }
 
 .party-name{
@@ -60,7 +61,7 @@
 
     flex: none;
     order: 1;
-    margin: 0px 8px;
+    margin: 10px 0px;
 }
 
 .party-date-time{
@@ -85,7 +86,7 @@
     flex: none;
     order: 2;
     align-self: flex-start;
-    margin: 0px 8px;
+    /* margin: 0px 8px; */
 }
 
 .astronomer-img{
@@ -94,15 +95,15 @@
     height: 32px;
     /* left: 0px;
     top: 0px; */
-
-    background: url(image.png);
+    border-radius: 50%;
+    background: rgba(254, 255, 255, 0.9);
 
     /* Inside Auto Layout */
 
     flex: none;
     order: 0;
     align-self: flex-start;
-    margin: 4px 0px;
+    margin: 4px 8px 4px 0px;
 }
 
 .astronomer-text{   
@@ -124,8 +125,7 @@
     /* Inside Auto Layout */
 
     flex: none;
-    order: 1;
-    align-self: center;
+    order: 3;    
     margin: 4px 0px;
 }
 

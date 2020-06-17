@@ -1,0 +1,31 @@
+
+
+.party-list-main{
+    padding: 24px 0px;
+}
+
+.party-list-heading{
+    /* position: absolute;
+    width: 177px;
+    height: 21px;
+    left: 24px;
+    top: 4130px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+    
+    
+    color: #000000;
+}
+
+.party-list{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+

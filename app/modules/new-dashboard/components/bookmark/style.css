@@ -1,0 +1,27 @@
+
+
+.guide-list-main{
+    padding: 24px 0px;
+}
+
+.guide-list-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;    
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.guide-list{
+    display: flex;
+    flex-wrap: wrap;    
+}
+

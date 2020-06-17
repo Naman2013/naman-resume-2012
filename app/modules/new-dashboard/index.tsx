@@ -17,6 +17,9 @@ import { UpcomingMissionList }  from "./components/upcoming-mission-list";
 import { PhotoHub } from "./components/photo-hub";
 import { ImageSlider } from "./components/image-slider";
 import { RecentCommunityActivities } from "./components/recent-community-activities";
+import { StarPartyList } from "./components/start-party-list";
+import { ClubList } from "./components/club-list";
+import { BookMark } from "./components/bookmark";
 
 export class NewDashboard extends Component{
     
@@ -75,6 +78,25 @@ export class NewDashboard extends Component{
 
                         <RecentCommunityActivities
                             heading={"Recent Community Activities"}
+                        />
+
+                        <StarPartyList
+                            heading={"Upcoming StarParties"}
+                            partylist={[{startText: "Starts in 00:24:21", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" },
+                                        {startText: "Upcoming StarParty", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" }]}
+                        />
+
+                        <ClubList
+                            heading={"My Clubs"}
+                            showExploreClubs={true}
+                            clubList={[{name: "Ad Astra", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},
+                                        {name: "Astronomy for the Soul", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},]}
+                        />
+
+                        <BookMark
+                            heading={"Bookmarks"}
+                            guideList={[{title: "Andromeda", subtitle: "Slooh Team", info: "Everything you need to know about the constellation of Andromeda..."},
+                                        {title: "The Moon", subtitle: "Slooh Team", info: "The Earth's Moon is the fifth largest in our Solar System and the largest moon..."}]}
                         />
                     </div>
                 </div>
