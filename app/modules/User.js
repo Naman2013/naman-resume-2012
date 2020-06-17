@@ -369,7 +369,7 @@ export function checkUser(pathname, replace, callback) {
     );
 
     // if we have a user to set, set it
-    if (cid && token && at && fname) {
+    if (cid && token && at) {
       dispatch(
         store({
           cid,
