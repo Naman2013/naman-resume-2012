@@ -13,7 +13,7 @@ export class RecentCommunityActivities extends Component{
         
         return (
             <div className="recent-main">
-                <h2 className="upcoming-heading">{heading}</h2> 
+                <h2 className="recent-heading">{heading}</h2> 
                 <TabHeader
                     headings={["All", "Only My Activites"]}
                     activeHeading={"All"}

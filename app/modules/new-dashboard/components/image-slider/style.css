@@ -1,4 +1,169 @@
+
+.slick-prev,
+  .slick-next {
+    width: 32px;
+    height: 32px;
+    /* margin: 0 15px; */
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: #000;
+    /* border: solid 2px #FFF; */
+    border-radius: 50%;
+    z-index: 9;
+    background-color: #FFFFFF;
+    
+  }
+
+  .slick-prev:hover,.slick-prev:focus,.slick-next:hover,.slick-next:focus{
+    background-color: #FFFFFF;
+  }
+
+  .slick-prev.slick-disabled,.slick-next.slick-disabled{
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+
+  .slick-prev:before {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: 14px;
+    top: 25%;
+    left: 12%;
+    z-index: 9;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
+      0 0 no-repeat;
+    transform: rotate(180deg);
+  }
+
+  .slick-prev{
+    left: 10px
+  }
+
+  .slick-next{
+    right: 10px
+  }
+
+  .slick-next:before {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: 14px;
+    top: 33%;
+    left: 36%;
+    z-index: 9;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
+      0 0 no-repeat;
+    /* transform: rotate(180deg); */
+  }
+
+
+  .slick-slide > div,
+  .slick-slide > div > div {
+    outline: 0;
+    outline: none;
+  }
+
+  .slick-arrow.slick-disabled {
+    cursor: not-allowed !important;
+  } 
+
 .img-slider{
     max-width: 100%;
     max-height: 350px;
+    flex-shrink: 0;
+}
+
+.slider-item{
+  display: flex !important;
+  justify-content: center;
+}
+
+.slick-next:before, .slick-prev:before {
+  opacity: 1;
+}
+
+.slick-slider:hover .slick-arrow{
+  /* display: block !important; */
+  visibility:visible;
+  opacity:1;
+}
+
+.slick-arrow{
+  visibility:hidden;
+  opacity:0;
+  transition:visibility 0.5s linear,opacity 0.5s linear;
+}
+
+.slider-title{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #000000;
+}
+
+.slider-subtitle{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;  
+
+  color: #000000;
+  margin: 10px 0px;
+}
+
+.slider-content{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+
+  color: #000000;
+}
+
+.slider-content-footer{
+  margin: 16px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider-footer-button{  
+  padding: 8px;
+
+  background: #E6EEFA;
+  border-radius: 4px;  
+  border: none;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  /* identical to box height */
+
+  text-align: center;
+  color: #6698E3;
+
+  /* Inside Auto Layout */  
+  
+  margin-right: 8px;
+  
+}
+
+.slider-updated{  
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  text-align: right;
+
+  color: rgba(0, 0, 0, 0.4);
 }
