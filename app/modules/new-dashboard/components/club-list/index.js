@@ -22,8 +22,9 @@ export class ClubList extends Component{
                         ))}
                         {showExploreClubs &&(
                             <div className="club-explore-card">
-                                <div>
+                                <div className="club-explore-card-head">
                                     <h4 className="club-title">Explore Other Clubs</h4>
+                                    <img className="club-card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                 </div>        
                                 <p className="club-subtitle">Find Some awesome communities to share progress and receive experience</p>
                         </div>

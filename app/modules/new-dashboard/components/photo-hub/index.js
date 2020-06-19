@@ -23,11 +23,20 @@ export class PhotoHub extends Component{
         return (
             <div className="photo-hub-main">
                 <h2 className="photo-hub-heading">{heading}</h2>    
-                    <TabHeader
-                        headings={headerlist}
-                        activeHeading={selectedheader}
-                        spaceequally={headerspaceequally}
-                    />      
+                    <div className="photo-hub-card-header">
+                        <TabHeader
+                            headings={headerlist}
+                            activeHeading={selectedheader}
+                            spaceequally={headerspaceequally}
+                        /> 
+                        <Button
+                            type={"button"}
+                            onClickEvent={()=>{}} 
+                            text={"Upload Photo"}                                             
+                            style={"upload-button"}
+                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload.svg"}
+                        />
+                    </div>                         
                     <h5 className="sort-filter">{"Sort & Filter"}</h5>             
                     <div className="photo-hub-list">
                         {photoList.map(photo=>(

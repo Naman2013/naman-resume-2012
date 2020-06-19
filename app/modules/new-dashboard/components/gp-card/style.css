@@ -3,8 +3,9 @@
 .gp-main{
     padding: 10px 0px;   
 
-    /* background: url(image.png); */
-    background-color: #1C304E;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/community_fame_bg.svg') no-repeat;
+    background-size: cover;
+    /* background-color: #1C304E; */
     border-radius: 8px;
     margin: 10px 0px;
 }

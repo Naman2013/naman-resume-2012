@@ -55,3 +55,13 @@
     
     color: rgba(255, 255, 255, 0.8);
 }
+
+.club-explore-card-head{
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.club-card-options{
+    height: fit-content;
+}

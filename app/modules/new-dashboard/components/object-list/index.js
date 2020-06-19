@@ -8,10 +8,10 @@ export class ObjectList extends Component{
     
     render() {
         const {heading, showTab, headerlist, selectedheader, headerspaceequally} = this.props;
-        const objectList = [{objectPoints: "44", text: "Jupiter"},
-                            {objectPoints: "41", text: "Saturn"},
-                            {objectPoints: "28", text: "Moon"},
-                            {objectPoints: "24", text: "Pluto"}];
+        const objectList = [{objectPoints: "44 GP", text: "Jupiter", icon: "https://vega.slooh.com/assets/v4/dashboard-new/jupiter.svg"},
+                            {objectPoints: "41 GP", text: "Saturn", icon: "https://vega.slooh.com/assets/v4/dashboard-new/saturn.svg"},
+                            {objectPoints: "28 GP", text: "Moon", icon: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
+                            {objectPoints: "24 GP", text: "Pluto", icon: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}];
 
         return (
             <div className="object-main">
@@ -27,7 +27,7 @@ export class ObjectList extends Component{
                         {objectList.map(object=>(
                             <div className="object-item">
                                 <div className="objecticonContainer">
-                                    <img src="" className=""/>
+                                    <img src={object.icon} className=""/>
                                 </div>
                                 <h2 className="object-name">{object.text}</h2>
                                 <h4 className="object-gp">{object.objectPoints}</h4>

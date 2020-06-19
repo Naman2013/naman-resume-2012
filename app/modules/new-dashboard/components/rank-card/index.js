@@ -29,7 +29,10 @@ export class RankCard extends Component{
                         ))}
                     </table> 
                     {showMoreButton && (
-                        <h2 className="rank-show-more-button">{showmorebtntext}</h2>
+                        <h2 className="rank-show-more-button">
+                            {showmorebtntext} 
+                            <img className="mar-lr-5" src="https://vega.slooh.com/assets/v4/dashboard-new/down_arrow.svg"/>
+                        </h2>
                     )}
                         
             </div>   

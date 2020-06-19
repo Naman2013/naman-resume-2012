@@ -118,3 +118,8 @@
     align-self: flex-start;
     margin: 0px 10px;
 }
+
+.polygon-background{
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg') no-repeat;
+    background-size: cover;
+}

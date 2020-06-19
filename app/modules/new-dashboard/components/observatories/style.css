@@ -114,6 +114,7 @@
     line-height: 28px;
 
     color: #000000;
+    margin-bottom: 10px;
 }
 
 .values{
@@ -125,6 +126,8 @@
     /* identical to box height */
 
     color: #000000;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .reason{
@@ -171,3 +174,6 @@
     margin-bottom: 10px;
 }
 
+.icon-value{
+    margin: 5px 10px 5px 0px;
+}

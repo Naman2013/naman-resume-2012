@@ -5,14 +5,26 @@ import './style.css';
 
 export class TabHeader extends Component{
 
+    constructor(props){
+        super(props);
+        this.state={
+            activeHeading: props.activeHeading
+        };
+    }    
     
+    onTabChanged(tabName){
+        this.setState({activeHeading: tabName});
+    }
+
     render() {
-        const { headings, activeHeading, spaceequally } = this.props;        
+        const { headings, spaceequally } = this.props;   
+        const { activeHeading } = this.state;
+
         return (
             <div>
                 <ul className="tab-header-main">
                     {headings.map(heading=>(
-                        <li className={"tab-header-txt" + (activeHeading === heading ? "-active": "") + (spaceequally ? " space-equally" : "")} key={heading} >
+                        <li className={"tab-header-txt" + (activeHeading === heading ? "-active": "") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>this.onTabChanged(heading)}>
                             {heading}
                         </li>
                     ))}

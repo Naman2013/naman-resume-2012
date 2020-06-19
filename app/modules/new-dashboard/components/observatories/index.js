@@ -49,12 +49,15 @@ export class Observatories extends Component{
                             <div className="flex-point3">
                                 <h2 className="temp-value">49°F</h2>
                                 <div className="pad5">
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity.svg"/>
                                     <span className="values">75%</span>
                                 </div>
                                 <div className="pad5"> 
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind.svg"/>
                                     <span className="values">10 MPH</span>
                                 </div>
                                 <div className="pad5">
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/subtract.svg"/>
                                     <span className="values">43°F</span>
                                 </div>
                             </div>

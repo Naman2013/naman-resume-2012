@@ -26,7 +26,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), #15253D;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/community_bg.svg') no-repeat;
+    background-size: cover;
     border-radius: 8px;   
     margin: 5px 0px;
 }
