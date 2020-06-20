@@ -11,13 +11,16 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 21px;
-    line-height: 25px;  
+    line-height: 25px;
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
     margin-bottom: 10px;
-    color: #000000;
 }
 
 .photo-hub-list{
@@ -96,10 +99,10 @@
     left: 207px;
     top: 2554px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 14px;
     /* identical to box height */
 
@@ -116,11 +119,11 @@
     left: 207px;
     top: 2576px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 12px;
-    line-height: 14px;
+    line-height: 17px;
     /* identical to box height */
 
 
@@ -135,15 +138,16 @@
     left: 207px;
     top: 2650px; */
 
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 12px;
     line-height: 14px;
+
     /* identical to box height */
 
-    bottom: 0;
-    position: absolute;
+    /* bottom: 0;
+    position: absolute; */
     color: #FFFFFF;
     margin-bottom: 15px;
 }
@@ -155,36 +159,47 @@
     left: 24px;
     top: 2190px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    line-height: 14px;
-   
+    line-height: 17px;
     text-decoration-line: underline;
+
     margin-bottom: 15px;
-    color: #000000;
+    color: #FFFFFF;
     cursor: pointer;
 
 }
 
 .upload-button{
-    padding: 8px 16px;
-    background: transparent;
-    border-radius: 4px;
-    border: 2px dashed;
-    font-family: Roboto;
+    padding: 8px 16px;    
+    border-radius: 8px;
+    border: 2px dashed #17202B;
+    font-family: Brandon Grotesque;
     font-style: normal;
-    font-weight: 500;
+    font-weight: normal;
     font-size: 12px;
-    line-height: 14px;
+    line-height: 17px;
     text-align: center;
-    color: #202020;
+    /* #FFF - Text */
+    margin-bottom: 1rem;
+    color: #FFFFFF;
     height: fit-content;
+    background: #253446;
 }
 
 .photo-hub-card-header{
     display: inline-flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+}
+
+.photo-hub-details{
+    display: inline-flex;
+    justify-content: space-between;    
+    width: 80%;
+    bottom: 0;
+    position: absolute;
 }

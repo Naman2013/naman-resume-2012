@@ -11,13 +11,13 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 21px;
     line-height: 25px;  
     margin-bottom: 10px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .observatory-content{
@@ -27,7 +27,7 @@
     left: 24px;
     top: 832px; */
 
-    background: #FAFAFA;
+    background: #253446;
     border-radius: 8px;
     padding: 20px;
     
@@ -41,7 +41,7 @@
     flex: 1; 
     
     padding: 2em;    
-    background: #FFFFFF;
+    background: #202D3D;
     border-radius: 8px;   
 }
 
@@ -50,7 +50,7 @@
     flex: 1; 
     
     padding: 2em;    
-    background: #FFFFFF;
+    background: #202D3D;
     border-radius: 8px;
     margin-right: 10px;
 }
@@ -59,7 +59,7 @@
     flex: 1; 
     
     padding: 2em;    
-    background: #FFFFFF;
+    background: #202D3D;
     border-radius: 8px;
     margin-left: 10px;
 }
@@ -71,15 +71,15 @@
     left: 72px;
     top: 880px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 20px;
     /* identical to box height */
 
 
-    color: #808080;
+    color: #B3B3B3;
 }
 
 .observatory-col-value{
@@ -89,13 +89,13 @@
     left: 72px;
     top: 898px; */
 
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
 
-    color: #202020;
+    color: #FFFFFF;
 }
 
 .flex-point3{
@@ -107,45 +107,45 @@
 }
 
 .temp-value{    
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 24px;
-    line-height: 28px;
+    line-height: 29px;
 
-    color: #000000;
+    color: #FFFFFF;
     margin-bottom: 10px;
 }
 
 .values{
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 12px;
     line-height: 14px;
     /* identical to box height */
 
-    color: #000000;
+    color: #FFFFFF;
     display: inline-block;
     vertical-align: middle;
 }
 
 .reason{
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 150%;
     /* or 18px */
 
     width:50%;
 
-    color: rgba(32, 32, 32, 0.8);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .level{    
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -161,19 +161,21 @@
 }
 
 .observatory-heading2{    
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
 
 
-    color: #000000;
+    color: #FFFFFF;
 
     margin-bottom: 10px;
 }
 
 .icon-value{
     margin: 5px 10px 5px 0px;
+    width: 14px;
+    height: 14px;
 }

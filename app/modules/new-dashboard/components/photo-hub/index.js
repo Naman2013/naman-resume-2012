@@ -34,7 +34,7 @@ export class PhotoHub extends Component{
                             onClickEvent={()=>{}} 
                             text={"Upload Photo"}                                             
                             style={"upload-button"}
-                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload.svg"}
+                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload_white.svg"}
                         />
                     </div>                         
                     <h5 className="sort-filter">{"Sort & Filter"}</h5>             
@@ -55,7 +55,10 @@ export class PhotoHub extends Component{
                                 <div className="overlay-div">
                                     <h5 className="mission-obj-name">{photo.objectName}</h5>
                                     <h5 className="mission-obj-date">{photo.date}</h5>
-                                    <h5 className="view-details">{"View Details"}</h5>
+                                    <div className="photo-hub-details">
+                                        <h5 className="view-details">{"View Details"}</h5>
+                                        <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                    </div>                                    
                                 </div>
                                 
                             </div> 

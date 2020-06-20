@@ -7,7 +7,7 @@
     /* left: 24px;
     top: 3490px; */
 
-    background: #FAFAFA;
+    background: #253446;
     border-radius: 8px;
     padding: 24px;
     
@@ -24,16 +24,16 @@
     left: 290px;
     top: 3538px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 20px;
     text-align: center;
     /* identical to box height */
 
     padding: 15px 0px;
-    color: rgba(32, 32, 32, 0.4);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .message-content{
@@ -49,7 +49,7 @@
     left: 48px;
     top: 3584px; */
 
-    background: #F0F5FC;
+    background: #202D3D;
     border-radius: 4px;
     
 }
@@ -69,15 +69,15 @@
     left: 0px;
     top: 0px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 150%;
-    /* or 21px */
-
-
-    color: #202020;
+    /* or 24px */
+    
+    
+    color: #FFFFFF;
 
 
     /* Inside Auto Layout */
@@ -89,8 +89,8 @@
 }
 
 .highlight{
-    font-weight: bold;
-    color: #2375f1;
+    /* font-weight: bold; */
+    color: #3079E7;
 }
 
 .message-time{
@@ -100,7 +100,7 @@
     left: 0px;
     top: 31px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -108,7 +108,7 @@
     /* identical to box height, or 18px */
 
 
-    color: #202020;
+    color: #FFFFFF; 
 
 
     /* Inside Auto Layout */

@@ -11,18 +11,20 @@
     top: 12px; */
     padding: 12px 15px;    
 
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
-    line-height: 21px;
+    line-height: 22px;
     /* identical to box height */
 
     display: flex;
     align-items: center;
-    background: #FAFAFA;
+    background: #32465E;
+    border: 1px solid #253446;
+    box-sizing: border-box;
     border-radius: 8px;
-    color: #000000;
+    color: #FFFFFF;
     
     
     /* Inside Auto Layout */    
@@ -44,12 +46,12 @@
     left: 0px;
     top: 0px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
-    line-height: 21px;
-    background: #202020;
+    line-height: 22px;
+    background: #253446;
     border-radius: 8px;
     /* identical to box height */
 

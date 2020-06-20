@@ -11,15 +11,15 @@
     top: 12px; */
     padding: 12px 15px;
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
     /* identical to box height */
     
     
-    color: #202020;
+    color: #FFFFFF;
     
     
     /* Inside Auto Layout */
@@ -44,12 +44,12 @@
     left: 0px;
     top: 0px; */
     
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
-    background: #202020;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    background: #253446;
     border-radius: 8px;
     color: #FFFFFF;   
 

@@ -7,23 +7,23 @@
 .title-heading{
     /* position: absolute;       
     top: 96px;     */
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 32px;
-    line-height: 37px;
+    line-height: 38px;
     
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .title-subHeading{
     /* position: absolute;    
     top: 134px; */
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 23px;
   
     color: #BDBDBD;
      

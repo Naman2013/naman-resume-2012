@@ -23,7 +23,7 @@ export class UpcomingMissionList extends Component{
                             <div className="schedule-mission-card">
                                 <div className="upcoming-mission-card-head">
                                     <h4 className="schedule-misssion-title">Schedule a New Mission</h4>
-                                    <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow.svg"/>
+                                    <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                 </div>        
                                 <h4 className="schedule-mission-subtitle">Schedule your next adventure</h4>
                         </div>

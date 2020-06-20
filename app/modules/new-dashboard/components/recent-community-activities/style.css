@@ -7,12 +7,15 @@
 .recent-heading{
     /* position: absolute;       
     top: 96px;     */
-    font-family: Roboto;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
-    line-height: 21px;
-    
-    color: #000000;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
 }
 

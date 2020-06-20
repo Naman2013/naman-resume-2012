@@ -1,6 +1,6 @@
 .upcoming-mission-card{
     padding: 1.5em;    
-    background: #FAFAFA;
+    background: #202D3D;
     border-radius: 8px; 
     margin-right: 15px;
     margin-bottom: 10px;
@@ -9,37 +9,38 @@
 
 .upcoming-time{
    
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 20px;
     /* identical to box height */
-    
-    padding: 5px 0px;
-    color: rgba(0, 0, 0, 0.6);
+
+    color: #B2B2B2;
+
 }
 
 .upcoming-telescope{   
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-    /* identical to box height */
-
-
-    color: #000000;
-}
-
-.upcoming-obj-name{
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 20px;
+    /* identical to box height */
+    /* #FFF - Text */
+    color: #FFFFFF;
+}
 
-    color: #000000;    
+.upcoming-obj-name{
+    font-family: Adobe Garamond Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;   
 
 }
 
@@ -54,9 +55,18 @@
 }
 
 .card-options{
-    height: fit-content;
+    height: fit-content;    
+    margin-bottom: .5rem;
 }
 
 .mar-left-10{
     margin-left: 15px;
+}
+
+.mar-top-2{
+    margin-top: 2px;
+}
+
+.vertical-middle{
+    align-items: center;    
 }
