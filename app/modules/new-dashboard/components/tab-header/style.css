@@ -9,7 +9,7 @@
     height: 14px;
     left: 24px;
     top: 12px; */
-    padding: 12px 15px;
+    padding: 12px 24px;
 
     font-family: Brandon Grotesque;
     font-style: normal;
@@ -27,7 +27,7 @@
     flex: none;
     order: 0;
     align-self: center;    
-    margin-right: 24px;
+    /* margin-right: 24px; */
     list-style-type: none;
     display: inline-block; 
     cursor: pointer;   
