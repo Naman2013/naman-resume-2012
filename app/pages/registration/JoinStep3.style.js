@@ -7,7 +7,7 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import { screenLarge, screenMedium, screenSmallMobile, screenXLarge } from 'app/styles/variables/breakpoints';
 import {
   backgroundImageCover,
   dropShadowContainer,
@@ -50,6 +50,16 @@ export default css`
 
     .step-root-new {
       width: 100%;
+    }
+  }
+
+  iframe{
+    min-height: 850px;
+  }
+
+  @media ${screenLarge}, ${screenMedium}, ${screenXLarge} {
+    iframe{
+      min-height: 750px;
     }
   }
 `;

@@ -27,8 +27,7 @@ const DisplayAtBreakpoint = ({
   screenLarge,
   screenXLarge,
 }) => (
- (getCurrentDisplay(screenSmall, screenMedium, screenLarge, screenXLarge)) ?
-  <div
+   <div
     className={classnames('root', {
     screenSmall,
     screenMedium,
@@ -39,7 +38,7 @@ const DisplayAtBreakpoint = ({
     {children}
     <style jsx>{style}</style>
   </div>
-: null );
+);
 
 DisplayAtBreakpoint.propTypes = {
   children: PropTypes.node.isRequired,
