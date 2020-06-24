@@ -271,21 +271,22 @@ export const PaymentStep = (props: TPaymentStep) => {
                           screenMedium
                           screenLarge
                           screenXLarge
+                          screenSmall
                         >
                           <iframe
                             frameBorder="0"
-                            style={{ width: '100%', minHeight: '750px' }}
+                            style={{ width: '100%'}}
                             src={joinPageRes.hostedPaymentFormURL}
                           />
                         </DisplayAtBreakpoint>
 
-                        <DisplayAtBreakpoint screenSmall>
+                        {/* <DisplayAtBreakpoint screenSmall>
                           <iframe
                             frameBorder="0"
                             style={{ width: '100%', minHeight: '850px' }}
                             src={joinPageRes.hostedPaymentFormURL}
                           />
-                        </DisplayAtBreakpoint>
+                        </DisplayAtBreakpoint> */}
                       </div>
                     </div>
                   </Fragment>
