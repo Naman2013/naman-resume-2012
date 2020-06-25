@@ -1,10 +1,10 @@
 
 
-.rank-main{
+.new-dash .rank-main{
     padding: 24px 0px;
 }
 
-.rank-heading{
+.new-dash .rank-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,7 +20,7 @@
     color: #000000;
 }
 
-.rank-id{
+.new-dash .rank-id{
     /* position: static;
     width: 46px;
     height: 19px;
@@ -46,7 +46,7 @@
     margin: 8px 0px;
 }
 
-.rank-name{
+.new-dash .rank-name{
     /* position: static;
     width: 104px;
     height: 19px;
@@ -73,7 +73,7 @@
     padding: 8px 0px 8px 8px;
 }
 
-.rank-gp{
+.new-dash .rank-gp{
     /* position: absolute;
     width: 18px;
     height: 19px;
@@ -92,7 +92,7 @@
     color: #000000;
 }
 
-.rank-show-more-button{    
+.new-dash .rank-show-more-button{    
 
     font-family: Roboto;
     font-style: normal;
@@ -112,6 +112,6 @@
     align-self: center;
     margin: 10px 0px;
 }
-.mar-lr-5{
+.new-dash .mar-lr-5{
     margin: 0px 5px;
 }

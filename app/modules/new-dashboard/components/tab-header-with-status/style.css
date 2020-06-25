@@ -1,7 +1,7 @@
 
 
 
-.tab-header-status-txt{   
+.new-dash .tab-header-status-txt{   
     position: static;
     display: flex;
     flex-direction: row;
@@ -35,7 +35,7 @@
     cursor: pointer;   
 }
 
-.tab-header-status-txt-active{
+.new-dash .tab-header-status-txt-active{
     display: flex;
     flex-direction: row;
     padding: 12px 24px;
@@ -64,17 +64,17 @@
     cursor: pointer;   
 }
 
-.tab-header-status-main{    
+.new-dash .tab-header-status-main{    
      padding: 0px 0px 0px 0px;     
 }
 
-.space-equally{
+.new-dash .space-equally{
     width: 50%;
     text-align: center;
     margin-right: 0px;
 }
 
-.online{
+.new-dash .online{
     /* position: absolute;
     width: 40px;
     height: 16px;
@@ -94,7 +94,7 @@
     margin: 5px 0px;
 }
 
-.offline{
+.new-dash .offline{
     /* position: absolute;
     width: 160px;
     height: 16px;
@@ -113,7 +113,7 @@
     margin: 5px 0px;
 }
 
-.dot {
+.new-dash .dot {
     height: 6px;
     width: 6px;    
     border-radius: 50%;
@@ -121,10 +121,10 @@
     margin: 5px;
 }
 
-.online-bg{
+.new-dash .online-bg{
     background-color: #17BF28;
 }
 
-.offline-bg{
+.new-dash .offline-bg{
     background-color: #C4C4C4;
 }

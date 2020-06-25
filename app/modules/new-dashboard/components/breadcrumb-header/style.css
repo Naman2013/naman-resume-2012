@@ -1,16 +1,16 @@
 
 
 
-.header-txt{   
+.new-dash .header-txt{   
     position: static;       
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 16px;
 
-    color: #000000;
+    color: #FFFFFF;
 
 
     /* Inside Auto Layout */
@@ -24,17 +24,14 @@
     cursor: pointer;   
 }
 
-.header-txt-active,.header-txt:hover{
-    position: static;  
-
-    font-family: Roboto;
+.new-dash .header-txt-active,.header-txt:hover{
+    font-family: Brandon Grotesque;
     font-style: normal;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 14px;
-    line-height: 16px;
-    text-decoration-line: underline;
+    line-height: 16px;    
 
-    color: #000000;
+    color: #FFFFFF;
     flex: none;
     order: 0;
     align-self: center;
@@ -44,12 +41,22 @@
     cursor: pointer;   
 }
 
-.header-main{
+.new-dash .header-main{
      /* Inside Auto Layout */
-     padding: 24px 24px;
-     background: #FAFAFA;
+     padding: 24px 24px 8px 24px;
+     background: #253446;
+     border-radius: 0px 0px 0px 8px;
 }
 
-ul{
+.new-dash ul{
     padding: 0px;
+}
+
+.new-dash .header_div{
+    display: flex;
+    flex-direction: column;
+}
+
+.new-dash .mar-top-10{
+    margin-top: 10px;
 }

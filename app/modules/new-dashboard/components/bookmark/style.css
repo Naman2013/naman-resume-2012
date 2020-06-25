@@ -1,26 +1,26 @@
 
 
-.guide-list-main{
+.new-dash .guide-list-main{
     padding: 24px 0px;
 }
 
-.guide-list-heading{
+.new-dash .guide-list-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
-    margin-bottom: 10px;
-    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #FFFFFF;
 }
 
-.guide-list{
+.new-dash .guide-list{
     display: flex;
     flex-wrap: wrap;    
 }

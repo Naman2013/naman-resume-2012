@@ -1,10 +1,10 @@
 
 
-.community-fame-main{
+.new-dash .community-fame-main{
     padding: 24px 0px;
 }
 
-.community-fame-heading{
+.new-dash .community-fame-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,13 +20,13 @@
     color: #000000;
 }
 
-.community-flex-layout{
+.new-dash .community-flex-layout{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.community-gp-card{  
+.new-dash .community-gp-card{  
     width: 90px;
     height: 102px;    
     margin: 10px 0px;
@@ -34,7 +34,7 @@
     border-radius: 4px;
 }
 
-.community-gp-points{   
+.new-dash .community-gp-points{   
    
     font-family: Roboto;
     font-style: normal;
@@ -49,7 +49,7 @@
     color: #000000;
 }
 
-.community-gp-txt{   
+.new-dash .community-gp-txt{   
 
     font-family: Roboto;
     font-style: normal;

@@ -1,10 +1,10 @@
 
 
-.gravity-main{
+.new-dash .gravity-main{
     padding: 24px 0px;
 }
 
-.gravity-heading{
+.new-dash .gravity-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,12 +20,12 @@
     color: #000000;
 }
 
-.gravityaction{
+.new-dash .gravityaction{
     display: flex;
     flex-wrap: wrap;
 }
 
-.gravityiconContainer{
+.new-dash .gravityiconContainer{
     /* position: absolute; */
     width: 32px;
     height: 32px;
@@ -41,7 +41,7 @@
     box-shadow: 0px 4px 16px rgba(35, 152, 171, 0.2), inset 2px 2px 8px rgba(0, 0, 0, 0.15);   
 }
 
-.gravitypoints{
+.new-dash .gravitypoints{
     /* position: absolute;
     width: 32px;
     height: 32px;
@@ -61,7 +61,7 @@
     
 }
 
-.gravitytext{
+.new-dash .gravitytext{
     
     /* position: absolute;
     width: 144px;

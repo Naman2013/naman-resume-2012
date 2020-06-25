@@ -1,12 +1,13 @@
 
 
-.recent-main{
+.new-dash .recent-main{
     padding: 24px 0px;
 }
 
-.recent-heading{
+.new-dash .recent-heading{
     /* position: absolute;       
     top: 96px;     */
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;

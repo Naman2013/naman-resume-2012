@@ -1,10 +1,10 @@
 
 
-.object-main{
+.new-dash .object-main{
     padding: 24px 0px;
 }
 
-.object-heading{
+.new-dash .object-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,17 +20,17 @@
     color: #000000;
 }
 
-.object-list{
+.new-dash .object-list{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.object-item{
+.new-dash .object-item{
     width: 65px;    
 }
 
-.objecticonContainer{
+.new-dash .objecticonContainer{
     /* position: absolute; */
     width: 56px;
     height: 56px;
@@ -46,7 +46,7 @@
 }
 
 
-.object-name{
+.new-dash .object-name{
     
     /* position: absolute;
     width: 51px;
@@ -66,7 +66,7 @@
     color: #868686;
 }
 
-.object-gp{
+.new-dash .object-gp{
     /* position: absolute;
     width: 33px;
     height: 14px;

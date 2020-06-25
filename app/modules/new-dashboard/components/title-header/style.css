@@ -1,10 +1,10 @@
 
 
-.title-main{
+.new-dash .title-main{
     padding: 24px 0px;
 }
 
-.title-heading{
+.new-dash .title-heading{
     /* position: absolute;       
     top: 96px;     */
     font-family: Adobe Garamond Pro;
@@ -16,7 +16,7 @@
     color: #FFFFFF;
 }
 
-.title-subHeading{
+.new-dash .title-subHeading{
     /* position: absolute;    
     top: 134px; */
     font-family: Brandon Grotesque;

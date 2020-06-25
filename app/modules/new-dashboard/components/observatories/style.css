@@ -1,10 +1,10 @@
 
 
-.observatory-main{
+.new-dash .observatory-main{
     padding: 24px 0px;
 }
 
-.observatory-heading{
+.new-dash .observatory-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,7 +20,7 @@
     color: #FFFFFF;
 }
 
-.observatory-content{
+.new-dash .observatory-content{
     /* position: absolute;
     width: 643px;
     height: 655px;
@@ -33,11 +33,11 @@
     
 }
 
-.observatory-row{
+.new-dash .observatory-row{
     display: flex;
 }
 
-.observatory-col{
+.new-dash .observatory-col{
     flex: 1; 
     
     padding: 2em;    
@@ -46,7 +46,7 @@
 }
 
 
-.observatory-col-left{
+.new-dash .observatory-col-left{
     flex: 1; 
     
     padding: 2em;    
@@ -55,7 +55,7 @@
     margin-right: 10px;
 }
 
-.observatory-col-right{
+.new-dash .observatory-col-right{
     flex: 1; 
     
     padding: 2em;    
@@ -64,7 +64,7 @@
     margin-left: 10px;
 }
 
-.observatory-col-txt{
+.new-dash .observatory-col-txt{
     /* position: absolute;
     width: 112px;
     height: 14px;
@@ -82,7 +82,7 @@
     color: #B3B3B3;
 }
 
-.observatory-col-value{
+.new-dash .observatory-col-value{
     /* position: absolute;
     width: 66px;
     height: 16px;
@@ -98,15 +98,15 @@
     color: #FFFFFF;
 }
 
-.flex-point3{
+.new-dash .flex-point3{
     flex: 0.3;
 }
 
-.flex-1{
+.new-dash .flex-1{
     flex: 1;
 }
 
-.temp-value{    
+.new-dash .temp-value{    
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;
@@ -117,7 +117,7 @@
     margin-bottom: 10px;
 }
 
-.values{
+.new-dash .values{
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 600;
@@ -130,7 +130,7 @@
     vertical-align: middle;
 }
 
-.reason{
+.new-dash .reason{
 
     font-family: Brandon Grotesque;
     font-style: normal;
@@ -144,7 +144,7 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
-.level{    
+.new-dash .level{    
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;
@@ -156,11 +156,11 @@
     color: #F39629;    
 }
 
-.pad5{
+.new-dash .pad5{
     padding: 5px 0px;
 }
 
-.observatory-heading2{    
+.new-dash .observatory-heading2{    
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 600;
@@ -174,7 +174,7 @@
     margin-bottom: 10px;
 }
 
-.icon-value{
+.new-dash .icon-value{
     margin: 5px 10px 5px 0px;
     width: 14px;
     height: 14px;

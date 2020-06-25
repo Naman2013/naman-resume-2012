@@ -1,28 +1,28 @@
 
 
-.party-list-main{
+.new-dash .party-list-main{
     padding: 24px 0px;
 }
 
-.party-list-heading{
+.new-dash .party-list-heading{
     /* position: absolute;
     width: 177px;
     height: 21px;
     left: 24px;
     top: 4130px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
-    line-height: 21px;
+    line-height: 22px;
     /* identical to box height */
-    
-    
-    color: #000000;
+
+
+    color: #FFFFFF;
 }
 
-.party-list{
+.new-dash .party-list{
     display: flex;
     flex-wrap: wrap;
     

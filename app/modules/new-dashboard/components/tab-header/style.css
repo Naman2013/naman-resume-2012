@@ -1,7 +1,7 @@
 
 
 
-.tab-header-txt{   
+.new-dash .tab-header-txt{   
     position: static;
     display: flex;
     flex-direction: row;
@@ -33,7 +33,7 @@
     cursor: pointer;   
 }
 
-.tab-header-txt-active{
+.new-dash .tab-header-txt-active{
     display: flex;
     flex-direction: row;
     padding: 12px 24px;
@@ -61,11 +61,11 @@
     cursor: pointer;   
 }
 
-.tab-header-main{    
+.new-dash .tab-header-main{    
      padding: 0px 0px 0px 0px;     
 }
 
-.space-equally{
+.new-dash .space-equally{
     width: 50%;
     text-align: center;
     margin-right: 0px;

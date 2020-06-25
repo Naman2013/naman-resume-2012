@@ -1,4 +1,4 @@
-.mission-card{
+.new-dash .mission-card{
     padding: 2em;    
     background: #202D3D;
     border-radius: 8px; 
@@ -6,7 +6,7 @@
     width: 200px;
 }
 
-.time{
+.new-dash .time{
    
     font-family: Brandon Grotesque;
     font-style: normal;
@@ -19,7 +19,7 @@
     color: #B2B2B2;
 }
 
-.scheduled-by{        
+.new-dash .scheduled-by{        
 
     font-family: Brandon Grotesque;
     font-style: normal;
@@ -31,7 +31,7 @@
 
 }
 
-.obj-name{
+.new-dash .obj-name{
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;

@@ -1,10 +1,10 @@
 
 
-.upcoming-main{
+.new-dash .upcoming-main{
     padding: 24px 0px;
 }
 
-.upcoming-heading{
+.new-dash .upcoming-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -22,13 +22,13 @@
     color: #FFFFFF;
 }
 
-.upcoming-list{
+.new-dash .upcoming-list{
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
 }
 
-.schedule-mission-card{
+.new-dash .schedule-mission-card{
     padding: 1.5em;    
     background: #202D3D;
     border-radius: 8px; 
@@ -37,7 +37,7 @@
     width: 200px;
 }
 
-.schedule-misssion-title{   
+.new-dash .schedule-misssion-title{   
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 600;
@@ -49,7 +49,7 @@
     color: #FFFFFF;
 }
 
-.schedule-mission-subtitle{
+.new-dash .schedule-mission-subtitle{
     font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;

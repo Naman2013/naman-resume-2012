@@ -1,12 +1,12 @@
 
 
-.progress-card-main{
+.new-dash .progress-card-main{
     /* padding: 0px 10px; */
-    background: #FAFAFA;
+    /* background: #FAFAFA; */
 }
 
 
-.currentProgress{
+.new-dash .currentProgress{
     /* position: absolute;
     width: 39px;
     height: 14px;
@@ -25,7 +25,7 @@
     color: #000000;
 }
 
-.nextLevelName{
+.new-dash .nextLevelName{
     
     /* position: absolute;
     width: 78px;
@@ -45,14 +45,20 @@
     color: #828282;
 }
 
-.info{
+.new-dash .info{
     padding:3px 0px;
     display: flex;
     justify-content: space-between;
 }
 
-.progress-bar{
-    background-color: #C6C6C6 !important;
+.new-dash .progress-bar{
+    background: linear-gradient(270deg, #C2A068 0%, #A8854A 100%) !important;    
+}
+
+.new-dash .progress{
+    border-radius: 0px 0px 8px 8px;
+    background: #3E4854;
+    height: 16px;
 }
 
 

@@ -1,67 +1,66 @@
 
 
-.club-list-main{
+.new-dash .club-list-main{
     padding: 24px 0px;
 }
 
-.club-list-heading{
+.new-dash .club-list-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
-    line-height: 21px;
-    
-    color: #000000;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #FFFFFF;
 }
 
-.club-list{
+.new-dash .club-list{
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
 }
 
-.club-explore-card{
+.new-dash .club-explore-card{
     padding: 2em;    
-    background: #202020;
+    background: #253446;;
     border-radius: 8px;
     margin-right: 10px;    
     width: 200px;
     margin-bottom: 10px;   
 }
 
-.club-title{   
-    font-family: Roboto;
+.new-dash .club-title{   
+    font-family: Adobe Garamond Pro;
     font-style: normal;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 14px;
-    line-height: 16px;
-    
+    line-height: 17px;
+    /* identical to box height */
     color: #FFFFFF;
 }
 
-.club-subtitle{
-    font-family: Roboto;
+.new-dash .club-subtitle{
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
-    font-size: 10px;
-    line-height: 12px;
-    margin-top: 10px;
-    
+    font-size: 12px;
+    line-height: 17px;
     color: rgba(255, 255, 255, 0.8);
 }
 
-.club-explore-card-head{
+.new-dash .club-explore-card-head{
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.club-card-options{
+.new-dash .club-card-options{
     height: fit-content;
 }

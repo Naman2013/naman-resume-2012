@@ -1,16 +1,17 @@
 
 
-.left{
-    width: 67%;    
+.new-dash .left{
+    width: 67%;
+    background-color: #32465e;
+    padding-left: 24px;    
 }
 
-.right{
+.new-dash .right{
     width: 33%;
-    padding: 10px 24px;
+    padding: 10px 0px;
     background: linear-gradient(180deg, #253446 0%, #1E2A38 100%);;
 }
 
-.left-contents{
-    background-color: #32465e;  
-    padding: 10px 24px;
+.new-dash .left-contents{    
+    padding: 10px 24px 10px 0px;
 }

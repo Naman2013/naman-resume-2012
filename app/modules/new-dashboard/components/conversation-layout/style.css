@@ -1,6 +1,6 @@
 
 
-.conversation-main{
+.new-dash .conversation-main{
     /* position: absolute; */
     /* width: 643px; */
     
@@ -13,11 +13,11 @@
     
 }
 
-.message-container{
+.new-dash .message-container{
    padding: 10px 0px;   
 }
 
-.conversation-date{
+.new-dash .conversation-date{
     /* position: absolute;
     width: 111px;
     height: 14px;
@@ -36,7 +36,7 @@
     color: rgba(255, 255, 255, 0.4);
 }
 
-.message-content{
+.new-dash .message-content{
     /* Auto Layout */
 
     display: flex;
@@ -54,15 +54,15 @@
     
 }
 
-.col-left{
+.new-dash .col-left{
     flex: 0.25;
 }
 
-.col-right{
+.new-dash .col-right{
     flex: 1;
 }
 
-.message-text{
+.new-dash .message-text{
     /* position: static;
     width: 314px;
     height: 42px;
@@ -88,12 +88,12 @@
     margin: 0px 10px;
 }
 
-.highlight{
+.new-dash .highlight{
     /* font-weight: bold; */
     color: #3079E7;
 }
 
-.message-time{
+.new-dash .message-time{
     /* position: static;
     width: 57px;
     height: 18px;
@@ -119,7 +119,7 @@
     margin: 0px 10px;
 }
 
-.polygon-background{
+.new-dash .polygon-background{
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg') no-repeat;
     background-size: cover;
 }

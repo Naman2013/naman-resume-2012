@@ -1,10 +1,10 @@
 
 
-.community-club-main{
+.new-dash .community-club-main{
     padding: 24px 0px;
 }
 
-.community-club-heading{
+.new-dash .community-club-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,7 +20,7 @@
     color: #000000;
 }
 
-.community-club-id-div{    
+.new-dash .community-club-id-div{    
     width: 56px;
     height: 56px;    
     display: flex;
@@ -32,7 +32,7 @@
     margin: 5px 0px;
 }
 
-.community-club-id{
+.new-dash .community-club-id{
     /* position: absolute;
     width: 21px;
     height: 21px;
@@ -51,11 +51,11 @@
     color: #FFFFFF;
 }
 
-.community-clubs-div-pad-left-10{
+.new-dash .community-clubs-div-pad-left-10{
     padding-left: 10px;
 }
 
-.community-club-name{
+.new-dash .community-club-name{
     /* position: absolute;
     width: 214px;
     height: 19px;
@@ -73,7 +73,7 @@
     color: #000000;
 }
 
-.community-club-gp{    
+.new-dash .community-club-gp{    
     /* position: absolute;
     width: 214px;
     height: 16px;
@@ -89,7 +89,7 @@
     color: #000000;
 }
 
-.community-club-admin{
+.new-dash .community-club-admin{
     /* position: absolute;
     width: 214px;
     height: 14px;

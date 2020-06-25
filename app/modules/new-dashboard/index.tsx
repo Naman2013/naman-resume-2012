@@ -20,6 +20,7 @@ import { RecentCommunityActivities } from "./components/recent-community-activit
 import { StarPartyList } from "./components/start-party-list";
 import { ClubList } from "./components/club-list";
 import { BookMark } from "./components/bookmark";
+import { AstronomerConversationLayout } from "./components/astronomer-conversation-layout";
 
 export class NewDashboard extends Component{
     
@@ -27,7 +28,7 @@ export class NewDashboard extends Component{
     render(){
 
         return(
-            <div className="row">
+            <div className="row new-dash">
                 <div className="left">
                     <DashboardHeader/>
                     <div className="left-contents">
@@ -47,9 +48,13 @@ export class NewDashboard extends Component{
                         <UpcomingMissionList
                             heading={"Upcoming Missions"}
                             scheduleMission={true}
-                            missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"},
-                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"},
-                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One"}]}
+                            missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: false},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
+                                            {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},]}
+                            advancedmissionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: false}]}
+                            showSubHeading={true}
                         />
 
                         <UpcomingMissionList
@@ -58,6 +63,8 @@ export class NewDashboard extends Component{
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"}]}
                             scheduleMission={false}
+                            showSubHeading={false}
+                            advancedmissionList={[]}
                         />
 
                         <PhotoHub
@@ -97,6 +104,9 @@ export class NewDashboard extends Component{
                             heading={"Bookmarks"}
                             guideList={[{title: "Andromeda", subtitle: "Slooh Team", info: "Everything you need to know about the constellation of Andromeda..."},
                                         {title: "The Moon", subtitle: "Slooh Team", info: "The Earth's Moon is the fifth largest in our Solar System and the largest moon..."}]}
+                        />
+
+                        <AstronomerConversationLayout
                         />
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 
 
-.domain-main{
+.new-dash .domain-main{
     padding: 24px 0px;
 }
 
-.domain-heading{
+.new-dash .domain-heading{
     /* position: absolute;
     width: 48px;
     height: 16px;
@@ -20,17 +20,17 @@
     color: #000000;
 }
 
-.domain-list{
+.new-dash .domain-list{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.domain-item{
+.new-dash .domain-item{
     width: 65px;    
 }
 
-.domainiconContainer{
+.new-dash .domainiconContainer{
     /* position: absolute; */
     width: 56px;
     height: 56px;
@@ -46,7 +46,7 @@
 }
 
 
-.domain-name{
+.new-dash .domain-name{
     
     /* position: absolute;
     width: 51px;
@@ -66,7 +66,7 @@
     color: #868686;
 }
 
-.domain-gp{
+.new-dash .domain-gp{
     /* position: absolute;
     width: 33px;
     height: 14px;
@@ -85,7 +85,7 @@
     color: #868686;
 }
 
-.domain-rank{
+.new-dash .domain-rank{
     /* position: absolute;
     left: 35.42%;
     right: 35.42%;

@@ -1,4 +1,4 @@
-.upcoming-mission-card{
+.new-dash .upcoming-mission-card{
     padding: 1.5em;    
     background: #202D3D;
     border-radius: 8px; 
@@ -7,7 +7,7 @@
     width: 200px;
 }
 
-.upcoming-time{
+.new-dash .upcoming-time{
    
     font-family: Brandon Grotesque;
     font-style: normal;
@@ -20,7 +20,7 @@
 
 }
 
-.upcoming-telescope{   
+.new-dash .upcoming-telescope{   
     font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
@@ -31,7 +31,7 @@
     color: #FFFFFF;
 }
 
-.upcoming-obj-name{
+.new-dash .upcoming-obj-name{
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 600;
@@ -44,29 +44,101 @@
 
 }
 
-.pad-top-10{
+.new-dash .pad-top-10{
     padding-top: 10px;
 }
 
-.upcoming-mission-card-head{
+.new-dash .upcoming-mission-card-head{
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.card-options{
+.new-dash .card-options{
     height: fit-content;    
     margin-bottom: .5rem;
 }
 
-.mar-left-10{
+.new-dash .mar-left-10{
     margin-left: 15px;
 }
 
-.mar-top-2{
+.new-dash .mar-top-2{
     margin-top: 2px;
 }
 
-.vertical-middle{
+.new-dash .vertical-middle{
     align-items: center;    
+}
+
+.new-dash .empty-slot-title{
+    /* position: absolute;
+    width: 112px;
+    height: 19px;
+    left: 286px;
+    top: 1765px; */
+
+    font-family: Adobe Garamond Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;    
+
+    color: #FFFFFF;
+
+}
+
+.new-dash .empty-slot-subtitle{
+    /* position: absolute;
+    width: 64px;
+    height: 20px;
+    left: 286px;
+    top: 1781px; */
+
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */   
+
+    color: #979FA8;
+}
+
+.new-dash .upcoming-subheadings{
+    /* position: absolute;
+    width: 156px;
+    height: 22px;
+    left: 80px;
+    top: 1691px; */
+
+    font-family: Adobe Garamond Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
+}
+
+.new-dash .upcoming-subheading-status{
+    /* position: absolute;
+    width: 114px;
+    height: 20px;
+    left: 80px;
+    top: 1713px; */
+
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+
+    color: rgba(255, 255, 255, 0.6);
 }

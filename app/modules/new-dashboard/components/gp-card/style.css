@@ -1,6 +1,6 @@
 
 
-.gp-main{
+.new-dash .gp-main{
     padding: 10px 0px;   
 
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/community_fame_bg.svg') no-repeat;
@@ -10,7 +10,7 @@
     margin: 10px 0px;
 }
 
-.gp-txt{    
+.new-dash .gp-txt{    
     
     font-family: Roboto;
     font-style: normal;
