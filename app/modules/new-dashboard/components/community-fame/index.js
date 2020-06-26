@@ -20,13 +20,7 @@ export class CommunityFame extends Component{
 
                     <GPCard
                         points={gpPoints}
-                    />
-
-                    <TabHeader
-                        headings={["Earned Today", "Earned Last 30 Days"]}
-                        activeHeading={"Earned Today"}
-                        spaceequally={true}
-                    />
+                    />                   
 
                     <div className="community-flex-layout">
                         {gplist.map(gp=>(

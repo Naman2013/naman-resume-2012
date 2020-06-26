@@ -23,7 +23,9 @@ export class ProfileCard extends Component{
                     </div>
                     <div className="profile-card-right">
                         <h2 className="profile-card-heading">{heading}</h2>               
-                        <h4 className="profile-card-subHeading">{subHeading}: <span className="value">{subHeadingValue}</span></h4>
+                        <h4 className="profile-card-subHeading">{subHeading}: </h4>
+                        <span className="profile-card-value">{subHeadingValue}</span>
+                        <h2 className="profile-gp">481GP</h2>
                     </div>
                     
                 </div>   

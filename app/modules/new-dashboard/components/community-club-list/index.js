@@ -17,6 +17,7 @@ export class CommunityClubList extends Component{
                         headings={["Last 30 Days", "All Time"]}
                         activeHeading={"Last 30 Days"}
                         spaceequally={true}
+                        theme={"light"}
                     />
                     <table>
                         {clubList.slice(0, showRowCount === 0 ? clubList.length : showRowCount).map(club=>(
@@ -29,7 +30,7 @@ export class CommunityClubList extends Component{
                                 <td className="community-clubs-div-pad-left-10">
                                     <h3 className="community-club-name">{club.text}</h3>
                                     <h3 className="community-club-gp">{club.gpPoints}</h3>
-                                    <h3 className="community-club-admin">Admin: {club.admin}</h3>
+                                    <h3 className="community-club-admin">{club.admin}</h3>
                                 </td>                                
                             </tr>
                         ))}

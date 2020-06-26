@@ -17,6 +17,7 @@ export class BookMark extends Component{
                         headings={["Objects", "Illuminations", "Star Parties", "Guides"]}
                         activeHeading={"Guides"}
                         spaceequally={false}
+                        theme={"dark"}
                     />                        
                     <div className="guide-list">
                         {guideList.map(guide=>(

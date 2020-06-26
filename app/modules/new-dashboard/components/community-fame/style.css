@@ -11,13 +11,13 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;    
     margin-bottom: 10px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .new-dash .community-flex-layout{
@@ -30,13 +30,13 @@
     width: 90px;
     height: 102px;    
     margin: 10px 0px;
-    background: #E8E8E8;
+    background: #688ba8;
     border-radius: 4px;
 }
 
 .new-dash .community-gp-points{   
    
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
@@ -46,17 +46,17 @@
 
     text-align: center;
 
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .new-dash .community-gp-txt{   
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
     text-align: center;
 
-    color: #000000;
+    color: #FFFFFF;
 }

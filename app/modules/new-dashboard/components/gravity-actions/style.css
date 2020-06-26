@@ -11,13 +11,13 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;    
     margin-bottom: 10px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .new-dash .gravityaction{
@@ -35,10 +35,10 @@
     display: flex;
     justify-content: center;
     /* background: url("https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg"); */
-    background: #2398AB;
+    /* background: #2398AB;
     border: 2px solid #6FCEDE;
     box-sizing: border-box;
-    box-shadow: 0px 4px 16px rgba(35, 152, 171, 0.2), inset 2px 2px 8px rgba(0, 0, 0, 0.15);   
+    box-shadow: 0px 4px 16px rgba(35, 152, 171, 0.2), inset 2px 2px 8px rgba(0, 0, 0, 0.15);    */
 }
 
 .new-dash .gravitypoints{
@@ -48,7 +48,7 @@
     left: 715px;
     top: 423px; */
     
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -69,7 +69,7 @@
     left: 755px;
     top: 432px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -79,5 +79,5 @@
     display: flex;
     align-items: center;
 
-    color: #000000;
+    color: #FFFFFF;
 }

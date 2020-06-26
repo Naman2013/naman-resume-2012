@@ -28,6 +28,7 @@ export class PhotoHub extends Component{
                             headings={headerlist}
                             activeHeading={selectedheader}
                             spaceequally={headerspaceequally}
+                            theme={"dark"}
                         /> 
                         <Button
                             type={"button"}

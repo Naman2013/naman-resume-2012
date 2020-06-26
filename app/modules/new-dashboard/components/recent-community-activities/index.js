@@ -18,6 +18,7 @@ export class RecentCommunityActivities extends Component{
                     headings={["All", "Only My Activites"]}
                     activeHeading={"All"}
                     spaceequally={false}
+                    theme={"dark"}
                 />
                 <ConversationLayout
                 />

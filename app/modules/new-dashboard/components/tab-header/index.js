@@ -17,14 +17,14 @@ export class TabHeader extends Component{
     }
 
     render() {
-        const { headings, spaceequally } = this.props;   
+        const { headings, spaceequally, theme } = this.props;   
         const { activeHeading } = this.state;
 
         return (
             <div>
                 <ul className="tab-header-main">
                     {headings.map(heading=>(
-                        <li className={"tab-header-txt" + (activeHeading === heading ? "-active": "") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>this.onTabChanged(heading)}>
+                        <li className={"tab-header-txt " + theme + (activeHeading === heading ? "-active ": " ") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>this.onTabChanged(heading)}>
                             {heading}
                         </li>
                     ))}

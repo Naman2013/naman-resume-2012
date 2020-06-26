@@ -11,13 +11,13 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;    
     margin-bottom: 10px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .new-dash .rank-id{
@@ -27,7 +27,7 @@
     left: 0px;
     top: 0px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -44,6 +44,7 @@
     order: 0;
     align-self: center;
     margin: 8px 0px;
+    vertical-align: top;
 }
 
 .new-dash .rank-name{
@@ -54,7 +55,7 @@
     top: 0px; */
     width: 100%;
     margin-left: 5dp;
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -62,15 +63,16 @@
     /* identical to box height */
 
 
-    color: #000000;
-
+    color: #FFFFFF;
+    opacity: 0.6;
 
     /* Inside Auto Layout */
 
     flex: none;
     order: 1;
     align-self: center;
-    padding: 8px 0px 8px 8px;
+    padding: 0px 0px 16px 8px;
+    vertical-align: top;
 }
 
 .new-dash .rank-gp{
@@ -80,7 +82,7 @@
     right: 0px;
     top: 8px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -89,12 +91,14 @@
 
     text-align: right;
 
-    color: #000000;
+    color: #FFFFFF;
+    opacity: 0.6;
+    vertical-align: top;
 }
 
 .new-dash .rank-show-more-button{    
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -103,7 +107,7 @@
 
     text-align: center;
     cursor: pointer;
-    color: #4172BD;
+    color: #FFFFFF;
 
     /* Inside Auto Layout */
 
@@ -114,4 +118,9 @@
 }
 .new-dash .mar-lr-5{
     margin: 0px 5px;
+}
+
+.new-dash .rank-highlight{
+    color: #FFFFFF;
+    opacity: 1;
 }

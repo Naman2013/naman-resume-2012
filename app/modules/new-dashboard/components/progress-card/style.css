@@ -13,7 +13,7 @@
     left: 715px;
     top: 163px; */
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -22,7 +22,7 @@
     
     text-align: right;
     
-    color: #000000;
+    color: #B8C9DE;
 }
 
 .new-dash .nextLevelName{
@@ -33,7 +33,7 @@
     left: 922px;
     top: 163px; */
 
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -42,11 +42,11 @@
 
     text-align: right;
 
-    color: #828282;
+    color: #B8C9DE;
 }
 
 .new-dash .info{
-    padding:3px 0px;
+    padding:3px 16px;
     display: flex;
     justify-content: space-between;
 }
@@ -59,6 +59,12 @@
     border-radius: 0px 0px 8px 8px;
     background: #3E4854;
     height: 16px;
+    -webkit-transform: perspective(300px) rotateX(-30deg);
+    -o-transform: perspective(300px) rotateX(-30deg);
+    -moz-transform: perspective(300px) rotateX(-30deg);
+    -webkit-transform-origin: 0% 100%;
+    -moz-transform-origin: 0% 100%;
+    -o-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
 }
-
 

@@ -1,7 +1,7 @@
 
 
 .new-dash .gp-main{
-    padding: 10px 0px;   
+    padding: 10px 16px;   
 
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/community_fame_bg.svg') no-repeat;
     background-size: cover;
@@ -12,12 +12,43 @@
 
 .new-dash .gp-txt{    
     
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;;
     font-style: normal;
     font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 36px;
+    line-height: 40px;
     text-align: center;
     
     color: #FFFFFF;
+    margin: 0px 6px;
+}
+
+.new-dash .gp-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 24px 0px;
+}
+
+.new-dash .gravity-text{
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin-bottom: 0px;
+}
+
+.new-dash .gravity-by-tab{    
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
+    margin-bottom: 0px;
 }

@@ -15,13 +15,13 @@ export class ProgressCard extends Component{
 
         return (
             <div className="progress-card-main">
-                <ProgressBar                    
-                    now={currentProgress} 
-                />
                 <div class="info">
                     <span className="currentProgress">{currentProgress}/{totalProgress}</span>
                     <span className="nextLevelName">{nextLevelName}</span>
-                </div>                
+                </div> 
+                <ProgressBar                    
+                    now={currentProgress} 
+                />                               
             </div>   
         );
     }

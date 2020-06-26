@@ -21,6 +21,7 @@ export class ObjectList extends Component{
                         headings={headerlist}
                         activeHeading={selectedheader}
                         spaceequally={headerspaceequally}
+                        theme={"light"}
                         />
                     )}
                     <div className="object-list">

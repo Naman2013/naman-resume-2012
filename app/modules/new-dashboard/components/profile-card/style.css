@@ -1,7 +1,7 @@
 
 
 .new-dash .profile-card-main{
-    padding: 24px 0px;
+    padding: 24px 16px;
     /* background: #FAFAFA; */
     display: flex;
     flex-wrap: wrap;
@@ -26,7 +26,7 @@
     left: 795px;
     top: 78px; */
 
-    font-family: Roboto;
+    font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -34,7 +34,7 @@
     /* identical to box height */
     
 
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .new-dash .imgContainer{
@@ -50,7 +50,7 @@
 .new-dash .icon{
     width: 50px;
     height: 50px;
-    margin: 17px;
+    margin: 12px;
 }
 
 .new-dash .profile-card-subHeading{
@@ -60,22 +60,33 @@
     left: 795px;
     top: 103px; */
 
-    font-family: Roboto;
+    font-family: Brandon Grotesque;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 16px;
 
-    color: #000000;
+    color: #FFFFFF;
      
 }
 
 .new-dash .profile-card-value{  
-    font-family: Roboto;
-    font-style: normal;    
+    font-family:  Brandon Grotesque;
+    font-style: bold;    
     font-size: 14px;
     line-height: 16px;
 
-    color: #000000; 
+    color: #FFFFFF; 
     font-weight: 500;   
+}
+
+.new-dash .profile-gp{  
+    margin-top: 8px;  
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height */
+    color: #FFFFFF;
 }

@@ -12,7 +12,21 @@ export class GPCard extends Component{
 
         return (
             <div className="gp-main">
-                <h2 className="gp-txt">{points}</h2>                                                     
+                <div className="gp-container">
+                    <h2 className="gp-txt">{points}</h2> 
+                    <div>
+                        <h5 className="gravity-text">{"Gravity Points"}</h5>
+                        <h5 className="gravity-by-tab">{"Earned Today"}</h5>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <TabHeader
+                        headings={["Earned Today", "Earned Last 30 Days"]}
+                        activeHeading={"Earned Today"}
+                        spaceequally={true}
+                        theme={"light"}
+                    />                                                    
             </div>   
         );
     }

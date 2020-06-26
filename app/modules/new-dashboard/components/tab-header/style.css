@@ -49,9 +49,9 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
-    background: #253446;
+    /* background: #253446; */
     border-radius: 8px;
-    color: #FFFFFF;   
+    /* color: #FFFFFF;    */
 
     flex: none;
     order: 0;
@@ -62,11 +62,33 @@
 }
 
 .new-dash .tab-header-main{    
-     padding: 0px 0px 0px 0px;     
+     padding: 0px 0px 0px 0px;  
+     display: flex;   
 }
 
 .new-dash .space-equally{
     width: 50%;
     text-align: center;
     margin-right: 0px;
+}
+
+.new-dash .light-active{
+    background: #FFFFFF;
+    color: #253446;   
+    border-radius: 8px;
+}
+
+.new-dash .light{
+    /* background: #253446; */
+    color: #FFFFFF;   
+}
+
+.new-dash .dark{   
+    color: #FFFFFF;   
+}
+
+.new-dash .dark-active{
+    background: #253446;
+    color: #FFFFFF;   
+    border-radius: 8px;
 }
