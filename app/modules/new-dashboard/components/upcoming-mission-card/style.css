@@ -5,6 +5,8 @@
     margin-right: 15px;
     margin-bottom: 10px;
     width: 200px;
+    border: 2px solid #446082;
+    box-sizing: border-box;    
 }
 
 .new-dash .upcoming-time{

@@ -1,4 +1,4 @@
-
+@import "./breakpoints.scss";
 
 .new-dash .left{
     width: 67%;
@@ -9,7 +9,7 @@
 .new-dash .right{
     width: 33%;
     padding: 10px 0px;
-    background: linear-gradient(180deg, #253446 0%, #1E2A38 100%);;
+    background: linear-gradient(180deg, #253446 0%, #1E2A38 100%);
 }
 
 .new-dash .left-contents{    
@@ -18,4 +18,19 @@
 
 .new-dash .mar-left-right-16{
     margin: 0px 24px;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .left{
+        width: 75%;    
+        padding-left: 36px;      
+    }
+
+    .new-dash .left-contents{    
+        padding: 10px 36px 10px 0px;
+    }
+
+    .new-dash .right{
+        width: 25%;       
+    }
 }

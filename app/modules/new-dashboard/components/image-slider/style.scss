@@ -1,8 +1,9 @@
+@import "../../breakpoints.scss";
 
 .new-dash .slick-prev,
 .new-dash .slick-next {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     /* margin: 0 15px; */
     transform: translate(0, -50%);
     cursor: pointer;
@@ -28,8 +29,8 @@
     position: absolute;
     width: 17px;
     height: 14px;
-    top: 25%;
-    left: 12%;
+    top: 28%;
+    left: 18%;
     z-index: 9;
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
       0 0 no-repeat;
@@ -49,8 +50,8 @@
     position: absolute;
     width: 17px;
     height: 14px;
-    top: 33%;
-    left: 36%;
+    top: 38%;
+    left: 38%;
     z-index: 9;
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
       0 0 no-repeat;
@@ -89,11 +90,11 @@
   opacity:1;
 }
 
-.new-dash .slick-arrow{
-  visibility:hidden;
-  opacity:0;
-  transition:visibility 0.5s linear,opacity 0.5s linear;
-}
+// .new-dash .slick-arrow{
+//   visibility:hidden;
+//   opacity:0;
+//   transition:visibility 0.5s linear,opacity 0.5s linear;
+// }
 
 .new-dash .slider-title{
   font-family: Adobe Garamond Pro;
@@ -148,11 +149,16 @@
 
   text-align: center;
   color: #6698E3;
-
+  display: flex;
   /* Inside Auto Layout */  
   
   margin-right: 8px;
   
+}
+
+.new-dash .slider-buttons-container{
+  display: flex;
+  flex-direction: row;
 }
 
 .new-dash .slider-updated{  
@@ -166,4 +172,79 @@
   text-align: right;
 
   color: rgba(255, 255, 255, 0.4);
+}
+
+.new-dash .slider-div{
+  padding: 0px;
+}
+
+.new-dash .slider-info-container-large{
+  display: none;
+}
+
+@media (min-width: $screenXLarge){
+
+    .new-dash .slider-info-container{
+        display: none;
+    }
+
+    .new-dash .slider-info-container-large{
+        display: block;
+    }
+
+    .new-dash .slider-div{
+      padding: 0px 15px;
+    }
+
+    .new-dash .slick-prev {
+      left: -25px;
+      background-color: #253446;      
+    }
+
+    .new-dash .slick-next {
+      right: -25px;
+      background-color: #253446;      
+    }
+    
+    .new-dash .img-slider{
+      max-width: 40%;
+      height: 230px;
+      margin-left: 16px;
+    }
+
+    .new-dash .slider-item{
+      padding: 0px 36px;
+    }
+
+    .new-dash .slick-next {     
+      background-color: #253446;      
+    }
+  
+    .new-dash .slick-prev:hover,.new-dash .slick-prev:focus,.new-dash .slick-next:hover,.new-dash .slick-next:focus{
+      background-color: #253446;
+    }
+  
+    .new-dash .slick-prev.slick-disabled,.new-dash .slick-next.slick-disabled{
+      background-color: rgba(37,52,70, 0.4) !important;
+      opacity: 0.4 !important;
+    }
+
+    .new-dash .slick-next:before {   
+      width: 17px;
+      height: 14px;
+      top: 35%;
+      left: 36%;  
+      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
+        0 0 no-repeat;      
+    }
+
+    .new-dash .slick-prev:before {
+      width: 17px;
+      height: 14px;
+      top: 30%;
+      left: 20%;     
+      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
+        0 0 no-repeat;      
+    }
+
 }

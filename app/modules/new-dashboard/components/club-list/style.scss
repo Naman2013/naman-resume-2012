@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .club-list-main{
     padding: 24px 0px;
@@ -63,4 +63,10 @@
 
 .new-dash .club-card-options{
     height: fit-content;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .club-explore-card{
+        width: 230px;
+    }
 }

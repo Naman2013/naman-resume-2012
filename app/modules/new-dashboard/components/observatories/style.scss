@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .observatory-main{
     padding: 24px 0px;
@@ -40,6 +40,14 @@
 .new-dash .observatory-col{
     flex: 1; 
     
+    padding: 2em;    
+    background: #202D3D;
+    border-radius: 8px;   
+}
+
+.new-dash .observatory-col-large{
+    flex: 1; 
+    display: none;
     padding: 2em;    
     background: #202D3D;
     border-radius: 8px;   
@@ -178,4 +186,31 @@
     margin: 5px 10px 5px 0px;
     width: 14px;
     height: 14px;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .observatory-col{
+        display: none; 
+    }
+
+    .new-dash .observatory-col-large{
+        display:block;
+        margin-left: 20px;   
+    }
+
+    .new-dash .observatory-col-left {
+        flex: 0.5;
+    }
+
+    .new-dash .observatory-col-right{
+        flex: 0.8; 
+    }
+        
+    .new-dash .reason{
+        width: 100%;
+    }
+
+    .new-dash .flex-point3{
+        flex: 0.5;
+    }
 }

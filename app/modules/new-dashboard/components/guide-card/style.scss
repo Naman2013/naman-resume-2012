@@ -1,3 +1,5 @@
+@import "../../breakpoints.scss";
+
 .new-dash .guide-card{
     padding: 2em;    
     background: #213043;
@@ -56,4 +58,10 @@
     align-self: center;
     margin: 10px 0px; 
     padding: 5px 15px;   
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .guide-card{
+        width: 216px;
+    }
 }

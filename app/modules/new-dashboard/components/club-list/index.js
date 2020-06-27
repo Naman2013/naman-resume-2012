@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
-import { TabHeader } from "../tab-header";
-import { UpcomingMissionCard } from '../upcoming-mission-card';
+import './style.scss';
 import { ClubCard } from '../club-card';
 
 export class ClubList extends Component{

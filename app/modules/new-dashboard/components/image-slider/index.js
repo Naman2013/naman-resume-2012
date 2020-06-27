@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 import Slider from "react-slick";
 import { Button } from '../button';
 // import './slick.min.css';
@@ -22,21 +22,52 @@ export class ImageSlider extends Component{
         };
         
         return (
-            <div>
+            <div className="slider-div">
                 <Slider {...settings}> 
                     {slideImages.map(slideElement => (                      
                         <div className="slider-item">
+                            <div className="slider-info-container-large">
+                                <h2 className="slider-title">{slideImages[0].title}</h2>
+                                <h4 className="slider-subtitle">by <u>{slideImages[0].subtile}</u></h4>
+                                <p className="slider-content">{slideImages[0].content}</p>
+                                <div className="slider-content-footer">
+                                    <div className="slider-buttons-container">
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{}} 
+                                            text={"5"}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/heart.svg"}
+                                        />
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{}} 
+                                            text={"0"}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                        />
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{}} 
+                                            text={"0"}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
+                                        />
+                                    </div>
+                                    <span className="slider-updated">{slideImages[0].updated}</span>
+                                </div> 
+                            </div>
                             <img className="img-slider" src={slideElement.imageURL} />
                         </div>
                     ))}
                 </Slider>
                 {showSliderInfo && (
-                    <div>
+                    <div className="slider-info-container">
                         <h2 className="slider-title">{slideImages[0].title}</h2>
                         <h4 className="slider-subtitle">by <u>{slideImages[0].subtile}</u></h4>
                         <p className="slider-content">{slideImages[0].content}</p>
                         <div className="slider-content-footer">
-                            <div>
+                            <div className="slider-buttons-container">
                                 <Button
                                     type={"button"}
                                     onClickEvent={()=>{}} 

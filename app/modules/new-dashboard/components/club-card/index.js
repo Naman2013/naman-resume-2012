@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
-import { ProgressCard } from '../progress-card';
-
+import './style.scss';
 
 export class ClubCard extends Component{
 

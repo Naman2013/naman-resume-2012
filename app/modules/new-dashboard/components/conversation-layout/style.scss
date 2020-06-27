@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .conversation-main{
     /* position: absolute; */
@@ -122,4 +122,15 @@
 .new-dash .polygon-background{
     background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg') no-repeat;
     background-size: cover;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .message-content{
+        width: 50%;
+    }
+
+    .new-dash .conversation-main {
+        width: 80%;
+    }
+
 }
