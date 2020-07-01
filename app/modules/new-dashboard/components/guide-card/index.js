@@ -10,16 +10,18 @@ export class GuideCard extends Component{
         const { guide } = this.props;
 
         return (
-            <div className="guide-card">                
-                <h4 className="guide-title">{guide.title}</h4>                             
-                <h4 className="guide-subtitle">{guide.subtitle}</h4>
-                <h4 className="guide-info">{guide.info}</h4> 
-                <Button
-                    type={"button"}
-                    onClickEvent={()=>{}} 
-                    text={"View Guide"}                                             
-                    style={"button-border"}
-                />
+            <div className="guide-card">
+                {/* <div className="guide-content"> */}
+                    <h4 className="guide-title">{guide.title}</h4>                             
+                    <h4 className="guide-subtitle">{guide.subtitle}</h4>
+                    <h4 className="guide-info">{guide.info}</h4> 
+                    <Button
+                        type={"button"}
+                        onClickEvent={()=>{}} 
+                        text={"View Guide"}                                             
+                        style={"button-border"}
+                    />
+                {/* </div>   */}
             </div>
         );
     }

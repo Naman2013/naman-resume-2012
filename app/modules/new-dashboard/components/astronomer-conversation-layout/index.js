@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 
@@ -25,11 +25,15 @@ export class AstronomerConversationLayout extends Component{
                                 </div>
                             )}                             */}
                             <div className="col-right">
-                                <div>
-                                    <span className="astronomer-conversation-head">{"12 June 2020, 13:40"}</span>
-                                    <span className="astronomer-conversation-head">Status: {"Answered (13 June 2020, 10:42)"}</span>
-                                    <span className="astronomer-conversation-head">AstoType: {"Free Question"}</span>
-                                    <span className="astronomer-conversation-head">Anonyme Questions: {"Yes"}</span>
+                                <div className="astronomer-message-detils">
+                                    <div>
+                                        <span className="astronomer-conversation-head">{"12 June 2020, 13:40"}</span>
+                                        <span className="astronomer-conversation-head">Status: {"Answered (13 June 2020, 10:42)"}</span>
+                                    </div>
+                                    <div className="astronomer-ques-det">
+                                        <span className="astronomer-conversation-head">AstoType: {"Free Question"}</span>
+                                        <span className="astronomer-conversation-head">Anonyme Questions: {"Yes"}</span>
+                                    </div>
                                 </div>
                                 <br/>
                                 <p className="astronomer-message-head">{"Questions:"}</p>

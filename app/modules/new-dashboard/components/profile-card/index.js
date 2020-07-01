@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 import { ProgressCard } from '../progress-card';
-
+import { Button } from '../button';
 
 export class ProfileCard extends Component{
 
@@ -15,7 +15,14 @@ export class ProfileCard extends Component{
 
         return (
             <div>
-                <div className="profile-card-main">
+                {/* <Button
+                    type={"button"}
+                    onClickEvent={()=>{}} 
+                    text={""}                                             
+                    style={""}
+                    icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
+                />   */}
+                <div className="profile-card-main">                    
                     <div className="profile-card-left">
                         <div className="imgContainer">
                             <img className="icon" src={imgURL}/>

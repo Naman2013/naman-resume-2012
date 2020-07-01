@@ -1,3 +1,6 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
 .new-dash .mission-card{
     padding: 2em;    
     background: #202D3D;
@@ -8,7 +11,7 @@
 
 .new-dash .time{
    
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -21,7 +24,7 @@
 
 .new-dash .scheduled-by{        
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -32,7 +35,7 @@
 }
 
 .new-dash .obj-name{
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -40,4 +43,10 @@
     /* identical to box height */
 
     color: #FFFFFF;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .mission-card{       
+        width: 264px;
+    }
 }

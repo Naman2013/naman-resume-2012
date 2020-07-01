@@ -1,4 +1,5 @@
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .astronomer-conversation-main{
     /* position: absolute; */
@@ -67,7 +68,7 @@
     left: 0px;
     top: 0px; */
 
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -110,12 +111,12 @@
 }
 
 .new-dash .astronomer-conversation-head{
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 17px;
-
+    margin-left: 10px;
     color: #FFFFFF;
 }
 
@@ -126,12 +127,12 @@
     left: 120px;
     top: 5207px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
     line-height: 14px;
-
+    margin-bottom: 5px;
     color: #FFFFFF;
 }
 
@@ -142,7 +143,7 @@
 }
 
 .new-dash .message-input{
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -212,4 +213,29 @@
 
     margin-left: 5px;
     color: #FFFFFF;
+}
+
+.new-dash .astronomer-message-detils{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .astronomer-message-detils{
+        flex-direction: column;
+    }
+    .new-dash .astronomer-conversation-main{
+        height: 600px;
+    }
+    .new-dash .astronomer-message-text{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .astronomer-ques-det{
+        margin-top: 10px;
+    }
+    .new-dash .message-input{
+        font-size: 12px;
+        line-height: 27px;
+    }
 }

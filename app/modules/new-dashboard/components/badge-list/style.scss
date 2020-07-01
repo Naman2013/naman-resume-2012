@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .badge-main{
     padding: 24px 0px;
@@ -54,4 +54,20 @@
 .new-dash .badgelist{
     display: flex;
     flex-wrap: wrap;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .badge-empty{
+        width: 20px;
+        height: 20px;
+    }
+    .new-dash .badge-present{
+        width: 20px;
+        height: 20px;
+    }
+    .new-dash .badge-icon{
+        width: 10px;
+        height: 10px;  
+        margin-bottom: 7px;
+    }
 }

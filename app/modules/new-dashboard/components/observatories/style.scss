@@ -1,17 +1,13 @@
 @import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .observatory-main{
     padding: 24px 0px;
 }
 
-.new-dash .observatory-heading{
-    /* position: absolute;
-    width: 48px;
-    height: 16px;
-    left: 715px;
-    top: 203px; */
+.new-dash .observatory-heading{    
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 21px;
@@ -29,7 +25,7 @@
 
     background: #253446;
     border-radius: 8px;
-    padding: 20px;
+    padding: 24px;
     
 }
 
@@ -79,7 +75,7 @@
     left: 72px;
     top: 880px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -91,13 +87,8 @@
 }
 
 .new-dash .observatory-col-value{
-    /* position: absolute;
-    width: 66px;
-    height: 16px;
-    left: 72px;
-    top: 898px; */
 
-    font-family: Adobe Garamond Pro;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -115,7 +106,7 @@
 }
 
 .new-dash .temp-value{    
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -126,7 +117,7 @@
 }
 
 .new-dash .values{
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -140,7 +131,7 @@
 
 .new-dash .reason{
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -153,7 +144,7 @@
 }
 
 .new-dash .level{    
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -169,7 +160,7 @@
 }
 
 .new-dash .observatory-heading2{    
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -214,3 +205,36 @@
         flex: 0.5;
     }
 }
+
+@media (min-width: $screenXLarge){
+    .new-dash .observatory-content{      
+        padding: 32px;        
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .flex-point3{
+        flex: 0.5;
+    }
+
+    .new-dash .reason{
+        width: 100%;
+    }
+    .new-dash .observatory-heading{ 
+        font-size: 16px;
+        line-height: 19px;  
+    }
+    .new-dash .observatory-col-txt{       
+        font-size: 12px;
+        line-height: 17px;
+    }
+    .new-dash .observatory-col-value{
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .new-dash .observatory-heading2{  
+        font-size: 14px;
+        line-height: 17px; 
+    }
+}
+

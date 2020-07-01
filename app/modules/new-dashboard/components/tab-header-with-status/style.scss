@@ -1,5 +1,5 @@
-
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .tab-header-status-txt{   
     position: static;
@@ -9,9 +9,9 @@
     height: 14px;
     left: 24px;
     top: 12px; */
-    padding: 12px 24px;    
+    padding: 16px 40px;    
 
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -38,7 +38,7 @@
 .new-dash .tab-header-status-txt-active{
     display: flex;
     flex-direction: row;
-    padding: 12px 24px;
+    padding: 16px 40px; 
 
     position: static;
     /* width: 129px;
@@ -46,7 +46,7 @@
     left: 0px;
     top: 0px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -127,4 +127,22 @@
 
 .new-dash .offline-bg{
     background-color: #C4C4C4;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .tab-header-status-txt, .new-dash .tab-header-status-txt-active{ 
+        padding: 14px 48px;        
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .tab-header-status-txt, .new-dash .tab-header-status-txt-active{ 
+        padding: 18px 30px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .new-dash .online, .new-dash .offline{        
+        font-size: 12px;
+        line-height: 14px;
+    }    
 }

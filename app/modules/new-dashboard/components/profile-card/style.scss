@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .profile-card-main{
     padding: 24px 16px;
@@ -89,4 +89,31 @@
     line-height: 26px;
     /* identical to box height */
     color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .profile-card-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .new-dash .profile-card-subHeading{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+    }
+    .new-dash .profile-card-value{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .new-dash .profile-gp{  
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+    }
 }

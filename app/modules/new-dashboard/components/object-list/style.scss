@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .object-main{
     padding: 24px 0px;
@@ -58,8 +58,8 @@
     font-family: Adobe Garamond Pro;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 14px;
+    line-height: 17px;
     /* identical to box height */
     
     text-align: center;
@@ -78,10 +78,21 @@
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    line-height: 14px;
+    line-height: 17px;
     /* identical to box height */
 
     text-align: center;
 
     color: #868686;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .objecticonContainer{
+        width: 48px;
+        height: 48px;
+    }
+
+    .new-dash .object-item{
+        width: 56px;    
+    }
 }

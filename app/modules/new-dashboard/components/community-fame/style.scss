@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .community-fame-main{
     padding: 24px 0px;
@@ -59,4 +59,21 @@
     text-align: center;
 
     color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .community-gp-card{  
+        width: 70px;
+        height: 85px;    
+    }
+
+    .new-dash .community-gp-points{   
+        font-size: 30px;
+        line-height: 36px;
+        margin-top: 10px;
+    }
+    .new-dash .community-gp-txt{
+        font-size: 12px;
+        line-height: 17px;
+    }
 }

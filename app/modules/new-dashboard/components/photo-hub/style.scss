@@ -1,4 +1,5 @@
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .photo-hub-main{
     padding: 24px 0px;
@@ -11,7 +12,7 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 21px;
@@ -99,7 +100,7 @@
     left: 207px;
     top: 2554px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 10px;
@@ -119,7 +120,7 @@
     left: 207px;
     top: 2576px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -138,7 +139,7 @@
     left: 207px;
     top: 2650px; */
 
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -159,7 +160,7 @@
     left: 24px;
     top: 2190px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -176,7 +177,7 @@
     padding: 8px 16px;    
     border-radius: 8px;
     border: 2px dashed #17202B;
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -202,4 +203,88 @@
     width: 80%;
     bottom: 0;
     position: absolute;
+}
+
+.new-dash .upload-button span{
+    display: block;
+}
+
+.new-dash .overlay-div-tab{    
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.new-dash .overlay-div-tab .mission-obj-name{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.new-dash .overlay-div-tab .mission-obj-date{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #B2B2B2;
+    margin-bottom: 9px;
+}
+
+.new-dash .overlay-div-tab .view-details{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+
+.new-dash .overlay-div-tab .photo-hub-details{
+    display: inline-flex;
+    justify-content: space-between;    
+    width: 80%;
+    position: relative;   
+    
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .upload-button span{
+        display: none;
+    }
+
+    .new-dash .upload-button .button-icon{
+        margin-right: 0;
+    }
+
+    .new-dash .upload-button{
+        padding: 8px 16px;    
+        border: none;
+    }
+
+    .new-dash .photo-hub-item{
+        width: 136px; 
+        height: 136px;        
+        margin-right: 12px;
+    }
+    .new-dash .photo-hub-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .new-dash .overlay-div-tab{  
+        display: block;
+    }
+    .new-dash .overlay-div{  
+        display: none;
+        cursor: none;
+    }
+    // .new-dash .button-style{
+    //     background: rgba(255, 255, 255, 0.4);
+    //     color: #FFFFFF;
+    // }
 }

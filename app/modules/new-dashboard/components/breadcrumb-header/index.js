@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 
 
 export class DashboardHeader extends Component{
@@ -26,7 +26,7 @@ export class DashboardHeader extends Component{
                             <div className="header_div">
                                 {heading}
                                 {activeHeading === heading && (
-                                    <img className="mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/circle_white.svg"/>
+                                    <img className="active-dot mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/circle_white.svg"/>
                                 )}
                             </div>
                             

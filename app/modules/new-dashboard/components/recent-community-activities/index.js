@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 import { ConversationLayout } from '../conversation-layout';
 import { TabHeader } from '../tab-header';
 

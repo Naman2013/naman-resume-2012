@@ -1,4 +1,5 @@
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .party-list-main{
     padding: 24px 0px;
@@ -11,7 +12,7 @@
     left: 24px;
     top: 4130px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -28,4 +29,10 @@
     
 }
 
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .party-list-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+}
 

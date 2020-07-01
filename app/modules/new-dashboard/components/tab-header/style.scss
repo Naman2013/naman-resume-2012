@@ -1,5 +1,5 @@
-
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .tab-header-txt{   
     position: static;
@@ -11,11 +11,11 @@
     top: 12px; */
     padding: 12px 24px;
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 13px;
+    line-height: 16px;
     /* identical to box height */
     
     
@@ -44,11 +44,11 @@
     left: 0px;
     top: 0px; */
     
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 13px;
+    line-height: 16px;
     /* background: #253446; */
     border-radius: 8px;
     /* color: #FFFFFF;    */
@@ -91,4 +91,26 @@
     background: #253446;
     color: #FFFFFF;   
     border-radius: 8px;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .tab-header-txt{          
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .new-dash .tab-header-txt-active{
+        font-size: 14px;
+        line-height: 20px;        
+    }    
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){     
+    .new-dash .tab-header-txt{  
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .new-dash .tab-header-txt-active{
+        font-size: 12px;
+        line-height: 14px;
+    }
 }

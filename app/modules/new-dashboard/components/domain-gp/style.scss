@@ -1,4 +1,4 @@
-
+@import "../../breakpoints.scss";
 
 .new-dash .domain-main{
     padding: 24px 0px;
@@ -103,4 +103,14 @@
 
     color: #FFFFFF;
     margin-top: 10px;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .domain-item{
+        width: 55px;    
+    }
+    .new-dash .domainiconContainer{        
+        width: 58px;
+        height: 48px;
+    }
 }

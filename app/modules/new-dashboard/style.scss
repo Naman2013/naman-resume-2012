@@ -34,3 +34,16 @@
         width: 25%;       
     }
 }
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .left{     
+        width: 63%;     
+        padding-left: 0px;      
+    }
+    .new-dash .left-contents{    
+        padding: 16px 24px;
+    }
+    .new-dash .right{
+        width: 37%;       
+    }
+}
