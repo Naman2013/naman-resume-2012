@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import React from "react";
-import './style.css';
+import './style.scss';
 import { TabHeader } from '../tab-header';
 
 
@@ -29,7 +29,7 @@ export class RankCard extends Component{
                                     <div>
                                         {rank.text}
                                         {rank.subText && (
-                                            <span className="mar-top-5"><br/>{rank.subText}</span>
+                                            <span className="university mar-top-5"><br/>{rank.subText}</span>
                                         )}                                       
                                     </div>
                                 </td>

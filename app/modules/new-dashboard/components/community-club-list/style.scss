@@ -1,4 +1,5 @@
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .community-club-main{
     padding: 24px 0px;
@@ -11,11 +12,11 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
+    font-size: 18px;
+    line-height: 22px;    
     margin-bottom: 10px;
     color: #FFFFFF;
 }
@@ -62,11 +63,11 @@
     left: 786px;
     top: 2771px; */
     
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 18px;
+    line-height: 26px;
     /* identical to box height */
     
     
@@ -80,11 +81,11 @@
     left: 786px;
     top: 2794px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 17px;
 
     color: #FFFFFF;
 }
@@ -100,9 +101,29 @@
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    line-height: 14px;
+    line-height: 17px;
     /* identical to box height */
     
     
     color: rgba(255, 255, 255, 0.6);    
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .community-club-heading{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .community-club-id{      
+        font-size: 18px;
+        line-height: 21px;
+    }
+    .new-dash .community-club-name{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .community-club-admin{
+        font-size: 10px;
+        line-height: 14px;
+        color: rgba(255, 255, 255, 1);    
+    }
 }

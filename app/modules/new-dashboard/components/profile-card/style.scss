@@ -1,4 +1,5 @@
 @import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .profile-card-main{
     padding: 24px 16px;
@@ -26,11 +27,11 @@
     left: 795px;
     top: 78px; */
 
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 22px;
+    line-height: 26px;
     /* identical to box height */
     
 
@@ -60,21 +61,21 @@
     left: 795px;
     top: 103px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 20px;
 
     color: #FFFFFF;
      
 }
 
 .new-dash .profile-card-value{  
-    font-family:  Brandon Grotesque;
+    font-family:  $primary-font;
     font-style: bold;    
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 26px;
 
     color: #FFFFFF; 
     font-weight: 500;   
@@ -82,7 +83,7 @@
 
 .new-dash .profile-gp{  
     margin-top: 8px;  
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;

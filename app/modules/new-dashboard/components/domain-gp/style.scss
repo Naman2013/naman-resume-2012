@@ -1,4 +1,5 @@
 @import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .domain-main{
     padding: 24px 0px;
@@ -11,11 +12,11 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
+    font-size: 18px;
+    line-height: 22px;    
     margin-bottom: 10px;
     color: #FFFFFF;
 }
@@ -63,7 +64,7 @@
     
     text-align: center;
     
-    color: #868686;
+    color: #FFFFFF;
 }
 
 .new-dash .domain-gp{
@@ -113,4 +114,17 @@
         width: 58px;
         height: 48px;
     }
+    .new-dash .domain-name{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .domain-gp{
+        font-size: 10px;
+        line-height: 14px;
+    }
+    .new-dash .domain-heading{
+        font-size: 14px;
+        line-height: 17px;
+    }
+
 }

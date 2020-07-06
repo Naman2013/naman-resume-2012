@@ -22,8 +22,8 @@ export class ConversationLayout extends Component{
                         
                         <div className="message-content">
                             {message.showIcon && (
-                                <div className="col-left polygon-background">
-                                    <img src={message.iconURL}/>
+                                <div className="col-left">
+                                    <img className="conversation-obj-image" src={message.iconURL}/>
                                 </div>
                             )}                            
                             <div className="col-right">

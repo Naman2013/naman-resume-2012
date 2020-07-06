@@ -20,7 +20,7 @@ export class AstronomerConversationLayout extends Component{
                         
                         <div className="astronomer-message-content">
                             {/* {message.showIcon && (
-                                <div className="col-left polygon-background">
+                                <div className="col-left astronomer-polygon-background">
                                     <img src={message.iconURL}/>
                                 </div>
                             )}                             */}

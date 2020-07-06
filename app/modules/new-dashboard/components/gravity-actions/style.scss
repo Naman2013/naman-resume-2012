@@ -1,4 +1,5 @@
-
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .gravity-main{
     padding: 24px 0px;
@@ -11,11 +12,11 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
+    font-size: 18px;
+    line-height: 22px;    
     margin-bottom: 10px;
     color: #FFFFFF;
 }
@@ -48,7 +49,7 @@
     left: 715px;
     top: 423px; */
     
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -69,15 +70,26 @@
     left: 755px;
     top: 432px; */
 
-    font-family: Brandon Grotesque;
+    font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 20px;
     /* identical to box height */
     padding-left: 10px;
     display: flex;
     align-items: center;
 
     color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .gravity-heading{
+        font-size: 14px;
+        line-height: 16px;   
+    }
+    .new-dash .gravitytext{
+        font-size: 12px;
+        line-height: 14px;
+    }
 }

@@ -1,4 +1,5 @@
 @import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .badge-main{
     padding: 24px 0px;
@@ -11,11 +12,11 @@
     left: 715px;
     top: 203px; */
     
-    font-family: Adobe Garamond Pro;
+    font-family: $secondary-font;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;    
+    font-size: 18px;
+    line-height: 22px;    
     margin-bottom: 10px;
     color: #FFFFFF;
 }
@@ -69,5 +70,9 @@
         width: 10px;
         height: 10px;  
         margin-bottom: 7px;
+    }
+    .new-dash .badge-heading{       
+        font-size: 14px;
+        line-height: 16px;    
     }
 }
