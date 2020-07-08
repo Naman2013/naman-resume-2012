@@ -59,7 +59,7 @@ const CustomGroupsHeader = ({
   }
 
   const headerGraphicStyle = {
-	backgroundColor: headerGraphicBackgroundColor,
+    backgroundColor: headerGraphicBackgroundColor,    
   }
   
 
@@ -68,7 +68,7 @@ const CustomGroupsHeader = ({
       <div className="image-and-main-container">
         {!condensed ? (
           <div style={headerGraphicContainerStyle} className="groups-header-image desktop-hide">
-	    <img style={headerGraphicStyle} className="header-img" src={headerGraphic}/>
+	            <img style={headerGraphicStyle} className="header-img" src={headerGraphic}/>
           </div>
         ) : null}
         <div className="main-container">
@@ -182,9 +182,13 @@ const CustomGroupsHeader = ({
         }
 
         .header-img {
-          height: 65%;
+          // height: 65%;
           margin-top: 50%;
-          transform: translateY(-90%);
+          transform: translateY(-90%);          
+          max-width: 230px;
+          max-height: 200px;
+          width: auto;
+          height: auto;
         }
 
         .groups-header-image {
@@ -275,9 +279,11 @@ const CustomGroupsHeader = ({
 
           .header-img {
             transform: translateY(-90%);
-	    margin-top: 175px;
-	    min-height: 190px;
-	    min-width: auto;
+            margin-top: 175px;            
+            max-width: 230px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
           }
 
           .image-and-main-container {
@@ -303,11 +309,16 @@ const CustomGroupsHeader = ({
             width: 40%;
             height: 100%;
             padding: 15px;
+            display: flex;          
+            align-items: center;
+            justify-content: center;
           }
 
-          .customImage{
-            width: 90%;
-            height: 100%;
+          .customImage{            
+            max-width:230px;
+            max-height:200px;
+            width: auto;
+            height: auto;
           }
 
           .info-inner-container {
