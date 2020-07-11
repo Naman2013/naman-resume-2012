@@ -257,12 +257,17 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           			</DisplayAtBreakpoint>
 
         			<div className="dash-nav">
-          				<DashNav/>
+          				<DashNav readOnly/>
         			</div>
         		</div>
 		</Variant>
 		<Variant id="1">
-			<Fragment/>
+          			<DisplayAtBreakpoint screenSmall>
+				        <div className="dash-hero">
+            					<DashHeroMobile />
+					</div>
+          			</DisplayAtBreakpoint>
+
         			<div className="dash-nav">
           				<DashNav/>
         			</div>
