@@ -247,85 +247,50 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     
     return (
       <div className="dashboard-layout">
-        <div className="dash-hero">
-          <DisplayAtBreakpoint screenSmall>
-            <DashHeroMobile />
-          </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <div>
-              <DashHero />
-            </div>
-          </DisplayAtBreakpoint>
-        </div>
+        {guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
+		<Variant id="0">
+		        <div className="dash-hero">
+          			<DisplayAtBreakpoint screenSmall>
+            				<DashHeroMobile />
+          			</DisplayAtBreakpoint>
+          			<DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+            				<div>
+              					<DashHero />
+            				</div>
+          			</DisplayAtBreakpoint>
 
-        <div className="dash-nav">
-          <DashNav readOnly />
-        </div>
+        			<div className="dash-nav">
+          				<DashNav readOnly />
+        			</div>
+        		</div>
+		</Variant>
+		<Variant id="1">
+			<Fragment/>
+        			<div className="dash-nav">
+          				<DashNav/>
+        			</div>
+		</Variant>
+	</Experiment>
+	}
 
         <div className="sections-wrapper">
-			{guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
-				<Variant id="0">
-					{Object.keys(Sections).map((section: string) => {
-						const { Index, Title, SubTitle, HideSection } = Sections[section];
+		{Object.keys(Sections).map((section: string) => {
+			const { Index, Title, SubTitle, HideSection } = Sections[section];
 
-						return (
-						  !HideSection &&
-							Index && 
-							section != "PlansTop" &&
-						(
-							<DashboardPanelItem
-								key={`dashboard-section-0${Index}`}
-								orderNumber={`0${Index}`}
-								title={Title}
-								subtitle={SubTitle}
-								render={(): void => this.getSectionComponent(section)}
-							/>
-							)
-						  );
-					})}  
-					</Variant>
-				
-					<Variant id="1">
-						   {Object.keys(Sections).map((section: string) => {
-							const { Index, Title, SubTitle, HideSection } = Sections[section];
-
-							return (
-							  !HideSection &&
-								Index && (
-								<DashboardPanelItem
-									key={`dashboard-section-0${Index}`}
-									orderNumber={`0${Index}`}
-									title={Title}
-									subtitle={SubTitle}
-									render={(): void => this.getSectionComponent(section)}
-								/>
-								)
-							  );
-						})}              
-						</Variant>
-				</Experiment>
-		  }
-		  {guestDashboardGoogleExperienceId === null && <Fragment>
-			{Object.keys(Sections).map((section: string) => {
-				const { Index, Title, SubTitle, HideSection } = Sections[section];
-
-				return (
-					!HideSection &&
-					Index && 
-					section != "PlansTop" &&
-					(<DashboardPanelItem
-						key={`dashboard-section-0${Index}`}
-						orderNumber={`0${Index}`}
-						title={Title}
-						subtitle={SubTitle}
-						render={(): void => this.getSectionComponent(section)}
-					/>)
-				);
-			})
-			}
-		    </Fragment>
-		  }
+			return (
+			!HideSection &&
+			Index && (
+				<DashboardPanelItem
+					key={`dashboard-section-0${Index}`}
+					orderNumber={`0${Index}`}
+					title={Title}
+					subtitle={SubTitle}
+					render={(): void => this.getSectionComponent(section)}
+				/>
+			));
+		})}              
 		</div>
+
       {enableDashboardOfferPopup && showOfferPopup &&(
          <Popup
          // ariaHideApp={false}
