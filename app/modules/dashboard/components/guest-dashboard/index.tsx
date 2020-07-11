@@ -257,7 +257,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
           			</DisplayAtBreakpoint>
 
         			<div className="dash-nav">
-          				<DashNav readOnly />
+          				<DashNav/>
         			</div>
         		</div>
 		</Variant>
