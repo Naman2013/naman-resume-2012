@@ -207,8 +207,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       }
 
       case SECTION_TYPE.PlansTop: {
-        return guestDashboardGoogleExperienceId !== null && (<Experiment id={guestDashboardGoogleExperienceId}>
-            <Variant id="1">
+	   return(
               <MembershipPlansList
                 plans={subscriptionPlans}
                 getSubscriptionPlans={() =>
@@ -216,9 +215,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
                 }
                 showSlider
               />
-            </Variant>
-          </Experiment>
-		)
+	    )
       }
 
       case SECTION_TYPE.PlansBottom: {
