@@ -1,0 +1,78 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .map {
+    width: 100%;
+    height:800px;
+    background-color: white;
+  }
+
+
+.new-dash .title-main{
+    padding: 24px 0px;
+}
+
+.new-dash .title-heading{
+    /* position: absolute;       
+    top: 96px;     */
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+    
+    color: #FFFFFF;
+}
+
+.new-dash .title-subHeading{
+    /* position: absolute;    
+    top: 134px; */
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+  
+    color: #BDBDBD;
+     
+}
+
+@media (min-width: $screenXLarge) {
+    .new-dash .title-main{
+        padding: 16px 0px;
+    }    
+    .new-dash .title-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 38px;
+    }
+    
+    .new-dash .title-subHeading{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;      
+        color: #BDBDBD;         
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .title-main{
+        padding: 16px 0px;
+    }    
+    .new-dash .title-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 21px;
+        line-height: 25px;
+    }
+    
+    .new-dash .title-subHeading{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;      
+        color: #BDBDBD;         
+    }
+}

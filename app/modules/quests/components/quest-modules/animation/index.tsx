@@ -781,7 +781,7 @@ export class AnimationModule extends React.PureComponent<
     const { magnificationDefault } = questAnimation;
     const { zoom } = questAnimationData;
     const { frameList } = questAnimationFrames;
-    debugger;
+    
     if (frameIndex !== 1 ) {
       if(!activeFrame.empty )
           this.canvas.item(frameIndex - 1).set({ visible: false, opacity: 0.5 });

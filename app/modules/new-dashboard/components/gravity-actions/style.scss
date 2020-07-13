@@ -24,12 +24,13 @@
 .new-dash .gravityaction{
     display: flex;
     flex-wrap: wrap;
+    padding: 10px 0px
 }
 
 .new-dash .gravityiconContainer{
     /* position: absolute; */
     width: 32px;
-    height: 32px;
+    // height: 32px;
     /* left: 715px;
     top: 423px; */
     margin: 5px;
@@ -79,7 +80,7 @@
     padding-left: 10px;
     display: flex;
     align-items: center;
-
+    flex: 1;
     color: #FFFFFF;
 }
 

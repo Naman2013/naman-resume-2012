@@ -2,7 +2,7 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { TabHeaderWithStatus } from '../tab-header-with-status';
-import { MissionCard } from '../mission-card';
+
 
 
 export class Observatories extends Component{
@@ -10,8 +10,7 @@ export class Observatories extends Component{
     
     render() {
         const heading = "Observatories";        
-        const featuredMissionList = [{objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"},
-                                    {objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"}];
+        
         return (
             <div className="observatory-main">                
                 <h2 className="observatory-heading">{heading}</h2>
@@ -100,15 +99,6 @@ export class Observatories extends Component{
                             </div>
                         </div>                        
                     </div> 
-                    <br/>
-                    <h2 className="observatory-heading2">Featured Missions</h2>
-                    <div className="observatory-row">
-                        {featuredMissionList.map( mission => (                            
-                            <MissionCard
-                                mission={mission}                 
-                            />
-                        ))}
-                    </div>
                 </div>                                   
             </div>   
         );

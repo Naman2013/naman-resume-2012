@@ -1,18 +1,23 @@
 import { Component } from 'react';
 import React from "react";
 import './style.scss';
-import { TabHeader } from "../tab-header";
+import { FeaturedMissionList } from '../featured-mission-list';
 import { UpcomingMissionCard } from '../upcoming-mission-card';
 
 export class UpcomingMissionList extends Component{
 
     
     render() {
-        const {heading, scheduleMission, missionList, advancedmissionList, showSubHeading} = this.props;
+        const {heading, scheduleMission, missionList, advancedmissionList, showSubHeading, featuredMission} = this.props;
         
         return (
             <div className="upcoming-main">
                 <h2 className="upcoming-heading">{heading}</h2>  
+
+                {featuredMission && (
+                    <FeaturedMissionList/>
+                )}
+                
                 {showSubHeading && (
                     <div>
                         <br/>

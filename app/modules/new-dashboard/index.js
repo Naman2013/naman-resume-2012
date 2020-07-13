@@ -1,7 +1,7 @@
-import { Component } from "react";
+import { Component, PureComponent } from "react";
 import { DashboardHeader } from './components/breadcrumb-header/index';
 import React from "react";
-import './style.scss'
+import './style.scss';
 import { TitleHeader } from "./components/title-header";
 import { TabHeader } from "./components/tab-header";
 import { ProfileCard} from "./components/profile-card";
@@ -21,12 +21,22 @@ import { StarPartyList } from "./components/start-party-list";
 import { ClubList } from "./components/club-list";
 import { BookMark } from "./components/bookmark";
 import { AstronomerConversationLayout } from "./components/astronomer-conversation-layout";
+import { ObjectMap } from "./components/object-map";
 
-export class NewDashboard extends Component{
+export class NewDashboard extends PureComponent{
     
+    componentDidMount() {
+        this.getStarPartyList();
+    }
 
+    getStarPartyList = () => {
+        const { fetchStarPartyDataAction } = this.props;        
+        fetchStarPartyDataAction();
+    };
+    
     render(){
-
+        const { upcomingStarPartyList } =this.props;
+       
         return(
             <div className="row new-dash">
                 <div className="left">
@@ -43,7 +53,7 @@ export class NewDashboard extends Component{
                             spaceequally={false}
                             theme={"dark"}
                         />
-
+                        <ObjectMap/>
                         <Observatories/>
                         
                         <UpcomingMissionList
@@ -56,6 +66,7 @@ export class NewDashboard extends Component{
                                             {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},]}
                             advancedmissionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: false}]}
                             showSubHeading={true}
+                            featuredMission={true}
                         />
 
                         <UpcomingMissionList
@@ -66,6 +77,7 @@ export class NewDashboard extends Component{
                             scheduleMission={false}
                             showSubHeading={false}
                             advancedmissionList={[]}
+                            featuredMission={false}
                         />
 
                         <PhotoHub
@@ -87,12 +99,15 @@ export class NewDashboard extends Component{
                         <RecentCommunityActivities
                             heading={"Recent Community Activities"}
                         />
-
-                        <StarPartyList
+                        {upcomingStarPartyList && (
+                            <StarPartyList
                             heading={"Upcoming StarParties"}
-                            partylist={[{startText: "Starts in 00:24:21", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" },
-                                        {startText: "Upcoming StarParty", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" }]}
-                        />
+                            partylist={upcomingStarPartyList.eventList}                            
+                            // partylist={[{startText: "Starts in 00:24:21", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" },
+                            //             {startText: "Upcoming StarParty", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" }]}
+                            />
+                        )}
+                        
 
                         <ClubList
                             heading={"My Clubs"}
