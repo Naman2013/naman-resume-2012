@@ -275,6 +275,22 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 	</Experiment>
 	}
 
+	{guestDashboardGoogleExperienceId == null && <div className="dash-hero">
+          	<DisplayAtBreakpoint screenSmall>
+            		<DashHeroMobile />
+         	</DisplayAtBreakpoint>
+          	<DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+       			<div>
+              			<DashHero />
+            		</div>
+          	</DisplayAtBreakpoint>
+
+        	<div className="dash-nav">
+          		<DashNav readOnly/>
+        	</div>
+	</div>
+	}
+
         <div className="sections-wrapper">
 		{Object.keys(Sections).map((section: string) => {
 			const { Index, Title, SubTitle, HideSection } = Sections[section];
