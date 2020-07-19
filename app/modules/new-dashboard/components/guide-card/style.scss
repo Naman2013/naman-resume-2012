@@ -8,6 +8,8 @@
     margin-right: 15px;
     margin-bottom: 10px;
     width: 205px;
+    display: flex;
+    flex-direction: column;
 }
 
 .new-dash .guide-subtitle{  
@@ -58,7 +60,9 @@
     min-width: 50px;
     align-self: center;
     margin: 10px 0px; 
-    padding: 5px 10px;   
+    padding: 5px 10px;
+    margin-top: auto; 
+    align-self: flex-start;  
     // position: absolute;
     // bottom: 0;
 }
@@ -71,6 +75,9 @@
 @media (min-width: $screenXLarge){
     .new-dash .guide-card{
         width: 216px;
+    }
+    .new-dash .button-border{
+        padding: 10px 20px
     }
 }
 

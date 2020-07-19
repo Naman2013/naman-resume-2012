@@ -12,11 +12,11 @@ export class MissionCard extends Component{
 
         return (
             <div className="mission-card">
-                <h4 className="obj-name">{mission.objectname}</h4>
-                <h4 className="time">{mission.time}</h4>
+                <h4 className="obj-name">{mission.title}</h4>
+                <h4 className="time">{mission.missionStartFormatted.displayWeekdayMonthDayYearUTC + " " + mission.missionStartFormatted.displayTimeZone}</h4>
                 <h4 className="scheduled-by"> 
-                     by <u>{mission.scheduledby}</u> 
-                     at <u>{mission.telescope}</u>
+                     by <u>{mission.ownerDisplayName}</u> 
+                     &nbsp;at <u>{mission.telescopeName}</u>
                 </h4>
             </div>
         );

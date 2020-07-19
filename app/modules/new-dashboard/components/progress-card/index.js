@@ -8,11 +8,10 @@ export class ProgressCard extends Component{
 
     
     render() {
-        const currentProgress = 76;
-        const totalProgress = 100;
-        const nextLevelName = "The Herschles"
-        
 
+        const { currentProgress, totalProgress, nextLevelName } = this.props;        
+        const progress = ((currentProgress/totalProgress) * 100);
+        
         return (
             <div className="progress-card-main">
                 <div class="info">
@@ -20,7 +19,7 @@ export class ProgressCard extends Component{
                     <span className="nextLevelName">{nextLevelName}</span>
                 </div> 
                 <ProgressBar                    
-                    now={currentProgress} 
+                    now={progress} 
                 />                               
             </div>   
         );

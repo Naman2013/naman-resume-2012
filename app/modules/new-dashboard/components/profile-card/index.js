@@ -8,10 +8,10 @@ export class ProfileCard extends Component{
 
     
     render() {
-        const heading = "Colleen Henry";
-        const subHeading = "Current Level";
-        const subHeadingValue= "Ptolemy";
-        const imgURL="https://vega.slooh.com/assets/v4/icons/avatars/Azophi_Profile.svg";
+        
+        const { userGravityStatus } = this.props;
+        const { memberName, currentTierName, avatarURL, gravityPoints, nextTierName, currentTierProgress, maxTierProgress } = userGravityStatus;        
+        const subHeading = "Current Level";                
 
         return (
             <div>
@@ -25,18 +25,22 @@ export class ProfileCard extends Component{
                 <div className="profile-card-main">                    
                     <div className="profile-card-left">
                         <div className="imgContainer">
-                            <img className="icon" src={imgURL}/>
+                            <img className="icon" src={avatarURL}/>
                         </div>
                     </div>
                     <div className="profile-card-right">
-                        <h2 className="profile-card-heading">{heading}</h2>               
+                        <h2 className="profile-card-heading">{memberName}</h2>               
                         <h4 className="profile-card-subHeading">{subHeading}: </h4>
-                        <span className="profile-card-value">{subHeadingValue}</span>
-                        <h2 className="profile-gp">481GP</h2>
+                        <span className="profile-card-value">{currentTierName}</span>
+                        <h2 className="profile-gp">{gravityPoints}GP</h2>
                     </div>
                     
                 </div>   
-                <ProgressCard/>
+                <ProgressCard
+                    currentProgress={currentTierProgress}
+                    totalProgress={maxTierProgress}
+                    nextLevelName={nextTierName}
+                />
             </div>
         );
     }

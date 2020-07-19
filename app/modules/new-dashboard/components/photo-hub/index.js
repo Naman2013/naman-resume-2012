@@ -3,25 +3,63 @@ import React from "react";
 import './style.scss';
 import { TabHeader } from "../tab-header";
 import { Button } from '../button';
+import { ImageSlider } from '../image-slider';
+import { PhotoRoll } from './photo-roll';
 
 export class PhotoHub extends Component{
-
+    state = {
+        selectedheader: "Photo Roll"
+    }
     
-    render() {
-        const {heading, headerlist, selectedheader, headerspaceequally} = this.props;
-        const photoList = [{objectName: "Comet C/2017 T2", date: "April 1, 2020", showNewButton: true},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",},
-                            {objectName: "Comet C/2017 T2", date: "April 1, 2020",}];
+    onTabChange=(title)=>{
+        const { getMyPictures, ref } = this.props;
+        
+        switch(title){
 
+            case "Photo Roll":
+                getMyPictures({
+                    viewType: 'photoRoll',                 
+                });                
+                break;
+
+            case "Observations":
+                getMyPictures({
+                    viewType: 'photoRoll',  
+                    sharedOnly: true,               
+                }); 
+                break;
+            
+            case "Missions":
+                // getMyPictures({
+                //     viewType: 'photoRoll',                 
+                // }); 
+                break;
+
+            case "Galleries":
+                // getMyPictures({
+                //     viewType: 'photoRoll',                 
+                // }); 
+                break;
+        }
+        this.setState({selectedheader: title});
+    };
+
+    render() {
+        const { heading, headerlist, headerspaceequally, photoHub, ref} = this.props;
+        const { selectedheader } = this.state;
+        
+        const getTabContent = header => {
+            switch (header) {
+                case "Photo Roll":
+                    return <PhotoRoll photoHub={photoHub}/>;
+                case "Observations":
+                    return <ImageSlider photoHub={photoHub}/>;             
+                default:
+                    break;
+            }
+        }
         return (
-            <div className="photo-hub-main">
+            <div className="photo-hub-main" ref={ref}>
                 <h2 className="photo-hub-heading">{heading}</h2>    
                     <div className="photo-hub-card-header">
                         <TabHeader
@@ -29,6 +67,7 @@ export class PhotoHub extends Component{
                             activeHeading={selectedheader}
                             spaceequally={headerspaceequally}
                             theme={"dark"}
+                            onTabChange={this.onTabChange}
                         /> 
                         <Button
                             type={"button"}
@@ -38,44 +77,19 @@ export class PhotoHub extends Component{
                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload_white.svg"}
                         />
                     </div>                         
-                    <h5 className="sort-filter">{"Sort & Filter"}</h5>             
-                    <div className="photo-hub-list">
-                        {photoList.map(photo=>(
-                            <div>
-                                <div className="photo-hub-item">                               
-                                    <img className="img-fit" src="https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/stsci-h-2010a-d-1280x720.png?itok=erAC9c78"/>                                
-                                    {photo.showNewButton &&(
-                                        <div className="overlay-without-bg-div">
-                                            <Button
-                                                type={"button"}
-                                                onClickEvent={()=>{}} 
-                                                text={"New"}                                             
-                                                style={"button-style"}
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="overlay-div">
-                                        <h5 className="mission-obj-name">{photo.objectName}</h5>
-                                        <h5 className="mission-obj-date">{photo.date}</h5>
-                                        <div className="photo-hub-details">
-                                            <h5 className="view-details">{"View Details"}</h5>
-                                            <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
-                                        </div>                                    
-                                    </div>                                
-                                </div> 
-                                <div className="overlay-div-tab">
-                                        <h5 className="mission-obj-name">{photo.objectName}</h5>
-                                        <h5 className="mission-obj-date">{photo.date}</h5>
-                                        <div className="photo-hub-details">
-                                            <h5 className="view-details">{"View Details"}</h5>
-                                            <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
-                                        </div>                                    
-                                    </div> 
-                            </div>
-                            
-                        ))}                            
-                    </div>
-                                                               
+                    <h5 className="sort-filter">{"Sort & Filter"}</h5> 
+                    
+                    {photoHub &&(                        
+                        <div>
+                            {getTabContent(selectedheader)}  
+                            {photoHub.emptySetFlag ? (
+                                <div className="empty-photoHub">
+                                    <h2 className="photo-hub-heading">{photoHub.emptySetDisplay}</h2>    
+                                </div>
+                            ):null}                                                       
+                        </div>
+                    )}
+                                                      
             </div>   
         );
     }

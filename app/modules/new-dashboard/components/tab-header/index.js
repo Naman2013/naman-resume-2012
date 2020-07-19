@@ -4,27 +4,15 @@ import './style.scss';
 
 
 export class TabHeader extends Component{
-
-    constructor(props){
-        super(props);
-        this.state={
-            activeHeading: props.activeHeading
-        };
-    }    
     
-    onTabChanged(tabName){
-        this.setState({activeHeading: tabName});
-    }
-
     render() {
-        const { headings, spaceequally, theme } = this.props;   
-        const { activeHeading } = this.state;
+        const { headings, spaceequally, theme, onTabChange, activeHeading } = this.props;          
 
         return (
             <div>
                 <ul className="tab-header-main">
                     {headings.map(heading=>(
-                        <li className={"tab-header-txt " + theme + (activeHeading === heading ? "-active ": " ") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>this.onTabChanged(heading)}>
+                        <li className={"tab-header-txt " + theme + (activeHeading === heading ? "-active ": " ") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>onTabChange(heading)}>
                             {heading}
                         </li>
                     ))}

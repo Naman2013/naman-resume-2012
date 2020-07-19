@@ -8,13 +8,13 @@ export class GuideCard extends Component{
     
     render() {
         const { guide } = this.props;
-
+        
         return (
             <div className="guide-card">
                 {/* <div className="guide-content"> */}
-                    <h4 className="guide-title">{guide.title}</h4>                             
-                    <h4 className="guide-subtitle">{guide.subtitle}</h4>
-                    <h4 className="guide-info">{guide.info}</h4> 
+                    <h4 className="guide-title">{guide.itemTitle}</h4>                             
+                    <h4 className="guide-subtitle">{guide.author}</h4>
+                    <h4 className="guide-info">{guide.description}</h4> 
                     <Button
                         type={"button"}
                         onClickEvent={()=>{}} 

@@ -10,9 +10,9 @@ export class Observatories extends Component{
     
     render() {
         const heading = "Observatories";        
-        
+        const { ref } = this.props;
         return (
-            <div className="observatory-main">                
+            <div className="observatory-main" ref={ref}>                
                 <h2 className="observatory-heading">{heading}</h2>
                 <TabHeaderWithStatus
                         headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
@@ -44,17 +44,21 @@ export class Observatories extends Component{
                         <div className="observatory-col-large">
                         <div className="observatory-row">
                             <div className="flex-point3">
-                                <h2 className="temp-value">49°F</h2>
+                                {/* <h2 className="temp-value">49°F</h2> */}
                                 <div className="pad5">
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/temperature.svg"/>
+                                    <span className="values">49°F</span>
+                                </div>
+                                <div className="pad5">
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity1.svg"/>
                                     <span className="values">75%</span>
                                 </div>
                                 <div className="pad5"> 
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind1.svg"/>
                                     <span className="values">10 MPH</span>
                                 </div>
                                 <div className="pad5">
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/subtract_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/dew_point.svg"/>
                                     <span className="values">43°F</span>
                                 </div>
                             </div>
@@ -74,17 +78,20 @@ export class Observatories extends Component{
                     <div className="observatory-col">
                         <div className="observatory-row">
                             <div className="flex-point3">
-                                <h2 className="temp-value">49°F</h2>
                                 <div className="pad5">
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/temperature.svg"/>
+                                    <span className="values">49°F</span>
+                                </div>
+                                <div className="pad5">
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity1.svg"/>
                                     <span className="values">75%</span>
                                 </div>
                                 <div className="pad5"> 
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind1.svg"/>
                                     <span className="values">10 MPH</span>
                                 </div>
                                 <div className="pad5">
-                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/subtract_grey.svg"/>
+                                    <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/dew_point.svg"/>
                                     <span className="values">43°F</span>
                                 </div>
                             </div>

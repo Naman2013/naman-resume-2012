@@ -7,8 +7,10 @@ export class FeaturedMissionList extends Component{
 
     
     render() {
-        const featuredMissionList = [{objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"},
-        {objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"}];
+        // const featuredMissionList = [{objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"},
+        // {objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"}];
+
+        const { featuredMissionList } = this.props;
 
         return (
             <div className="featured-main">

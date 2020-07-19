@@ -129,9 +129,10 @@
 }
 
 .new-dash .slider-content-footer{
-  margin: 16px 0px;
+  // margin: 16px 0px;
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
 }
 
 .new-dash .slider-footer-button{  
@@ -157,6 +158,19 @@
   
 }
 
+.new-dash .empty-photoHub{
+    padding: 2em;
+    background: #202d3d;
+    border-radius: 8px;    
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
 .new-dash .slider-buttons-container{
   display: flex;
   flex-direction: row;
@@ -179,8 +193,19 @@
   padding: 0px;
 }
 
+.new-dash .slider-comment-input{
+  margin: 10px 0px;
+  width: 100%;
+  line-height: 50px;
+  border-radius: 10px;
+  padding-left: 15px;
+  font-size: 16px;
+  font-family: $secondary-font;
+}
+
 .new-dash .slider-info-container-large{
   display: none;
+  flex: 1;
 }
 
 @media (min-width: $screenXLarge){
@@ -190,7 +215,8 @@
     }
 
     .new-dash .slider-info-container-large{
-        display: block;
+      display: flex;
+      flex-direction: column;
     }
 
     .new-dash .slider-div{

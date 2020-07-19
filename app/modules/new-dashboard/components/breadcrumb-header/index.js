@@ -10,19 +10,22 @@ export class DashboardHeader extends Component{
         this.state={activeHeading: "Explore the Universe"};
     }
     
-    onHeadingChange(heading){
+    onHeadingChange(heading, index){
+        const { scrollToRef } = this.props;
         this.setState({activeHeading: heading});
+        scrollToRef(index);
     }
 
     render() {
         const headings = ["Explore the Universe", "Observatory and Missions", "Photo", "Community Exploration"];
         const { activeHeading } = this.state;
-        
+        const { refArray } = this.props;
+
         return (
             <div className="header-main">
                 <ul>
-                    {headings.map(heading=>(
-                        <li className={"header-txt" + (activeHeading === heading ? "-active": "")} key={heading} onClick={()=>this.onHeadingChange(heading)}>
+                    {headings.map((heading,i)=>(
+                        <li className={"header-txt" + (activeHeading === heading ? "-active": "")} key={heading} onClick={()=>this.onHeadingChange(heading, i)}>
                             <div className="header_div">
                                 {heading}
                                 {activeHeading === heading && (

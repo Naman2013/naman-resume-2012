@@ -103,8 +103,8 @@
     font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
-    font-size: 10px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 20px;
     /* identical to box height */
 
 
@@ -269,8 +269,13 @@
 
     .new-dash .photo-hub-item{
         width: 136px; 
-        height: 136px;        
+        height: auto;        
         margin-right: 12px;
+    }
+
+    .new-dash .img-fit{
+        width: 136px;
+        height: 136px;
     }
     .new-dash .photo-hub-heading{
         font-size: 16px;
@@ -278,10 +283,15 @@
     }
     .new-dash .overlay-div-tab{  
         display: block;
+        margin-top: 5px;
     }
     .new-dash .overlay-div{  
         display: none;
         cursor: none;
+    }
+    .new-dash .mission-obj-name{
+        font-size: 12px;
+        line-height: 14px;
     }
     // .new-dash .button-style{
     //     background: rgba(255, 255, 255, 0.4);

@@ -46,6 +46,15 @@
     /* margin: 10px 0px; */
 }
 
+.new-dash .card-bottom{
+    margin-top: auto;
+    order: 3;  
+}
+
+.new-dash .live{
+    min-width: unset;
+}
+
 .new-dash .party-name{
     /* position: static;
     width: 261px;
@@ -132,8 +141,9 @@
     /* Inside Auto Layout */
 
     flex: none;
-    order: 3;    
+      
     margin: 4px 0px;
+    // margin-top: auto;
 }
 
 @media (min-width: $screenXLarge){

@@ -28,6 +28,7 @@
 
 .new-dash .featured-row{
     display: flex;
+    flex-wrap: wrap;
 }
 
 @media (min-width: $screenXLarge){

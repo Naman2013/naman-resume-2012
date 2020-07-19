@@ -34,16 +34,18 @@ export class StarPartyCard extends Component{
                         )}
                     />
                 :
-                <span className="counter-text">Live</span>
-                }
-                
+                <span className="counter-text live">LIVE</span>
+                }               
                 
                 <h2 className="party-name">{party.eventTitle}</h2>
-                <h5 className="party-date-time">{party.displayDate}</h5>                                    
-                <span className="astronomer-text">
-                    <img className="astronomer-img" src={"https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png"}/>
-                    {party.eventHostName}
-                </span>                
+                <div className="card-bottom">
+                    <h5 className="party-date-time">{party.displayDate}</h5>                                    
+                    <span className="astronomer-text">
+                        <img className="astronomer-img" src={"https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png"}/>
+                        {party.eventHostName}
+                    </span>
+                </div>
+                                
             </div>
         );
     }

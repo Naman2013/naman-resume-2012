@@ -8,20 +8,22 @@ export class UpcomingMissionList extends Component{
 
     
     render() {
-        const {heading, scheduleMission, missionList, advancedmissionList, showSubHeading, featuredMission} = this.props;
+        const {heading, scheduleMission, missionList, advancedmissionList, showSubHeading, featuredMission, dashboardFeaturedObjects} = this.props;
         
         return (
             <div className="upcoming-main">
                 <h2 className="upcoming-heading">{heading}</h2>  
 
-                {featuredMission && (
-                    <FeaturedMissionList/>
+                {featuredMission && dashboardFeaturedObjects && (
+                    <FeaturedMissionList
+                        featuredMissionList={dashboardFeaturedObjects.missionList}
+                    />
                 )}
                 
                 {showSubHeading && (
                     <div>
                         <br/>
-                        <h3 className="upcoming-subheadings">{"Community Missions"}</h3>
+                        <h3 className="upcoming-subheadings">{"Missions"}</h3>
                         <h5 className="upcoming-subheading-status">{"1/5 Missions"}</h5>  
                     </div>                    
                 )}                 
