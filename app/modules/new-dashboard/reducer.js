@@ -12,7 +12,13 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_BOOKMARK_LIST_START,
          GET_BOOKMARK_LIST_SUCCESS,
          GET_PRIVATE_PROFILE_START,
-         GET_PRIVATE_PROFILE_SUCCESS } from './actions';
+         GET_PRIVATE_PROFILE_SUCCESS,
+         GET_PRIVATE_PROFILE_MISSION_START,
+         GET_PRIVATE_PROFILE_MISSION_SUCCESS,
+         GET_USER_ACTIVE_OBJECT_START,
+         GET_USER_ACTIVE_OBJECT_SUCCESS,
+         GET_USER_POPULAR_OBSERVATIONS_START,
+         GET_USER_POPULAR_OBSERVATIONS_SUCCESS, } from './actions';
 
 const initialState = {
     isFetching: true,    
@@ -104,7 +110,46 @@ export default createReducer(initialState, {
           isFetching: false,
         };
       },
+      [GET_PRIVATE_PROFILE_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_PRIVATE_PROFILE_MISSION_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          privateProfileMission: payload,
+          isFetching: false,
+        };
+      },
+      [GET_PRIVATE_PROFILE_MISSION_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_USER_ACTIVE_OBJECT_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          userActiveObject: payload,
+          isFetching: false,
+        };
+      },
       [GET_USER_GRAVITY_STATUS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_USER_POPULAR_OBSERVATIONS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          userPopularObservation: payload,
+          isFetching: false,
+        };
+      },
+      [GET_USER_POPULAR_OBSERVATIONS_START](state) {
         return {
           ...state,
           isFetching: true,

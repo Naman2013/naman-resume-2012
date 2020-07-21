@@ -45,6 +45,7 @@
     line-height: 17px;
     /* identical to box height */
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .new-dash .club-subtitle{
@@ -64,6 +65,7 @@
 
 .new-dash .club-card-options{
     height: fit-content;
+    cursor: pointer;
 }
 
 @media (min-width: $screenXLarge){

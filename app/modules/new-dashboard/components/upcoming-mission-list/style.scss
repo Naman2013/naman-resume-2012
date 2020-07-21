@@ -60,6 +60,19 @@
     color: #B2B2B2;
 }
 
+.new-dash .empty-mission-card{
+    padding: 2em;
+    background-color: #253446;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (min-width: $screenXLarge){
     .new-dash .upcoming-heading{
         font-size: 21px;

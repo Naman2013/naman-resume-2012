@@ -76,6 +76,7 @@ export class PhotoHub extends Component{
                             style={"upload-button"}
                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload_white.svg"}
                         />
+                        {/* {canUploadToPhotoHub && <UploadPhoto onHide={this.fetchImages} />} */}
                     </div>                         
                     <h5 className="sort-filter">{"Sort & Filter"}</h5> 
                     

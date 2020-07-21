@@ -2,13 +2,14 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { Button } from '../button';
+import { browserHistory } from 'react-router';
 
 export class GuideCard extends Component{
 
     
     render() {
         const { guide } = this.props;
-        
+      
         return (
             <div className="guide-card">
                 {/* <div className="guide-content"> */}
@@ -17,8 +18,8 @@ export class GuideCard extends Component{
                     <h4 className="guide-info">{guide.description}</h4> 
                     <Button
                         type={"button"}
-                        onClickEvent={()=>{}} 
-                        text={"View Guide"}                                             
+                        onClickEvent={()=>{browserHistory.push(guide.linkURL)}} 
+                        text={guide.linkLabel}                                             
                         style={"button-border"}
                     />
                 {/* </div>   */}

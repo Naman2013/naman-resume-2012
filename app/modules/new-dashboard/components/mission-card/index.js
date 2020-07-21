@@ -8,11 +8,11 @@ export class MissionCard extends Component{
 
     
     render() {
-        const { mission } = this.props;
-
+        const { mission, readOnly, reservationModalShow  } = this.props;
+        
         return (
-            <div className="mission-card">
-                <h4 className="obj-name">{mission.title}</h4>
+            <div className="mission-card">                
+                <h4 className="obj-name" onClick={mission.missionAvailable && !mission.userHasReservation && !readOnly ? () => reservationModalShow(mission): null}>{mission.title}</h4>
                 <h4 className="time">{mission.missionStartFormatted.displayWeekdayMonthDayYearUTC + " " + mission.missionStartFormatted.displayTimeZone}</h4>
                 <h4 className="scheduled-by"> 
                      by <u>{mission.ownerDisplayName}</u> 

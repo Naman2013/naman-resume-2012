@@ -2,7 +2,7 @@
 @import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .progress-card-main{
-    /* padding: 0px 10px; */
+     padding: 0px 16px; 
     /* background: #FAFAFA; */
 }
 
@@ -47,7 +47,8 @@
 }
 
 .new-dash .info{
-    padding:3px 16px;
+    padding:3px 0px;
+    margin-right: 15px;
     display: flex;
     justify-content: space-between;
 }

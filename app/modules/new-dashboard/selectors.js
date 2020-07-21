@@ -50,4 +50,21 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.isFetching
   );
+
+  export const makePrivateProfileMissionSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.privateProfileMission
+  );
   
+  export const makeUserActiveObjectSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.userActiveObject
+  );
+
+  export const makeUserPopularObservationSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.userPopularObservation
+  );

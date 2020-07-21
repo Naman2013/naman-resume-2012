@@ -21,7 +21,7 @@ export class FeaturedObjectsModal extends Component {
       tip,
       objectIconURL,
     } = selectedMission;
-
+    
     return (
       <Modal show={show} onHide={onHide} goBackText={goBackLinkText}>
         <div className="modal-wrapper featured-objects-modal">

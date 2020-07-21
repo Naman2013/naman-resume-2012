@@ -24,6 +24,7 @@ import { AstronomerConversationLayout } from "./components/astronomer-conversati
 import { ObjectMap } from "./components/object-map";
 import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
+import { getPrivateProfileMission } from "./dashboardApi";
 
 export class NewDashboard extends PureComponent{
     
@@ -32,20 +33,20 @@ export class NewDashboard extends PureComponent{
     }
 
     scrollToRef = (index) => {
-        switch(index){
-            case 0:
-                this.exploreRef.scrollIntoView();
-                break;
-            case 1:
-                this.observatoryRef.scrollIntoView();
-                break;
-            case 2:
-                this.photoRef.scrollIntoView()
-                break;
-            case 3:
-                this.communityRef.scrollIntoView()
-                break;
-        }
+        // switch(index){
+        //     case 0:
+        //         this.exploreRef.scrollIntoView();
+        //         break;
+        //     case 1:
+        //         this.observatoryRef.scrollIntoView();
+        //         break;
+        //     case 2:
+        //         this.photoRef.scrollIntoView()
+        //         break;
+        //     case 3:
+        //         this.communityRef.scrollIntoView()
+        //         break;
+        // }
         // debugger;
         // ref.current.scrollIntoView({
         //     behavior: 'smooth',
@@ -54,10 +55,11 @@ export class NewDashboard extends PureComponent{
     }
 
     getStarPartyList = () => {
-        const { fetchStarPartyDataAction, getUserGravityDataAction, getMyPicturesDataAction, getDashboardFeaturedObjectsDataAction, getMyClubListDataAction, getBookmarkListDataAction, getPrivateProfileDataAction } = this.props;        
+        const { fetchStarPartyDataAction, getUserGravityDataAction, getUserActiveObjectDataAction, getUserPopularObservationDataAction, getMyPicturesDataAction, getDashboardFeaturedObjectsDataAction, getMyClubListDataAction, getBookmarkListDataAction, getPrivateProfileDataAction, getPrivateProfileMissionDataAction } = this.props;        
         getPrivateProfileDataAction();
         fetchStarPartyDataAction();
         getUserGravityDataAction();
+        getPrivateProfileMissionDataAction();
         getMyPicturesDataAction({
             viewType: 'photoRoll',                 
         });
@@ -68,10 +70,36 @@ export class NewDashboard extends PureComponent{
         getBookmarkListDataAction({
             readingListType: "guide",
         });
+        getUserActiveObjectDataAction();
+        getUserPopularObservationDataAction();
     };
     
     render(){
-        const { privateProfile, upcomingStarPartyList, userGravityStatus, photoHub, dashboardFeaturedObjects, myClubList, bookmarkList, isFetching } =this.props;
+    
+        const { privateProfile, 
+                userActiveObject, 
+                userPopularObservation, 
+                privateProfileMission, 
+                upcomingStarPartyList, 
+                userGravityStatus, 
+                photoHub, 
+                dashboardFeaturedObjects, 
+                myClubList, 
+                bookmarkList, 
+                isFetching,
+                piggyBackMissionSlot,
+                piggybackReservedMissionData,
+                piggybackReservedMission,
+                cancelReservation,
+                cancelPiggyback,
+                grabPiggyback,
+                reservePiggyback,
+                getPrivateProfileMissionDataAction,
+                reserveCommunityMission,
+                getDashboardFeaturedObjectsDataAction,
+                reservedCommunityMissionData,
+                reservedCommunityMission,
+                user  } =this.props;
         const { getBookmarkListDataAction, getMyPicturesDataAction } = this.props;        
         
         return(
@@ -105,35 +133,62 @@ export class NewDashboard extends PureComponent{
                                 
                                 <SectionDivider/>
 
-                                <UpcomingMissionList
-                                    heading={"Upcoming Missions"}
-                                    scheduleMission={true}
-                                    missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: false},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: true, title: "Plan new mission", subtitle: "Empty Slot"},]}
-                                    advancedmissionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", emptyslot: false}]}
-                                    showSubHeading={true}
-                                    featuredMission={true}
-                                    dashboardFeaturedObjects={dashboardFeaturedObjects}
-                                />
+                                {privateProfileMission &&(
+                                    <div>
+                                        <UpcomingMissionList
+                                            heading={"Upcoming Missions"}
+                                            scheduleMission={true}
+                                            missionList = {privateProfileMission.missionList}
+                                            advancedmissionList = {[{missionTitle: "Comet C/2017 T2 (PanSTARRS)" , missionStartFormatted: { displayDateTime: "Wednesday, April 1, 20:20" }, telescopePierName: "Canary One", emptyslot: false}]}
+                                            showSubHeading={true}
+                                            featuredMission={true}
+                                            dashboardFeaturedObjects={dashboardFeaturedObjects}
+                                            emptySetDisplay={privateProfileMission.emptySetUpcomingMissionsDisplay}
+                                            piggyBackMissionSlot={piggyBackMissionSlot}
+                                            piggybackReservedMissionData={piggybackReservedMissionData}
+                                            piggybackReservedMission={piggybackReservedMission}
+                                            cancelReservation={cancelReservation}
+                                            cancelPiggyback={cancelPiggyback}
+                                            grabPiggyback={grabPiggyback}
+                                            reservePiggyback={reservePiggyback}
+                                            getPrivateProfileMissions={getPrivateProfileMissionDataAction}
+                                            reserveCommunityMission={reserveCommunityMission}
+                                            getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
+                                            reservedCommunityMissionData={reservedCommunityMissionData } 
+                                            reservedCommunityMission={reservedCommunityMission}
+                                            user={user}                                            
+                                        />
 
-                                <UpcomingMissionList
-                                    heading={"Past Missions"}
-                                    missionList = {[{objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"},
-                                                    {objectname: "Comet C/2017 T2 (PanSTARRS)" , time: "Wednesday, April 1, 20:20", telescope: "Canary One", showPicturetaken: true, picturetakentext: "1 Picture taken"}]}
-                                    scheduleMission={false}
-                                    showSubHeading={false}
-                                    advancedmissionList={[]}
-                                    featuredMission={false}
-                                />
+                                        <UpcomingMissionList
+                                            heading={"Past Missions"}
+                                            missionList = {privateProfileMission.recentMissionList}
+                                            scheduleMission={false}
+                                            showSubHeading={false}
+                                            advancedmissionList={[]}
+                                            featuredMission={false}
+                                            emptySetDisplay={privateProfileMission.emptySetRecentMissionsDisplay}
+                                            piggyBackMissionSlot={piggyBackMissionSlot}
+                                            piggybackReservedMissionData={piggybackReservedMissionData}
+                                            piggybackReservedMission={piggybackReservedMission}
+                                            cancelReservation={cancelReservation}
+                                            cancelPiggyback={cancelPiggyback}
+                                            grabPiggyback={grabPiggyback}
+                                            reservePiggyback={reservePiggyback}
+                                            getPrivateProfileMissions={getPrivateProfileMissionDataAction}
+                                            reserveCommunityMission={reserveCommunityMission}
+                                            getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
+                                            reservedCommunityMissionData={reservedCommunityMissionData } 
+                                            reservedCommunityMission={reservedCommunityMission}
+                                            user={user}                                            
+                                        />
+                                    </div>
+                                )}
+                                
                                 
                                 <SectionDivider/>
 
                                 <PhotoHub
-                                    heading={"Phot Hub (1 New)"}                            
+                                    heading={"Photo Hub (1 New)"}                            
                                     headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
                                     selectedheader={"Photo Roll"}
                                     headerspaceequally={false}
@@ -226,20 +281,29 @@ export class NewDashboard extends PureComponent{
                                 )}
                                 
                                 <GravityActions/>
-                                <ObjectList
-                                    heading={"Most Active Objects"}
-                                    showTab={false}
-                                    headerlist={[]}
-                                    selectedheader={""}
-                                    headerspaceequally={false}
-                                />
-                                <ObjectList
-                                    heading={"Most Popular Observations"}
-                                    showTab={false}
-                                    headerlist={[]}
-                                    selectedheader={""}
-                                    headerspaceequally={false}
-                                />
+
+                                {userActiveObject && (
+                                    <ObjectList
+                                        heading={"Most Active Objects"}
+                                        showTab={false}
+                                        headerlist={[]}
+                                        selectedheader={""}
+                                        headerspaceequally={false}
+                                        objectList={userActiveObject.activeObjects}
+                                    />
+                                )}
+                                
+                                {userPopularObservation && (
+                                    <ObjectList
+                                        heading={"Most Popular Observations"}
+                                        showTab={false}
+                                        headerlist={[]}
+                                        selectedheader={""}
+                                        headerspaceequally={false}
+                                        objectList={userPopularObservation.popularObservations}
+                                    />
+                                )}
+                                
                                 <DomainGP
                                     heading={"GP by Domain"}
                                 />
@@ -263,6 +327,10 @@ export class NewDashboard extends PureComponent{
                                     headerlist={["Last 30 Days", "All Time"]}
                                     selectedheader={"Last 30 Days"}
                                     headerspaceequally={true}
+                                    objectList = {[{gravityPoints: "44 GP", title: "Jupiter", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/jupiter.svg"},
+                                                    {gravityPoints: "41 GP", title: "Saturn", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/saturn.svg"},
+                                                    {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
+                                                    {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
                                 />
                                 <ObjectList
                                     heading={"Community Top Observations"}
@@ -270,6 +338,10 @@ export class NewDashboard extends PureComponent{
                                     headerlist={["Last 30 Days", "All Time"]}
                                     selectedheader={"Last 30 Days"}
                                     headerspaceequally={true}
+                                    objectList = {[{gravityPoints: "44 GP", title: "Jupiter", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/jupiter.svg"},
+                                                    {gravityPoints: "41 GP", title: "Saturn", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/saturn.svg"},
+                                                    {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
+                                                    {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
                                 />
                                 <RankCard
                                     heading={"Top Members"}

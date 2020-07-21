@@ -2,6 +2,7 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { ClubCard } from '../club-card';
+import { Link } from 'react-router';
 
 export class ClubList extends Component{
 
@@ -20,9 +21,12 @@ export class ClubList extends Component{
                         ))}
                         {showExploreClubs &&(
                             <div className="club-explore-card">
-                                <div className="club-explore-card-head">
-                                    <h4 className="club-title">Explore Other Clubs</h4>
-                                    <img className="club-card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                <div >
+                                    <Link className="club-explore-card-head" to={"/groups/all"}>
+                                        <h4 className="club-title">Explore Other Clubs</h4>
+                                        <img className="club-card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                    </Link>                                    
+                                    
                                 </div>        
                                 <p className="club-subtitle">Find Some awesome communities to share progress and receive experience</p>
                         </div>

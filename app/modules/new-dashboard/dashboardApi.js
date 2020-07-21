@@ -27,3 +27,15 @@ export function getBookmarksList(data) {
 export function getPrivateProfile(data) {
   return API.post('/api/page/getPrivateProfile', data);
 }
+
+export function getPrivateProfileMission(data) {
+  return API.post('/api/page/getPrivateProfileMissions', data);
+}
+
+export function getUserActiveObject(data) {
+  return API.post('/api/newdashboard/getUserActiveObjects', data);
+}
+
+export function getUserPouplarObservation(data) {
+  return API.post('/api/newdashboard/getUserPopularObservations', data);
+}

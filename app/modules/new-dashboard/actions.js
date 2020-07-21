@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -15,6 +15,12 @@ export const GET_BOOKMARK_LIST_START = "GET_BOOKMARK_LIST_START";
 export const GET_BOOKMARK_LIST_SUCCESS = "GET_BOOKMARK_LIST_SUCCESS";
 export const GET_PRIVATE_PROFILE_START = "GET_PRIVATE_PROFILE_START";
 export const GET_PRIVATE_PROFILE_SUCCESS = "GET_PRIVATE_PROFILE_SUCCESS";
+export const GET_PRIVATE_PROFILE_MISSION_START = "GET_PRIVATE_PROFILE_MISSION_START";
+export const GET_PRIVATE_PROFILE_MISSION_SUCCESS = "GET_PRIVATE_PROFILE_MISSION_SUCCESS";
+export const GET_USER_ACTIVE_OBJECT_START = "GET_USER_ACTIVE_OBJECT_START";
+export const GET_USER_ACTIVE_OBJECT_SUCCESS = "GET_USER_ACTIVE_OBJECT_SUCCESS";
+export const GET_USER_POPULAR_OBSERVATIONS_START = "GET_USER_POPULAR_OBSERVATIONS_START";
+export const GET_USER_POPULAR_OBSERVATIONS_SUCCESS = "GET_USER_POPULAR_OBSERVATIONS_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -78,6 +84,34 @@ const getPrivateProfileSuccess = (payload) => ({
   type: GET_PRIVATE_PROFILE_SUCCESS,
   payload    
 });
+
+const getPrivateProfileMissionStart = () => ({
+  type: GET_PRIVATE_PROFILE_MISSION_START    
+});
+
+const getPrivateProfileMissionSuccess = (payload) => ({
+  type: GET_PRIVATE_PROFILE_MISSION_SUCCESS,
+  payload    
+});
+
+const getUserActiveObjectStart = () => ({
+  type: GET_USER_ACTIVE_OBJECT_START    
+});
+
+const getUserActiveObjectSuccess = (payload) => ({
+  type: GET_USER_ACTIVE_OBJECT_SUCCESS,
+  payload    
+});
+
+const getUserPopularObservationStart = () => ({
+  type: GET_USER_POPULAR_OBSERVATIONS_START    
+});
+
+const getUserPopularObservationSuccess = (payload) => ({
+  type: GET_USER_POPULAR_OBSERVATIONS_SUCCESS,
+  payload    
+});
+
 
 export const fetchStarPartyDataAction = () => (dispatch) => {
     dispatch(fetchStartPartyListStart());
@@ -171,6 +205,48 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         dispatch(getPrivateProfileSuccess(result.data));
+      }
+    );
+  };
+
+  export const getPrivateProfileMissionDataAction = () => (dispatch, getState) => {
+    dispatch(getPrivateProfileMissionStart());
+    const { token, at, cid } = getState().user;
+    return getPrivateProfileMission({
+      token,
+      at,
+      cid,           
+    }).then(
+      result => {
+        dispatch(getPrivateProfileMissionSuccess(result.data));
+      }
+    );
+  };
+
+  export const getUserActiveObjectDataAction = () => (dispatch, getState) => {
+    dispatch(getUserActiveObjectStart());
+    const { token, at, cid } = getState().user;
+    return getUserActiveObject({
+      token,
+      at,
+      cid,           
+    }).then(
+      result => {
+        dispatch(getUserActiveObjectSuccess(result.data));
+      }
+    );
+  };
+
+  export const getUserPopularObservationDataAction = () => (dispatch, getState) => {
+    dispatch(getUserPopularObservationStart());
+    const { token, at, cid } = getState().user;
+    return getUserPouplarObservation({
+      token,
+      at,
+      cid,           
+    }).then(
+      result => {
+        dispatch(getUserPopularObservationSuccess(result.data));
       }
     );
   };
