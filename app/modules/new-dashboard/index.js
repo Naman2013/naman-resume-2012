@@ -55,14 +55,26 @@ export class NewDashboard extends PureComponent{
     }
 
     getStarPartyList = () => {
-        const { fetchStarPartyDataAction, getUserGravityDataAction, getUserActiveObjectDataAction, getUserPopularObservationDataAction, getMyPicturesDataAction, getDashboardFeaturedObjectsDataAction, getMyClubListDataAction, getBookmarkListDataAction, getPrivateProfileDataAction, getPrivateProfileMissionDataAction } = this.props;        
+        const { fetchStarPartyDataAction, 
+                getUserGravityDataAction, 
+                getUserActiveObjectDataAction, 
+                getUserPopularObservationDataAction, 
+                getMyPicturesDataAction, 
+                getDashboardFeaturedObjectsDataAction, 
+                getMyClubListDataAction, 
+                getBookmarkListDataAction, 
+                getPrivateProfileDataAction, 
+                getPrivateProfileMissionDataAction,
+                getMissionImagesDataAction,
+                getGalleryListDataAction, } = this.props;   
+
         getPrivateProfileDataAction();
         fetchStarPartyDataAction();
         getUserGravityDataAction();
         getPrivateProfileMissionDataAction();
         getMyPicturesDataAction({
             viewType: 'photoRoll',                 
-        });
+        });        
         getDashboardFeaturedObjectsDataAction();
         getMyClubListDataAction({
             callSource: "profile",
@@ -99,7 +111,9 @@ export class NewDashboard extends PureComponent{
                 getDashboardFeaturedObjectsDataAction,
                 reservedCommunityMissionData,
                 reservedCommunityMission,
-                user  } =this.props;
+                user,
+                getMissionImagesDataAction,
+                getGalleryListDataAction,  } =this.props;
         const { getBookmarkListDataAction, getMyPicturesDataAction } = this.props;        
         
         return(
@@ -194,7 +208,9 @@ export class NewDashboard extends PureComponent{
                                     headerspaceequally={false}
                                     photoHub={photoHub}
                                     getMyPictures={getMyPicturesDataAction}
-                                    ref={refs => this.photoRef=refs}                                    
+                                    ref={refs => this.photoRef=refs}
+                                    getMissionImages={getMissionImagesDataAction}
+                                    getGalleryList={getGalleryListDataAction}                                    
                                 />
 
                                 <SectionDivider/>
@@ -207,7 +223,8 @@ export class NewDashboard extends PureComponent{
 
                                 {photoHub && (
                                     <ImageSlider
-                                        photoHub={photoHub}
+                                        photoHub={{imageList:[{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."},
+                                        {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."}]}}
                                     />
                                 )}                                    
 

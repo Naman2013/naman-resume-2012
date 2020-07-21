@@ -68,3 +68,15 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.userPopularObservation
   );
+
+  export const makeMissionImagesSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.missionImages
+  );
+
+  export const makeGalleryListSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.galleryList
+  );

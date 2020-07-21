@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -21,6 +21,10 @@ export const GET_USER_ACTIVE_OBJECT_START = "GET_USER_ACTIVE_OBJECT_START";
 export const GET_USER_ACTIVE_OBJECT_SUCCESS = "GET_USER_ACTIVE_OBJECT_SUCCESS";
 export const GET_USER_POPULAR_OBSERVATIONS_START = "GET_USER_POPULAR_OBSERVATIONS_START";
 export const GET_USER_POPULAR_OBSERVATIONS_SUCCESS = "GET_USER_POPULAR_OBSERVATIONS_SUCCESS";
+export const GET_MISSION_IMAGES_START = "GET_MISSION_IMAGES_START";
+export const GET_MISSION_IMAGES_SUCCESS = "GET_MISSION_IMAGES_SUCCESS";
+export const GET_GALLERY_LIST_START = "GET_GALLERY_LIST_START";
+export const GET_GALLERY_LIST_SUCCESS = "GET_GALLERY_LIST_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -112,6 +116,23 @@ const getUserPopularObservationSuccess = (payload) => ({
   payload    
 });
 
+const getMissionImagesStart = () => ({
+  type: GET_MISSION_IMAGES_START    
+});
+
+const getMissionImagesSuccess = (payload) => ({
+  type: GET_MISSION_IMAGES_SUCCESS,
+  payload    
+});
+
+const getGalleryListStart = () => ({
+  type: GET_GALLERY_LIST_START    
+});
+
+const getGalleryListSuccess = (payload) => ({
+  type: GET_GALLERY_LIST_SUCCESS,
+  payload    
+});
 
 export const fetchStarPartyDataAction = () => (dispatch) => {
     dispatch(fetchStartPartyListStart());
@@ -247,6 +268,36 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         dispatch(getUserPopularObservationSuccess(result.data));
+      }
+    );
+  };
+
+  export const getMissionImagesDataAction = (data) => (dispatch, getState) => {
+    dispatch(getMissionImagesStart());
+    const { token, at, cid } = getState().user;
+    return getMissionImages({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {
+        dispatch(getMissionImagesSuccess(result.data));
+      }
+    );
+  };
+
+  export const getGalleryListDataAction = (data) => (dispatch, getState) => {
+    dispatch(getGalleryListStart());
+    const { token, at, cid } = getState().user;
+    return getGalleryList({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {
+        dispatch(getGalleryListSuccess(result.data));
       }
     );
   };

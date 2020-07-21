@@ -126,7 +126,7 @@ export class UpcomingMissionList extends Component{
         const { callSource } = dashboardFeaturedObjects;
         const { selectedSlot } = this.state;
         const { scheduledMissionId, missionStart } = selectedSlot;
-        debugger;
+        
         reserveCommunityMission({
           callSource,
           scheduledMissionId,

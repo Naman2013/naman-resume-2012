@@ -7,6 +7,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import FindObject from 'app/modules/browse-find-data/containers/find-object';
 import './styles.scss';
+import { Button as NewButton } from 'app/modules/new-dashboard/components/button';
 
 const REFERENCE_TYPES = {
   slooh1000: 'slooh1000',
@@ -197,6 +198,7 @@ export class UploadPhoto extends Component {
       uploadPhotoData,
       isFetching,
       catalogListOpts,
+      newButton
     } = this.props;
     const {
       DisplayTitle,
@@ -218,11 +220,22 @@ export class UploadPhoto extends Component {
     } = this.state;
     const { imageData, explanationText } = uploadPhotoData;
     const { imageUrl } = imageData;
-
+    
     return (
-      <div className="photohub-upload-photo-container">
-        <Button onClick={this.showUploadModal}>Upload</Button>
-
+      <div className={newButton ? "" : "photohub-upload-photo-container"}>
+        {newButton ? 
+          <NewButton
+              type={"button"}
+              onClickEvent={this.showUploadModal} 
+              text={"Upload Photo"}                                             
+              style={"upload-button"}
+              icon={"https://vega.slooh.com/assets/v4/dashboard-new/upload_white.svg"}
+          ></NewButton>
+          // "test"
+          :
+        <Button onClick={this.showUploadModal}>Upload</Button> 
+       }
+               
         <Modal
           show={isUploadModalOpen}
           onHide={this.uploadModalHide}

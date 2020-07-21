@@ -34,6 +34,8 @@ import {
     getPrivateProfileMissionDataAction,
     getUserActiveObjectDataAction,
     getUserPopularObservationDataAction,
+    getMissionImagesDataAction,
+    getGalleryListDataAction,
   } from './actions';
 
 
@@ -48,6 +50,8 @@ import { makeStarPartyListSelector,
     makePrivateProfileMissionSelector,
     makeUserActiveObjectSelector,
     makeUserPopularObservationSelector,
+    makeMissionImagesSelector,
+    makeGalleryListSelector,
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -70,6 +74,8 @@ const mapStateToProps = createStructuredSelector({
     reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
     reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
     user: makeUserSelector(),
+    // missionImages: makeMissionImagesSelector(),
+    // galleryList: makeGalleryListSelector(),
 });
 
 const mapDispatchToProps = {
@@ -88,6 +94,8 @@ const mapDispatchToProps = {
     grabPiggyback,
     reservePiggyback,
     reserveCommunityMission,
+    getMissionImagesDataAction,
+    getGalleryListDataAction,
 };
 
 export default compose(

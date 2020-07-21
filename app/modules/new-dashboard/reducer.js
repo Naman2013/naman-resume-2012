@@ -18,7 +18,11 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_USER_ACTIVE_OBJECT_START,
          GET_USER_ACTIVE_OBJECT_SUCCESS,
          GET_USER_POPULAR_OBSERVATIONS_START,
-         GET_USER_POPULAR_OBSERVATIONS_SUCCESS, } from './actions';
+         GET_USER_POPULAR_OBSERVATIONS_SUCCESS,
+         GET_MISSION_IMAGES_START,
+         GET_MISSION_IMAGES_SUCCESS,
+         GET_GALLERY_LIST_START,
+         GET_GALLERY_LIST_SUCCESS, } from './actions';
 
 const initialState = {
     isFetching: true,    
@@ -136,7 +140,7 @@ export default createReducer(initialState, {
           isFetching: false,
         };
       },
-      [GET_USER_GRAVITY_STATUS_START](state) {
+      [GET_USER_ACTIVE_OBJECT_START](state) {
         return {
           ...state,
           isFetching: true,
@@ -150,6 +154,32 @@ export default createReducer(initialState, {
         };
       },
       [GET_USER_POPULAR_OBSERVATIONS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_MISSION_IMAGES_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          photoHub: payload,
+          isFetching: false,
+        };
+      },
+      [GET_MISSION_IMAGES_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_GALLERY_LIST_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          photoHub: payload,
+          isFetching: false,
+        };
+      },
+      [GET_GALLERY_LIST_START](state) {
         return {
           ...state,
           isFetching: true,

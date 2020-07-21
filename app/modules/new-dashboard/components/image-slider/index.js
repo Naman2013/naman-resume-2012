@@ -5,16 +5,23 @@ import Slider from "react-slick";
 import { Button } from '../button';
 // import './slick.min.css';
 // import './slick-theme.min.css';
-import DiscussionComments from 'app/components/common/DiscussionsBoard/DiscussionComments';
+import ObservationComments from 'app/modules/observations/containers/observation-comments';
+import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 
 export class ImageSlider extends Component{
+
+    state={
+        
+    }
 
     constructor(props){
         super(props);
         if ( props.photoHub !== undefined && props.photoHub.imageList.length > 0 )
-            this.state = { currentItem: props.photoHub.imageList[0]};
+            this.state = { currentItem: props.photoHub.imageList[0],
+                            isDiscussionsOpen: false };
         else
-            this.state = { currentItem: undefined };
+            this.state = { currentItem: undefined,
+                            isDiscussionsOpen: false };
     }
     
     render() {      
@@ -31,7 +38,8 @@ export class ImageSlider extends Component{
             beforeChange: (current, after) =>
                 this.setState({ currentItem: photoHub.imageList[after] })
         };
-        const { currentItem } = this.state;
+        const { currentItem, isDiscussionsOpen } = this.state;
+        const { readOnly } = false;
 
         return (
             <div className="slider-div">
@@ -53,7 +61,7 @@ export class ImageSlider extends Component{
                                         />
                                         <Button
                                             type={"button"}
-                                            onClickEvent={()=>{}} 
+                                            onClickEvent={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen})}} 
                                             text={slideElement.commentsCount}                                             
                                             style={"slider-footer-button"}
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
@@ -68,7 +76,20 @@ export class ImageSlider extends Component{
                                     </div>
                                     <span className="slider-updated">{slideElement.overlayData.imageDate}</span>
                                 </div> 
-                                <input type="text" className="slider-comment-input" placeholder="Write a Comment"/> 
+                                {/* <input type="text" className="slider-comment-input" placeholder="Write a Comment"/>  */}
+                                {isDiscussionsOpen && !readOnly && (
+                                    <ObservationComments
+                                    topLevelThread={false}
+                                    callSource={CALLSOURCE_PHOTOVIEW}
+                                    count={10}
+                                    commentsCount={slideElement.commentsCount}
+                                    commentsThreadId={slideElement.commentsThreadId}
+                                    forumId={slideElement.commentsForumId}
+                                    topicId={slideElement.commentsTopicId}
+                                    threadId={slideElement.commentsThreadId}
+                                    canSubmitReplies={slideElement.canSubmitReplies}
+                                    />
+                                )}
                             </div>
                             <img className="img-slider" src={slideElement.imageURL} />
                         </div>
@@ -91,7 +112,7 @@ export class ImageSlider extends Component{
                                     />
                                     <Button
                                         type={"button"}
-                                        onClickEvent={()=>{}} 
+                                        onClickEvent={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen})}} 
                                         text={currentItem.commentsCount}                                             
                                         style={"slider-footer-button"}
                                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
@@ -106,27 +127,22 @@ export class ImageSlider extends Component{
                                 </div>
                                 <span className="slider-updated">{currentItem.overlayData.imageDate}</span>
                             </div> 
-                            <input type="text" className="slider-comment-input" placeholder="Write a Comment"/> 
+                            {/* <input type="text" className="slider-comment-input" placeholder="Write a Comment"/>  */}
+                            {isDiscussionsOpen && !readOnly && (
+                                <ObservationComments
+                                topLevelThread={false}
+                                callSource={CALLSOURCE_PHOTOVIEW}
+                                count={10}
+                                commentsCount={currentItem.commentsCount}
+                                commentsThreadId={currentItem.commentsThreadId}
+                                forumId={currentItem.commentsForumId}
+                                topicId={currentItem.commentsTopicId}
+                                threadId={currentItem.commentsThreadId}
+                                canSubmitReplies={currentItem.canSubmitReplies}
+                                />
+                            )}
                         </div>
-                        {/* <DiscussionComments
-                            // validateResponseAccess={validateResponseAccess}
-                            // discussions={this.state}
-                            // discussionsActions={discussionsActions}
-                            // errorMessage={errorMessage}
-                            // callSource={callSource}
-                            // count={count}
-                            threadId={currentItem.commentsThreadId}
-                            // formPlaceholder="Write a public comment"
-                            formPlaceholder="Write a comment"
-                            page={page}
-                            topicId={currentItem.commentsTopicId}
-                            forumId={currentItem.commentsForumId}
-                            // user={user}
-                            // getReplies={this.getReplies}
-                            // updateComments
-                            // flagParams={flagParams}
-                            canSubmitReplies={this.props.canSubmitReplies}
-                        />    */}
+                       
                     </div>    
                 )}                      
             </div>

@@ -39,3 +39,11 @@ export function getUserActiveObject(data) {
 export function getUserPouplarObservation(data) {
   return API.post('/api/newdashboard/getUserPopularObservations', data);
 }
+
+export function getMissionImages(data) {
+  return API.post('/api/images/getMissionImages', data);
+}
+
+export function getGalleryList(data) {
+  return API.post('api/images/getGalleryList', data);
+}
