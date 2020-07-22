@@ -10,6 +10,8 @@
     width: 175px;
     border: 2px solid #446082;
     box-sizing: border-box;    
+    display: flex;
+    flex-direction: column;
 }
 
 .new-dash .upcoming-time{
@@ -92,6 +94,10 @@
 
     color: #FFFFFF;
 
+}
+
+.new-dash .mar-top-auto{
+    margin-top: auto;
 }
 
 .new-dash .empty-slot-subtitle{

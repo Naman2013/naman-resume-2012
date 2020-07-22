@@ -36,9 +36,11 @@ export class UpcomingMissionCard extends Component{
                         />
                     )}
                     {/* <img className="card-options mar-top-2" src="https://vega.slooh.com/assets/v4/dashboard-new/three_dots_white.svg"/> */}
+                </div>
+                <div className="mar-top-auto">
+                    <h4 className="upcoming-time">{mission.missionStartFormatted.displayDateTime}</h4>
+                    <h4 className="upcoming-telescope">{mission.telescopePierName}</h4>                
                 </div>                
-                <h4 className="upcoming-time">{mission.missionStartFormatted.displayDateTime}</h4>
-                <h4 className="upcoming-telescope">{mission.telescopePierName}</h4>                
                 {mission.showPicturetaken && (
                     <br/>,
                     <div className="upcoming-mission-card-head  vertical-middle pad-top-10">
