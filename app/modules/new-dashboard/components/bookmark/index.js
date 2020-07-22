@@ -25,7 +25,7 @@ export class BookMark extends Component{
                 getBookmarkList({readingListType: "story"});
                 break;
             
-            case "Star Parties":
+            case "Star Party":
                 getBookmarkList({readingListType: "show"});
                 break;
 
@@ -44,7 +44,7 @@ export class BookMark extends Component{
             <div className="guide-list-main">
                 <h2 className="guide-list-heading">{heading}</h2>
                     <TabHeader
-                        headings={["Objects", "Illuminations", "Star Parties", "Guides"]}
+                        headings={["Objects", "Illuminations", "Star Party", "Guides"]}
                         activeHeading={activeHeading}
                         spaceequally={false}
                         theme={"dark"}
