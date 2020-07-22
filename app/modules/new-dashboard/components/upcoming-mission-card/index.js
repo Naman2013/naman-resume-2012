@@ -18,7 +18,7 @@ export class UpcomingMissionCard extends Component{
             mission.emptyslot ?
                 <div className="upcoming-mission-card">
                     <div className="upcoming-mission-card-head">
-                        <h4 className="empty-slot-title">{mission.title}</h4>
+                        <h4 className="empty-slot-title">{mission.missionTitle}</h4>
                         <img className="card-options mar-top-2" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                     </div>  
                     <h4 className="empty-slot-subtitle">{mission.subtitle}</h4>

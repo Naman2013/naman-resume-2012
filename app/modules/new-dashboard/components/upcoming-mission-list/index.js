@@ -150,7 +150,8 @@ export class UpcomingMissionList extends Component{
             reservedCommunityMissionData,
             reservedCommunityMission,
             user,
-            callSource } = this.props;
+            callSource,
+            totalCount } = this.props;
         const {
             cancelReservationModalVisible,
             cancelPiggybackModalVisible,
@@ -163,8 +164,10 @@ export class UpcomingMissionList extends Component{
           const {
             cancelMissionDialogPrompt,
             cancelPiggybackDialogPrompt,
-          } = selectedSlot;
-         
+          } = selectedSlot;        
+          
+          const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
+          debugger;
         return (
             <div>
                 <MissionConfirmationModal
@@ -199,18 +202,28 @@ export class UpcomingMissionList extends Component{
                         </div>                    
                     )}                 
                     <div className="upcoming-list">
-                        {missionList.map(mission=>(
-                            <UpcomingMissionCard
-                                mission={mission}
-                                key={mission.scheduledMissionId}
-                                timeSlot={mission}
-                                cancelReservation={(selectedSlot) => 
-                                    this.setState({cancelReservationModalVisible: true, selectedSlot, })}
-                                cancelPiggyback={(selectedSlot) =>
-                                    this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
-                                grabPiggyback={this.grabPiggyback}
-                            />
-                        ))}
+                        {[...Array(totalCount)].map((e,index)=>(
+                            
+                              index < missionList.length ? (
+                                <UpcomingMissionCard
+                                  mission={missionList[index]}
+                                  key={missionList[index].scheduledMissionId}
+                                  timeSlot={missionList[index]}
+                                  cancelReservation={(selectedSlot) => 
+                                      this.setState({cancelReservationModalVisible: true, selectedSlot, })}
+                                  cancelPiggyback={(selectedSlot) =>
+                                      this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
+                                  grabPiggyback={this.grabPiggyback}
+                                />
+                              ):(
+                                <UpcomingMissionCard
+                                  mission={emptyMissionCard}                                  
+                                />
+                              ))
+                            
+                            
+                        )}
+                        
                         {/* {scheduleMission &&(
                             <div className="schedule-mission-card">
                                 <div className="upcoming-mission-card-head">
@@ -221,11 +234,11 @@ export class UpcomingMissionList extends Component{
                         </div>
                         )}                             */}
                     </div>
-                    {missionList.length === 0 ? (
+                    {/* {missionList.length === 0 ? (
                         <div className="empty-mission-card">
                             <h3 className="upcoming-subheadings">{emptySetDisplay}</h3>
                         </div>
-                    ):null}
+                    ):null} */}
                     {showSubHeading &&(
                         <div>
                             <br/>

@@ -173,7 +173,8 @@ export class NewDashboard extends PureComponent{
                                             getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
-                                            user={user}                                            
+                                            user={user} 
+                                            totalCount={5}                                           
                                         />
 
                                         <UpcomingMissionList
@@ -196,7 +197,8 @@ export class NewDashboard extends PureComponent{
                                             getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
-                                            user={user}                                            
+                                            user={user} 
+                                            totalCount={privateProfileMission.recentMissionList.length}                                           
                                         />
                                     </div>
                                 )}
@@ -226,8 +228,8 @@ export class NewDashboard extends PureComponent{
 
                                 {photoHub && (
                                     <ImageSlider
-                                        photoHub={{imageList:[{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."},
-                                        {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."}]}}
+                                    imageList={[{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."},
+                                        {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."}]}
                                     />
                                 )}                                    
 

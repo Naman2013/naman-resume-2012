@@ -45,7 +45,7 @@ export class PhotoHub extends Component{
         const { heading, headerlist, headerspaceequally, photoHub, ref } = this.props;
         const { selectedheader } = this.state;
         
-        const getTabContent = header => {            
+        const getTabContent = header => {                        
             switch (header) {
                 case "Photo Roll":
                     return <PhotoRoll imageList={photoHub.imageList}/>;

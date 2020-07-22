@@ -160,7 +160,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     return getUserGravityStatus({
       token,
       at,
-      cid: 183054
+      cid,
     }).then(
       result => {          
         dispatch(getUserGravityStatusSuccess(result.data));
@@ -177,7 +177,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data
     }).then(
-      result => {
+      result => {        
         dispatch(getMyPicturesSuccess(result.data));
       }
     );

@@ -4,7 +4,7 @@ import './style.scss';
 import Countdown from 'react-countdown-now';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import moment from 'moment';
-
+import { Link } from 'react-router';
 
 export class StarPartyCard extends Component{
 
@@ -36,8 +36,10 @@ export class StarPartyCard extends Component{
                 :
                 <span className="counter-text live">LIVE</span>
                 }               
-                
-                <h2 className="party-name">{party.eventTitle}</h2>
+                <Link
+                    to={party.linkUrl}>
+                    <h2 className="party-name" >{party.eventTitle}</h2>
+                </Link>
                 <div className="card-bottom">
                     <h5 className="party-date-time">{party.displayDate}</h5>                                    
                     <span className="astronomer-text">

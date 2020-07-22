@@ -27,7 +27,7 @@ export class ImageSlider extends Component{
     render() {      
         const slideImages = [{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", title: "IC2602 (Southern Pleiades) With Chile 2", subtile: "Marjorie Robertson", content: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound.", updated: "15 mins ago"},
                                 {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", title: "IC2602 (Southern Pleiades) With Chile 2", subtile: "Marjorie Robertson", content: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound.", updated: "15 mins ago"}];
-        const { photoHub } = this.props;
+        const { imageList } = this.props;
         const showSliderInfo = true;
         const settings = {
             dots: false,
@@ -39,12 +39,12 @@ export class ImageSlider extends Component{
                 this.setState({ currentItem: photoHub.imageList[after] })
         };
         const { currentItem, isDiscussionsOpen } = this.state;
-        const { readOnly } = false;
-
+        const readOnly = false;
+        
         return (
             <div className="slider-div">
                 <Slider {...settings}> 
-                    {photoHub.imageList.map(slideElement => (                      
+                    {imageList && imageList.map(slideElement => (                      
                         <div className="slider-item">
                             <div className="slider-info-container-large">
                                 <h2 className="slider-title">{slideElement.imageTitle}</h2>

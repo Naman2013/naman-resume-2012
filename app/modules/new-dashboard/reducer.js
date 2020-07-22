@@ -57,7 +57,7 @@ export default createReducer(initialState, {
           isFetching: true,
         };
       },
-      [GET_MY_PICTURES_SUCCESS](state, { payload }) {               
+      [GET_MY_PICTURES_SUCCESS](state, { payload }) {  
         return {
           ...state,
           photoHub: payload,
