@@ -29,7 +29,8 @@
 
 .new-dash .gravityiconContainer{
     /* position: absolute; */
-    width: 32px;
+    // width: 32px;
+    flex: 0.25;
     // height: 32px;
     /* left: 715px;
     top: 423px; */
@@ -92,5 +93,8 @@
     .new-dash .gravitytext{
         font-size: 12px;
         line-height: 14px;
+    }
+    .gravityiconContainer {
+        flex: 0.35;
     }
 }

@@ -45,5 +45,9 @@ export function getMissionImages(data) {
 }
 
 export function getGalleryList(data) {
-  return API.post('api/images/getGalleryList', data);
+  return API.post('/api/images/getGalleryList', data);
+}
+
+export function getRecentGravityActions(data) {
+  return API.post('/api/newdashboard/getRecentGravityActions', data);
 }

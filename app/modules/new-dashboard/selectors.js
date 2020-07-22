@@ -80,3 +80,9 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.galleryList
   );
+
+  export const makeRecentGravityActionSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.recentGravityAction
+  );

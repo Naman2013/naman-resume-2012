@@ -8,10 +8,11 @@ export class GravityActions extends Component{
     
     render() {
         const heading = "Recent Gravity Actions";
-        const gravityList = [{gravityPoints: "+44", text: "Top Object is Eagle Nebula Top Object is Eagle Nebula"},
-                            {gravityPoints: "+24", text: "Top Object is Eagle Nebula"},
-                            {gravityPoints: "+24", text: "Top Object is Venus"},
-                            {gravityPoints: "+1", text: "Top Observation is Venus"}];
+        // const gravityList = [{gravityPoints: "+44", text: "Top Object is Eagle Nebula Top Object is Eagle Nebula"},
+        //                     {gravityPoints: "+24", text: "Top Object is Eagle Nebula"},
+        //                     {gravityPoints: "+24", text: "Top Object is Venus"},
+        //                     {gravityPoints: "+1", text: "Top Observation is Venus"}];
+        const { gravityList } = this.props;
 
         return (
             <div className="gravity-main">
@@ -21,7 +22,7 @@ export class GravityActions extends Component{
                             <div className="gravityiconContainer">
                                 <span className="gravitypoints">{gravity.gravityPoints}</span>
                             </div>
-                            <span className="gravitytext">{gravity.text}</span>
+                            <span className="gravitytext">{gravity.title}</span>
                         </div>
                     ))}                                            
             </div>   

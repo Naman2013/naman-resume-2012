@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -25,6 +25,8 @@ export const GET_MISSION_IMAGES_START = "GET_MISSION_IMAGES_START";
 export const GET_MISSION_IMAGES_SUCCESS = "GET_MISSION_IMAGES_SUCCESS";
 export const GET_GALLERY_LIST_START = "GET_GALLERY_LIST_START";
 export const GET_GALLERY_LIST_SUCCESS = "GET_GALLERY_LIST_SUCCESS";
+export const GET_RECENT_GRAVITY_ACTION_START = "GET_RECENT_GRAVITY_ACTION_START";
+export const GET_RECENT_GRAVITY_ACTION_SUCCESS = "GET_RECENT_GRAVITY_ACTION_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -131,6 +133,15 @@ const getGalleryListStart = () => ({
 
 const getGalleryListSuccess = (payload) => ({
   type: GET_GALLERY_LIST_SUCCESS,
+  payload    
+});
+
+const getRecentGravityActionsStart = () => ({
+  type: GET_RECENT_GRAVITY_ACTION_START    
+});
+
+const getRecentGravityActionsSuccess = (payload) => ({
+  type: GET_RECENT_GRAVITY_ACTION_SUCCESS,
   payload    
 });
 
@@ -298,6 +309,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         dispatch(getGalleryListSuccess(result.data));
+      }
+    );
+  };
+
+  export const getRecentGravityDataAction = (data) => (dispatch, getState) => {
+    dispatch(getRecentGravityActionsStart());
+    const { token, at, cid } = getState().user;
+    return getRecentGravityActions({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {
+        dispatch(getRecentGravityActionsSuccess(result.data));
       }
     );
   };

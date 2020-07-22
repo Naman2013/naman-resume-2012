@@ -22,7 +22,9 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_MISSION_IMAGES_START,
          GET_MISSION_IMAGES_SUCCESS,
          GET_GALLERY_LIST_START,
-         GET_GALLERY_LIST_SUCCESS, } from './actions';
+         GET_GALLERY_LIST_SUCCESS,
+         GET_RECENT_GRAVITY_ACTION_START,
+         GET_RECENT_GRAVITY_ACTION_SUCCESS, } from './actions';
 
 const initialState = {
     isFetching: true,    
@@ -180,6 +182,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_GALLERY_LIST_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_RECENT_GRAVITY_ACTION_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          recentGravityAction: payload,
+          isFetching: false,
+        };
+      },
+      [GET_USER_ACTIVE_OBJECT_START](state) {
         return {
           ...state,
           isFetching: true,

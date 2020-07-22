@@ -36,6 +36,7 @@ import {
     getUserPopularObservationDataAction,
     getMissionImagesDataAction,
     getGalleryListDataAction,
+    getRecentGravityDataAction,
   } from './actions';
 
 
@@ -52,6 +53,7 @@ import { makeStarPartyListSelector,
     makeUserPopularObservationSelector,
     makeMissionImagesSelector,
     makeGalleryListSelector,
+    makeRecentGravityActionSelector,
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -76,6 +78,7 @@ const mapStateToProps = createStructuredSelector({
     user: makeUserSelector(),
     // missionImages: makeMissionImagesSelector(),
     // galleryList: makeGalleryListSelector(),
+    recentGravityAction: makeRecentGravityActionSelector(),
 });
 
 const mapDispatchToProps = {
@@ -96,6 +99,7 @@ const mapDispatchToProps = {
     reserveCommunityMission,
     getMissionImagesDataAction,
     getGalleryListDataAction,
+    getRecentGravityDataAction,
 };
 
 export default compose(

@@ -66,7 +66,8 @@ export class NewDashboard extends PureComponent{
                 getPrivateProfileDataAction, 
                 getPrivateProfileMissionDataAction,
                 getMissionImagesDataAction,
-                getGalleryListDataAction, } = this.props;   
+                getGalleryListDataAction,
+                getRecentGravityDataAction, } = this.props;   
 
         getPrivateProfileDataAction();
         fetchStarPartyDataAction();
@@ -84,6 +85,7 @@ export class NewDashboard extends PureComponent{
         });
         getUserActiveObjectDataAction();
         getUserPopularObservationDataAction();
+        getRecentGravityDataAction();
     };
     
     render(){
@@ -113,7 +115,8 @@ export class NewDashboard extends PureComponent{
                 reservedCommunityMission,
                 user,
                 getMissionImagesDataAction,
-                getGalleryListDataAction,  } =this.props;
+                getGalleryListDataAction,
+                recentGravityAction,  } =this.props;
         const { getBookmarkListDataAction, getMyPicturesDataAction } = this.props;        
         
         return(
@@ -297,7 +300,12 @@ export class NewDashboard extends PureComponent{
                                     />
                                 )}
                                 
-                                <GravityActions/>
+                                {recentGravityAction && (
+                                    <GravityActions
+                                        gravityList={recentGravityAction.actions}
+                                    />
+                                )}
+                                
 
                                 {userActiveObject && (
                                     <ObjectList
