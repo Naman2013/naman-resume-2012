@@ -167,7 +167,7 @@ export class UpcomingMissionList extends Component{
           } = selectedSlot;        
           
           const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
-          debugger;
+          
         return (
             <div>
                 <MissionConfirmationModal
@@ -202,8 +202,7 @@ export class UpcomingMissionList extends Component{
                         </div>                    
                     )}                 
                     <div className="upcoming-list">
-                        {[...Array(totalCount)].map((e,index)=>(
-                            
+                        {[...Array(totalCount)].map((e,index)=>(                            
                               index < missionList.length ? (
                                 <UpcomingMissionCard
                                   mission={missionList[index]}

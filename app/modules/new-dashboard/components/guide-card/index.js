@@ -9,7 +9,7 @@ export class GuideCard extends Component{
     
     render() {
         const { guide } = this.props;
-        const limit = 250;
+        const limit = 75;
 
         return (
             <div className="guide-card">

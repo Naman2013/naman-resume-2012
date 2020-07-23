@@ -7,9 +7,11 @@
     border-radius: 8px; 
     margin-right: 15px;
     margin-bottom: 10px;
-    width: 205px;
+    // width: 205px;
+    width: 30%;
     display: flex;
     flex-direction: column;
+    // height: 250px;
 }
 
 .new-dash .guide-subtitle{  
@@ -74,7 +76,8 @@
 
 @media (min-width: $screenXLarge){
     .new-dash .guide-card{
-        width: 216px;
+        // width: 216px;
+        width: 23%;
     }
     .new-dash .button-border{
         padding: 10px 20px
@@ -97,6 +100,6 @@
         font-size: 12px;
     }
     .new-dash .guide-card{
-        width: 150px;
+        width: 45%;
     }
 }
