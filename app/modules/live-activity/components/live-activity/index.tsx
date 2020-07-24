@@ -138,7 +138,7 @@ export const LiveActivity = (props: TLiveActivity) => {
 
   const rnd = useRef(null);
 
-  const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
+  const [activeTab, setActiveTab] = React.useState(MEMBERS_TAB);
 
   const [isOpen, setOpen] = React.useState(false);
 
