@@ -12,29 +12,20 @@ export const FeedItem = (props: TFeedItem) => {
   const { item, contentClickHandler, onKeyPressed } = props;
   const { currentUser, text, date } = item;
 
+  const myText = date + " - " + text;
+
   return (
     <div
-      className={cx('feed-item', {
-        'feed-item-current-user': currentUser,
-      })}
-    >
-      <div className="feed-data">
-        {date && <span className="feed-data-date">{date}</span>}
-        {/* <span className="feed-data-user">{props.item.user}</span> */}
-      </div>
+      className="feed-item">
 
       <div className="feed-msg">
-        {currentUser ? (
           <div className="arrow-left" />
-        ) : (
-          <div className="arrow-right" />
-        )}
 
         <span
           className="feed-msg-text"
           onClick={contentClickHandler}
           onKeyDown={onKeyPressed}
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: myText }}
           tabIndex={0}
           role="button"
         />

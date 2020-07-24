@@ -123,7 +123,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 50,
+              count: 10,
               stringifiedTimeToken: false,
               reverse: false,
             },
@@ -134,7 +134,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 50,
+              count: 10,
               stringifiedTimeToken: false,
               reverse: false,
             },
@@ -323,8 +323,8 @@ class GlobalNavigation extends Component {
       if (appendFlag === true) {
         this.setState(() => {
           const activityFeedMessages = [
-            ...activityFeedMessagesState,
             newMessage,
+            ...activityFeedMessagesState,
           ];
           return {
             activityFeedMessages,

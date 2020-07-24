@@ -88,12 +88,7 @@ const submitMessage = (
     });
     
     setMemberChatState('sentMessage');
-    setTimeout(function() {
-      let liveActivityWindowBodyFeedObj = document.getElementById(
-        'live-activity-window-body-feed'
-      );
-      liveActivityWindowBodyFeedObj.scrollIntoView(false);
-    }, 1000);
+
     const { token, at, cid } = getUserInfo();  
     const { activityFeedMembers } = props;
     API.post("/api/app/postChatMessage", {      
@@ -368,22 +363,6 @@ export const LiveActivity = (props: TLiveActivity) => {
 
               {activeTab === LIVE_FEEDS_TAB && (
                 <div className="live-activity-window-body">
-                  <p
-                    style={{
-                      color: '#007bff',
-                      fontSize: '1.1em',
-                      fontStyle: 'italic',
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      cursor: 'pointer',
-                    }}
-                    onClick={scrollActivityFeedToBottom}
-                    onKeyDown={scrollActivityFeedToBottom}
-                    aria-hidden
-                  >
-                    jump to newest
-                  </p>
-                  <br />
                   <div
                     id="live-activity-window-body-feed"
                     className="live-activity-window-body-feed"
