@@ -19,8 +19,6 @@ export const FeedItem = (props: TFeedItem) => {
       className="feed-item">
 
       <div className="feed-msg">
-          <div className="arrow-right" />
-
         <span
           className="feed-msg-text"
           onClick={contentClickHandler}
