@@ -238,7 +238,7 @@ $screenHeaderSize: 110px;
     }
 
     .live-activity-window-wrapper .react-draggable {
-      height: calc(100vh - #{$screenHeaderSize}) !important;
+      height: calc(80vh - #{$screenHeaderSize}) !important;
     }
   }
 }
