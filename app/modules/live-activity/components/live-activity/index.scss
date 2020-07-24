@@ -36,7 +36,7 @@ $screenHeaderSize: 110px;
     position: static;
     .react-draggable {
       transform: translate(0) !important;
-      top: calc(#{$headerSize} + 6px) !important;
+      top: calc(#{$headerSize} + 0px) !important;
       width: 100% !important;
       height: calc(100vh - #{$headerSize}) !important;
     }
