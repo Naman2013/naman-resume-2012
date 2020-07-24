@@ -12,14 +12,14 @@ export const FeedItem = (props: TFeedItem) => {
   const { item, contentClickHandler, onKeyPressed } = props;
   const { currentUser, text, date } = item;
 
-  const myText = date + " - " + text;
+  const myText = "<b>" + date + "</b> - " + text;
 
   return (
     <div
       className="feed-item">
 
       <div className="feed-msg">
-          <div className="arrow-left" />
+          <div className="arrow-right" />
 
         <span
           className="feed-msg-text"
