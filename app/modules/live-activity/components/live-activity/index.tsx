@@ -299,7 +299,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
                 <Tab.Container
-                  defaultActiveKey="liveFeeds"
+                  defaultActiveKey="activeMembers"
                   id="tabs"
                   unmountOnExit
                   mountOnEnter
@@ -338,7 +338,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         className="icon-close"
                         onClick={() => {
                           setOpen(false);
-                          setActiveTab(LIVE_FEEDS_TAB);
+                          setActiveTab(MEMBERS_TAB);
                           setMemberChatState('leave');
                         }}
                         role="presentation"
