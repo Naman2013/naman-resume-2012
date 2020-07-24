@@ -139,7 +139,7 @@ $screenHeaderSize: 110px;
 
       &-header {
         cursor: move;
-        padding: 20px;
+        padding: 0px 20px 0px 20px;
         border-bottom: 1px solid $hawkesBlue;
 
         .nav-tabs {
@@ -210,7 +210,7 @@ $screenHeaderSize: 110px;
       }
 
       &-body {
-        padding: 20px;
+        padding: 5px 10px 5px 10px;
         height: 100%;
         display: flex;
         flex-direction: column;
