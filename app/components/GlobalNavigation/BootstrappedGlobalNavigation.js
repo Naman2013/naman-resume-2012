@@ -145,7 +145,7 @@ class GlobalNavigation extends Component {
                 this.buildFeedMessage(historyMessage.entry, true);
               });
 
-              setInterval(() => this.checkActivityWindowScroll(), 5000);
+              //setInterval(() => this.checkActivityWindowScroll(), 5000);
             }
           );
         } //end of if connected
