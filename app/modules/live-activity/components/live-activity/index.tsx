@@ -361,25 +361,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               )}
 
-              {activeTab === LIVE_FEEDS_TAB && (
-                <div className="live-activity-window-body">
-                  <div
-                    id="live-activity-window-body-feed"
-                    className="live-activity-window-body-feed"
-                  >
-                    {activityFeedMessages.map(feedItem => (
-                      <FeedItem
-                        key={feedItem.id}
-                        item={feedItem}
-                        contentClickHandler={contentClickHandler}
-                        onKeyPressed={onKeyPressed}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {isChatEnabled === true && (
+              {activeTab === LIVE_FEEDS_TAB && isChatEnabled === true && (
                 <div className="live-activity-window-footer">
                   <input
                     type="text"
@@ -397,6 +379,24 @@ export const LiveActivity = (props: TLiveActivity) => {
                     }
                     onMouseDown={e => e.stopPropagation()}
                   />
+                </div>
+              )}
+
+              {activeTab === LIVE_FEEDS_TAB && (
+                <div className="live-activity-window-body">
+                  <div
+                    id="live-activity-window-body-feed"
+                    className="live-activity-window-body-feed"
+                  >
+                    {activityFeedMessages.map(feedItem => (
+                      <FeedItem
+                        key={feedItem.id}
+                        item={feedItem}
+                        contentClickHandler={contentClickHandler}
+                        onKeyPressed={onKeyPressed}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
