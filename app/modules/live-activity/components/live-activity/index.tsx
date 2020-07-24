@@ -206,7 +206,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       subscribeToPubnubActivityFeedChannel();
     }
     setOpen(!isOpen);
-    setActiveTab(LIVE_FEEDS_TAB);
+    setActiveTab(MEMBERS_TAB);
 
     setMessageIdToLocalStorage(lastMessageId);
     pubNubFeedChannelSubscribingStatus(true);
