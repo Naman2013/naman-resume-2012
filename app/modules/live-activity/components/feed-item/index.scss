@@ -26,7 +26,7 @@ $msgOwnBg: lighten($golda, 25%);
 
   .feed-msg {
     user-select: text;
-    background-color: $msgBg;
+    background-color: $msgOwnBg;
     padding: 3px 5px 3px 5px;
     border-radius: 10px;
     width: 100%;

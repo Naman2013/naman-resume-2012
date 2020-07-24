@@ -16,7 +16,7 @@ export const FeedItem = (props: TFeedItem) => {
 
   return (
     <div
-      className="feed-item-current-user">
+      className="feed-item">
 
       <div className="feed-msg">
         <span
