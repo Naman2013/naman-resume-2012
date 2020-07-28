@@ -51,3 +51,7 @@ export function getGalleryList(data) {
 export function getRecentGravityActions(data) {
   return API.post('/api/newdashboard/getRecentGravityActions', data);
 }
+
+export function getWeatherActions(data) {
+  return API.get('/api/obs/getWXData', { params: data });
+}

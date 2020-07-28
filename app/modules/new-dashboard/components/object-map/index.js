@@ -16,6 +16,7 @@ import { WKT } from 'ol/format/WKT';
 import { Point } from 'ol/geom/Point';
 import {Fill, Stroke, Style, Text} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
+import Select from 'react-select';
 
 
 export class ObjectMap extends Component{
@@ -115,12 +116,151 @@ export class ObjectMap extends Component{
   
     } 
 
+    statusOptions = [
+      { value: 'All', label: 'All' },
+      { value: 'Not Started', label: 'Not Started' },
+      { value: 'In-Progress', label: 'In-Progress' },
+      { value: 'Completed', label: 'Completed' },
+    ];
+
+    difficultyOptions = [
+      { value: 'All', label: 'All' },
+      { value: 'Start Here', label: 'Start Here' },
+      { value: '100', label: '100' },
+      { value: '200', label: '200' },
+      { value: '300', label: '300' },
+      { value: '400', label: '400' },
+    ];
+
+    seasonalityOptions = [
+      { value: 'All', label: 'All' },
+      { value: 'None', label: 'None' },
+      { value: 'Winter - Summer', label: 'Winter - Summer' },
+      { value: 'Spring - Fall', label: 'Spring - Fall' },
+    ]
+
+    gradeLevelOptions = [
+      { value: 'All', label: 'All' },
+      { value: 'None', label: 'None' },
+      { value: 'Elementary', label: 'Elementary' },
+      { value: 'Middle', label: 'Middle' },
+      { value: 'High School', label: 'High School' },
+      { value: 'College', label: 'College' },
+    ]
+
+    state = {
+      selectedStatus: { value: 'All', label: 'All' },
+      selectedDifficulty: { value: 'All', label: 'All' },
+      selectedSeasonality: { value: 'All', label: 'All' },
+      selectedGradeLevel: { value: 'All', label: 'All' }
+    };
+
+    handleStutusChange = selectedStatus => {
+      debugger;
+      this.setState({ selectedStatus });      
+    };
+
+    handleDifficultyChange = selectedDifficulty => {
+      debugger;
+      this.setState({ selectedDifficulty });      
+    };
+
+    handleSeasonalityChange = selectedSeasonality => {
+      debugger;
+      this.setState({ selectedSeasonality });      
+    };
+
+    handleGradeLevelChange = selectedGradeLevel => {
+      debugger;
+      this.setState({ selectedGradeLevel });      
+    };
+
+    colourStyles = {
+      container: styles => ({...styles, flex: 1}),
+      control: styles => ({ ...styles, backgroundColor: '#111111', border: 'none', flex: 1 }),
+      singleValue: (styles) => ({ ...styles, color: '#FFF' })
+      // option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      //   const color = chroma(data.color);
+      //   return {
+      //     ...styles,
+      //     backgroundColor: isDisabled ? 'red' : blue,
+      //     color: '#FFF',
+      //     cursor: isDisabled ? 'not-allowed' : 'default',
+          
+      //   };
+      // },
+      
+    };
+
     render() {     
-     
+      const { selectedStatus, selectedDifficulty, selectedSeasonality, selectedGradeLevel } = this.state;
+
         return (
           <div>
             <div id="map" class="map"></div>  
-            <button onClick={()=>this.handleFindObject()}>find</button>
+            <div className="control-div">
+              <div className="controls">
+                <span className="select-label">Status: </span>
+                <Select                 
+                  value={selectedStatus}
+                  onChange={this.handleStutusChange}
+                  options={this.statusOptions}
+                  isSearchable={false}
+                  styles={this.colourStyles}
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                />
+              </div>
+              
+              <div className="controls">
+                <span className="select-label">Difficulty: </span>
+                <Select                  
+                  value={selectedDifficulty}
+                  onChange={this.handleDifficultyChange}
+                  options={this.difficultyOptions}
+                  isSearchable={false}
+                  styles={this.colourStyles}
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                />
+              </div>
+              <div className="controls">
+                <span className="select-label">Seasonality: </span>
+                <Select                  
+                  value={selectedSeasonality}
+                  onChange={this.handleSeasonalityChange}
+                  options={this.seasonalityOptions}
+                  isSearchable={false}
+                  styles={this.colourStyles}
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                />
+              </div>
+              <div className="controls">
+                <span className="select-label">Grade-Level: </span>
+                <Select                  
+                  value={selectedGradeLevel}
+                  onChange={this.handleGradeLevelChange}
+                  options={this.gradeLevelOptions}
+                  isSearchable={false}
+                  styles={this.colourStyles}
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                />
+              </div>
+              <div className="separator-line">
+              </div>
+              <div className="settings">                 
+                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
+                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
+                  <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/>
+              </div>
+            </div>
+            {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
           </div>
         );
     }

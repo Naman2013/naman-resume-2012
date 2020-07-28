@@ -86,3 +86,9 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.recentGravityAction
   );
+  
+  export const makeWeatherStatusSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.weatherStatus
+  );

@@ -236,7 +236,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       contentClickHandler(e);
     }
   };
-  
+    
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}

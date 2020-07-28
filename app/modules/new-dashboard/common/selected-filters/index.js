@@ -1,6 +1,6 @@
 // @flow
 
-import { SelectedFilterItem } from 'app/modules/profile-photos/components/selected-filters/selected-filter-item';
+import { SelectedFilterItem } from './selected-filter-item';
 import _without from 'lodash/without';
 import React from 'react';
 
@@ -76,7 +76,7 @@ export const SelectedFilters = (props: TSelectedFilters) => {
     onChange({ [labelGroup]: newLabels });
     onApply();
   };
-
+  debugger;
   return (
     <>
       {dateFilter && (

@@ -4,7 +4,7 @@ import { Button } from '../button';
 import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
 
-export class PhotoRoll extends Component{
+export class Observation extends Component{
 
     state = {
         activePage: 1,
@@ -74,6 +74,32 @@ export class PhotoRoll extends Component{
                                         </div>                                                                        
                                     </div> 
                                 </div>
+                                <div className="slider-content-footer">
+                                    <div className="slider-buttons-container">
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{}} 
+                                            text={photo.likesCount}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/heart.svg"}
+                                        />
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen})}} 
+                                            text={photo.commentsCount}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                        />
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={()=>{}} 
+                                            text={"0"}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
+                                        />
+                                    </div>                                    
+                                </div>             
+
                             </div>    
                         ))}                           
                     </div>

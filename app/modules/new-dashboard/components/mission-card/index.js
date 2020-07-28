@@ -40,7 +40,7 @@ export class MissionCard extends Component{
                 <div className="upcoming-mission-card-head  vertical-middle pad-top-10">
                     {mission.missionAvailable && !mission.userHasReservation && !readOnly && (
                         <Link onClick={()=>reservationModalShow(mission)}>
-                            <h4 className="upcoming-telescope">{"Join as a spectator >"}</h4>
+                            <h4 className="upcoming-telescope">{mission.joinPrompt}</h4>
                         </Link>
                     )}
                     {mission.showJoiningMission ? ( 

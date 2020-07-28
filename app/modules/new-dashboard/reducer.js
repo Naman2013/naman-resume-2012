@@ -24,7 +24,10 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_GALLERY_LIST_START,
          GET_GALLERY_LIST_SUCCESS,
          GET_RECENT_GRAVITY_ACTION_START,
-         GET_RECENT_GRAVITY_ACTION_SUCCESS, } from './actions';
+         GET_RECENT_GRAVITY_ACTION_SUCCESS,
+         GET_WEATHER_ACTION_START,
+         GET_WEATHER_ACTION_SUCCESS,
+        } from './actions';
 
 const initialState = {
     isFetching: true,    
@@ -194,7 +197,20 @@ export default createReducer(initialState, {
           isFetching: false,
         };
       },
-      [GET_USER_ACTIVE_OBJECT_START](state) {
+      [GET_RECENT_GRAVITY_ACTION_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_WEATHER_ACTION_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          weatherStatus: payload,
+          isFetching: false,
+        };
+      },
+      [GET_WEATHER_ACTION_START](state) {
         return {
           ...state,
           isFetching: true,

@@ -14,9 +14,9 @@ export class GuideCard extends Component{
         return (
             <div className="guide-card">
                 {/* <div className="guide-content"> */}
-                    <h4 className="guide-title">{guide.itemTitle}</h4>                             
-                    <h4 className="guide-subtitle">{guide.author}</h4>
-                    <h4 className="guide-info">{guide.description.length > limit ? guide.description.substring(0,limit)+"..." : guide.description}</h4> 
+                    <h4 className="guide-title" dangerouslySetInnerHTML={{ __html: guide.itemTitle}}/>                             
+                    <h4 className="guide-subtitle" dangerouslySetInnerHTML={{ __html: guide.author}}/>
+                    <h4 className="guide-info" dangerouslySetInnerHTML={{ __html: guide.description.length > limit ? guide.description.substring(0,limit)+"..." : guide.description}}/>
                     <Button
                         type={"button"}
                         onClickEvent={()=>{browserHistory.push(guide.linkURL)}} 

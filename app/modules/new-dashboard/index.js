@@ -14,7 +14,7 @@ import { CommunityFame } from "./components/community-fame";
 import { CommunityClubList } from "./components/community-club-list";
 import { Observatories } from "./components/observatories";
 import { UpcomingMissionList }  from "./components/upcoming-mission-list";
-import { PhotoHub } from "./components/photo-hub";
+import  PhotoHub  from "./components/photo-hub";
 import { ImageSlider } from "./components/image-slider";
 import { RecentCommunityActivities } from "./components/recent-community-activities";
 import { StarPartyList } from "./components/start-party-list";
@@ -24,7 +24,7 @@ import { AstronomerConversationLayout } from "./components/astronomer-conversati
 import { ObjectMap } from "./components/object-map";
 import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
-import { getPrivateProfileMission } from "./dashboardApi";
+
 
 export class NewDashboard extends PureComponent{
     
@@ -67,25 +67,34 @@ export class NewDashboard extends PureComponent{
                 getPrivateProfileMissionDataAction,
                 getMissionImagesDataAction,
                 getGalleryListDataAction,
-                getRecentGravityDataAction, } = this.props;   
+                getRecentGravityDataAction,
+                getWeatherDataAction } = this.props;   
 
         getPrivateProfileDataAction();
         fetchStarPartyDataAction();
         getUserGravityDataAction();
         getPrivateProfileMissionDataAction();
         getMyPicturesDataAction({
-            viewType: 'photoRoll',                 
+            viewType: 'photoRoll',
+            maxImageCount: 18,
+            firstImageNumber: 1,
+            sharedOnly: false,                 
         });        
-        getDashboardFeaturedObjectsDataAction();
+        getDashboardFeaturedObjectsDataAction({callSource: "featuredObjectsDashboardV4New"});
         getMyClubListDataAction({
             callSource: "profile",
+            paginationStartIndex: 1,
+            maxItemsPerPage: 9
         });
         getBookmarkListDataAction({
-            readingListType: "guide",
+            readingListType: "object",
+            paginationStartIndex: 1,
+            maxItemsPerPage: 9
         });
         getUserActiveObjectDataAction();
         getUserPopularObservationDataAction();
         getRecentGravityDataAction();
+        getWeatherDataAction({obsId: "chile"});
     };
     
     render(){
@@ -116,7 +125,10 @@ export class NewDashboard extends PureComponent{
                 user,
                 getMissionImagesDataAction,
                 getGalleryListDataAction,
-                recentGravityAction,  } =this.props;
+                recentGravityAction,
+                weatherStatus,
+                getWeatherDataAction,
+                getMyClubListDataAction  } =this.props;
         const { getBookmarkListDataAction, getMyPicturesDataAction } = this.props;        
         
         return(
@@ -138,7 +150,7 @@ export class NewDashboard extends PureComponent{
 
                                 <TabHeader
                                     headings={["Explore Quests", "Explore Objects"]}
-                                    activeHeading={"Explore Quests"}
+                                    activeHeading={"Explore Objects"}
                                     spaceequally={false}
                                     theme={"dark"}
                                 />
@@ -146,7 +158,14 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
-                                <Observatories ref={ refs => { this.observatoryRef=refs}}/>
+                                {weatherStatus && (
+                                    <Observatories 
+                                        ref={ refs => { this.observatoryRef=refs}}
+                                        wxList={weatherStatus.wxList}
+                                        getWeatherDataAction={getWeatherDataAction}
+                                    />
+                                )}
+                                
                                 
                                 <SectionDivider/>
 
@@ -259,6 +278,8 @@ export class NewDashboard extends PureComponent{
                                         // clubList={[{name: "Ad Astra", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},
                                         //             {name: "Astronomy for the Soul", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},]}
                                         clubList={myClubList.groupsList}
+                                        totalClubsCount={myClubList.totalClubsCount}
+                                        getClubList={getMyClubListDataAction}
                                     />
                                 )}
                                 
@@ -273,6 +294,7 @@ export class NewDashboard extends PureComponent{
                                         // guideList={[{title: "Andromeda", subtitle: "Slooh Team", info: "Everything you need to know about the constellation of Andromeda..."},
                                         //             {title: "The Moon", subtitle: "Slooh Team", info: "The Earth's Moon is the fifth largest in our Solar System and the largest moon..."}]}
                                         getBookmarkList={getBookmarkListDataAction}
+                                        totalCount={bookmarkList.resultsReturnedCount}
                                     />
                                 )}
 

@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -27,6 +27,8 @@ export const GET_GALLERY_LIST_START = "GET_GALLERY_LIST_START";
 export const GET_GALLERY_LIST_SUCCESS = "GET_GALLERY_LIST_SUCCESS";
 export const GET_RECENT_GRAVITY_ACTION_START = "GET_RECENT_GRAVITY_ACTION_START";
 export const GET_RECENT_GRAVITY_ACTION_SUCCESS = "GET_RECENT_GRAVITY_ACTION_SUCCESS";
+export const GET_WEATHER_ACTION_START = "GET_WEATHER_ACTION_START";
+export const GET_WEATHER_ACTION_SUCCESS = "GET_WEATHER_ACTION_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -145,6 +147,17 @@ const getRecentGravityActionsSuccess = (payload) => ({
   payload    
 });
 
+const getWeatherSuccess = (payload) => ({
+  type: GET_WEATHER_ACTION_SUCCESS,
+  payload    
+});
+
+const getWeatherStart = () => ({
+  type: GET_WEATHER_ACTION_START    
+});
+
+
+
 export const fetchStarPartyDataAction = () => (dispatch) => {
     dispatch(fetchStartPartyListStart());
     return fetchStartPartyList({}).then(
@@ -171,10 +184,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
   export const getMyPicturesDataAction = (data) => (dispatch, getState) => {
     dispatch(getMyPicturesStart());
     const { token, at, cid } = getState().user;
+    const { selectedFilters } = getState().myPicturesFilters;
     return getMyPictures({
       token,
       at,
       cid,
+      ...selectedFilters,
       ...data
     }).then(
       result => {        
@@ -183,13 +198,14 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     );
   };
 
-  export const getDashboardFeaturedObjectsDataAction = () => (dispatch, getState) => {
+  export const getDashboardFeaturedObjectsDataAction = (data) => (dispatch, getState) => {
     dispatch(getDashboardFeaturedObjectsStart());
     const { token, at, cid } = getState().user;
     return getDashboardFeaturedObjects({
       token,
       at,
-      cid,      
+      cid,
+      ...data,      
     }).then(
       result => {
         dispatch(getDashboardFeaturedObjectsSuccess(result.data));
@@ -285,11 +301,14 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
 
   export const getMissionImagesDataAction = (data) => (dispatch, getState) => {
     dispatch(getMissionImagesStart());
+    debugger;
     const { token, at, cid } = getState().user;
+    const { selectedFilters } = getState().myPicturesFilters;
     return getMissionImages({
       token,
       at,
       cid,
+      ...selectedFilters,
       ...data,           
     }).then(
       result => {
@@ -301,10 +320,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
   export const getGalleryListDataAction = (data) => (dispatch, getState) => {
     dispatch(getGalleryListStart());
     const { token, at, cid } = getState().user;
+    const { selectedFilters } = getState().myPicturesFilters;
     return getGalleryList({
       token,
       at,
       cid,
+      ...selectedFilters,
       ...data,           
     }).then(
       result => {
@@ -324,6 +345,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         dispatch(getRecentGravityActionsSuccess(result.data));
+      }
+    );
+  };
+
+  export const getWeatherDataAction = (data) => (dispatch, getState) => {
+    dispatch(getWeatherStart());    
+    const { token, at, cid } = getState().user;
+    return getWeatherActions({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getWeatherSuccess(result.data));
       }
     );
   };

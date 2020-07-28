@@ -7,18 +7,41 @@ import { TabHeaderWithStatus } from '../tab-header-with-status';
 
 export class Observatories extends Component{
 
-    
+    state = {
+        selectedheader: "Chile"
+    }
+
+    onTabChange=(title)=>{
+        const { getWeatherDataAction } = this.props;
+        
+        switch(title){
+
+            case "Chile":
+                getWeatherDataAction({obsId: "chile"});                
+                break;
+
+            case "Canary Islands":
+                getWeatherDataAction({obsId: "teide"});
+                break;            
+            
+        }
+        this.setState({selectedheader: title});
+    };     
+
     render() {
         const heading = "Observatories";        
-        const { ref } = this.props;
+        const { ref, wxList } = this.props;
+        const { selectedheader } = this.state;
+        
         return (
             <div className="observatory-main" ref={ref}>                
                 <h2 className="observatory-heading">{heading}</h2>
                 <TabHeaderWithStatus
                         headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
                                    {heading: "Canary Islands", status: true, statusText: "Online"}]}
-                        activeHeading={"Chile"}
+                        activeHeading={selectedheader}
                         spaceequally={false}
+                        onTabChange={this.onTabChange}
                 />
                 <div className="observatory-content">
                     <div className="observatory-row">
@@ -47,19 +70,19 @@ export class Observatories extends Component{
                                 {/* <h2 className="temp-value">49°F</h2> */}
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/temperature.svg"/>
-                                    <span className="values">49°F</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.temperature + wxList.temperatureUnits}}/>
                                 </div>
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity1.svg"/>
-                                    <span className="values">75%</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.humidity + wxList.humidityUnits}}/>
                                 </div>
                                 <div className="pad5"> 
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind1.svg"/>
-                                    <span className="values">10 MPH</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.windspeed + wxList.windspeedUnits}}/>
                                 </div>
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/dew_point.svg"/>
-                                    <span className="values">43°F</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.dewpoint + wxList.dewpointUnits}}/>                                    
                                 </div>
                             </div>
                             <div className="flex-1">

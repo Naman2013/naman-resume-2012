@@ -4,13 +4,13 @@ import { Button } from '../button';
 import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
 
-export class PhotoRoll extends Component{
+export class GalleryCard extends Component{
 
     state = {
         activePage: 1,
     }    
 
-    PHOTOS_ON_ONE_PAGE=18
+    PHOTOS_ON_ONE_PAGE=18;
 
     handlePageChange = ({ activePage }) => {
         const { getMyPictures } = this.props;       
@@ -50,10 +50,10 @@ export class PhotoRoll extends Component{
                                                 />
                                             </div>
                                         )}
-                                        <div className="overlay-div">
-                                            <h5 className="mission-obj-name">{photo.imageTitle}</h5>
+                                        <div className="gallery-overlay-div">
+                                            <h5 className="mission-obj-name">{photo.title}</h5>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
-                                            <Link to={photo.photoViewFullURL}>
+                                            <Link to={photo.galleryLinkURL}>
                                                 <div className="photo-hub-details">
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
@@ -65,8 +65,8 @@ export class PhotoRoll extends Component{
                                         <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
-                                            <Link to={photo.photoViewFullURL}>
-                                                <div className="photo-hub-details">                                                
+                                            <Link to={photo.galleryLinkURL}>
+                                                <div className="photo-hub-details">
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>

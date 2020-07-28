@@ -32,6 +32,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     // tags
     setSelectedTagsTabIndex,
     myPicturesFilters,
+    newButton,
   } = props;
 
   const {
@@ -78,8 +79,13 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
 
   return (
     <div className="filter-dropdown-wrapper">
-      <Button onClick={open}>Options</Button>
-
+      {newButton ? 
+        <h5 className="sort-filter" onClick={open}>{"Sort & Filter"}</h5> 
+        :
+        <Button onClick={open}>Options</Button>
+      }
+      
+      
       <Modal
         show={isOpen}
         onHide={close}
