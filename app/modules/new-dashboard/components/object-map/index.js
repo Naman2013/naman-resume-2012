@@ -17,7 +17,11 @@ import { Point } from 'ol/geom/Point';
 import {Fill, Stroke, Style, Text} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
 import Select from 'react-select';
-
+import ImageLayer from 'ol/layer/Image';
+import ImageWMS from 'ol/source/ImageWMS';
+import Static from 'ol/source/ImageStatic';
+import Projection from 'ol/proj/Projection';
+import {getCenter} from 'ol/extent';
 
 export class ObjectMap extends Component{
   state={
@@ -34,10 +38,7 @@ export class ObjectMap extends Component{
         })
       });
 
-      var view =new View({
-        center: [ 0, 0 ],
-        zoom: 2
-      })
+      
      
       // var zoomControl = new Zoom({
       //   zoomInTipLabel: 'Zoom closer in',
@@ -58,20 +59,43 @@ export class ObjectMap extends Component{
       };
       
       
+      var extent = [0, 0, 1550, 1125];
+      var projection = new Projection({
+        code: 'xkcd-image',
+        units: 'pixels',
+        extent: extent,
+      });
+
+      var imageLayer=new ImageLayer({
+        source: new Static({
+          attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
+          url: 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png',
+          projection: projection,
+          imageExtent: extent,
+        }),
+      }) ;
+
+      var view =new View({
+        projection: projection,
+        center: getCenter(extent),
+        zoom: 2,
+        maxZoom: 8,
+      })
         var map = new Map({
           controls: [],
             layers: [
-              vectorLayer,                       
-              new Graticule({
-                // the style to use for the lines, optional.
-                strokeStyle: new Stroke({
-                  color: 'rgba(65,86,111,0.9)',
-                  width: 2,
-                  lineDash: [0.5, 4]
-                }),
-                showLabels: true,
-                wrapX: false
-              })
+              vectorLayer,
+              imageLayer,                       
+              // new Graticule({
+              //   // the style to use for the lines, optional.
+              //   strokeStyle: new Stroke({
+              //     color: 'rgba(65,86,111,0.9)',
+              //     width: 2,
+              //     lineDash: [0.5, 4]
+              //   }),
+              //   showLabels: true,
+              //   wrapX: false
+              // })
             ],
             target: 'map',
           view: view

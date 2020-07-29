@@ -4,7 +4,9 @@
 .new-dash .map {
     width: 100%;
     height:800px;
-    background: url('https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png');
+    // background: url('https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png');
+    background-color: #111;
+    border-radius: 8px;
   }
 
 .new-dash .control-div{
