@@ -34,6 +34,8 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import ReactDOM from 'react-dom';
 import styles from './JoinStep2.style';
+import { GoogleReCaptchaProvider, GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { googleRecaptchaConfig } from 'app/config/project-config';
 
 const { string, func } = PropTypes;
 
@@ -267,6 +269,7 @@ class JoinStep2 extends Component {
     formValues.preventDefault();
     const{accountFormDetails} = this.state;
     const{codeA, codeB} = accountFormDetails;
+    
     if(codeA.value !== "" || codeB.value !== "" ){
       API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
       {
@@ -641,6 +644,11 @@ class JoinStep2 extends Component {
   processGoogleFailureResponse = googleMessageData => {
     // console.log(googleMessageData);
   };
+
+  async componentDidMount() {
+    const token = await this.props.googleReCaptchaProps.executeRecaptcha('homepage');
+    
+  }
 
   render() {
     const { pathname, t } = this.props;
@@ -1261,6 +1269,17 @@ class JoinStep2 extends Component {
                                   />
                               </div>
                             ) : null}
+                            <div className="form-section">
+                                <div className="form-field-container">
+                                  <GoogleReCaptchaProvider
+                                      reCaptchaKey={googleRecaptchaConfig.CAPTCHA_KEY}
+                                      // language="[optional_language]"
+                                      // useRecaptchaNet="[optional_boolean_value]"
+                                  >
+                                      <GoogleReCaptcha onVerify={token => console.log(token)} />
+                                  </GoogleReCaptchaProvider>
+                                </div>
+                              </div>
 
                             <div className="button-container">
                               <Button

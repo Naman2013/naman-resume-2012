@@ -93,7 +93,7 @@ export const EditPaymentModal = (props: TEditPaymentModal) => {
           paymentMethod = 'paypal';
         }
         //console.log('Payment Token:' + paymentNonceTokenData);
-        debugger;
+      
         //console.log('Payment Token!! ' + paymentNonceTokenData);
         window.removeEventListener('message',myfunction);
         /* Process the Edit Payment Form */
