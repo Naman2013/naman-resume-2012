@@ -27,6 +27,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_RECENT_GRAVITY_ACTION_SUCCESS,
          GET_WEATHER_ACTION_START,
          GET_WEATHER_ACTION_SUCCESS,
+         GET_SKY_CONDITIONS_START,
+         GET_SKY_CONDITIONS_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -211,6 +213,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_WEATHER_ACTION_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_SKY_CONDITIONS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          skyConditions: payload,
+          isFetching: false,
+        };
+      },
+      [GET_SKY_CONDITIONS_START](state) {
         return {
           ...state,
           isFetching: true,

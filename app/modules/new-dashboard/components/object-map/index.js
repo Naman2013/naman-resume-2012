@@ -78,14 +78,17 @@ export class ObjectMap extends Component{
       var view =new View({
         projection: projection,
         center: getCenter(extent),
-        zoom: 2,
-        maxZoom: 8,
+        zoom: 3,
+        maxZoom: 10,
+        minZoom: 3,
+        constrainOnlyCenter: true,
+        extent: extent,
       })
         var map = new Map({
           controls: [],
-            layers: [
-              vectorLayer,
-              imageLayer,                       
+            layers: [              
+              imageLayer,
+              // vectorLayer,                       
               // new Graticule({
               //   // the style to use for the lines, optional.
               //   strokeStyle: new Stroke({

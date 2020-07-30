@@ -92,3 +92,9 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.weatherStatus
   );
+
+  export const makeSkyConditionSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.skyConditions
+  );

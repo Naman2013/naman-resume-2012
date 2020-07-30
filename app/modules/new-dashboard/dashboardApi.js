@@ -55,3 +55,7 @@ export function getRecentGravityActions(data) {
 export function getWeatherActions(data) {
   return API.get('/api/obs/getWXData', { params: data });
 }
+
+export function getSkyRating(data) {
+  return API.post('/api/widget/seeingConditions', data);
+}

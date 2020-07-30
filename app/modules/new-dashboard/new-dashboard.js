@@ -56,6 +56,7 @@ import { makeStarPartyListSelector,
     makeGalleryListSelector,
     makeRecentGravityActionSelector,
     makeWeatherStatusSelector,
+    makeSkyConditionSelector,
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -82,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
     // galleryList: makeGalleryListSelector(),
     recentGravityAction: makeRecentGravityActionSelector(),
     weatherStatus: makeWeatherStatusSelector(),
+    skyConditions: makeSkyConditionSelector(),
 });
 
 const mapDispatchToProps = {

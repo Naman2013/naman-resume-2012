@@ -128,9 +128,12 @@ export class NewDashboard extends PureComponent{
                 recentGravityAction,
                 weatherStatus,
                 getWeatherDataAction,
-                getMyClubListDataAction  } =this.props;
-        const { getBookmarkListDataAction, getMyPicturesDataAction } = this.props;        
-        
+                getMyClubListDataAction,
+                getBookmarkListDataAction, 
+                getMyPicturesDataAction,
+                skyConditions,
+              } =this.props;
+       
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -158,13 +161,14 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
-                                {weatherStatus && (
+                                {/* {weatherStatus && skyConditions && (
                                     <Observatories 
                                         ref={ refs => { this.observatoryRef=refs}}
                                         wxList={weatherStatus.wxList}
                                         getWeatherDataAction={getWeatherDataAction}
+                                        skyConditions={skyConditions}
                                     />
-                                )}
+                                )} */}
                                 
                                 
                                 <SectionDivider/>

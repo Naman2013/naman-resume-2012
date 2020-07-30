@@ -30,7 +30,7 @@ export class Observatories extends Component{
 
     render() {
         const heading = "Observatories";        
-        const { ref, wxList } = this.props;
+        const { ref, wxList, skyConditions } = this.props;
         const { selectedheader } = this.state;
         
         return (
@@ -87,12 +87,8 @@ export class Observatories extends Component{
                             </div>
                             <div className="flex-1">
                                 <h4 className="observatory-col-value pad5">Sky Rating</h4>
-                                <h5 className="level">Level</h5>
-                                <p className="reason">Noise gradient, blurriness or image
-                                    attenuation expected for ~50% of 
-                                    missions due to cloud, seeing,
-                                    moonlight, or dust/haze.
-                                </p>
+                                <h5 className="level">{"Level "+skyConditions.seeingConditionsIndex}</h5>
+                                <p className="reason">{skyConditions.seeingConditionsDescription}</p>
                             </div>
                         </div>                        
                     </div> 
@@ -103,29 +99,25 @@ export class Observatories extends Component{
                             <div className="flex-point3">
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/temperature.svg"/>
-                                    <span className="values">49°F</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.temperature + wxList.temperatureUnits}}/>
                                 </div>
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/humidity1.svg"/>
-                                    <span className="values">75%</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.humidity + wxList.humidityUnits}}/>
                                 </div>
                                 <div className="pad5"> 
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/wind1.svg"/>
-                                    <span className="values">10 MPH</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.windspeed + wxList.windspeedUnits}}/>
                                 </div>
                                 <div className="pad5">
                                     <img className="icon-value" src="https://vega.slooh.com/assets/v4/dashboard-new/dew_point.svg"/>
-                                    <span className="values">43°F</span>
+                                    <span className="values" dangerouslySetInnerHTML={{ __html: wxList.dewpoint + wxList.dewpointUnits}}/>                                    
                                 </div>
                             </div>
                             <div className="flex-1">
                                 <h4 className="observatory-col-value pad5">Sky Rating</h4>
-                                <h5 className="level">Level</h5>
-                                <p className="reason">Noise gradient, blurriness or image
-                                    attenuation expected for ~50% of 
-                                    missions due to cloud, seeing,
-                                    moonlight, or dust/haze.
-                                </p>
+                                <h5 className="level">{"Level "+skyConditions.seeingConditionsIndex}</h5>
+                                <p className="reason">{skyConditions.seeingConditionsDescription}</p>
                             </div>
                         </div>                        
                     </div> 
