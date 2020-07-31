@@ -269,7 +269,8 @@ class JoinStep2 extends Component {
     }));
   };
 
-  handleCaptchaCode=(token)=>{    
+  handleCaptchaCode=(token)=>{   
+    debugger; 
     const { _sloohsstkn } = getUserInfo();    
     if(token !==null){
       API.post(VERIFY_CAPTCHA_CODE_URL,
@@ -293,10 +294,10 @@ class JoinStep2 extends Component {
     
   }
 
-  handleClubCode = formValues => {    
-    formValues.preventDefault();
-    const{accountFormDetails} = this.state;
-    const{codeA, codeB, captchaVerified} = accountFormDetails;
+  handleClubCode = formValues => {   
+    formValues.preventDefault();    
+    const{accountFormDetails, captchaVerified} = this.state;
+    const{codeA, codeB} = accountFormDetails;
     
     if(!captchaVerified){
         return;
