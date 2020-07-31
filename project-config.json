@@ -177,7 +177,8 @@
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
     },
-    "GOOGLE_API_RECAPTCHA_KEY": "6LdZ_7cZAAAAAPWifcjQvVILe-_hvxqzWzZ3vDOu"
+    "GOOGLE_API_RECAPTCHA_V3_KEY": "6LdZ_7cZAAAAAPWifcjQvVILe-_hvxqzWzZ3vDOu",
+    "GOOGLE_API_RECAPTCHA_V2_KEY": "6Le6mLgZAAAAAMGRhhRUCZgPgcqQxSnV2DDZPhqy"
   }
 }
 
