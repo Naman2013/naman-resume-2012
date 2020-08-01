@@ -31,6 +31,13 @@ const disableResizing = {
   bottom: false,
 };
 
+const leftBottomResizing = {
+  top: false,
+  left: true,
+  right: false,
+  bottom: true,
+}
+
 const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
 };
@@ -250,6 +257,15 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
   };
   
+  // debugger;
+  const mobilescr= isMobileScreen();
+  // useEffect(() => {
+  //   debugger;
+  //   if(!isMobileScreen())
+  //   toggleActivityFeedMenu();
+  // }, []);
+
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}

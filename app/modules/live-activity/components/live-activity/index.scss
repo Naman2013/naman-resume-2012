@@ -232,12 +232,19 @@ $screenHeaderSize: 110px;
   @include media-breakpoint-down(md) {
     @include live-feed-full-screen-mode;
 
+   
+
     .desktop-container {
       display: none;
     }
 
     .live-activity-window-wrapper .react-draggable {
+      width: 33% !important;
       height: calc(80vh - #{$screenHeaderSize}) !important;
+      left: unset !important;
+      right: 0 !important;
+      // transform: translate(0)!important;
     }
   }
 }
+
