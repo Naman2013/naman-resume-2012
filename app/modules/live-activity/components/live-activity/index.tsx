@@ -257,13 +257,10 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
   };
   
-  // debugger;
-  const mobilescr= isMobileScreen();
-  // useEffect(() => {
-  //   debugger;
-  //   if(!isMobileScreen())
-  //   toggleActivityFeedMenu();
-  // }, []);
+  useEffect(() => {  
+    if(!isMobileScreen())
+      toggleActivityFeedMenu();
+  }, []);
 
 
   return (
@@ -329,16 +326,16 @@ export const LiveActivity = (props: TLiveActivity) => {
                 >
                   <Nav variant="tabs">
                     <Nav.Item>
-                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Chat</Nav.Link>
+                      <Nav.Link eventKey={LIVE_FEEDS_TAB} className="chat-nav">Chat</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
-                      <Nav.Link eventKey={MEMBERS_TAB}>Roll Call</Nav.Link>
+                      <Nav.Link eventKey={MEMBERS_TAB} className="chat-nav">Roll Call</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Tab.Container>
 
-                <div className="live-activity-window-header-right">
+                <div className="live-activity-window-header-right chat-tab-div">
                   <div className="desktop-container">
                     <Tooltip title="Fullscreen">
                       <Button

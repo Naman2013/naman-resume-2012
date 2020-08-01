@@ -38,7 +38,7 @@ $screenHeaderSize: 110px;
       transform: translate(0) !important;
       top: calc(#{$headerSize} + 0px) !important;
       width: 100% !important;
-      height: calc(100vh - #{$headerSize}) !important;
+      // height: calc(100vh - #{$headerSize}) !important;
     }
   }
 }
@@ -69,6 +69,14 @@ $screenHeaderSize: 110px;
     display: inline-block;
     height: 20px;
     cursor: pointer;
+  }
+
+  .chat-nav{
+    padding: 0px;
+  }
+
+  .chat-tab-div{
+    padding: 10px 20px;
   }
 
   .message-identifier {
@@ -240,7 +248,8 @@ $screenHeaderSize: 110px;
 
     .live-activity-window-wrapper .react-draggable {
       width: 33% !important;
-      height: calc(80vh - #{$screenHeaderSize}) !important;
+      // height: calc(45vh - #{$screenHeaderSize}) !important;
+      // height: auto!important;
       left: unset !important;
       right: 0 !important;
       // transform: translate(0)!important;
