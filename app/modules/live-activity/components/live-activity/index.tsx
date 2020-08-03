@@ -221,9 +221,7 @@ export const LiveActivity = (props: TLiveActivity) => {
 
   const onTabChange = (): void => {
     if (!isSubscribed) {
-      subscribeToPubnubActivityFeedChannel();
-      setMemberChatState('enter');
-      debugger;
+      subscribeToPubnubActivityFeedChannel();     
     }
     // setOpen(!isOpen);
     // setActiveTab(MEMBERS_TAB);
@@ -282,7 +280,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       // pubNubFeedChannelSubscribingStatus(true);
   
       // if (!isOpen) {
-      //   setMemberChatState('enter');
+        setMemberChatState('enter');
       // } else {
       //   setMemberChatState('leave');
       // }
