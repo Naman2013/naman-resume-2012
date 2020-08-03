@@ -24,6 +24,7 @@ import { AstronomerConversationLayout } from "./components/astronomer-conversati
 import { ObjectMap } from "./components/object-map";
 import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
+import { QuestCard } from "./components/quest-card";
 
 
 export class NewDashboard extends PureComponent{
@@ -308,6 +309,8 @@ export class NewDashboard extends PureComponent{
                                 <AstronomerConversationLayout
                                 />
                                 <SectionDivider/>
+
+                                <QuestCard/>
                             </div>
                         </div>
                         <div className="right">
