@@ -3,7 +3,7 @@
 @import '~app/styles/mixins/index';
 @import '~app/styles/variables/colors.scss';
 
-$headerSize: 54px;
+$headerSize: 60px;
 $screenHeaderSize: 110px;
 
 @keyframes smallAnimatedCircle {
@@ -46,7 +46,7 @@ $screenHeaderSize: 110px;
 
 .live-activity-wrapper .live-activity-window-wrapper .react-draggable{
   left: unset !important;
-  transform: translate(-300px, 60px) !important;
+  // transform: translate(0) !important;
 }
 
 .live-activity-wrapper {

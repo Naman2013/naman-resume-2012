@@ -31,12 +31,6 @@ const disableResizing = {
   bottom: false,
 };
 
-const leftBottomResizing = {
-  top: false,
-  left: true,
-  right: false,
-  bottom: true,
-}
 
 const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
@@ -156,8 +150,8 @@ export const LiveActivity = (props: TLiveActivity) => {
   const [boxSize, setFeedMenuSize] = useState({
     width: 500,
     height: 450,
-    left: -340,
-    top: 55,
+    left: -300,
+    top: 30,
   });
 
   const isTablet = isTabletDevice();
