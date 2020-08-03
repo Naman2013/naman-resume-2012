@@ -225,6 +225,23 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
   };
 
+  const onTabChange = (): void => {
+    if (!isSubscribed) {
+      subscribeToPubnubActivityFeedChannel();
+    }
+    // setOpen(!isOpen);
+    // setActiveTab(MEMBERS_TAB);
+
+    setMessageIdToLocalStorage(lastMessageId);
+    pubNubFeedChannelSubscribingStatus(true);
+
+    if (!isOpen) {
+      setMemberChatState('enter');
+    } else {
+      setMemberChatState('leave');
+    }
+  };
+
   const sendMemberChatStateBeforeUnOnload = () => {
     const { token, at, cid } = getUserInfo();
     const sendData = { token, at, cid, chatState: 'leave' };
@@ -258,8 +275,23 @@ export const LiveActivity = (props: TLiveActivity) => {
   };
   
   useEffect(() => {  
-    if(!isMobileScreen())
-      toggleActivityFeedMenu();
+    if(!isMobileScreen()){
+      // if (!isSubscribed) {
+      //   subscribeToPubnubActivityFeedChannel();
+      // }
+      setOpen(!isOpen);
+      setActiveTab(MEMBERS_TAB);
+  
+      // setMessageIdToLocalStorage(lastMessageId);
+      // pubNubFeedChannelSubscribingStatus(true);
+  
+      // if (!isOpen) {
+      //   setMemberChatState('enter');
+      // } else {
+      //   setMemberChatState('leave');
+      // }
+    }
+      
   }, []);
 
 
@@ -321,6 +353,10 @@ export const LiveActivity = (props: TLiveActivity) => {
                     // if (key === MEMBERS_TAB) {
                     //   getActivityFeedMembers();
                     // }
+                    if( key === LIVE_FEEDS_TAB)
+                    {
+                      onTabChange();
+                    }
                     setActiveTab(key);
                   }}
                 >
