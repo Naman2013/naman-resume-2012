@@ -31,7 +31,7 @@ export class GalleryCard extends Component{
     render() {
         const { imageList, totalCount } = this.props;        
         const { activePage } = this.state;
-        debugger;
+        
         return (
             imageList !== undefined ? ( 
                 <div>                

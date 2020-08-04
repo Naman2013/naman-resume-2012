@@ -25,6 +25,7 @@ import { ObjectMap } from "./components/object-map";
 import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
 import { QuestCard } from "./components/quest-card";
+import { QuestMap } from "./components/quest-map";
 
 
 export class NewDashboard extends PureComponent{
@@ -47,8 +48,7 @@ export class NewDashboard extends PureComponent{
         //     case 3:
         //         this.communityRef.scrollIntoView()
         //         break;
-        // }
-        // debugger;
+        // }        
         // ref.current.scrollIntoView({
         //     behavior: 'smooth',
         //     block: 'start',
@@ -154,11 +154,13 @@ export class NewDashboard extends PureComponent{
 
                                 <TabHeader
                                     headings={["Explore Quests", "Explore Objects"]}
-                                    activeHeading={"Explore Objects"}
+                                    activeHeading={"Explore Quests"}
                                     spaceequally={false}
                                     theme={"dark"}
                                 />
-                                <ObjectMap/>
+                                {/* <ObjectMap/> */}
+
+                                <QuestMap/>
 
                                 <SectionDivider/>
 
@@ -172,7 +174,7 @@ export class NewDashboard extends PureComponent{
                                 )} */}
                                 
                                 
-                                <SectionDivider/>
+                                {/* <SectionDivider/> */}
 
                                 {privateProfileMission &&(
                                     <div>
@@ -309,8 +311,7 @@ export class NewDashboard extends PureComponent{
                                 <AstronomerConversationLayout
                                 />
                                 <SectionDivider/>
-
-                                <QuestCard/>
+                                
                             </div>
                         </div>
                         <div className="right">

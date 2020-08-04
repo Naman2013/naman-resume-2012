@@ -76,7 +76,7 @@ export const SelectedFilters = (props: TSelectedFilters) => {
     onChange({ [labelGroup]: newLabels });
     onApply();
   };
-  debugger;
+  
   return (
     <>
       {dateFilter && (

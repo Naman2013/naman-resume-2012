@@ -310,7 +310,6 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
 
   export const getMissionImagesDataAction = (data) => (dispatch, getState) => {
     dispatch(getMissionImagesStart());
-    debugger;
     const { token, at, cid } = getState().user;
     const { selectedFilters } = getState().myPicturesFilters;
     return getMissionImages({

@@ -22,12 +22,15 @@ import ImageWMS from 'ol/source/ImageWMS';
 import Static from 'ol/source/ImageStatic';
 import Projection from 'ol/proj/Projection';
 import {getCenter} from 'ol/extent';
+import {composeCssTransform} from 'ol/transform';
+import Layer from 'ol/layer/Layer';
+import { QuestCard } from '../quest-card';
 
-
-export class ObjectMap extends Component{
+export class QuestMap extends Component{
   state={
     map: null,
     view: null,
+    showQuestCard: false,
   }
     componentDidMount(){
       
@@ -41,14 +44,14 @@ export class ObjectMap extends Component{
 
       
      
-      // var zoomControl = new Zoom({
-      //   zoomInTipLabel: 'Zoom closer in',
-      //   zoomOutTipLabel: 'Zoom further out',
-      //   className: 'ol-zoom custom-zoom-control'
-      // });
-
+      // // var zoomControl = new Zoom({
+      // //   zoomInTipLabel: 'Zoom closer in',
+      // //   zoomOutTipLabel: 'Zoom further out',
+      // //   className: 'ol-zoom custom-zoom-control'
+      // // });
+      const self = this;
       var displayFeatureInfo = function(pixel) {
-        
+        const { showQuestCard } = self.state;
         vectorLayer.getFeatures(pixel).then(function(features) {
           var feature = features.length ? features[0] : undefined; 
           if (features.length) {         
@@ -56,67 +59,144 @@ export class ObjectMap extends Component{
             console.log("object id: "+feature.getId());
           }
         });
-      
+
+        if(showQuestCard)
+          self.setState({showQuestCard: false});
+        else
+          self.setState({showQuestCard: true});
       };
       
       
-      var extent = [0, 0, 1550, 1125];
-      var projection = new Projection({
-        code: 'static-image',
-        units: 'pixels',
-        extent: extent,
+      // var extent = [0, 0, 1204, 1125];
+      // var projection = new Projection({
+      //   code: 'xkcd-image',
+      //   units: 'pixels',
+      //   extent: extent,
+      // });
+
+      // var imageLayer=new ImageLayer({
+      //   source: new Static({
+      //     attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
+      //     url: 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',
+      //     projection: projection,
+      //     imageExtent: extent,
+      //   }),
+      // }) ;
+
+      // var view =new View({
+      //   projection: projection,
+      //   center: getCenter(extent),
+      //   zoom: 3,
+      //   maxZoom: 6,
+      //   minZoom: 3,
+      //   constrainOnlyCenter: true,
+      //   extent: extent,
+      // })
+      //   var map = new Map({
+      //     controls: [],
+      //       layers: [              
+      //         imageLayer,
+      //         // vectorLayer,                       
+      //         // new Graticule({
+      //         //   // the style to use for the lines, optional.
+      //         //   strokeStyle: new Stroke({
+      //         //     color: 'rgba(65,86,111,0.9)',
+      //         //     width: 2,
+      //         //     lineDash: [0.5, 4]
+      //         //   }),
+      //         //   showLabels: true,
+      //         //   wrapX: false
+      //         // })
+      //       ],
+      //       target: 'map',
+      //     view: view
+      //     });
+      //     // map.on('pointermove', function(evt) {
+      //     //   if (evt.dragging) {
+      //     //     return;
+      //     //   }
+      //     //   var pixel = map.getEventPixel(evt.originalEvent);
+      //     //   displayFeatureInfo(pixel);
+      //     // });
+
+      var highlightStyle = new Style({
+        fill: new Fill({
+          color: 'rgba(255,255,255,0.7)',
+        }),
+        stroke: new Stroke({
+          color: '#3399CC',
+          width: 3,
+        }),
       });
 
-      var imageLayer=new ImageLayer({
-        source: new Static({
-          // attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
-          url: 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',
-          projection: projection,
-          imageExtent: extent,
-          imageLoadFunction: function (image, src) {
-            image.getImage().src = src;
-            image.getImage().width = extent.getWidth(extent);
-            image.getImage().height = extent.getHeight(extent);
-         }
-        }),
-      }) ;
 
-      var view =new View({
-        projection: projection,
-        center: getCenter(extent),
-        zoom: 3,
-        maxZoom: 10,
-        minZoom: 3,
-        constrainOnlyCenter: true,
-        extent: extent,
-      })
-        var map = new Map({
-          controls: [],
-            layers: [              
-              imageLayer,
-              // vectorLayer,                       
-              // new Graticule({
-              //   // the style to use for the lines, optional.
-              //   strokeStyle: new Stroke({
-              //     color: 'rgba(65,86,111,0.9)',
-              //     width: 2,
-              //     lineDash: [0.5, 4]
-              //   }),
-              //   showLabels: true,
-              //   wrapX: false
-              // })
-            ],
-            target: 'map',
-          view: view
-          });
-          // map.on('pointermove', function(evt) {
-          //   if (evt.dragging) {
-          //     return;
-          //   }
-          //   var pixel = map.getEventPixel(evt.originalEvent);
-          //   displayFeatureInfo(pixel);
-          // });
-          
+      var view = new View({
+        center: [0, 0],
+        extent: [-180, -36, 22, 90],
+        projection: 'EPSG:4326',
+        zoom: 2,
+        
+      });
+
+            var svgContainer = document.createElement('div');
+            var xhr = new XMLHttpRequest();            
+            xhr.open('GET', 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',true);
+            // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
+            xhr.setRequestHeader('Content-Type','application/xml');
+            xhr.addEventListener('load', function () {
+              var svg = xhr.responseXML.documentElement;
+              svgContainer.ownerDocument.importNode(svg);
+              svgContainer.appendChild(svg);
+            });
+            xhr.send();
+
+            var width = 2560;
+            var height = 1280;
+            var svgResolution = 360 / width;
+            svgContainer.style.width = width + 'px';
+            svgContainer.style.height = height + 'px';
+            svgContainer.style.transformOrigin = 'top left';
+            svgContainer.className = 'svg-layer';
+
+           
+
+            var backgroundLayer=
+              new Layer({
+                render: function (frameState) {
+                  var scale = svgResolution / frameState.viewState.resolution;
+                  var center = frameState.viewState.center;
+                  var size = frameState.size;
+                  var cssTransform = composeCssTransform(
+                    size[0] / 2,
+                    size[1] / 2,
+                    scale,
+                    scale,
+                    frameState.viewState.rotation,
+                    -center[0] / svgResolution - width / 2,
+                    center[1] / svgResolution - height / 2
+                  );
+                  svgContainer.style.transform = cssTransform;
+                  svgContainer.style.opacity = 1;
+                  return svgContainer;
+                },
+              })
+            
+            
+
+
+            var map = new Map({
+              controls: [],
+              target: 'map',
+              view: view,
+              layers: [                   
+                backgroundLayer,
+                vectorLayer,
+              ]
+            });
+
+           
+            
+                     
           map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
           });
@@ -196,11 +276,11 @@ export class ObjectMap extends Component{
       this.setState({ selectedDifficulty });      
     };
 
-    handleSeasonalityChange = selectedSeasonality => {      
+    handleSeasonalityChange = selectedSeasonality => {
       this.setState({ selectedSeasonality });      
     };
 
-    handleGradeLevelChange = selectedGradeLevel => {      
+    handleGradeLevelChange = selectedGradeLevel => {
       this.setState({ selectedGradeLevel });      
     };
 
@@ -223,10 +303,24 @@ export class ObjectMap extends Component{
 
     render() {     
       const { selectedStatus, selectedDifficulty, selectedSeasonality, selectedGradeLevel } = this.state;
-
+      const { showQuestCard } = this.state
         return (
           <div>
-            <div id="map" class="map"></div>  
+            <div className="map-container">
+              <div id="map" class="map">
+              
+              </div>
+              {showQuestCard && (
+                  <div className="popup">
+                    <QuestCard
+                      onHide={()=> this.setState({showQuestCard: false})}
+                    />
+                </div> 
+              )}
+               
+              
+            </div>
+           
             <div className="control-div">
               <div className="controls">
                 <span className="select-label">Status: </span>
@@ -289,7 +383,7 @@ export class ObjectMap extends Component{
                   <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/>
               </div>
             </div>
-            {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
+            <button onClick={()=>this.handleFindObject()}>find</button>
           </div>
         );
     }
