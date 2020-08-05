@@ -3,7 +3,7 @@
 @import '~app/styles/mixins/index';
 @import '~app/styles/variables/colors.scss';
 
-$headerSize: 60px;
+$headerSize: 50px;
 $screenHeaderSize: 110px;
 
 @keyframes smallAnimatedCircle {
@@ -35,19 +35,15 @@ $screenHeaderSize: 110px;
   .live-activity-window-wrapper {
     position: static;
     .react-draggable {
-      transform: translate(0) !important;
+      // transform: translate(0) !important;
       top: calc(#{$headerSize} + 0px) !important;
-      width: 100% !important;
+      // width: 100% !important;
       // left: unset !important;
-      height: calc(100vh - #{$headerSize}) !important;
+      // height: calc(100vh - #{$headerSize}) !important;
     }
   }
 }
 
-.live-activity-wrapper .live-activity-window-wrapper .react-draggable{
-  // left: unset !important;
-  // transform: translate(0) !important;
-}
 
 .live-activity-wrapper {
   // todo make common
@@ -254,11 +250,11 @@ $screenHeaderSize: 110px;
     }
 
     .live-activity-window-wrapper .react-draggable {
-      width: 33% !important;
-      height: calc(45vh - #{$screenHeaderSize}) !important;
+      width: 260px !important;
+      // height: calc(45vh - #{$screenHeaderSize}) !important;
       // height: auto!important;
-      left: unset !important;
-      right: 0 !important;
+      // left: unset !important;
+      // right: 0 !important;
       // transform: translate(0)!important;
     }
   }

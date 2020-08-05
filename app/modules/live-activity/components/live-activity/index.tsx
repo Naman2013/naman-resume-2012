@@ -155,7 +155,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   });
 
   const isTablet = isTabletDevice();
-
+  const isTabletscreen = isTabletScreen();
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1] || {};
@@ -322,7 +322,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             default={{
               width: boxSize.width,
               height: boxSize.height,
-              x: boxSize.left,
+              x: isTabletscreen ? -100 : boxSize.left,
               y: boxSize.top,
             }}
             minWidth={300}

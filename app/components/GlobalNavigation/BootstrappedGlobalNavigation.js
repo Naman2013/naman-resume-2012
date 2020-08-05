@@ -123,7 +123,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 10,
+              count: 20,
               stringifiedTimeToken: false,
               reverse: false,
             },
@@ -134,7 +134,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 10,
+              count: 20,
               stringifiedTimeToken: false,
               reverse: false,
             },
