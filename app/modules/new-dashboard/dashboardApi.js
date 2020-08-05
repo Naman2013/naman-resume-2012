@@ -59,3 +59,7 @@ export function getWeatherActions(data) {
 export function getSkyRating(data) {
   return API.post('/api/widget/seeingConditions', data);
 }
+
+export function getQuestCard(data) {
+  return API.post('/api/widget/getQuestCard', data);
+}

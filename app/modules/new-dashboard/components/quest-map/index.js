@@ -25,12 +25,16 @@ import {getCenter} from 'ol/extent';
 import {composeCssTransform} from 'ol/transform';
 import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
+import { getQuestCard } from '../../dashboardApi';
+import { Spinner } from 'app/components/spinner/index';
 
 export class QuestMap extends Component{
   state={
     map: null,
     view: null,
     showQuestCard: false,
+    questCardDetails: [],
+    isloading: false,
   }
     componentDidMount(){
       
@@ -61,9 +65,19 @@ export class QuestMap extends Component{
         });
 
         if(showQuestCard)
-          self.setState({showQuestCard: false});
-        else
-          self.setState({showQuestCard: true});
+          self.setState({showQuestCard: false, questCardDetails: []});
+        else{
+          self.setState({isloading: true});
+          getQuestCard({
+            questId: 152,
+            questUUID: 'b3701700-f43e-11e9-a8f4-06b2ab7e8ae4',
+            questVersion: 1.1
+          }).then(response=>{
+            self.setState({isloading: false, questCardDetails: response, showQuestCard: true});
+            
+          });         
+        }
+          
       };
       
       
@@ -303,9 +317,13 @@ export class QuestMap extends Component{
 
     render() {     
       const { selectedStatus, selectedDifficulty, selectedSeasonality, selectedGradeLevel } = this.state;
-      const { showQuestCard } = this.state
+      const { showQuestCard, questCardDetails, isloading } = this.state
         return (
           <div>
+             <Spinner
+              loading={isloading}
+              text="Please wait...loading discussions"
+            />
             <div className="map-container">
               <div id="map" class="map">
               
@@ -314,6 +332,7 @@ export class QuestMap extends Component{
                   <div className="popup">
                     <QuestCard
                       onHide={()=> this.setState({showQuestCard: false})}
+                      questCardDetails={questCardDetails}
                     />
                 </div> 
               )}
