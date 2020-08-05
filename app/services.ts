@@ -13,12 +13,12 @@ export const isTabletDevice = (): boolean => {
 };
 
 export const isMobileScreen = (): boolean => {
-  return window.innerWidth <= MOBILE_SIZE;
+  return window.innerWidth < MOBILE_SIZE;
 };
 
 export const isTabletScreen = (): boolean => {
   const screenWidth = window.innerWidth;
-  return screenWidth > MOBILE_SIZE && screenWidth <= TABLET_SIZE;
+  return screenWidth >= MOBILE_SIZE && screenWidth <= TABLET_SIZE;
 };
 
 export const isDesktopDevice = (): boolean => {

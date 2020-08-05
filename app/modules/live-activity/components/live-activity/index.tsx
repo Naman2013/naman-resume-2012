@@ -156,6 +156,7 @@ export const LiveActivity = (props: TLiveActivity) => {
 
   const isTablet = isTabletDevice();
   const isTabletscreen = isTabletScreen();
+  const isMobileDevice = isMobileScreen();
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1] || {};
@@ -269,7 +270,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   };
   
   useEffect(() => {  
-    if(!isMobileScreen()){
+    if(!isMobileDevice){
       // if (!isSubscribed) {
       //   subscribeToPubnubActivityFeedChannel();
       // }
@@ -322,14 +323,14 @@ export const LiveActivity = (props: TLiveActivity) => {
             default={{
               width: boxSize.width,
               height: boxSize.height,
-              x: isTabletscreen ? -100 : boxSize.left,
+              x: isTabletscreen ? -160 : isMobileDevice ? 0 : boxSize.left,
               y: boxSize.top,
             }}
             minWidth={300}
             minHeight={300}
-            disableDragging={isFullscreen || isTablet}
+            disableDragging={isFullscreen || isMobileDevice}
             enableResizing={
-              isFullscreen || isTablet ? disableResizing : enableResizing
+              isFullscreen || isMobileDevice ? disableResizing : enableResizing
             }
             dragHandleClassName="live-activity-window-header"
             bounds="window"

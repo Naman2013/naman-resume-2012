@@ -258,5 +258,23 @@ $screenHeaderSize: 110px;
       // transform: translate(0)!important;
     }
   }
+  @include media-breakpoint-down(xs) {
+    @include live-feed-full-screen-mode;
+
+   
+
+    .desktop-container {
+      display: none;
+    }
+
+    .live-activity-window-wrapper .react-draggable {
+      width: 100% !important;
+      // height: calc(45vh - #{$screenHeaderSize}) !important;
+      // height: auto!important;
+      // left: unset !important;
+      // right: 0 !important;
+      transform: translate(0)!important;
+    }
+  }
 }
 
