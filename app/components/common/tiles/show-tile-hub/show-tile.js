@@ -7,7 +7,7 @@ const ShowTile = ({ eventTitle, linkUrl }) => (
   <div className="root">
     <Link to={linkUrl} href={linkUrl}>
       <div className="show-tile-title">{eventTitle}</div>
-      <div className="show-tile-header">Slooh Show</div>
+      <div className="show-tile-header">Slooh Star Party</div>
     </Link>
     <style jsx>{style}</style>
   </div>
