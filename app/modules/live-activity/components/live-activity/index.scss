@@ -35,11 +35,11 @@ $screenHeaderSize: 110px;
   .live-activity-window-wrapper {
     position: static;
     .react-draggable {
-      // transform: translate(0) !important;
+      transform: translate(0) !important;
       top: calc(#{$headerSize} + 0px) !important;
-      // width: 100% !important;
+      width: 100% !important;
       // left: unset !important;
-      // height: calc(100vh - #{$headerSize}) !important;
+      height: calc(100vh - #{$headerSize}) !important;
     }
   }
 }
@@ -241,13 +241,17 @@ $screenHeaderSize: 110px;
 
   //RESPONSIVE
   @include media-breakpoint-only(md) {
-    @include live-feed-full-screen-mode;
+
+    .live-activity-wrapper .full-screen{
+      @include live-feed-full-screen-mode;
+    }
+    
 
    
 
-    .desktop-container {
-      display: none;
-    }
+    // .desktop-container {
+    //   display: none;
+    // }
 
     .live-activity-window-wrapper .react-draggable {
       width: 260px !important;
@@ -258,7 +262,7 @@ $screenHeaderSize: 110px;
       // transform: translate(0)!important;
     }
   }
-  @include media-breakpoint-only(sm) {
+  @include media-breakpoint-down(sm) {
     @include live-feed-full-screen-mode;
 
    
