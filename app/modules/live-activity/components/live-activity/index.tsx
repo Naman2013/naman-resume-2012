@@ -205,20 +205,20 @@ export const LiveActivity = (props: TLiveActivity) => {
   }, []);
 
   const toggleActivityFeedMenu = (): void => {
-    if (!isSubscribed) {
-      subscribeToPubnubActivityFeedChannel();
-    }
+    // if (!isSubscribed) {
+    //   subscribeToPubnubActivityFeedChannel();
+    // }
     setOpen(!isOpen);
     setActiveTab(MEMBERS_TAB);
 
-    setMessageIdToLocalStorage(lastMessageId);
-    pubNubFeedChannelSubscribingStatus(true);
+    // setMessageIdToLocalStorage(lastMessageId);
+    // pubNubFeedChannelSubscribingStatus(true);
 
-    if (!isOpen) {
+    // if (!isOpen) {
       setMemberChatState('enter');
-    } else {
-      setMemberChatState('leave');
-    }
+    // } else {
+    //   setMemberChatState('leave');
+    // }
   };
 
   const onTabChange = (): void => {
