@@ -143,7 +143,7 @@
     "NothingToShow": "There is nothing to show.",
     "ErrorWhileLoading": "Error occured while loading data.",
     "NoGroups": "There are no recommended Clubs.",
-    "NoShows": "There are no recommended Shows.",
+    "NoShows": "There is no recommended Star Party.",
     "NoStories": "There are no recommended Illuminations.",
     "NoObjects": "There are no recommended Objects.",
     "NoObservations": "There are no recommended Observations.",
@@ -219,14 +219,14 @@
     "SubjectsSterlingSubtitle": "Select a Topic for more information"
   },
   "Hubs": {
-    "noShows": "There are no Upcoming Shows.",
+    "noShows": "There is no Upcoming Star Party.",
     "loading": "Loading",
     "requestGroup": "Request Club",
     "noObjects": "There are no Objects.",
     "noGroups": "There are no Clubs.",
     "noGuides": "There are no Guides.",
     "noQuests": "There are no Quests.",
-    "noShowsHub": "There are no Shows.",
+    "noShowsHub": "There is no Star Party.",
     "noStories": "There are no Illuminations.",
     "submitStory": "Submit Story"
   },
@@ -249,7 +249,7 @@
     "Quests": "Quests",
     "Ask": "AAA",
     "Observations": "Observations",
-    "Shows": "Shows",
+    "Shows": "Star Party",
     "Stories": "Illuminations",
     "RelatedObjects": "Related Objects",
     "UpcomingMissions": "Upcoming Missions",
@@ -267,9 +267,9 @@
     "Sorry, there are no specialists for {{objectTitle}} available at this time.",
     "NoQuests":
     "Sorry, there are no quests available for {{objectTitle}} at this time.",
-    "RelatedShows": "Related Shows",
+    "RelatedShows": "Related Star Party",
     "NoShows":
-    "Sorry, there are no shows available for {{objectTitle}} at this time.",
+    "Sorry, there is no Star Party available for {{objectTitle}} at this time.",
     "RelatedStories": "Related Stories",
     "NoStories":
     "Sorry, there are no stories available for {{objectTitle}} at this time.",
@@ -311,7 +311,7 @@
     "MyBadges": "Badges",
     "Specialties": "Specialties",
     "Objects": "Objects",
-    "Shows": "Shows",
+    "Shows": "Star Party",
     "Stories": "Illuminations",
     "Guides": "Guides",
     "Guide": "Guide",
@@ -346,8 +346,8 @@
     "GoTo": "go to"
   },
   "Shows": {
-    "LiveShow": "Live Show",
-    "RelatedShows": "Related Shows",
+    "LiveShow": "Live Star Party",
+    "RelatedShows": "Related Star Party",
     "About": "About",
     "Comments": "Comments",
     "Details": "Details",
@@ -355,7 +355,7 @@
     "RelatedGuides": "Related Guides",
     "AiringNow": "Airing Now",
     "VideoViewer": "Video Viewer",
-    "CountdownToShow": "Countdown to show"
+    "CountdownToShow": "Countdown to Star Party"
   },
   "Stories": {
     "relatedStories": "Related Stories",
@@ -368,7 +368,7 @@
     "contentCategoryErrorMessage": "Content Category is required.",
     "objectCategoryErrorMessage": "Object Category is required.",
     "errorMessagePopupTitle": "Missing Fields",
-    "relatedShows": "Related Shows",
+    "relatedShows": "Related Star Party",
     "relatedGuides": "Related Guides",
     "related": "Related",
     "story": "Story"
