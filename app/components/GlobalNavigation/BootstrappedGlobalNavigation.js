@@ -123,7 +123,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 50,
+              count: 20,
               stringifiedTimeToken: false,
               reverse: false,
             },
@@ -134,7 +134,7 @@ class GlobalNavigation extends Component {
           this.pubnub.history(
             {
               channel: pubnubActivityFeedChannelName,
-              count: 50,
+              count: 20,
               stringifiedTimeToken: false,
               reverse: false,
             },
@@ -145,7 +145,7 @@ class GlobalNavigation extends Component {
                 this.buildFeedMessage(historyMessage.entry, true);
               });
 
-              setInterval(() => this.checkActivityWindowScroll(), 5000);
+              //setInterval(() => this.checkActivityWindowScroll(), 5000);
             }
           );
         } //end of if connected
@@ -323,8 +323,8 @@ class GlobalNavigation extends Component {
       if (appendFlag === true) {
         this.setState(() => {
           const activityFeedMessages = [
-            ...activityFeedMessagesState,
             newMessage,
+            ...activityFeedMessagesState,
           ];
           return {
             activityFeedMessages,

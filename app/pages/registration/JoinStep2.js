@@ -27,6 +27,7 @@ import {
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
   VERIFY_CLUB_CODE_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+  VERIFY_CAPTCHA_CODE_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
@@ -34,6 +35,8 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import ReactDOM from 'react-dom';
 import styles from './JoinStep2.style';
+import ReCAPTCHA from "react-google-recaptcha";
+import { googleRecaptchaConfig } from 'app/config/project-config';
 
 const { string, func } = PropTypes;
 
@@ -69,7 +72,7 @@ class JoinStep2 extends Component {
       ReactDOM.findDOMNode(inputs['codeB']).focus();
   }
 
-  
+    
   constructor(props) {
     super(props);
     window.localStorage.setItem('accountCreationType', 'userpass');
@@ -97,6 +100,8 @@ class JoinStep2 extends Component {
         googleProfilePictureURL: '',
       },
       formIsComplete: null,
+      captchaCode: null,
+      captchaVerified: false,      
       accountFormDetails: {
         givenName: {
           label: '',
@@ -186,7 +191,7 @@ class JoinStep2 extends Component {
           value: '',
           hintText: '',
           errorText: '',
-        },
+        },        
       },
     };
   }
@@ -246,6 +251,7 @@ class JoinStep2 extends Component {
       this.props.change('codeA',result.formFieldLabels.discussionGroupCodeA.currentValue);
       this.props.change('codeB',result.formFieldLabels.discussionGroupCodeB.currentValue);
     /* update the account form details state so the correct hinText will show on each form field */
+    
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
       isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
@@ -263,10 +269,40 @@ class JoinStep2 extends Component {
     }));
   };
 
-  handleClubCode = formValues => {    
-    formValues.preventDefault();
-    const{accountFormDetails} = this.state;
+  handleCaptchaCode=(token)=>{   
+    debugger; 
+    const { _sloohsstkn } = getUserInfo();    
+    if(token !==null){
+      API.post(VERIFY_CAPTCHA_CODE_URL,
+        {
+          siteSessionToken: _sloohsstkn,
+          recaptchaResponse: token
+  
+        }).then( response => {            
+            const res=response.data;
+            if(!res.apiError){
+              if(res.status === "success")
+                this.setState({captchaVerified: true});
+              
+            }
+            
+        });
+    }
+    else{
+      this.setState({captchaVerified: false});
+    }
+    
+  }
+
+  handleClubCode = formValues => {   
+    formValues.preventDefault();    
+    const{accountFormDetails, captchaVerified} = this.state;
     const{codeA, codeB} = accountFormDetails;
+    
+    if(!captchaVerified){
+        return;
+    }
+
     if(codeA.value !== "" || codeB.value !== "" ){
       API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
       {
@@ -650,6 +686,7 @@ class JoinStep2 extends Component {
       accountCreationType,
       isAstronomyClub,
       formIsComplete,
+      captchaVerified,
     } = this.state;
     const { _sloohatid } = getUserInfo();
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
@@ -1261,6 +1298,15 @@ class JoinStep2 extends Component {
                                   />
                               </div>
                             ) : null}
+                            <div className="form-section">
+                                <div className="form-field-container">
+                                <ReCAPTCHA
+                                  sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
+                                  onChange={this.handleCaptchaCode}
+                                />
+                                 
+                                </div>
+                              </div>
 
                             <div className="button-container">
                               <Button
@@ -1271,7 +1317,7 @@ class JoinStep2 extends Component {
                                 }}
                               />
 			                      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
-                              <button className="submit-button" type="submit">
+                              <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
                                 {t('Ecommerce.GoToPayment')}
                               </button>			  
                             </div>
