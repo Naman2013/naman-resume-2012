@@ -16,6 +16,7 @@ import { Nav, Tab } from 'react-bootstrap';
 import { FeedItem } from '../feed-item';
 import { MemberItem } from '../member-item';
 import { API } from 'app/api';
+import { Spinner } from 'app/components/spinner/index';
 
 const enableResizing = {
   top: true,
@@ -30,6 +31,7 @@ const disableResizing = {
   right: false,
   bottom: false,
 };
+
 
 const setMessageIdToLocalStorage = (id: string): void => {
   window.localStorage.setItem('newMessageId', id);
@@ -88,12 +90,7 @@ const submitMessage = (
     });
     
     setMemberChatState('sentMessage');
-    setTimeout(function() {
-      let liveActivityWindowBodyFeedObj = document.getElementById(
-        'live-activity-window-body-feed'
-      );
-      liveActivityWindowBodyFeedObj.scrollIntoView(false);
-    }, 1000);
+
     const { token, at, cid } = getUserInfo();  
     const { activityFeedMembers } = props;
     API.post("/api/app/postChatMessage", {      
@@ -123,7 +120,7 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
-  subscribeToPubnubActivityFeedChannel: Function;
+  subscribeToPubnubActivityFeedChannel: Function;  
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -138,12 +135,12 @@ export const LiveActivity = (props: TLiveActivity) => {
     activityFeedMembers,
     getActivityFeedMembers,
     setMemberChatState,
-    subscribeToPubnubActivityFeedChannel,
+    subscribeToPubnubActivityFeedChannel    
   } = props;
 
   const rnd = useRef(null);
 
-  const [activeTab, setActiveTab] = React.useState(LIVE_FEEDS_TAB);
+  const [activeTab, setActiveTab] = React.useState(MEMBERS_TAB);
 
   const [isOpen, setOpen] = React.useState(false);
 
@@ -154,12 +151,13 @@ export const LiveActivity = (props: TLiveActivity) => {
   const [boxSize, setFeedMenuSize] = useState({
     width: 500,
     height: 450,
-    left: -340,
-    top: 55,
+    left: -300,
+    top: 30,
   });
 
   const isTablet = isTabletDevice();
-
+  const isTabletscreen = isTabletScreen();
+  const isMobileDevice = isMobileScreen();
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1] || {};
@@ -207,20 +205,37 @@ export const LiveActivity = (props: TLiveActivity) => {
   }, []);
 
   const toggleActivityFeedMenu = (): void => {
-    if (!isSubscribed) {
-      subscribeToPubnubActivityFeedChannel();
-    }
+    // if (!isSubscribed) {
+    //   subscribeToPubnubActivityFeedChannel();
+    // }
     setOpen(!isOpen);
-    setActiveTab(LIVE_FEEDS_TAB);
+    setActiveTab(MEMBERS_TAB);
+
+    // setMessageIdToLocalStorage(lastMessageId);
+    // pubNubFeedChannelSubscribingStatus(true);
+
+    // if (!isOpen) {
+      setMemberChatState('enter');
+    // } else {
+    //   setMemberChatState('leave');
+    // }
+  };
+
+  const onTabChange = (): void => {
+    if (!isSubscribed) {
+      subscribeToPubnubActivityFeedChannel();     
+    }
+    // setOpen(!isOpen);
+    // setActiveTab(MEMBERS_TAB);
 
     setMessageIdToLocalStorage(lastMessageId);
     pubNubFeedChannelSubscribingStatus(true);
 
-    if (!isOpen) {
-      setMemberChatState('enter');
-    } else {
-      setMemberChatState('leave');
-    }
+    // if (!isOpen) {
+    //   setMemberChatState('enter');
+    // } else {
+    //   setMemberChatState('leave');
+    // }
   };
 
   const sendMemberChatStateBeforeUnOnload = () => {
@@ -255,6 +270,28 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
   };
   
+  useEffect(() => {  
+    if(!isMobileDevice){
+      // if (!isSubscribed) {
+      //   subscribeToPubnubActivityFeedChannel();
+      // }
+      setOpen(!isOpen);
+      setActiveTab(MEMBERS_TAB);
+  
+      // setMessageIdToLocalStorage(lastMessageId);
+      // pubNubFeedChannelSubscribingStatus(true);
+  
+      // if (!isOpen) {
+        setMemberChatState('enter');
+      // } else {
+      //   setMemberChatState('leave');
+      // }
+    }
+      
+  }, []);
+
+  const isFetching = !(activeTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
+  
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
@@ -288,14 +325,14 @@ export const LiveActivity = (props: TLiveActivity) => {
             default={{
               width: boxSize.width,
               height: boxSize.height,
-              x: boxSize.left,
+              x: isTabletscreen ? -160 : isMobileDevice ? 0 : boxSize.left,
               y: boxSize.top,
             }}
             minWidth={300}
             minHeight={300}
-            disableDragging={isFullscreen || isTablet}
+            disableDragging={isFullscreen || isMobileDevice}
             enableResizing={
-              isFullscreen || isTablet ? disableResizing : enableResizing
+              isFullscreen || isMobileDevice ? disableResizing : enableResizing
             }
             dragHandleClassName="live-activity-window-header"
             bounds="window"
@@ -304,7 +341,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
                 <Tab.Container
-                  defaultActiveKey="liveFeeds"
+                  defaultActiveKey="activeMembers"
                   id="tabs"
                   unmountOnExit
                   mountOnEnter
@@ -313,21 +350,25 @@ export const LiveActivity = (props: TLiveActivity) => {
                     // if (key === MEMBERS_TAB) {
                     //   getActivityFeedMembers();
                     // }
+                    if( key === LIVE_FEEDS_TAB)
+                    {
+                      onTabChange();
+                    }
                     setActiveTab(key);
                   }}
                 >
                   <Nav variant="tabs">
                     <Nav.Item>
-                      <Nav.Link eventKey={LIVE_FEEDS_TAB}>Chat</Nav.Link>
+                      <Nav.Link eventKey={LIVE_FEEDS_TAB} className="chat-nav">Chat</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
-                      <Nav.Link eventKey={MEMBERS_TAB}>Roll Call</Nav.Link>
+                      <Nav.Link eventKey={MEMBERS_TAB} className="chat-nav">Roll Call</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Tab.Container>
 
-                <div className="live-activity-window-header-right">
+                <div className="live-activity-window-header-right chat-tab-div">
                   <div className="desktop-container">
                     <Tooltip title="Fullscreen">
                       <Button
@@ -343,7 +384,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         className="icon-close"
                         onClick={() => {
                           setOpen(false);
-                          setActiveTab(LIVE_FEEDS_TAB);
+                          setActiveTab(MEMBERS_TAB);
                           setMemberChatState('leave');
                         }}
                         role="presentation"
@@ -362,45 +403,18 @@ export const LiveActivity = (props: TLiveActivity) => {
                       contentClickHandler={contentClickHandler}
                       onKeyPressed={onKeyPressed}
                     />
+                    
                   ))}
+                 
+                     <Spinner
+                        loading={isFetching}
+                        text="Loading..."
+                   />
+                  
                 </div>
               )}
 
-              {activeTab === LIVE_FEEDS_TAB && (
-                <div className="live-activity-window-body">
-                  <p
-                    style={{
-                      color: '#007bff',
-                      fontSize: '1.1em',
-                      fontStyle: 'italic',
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      cursor: 'pointer',
-                    }}
-                    onClick={scrollActivityFeedToBottom}
-                    onKeyDown={scrollActivityFeedToBottom}
-                    aria-hidden
-                  >
-                    jump to newest
-                  </p>
-                  <br />
-                  <div
-                    id="live-activity-window-body-feed"
-                    className="live-activity-window-body-feed"
-                  >
-                    {activityFeedMessages.map(feedItem => (
-                      <FeedItem
-                        key={feedItem.id}
-                        item={feedItem}
-                        contentClickHandler={contentClickHandler}
-                        onKeyPressed={onKeyPressed}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {isChatEnabled === true && (
+              {activeTab === LIVE_FEEDS_TAB && isChatEnabled === true && (
                 <div className="live-activity-window-footer">
                   <input
                     type="text"
@@ -418,6 +432,28 @@ export const LiveActivity = (props: TLiveActivity) => {
                     }
                     onMouseDown={e => e.stopPropagation()}
                   />
+                </div>
+              )}
+
+              {activeTab === LIVE_FEEDS_TAB && (
+                <div className="live-activity-window-body">
+                  <div
+                    id="live-activity-window-body-feed"
+                    className="live-activity-window-body-feed"
+                  >
+                    {activityFeedMessages.map(feedItem => (
+                      <FeedItem
+                        key={feedItem.id}
+                        item={feedItem}
+                        contentClickHandler={contentClickHandler}
+                        onKeyPressed={onKeyPressed}
+                      />
+                    ))}
+                    <Spinner
+                        loading={isFetching}
+                        text="Loading..."
+                   />
+                  </div>
                 </div>
               )}
             </div>
