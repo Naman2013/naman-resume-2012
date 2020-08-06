@@ -28,13 +28,14 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
-      const { _sloohatid } = getUserInfo();
+      const { _sloohatid, _sloohsstkn } = getUserInfo();
       const finalData = {
         ...data,
         ...commonData,
         locale: projectLocale,
         productId: projectProductId,
         sloohMarketingTrackingId: _sloohatid,
+        sloohSiteSessionToken: _sloohsstkn,
       };
       return JSON.stringify(finalData);
     },
