@@ -240,7 +240,7 @@ $screenHeaderSize: 110px;
   }
 
   //RESPONSIVE
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-only(md) {
     @include live-feed-full-screen-mode;
 
    
@@ -258,7 +258,7 @@ $screenHeaderSize: 110px;
       // transform: translate(0)!important;
     }
   }
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-only(sm) {
     @include live-feed-full-screen-mode;
 
    

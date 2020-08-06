@@ -16,6 +16,7 @@ import { Nav, Tab } from 'react-bootstrap';
 import { FeedItem } from '../feed-item';
 import { MemberItem } from '../member-item';
 import { API } from 'app/api';
+import { Spinner } from 'app/components/spinner/index';
 
 const enableResizing = {
   top: true,
@@ -119,7 +120,7 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
-  subscribeToPubnubActivityFeedChannel: Function;
+  subscribeToPubnubActivityFeedChannel: Function;  
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -134,7 +135,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     activityFeedMembers,
     getActivityFeedMembers,
     setMemberChatState,
-    subscribeToPubnubActivityFeedChannel,
+    subscribeToPubnubActivityFeedChannel    
   } = props;
 
   const rnd = useRef(null);
@@ -289,7 +290,8 @@ export const LiveActivity = (props: TLiveActivity) => {
       
   }, []);
 
-
+  const isFetching = !(activeTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
+  
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
@@ -401,7 +403,14 @@ export const LiveActivity = (props: TLiveActivity) => {
                       contentClickHandler={contentClickHandler}
                       onKeyPressed={onKeyPressed}
                     />
+                    
                   ))}
+                 
+                     <Spinner
+                        loading={isFetching}
+                        text="Loading..."
+                   />
+                  
                 </div>
               )}
 
@@ -440,6 +449,10 @@ export const LiveActivity = (props: TLiveActivity) => {
                         onKeyPressed={onKeyPressed}
                       />
                     ))}
+                    <Spinner
+                        loading={isFetching}
+                        text="Loading..."
+                   />
                   </div>
                 </div>
               )}
