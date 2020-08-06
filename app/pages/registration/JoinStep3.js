@@ -127,7 +127,7 @@ class JoinStep3 extends Component {
             clubCodeA: window.localStorage.getItem('clubCodeA'),
             clubCodeB: window.localStorage.getItem('clubCodeB'),
           billingAddressString: paymentDataString[3],
-	  sloohSiteSessionToken: _sloohsstkn,
+	  // sloohSiteSessionToken: _sloohsstkn,
 	  sloohMarketingTrackingId: _sloohatid,
         };
 

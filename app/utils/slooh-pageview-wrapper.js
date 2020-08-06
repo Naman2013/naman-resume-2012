@@ -15,7 +15,7 @@ const logPageVisit = (pagePath) => {
 		cid,
 		at,
 		token,
-		siteSessionToken: _sloohsstkn,
+		// siteSessionToken: _sloohsstkn,
 		marketingTrackingId: _sloohatid,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
@@ -39,7 +39,7 @@ const logPageVisit = (pagePath) => {
 	//console.log(_sloohatid);
 
 	const requestData = {
-		siteSessionToken: _sloohsstkn,
+		// siteSessionToken: _sloohsstkn,
 		marketingTrackingId: _sloohatid,
 		pageURI: pagePath.pagePath,
 	    	referringPageURL: pagePath.referringPageURL,
