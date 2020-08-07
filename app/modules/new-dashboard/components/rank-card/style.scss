@@ -1,0 +1,142 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .rank-main{
+    padding: 24px 0px;
+}
+
+.new-dash .rank-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;    
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .rank-id{
+    /* position: static;
+    width: 46px;
+    height: 19px;
+    left: 0px;
+    top: 0px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #969696;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 8px 0px;
+    vertical-align: top;
+}
+
+.new-dash .rank-name{
+    /* position: static;
+    width: 104px;
+    height: 19px;
+    left: 54px;
+    top: 0px; */
+    width: 100%;
+    margin-left: 5dp;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    opacity: 0.6;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    align-self: center;
+    padding: 0px 0px 16px 8px;
+    vertical-align: top;
+}
+
+.new-dash .rank-gp{
+    /* position: absolute;
+    width: 18px;
+    height: 19px;
+    right: 0px;
+    top: 8px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #FFFFFF;
+    opacity: 0.6;
+    vertical-align: top;
+}
+
+.new-dash .rank-show-more-button{    
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+    cursor: pointer;
+    color: #FFFFFF;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 10px 0px;
+}
+.new-dash .mar-lr-5{
+    margin: 0px 5px;
+}
+
+.new-dash .rank-highlight{
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .rank-heading{
+        font-size: 14px;
+        line-height: 17px; 
+    }
+    .new-dash .rank-id, .new-dash .rank-name, .new-dash .rank-gp{
+        font-size: 14px;
+        line-height: 20px; 
+    }
+    .new-dash .university{
+        font-size: 12px;
+        line-height: 17px;
+    }
+}

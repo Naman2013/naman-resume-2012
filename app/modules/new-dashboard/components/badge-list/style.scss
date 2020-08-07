@@ -1,0 +1,142 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .badge-main{
+    padding: 24px 0px;
+}
+
+.new-dash .badge-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;    
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .badge-icon{
+   width: 13px;
+   height: 13px;  
+   /* min-height: 25px; */
+   /* border-radius: 35px; */
+   /* background: #C4C4C4;    */
+   margin-top: 2px;    
+   vertical-align: middle;
+}
+
+.badge-icon-popup{
+    width: 85px;
+    height: 85px;  
+    /* min-height: 25px; */
+    /* border-radius: 35px; */
+    /* background: #C4C4C4;    */
+    margin-top: 2px;    
+    vertical-align: middle;
+ }
+
+.new-dash .badge-present{
+    background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.popup-badge-present{
+    background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
+    background-size: contain;
+    width: 150px;
+    height: 150px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.new-dash .badge-empty{
+    background: url("https://vega.slooh.com/assets/v4/dashboard-new/empty_badge.svg") no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.new-dash .badgelist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup-badge-name{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+    margin-bottom: 10px;
+    text-align: center;
+    
+    color: #FFFFFF;
+}
+
+.popup-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;   
+}
+
+.float-right{
+    float: right;
+    cursor: pointer;
+}
+
+.popup-badge-desc{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+    text-align: center;   
+    // margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .badge-empty{
+        width: 20px;
+        height: 20px;
+    }
+    .new-dash .badge-present{
+        width: 20px;
+        height: 20px;
+    }
+    .new-dash .badge-icon{
+        width: 10px;
+        height: 10px;  
+        margin-bottom: 7px;
+    }
+    .new-dash .badge-heading{       
+        font-size: 14px;
+        line-height: 16px;    
+    }
+}

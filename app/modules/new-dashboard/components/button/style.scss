@@ -1,0 +1,26 @@
+@import "../../breakpoints.scss";
+
+.new-dash .button-icon{
+    margin-right: 8px;
+    width: 17px;
+    height: 13px;
+}
+
+.new-dash .btn-text{
+    display: block;
+}
+
+.new-dash .button-container{
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .button-icon{
+        margin-right: 0px;        
+    }
+
+    .new-dash .btn-text{
+        display: none;
+    }
+}

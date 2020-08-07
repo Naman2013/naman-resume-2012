@@ -1,0 +1,140 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .map {
+    width: 100%;
+    height:800px;
+    // background: url('https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png');
+    background-color: #111;
+    border-radius: 8px;
+  }
+
+.new-dash .control-div{
+    background-color: #111111;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 12px 0px;
+    padding: 6px 24px;
+}
+
+
+
+.new-dash .select-label{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 0px 0px;
+}
+
+.new-dash .controls{
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+    flex: 0.22;
+    margin-right: 24px;
+}
+
+.new-dash .setting-icons{
+    width: 15px;
+    height: 15px;
+}
+
+.new-dash .separator-line{
+    background: linear-gradient(90deg,hsla(0,0%,100%,0),#fff 52.08%,hsla(0,0%,100%,0));
+    width: 2px;
+    height: auto;
+    margin: 5px 5px;
+}
+
+.new-dash .settings{
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+    flex: 0.2;
+    justify-content: space-around;   
+    padding: 7px 0px;
+}
+
+.new-dash .title-main{
+    padding: 24px 0px;
+}
+
+.new-dash .title-heading{
+    /* position: absolute;       
+    top: 96px;     */
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+    
+    color: #FFFFFF;
+}
+
+.new-dash .title-subHeading{
+    /* position: absolute;    
+    top: 134px; */
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+  
+    color: #BDBDBD;
+     
+}
+
+@media (min-width: $screenXLarge) {
+    .new-dash .title-main{
+        padding: 16px 0px;
+    }    
+    .new-dash .title-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 38px;
+    }
+    
+    .new-dash .title-subHeading{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;      
+        color: #BDBDBD;         
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .title-main{
+        padding: 16px 0px;
+    }    
+    .new-dash .title-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 21px;
+        line-height: 25px;
+    }
+    
+    .new-dash .title-subHeading{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;      
+        color: #BDBDBD;         
+    }
+}

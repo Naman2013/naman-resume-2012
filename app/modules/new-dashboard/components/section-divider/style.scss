@@ -1,0 +1,25 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .section-divider-main{
+    padding: 24px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.new-dash .divider-line{
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 52.08%, rgba(255, 255, 255, 0) 100%);
+}
+
+.new-dash .divider-icon{
+    width: 20px;
+    height: 10px;
+    margin: 0px 10px;
+}
+
+.new-dash .rotated{
+    transform: rotate(180deg);
+}

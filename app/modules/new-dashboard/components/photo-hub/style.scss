@@ -1,0 +1,322 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .photo-hub-main{
+    padding: 24px 0px;
+}
+
+.new-dash .photo-hub-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 25px;
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.new-dash .photo-hub-list{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+.new-dash .photo-hub-item{
+    width: 150px; 
+    height: 150px; 
+    position: relative;  
+    // cursor: pointer;   
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.new-dash .overlay-div{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(32, 32, 32, 0.6);
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.new-dash .gallery-overlay-div{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    // transition: .5s ease;
+    // background-color: rgba(32, 32, 32, 0.6);
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.new-dash .overlay-without-bg-div{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    margin:8px
+}
+
+.new-dash .photo-hub-item:hover .overlay-div{    
+    opacity: 1;
+}
+
+.new-dash .img-fit{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    
+    border-radius: 4px;
+}
+
+.new-dash .button-style{
+    border-radius: 4px;    
+    border: none;
+    background-color: #FFFFFF;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    /* identical to box height */
+    min-width: 50px;
+    padding: 8px 0px;
+    color: #000000;
+}
+
+.new-dash .mission-obj-name{
+    /* position: absolute;
+    width: 111px;
+    height: 14px;
+    left: 207px;
+    top: 2554px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+
+}
+
+.new-dash .mission-obj-date{
+    
+    /* position: absolute;
+    width: 111px;
+    height: 14px;
+    left: 207px;
+    top: 2576px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: rgba(255, 255, 255, 0.8);
+
+}
+
+.new-dash .view-details{
+    /* position: absolute;
+    width: 67px;
+    height: 14px;
+    left: 207px;
+    top: 2650px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+
+    /* identical to box height */
+
+    /* bottom: 0;
+    position: absolute; */
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+
+.new-dash .sort-filter{
+    /* position: absolute;
+    width: 63px;
+    height: 14px;
+    left: 24px;
+    top: 2190px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-decoration-line: underline;
+
+    margin-bottom: 15px;
+    color: #FFFFFF;
+    cursor: pointer;
+
+}
+
+.new-dash .upload-button{
+    padding: 8px 16px;    
+    border-radius: 8px;
+    border: 2px dashed #17202B;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    /* #FFF - Text */
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    height: fit-content;
+    background: #253446;
+}
+
+.new-dash .photo-hub-card-header{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.new-dash .photo-hub-details{
+    display: inline-flex;
+    justify-content: space-between;    
+    width: 80%;
+    bottom: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.new-dash .upload-button span{
+    display: block;
+}
+
+.new-dash .overlay-div-tab{    
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.new-dash .overlay-div-tab .mission-obj-name{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.new-dash .overlay-div-tab .mission-obj-date{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #B2B2B2;
+    margin-bottom: 9px;
+}
+
+.new-dash .overlay-div-tab .view-details{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+
+.new-dash .overlay-div-tab .photo-hub-details{
+    display: inline-flex;
+    justify-content: space-between;    
+    width: 80%;
+    position: relative;   
+    
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .upload-button span{
+        display: none;
+    }
+
+    .new-dash .upload-button .button-icon{
+        margin-right: 0;
+    }
+
+    .new-dash .upload-button{
+        padding: 8px 16px;    
+        border: none;
+    }
+
+    .new-dash .photo-hub-item{
+        width: 136px; 
+        height: auto;        
+        margin-right: 12px;
+    }
+
+    .new-dash .img-fit{
+        width: 136px;
+        height: 136px;
+    }
+    .new-dash .photo-hub-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .new-dash .overlay-div-tab{  
+        display: block;
+        margin-top: 5px;
+    }
+    .new-dash .overlay-div{  
+        display: none;
+        cursor: none;
+    }
+
+    .new-dash .gallery-overlay-div{  
+        display: none;
+        cursor: none;
+    }
+
+    .new-dash .mission-obj-name{
+        font-size: 12px;
+        line-height: 14px;
+    }
+    // .new-dash .button-style{
+    //     background: rgba(255, 255, 255, 0.4);
+    //     color: #FFFFFF;
+    // }
+}

@@ -1,0 +1,84 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .community-fame-main{
+    padding: 24px 0px;
+}
+
+.new-dash .community-fame-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 25px;    
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .community-flex-layout{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.new-dash .community-gp-card{  
+    width: 90px;
+    height: 102px;    
+    margin: 10px 0px;
+    background: url('https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg');
+    border-radius: 4px;
+}
+
+.new-dash .community-gp-points{   
+   
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 48px;
+    margin-top: 20px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.new-dash .community-gp-txt{   
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .community-gp-card{  
+        width: 70px;
+        height: 85px;    
+    }
+
+    .new-dash .community-gp-points{   
+        font-size: 30px;
+        line-height: 36px;
+        margin-top: 10px;
+    }
+    .new-dash .community-gp-txt{
+        font-size: 12px;
+        line-height: 17px;
+    }
+    // .new-dash .community-fame-heading{
+    //     font-size: 16px;
+    //     line-height: 19px;    
+    // }   
+}

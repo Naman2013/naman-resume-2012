@@ -1,0 +1,296 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .slick-prev,
+.new-dash .slick-next {
+    width: 40px;
+    height: 40px;
+    /* margin: 0 15px; */
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: #000;
+    /* border: solid 2px #FFF; */
+    border-radius: 50%;
+    z-index: 9;
+    background-color: #FFFFFF;
+    
+  }
+
+  .new-dash .slick-prev:hover,.new-dash .slick-prev:focus,.new-dash .slick-next:hover,.new-dash .slick-next:focus{
+    background-color: #FFFFFF;
+  }
+
+  .new-dash .slick-prev.slick-disabled,.new-dash .slick-next.slick-disabled{
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+
+  .new-dash .slick-prev:before {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: 14px;
+    top: 28%;
+    left: 18%;
+    z-index: 9;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
+      0 0 no-repeat;
+    transform: rotate(180deg);
+  }
+
+  .new-dash .slick-prev{
+    left: 10px
+  }
+
+  .new-dash .slick-next{
+    right: 10px
+  }
+
+  .new-dash .slick-next:before {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: 14px;
+    top: 38%;
+    left: 38%;
+    z-index: 9;
+    background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider-arrow-right.svg')
+      0 0 no-repeat;
+    /* transform: rotate(180deg); */
+  }
+
+
+  .new-dash .slick-slide > div,
+  .new-dash .slick-slide > div > div {
+    outline: 0;
+    outline: none;
+  }
+
+  .new-dash .slick-arrow.slick-disabled {
+    cursor: not-allowed !important;
+  } 
+
+  .new-dash .img-slider{
+    max-width: 100%;
+    max-height: 350px;
+    flex-shrink: 0;
+}
+
+.new-dash .slider-item{
+  display: flex !important;
+  justify-content: center;
+}
+
+.new-dash .slick-next:before, .new-dash .slick-prev:before {
+  opacity: 1;
+}
+
+.new-dash .slick-slider:hover .slick-arrow{
+  /* display: block !important; */
+  visibility:visible;
+  opacity:1;
+}
+
+// .new-dash .slick-arrow{
+//   visibility:hidden;
+//   opacity:0;
+//   transition:visibility 0.5s linear,opacity 0.5s linear;
+// }
+
+.new-dash .slider-title{
+  font-family: $secondary-font;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #FFFFFF;
+}
+
+.new-dash .slider-subtitle{
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;  
+
+  color: #FFFFFF;
+  margin: 10px 0px;
+}
+
+.new-dash .slider-content{
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+
+  color: #FFFFFF;
+}
+
+.new-dash .slider-content-footer{
+  // margin: 16px 0px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.new-dash .slider-footer-button{  
+  padding: 8px;
+
+  background: #E6EEFA;
+  border-radius: 4px;  
+  border: none;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  /* identical to box height */
+
+  text-align: center;
+  color: #6698E3;
+  display: flex;
+  /* Inside Auto Layout */  
+  
+  margin-right: 8px;
+  
+}
+
+.new-dash .empty-photoHub{
+    padding: 2em;
+    background: #202d3d;
+    border-radius: 8px;    
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-dash .slider-buttons-container{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.new-dash .slider-updated{  
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  text-align: right;
+
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.new-dash .slider-div{
+  padding: 0px;
+}
+
+.new-dash .slider-comment-input{
+  margin: 10px 0px;
+  width: 100%;
+  line-height: 50px;
+  border-radius: 10px;
+  padding-left: 15px;
+  font-size: 16px;
+  font-family: $secondary-font;
+}
+
+.new-dash .slider-info-container-large{
+  display: none;
+  flex: 1;
+}
+
+@media (min-width: $screenXLarge){
+
+    .new-dash .slider-info-container{
+        display: none;
+    }
+
+    .new-dash .slider-info-container-large{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .new-dash .slider-div{
+      padding: 0px 15px;
+    }
+
+    .new-dash .slick-prev {
+      left: -25px;
+      background-color: #253446;      
+    }
+
+    .new-dash .slick-next {
+      right: -25px;
+      background-color: #253446;      
+    }
+    
+    .new-dash .img-slider{
+      max-width: 40%;
+      height: 230px;
+      margin-left: 16px;
+    }
+
+    .new-dash .slider-item{
+      padding: 0px 36px;
+    }
+
+    .new-dash .slick-next {     
+      background-color: #253446;      
+    }
+  
+    .new-dash .slick-prev:hover,.new-dash .slick-prev:focus,.new-dash .slick-next:hover,.new-dash .slick-next:focus{
+      background-color: #253446;
+    }
+  
+    .new-dash .slick-prev.slick-disabled,.new-dash .slick-next.slick-disabled{
+      background-color: rgba(37,52,70, 0.4) !important;
+      opacity: 0.4 !important;
+    }
+
+    .new-dash .slick-next:before {   
+      width: 17px;
+      height: 14px;
+      top: 35%;
+      left: 36%;  
+      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
+        0 0 no-repeat;      
+    }
+
+    .new-dash .slick-prev:before {
+      width: 17px;
+      height: 14px;
+      top: 30%;
+      left: 20%;     
+      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
+        0 0 no-repeat;      
+    }
+
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+  .new-dash .slider-title{
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  .new-dash .slider-subtitle{
+    font-size: 14px;
+    line-height: 20px;  
+    color: #B2B2B2;
+  }
+  .new-dash .slider-updated{     
+    font-size: 14px;
+    line-height: 20px;    
+  }
+}
+

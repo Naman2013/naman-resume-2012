@@ -15,6 +15,7 @@ export function fetchActiveOrUpcomingEvent() {
     dispatch(upcomingEventsRequest());
 
     try {
+     
       const { status, data, data: { eventList } } = await API.get('/api/events/upcoming?limit=50');
 
       if (status >= 400) {

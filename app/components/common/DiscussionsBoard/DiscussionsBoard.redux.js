@@ -242,6 +242,7 @@ class DiscussionsBoard extends Component {
       itemType: 'thread',
       discussionGroupId: showId,
     };
+    
     return (
       <div key={`discussions-${topicId}`}>
         <DeviceContext.Consumer>

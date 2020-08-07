@@ -35,6 +35,8 @@ import Constellation from 'app/modules/missions/containers/constellation';
 import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
+import { NewDashboard } from 'app/modules/new-dashboard/index'
+
 import {
   GettingStartedContainer,
   PrivateProfileMain,
@@ -120,6 +122,7 @@ import AccountPreferences from './modules/account-settings/containers/account-pr
 import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
+import newDashboard from './modules/new-dashboard/new-dashboard';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -194,6 +197,14 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={Dashboard}
         onEnter={validateUser}
       />
+
+      <Route
+        exact
+        path="NewDashboard"
+        component={newDashboard}
+        onEnter={validateUser}
+      />
+
       <Route
         path="guestDashboard/:abTestCallSource"
         component={Dashboard}

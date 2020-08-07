@@ -1,0 +1,138 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .quest-card-main{
+     padding: 10px 32px; 
+     background: #253446;
+     border-radius: 8px;
+}
+
+.new-dash .quest-status{    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #C2A068;
+    margin-bottom: 10px;
+}
+
+.new-dash .quest-heading{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+    color: #FFFFFF;
+    margin-bottom: 0px;
+}
+
+.new-dash .quest-subheading{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    color: #FFFFFF;
+
+}
+
+.new-dash .quest-heading-desc{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}   
+
+.new-dash .quest-description{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+    color: #FFFFFF;
+}
+
+.new-dash .see-more{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    /* identical to box height, or 24px */
+    color: #FAD59A;
+}
+
+.new-dash .close-icon{
+    float: right;
+    color: #FFF;  
+    cursor: pointer;
+}
+
+.new-dash .quest-steps{
+    display: flex;
+    flex-direction: row;
+}
+
+.new-dash .quest-steps-item{
+    background: #2F4259;
+    border-radius: 4px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 8px 16px;
+    margin-right: 8px;
+    // justify-content: space-evenly;
+}
+
+.new-dash .step-title{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.new-dash .step-100-title{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+    color: rgba(255, 255, 255,1);
+    margin-right: 10px;
+    margin-bottom: .5rem;
+}
+
+.new-dash .step-subtitle{    
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;    
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.new-dash .step-icon{
+    height: fit-content;
+    margin-top: 2px;
+}
+
+.new-dash .quest-item-container{
+    margin-left: 10px;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    
+}

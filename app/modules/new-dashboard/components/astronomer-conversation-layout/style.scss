@@ -1,0 +1,241 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .astronomer-conversation-main{
+    /* position: absolute; */
+    /* width: 643px; */
+    
+    /* left: 24px;
+    top: 3490px; */
+
+    background: #253446;
+    border-radius: 8px;
+    padding: 12px 12px;
+    height: 700px;
+    display: table-cell;
+    vertical-align: bottom;
+    
+}
+
+.new-dash .astronomer-message-container{
+   padding: 10px 0px;   
+}
+
+/* .conversation-date{  
+
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  
+
+    padding: 15px 0px;
+    color: rgba(255, 255, 255, 0.4);
+} */
+
+.new-dash .astronomer-message-content{
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px;
+
+    /* position: absolute; */
+    width: 100%;
+    /* height: 102px;
+    left: 48px;
+    top: 3584px; */
+
+    background: #1B2633;
+    border-radius: 4px;
+    
+}
+
+.new-dash .col-left{
+    flex: 0.25;
+}
+
+.new-dash .col-right{
+    flex: 1;
+}
+
+.new-dash .astronomer-message-text{
+    /* position: static;
+    width: 314px;
+    height: 42px;
+    left: 0px;
+    top: 0px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #FFFFFF;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: flex-start;
+    margin: 0px 10px;
+}
+
+/* .highlight{ */
+    /* font-weight: bold; */
+    /* color: #3079E7; */
+/* } */
+
+/* .message-time{
+   
+    font-family: Brandon Grotesque;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+   
+    color: #FFFFFF; 
+    flex: none;
+    order: 1;
+    align-self: flex-start;
+    margin: 0px 10px;
+} */
+
+// .new-dash .astronomer-polygon-background{
+//     background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg') no-repeat;
+//     background-size: contain;
+// }
+
+.new-dash .astronomer-conversation-head{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 17px;
+    margin-left: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .astronomer-message-head{
+    /* position: absolute;
+    width: 43px;
+    height: 14px;
+    left: 120px;
+    top: 5207px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+}
+
+.new-dash .enter-message-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.new-dash .message-input{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    color: rgba(255, 255, 255,1);
+    background: transparent;
+    border: none;
+    outline: none;
+    flex: 1;
+}
+
+.new-dash .message-send-button{
+    /* flex:1; */
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.new-dash .astronomer-message-type{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("https://vega.slooh.com/assets/v4/dashboard-new/down_solid_arrow.svg");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    border: none;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    padding-right: 10px;
+    margin-right: 15px;
+    outline: none;
+}
+
+.new-dash .astronomer-message-options{
+    margin-top: 30px;
+}
+
+.new-dash input:checked ~ .checkmark{
+    background-color: #FFF;
+}
+
+.new-dash .astornomer-question-type{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+}
+
+.new-dash .astronomer-anonyme-text{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+
+.new-dash .astronomer-message-detils{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .astronomer-message-detils{
+        flex-direction: column;
+    }
+    .new-dash .astronomer-conversation-main{
+        height: 600px;
+    }
+    .new-dash .astronomer-message-text{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .astronomer-ques-det{
+        margin-top: 10px;
+    }
+    .new-dash .message-input{
+        font-size: 12px;
+        line-height: 27px;
+    }
+}

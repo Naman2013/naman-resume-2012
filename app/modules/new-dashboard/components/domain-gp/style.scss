@@ -1,0 +1,130 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .domain-main{
+    padding: 24px 0px;
+}
+
+.new-dash .domain-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;    
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .domain-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.new-dash .domain-item{
+    width: 90px;    
+}
+
+.new-dash .domainiconContainer{
+    /* position: absolute; */
+    width: 90px;
+    height: 56px;
+    /* left: 715px;
+    top: 423px; */
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    /* background: #2398AB;
+    border: 2px solid #6FCEDE;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 16px rgba(35, 152, 171, 0.2), inset 2px 2px 8px rgba(0, 0, 0, 0.15);    */
+}
+
+
+.new-dash .domain-name{
+    
+    /* position: absolute;
+    width: 51px;
+    height: 19px;
+    left: 718px;
+    top: 711px;
+     */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    
+    text-align: center;
+    
+    color: #FFFFFF;
+}
+
+.new-dash .domain-gp{
+    /* position: absolute;
+    width: 33px;
+    height: 14px;
+    left: 727px;
+    top: 731px; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #868686;
+}
+
+.new-dash .domain-rank{
+    /* position: absolute;
+    left: 35.42%;
+    right: 35.42%;
+    top: 16.67%;
+    bottom: 54.17%; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+    margin-top: 10px;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .domain-item{
+        width: 55px;    
+    }
+    .new-dash .domainiconContainer{        
+        width: 58px;
+        height: 48px;
+    }
+    .new-dash .domain-name{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .domain-gp{
+        font-size: 10px;
+        line-height: 14px;
+    }
+    .new-dash .domain-heading{
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+}

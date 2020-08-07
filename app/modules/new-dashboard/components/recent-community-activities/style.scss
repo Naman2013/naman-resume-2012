@@ -1,0 +1,30 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .recent-main{
+    padding: 24px 0px;
+}
+
+.new-dash .recent-heading{
+    /* position: absolute;       
+    top: 96px;     */
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .recent-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+}
+

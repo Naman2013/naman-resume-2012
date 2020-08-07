@@ -1,0 +1,177 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .star-party-card{ 
+    margin-right: 15px;
+    margin-bottom: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px;
+    width: 47%;
+    // width: 300px;  
+    background: url('https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg');
+    background-size:cover;
+    border-radius: 8px;
+}
+
+.new-dash .counter-text{
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: row;
+    padding: 8px 12px;
+    width: fit-content;  
+
+    background: rgba(14, 43, 86, 0.6);
+    backdrop-filter: blur(4px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 8px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    /* Inside Auto Layout */
+
+    flex: none;
+    text-align: center;
+    order: 0;    
+    min-width: 130px;
+    /* margin: 10px 0px; */
+}
+
+.new-dash .card-bottom{
+    margin-top: auto;
+    order: 3;  
+}
+
+.new-dash .live{
+    min-width: unset;
+}
+
+.new-dash .party-name{
+    /* position: static;
+    width: 261px;
+    height: 84px;
+    left: 24px;
+    top: 56px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #FFFFFF;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    margin: 10px 0px;
+}
+
+.new-dash .party-date-time{
+   
+    /* position: static;
+    width: 159px;
+    height: 16px;
+    left: 24px;
+    top: 148px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 2;
+    align-self: flex-start;
+    /* margin: 0px 8px; */
+}
+
+.new-dash .astronomer-img{
+    /* position: static; */
+    width: 32px;
+    height: 32px;
+    /* left: 0px;
+    top: 0px; */
+    border-radius: 50%;
+    background: rgba(254, 255, 255, 0.9);
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: flex-start;
+    margin: 4px 8px 4px 0px;
+}
+
+.new-dash .astronomer-text{   
+    /* position: static;
+    width: 55px;
+    height: 16px;
+    left: 36px;
+    top: 8px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+      
+    margin: 4px 0px;
+    // margin-top: auto;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .star-party-card{ 
+        // width: 450px;
+        width: 48%;
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .star-party-card{ 
+        // width: 207px;
+        width: 46%;
+    }
+    .new-dash .counter-text{
+        font-size: 14px;
+        line-height: 20px;
+        min-width: 130px;
+    }
+    .new-dash .party-name{
+        font-size: 16px;
+    }
+    .new-dash .party-date-time{
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .new-dash .astronomer-text{  
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

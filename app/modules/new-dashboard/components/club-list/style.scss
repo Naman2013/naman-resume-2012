@@ -1,0 +1,90 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .club-list-main{
+    padding: 24px 0px;
+}
+
+.new-dash .club-list-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.new-dash .club-list{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+.new-dash .club-explore-card{
+    padding: 2em;    
+    background: #253446;
+    border-radius: 8px;
+    margin-right: 10px;    
+    width: 200px;
+    margin-bottom: 10px;   
+}
+
+.new-dash .club-title{   
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.new-dash .club-subtitle{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.new-dash .club-explore-card-head{
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.new-dash .club-card-options{
+    height: fit-content;
+    cursor: pointer;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .club-explore-card{
+        width: 230px;
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .club-list-heading{       
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .new-dash .club-title{   
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .new-dash .club-explore-card{
+        width: 207px;
+        padding: 1.5em;
+    }
+}

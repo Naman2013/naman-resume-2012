@@ -1,0 +1,46 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .featured-main{
+    padding: 24px 0px;
+}
+
+.new-dash .featured-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+
+    margin-bottom: 10px;
+}
+
+
+.new-dash .featured-row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .featured-heading{
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .featured-heading{
+        font-size: 14px;
+        line-height: 17px; 
+    }
+}

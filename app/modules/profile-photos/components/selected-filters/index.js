@@ -97,7 +97,7 @@ export const SelectedFilters = (props: TSelectedFilters) => {
           onClick={() => removeFilter(['observatoryId', 'pierNumber'])}
         />
       )}
-      {timeFilter && (
+      {Boolean(timeFilter !== null) && (
         <SelectedFilterItem
           label={getTimeLabel(timeList, timeFilter)}
           onClick={() => removeFilter(['timeFilter'])}

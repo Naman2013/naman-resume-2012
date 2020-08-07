@@ -66,6 +66,7 @@ class Submenu extends Component {
 
   render() {
     const { data } = this.props;
+    
     return (
       <section className="left-submenu">
         <ul>

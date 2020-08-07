@@ -1,0 +1,100 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .gravity-main{
+    padding: 24px 0px;
+}
+
+.new-dash .gravity-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;    
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.new-dash .gravityaction{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0px
+}
+
+.new-dash .gravityiconContainer{
+    /* position: absolute; */
+    // width: 32px;
+    flex: 0.25;
+    // height: 32px;
+    /* left: 715px;
+    top: 423px; */
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    /* background: url("https://vega.slooh.com/assets/v4/dashboard-new/hexagon.svg"); */
+    /* background: #2398AB;
+    border: 2px solid #6FCEDE;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 16px rgba(35, 152, 171, 0.2), inset 2px 2px 8px rgba(0, 0, 0, 0.15);    */
+}
+
+.new-dash .gravitypoints{
+    /* position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 715px;
+    top: 423px; */
+    
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #FFFFFF;
+    
+}
+
+.new-dash .gravitytext{
+    
+    /* position: absolute;
+    width: 144px;
+    height: 14px;
+    left: 755px;
+    top: 432px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    color: #FFFFFF;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .gravity-heading{
+        font-size: 14px;
+        line-height: 16px;   
+    }
+    .new-dash .gravitytext{
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .gravityiconContainer {
+        flex: 0.35;
+    }
+}

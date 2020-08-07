@@ -41,6 +41,7 @@ import contactForm from './Contact';
 import countdown from './CountdownModule';
 import currentMission from './current-mission/get-current-mission-reducer';
 import dashboard from './dashboard/reducer';
+import newDashboard from './new-dashboard/reducer';
 import discussionsForums from './discussions-forums/reducer';
 import discussionsNewThread from './discussions-new-thread/reducer';
 import discussionsReplies from './discussions-replies/reducer';
@@ -133,6 +134,7 @@ export default combineReducers({
   countdown,
   currentMission,
   dashboard,
+  newDashboard,
   discussionsForums,
   discussionsNewThread,
   discussionsReplies,

@@ -29,8 +29,7 @@ class UpcomingShowsInHub extends Component {
   };
 
   componentDidMount() {
-    const { validateResponseAccess } = this.props;
-
+    const { validateResponseAccess } = this.props;    
     API.get(SHOWS_UPCOMING_ENDPOINT_URL).then(res => {
       if (!res.data.apiError) {
         this.setState({

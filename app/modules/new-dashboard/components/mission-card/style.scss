@@ -1,0 +1,74 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .mission-card{
+    padding: 2em;    
+    background: #202D3D;
+    border-radius: 8px; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.new-dash .time{
+   
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #B2B2B2;
+}
+
+.new-dash .scheduled-by{        
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+
+    color: rgba(255, 255, 255, 0.8);
+
+}
+
+.new-dash .obj-name{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.new-dash .scheduled-mission-icon{
+    width: 30px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+@media (min-width: $screenXLarge){
+    .new-dash .mission-card{       
+        width: 264px;
+    }
+    .new-dash .obj-name{       
+        font-size: 14px;
+        line-height: 17px;        
+    }
+}
+
+@media (min-width: $screenMedium){
+    .new-dash .mission-card{       
+        width: 264px;
+    }
+    .new-dash .obj-name{       
+        font-size: 14px;
+        line-height: 17px;        
+    }
+}
