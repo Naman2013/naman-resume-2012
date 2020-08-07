@@ -98,3 +98,9 @@ export const makeStarPartyListSelector = () =>
     selectStarParyList,
     state => state.skyConditions
   );
+
+  export const makeObservatoryListSelector = () =>
+  createSelector(
+    selectStarParyList,
+    state => state.observatoryList
+  );

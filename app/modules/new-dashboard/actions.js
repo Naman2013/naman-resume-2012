@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -31,6 +31,8 @@ export const GET_WEATHER_ACTION_START = "GET_WEATHER_ACTION_START";
 export const GET_WEATHER_ACTION_SUCCESS = "GET_WEATHER_ACTION_SUCCESS";
 export const GET_SKY_CONDITIONS_START = "GET_SKY_CONDITIONS_START";
 export const GET_SKY_CONDITIONS_SUCCESS = "GET_SKY_CONDITIONS_SUCCESS";
+export const GET_OBSERVATORY_LIST_START = "GET_OBSERVATORY_LIST_START";
+export const GET_OBSERVATORY_LIST_SUCCESS = "GET_OBSERVATORY_LIST_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -164,6 +166,15 @@ const getSkyConditionsStart = () => ({
 
 const getSkyConditionsSuccess = (payload) => ({
   type: GET_SKY_CONDITIONS_SUCCESS,
+  payload    
+});
+
+const getObservatoryListStart = () => ({
+  type: GET_OBSERVATORY_LIST_START    
+});
+
+const getObservatoryListSuccess = (payload) => ({
+  type: GET_OBSERVATORY_LIST_SUCCESS,
   payload    
 });
 
@@ -358,12 +369,8 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
   };
 
   export const getWeatherDataAction = (data) => (dispatch, getState) => {
-    dispatch(getWeatherStart());
-    dispatch(getSkyConditionsStart());
-    const { token, at, cid } = getState().user;
-    getSkyRating({token, at, cid, ...data}).then(result=>{
-      dispatch(getSkyConditionsSuccess(result.data));
-    })
+    dispatch(getWeatherStart());    
+    const { token, at, cid } = getState().user;    
     return getWeatherActions({
       token,
       at,
@@ -372,6 +379,29 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getWeatherSuccess(result.data));
+      }
+    );
+  };
+
+  export const getSkyAction = (data) => (dispatch, getState) => {    
+    dispatch(getSkyConditionsStart());
+    const { token, at, cid } = getState().user;
+    return getSkyRating({token, at, cid, ...data}).then(result=>{
+      dispatch(getSkyConditionsSuccess(result.data));
+    })    
+  };
+
+  export const getObservatoryListAction = (data) => (dispatch, getState) => {
+    dispatch(getObservatoryListStart());    
+    const { token, at, cid } = getState().user;    
+    return getObservatoryList({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getObservatoryListSuccess(result.data));
       }
     );
   };

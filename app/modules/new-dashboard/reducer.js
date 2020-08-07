@@ -29,6 +29,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_WEATHER_ACTION_SUCCESS,
          GET_SKY_CONDITIONS_START,
          GET_SKY_CONDITIONS_SUCCESS,
+         GET_OBSERVATORY_LIST_START,
+         GET_OBSERVATORY_LIST_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -208,7 +210,7 @@ export default createReducer(initialState, {
       [GET_WEATHER_ACTION_SUCCESS](state, { payload }) {               
         return {
           ...state,
-          weatherStatus: payload,
+          weatherStatus: payload.wxList,
           isFetching: false,
         };
       },
@@ -216,6 +218,7 @@ export default createReducer(initialState, {
         return {
           ...state,
           isFetching: true,
+          weatherStatus: undefined,
         };
       },
       [GET_SKY_CONDITIONS_SUCCESS](state, { payload }) {               
@@ -226,6 +229,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_SKY_CONDITIONS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_OBSERVATORY_LIST_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          observatoryList: payload,
+          isFetching: false,
+        };
+      },
+      [GET_OBSERVATORY_LIST_START](state) {
         return {
           ...state,
           isFetching: true,

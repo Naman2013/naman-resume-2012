@@ -27,11 +27,10 @@ import { SectionDivider } from "./components/section-divider";
 import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
 
-
 export class NewDashboard extends PureComponent{
     
     componentDidMount() {
-        this.getStarPartyList();
+        this.getInitialData();
     }
 
     scrollToRef = (index) => {
@@ -55,7 +54,7 @@ export class NewDashboard extends PureComponent{
         //   });
     }
 
-    getStarPartyList = () => {
+    getInitialData = () => {
         const { fetchStarPartyDataAction, 
                 getUserGravityDataAction, 
                 getUserActiveObjectDataAction, 
@@ -69,7 +68,10 @@ export class NewDashboard extends PureComponent{
                 getMissionImagesDataAction,
                 getGalleryListDataAction,
                 getRecentGravityDataAction,
-                getWeatherDataAction } = this.props;   
+                getWeatherDataAction,
+                getObservatoryListAction,
+                         
+            } = this.props;   
 
         getPrivateProfileDataAction();
         fetchStarPartyDataAction();
@@ -94,8 +96,8 @@ export class NewDashboard extends PureComponent{
         });
         getUserActiveObjectDataAction();
         getUserPopularObservationDataAction();
-        getRecentGravityDataAction();
-        getWeatherDataAction({obsId: "chile"});
+        getRecentGravityDataAction();        
+        getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
     };
     
     render(){
@@ -133,8 +135,10 @@ export class NewDashboard extends PureComponent{
                 getBookmarkListDataAction, 
                 getMyPicturesDataAction,
                 skyConditions,
+                observatoryList,
+                getSkyAction,       
               } =this.props;
-       
+      
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -164,17 +168,19 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
-                                {/* {weatherStatus && skyConditions && (
+                                {observatoryList && (
                                     <Observatories 
-                                        ref={ refs => { this.observatoryRef=refs}}
-                                        wxList={weatherStatus.wxList}
-                                        getWeatherDataAction={getWeatherDataAction}
+                                        ref={ refs => { this.observatoryRef=refs}}                                        
+                                        getWeatherDataAction={getWeatherDataAction}                                        
+                                        list={observatoryList.observatoryList}                                        
+                                        getSkyData={getSkyAction}
+                                        wxList={weatherStatus}
                                         skyConditions={skyConditions}
                                     />
-                                )} */}
+                                )}
                                 
                                 
-                                {/* <SectionDivider/> */}
+                                <SectionDivider/>
 
                                 {privateProfileMission &&(
                                     <div>
