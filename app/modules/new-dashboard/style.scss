@@ -20,6 +20,33 @@
     margin: 0px 24px;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    // background: transparent !important;
+    // background-color: transparent !important;  
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #253446 0%, #1E2A38 100%) !important;
+    // background-color: transparent !important; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+     
+    background: #FFF; 
+    border-radius: 5px;
+    border: 2px #253446 solid;
+  }
+  
+  /* Handle on hover */
+//   ::-webkit-scrollbar-thumb:hover {
+//     background: #555; 
+//   }
+
+
 @media (min-width: $screenXLarge){
     .new-dash .left{
         width: 75%;    

@@ -61,7 +61,7 @@ export function getSkyRating(data) {
 }
 
 export function getQuestCard(data) {
-  return API.post('/api/widget/getQuestCard', data);
+  return API.post('/api/quests/getQuestCard', data);
 }
 
 export function getObservatoryList(data) {

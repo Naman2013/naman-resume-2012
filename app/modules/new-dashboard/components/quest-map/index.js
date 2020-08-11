@@ -27,6 +27,7 @@ import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
 import { getQuestCard } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
+import { getUserInfo } from 'app/modules/User';
 
 export class QuestMap extends Component{
   state={
@@ -34,7 +35,7 @@ export class QuestMap extends Component{
     view: null,
     showQuestCard: false,
     questCardDetails: [],
-    isloading: false,
+    isloading1: false,
   }
     componentDidMount(){
       
@@ -56,24 +57,28 @@ export class QuestMap extends Component{
       const self = this;
       var displayFeatureInfo = function(pixel) {
         const { showQuestCard } = self.state;
-        vectorLayer.getFeatures(pixel).then(function(features) {
-          var feature = features.length ? features[0] : undefined; 
-          if (features.length) {         
-            console.log("object name: "+feature.get('name'));
-            console.log("object id: "+feature.getId());
-          }
-        });
+        // vectorLayer.getFeatures(pixel).then(function(features) {
+        //   var feature = features.length ? features[0] : undefined; 
+        //   if (features.length) {         
+        //     console.log("object name: "+feature.get('name'));
+        //     console.log("object id: "+feature.getId());
+        //   }
+        // });
 
         if(showQuestCard)
           self.setState({showQuestCard: false, questCardDetails: []});
         else{
-          self.setState({isloading: true});
+          self.setState({isloading1: true});
+          const { token, at, cid } = getUserInfo();
           getQuestCard({
-            questId: 152,
-            questUUID: 'b3701700-f43e-11e9-a8f4-06b2ab7e8ae4',
+            token, 
+            at, 
+            cid,
+            questId: 153,
+            questUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
             questVersion: 1.1
           }).then(response=>{
-            self.setState({isloading: false, questCardDetails: response, showQuestCard: true});
+            self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
             
           });         
         }
@@ -317,11 +322,11 @@ export class QuestMap extends Component{
 
     render() {     
       const { selectedStatus, selectedDifficulty, selectedSeasonality, selectedGradeLevel } = this.state;
-      const { showQuestCard, questCardDetails, isloading } = this.state
+      const { showQuestCard, questCardDetails, isloading1 } = this.state
         return (
           <div>
              <Spinner
-              loading={isloading}
+              loading={isloading1}
               text="Please wait...loading discussions"
             />
             <div className="map-container">

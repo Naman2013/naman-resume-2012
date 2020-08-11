@@ -5,6 +5,11 @@
      padding: 10px 32px; 
      background: #253446;
      border-radius: 8px;
+     -webkit-box-shadow:0 0 10px white; 
+     -moz-box-shadow: 0 0 10px white; 
+     box-shadow:0 0 10px white;
+     max-height: 600px;
+     
 }
 
 .new-dash .quest-status{    
@@ -59,6 +64,8 @@
     line-height: 150%;
     /* or 24px */
     color: #FFFFFF;
+    max-height: 200px;
+    overflow-y: scroll;
 }
 
 .new-dash .see-more{
@@ -69,6 +76,7 @@
     line-height: 150%;
     /* identical to box height, or 24px */
     color: #FAD59A;
+    cursor: pointer;
 }
 
 .new-dash .close-icon{
@@ -125,12 +133,48 @@
 }
 
 .new-dash .step-icon{
+    width: 25px;
     height: fit-content;
     margin-top: 2px;
 }
 
 .new-dash .quest-item-container{
     margin-left: 10px;
+}
+
+.new-dash .quest-navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.new-dash .quest-button-style{
+    border-radius: 4px;    
+    border: none;
+    background-color: #FFFFFF;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    min-width: 50px;
+    padding: 10px;
+    color: #253446;
+    margin-right: 20px;
+}
+
+.new-dash .quest-badge-container{
+    margin-top: -50px;
+    display: flex;
+    justify-content: center;    
+}
+
+.new-dash .quest-badge-icon{    
+    background-size: contain;
+    width: 100px;
+    height: 100px;  
+   
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
