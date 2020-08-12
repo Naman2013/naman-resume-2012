@@ -28,30 +28,50 @@ import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
 
 export class NewDashboard extends PureComponent{
+
+    state={
+        selectedBulletingHeader: "Explore the Universe",
+    }
     
+    constructor(props){
+        super(props)
+        this.exploreRef = React.createRef();  
+        this.observatoryRef = React.createRef();  
+        this.photoRef = React.createRef();  
+        this.communityRef = React.createRef();  
+    }
+
     componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
         this.getInitialData();
     }
 
-    scrollToRef = (index) => {
-        // switch(index){
-        //     case 0:
-        //         this.exploreRef.scrollIntoView();
-        //         break;
-        //     case 1:
-        //         this.observatoryRef.scrollIntoView();
-        //         break;
-        //     case 2:
-        //         this.photoRef.scrollIntoView()
-        //         break;
-        //     case 3:
-        //         this.communityRef.scrollIntoView()
-        //         break;
-        // }        
-        // ref.current.scrollIntoView({
-        //     behavior: 'smooth',
-        //     block: 'start',
-        //   });
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll= (event) => {
+        let scrollTop = event.srcElement.body.scrollTop;
+        if(scrollTop < this.observatoryRef.current.offsetTop)
+            this.setState({selectedBulletingHeader: "Explore the Universe"});
+    }
+
+    scrollToRef = (index, heading) => {
+        switch(index){
+            case 0:                
+                window.scrollTo(0, this.exploreRef.current.offsetTop);
+                break;
+            case 1:
+                window.scrollTo(0, this.observatoryRef.current.offsetTop);
+                break;
+            case 2:
+                window.scrollTo(0, this.photoRef.current.offsetTop);
+                break;
+            case 3:
+                window.scrollTo(0, this.communityRef.current.offsetTop);
+                break;
+        }  
+        this.setState({selectedBulletingHeader: heading});
     }
 
     getInitialData = () => {
@@ -138,6 +158,8 @@ export class NewDashboard extends PureComponent{
                 observatoryList,
                 getSkyAction,       
               } =this.props;
+
+              const { selectedBulletingHeader } = this.state;
       
         return(
             <div>
@@ -145,13 +167,16 @@ export class NewDashboard extends PureComponent{
                 {privateProfile && (
                     <div className="row new-dash">
                         <div className="left">
-                            <DashboardHeader
-                                refArray={[this.exploreRef, this.observatoryRef, this.photoRef, this.communityRef]}
+                            
+                            <DashboardHeader                                
                                 scrollToRef={this.scrollToRef}
+                                activeHeading={selectedBulletingHeader}
+                                // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
                             />
                             <div className="left-contents">
-                                <TitleHeader
-                                    ref={ refs => {this.exploreRef=refs}}
+
+                                <div ref={this.exploreRef}/>
+                                <TitleHeader                                    
                                     heading = {"Explore the Universe"}
                                     subHeading = {"Discover and Observe"}
                                 />
@@ -168,9 +193,9 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
+                                <div ref={this.observatoryRef}/>
                                 {observatoryList && (
-                                    <Observatories 
-                                        ref={ refs => { this.observatoryRef=refs}}                                        
+                                    <Observatories                                                                               
                                         getWeatherDataAction={getWeatherDataAction}                                        
                                         list={observatoryList.observatoryList}                                        
                                         getSkyData={getSkyAction}
@@ -238,22 +263,23 @@ export class NewDashboard extends PureComponent{
                                 
                                 <SectionDivider/>
 
+                                <div ref={this.photoRef}/>
                                 <PhotoHub
                                     heading={"Photo Hub (1 New)"}                            
                                     headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
                                     selectedheader={"Photo Roll"}
                                     headerspaceequally={false}
                                     photoHub={photoHub}
-                                    getMyPictures={getMyPicturesDataAction}
-                                    ref={refs => this.photoRef=refs}
+                                    getMyPictures={getMyPicturesDataAction}                                    
                                     getMissionImages={getMissionImagesDataAction}
-                                    getGalleryList={getGalleryListDataAction}                                    
+                                    getGalleryList={getGalleryListDataAction}                                                                       
                                 />
 
                                 <SectionDivider/>
 
+                                <div ref={this.communityRef}/>    
                                 <TitleHeader
-                                    ref={refs => this.communityRef=refs }
+                                    
                                     heading = {"Community Exploration"}
                                     subHeading = {"Latest Community Insights"}
                                 />

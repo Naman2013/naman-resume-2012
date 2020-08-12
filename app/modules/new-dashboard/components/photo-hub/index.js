@@ -188,7 +188,6 @@ class PhotoHub extends Component{
                 myPicturesFilters,
                 headerspaceequally, 
                 photoHub, 
-                ref, 
                 getMyPictures,                
                 tagsData,
                 params,
@@ -244,7 +243,7 @@ class PhotoHub extends Component{
         }
         
         return (
-            <div className="photo-hub-main" ref={ref}>
+            <div className="photo-hub-main">
                 <h2 className="photo-hub-heading">{heading}</h2>    
                     <div className="photo-hub-card-header">
                         <TabHeader

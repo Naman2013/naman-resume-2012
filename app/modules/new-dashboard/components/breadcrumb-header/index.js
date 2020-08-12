@@ -5,21 +5,14 @@ import './style.scss';
 
 export class DashboardHeader extends Component{
 
-    constructor(props){
-        super(props);
-        this.state={activeHeading: "Explore the Universe"};
-    }
-    
     onHeadingChange(heading, index){
-        const { scrollToRef } = this.props;
-        this.setState({activeHeading: heading});
-        scrollToRef(index);
+        const { scrollToRef } = this.props;        
+        scrollToRef(index, heading);
     }
 
     render() {
-        const headings = ["Explore the Universe", "Observatory and Missions", "Photo", "Community Exploration"];
-        const { activeHeading } = this.state;
-        const { refArray } = this.props;
+        const headings = ["Explore the Universe", "Observatory and Missions", "Photo", "Community Exploration"];       
+        const { activeHeading } = this.props;
 
         return (
             <div className="header-main">

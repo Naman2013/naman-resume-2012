@@ -33,11 +33,11 @@ export class Observatories extends Component{
 
     render() {
         const heading = "Observatories";        
-        const { ref, list, wxList, skyConditions } = this.props;
+        const { list, wxList, skyConditions } = this.props;
         const { selectedheader } = this.state;       
 
         return (
-            <div className="observatory-main" ref={ref}>                
+            <div className="observatory-main" >                
                 <h2 className="observatory-heading">{heading}</h2>
                 <TabHeaderWithStatus
                         // headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
