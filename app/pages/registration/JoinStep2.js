@@ -270,7 +270,6 @@ class JoinStep2 extends Component {
   };
 
   handleCaptchaCode=(token)=>{   
-    debugger; 
     const { _sloohsstkn } = getUserInfo();    
     if(token !==null){
       API.post(VERIFY_CAPTCHA_CODE_URL,
