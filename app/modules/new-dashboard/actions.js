@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -33,6 +33,9 @@ export const GET_SKY_CONDITIONS_START = "GET_SKY_CONDITIONS_START";
 export const GET_SKY_CONDITIONS_SUCCESS = "GET_SKY_CONDITIONS_SUCCESS";
 export const GET_OBSERVATORY_LIST_START = "GET_OBSERVATORY_LIST_START";
 export const GET_OBSERVATORY_LIST_SUCCESS = "GET_OBSERVATORY_LIST_SUCCESS";
+export const GET_QUEST_MAP_CONTROL_START = "GET_QUEST_MAP_CONTROL_START";
+export const GET_QUEST_MAP_CONTROL_SUCCESS = "GET_QUEST_MAP_CONTROL_SUCCESS";
+
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -175,6 +178,15 @@ const getObservatoryListStart = () => ({
 
 const getObservatoryListSuccess = (payload) => ({
   type: GET_OBSERVATORY_LIST_SUCCESS,
+  payload    
+});
+
+const getQuestMapControlStart = () => ({
+  type: GET_QUEST_MAP_CONTROL_START    
+});
+
+const getQuestMapControlSuccess = (payload) => ({
+  type: GET_QUEST_MAP_CONTROL_SUCCESS,
   payload    
 });
 
@@ -402,6 +414,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getObservatoryListSuccess(result.data));
+      }
+    );
+  };
+
+  export const getQuestMapControlAction = (data) => (dispatch, getState) => {
+    dispatch(getQuestMapControlStart());    
+    const { token, at, cid } = getState().user;    
+    return getQuestMapControls({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getQuestMapControlSuccess(result.data));
       }
     );
   };

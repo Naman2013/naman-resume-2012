@@ -90,7 +90,7 @@ export class NewDashboard extends PureComponent{
                 getRecentGravityDataAction,
                 getWeatherDataAction,
                 getObservatoryListAction,
-                         
+                getQuestMapControlAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -118,6 +118,7 @@ export class NewDashboard extends PureComponent{
         getUserPopularObservationDataAction();
         getRecentGravityDataAction();        
         getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
+        getQuestMapControlAction();
     };
     
     render(){
@@ -156,7 +157,8 @@ export class NewDashboard extends PureComponent{
                 getMyPicturesDataAction,
                 skyConditions,
                 observatoryList,
-                getSkyAction,       
+                getSkyAction, 
+                questMapControls,      
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -189,8 +191,13 @@ export class NewDashboard extends PureComponent{
                                 />
                                 {/* <ObjectMap/> */}
 
-                                <QuestMap/>
-
+                                
+                                {questMapControls && (
+                                    <QuestMap
+                                        questMapControls={questMapControls.mapControls}
+                                    /> 
+                                )}
+                               
                                 <SectionDivider/>
 
                                 <div ref={this.observatoryRef}/>

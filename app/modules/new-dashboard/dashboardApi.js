@@ -60,6 +60,10 @@ export function getSkyRating(data) {
   return API.post('/api/widget/seeingConditions', data);
 }
 
+export function getQuestMapControls(data) {
+  return API.post('/api/quests/getQuestMapControls', data);
+}
+
 export function getQuestCard(data) {
   return API.post('/api/quests/getQuestCard', data);
 }

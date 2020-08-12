@@ -36,9 +36,24 @@ export class QuestMap extends Component{
     showQuestCard: false,
     questCardDetails: [],
     isloading1: false,
+    selectedControls: [],
   }
-    componentDidMount(){
-      
+
+  constructor (props){
+    super(props);
+    const { questMapControls } = this.props;
+    const selectedControls = questMapControls[0].controlList.map(control=>control.selectedIndex);      
+    this.state={
+      map: null,
+      view: null,
+      showQuestCard: false,
+      questCardDetails: [],
+      isloading1: false,
+      selectedControls:selectedControls
+    }    
+  }
+    componentDidMount(){     
+     
       var vectorLayer = new VectorLayer({
         source: new VectorSource({
           format: new GeoJSON(),
@@ -220,7 +235,7 @@ export class QuestMap extends Component{
             displayFeatureInfo(evt.pixel);
           });
           // map.on('click', this.handleMapClick.bind(this));
-          this.setState({map: map, view: view});
+          this.setState({map: map, view: view });
           
     }
 
@@ -248,60 +263,14 @@ export class QuestMap extends Component{
   
     } 
 
-    statusOptions = [
-      { value: 'All', label: 'All' },
-      { value: 'Not Started', label: 'Not Started' },
-      { value: 'In-Progress', label: 'In-Progress' },
-      { value: 'Completed', label: 'Completed' },
-    ];
+   
+    handleOptionChange = (controlIndex, selectedIndex)=>{      
+      let { selectedControls } = this.state;
+      selectedControls[controlIndex]=selectedIndex;
+      this.setState({selectedControls: selectedControls});
+    }
 
-    difficultyOptions = [
-      { value: 'All', label: 'All' },
-      { value: 'Start Here', label: 'Start Here' },
-      { value: '100', label: '100' },
-      { value: '200', label: '200' },
-      { value: '300', label: '300' },
-      { value: '400', label: '400' },
-    ];
-
-    seasonalityOptions = [
-      { value: 'All', label: 'All' },
-      { value: 'None', label: 'None' },
-      { value: 'Winter - Summer', label: 'Winter - Summer' },
-      { value: 'Spring - Fall', label: 'Spring - Fall' },
-    ]
-
-    gradeLevelOptions = [
-      { value: 'All', label: 'All' },
-      { value: 'None', label: 'None' },
-      { value: 'Elementary', label: 'Elementary' },
-      { value: 'Middle', label: 'Middle' },
-      { value: 'High School', label: 'High School' },
-      { value: 'College', label: 'College' },
-    ]
-
-    state = {
-      selectedStatus: { value: 'All', label: 'All' },
-      selectedDifficulty: { value: 'All', label: 'All' },
-      selectedSeasonality: { value: 'All', label: 'All' },
-      selectedGradeLevel: { value: 'All', label: 'All' }
-    };
-
-    handleStutusChange = selectedStatus => {     
-      this.setState({ selectedStatus });      
-    };
-
-    handleDifficultyChange = selectedDifficulty => {      
-      this.setState({ selectedDifficulty });      
-    };
-
-    handleSeasonalityChange = selectedSeasonality => {
-      this.setState({ selectedSeasonality });      
-    };
-
-    handleGradeLevelChange = selectedGradeLevel => {
-      this.setState({ selectedGradeLevel });      
-    };
+   
 
     colourStyles = {
       container: styles => ({...styles, flex: 1}),
@@ -320,9 +289,11 @@ export class QuestMap extends Component{
       
     };
 
-    render() {     
-      const { selectedStatus, selectedDifficulty, selectedSeasonality, selectedGradeLevel } = this.state;
+    render() {          
       const { showQuestCard, questCardDetails, isloading1 } = this.state
+      const { questMapControls } = this.props;      
+      const { selectedControls } = this.state;
+      
         return (
           <div>
              <Spinner
@@ -346,7 +317,24 @@ export class QuestMap extends Component{
             </div>
            
             <div className="control-div">
-              <div className="controls">
+              {questMapControls[0].controlList.map((control, i)=>(
+                <div className="controls">
+                <span className="select-label">{control.controlId}: </span>
+                <Select                 
+                  value={control.list[selectedControls[i]]}
+                  onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
+                  options={control.list}
+                  isSearchable={false}
+                  styles={this.colourStyles}
+                  getOptionLabel={option => option.value }
+                  getOptionValue={option => option.key}
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                />
+              </div>
+              ))}
+              {/* <div className="controls">
                 <span className="select-label">Status: </span>
                 <Select                 
                   value={selectedStatus}
@@ -398,11 +386,14 @@ export class QuestMap extends Component{
                     IndicatorSeparator: () => null
                   }}
                 />
-              </div>
+              </div> */}
               <div className="separator-line">
               </div>
-              <div className="settings">                 
+              <div className="settings"> 
+                {/* {questMapControls[1].controlList.map(control=>(
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
+                ))}                */}
+                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
                   <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/>
               </div>

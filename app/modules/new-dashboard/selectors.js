@@ -1,106 +1,112 @@
 import { createSelector } from 'reselect';
 
-export const selectStarParyList = state => state.newDashboard;
+export const newDashList = state => state.newDashboard;
 
 
 export const makeStarPartyListSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.upcomingStarPartyList
   );
 
   export const makeUserGravityStatusSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.userGravityStatus
   );
 
   export const makePhotoHubSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.photoHub
   );
 
   export const makeDashboardFeaturedObjectsSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.dashboardFeaturedObjects
   );
 
   export const makeMyClubListSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.myClubList
   );
 
   export const makeBookmarkListSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.bookmarkList
   );
 
   export const makePrivateProfileSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.privteProfile
   );
 
   export const makeNewDashFetchingSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.isFetching
   );
 
   export const makePrivateProfileMissionSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.privateProfileMission
   );
   
   export const makeUserActiveObjectSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.userActiveObject
   );
 
   export const makeUserPopularObservationSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.userPopularObservation
   );
 
   export const makeMissionImagesSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.missionImages
   );
 
   export const makeGalleryListSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.galleryList
   );
 
   export const makeRecentGravityActionSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.recentGravityAction
   );
   
   export const makeWeatherStatusSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.weatherStatus
   );
 
   export const makeSkyConditionSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.skyConditions
   );
 
   export const makeObservatoryListSelector = () =>
   createSelector(
-    selectStarParyList,
+    newDashList,
     state => state.observatoryList
+  );
+
+  export const makeQuestMapControlSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.questMapControls
   );

@@ -31,6 +31,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_SKY_CONDITIONS_SUCCESS,
          GET_OBSERVATORY_LIST_START,
          GET_OBSERVATORY_LIST_SUCCESS,
+         GET_QUEST_MAP_CONTROL_START,
+         GET_QUEST_MAP_CONTROL_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -242,6 +244,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_OBSERVATORY_LIST_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_QUEST_MAP_CONTROL_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          questMapControls: payload,
+          isFetching: false,
+        };
+      },
+      [GET_QUEST_MAP_CONTROL_START](state) {
         return {
           ...state,
           isFetching: true,
