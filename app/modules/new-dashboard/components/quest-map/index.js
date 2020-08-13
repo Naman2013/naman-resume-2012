@@ -28,6 +28,7 @@ import { QuestCard } from '../quest-card';
 import { getQuestCard } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
+import { hide } from 'app/modules/Login';
 
 export class QuestMap extends Component{
   state={
@@ -37,6 +38,8 @@ export class QuestMap extends Component{
     questCardDetails: [],
     isloading1: false,
     selectedControls: [],
+    mapExpanded: false,
+    hideMap: false,
   }
 
   constructor (props){
@@ -263,6 +266,56 @@ export class QuestMap extends Component{
   
     } 
 
+    handleExpandMap = () => {
+      const { mapExpanded } = this.state;
+      this.setState({mapExpanded: !mapExpanded});
+      var elem = document.getElementById('quest-Map');
+      const self=this;
+      const exitHandlerFun = () => {
+        const element = document.fullscreenElement;
+        const { mapExpanded } = this.state;
+        if (element === null) 
+        {      
+            // Run code on exit
+            debugger;
+            self.setState({mapExpanded: !mapExpanded});
+            document.removeEventListener("fullscreenchange", exitHandlerFun);
+        }
+      };
+      if(elem.requestFullscreen){
+        elem.requestFullscreen();
+        document.addEventListener("fullscreenchange",exitHandlerFun ,false);
+      }
+      else if(elem.mozRequestFullScreen){
+          elem.mozRequestFullScreen();
+          document.addEventListener("mozfullscreenchange", ()=>this.exitHandler(self),false);
+      }
+      else if(elem.webkitRequestFullscreen){
+          elem.webkitRequestFullscreen();
+          document.addEventListener("webkitfullscreenchange", ()=>this.exitHandler(self),false);
+      }
+      else if(elem.msRequestFullscreen){
+          elem.msRequestFullscreen();
+          document.addEventListener("msfullscreenchange", ()=>this.exitHandler(self),false);
+      }
+      
+      
+    }
+
+    handleContractMap = () => {            
+      if(document.exitFullscreen){
+        document.exitFullscreen();
+      }
+      else if(document.mozCancelFullScreen){
+          document.mozCancelFullScreen();
+      }
+      else if(document.webkitExitFullscreen){
+          document.webkitExitFullscreen();
+      }
+      else if(document.msExitFullscreen){
+          document.msExitFullscreen();
+      }      
+    }
    
     handleOptionChange = (controlIndex, selectedIndex)=>{      
       let { selectedControls } = this.state;
@@ -292,10 +345,10 @@ export class QuestMap extends Component{
     render() {          
       const { showQuestCard, questCardDetails, isloading1 } = this.state
       const { questMapControls } = this.props;      
-      const { selectedControls } = this.state;
+      const { selectedControls, hideMap, mapExpanded } = this.state;
       
         return (
-          <div>
+          <div id="quest-Map">
              <Spinner
               loading={isloading1}
               text="Please wait...loading discussions"
@@ -393,9 +446,50 @@ export class QuestMap extends Component{
                 {/* {questMapControls[1].controlList.map(control=>(
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
                 ))}                */}
-                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
+
+                  {questMapControls[1].controlList[0].show && (
+                    <img className="setting-icons" 
+                      src={questMapControls[1].controlList[0].iconURL}
+                      onClick={()=>{}}
+                    />
+                  )}
+
+                  {questMapControls[1].controlList[1].show && !mapExpanded && (
+                    <img className="setting-icons" 
+                      src={questMapControls[1].controlList[1].iconURL}
+                      onClick={this.handleExpandMap}
+                    />
+                  )}
+
+                  {questMapControls[1].controlList[2] && mapExpanded &&(
+                    <img className="setting-icons" 
+                      src={questMapControls[1].controlList[2].iconURL}
+                      onClick={this.handleContractMap}
+                      />
+                  )}
+
+                  {questMapControls[1].controlList[3].show && !hideMap &&(
+                    <img className="setting-icons" 
+                      src={questMapControls[1].controlList[3].iconURL}
+                      onClick={()=>this.setState({hideMap: !hideMap})}
+                    />
+                  )}
+
+                  {questMapControls[1].controlList[4] && hideMap &&(
+                    <img className="setting-icons" 
+                      src={questMapControls[1].controlList[4].iconURL}
+                      onClick={()=>this.setState({hideMap: !hideMap})}
+                      />
+                  )}
+
+
+
+
+
+
+                  {/* <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
-                  <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/>
+                  <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
               </div>
             </div>
             <button onClick={()=>this.handleFindObject()}>find</button>
