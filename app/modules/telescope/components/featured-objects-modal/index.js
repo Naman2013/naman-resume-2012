@@ -20,8 +20,10 @@ export class FeaturedObjectsModal extends Component {
       goBackLinkText,
       tip,
       objectIconURL,
+      hasWeatherForecastData,
+      weatherForecastData
     } = selectedMission;
-    
+   
     return (
       <Modal show={show} onHide={onHide} goBackText={goBackLinkText}>
         <div className="modal-wrapper featured-objects-modal">
@@ -35,6 +37,8 @@ export class FeaturedObjectsModal extends Component {
             onMissionView={onMissionView}
             piggyback={piggyback}
             communityMissions
+            hasWeatherForecastData={hasWeatherForecastData}
+            weatherForecastData={weatherForecastData}
           />
         </div>
       </Modal>

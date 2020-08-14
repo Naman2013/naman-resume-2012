@@ -137,6 +137,20 @@
   }
 }
 
+.weather-icon{ 
+    background-color: $lightHeadedAstronaut;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-bottom: 3px;
+    padding: 5px;  
+}
+
+.weather-div{
+  padding-top: 10px;
+}
+
 @include media-breakpoint-only(md) {
   .mission-tile {
     .time {

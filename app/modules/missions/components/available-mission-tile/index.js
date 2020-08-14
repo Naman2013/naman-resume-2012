@@ -41,6 +41,8 @@ export class AvailbleMissionTile extends Component {
       scheduleMissionCaption,
       completeReservationPromptShort,
       piggyback,
+      hasWeatherForecastData,
+      weatherForecastData
     } = this.props;
     const {
       title,
@@ -89,6 +91,14 @@ export class AvailbleMissionTile extends Component {
         </div>
         <div className="description">{explanation}</div>
         {tip && <div className="description">{tip}</div>}
+
+        {hasWeatherForecastData && weatherForecastData && (
+          <div className="weather-div">
+            <span className="description"><b>{weatherForecastData.ForecastHeading}</b>{weatherForecastData.ForecastDetails}</span>
+            <img src={weatherForecastData.ForecastIconURL} className="weather-icon"/>
+          </div>
+        )}
+
         {onSubmit && (
           <div className="actions">
             <Button

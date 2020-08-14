@@ -53,6 +53,18 @@
     padding: 5px;
 }
 
+.new-dash .join-mission{   
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    /* #FFF - Text */
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
 @media (min-width: $screenXLarge){
     .new-dash .mission-card{       
         width: 264px;
