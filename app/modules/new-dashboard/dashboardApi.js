@@ -71,3 +71,7 @@ export function getQuestCard(data) {
 export function getObservatoryList(data) {
   return API.post('/api/obs/list', data);
 }
+
+export function getQuestMap(data) {
+  return API.post('/api/quests/getQuestMap', data);
+}

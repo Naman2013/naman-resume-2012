@@ -25,7 +25,7 @@ import {getCenter} from 'ol/extent';
 import {composeCssTransform} from 'ol/transform';
 import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
-import { getQuestCard } from '../../dashboardApi';
+import { getQuestCard, getQuestMap } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import { Dropdown } from 'react-bootstrap';
@@ -316,10 +316,22 @@ export class QuestMap extends Component{
       }      
     }
    
-    handleOptionChange = (controlIndex, selectedIndex)=>{      
+    handleOptionChange = (controlIndex, selectedIndex)=>{         
       let { selectedControls } = this.state;
+      const { questMapControls } = this.props;
+      const { controlList } = questMapControls[0];
+      const { token, at, cid } = getUserInfo();
+      const layers = ["questMap", "pathfinder"]
+      let filterList=[];
       selectedControls[controlIndex]=selectedIndex;
       this.setState({selectedControls: selectedControls});
+      controlList.map((control,i)=>{
+        filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
+      });
+      // console.log(filterList);
+      getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{
+        debugger;
+      });
     }
 
    
