@@ -3,11 +3,14 @@ import React from "react";
 import { Button } from '../button';
 import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
+import SocialSharingBar from '../../../../components/common/social-sharing-bar';
+import { browserHistory } from 'react-router';
 
 export class Observation extends Component{
 
     state = {
-        activePage: 1,
+        activePage: 1,        
+        selectedShareItem: null,
     }    
 
     PHOTOS_ON_ONE_PAGE=18
@@ -28,15 +31,22 @@ export class Observation extends Component{
         this.setState({ activePage });
       };
     
+      handleShowShareOptionClick = (index) => {
+          const { selectedShareItem } = this.state;          
+          if(selectedShareItem === index)
+            index=null;
+          this.setState({selectedShareItem: index});
+      }
+    
     render() {
         const { imageList, totalCount } = this.props;        
-        const { activePage } = this.state;
+        const { activePage, showShareOption, selectedShareItem } = this.state;
         
         return (
             imageList !== undefined ? ( 
                 <div>                
                     <div className="photo-hub-list">
-                        {imageList.map(photo=>(
+                        {imageList.map((photo,i)=>(
                             <div>
                                 <div className="photo-hub-item">                               
                                     <img className="img-fit" src={photo.imageURL}/>                                
@@ -80,26 +90,36 @@ export class Observation extends Component{
                                             type={"button"}
                                             onClickEvent={()=>{}} 
                                             text={photo.likesCount}                                             
-                                            style={"slider-footer-button"}
+                                            style={photo.likesCount > 0 ? "slider-footer-button" : "slider-footer-button-grey" }
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/heart.svg"}
                                         />
                                         <Button
                                             type={"button"}
-                                            onClickEvent={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen})}} 
-                                            text={photo.commentsCount}                                             
-                                            style={"slider-footer-button"}
+                                            onClickEvent={()=>{browserHistory.push(photo.photoViewFullURL)}} 
+                                            text={photo.commentsCount }                                             
+                                            style={photo.likesCount > 0 ? "slider-footer-button" : "slider-footer-button-grey" }
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
                                         />
                                         <Button
                                             type={"button"}
-                                            onClickEvent={()=>{}} 
-                                            text={"0"}                                             
+                                            onClickEvent={()=>{this.handleShowShareOptionClick(i)}} 
+                                            text={""}                                             
                                             style={"slider-footer-button"}
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
                                         />
                                     </div>                                    
-                                </div>             
-
+                                </div> 
+                                { selectedShareItem === i && (
+                                    <div className="socialsharingbar">
+                                        <SocialSharingBar
+                                            contentLayout="horizontal"
+                                            shareTitle={photo.imageTitle}
+                                            shareDescription={"socialShareDescription"}
+                                            shareURL="https://nova.slooh.com/lnk/randomizeForNow"
+                                            shareImageURL={photo.imageURL}
+                                        />
+                                    </div>
+                                )}                                            
                             </div>    
                         ))}                           
                     </div>

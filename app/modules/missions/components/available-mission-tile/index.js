@@ -41,8 +41,7 @@ export class AvailbleMissionTile extends Component {
       scheduleMissionCaption,
       completeReservationPromptShort,
       piggyback,
-      hasWeatherForecastData,
-      weatherForecastData
+          
     } = this.props;
     const {
       title,
@@ -58,10 +57,12 @@ export class AvailbleMissionTile extends Component {
       missionStartFormatted,
       showFollowPromptFlag,
       showLearnButton,
+      hasWeatherForecastData,  
+      weatherForecastData
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
     const { countdown }=this.state;
-
+    
     return (
       <div className="mission-tile">
         <div className="countdown">

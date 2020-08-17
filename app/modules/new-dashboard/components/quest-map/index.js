@@ -28,7 +28,7 @@ import { QuestCard } from '../quest-card';
 import { getQuestCard } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
-import { hide } from 'app/modules/Login';
+import { Dropdown } from 'react-bootstrap';
 
 export class QuestMap extends Component{
   state={
@@ -276,8 +276,7 @@ export class QuestMap extends Component{
         const { mapExpanded } = this.state;
         if (element === null) 
         {      
-            // Run code on exit
-            debugger;
+            // Run code on exit            
             self.setState({mapExpanded: !mapExpanded});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
         }
@@ -448,10 +447,24 @@ export class QuestMap extends Component{
                 ))}                */}
 
                   {questMapControls[1].controlList[0].show && (
-                    <img className="setting-icons" 
-                      src={questMapControls[1].controlList[0].iconURL}
-                      onClick={()=>{}}
-                    />
+                     <Dropdown className="settings-dropdown">
+                      <Dropdown.Toggle  id="dropdown-basic" block>
+                        <img className="setting-icons" 
+                        src={questMapControls[1].controlList[0].iconURL}
+                        onClick={()=>{}}
+                      />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {questMapControls[1].controlList[0].target.menuItems.map((menu,i)=>(
+                            <Dropdown.Item
+                            key={i}
+                            onClick={()=>{}}
+                          >
+                            {menu.prompt}
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>                    
+                    </Dropdown>
                   )}
 
                   {questMapControls[1].controlList[1].show && !mapExpanded && (

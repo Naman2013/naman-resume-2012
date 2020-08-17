@@ -104,6 +104,15 @@
     position: relative;
 }
 
+.new-dash .settings-dropdown{
+    button{
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0px !important;
+    }    
+}
+
 .new-dash .popup{
     position: absolute;
     width: 80%;
