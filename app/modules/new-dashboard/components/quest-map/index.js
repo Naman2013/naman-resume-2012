@@ -175,9 +175,77 @@ export class QuestMap extends Component{
         
       });
 
-            var svgContainer = document.createElement('div');
+            // var svgContainer = document.createElement('div');
+            // var xhr = new XMLHttpRequest();            
+            // xhr.open('GET', 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',true);
+            // // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
+            // xhr.setRequestHeader('Content-Type','application/xml');
+            // xhr.addEventListener('load', function () {
+            //   var svg = xhr.responseXML.documentElement;
+            //   svgContainer.ownerDocument.importNode(svg);
+            //   svgContainer.appendChild(svg);
+            // });
+            // xhr.send();
+
+            // var width = 2560;
+            // var height = 1280;
+            // var svgResolution = 360 / width;
+            // svgContainer.style.width = width + 'px';
+            // svgContainer.style.height = height + 'px';
+            // svgContainer.style.transformOrigin = 'top left';
+            // svgContainer.className = 'svg-layer';
+
+           
+
+            // var backgroundLayer=
+            //   new Layer({
+            //     render: function (frameState) {
+            //       var scale = svgResolution / frameState.viewState.resolution;
+            //       var center = frameState.viewState.center;
+            //       var size = frameState.size;
+            //       var cssTransform = composeCssTransform(
+            //         size[0] / 2,
+            //         size[1] / 2,
+            //         scale,
+            //         scale,
+            //         frameState.viewState.rotation,
+            //         -center[0] / svgResolution - width / 2,
+            //         center[1] / svgResolution - height / 2
+            //       );
+            //       svgContainer.style.transform = cssTransform;
+            //       svgContainer.style.opacity = 1;
+            //       return svgContainer;
+            //     },
+            //   })
+            
+            
+
+
+            var map = new Map({
+              controls: [],
+              target: 'map',
+              view: view,
+              layers: [                   
+                // backgroundLayer,
+                // vectorLayer,
+              ]
+            });
+
+           
+            
+                     
+          // map.on('click', function(evt) {
+          //   displayFeatureInfo(evt.pixel);
+          // });
+          // map.on('click', this.handleMapClick.bind(this));
+          this.setState({map: map, view: view });
+          
+    }
+
+    getSVGLayer(source){
+      var svgContainer = document.createElement('div');
             var xhr = new XMLHttpRequest();            
-            xhr.open('GET', 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',true);
+            xhr.open('GET', source ,true);
             // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
             xhr.setRequestHeader('Content-Type','application/xml');
             xhr.addEventListener('load', function () {
@@ -217,30 +285,27 @@ export class QuestMap extends Component{
                   return svgContainer;
                 },
               })
-            
-            
-
-
-            var map = new Map({
-              controls: [],
-              target: 'map',
-              view: view,
-              layers: [                   
-                backgroundLayer,
-                vectorLayer,
-              ]
-            });
-
-           
-            
-                     
-          map.on('click', function(evt) {
-            displayFeatureInfo(evt.pixel);
-          });
-          // map.on('click', this.handleMapClick.bind(this));
-          this.setState({map: map, view: view });
-          
+              return backgroundLayer;
     }
+
+    getVectorLayer(){
+      return new VectorLayer({
+        source: new VectorSource({
+          format: new GeoJSON(),
+          features: (new GeoJSON()).readFeatures(mapVector)   
+          // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
+        })
+      });
+    }
+
+    getLayer(source, type){
+      switch(type){
+        case "Image":
+          return this.getSVGLayer(source); 
+          // return this.getVectorLayer();         
+      }
+    }
+
 
     handleFindObject(){
       // var position = fromLonLat();
@@ -321,7 +386,8 @@ export class QuestMap extends Component{
       const { questMapControls } = this.props;
       const { controlList } = questMapControls[0];
       const { token, at, cid } = getUserInfo();
-      const layers = ["questMap", "pathfinder"]
+      const layers = ["questMap", "pathfinder"];
+      const self = this;
       let filterList=[];
       selectedControls[controlIndex]=selectedIndex;
       this.setState({selectedControls: selectedControls});
@@ -330,7 +396,30 @@ export class QuestMap extends Component{
       });
       // console.log(filterList);
       getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{
-        debugger;
+       
+        const res=response.data;
+        if(!res.apiError){
+          const { layerList } = res;
+          let {map} = self.state;
+          const arrayLayers = map.getLayers().array_;
+
+          if(arrayLayers.length > 0)
+            arrayLayers.map(layer=>{
+              map.removeLayer(layer);
+            });
+            
+          layerList.map(layer=>{            
+            map.addLayer(this.getLayer(layer.source, layer.type));
+          })
+          map.addLayer(this.getVectorLayer());
+
+          // mapObject.addLayer(raster);
+
+          // map.addLayer([mapLayer]);
+          // map.getLayers().extend(layerList);
+          self.setState({map: map});
+        }
+        
       });
     }
 

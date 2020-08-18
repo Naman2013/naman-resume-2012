@@ -110,3 +110,9 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.questMapControls
   );
+
+  export const makeObsWidgetDataSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.obsWidgetData
+  );

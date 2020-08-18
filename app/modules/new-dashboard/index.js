@@ -158,7 +158,9 @@ export class NewDashboard extends PureComponent{
                 skyConditions,
                 observatoryList,
                 getSkyAction, 
-                questMapControls,      
+                questMapControls, 
+                getNewDashObsAction,
+                obsWidgetData     
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -208,6 +210,8 @@ export class NewDashboard extends PureComponent{
                                         getSkyData={getSkyAction}
                                         wxList={weatherStatus}
                                         skyConditions={skyConditions}
+                                        getNewDashObs={getNewDashObsAction}
+                                        obsWidgetData={obsWidgetData}
                                     />
                                 )}
                                 

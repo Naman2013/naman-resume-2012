@@ -41,6 +41,7 @@ import {
     getSkyAction,
     getObservatoryListAction,
     getQuestMapControlAction,
+    getNewDashObsAction,
   } from './actions';
 
 
@@ -62,6 +63,7 @@ import { makeStarPartyListSelector,
     makeSkyConditionSelector,
     makeObservatoryListSelector,
     makeQuestMapControlSelector,
+    makeObsWidgetDataSelector,
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -91,6 +93,7 @@ const mapStateToProps = createStructuredSelector({
     skyConditions: makeSkyConditionSelector(),
     observatoryList: makeObservatoryListSelector(),
     questMapControls: makeQuestMapControlSelector(),
+    obsWidgetData: makeObsWidgetDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -116,6 +119,7 @@ const mapDispatchToProps = {
     getObservatoryListAction,
     getSkyAction,
     getQuestMapControlAction,
+    getNewDashObsAction,
 };
 
 export default compose(

@@ -15,11 +15,15 @@ export class Observatories extends Component{
     }
 
     componentDidMount(){
-        const { list, getWeatherDataAction, getSkyData } = this.props;
+        const { list, getWeatherDataAction, getSkyData, getNewDashObs } = this.props;        
         if(list){
-            const { obsId, SeeingConditionsWidgetId } = list[0];
+            const { obsId, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list[0];
             getWeatherDataAction({ obsId });
-            getSkyData({ obsId , widgetUniqueId: SeeingConditionsWidgetId });
+            getNewDashObs({obsId,                 
+                dayNightBarWidgetUniqueId: DayNightBarWidgetId,
+                moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
+                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });
+            // getSkyData({ obsId , widgetUniqueId: SeeingConditionsWidgetId });
         }
             
     }
@@ -33,9 +37,9 @@ export class Observatories extends Component{
 
     render() {
         const heading = "Observatories";        
-        const { list, wxList, skyConditions } = this.props;
+        const { list, wxList, skyConditions, obsWidgetData } = this.props;        
         const { selectedheader } = this.state;       
-
+        
         return (
             <div className="observatory-main" >                
                 <h2 className="observatory-heading">{heading}</h2>
@@ -47,7 +51,7 @@ export class Observatories extends Component{
                         spaceequally={false}
                         onTabChange={this.onTabChange}
                 />
-                {wxList && skyConditions && (
+                {wxList && obsWidgetData && (
                     <div className="observatory-content">
                         <div className="observatory-row">
                             <div className="observatory-col-left">
@@ -60,10 +64,10 @@ export class Observatories extends Component{
                             </div>
                             <div className="observatory-col-right">
                             <h5 className="observatory-col-txt">Sunrise - Sunset</h5>
-                                <h5 className="observatory-col-value">11:07 - 22:18 UTC</h5>
+                                <h5 className="observatory-col-value"> 11:07 - 22:18 UTC</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">Moonrise - Moonset</h5>
-                                <h5 className="observatory-col-value">03:10 - 17:00 UTC</h5>
+                                <h5 className="observatory-col-value"> 03:10 - 17:00 UTC</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">Lunar Phase</h5>
                                 <h5 className="observatory-col-value">Waning Gibbous (64%)</h5>
@@ -92,8 +96,8 @@ export class Observatories extends Component{
                                 </div>
                                 <div className="flex-1">
                                     <h4 className="observatory-col-value pad5">Sky Rating</h4>
-                                    <h5 className="level" dangerouslySetInnerHTML={{ __html: "Level "+skyConditions.seeingConditionsIndex}}/>
-                                    <p className="reason" dangerouslySetInnerHTML={{ __html: skyConditions.seeingConditionsDescription}}/>
+                                    <h5 className="level" dangerouslySetInnerHTML={{ __html: "Level "+ obsWidgetData.widgetsData.seeingConditions.seeingConditionsIndex}}/>
+                                    <p className="reason" dangerouslySetInnerHTML={{ __html: obsWidgetData.widgetsData.seeingConditions.seeingConditionsDescription}}/>
                                 </div>
                             </div>                        
                         </div> 
@@ -121,8 +125,8 @@ export class Observatories extends Component{
                                 </div>
                                 <div className="flex-1">
                                     <h4 className="observatory-col-value pad5">Sky Rating</h4>
-                                    <h5 className="level" dangerouslySetInnerHTML={{ __html: "Level "+skyConditions.seeingConditionsIndex}}/>
-                                    <p className="reason" dangerouslySetInnerHTML={{ __html: skyConditions.seeingConditionsDescription}}/>
+                                    <h5 className="level" dangerouslySetInnerHTML={{ __html: "Level "+obsWidgetData.widgetsData.seeingConditions.seeingConditionsIndex}}/>
+                                    <p className="reason" dangerouslySetInnerHTML={{ __html: obsWidgetData.widgetsData.seeingConditions.seeingConditionsDescription}}/>
                                 </div>
                             </div>                        
                         </div> 

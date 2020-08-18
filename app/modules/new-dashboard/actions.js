@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -35,7 +35,8 @@ export const GET_OBSERVATORY_LIST_START = "GET_OBSERVATORY_LIST_START";
 export const GET_OBSERVATORY_LIST_SUCCESS = "GET_OBSERVATORY_LIST_SUCCESS";
 export const GET_QUEST_MAP_CONTROL_START = "GET_QUEST_MAP_CONTROL_START";
 export const GET_QUEST_MAP_CONTROL_SUCCESS = "GET_QUEST_MAP_CONTROL_SUCCESS";
-
+export const GET_NEW_DASH_OBS_START = "GET_NEW_DASH_OBS_START";
+export const GET_NEW_DASH_OBS_SUCCESS = "GET_NEW_DASH_OBS_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -187,6 +188,15 @@ const getQuestMapControlStart = () => ({
 
 const getQuestMapControlSuccess = (payload) => ({
   type: GET_QUEST_MAP_CONTROL_SUCCESS,
+  payload    
+});
+
+const getNewDashObsStart = () => ({
+  type: GET_NEW_DASH_OBS_START    
+});
+
+const getNewDashObsSuccess = (payload) => ({
+  type: GET_NEW_DASH_OBS_SUCCESS,
   payload    
 });
 
@@ -429,6 +439,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getQuestMapControlSuccess(result.data));
+      }
+    );
+  };
+
+  export const getNewDashObsAction = (data) => (dispatch, getState) => {
+    dispatch(getNewDashObsStart());    
+    const { token, at, cid } = getState().user;    
+    return getNewDahObs({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getNewDashObsSuccess(result.data));
       }
     );
   };

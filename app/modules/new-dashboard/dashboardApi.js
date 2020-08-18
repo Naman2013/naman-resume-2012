@@ -79,3 +79,7 @@ export function getQuestMap(data) {
 export function getSocialSharingInfo(data) {
   return API.post('/api/content/getSocialSharingInfo', data);
 }
+
+export function getNewDahObs(data) {
+  return API.post('/api/widget/newDashboardObs', data);
+}
