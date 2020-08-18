@@ -75,3 +75,7 @@ export function getObservatoryList(data) {
 export function getQuestMap(data) {
   return API.post('/api/quests/getQuestMap', data);
 }
+
+export function getSocialSharingInfo(data) {
+  return API.post('/api/content/getSocialSharingInfo', data);
+}

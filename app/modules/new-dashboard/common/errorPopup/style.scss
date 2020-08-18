@@ -1,0 +1,9 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.actions-err-btn{
+    display: flex;       
+    justify-content: center;   
+    height: 39px;  
+    margin-top: 20px;
+}

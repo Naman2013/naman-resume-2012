@@ -5,12 +5,17 @@ import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
 import SocialSharingBar from '../../../../components/common/social-sharing-bar';
 import { browserHistory } from 'react-router';
+import { getSocialSharingInfo } from '../../dashboardApi';
+import { getUserInfo } from 'app/modules/User';
+import { ErrorPopup } from '../../common/errorPopup';
 
 export class Observation extends Component{
 
     state = {
         activePage: 1,        
         selectedShareItem: null,
+        shareInformation: null,
+        errorInfo: null
     }    
 
     PHOTOS_ON_ONE_PAGE=18
@@ -31,16 +36,33 @@ export class Observation extends Component{
         this.setState({ activePage });
       };
     
-      handleShowShareOptionClick = (index) => {
-          const { selectedShareItem } = this.state;          
-          if(selectedShareItem === index)
+      handleShowShareOptionClick = (index, customerImageId) => {
+        const { token, at, cid } = getUserInfo();
+        const { selectedShareItem } = this.state;  
+        const self = this;        
+        if(selectedShareItem === index)
+        {
             index=null;
-          this.setState({selectedShareItem: index});
-      }
+            this.setState({selectedShareItem: index, shareInformation: null });
+        }            
+        else{
+            getSocialSharingInfo({token, cid, at, itemType: "image", itemId: customerImageId }).then(response=>{
+                const res=response.data;
+                if(!res.apiError){
+                    self.setState({selectedShareItem: index, shareInformation: res });
+                }
+                else{
+                    self.setState({errorInfo: res});
+                }
+            });
+        }
+        
+    }
+        
     
     render() {
         const { imageList, totalCount } = this.props;        
-        const { activePage, showShareOption, selectedShareItem } = this.state;
+        const { activePage, showShareOption, selectedShareItem, shareInformation, errorInfo } = this.state;
         
         return (
             imageList !== undefined ? ( 
@@ -102,21 +124,21 @@ export class Observation extends Component{
                                         />
                                         <Button
                                             type={"button"}
-                                            onClickEvent={()=>{this.handleShowShareOptionClick(i)}} 
+                                            onClickEvent={()=>{this.handleShowShareOptionClick(i, photo.customerImageId)}} 
                                             text={""}                                             
                                             style={"slider-footer-button"}
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
                                         />
                                     </div>                                    
                                 </div> 
-                                { selectedShareItem === i && (
+                                { selectedShareItem === i && shareInformation && (
                                     <div className="socialsharingbar">
                                         <SocialSharingBar
                                             contentLayout="horizontal"
-                                            shareTitle={photo.imageTitle}
-                                            shareDescription={"socialShareDescription"}
-                                            shareURL="https://nova.slooh.com/lnk/randomizeForNow"
-                                            shareImageURL={photo.imageURL}
+                                            shareTitle={shareInformation.socialShareTitle}
+                                            shareDescription={shareInformation.socialShareDescription}
+                                            shareURL={shareInformation.socialShareURL}
+                                            shareImageURL={shareInformation.shareImageURL ? shareInformation.shareImageURL : null}
                                         />
                                     </div>
                                 )}                                            
@@ -129,6 +151,14 @@ export class Observation extends Component{
                         onPageChange={this.handlePageChange}
                         totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
                     />
+
+                    {errorInfo &&(
+                       <ErrorPopup
+                        errorstate={errorInfo}
+                        onHide={()=>this.setState({errorInfo: null})}
+                       />
+                    )}
+
                 
             </div>  
             ):null)                        
