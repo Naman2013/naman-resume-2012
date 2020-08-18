@@ -23,6 +23,10 @@ import DashHero from '../hero/DashboardHero';
 import DashHeroMobile from '../hero/DashboardHeroMobile';
 import DashboardPanelItem from '../DashboardPanelItem';
 import './styles.scss';
+import Popup from 'react-modal';
+import { customModalStylesBlackHalfOverlay } from 'app/styles/mixins/utilities';
+import DashboardOffer from 'app/components/dashboard-offer';
+import { getUserInfo } from 'app/modules/User';
 
 type TGuestDashboardProps = {
   guestDashboard: IGuestDashboard;
@@ -61,8 +65,19 @@ const GET_PLANS_CALLSOURCES = {
 };
 
 class GuestDashboard extends Component<TGuestDashboardProps> {
+
+  state={
+    showOfferPopup: true
+  }
+
   componentDidMount(): void {
     this.getGuestDashboard();
+    const { _showOffer } = getUserInfo();
+    this.setState({showOfferPopup: !(_showOffer ? _showOffer : false)});
+  }
+
+  handleClosePopup = () => {
+
   }
 
   getObservatoryList = (): void => {
@@ -192,8 +207,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       }
 
       case SECTION_TYPE.PlansTop: {
-        return guestDashboardGoogleExperienceId !== null && (<Experiment id={guestDashboardGoogleExperienceId}>
-            <Variant id="1">
+	   return(
               <MembershipPlansList
                 plans={subscriptionPlans}
                 getSubscriptionPlans={() =>
@@ -201,9 +215,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
                 }
                 showSlider
               />
-            </Variant>
-          </Experiment>
-		)
+	    )
       }
 
       case SECTION_TYPE.PlansBottom: {
@@ -226,90 +238,93 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
 
   render() {
     const { guestDashboard } = this.props;
-    const { Sections } = guestDashboard;
+    const { Sections, enableDashboardOfferPopup, dashboardOfferPopupCallSource } = guestDashboard;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {};
-
+    const { showOfferPopup } = this.state;   
+    
     return (
       <div className="dashboard-layout">
-        <div className="dash-hero">
-          <DisplayAtBreakpoint screenSmall>
-            <DashHeroMobile />
-          </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <div>
-              <DashHero />
-            </div>
-          </DisplayAtBreakpoint>
-        </div>
+        {guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
+		<Variant id="0">
+		        <div className="dash-hero">
+          			<DisplayAtBreakpoint screenSmall>
+            				<DashHeroMobile />
+          			</DisplayAtBreakpoint>
+          			<DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+            				<div>
+              					<DashHero />
+            				</div>
+          			</DisplayAtBreakpoint>
 
-        <div className="dash-nav">
-          <DashNav readOnly />
-        </div>
+        			<div className="dash-nav">
+          				<DashNav readOnly/>
+        			</div>
+        		</div>
+		</Variant>
+		<Variant id="1">
+          			<DisplayAtBreakpoint screenSmall>
+				        <div className="dash-hero">
+            					<DashHeroMobile />
+					</div>
+          			</DisplayAtBreakpoint>
+
+        			<div className="dash-nav">
+          				<DashNav/>
+        			</div>
+		</Variant>
+	</Experiment>
+	}
+
+	{guestDashboardGoogleExperienceId == null && <div className="dash-hero">
+          	<DisplayAtBreakpoint screenSmall>
+            		<DashHeroMobile />
+         	</DisplayAtBreakpoint>
+          	<DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+       			<div>
+              			<DashHero />
+            		</div>
+          	</DisplayAtBreakpoint>
+
+        	<div className="dash-nav">
+          		<DashNav readOnly/>
+        	</div>
+	</div>
+	}
 
         <div className="sections-wrapper">
-			{guestDashboardGoogleExperienceId !== null && <Experiment id={guestDashboardGoogleExperienceId}>
-				<Variant id="0">
-					{Object.keys(Sections).map((section: string) => {
-						const { Index, Title, SubTitle, HideSection } = Sections[section];
+		{Object.keys(Sections).map((section: string) => {
+			const { Index, Title, SubTitle, HideSection } = Sections[section];
 
-						return (
-						  !HideSection &&
-							Index && 
-							section != "PlansTop" &&
-						(
-							<DashboardPanelItem
-								key={`dashboard-section-0${Index}`}
-								orderNumber={`0${Index}`}
-								title={Title}
-								subtitle={SubTitle}
-								render={(): void => this.getSectionComponent(section)}
-							/>
-							)
-						  );
-					})}  
-					</Variant>
-				
-					<Variant id="1">
-						   {Object.keys(Sections).map((section: string) => {
-							const { Index, Title, SubTitle, HideSection } = Sections[section];
-
-							return (
-							  !HideSection &&
-								Index && (
-								<DashboardPanelItem
-									key={`dashboard-section-0${Index}`}
-									orderNumber={`0${Index}`}
-									title={Title}
-									subtitle={SubTitle}
-									render={(): void => this.getSectionComponent(section)}
-								/>
-								)
-							  );
-						})}              
-						</Variant>
-				</Experiment>
-		  }
-		  {guestDashboardGoogleExperienceId === null && <Fragment>
-			{Object.keys(Sections).map((section: string) => {
-				const { Index, Title, SubTitle, HideSection } = Sections[section];
-
-				return (
-					!HideSection &&
-					Index && 
-					section != "PlansTop" &&
-					(<DashboardPanelItem
-						key={`dashboard-section-0${Index}`}
-						orderNumber={`0${Index}`}
-						title={Title}
-						subtitle={SubTitle}
-						render={(): void => this.getSectionComponent(section)}
-					/>)
-				);
-			})
-			}
-		    </Fragment>
-		  }
+			return (
+			!HideSection &&
+			Index && (
+				<DashboardPanelItem
+					key={`dashboard-section-0${Index}`}
+					orderNumber={`0${Index}`}
+					title={Title}
+					subtitle={SubTitle}
+					render={(): void => this.getSectionComponent(section)}
+				/>
+			));
+		})}              
 		</div>
+
+      {enableDashboardOfferPopup && showOfferPopup &&(
+         <Popup
+         // ariaHideApp={false}
+         isOpen={true}
+         style={customModalStylesBlackHalfOverlay}
+         contentLabel="Error"
+         shouldCloseOnOverlayClick={false}
+         onRequestClose={this.handleClosePopup}
+         >
+          <DashboardOffer   
+              onClose={()=>this.setState({showOfferPopup: false})}          
+              callSource={dashboardOfferPopupCallSource}             	
+          />
+         </Popup>
+      )}
+
       </div>
     );
   }

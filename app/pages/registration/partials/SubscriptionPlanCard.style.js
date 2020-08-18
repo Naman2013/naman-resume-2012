@@ -55,12 +55,27 @@ export default css`
     font-family: ${primaryFont};
     font-size: 45px;
     font-weight: light;
+    text-align: end;
+  }
+
+  .plan-cost-strike {
+    font-family: ${primaryFont};
+    font-size: 45px;
+    font-weight: light;
+    text-decoration: line-through;    
   }
 
   .plan-cost-small {
     font-family: ${primaryFont};
     font-size: 12px;
     font-weight: light;
+  }
+
+  .plan-cost-small-strike {
+    font-family: ${primaryFont};
+    font-size: 12px;
+    font-weight: light;
+    text-decoration: line-through;
   }
 
   .border-bottom {

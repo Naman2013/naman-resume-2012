@@ -190,16 +190,16 @@ export class CatalogSetup extends Component {
 
         <div className="steps row">
           <div className="col-sm-6 step-4">
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step4">
                   <span>{step4Tooltip}</span>
                 </Tooltip>
               }
-            >
+            > */}
               <span>{step4Title}</span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
           </div>
 
           <div className="col-sm-6 step-4">

@@ -204,4 +204,8 @@ export default css`
   .left-align{
     justify-content: start;
   }
+  
+  .disabled{
+    background-color: gray !important;
+  }
 `;

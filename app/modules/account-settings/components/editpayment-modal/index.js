@@ -27,7 +27,7 @@ type TEditPaymentModal = {
   isFetching: Boolean,
 };
 
-const didMount = (props: TEditPaymentModal, handleIframeTask) => () => {
+const didMount = (props: TEditPaymentModal) => () => {
   const {
     getSubscriptionPlans,
     selectedPlan,
@@ -45,13 +45,18 @@ const didMount = (props: TEditPaymentModal, handleIframeTask) => () => {
   window.localStorage.removeItem('astronomyClubName');
   window.localStorage.removeItem('astronomyClub18AndOver');
 
-  window.removeEventListener('message',handleIframeTask);
+  // window.removeEventListener('message',handleIframeTask);
 
-  //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-  window.addEventListener('message', handleIframeTask);
+  // //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
+  // window.addEventListener('message', handleIframeTask);
+  // window.removeEventListener('message', e => handleIframeTask(e, props));
+  // window.addEventListener('message', e => handleIframeTask(e, props));
 };
 
-export const EditPaymentModal = (props: TEditPaymentModal) => {
+
+
+export const EditPaymentModal = (props: TEditPaymentModal) => {  
+  didMount();
   const handleIframeTask = (e) => {
     const { fetchAccountSettingsAction, onHide } = props;
     /* Verify there is data in this event) */
@@ -88,9 +93,9 @@ export const EditPaymentModal = (props: TEditPaymentModal) => {
           paymentMethod = 'paypal';
         }
         //console.log('Payment Token:' + paymentNonceTokenData);
-  
+      
         //console.log('Payment Token!! ' + paymentNonceTokenData);
-        window.removeEventListener('message',handleIframeTask);
+        window.removeEventListener('message',myfunction);
         /* Process the Edit Payment Form */
         const editPaymentData = {
           paymentMethod,
@@ -128,8 +133,11 @@ export const EditPaymentModal = (props: TEditPaymentModal) => {
         }
       }
     };
-    
-  useEffect(didMount(props, handleIframeTask), []);
+  var myfunction=(e)=>handleIframeTask(e);
+  
+  // useEffect(didMount(props), []);
+  window.removeEventListener('message', myfunction);
+  window.addEventListener('message', myfunction);
 
   const {
     show,
@@ -139,7 +147,7 @@ export const EditPaymentModal = (props: TEditPaymentModal) => {
   } = props;
 
   let buttonText = 'GO BACK';
-  let onCloseFunc = onHide;
+  let onCloseFunc = ()=>{window.removeEventListener('message', myfunction); onHide();};
   let myDisableGoBack = false;
 
   return (
