@@ -26,10 +26,13 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planDescription,
     isPlanActionEnabled,
     teaserContent,
+    originalPlanCost,
+    planIsDiscounted
   } = plan;
 
   const planCostDisplay = planCostPrefix + planCost;
-
+  const originalplanCostDisplay = planCostPrefix + originalPlanCost;
+  
   return (
     <div className="subscription-plan">
       {planHeading && (
@@ -41,10 +44,18 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
+        <div className="grid">
+          {planIsDiscounted && (
+              <span
+              className="plan-cost-strike"
+              dangerouslySetInnerHTML={{ __html: originalplanCostDisplay }}
+            />
+          )}        
         <span
           className="plan-cost"
           dangerouslySetInnerHTML={{ __html: planCostDisplay }}
         />
+        </div>        
       </div>
 
       <hr />

@@ -1,10 +1,10 @@
 @import '~app/styles/variables/index';
 
-.subscription-plan {
+.subscription-plan-no-details {
   background-color: $romance;
   box-shadow: $shadows;
-  padding: 40px;
-  margin-bottom: 20px;
+  // padding: 40px;
+  // margin-bottom: 20px;
   color: $lightHeadedAstronaut;
 
 
@@ -19,6 +19,10 @@
     text-transform: uppercase;
   }
 
+  .mar-left{
+    margin-left: 10px;
+  }
+
   .plan-name {
     //font-family: AGaramondPro;
     font-family: $secondary-font;
@@ -26,10 +30,18 @@
     letter-spacing: normal;
   }
 
+  .audience-type{
+     //font-family: AGaramondPro;
+     font-family: $secondary-font;
+     font-size: 20px;
+     font-style: italic;
+     letter-spacing: normal;
+  }
+
   .plan-cost {
     //font-family: BrandonGrotesque;
     font-family: $primary-font;
-    font-size: 45px;
+    font-size: 28px;
     line-height: 45px;
     font-weight: 300;
   }
@@ -37,7 +49,7 @@
   .plan-cost-strike {
     //font-family: BrandonGrotesque;
     font-family: $primary-font;
-    font-size: 45px;
+    font-size: 28px;
     line-height: 45px;
     font-weight: 300;
     text-decoration: line-through;
@@ -47,4 +59,14 @@
   .grid{
     display: grid;
   }
+
+  .white-text{
+    color: white;
+  }
+
+  .right{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
 }

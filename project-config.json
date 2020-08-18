@@ -9,7 +9,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/events.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "tJAWe-LZQrS_Ao16DXPwsA"
+      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
   "www.astronomyfair.com": {
@@ -41,7 +41,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/live.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "tJAWe-LZQrS_Ao16DXPwsA"
+      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
   "main.slooh.com": {
@@ -49,7 +49,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/main.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "tJAWe-LZQrS_Ao16DXPwsA"
+      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
   "www.slooh.com": {
@@ -57,7 +57,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/www.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "tJAWe-LZQrS_Ao16DXPwsA"
+      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
   "slooh.com": {
@@ -65,7 +65,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "tJAWe-LZQrS_Ao16DXPwsA"
+      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
   "southafrica.slooh.com": {
@@ -158,7 +158,7 @@
   "nova.slooh.com": {
     "loadHtmlFile": "/config/nova.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "PVOaVXknQQKpyv2eSCDbgg"
+      "guestDashboardGoogleExperienceId": "LvLE_ZdoTe-3ZSW_3a6Fug"
     }
   },
   "orion.slooh.com": {
@@ -176,6 +176,9 @@
     "PUBNUB_FEEDS_SECRETKEY": "sec-c-OGZkMWEyYjgtZGE5Yi00YWJhLTk3YTItOGJmNWQwYzFhYzEw",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "GOOGLE_API_RECAPTCHA_V3_KEY": "6LdZ_7cZAAAAAPWifcjQvVILe-_hvxqzWzZ3vDOu",
+    "GOOGLE_API_RECAPTCHA_V2_KEY": "6Le6mLgZAAAAAMGRhhRUCZgPgcqQxSnV2DDZPhqy"
   }
 }
+

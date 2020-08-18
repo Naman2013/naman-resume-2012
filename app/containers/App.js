@@ -13,7 +13,7 @@ import GlobalNavigation from '../components/GlobalNavigation';
 import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
-import { fireSloohPageView } from 'app/utils/slooh-pageview-wrapper';
+import { fireSloohPageView, veritySloohId } from 'app/utils/slooh-pageview-wrapper';
 import QuestBreadCrumb from '../components/GlobalNavigation/breadcrumb';
 import { getUserInfo } from 'app/modules/User';
 
@@ -58,9 +58,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     props.fetchEvents();
-
+    
   }
 
+  // async componentWillMount(){
+  //   const res1=await veritySloohId();  
+  // }
 
   async componentDidMount(){
     const { user } = this.props;
@@ -70,10 +73,11 @@ class App extends Component {
       location: { pathname },
     } = this.props;
     // Slooh page view tracker for application load event
-    fireSloohPageView({ pagePath: pathname });
+    fireSloohPageView({ pagePath: pathname }); 
+    const res1=await veritySloohId();     
   }
 
-  componentWillReceiveProps(nextProps) {
+   componentWillReceiveProps(nextProps) {
     const {
       location: { pathname },
     } = this.props;
@@ -88,7 +92,7 @@ class App extends Component {
       //console.log(currentPathname);
 
      // Slooh page view tracker when route changes
-     fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });
+     fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });    
     }
   }
 

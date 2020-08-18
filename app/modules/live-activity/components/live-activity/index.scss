@@ -3,7 +3,7 @@
 @import '~app/styles/mixins/index';
 @import '~app/styles/variables/colors.scss';
 
-$headerSize: 54px;
+$headerSize: 50px;
 $screenHeaderSize: 110px;
 
 @keyframes smallAnimatedCircle {
@@ -36,12 +36,14 @@ $screenHeaderSize: 110px;
     position: static;
     .react-draggable {
       transform: translate(0) !important;
-      top: calc(#{$headerSize} + 6px) !important;
+      top: calc(#{$headerSize} + 0px) !important;
       width: 100% !important;
+      // left: unset !important;
       height: calc(100vh - #{$headerSize}) !important;
     }
   }
 }
+
 
 .live-activity-wrapper {
   // todo make common
@@ -69,6 +71,14 @@ $screenHeaderSize: 110px;
     display: inline-block;
     height: 20px;
     cursor: pointer;
+  }
+
+  .chat-nav{
+    padding: 0px;
+  }
+
+  .chat-tab-div{
+    padding: 10px 20px;
   }
 
   .message-identifier {
@@ -121,11 +131,12 @@ $screenHeaderSize: 110px;
     //transform: translate(85px -300px);
     //top: 85px;
     //left: -300px;
-
+    
     &.live-activity-window-wrapper-mobile {
       left: -195px;
     }
 
+    
     .live-activity-window {
       // todo make common
 
@@ -133,13 +144,13 @@ $screenHeaderSize: 110px;
       width: 100%;
       height: 100%;
       @include boxShadow();
-      border-bottom: 6px solid $lightHeadedAstronaut;
+      border: 6px solid $lightHeadedAstronaut;
       display: flex;
       flex-direction: column;
 
       &-header {
         cursor: move;
-        padding: 20px;
+        padding: 0px 20px 0px 20px;
         border-bottom: 1px solid $hawkesBlue;
 
         .nav-tabs {
@@ -177,9 +188,8 @@ $screenHeaderSize: 110px;
       }
 
       &-footer {
-        padding: 10px 20px 10px 20px;
+        padding: 10px 10px 5px 10px;
         border-top: 1px solid $hawkesBlue;
-        margin-bottom: 25px;
 
         input {
           // TODO COMMON
@@ -211,7 +221,7 @@ $screenHeaderSize: 110px;
       }
 
       &-body {
-        padding: 20px;
+        padding: 5px 10px 5px 10px;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -230,15 +240,45 @@ $screenHeaderSize: 110px;
   }
 
   //RESPONSIVE
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-only(md) {
+
+    .live-activity-wrapper .full-screen{
+      @include live-feed-full-screen-mode;
+    }
+    
+
+   
+
+    // .desktop-container {
+    //   display: none;
+    // }
+
+    .live-activity-window-wrapper .react-draggable {
+      width: 260px !important;
+      // height: calc(45vh - #{$screenHeaderSize}) !important;
+      // height: auto!important;
+      // left: unset !important;
+      // right: 0 !important;
+      // transform: translate(0)!important;
+    }
+  }
+  @include media-breakpoint-down(sm) {
     @include live-feed-full-screen-mode;
+
+   
 
     .desktop-container {
       display: none;
     }
 
     .live-activity-window-wrapper .react-draggable {
-      height: calc(100vh - #{$screenHeaderSize}) !important;
+      width: 100% !important;
+      // height: calc(45vh - #{$screenHeaderSize}) !important;
+      // height: auto!important;
+      // left: unset !important;
+      // right: 0 !important;
+      transform: translate(0)!important;
     }
   }
 }
+

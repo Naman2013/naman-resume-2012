@@ -127,7 +127,7 @@ class JoinStep3 extends Component {
             clubCodeA: window.localStorage.getItem('clubCodeA'),
             clubCodeB: window.localStorage.getItem('clubCodeB'),
           billingAddressString: paymentDataString[3],
-	  sloohSiteSessionToken: _sloohsstkn,
+	  // sloohSiteSessionToken: _sloohsstkn,
 	  sloohMarketingTrackingId: _sloohatid,
         };
 
@@ -246,7 +246,7 @@ class JoinStep3 extends Component {
     const { pathname } = this.props;
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
-
+    
     return (
       <div>
         <Request
@@ -331,17 +331,21 @@ class JoinStep3 extends Component {
                             screenMedium
                             screenLarge
                             screenXLarge
+                            screenSmall
                           >
                             <iframe
                               id="embeddedHostedPaymentForm"
                               title="PaymentFormLarge"
                               frameBorder="0"
-                              style={{ width: '100%', minHeight: '750px' }}
+                              style={{ width: '100%'}}
                               src={joinPageRes.hostedPaymentFormURL}
                             />
                           </DisplayAtBreakpoint>
 
-                          <DisplayAtBreakpoint screenSmall>
+                          {/* {screenSmall && (
+
+                          )} */}
+                          {/* <DisplayAtBreakpoint screenSmall>
                             <iframe
                               id="embeddedHostedPaymentForm"
                               title="PaymentFormSmall"
@@ -349,7 +353,7 @@ class JoinStep3 extends Component {
                               style={{ width: '100%', minHeight: '850px' }}
                               src={joinPageRes.hostedPaymentFormURL}
                             />
-                          </DisplayAtBreakpoint>
+                          </DisplayAtBreakpoint> */}
                         </div>
                       </div>
                     </Fragment>

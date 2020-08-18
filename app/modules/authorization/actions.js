@@ -144,6 +144,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
   const user = getUserInfo();
 
+
   /*****************************************
    * POSSIBLE HTTP RESPONSE CODES....
    *	401 - Unauthorized, Login Issues
@@ -163,7 +164,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const UPSELL_STATUS_CODE = 420;
 
   const { apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
-  //console.log(statusCode);
 
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { projectLocale, projectProductId } from 'app/config/project-config';
 import axios from 'axios';
+import { getUserInfo } from 'app/modules/User';
 
 const commonData = {
   clientDeviceDetails: {
@@ -27,11 +28,14 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
+      const { _sloohatid, _sloohsstkn } = getUserInfo();
       const finalData = {
         ...data,
         ...commonData,
         locale: projectLocale,
         productId: projectProductId,
+        sloohMarketingTrackingId: _sloohatid,
+        sloohSiteSessionToken: _sloohsstkn,
       };
       return JSON.stringify(finalData);
     },
