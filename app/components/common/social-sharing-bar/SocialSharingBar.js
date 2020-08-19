@@ -84,7 +84,7 @@ class SocialSharingBar extends Component {
                   <TwitterShareButton
 		    text={shareDescription}
                     url={shareURL}
-                    title=""
+                    title="Slooh Observation"
                     hashtags={TW_hashtags}>
                   <TwitterIcon
                       size={32}
