@@ -12,7 +12,7 @@ export class TabHeaderWithStatus extends Component{
             <div>
                 <ul className="tab-header-status-main">
                     {headings.map(header=>(
-                        <li className={"tab-header-status-txt" + (activeHeading === header.obsShortName ? "-active": "") + (spaceequally ? " space-equally" : "")} key={header.obsShortName} onClick={()=>onTabChange(header.obsShortName, header.obsId, header.SeeingConditionsWidgetId)}>
+                        <li className={"tab-header-status-txt" + (activeHeading === header.obsShortName ? "-active": "") + (spaceequally ? " space-equally" : "")} key={header.obsShortName} onClick={()=>onTabChange(header)}>
                             {header.obsShortName}
                             <h5 className={ header.obsStatus === "live" ? "online":"offline" }>
                                 <i className={ header.obsStatus === "live" ? "dot online-bg" : "dot offline-bg"}></i>

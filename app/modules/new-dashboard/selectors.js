@@ -116,3 +116,9 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.obsWidgetData
   );
+
+  export const makeObsStatusSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.obsStatus
+  );

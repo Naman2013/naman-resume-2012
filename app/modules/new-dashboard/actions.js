@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -37,6 +37,8 @@ export const GET_QUEST_MAP_CONTROL_START = "GET_QUEST_MAP_CONTROL_START";
 export const GET_QUEST_MAP_CONTROL_SUCCESS = "GET_QUEST_MAP_CONTROL_SUCCESS";
 export const GET_NEW_DASH_OBS_START = "GET_NEW_DASH_OBS_START";
 export const GET_NEW_DASH_OBS_SUCCESS = "GET_NEW_DASH_OBS_SUCCESS";
+export const GET_OBS_STATUS_START = "GET_OBS_STATUS_START";
+export const GET_OBS_STATUS_SUCCESS = "GET_OBS_STATUS_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -197,6 +199,15 @@ const getNewDashObsStart = () => ({
 
 const getNewDashObsSuccess = (payload) => ({
   type: GET_NEW_DASH_OBS_SUCCESS,
+  payload    
+});
+
+const getObsStatusStart = () => ({
+  type: GET_OBS_STATUS_START    
+});
+
+const getObsStatusSuccess = (payload) => ({
+  type: GET_OBS_STATUS_SUCCESS,
   payload    
 });
 
@@ -454,6 +465,18 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getNewDashObsSuccess(result.data));
+      }
+    );
+  };
+
+  export const getObsStatusAction = (data) => (dispatch, getState) => {
+    dispatch(getObsStatusStart());   
+        
+    return getObsStatus(
+     data,           
+    ).then(
+      result => {        
+        dispatch(getObsStatusSuccess(result.data));
       }
     );
   };

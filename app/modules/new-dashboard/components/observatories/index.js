@@ -15,29 +15,36 @@ export class Observatories extends Component{
     }
 
     componentDidMount(){
-        const { list, getWeatherDataAction, getSkyData, getNewDashObs } = this.props;        
+        const { list, getWeatherDataAction, getObsStatus, getNewDashObs } = this.props;        
         if(list){
             const { obsId, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list[0];
             getWeatherDataAction({ obsId });
             getNewDashObs({obsId,                 
                 dayNightBarWidgetUniqueId: DayNightBarWidgetId,
                 moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });
+                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
+            getObsStatus(obsId);
             // getSkyData({ obsId , widgetUniqueId: SeeingConditionsWidgetId });
         }
             
     }
 
-    onTabChange=(title, obsId, widgetUniqueId)=>{
-        const { getWeatherDataAction, getSkyData } =this.props;
+    onTabChange=(selectedHeader)=>{
+        const { getWeatherDataAction, getObsStatus, getNewDashObs } =this.props;
+        const { obsId, obsShortName, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = selectedHeader;        
         getWeatherDataAction({ obsId });
-        getSkyData({ obsId , widgetUniqueId });
-        this.setState({selectedheader: title});
+        getNewDashObs({obsId,                 
+            dayNightBarWidgetUniqueId: DayNightBarWidgetId,
+            moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
+            seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
+        getObsStatus(obsId);
+        // getSkyData({ obsId , widgetUniqueId });
+        this.setState({selectedheader: obsShortName});
     };     
 
     render() {
         const heading = "Observatories";        
-        const { list, wxList, skyConditions, obsWidgetData } = this.props;        
+        const { list, wxList, obsWidgetData, obsStatus } = this.props;        
         const { selectedheader } = this.state;       
         
         return (
@@ -51,26 +58,26 @@ export class Observatories extends Component{
                         spaceequally={false}
                         onTabChange={this.onTabChange}
                 />
-                {wxList && obsWidgetData && (
+                {wxList && obsWidgetData && obsStatus && (
                     <div className="observatory-content">
                         <div className="observatory-row">
                             <div className="observatory-col-left">
-                                <h5 className="observatory-col-txt">Current Time in Chile</h5>
-                                <h5 className="observatory-col-value">12:36 UTC</h5>
+                                <h5 className="observatory-col-txt">{obsStatus.clockList.obsCurrentTime.displayLabel}</h5>
+                                <h5 className="observatory-col-value">{obsStatus.clockList.obsCurrentTime.displayTime} {obsStatus.clockList.obsCurrentTime.displayTimeZone}</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">Night Telescope Hours</h5>
-                                <h5 className="observatory-col-value">23:30 - 06:00 UTC</h5>
+                                <h5 className="observatory-col-value">{obsStatus.clockList.obsOpen.displayTime} - {obsStatus.clockList.obsClosed.displayTime} {obsStatus.clockList.obsClosed.displayTimeZone}</h5>
                                 <br/>
                             </div>
                             <div className="observatory-col-right">
-                            <h5 className="observatory-col-txt">Sunrise - Sunset</h5>
-                                <h5 className="observatory-col-value"> 11:07 - 22:18 UTC</h5>
+                            <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseLabel} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetLabel}</h5>
+                                <h5 className="observatory-col-value">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseTime} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetTime} {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.timeZone}</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">Moonrise - Moonset</h5>
                                 <h5 className="observatory-col-value"> 03:10 - 17:00 UTC</h5>
                                 <br/>
-                                <h5 className="observatory-col-txt">Lunar Phase</h5>
-                                <h5 className="observatory-col-value">Waning Gibbous (64%)</h5>
+                                <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementTitle}</h5>
+                                <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementValue}</h5>
                                 <br/>                        
                             </div>
                             <div className="observatory-col-large">

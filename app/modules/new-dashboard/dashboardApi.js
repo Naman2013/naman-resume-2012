@@ -83,3 +83,7 @@ export function getSocialSharingInfo(data) {
 export function getNewDahObs(data) {
   return API.post('/api/widget/newDashboardObs', data);
 }
+
+export function getObsStatus(obsId) {
+  return API.get('/api/obs/getObservatoryStatus?obsId='+obsId);
+}

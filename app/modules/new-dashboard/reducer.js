@@ -35,6 +35,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_QUEST_MAP_CONTROL_SUCCESS,
          GET_NEW_DASH_OBS_START,
          GET_NEW_DASH_OBS_SUCCESS,
+         GET_OBS_STATUS_START,
+         GET_OBS_STATUS_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -271,7 +273,20 @@ export default createReducer(initialState, {
           isFetching: false,
         };
       },
-      [GET_OBSERVATORY_LIST_START](state) {
+      [GET_NEW_DASH_OBS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_OBS_STATUS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          obsStatus: payload,
+          isFetching: false,
+        };
+      },
+      [GET_OBS_STATUS_START](state) {
         return {
           ...state,
           isFetching: true,
