@@ -47,8 +47,6 @@ class SocialSharingBar extends Component {
     const FB_hashtag = "#slooh";
     const TW_hashtags = ["slooh"];
 
-    console.log(shareDescription);
-
     /************************************************************************
     * Facebook:
     *    Requires the complete share url and an empty description as we don't want the description to duplicate.
@@ -73,7 +71,7 @@ class SocialSharingBar extends Component {
               {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
                   <FacebookShareButton
                     url={shareURL}
-                    quote={shareDescription}
+                    quote=""
                     hashtag={FB_hashtag}>
                     <FacebookIcon
                       size={32}
