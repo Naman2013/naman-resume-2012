@@ -71,7 +71,7 @@ class SocialSharingBar extends Component {
               {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
                   <FacebookShareButton
                     url={shareURL}
-                    quote=""
+                    quote={shareDescription}
                     hashtag={FB_hashtag}>
                     <FacebookIcon
                       size={32}
