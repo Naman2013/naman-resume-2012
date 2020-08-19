@@ -82,6 +82,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showTwitter && <li className={'social-share-button-' + this.props.contentLayout}>
                   <TwitterShareButton
+		    text={shareDescription}
                     url={shareURL}
                     title=""
                     hashtags={TW_hashtags}>
