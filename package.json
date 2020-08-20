@@ -135,6 +135,7 @@
     "react-slick": "^0.23.1",
     "react-spinner": "^0.2.6",
     "react-stickynode": "^1.2.1",
+    "react-switch": "^5.0.1",
     "react-tabs": "^2.1.0",
     "react-tag-input": "^4.3.2",
     "react-test-render": "^1.1.1",

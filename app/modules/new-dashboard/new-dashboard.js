@@ -41,6 +41,7 @@ import {
     getSkyAction,
     getObservatoryListAction,
     getQuestMapControlAction,
+    getObjectMapControlAction,
     getNewDashObsAction,
     getObsStatusAction,
   } from './actions';
@@ -64,6 +65,7 @@ import { makeStarPartyListSelector,
     makeSkyConditionSelector,
     makeObservatoryListSelector,
     makeQuestMapControlSelector,
+    makeObjectMapControlSelector,
     makeObsWidgetDataSelector,
     makeObsStatusSelector,
   } from './selectors';
@@ -95,6 +97,7 @@ const mapStateToProps = createStructuredSelector({
     skyConditions: makeSkyConditionSelector(),
     observatoryList: makeObservatoryListSelector(),
     questMapControls: makeQuestMapControlSelector(),
+    objectMapControls: makeObjectMapControlSelector(),
     obsWidgetData: makeObsWidgetDataSelector(),
     obsStatus: makeObsStatusSelector(),
 });
@@ -124,6 +127,7 @@ const mapDispatchToProps = {
     getQuestMapControlAction,
     getNewDashObsAction,
     getObsStatusAction,
+    getObjectMapControlAction,
 };
 
 export default compose(

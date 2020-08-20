@@ -269,8 +269,7 @@ class JoinStep2 extends Component {
     }));
   };
 
-  handleCaptchaCode=(token)=>{   
-    debugger; 
+  handleCaptchaCode=(token)=>{     
     const { _sloohsstkn } = getUserInfo();    
     if(token !==null){
       API.post(VERIFY_CAPTCHA_CODE_URL,

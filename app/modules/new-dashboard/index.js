@@ -26,6 +26,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
 import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
+import { ExploreObject } from "./components/explore-objects";
 
 export class NewDashboard extends PureComponent{
 
@@ -162,7 +163,10 @@ export class NewDashboard extends PureComponent{
                 getNewDashObsAction,
                 obsWidgetData,
                 getObsStatusAction,
-                obsStatus,     
+                obsStatus,    
+                getQuestMapControlAction,
+                getObjectMapControlAction,
+                objectMapControls, 
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -187,20 +191,13 @@ export class NewDashboard extends PureComponent{
                                     subHeading = {"Discover and Observe"}
                                 />
 
-                                <TabHeader
-                                    headings={["Explore Quests", "Explore Objects"]}
-                                    activeHeading={"Explore Quests"}
-                                    spaceequally={false}
-                                    theme={"dark"}
-                                />
-                                {/* <ObjectMap/> */}
-
+                                <ExploreObject
+                                    questMapControls={questMapControls}
+                                    objectMapControls={objectMapControls}
+                                    getObjectMapControl={getObjectMapControlAction}
+                                    getQuestMapControl={getQuestMapControlAction}
+                                />                          
                                 
-                                {questMapControls && (
-                                    <QuestMap
-                                        questMapControls={questMapControls.mapControls}
-                                    /> 
-                                )}
                                
                                 <SectionDivider/>
 

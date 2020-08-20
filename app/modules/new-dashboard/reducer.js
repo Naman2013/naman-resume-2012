@@ -37,6 +37,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_NEW_DASH_OBS_SUCCESS,
          GET_OBS_STATUS_START,
          GET_OBS_STATUS_SUCCESS,
+         GET_OBJECT_MAP_CONTROL_START,
+         GET_OBJECT_MAP_CONTROL_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -261,6 +263,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_QUEST_MAP_CONTROL_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_OBJECT_MAP_CONTROL_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          objectMapControls: payload,
+          isFetching: false,
+        };
+      },
+      [GET_OBJECT_MAP_CONTROL_START](state) {
         return {
           ...state,
           isFetching: true,

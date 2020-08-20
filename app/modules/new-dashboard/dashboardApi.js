@@ -64,8 +64,16 @@ export function getQuestMapControls(data) {
   return API.post('/api/quests/getQuestMapControls', data);
 }
 
+export function getObjectMapControls(data) {
+  return API.post('/api/images/getObjectMapControls', data);
+}
+
 export function getQuestCard(data) {
   return API.post('/api/quests/getQuestCard', data);
+}
+
+export function getObjectCard(data) {
+  return API.post('/api/images/getObjectCard', data);
 }
 
 export function getObservatoryList(data) {

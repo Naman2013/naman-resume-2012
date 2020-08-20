@@ -25,36 +25,39 @@ import {getCenter} from 'ol/extent';
 import {composeCssTransform} from 'ol/transform';
 import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
-import { getQuestCard, getQuestMap } from '../../dashboardApi';
+import { getObjectCard, getQuestMap } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
+import Switch from "react-switch";
 import { Dropdown } from 'react-bootstrap';
+import { ObjectCard } from '../object-card';
 
-export class QuestMap extends Component{
+export class ObjectMap extends Component{
   state={
     map: null,
     view: null,
-    showQuestCard: false,
-    questCardDetails: [],
+    showObjectCard: false,
+    objectCardDetails: [],
     isloading1: false,
     selectedControls: [],
     mapExpanded: false,
     hideMap: false,
+    selectedToggleControls: []
   }
 
   constructor (props){
     super(props);
-    const { questMapControls } = this.props;
-    const selectedControls = questMapControls[0].controlList.map(control=>control.selectedIndex);      
+    const { objectMapControls } = this.props;
+    const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);      
+    const selectedToggleControls = objectMapControls[1].controlList.map(control=>{return false});      
     this.state={
       map: null,
       view: null,
-      showQuestCard: false,
-      questCardDetails: [],
+      showObjectCard: false,
+      objectCardDetails: [],
       isloading1: false,
       selectedControls:selectedControls,
-      mapExpanded: !questMapControls[1].controlList[1].show,
-      hideMap: questMapControls[1].controlList[3].show,
+      selectedToggleControls: selectedToggleControls
     }    
   }
     componentDidMount(){     
@@ -76,7 +79,7 @@ export class QuestMap extends Component{
       // // });
       const self = this;
       var displayFeatureInfo = function(pixel) {
-        const { showQuestCard } = self.state;
+        const { showObjectCard } = self.state;
         // vectorLayer.getFeatures(pixel).then(function(features) {
         //   var feature = features.length ? features[0] : undefined; 
         //   if (features.length) {         
@@ -85,20 +88,20 @@ export class QuestMap extends Component{
         //   }
         // });
 
-        if(showQuestCard)
-          self.setState({showQuestCard: false, questCardDetails: []});
+        if(showObjectCard)
+          self.setState({showObjectCard: false, objectCardDetails: []});
         else{
           self.setState({isloading1: true});
           const { token, at, cid } = getUserInfo();
-          getQuestCard({
+          getObjectCard({
             token, 
             at, 
             cid,
-            questId: 178,
-            questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
-            questVersion: 1.1
+            objectId: 480,
+            objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
+            objectVersion: 1.1
           }).then(response=>{
-            self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
+            self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
             
           });         
         }
@@ -385,8 +388,8 @@ export class QuestMap extends Component{
    
     handleOptionChange = (controlIndex, selectedIndex)=>{         
       let { selectedControls } = this.state;
-      const { questMapControls } = this.props;
-      const { controlList } = questMapControls[0];
+      const { objectMapControls } = this.props;
+      const { controlList } = objectMapControls[0];
       const { token, at, cid } = getUserInfo();
       const layers = ["questMap", "pathfinder"];
       const self = this;
@@ -397,8 +400,7 @@ export class QuestMap extends Component{
         filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
       });
       // console.log(filterList);
-      getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{
-       
+      getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
@@ -425,7 +427,11 @@ export class QuestMap extends Component{
       });
     }
 
-   
+    handleToogleChange = (i) => {
+      let { selectedToggleControls } = this.state;      
+      selectedToggleControls[i]=!selectedToggleControls[i];
+      this.setState({selectedToggleControls: selectedToggleControls});
+    }
 
     colourStyles = {
       container: styles => ({...styles, flex: 1}),
@@ -445,10 +451,10 @@ export class QuestMap extends Component{
     };
 
     render() {          
-      const { showQuestCard, questCardDetails, isloading1 } = this.state
-      const { questMapControls } = this.props;      
-      const { selectedControls, hideMap, mapExpanded } = this.state;
-      
+      const { showObjectCard, objectCardDetails, isloading1 } = this.state
+      const { objectMapControls } = this.props;      
+      const { selectedControls, hideMap, mapExpanded, selectedToggleControls } = this.state;
+  
         return (
           <div id="quest-Map">
              <Spinner
@@ -459,155 +465,247 @@ export class QuestMap extends Component{
               <div id="map" class="map">
               
               </div>
-              {showQuestCard && (
-                  <div className="popup">
-                    <QuestCard
-                      onHide={()=> this.setState({showQuestCard: false})}
-                      questCardDetails={questCardDetails}
+              {showObjectCard && (
+                  <div className="object-card-popup">
+                    <ObjectCard
+                      onHide={()=> this.setState({showObjectCard: false})}
+                      objectCardDetails={objectCardDetails}
                     />
                 </div> 
               )}
                
               
             </div>
-           
-            <div className="control-div">
-              {questMapControls[0].controlList.map((control, i)=>(
-                <div className="controls">
-                <span className="select-label">{control.controlId}: </span>
-                <Select                 
-                  value={control.list[selectedControls[i]]}
-                  onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
-                  options={control.list}
-                  isSearchable={false}
-                  styles={this.colourStyles}
-                  getOptionLabel={option => option.value }
-                  getOptionValue={option => option.key}
-                  components={{
-                    IndicatorSeparator: () => null
-                  }}
-                />
-              </div>
+           {objectMapControls && (
+              <div className="control-div">
+              {objectMapControls.map(controlArray=>(
+                  controlArray.controlType === "dropdownList" ? (
+                    controlArray.controlList.map((control,i)=>(
+                      <div className="controls">
+                        <span className="select-label">{control.controlId}: </span>
+                        <Select                 
+                          value={control.list[selectedControls[i]]}
+                          onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
+                          options={control.list}
+                          isSearchable={false}
+                          styles={this.colourStyles}
+                          getOptionLabel={option => option.value }
+                          getOptionValue={option => option.key}
+                          components={{
+                            IndicatorSeparator: () => null
+                          }}
+                        />
+                      </div>
+                    ))                      
+                  ) :
+                  controlArray.controlType === "iconToggle" ? (
+                    controlArray.controlList.map((control,i)=>(
+                      <div className="controls">
+                        <span className={selectedToggleControls[i] ? "select-label-disabled" : "select-label"}>{control.list[0].value} </span>
+                        <Switch 
+                          onChange={()=>this.handleToogleChange(i)} 
+                          checked={selectedToggleControls[i]} 
+                          width={40}
+                          height={20}
+                          className={"toggle"}
+                          />
+                        <span className={selectedToggleControls[i] ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
+                      </div>
+                  )))
+                  :
+                  controlArray.controlType === "iconList" ? (                   
+                    <div className="settings"> 
+                      {controlArray.controlList[0].show && (
+                        <Dropdown className="settings-dropdown">
+                         <Dropdown.Toggle  id="dropdown-basic" block>
+                           <img className="setting-icons" 
+                           src={controlArray.controlList[0].iconURL}
+                           onClick={()=>{}}
+                         />
+                         </Dropdown.Toggle>
+                         <Dropdown.Menu>
+                           {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
+                               <Dropdown.Item
+                               key={i}
+                               onClick={()=>{}}
+                             >
+                               {menu.prompt}
+                             </Dropdown.Item>
+                           ))}
+                         </Dropdown.Menu>                    
+                       </Dropdown>
+                     )}
+     
+                     {controlArray.controlList[1].show && !mapExpanded && (
+                       <img className="setting-icons" 
+                         src={controlArray.controlList[1].iconURL}
+                         onClick={this.handleExpandMap}
+                       />
+                     )}
+     
+                     {controlArray.controlList[2] && mapExpanded &&(
+                       <img className="setting-icons" 
+                         src={controlArray.controlList[2].iconURL}
+                         onClick={this.handleContractMap}
+                         />
+                     )}
+     
+                     {controlArray.controlList[3].show && !hideMap &&(
+                       <img className="setting-icons" 
+                         src={controlArray.controlList[3].iconURL}
+                         onClick={()=>this.setState({hideMap: !hideMap})}
+                       />
+                     )}
+     
+                     {controlArray.controlList[4] && hideMap &&(
+                       <img className="setting-icons" 
+                         src={controlArray.controlList[4].iconURL}
+                         onClick={()=>this.setState({hideMap: !hideMap})}
+                         />
+                     )}
+                    </div>
+                    )
+                    
+                  : null
               ))}
-              {/* <div className="controls">
-                <span className="select-label">Status: </span>
-                <Select                 
-                  value={selectedStatus}
-                  onChange={this.handleStutusChange}
-                  options={this.statusOptions}
-                  isSearchable={false}
-                  styles={this.colourStyles}
-                  components={{
-                    IndicatorSeparator: () => null
-                  }}
-                />
-              </div>
-              
+
+
+
+
+            {/* {objectMapControls.mapControls[0].controlList.map((control, i)=>(
               <div className="controls">
-                <span className="select-label">Difficulty: </span>
-                <Select                  
-                  value={selectedDifficulty}
-                  onChange={this.handleDifficultyChange}
-                  options={this.difficultyOptions}
-                  isSearchable={false}
-                  styles={this.colourStyles}
-                  components={{
-                    IndicatorSeparator: () => null
-                  }}
-                />
-              </div>
-              <div className="controls">
-                <span className="select-label">Seasonality: </span>
-                <Select                  
-                  value={selectedSeasonality}
-                  onChange={this.handleSeasonalityChange}
-                  options={this.seasonalityOptions}
-                  isSearchable={false}
-                  styles={this.colourStyles}
-                  components={{
-                    IndicatorSeparator: () => null
-                  }}
-                />
-              </div>
-              <div className="controls">
-                <span className="select-label">Grade-Level: </span>
-                <Select                  
-                  value={selectedGradeLevel}
-                  onChange={this.handleGradeLevelChange}
-                  options={this.gradeLevelOptions}
-                  isSearchable={false}
-                  styles={this.colourStyles}
-                  components={{
-                    IndicatorSeparator: () => null
-                  }}
-                />
-              </div> */}
-              <div className="separator-line">
-              </div>
-              <div className="settings"> 
-                {/* {questMapControls[1].controlList.map(control=>(
-                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
-                ))}                */}
-
-                  {questMapControls[1].controlList[0].show && (
-                     <Dropdown className="settings-dropdown">
-                      <Dropdown.Toggle  id="dropdown-basic" block>
-                        <img className="setting-icons" 
-                        src={questMapControls[1].controlList[0].iconURL}
-                        onClick={()=>{}}
-                      />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {questMapControls[1].controlList[0].target.menuItems.map((menu,i)=>(
-                            <Dropdown.Item
-                            key={i}
-                            onClick={()=>{}}
-                          >
-                            {menu.prompt}
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>                    
-                    </Dropdown>
-                  )}
-
-                  {questMapControls[1].controlList[1].show && !mapExpanded && (
-                    <img className="setting-icons" 
-                      src={questMapControls[1].controlList[1].iconURL}
-                      onClick={this.handleExpandMap}
-                    />
-                  )}
-
-                  {questMapControls[1].controlList[2] && mapExpanded &&(
-                    <img className="setting-icons" 
-                      src={questMapControls[1].controlList[2].iconURL}
-                      onClick={this.handleContractMap}
-                      />
-                  )}
-
-                  {questMapControls[1].controlList[3] && !hideMap &&(
-                    <img className="setting-icons" 
-                      src={questMapControls[1].controlList[3].iconURL}
-                      onClick={()=>this.setState({hideMap: !hideMap})}
-                    />
-                  )}
-
-                  {questMapControls[1].controlList[4] && hideMap &&(
-                    <img className="setting-icons" 
-                      src={questMapControls[1].controlList[4].iconURL}
-                      onClick={()=>this.setState({hideMap: !hideMap})}
-                      />
-                  )}
-
-
-
-
-
-
-                  {/* <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
-                  <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
-                  <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
-              </div>
+              <span className="select-label">{control.controlId}: </span>
+              <Select                 
+                value={control.list[selectedControls[i]]}
+                onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
+                options={control.list}
+                isSearchable={false}
+                styles={this.colourStyles}
+                getOptionLabel={option => option.value }
+                getOptionValue={option => option.key}
+                components={{
+                  IndicatorSeparator: () => null
+                }}
+              />
             </div>
+            ))} */}
+            {/* <div className="controls">
+              <span className="select-label">Status: </span>
+              <Select                 
+                value={selectedStatus}
+                onChange={this.handleStutusChange}
+                options={this.statusOptions}
+                isSearchable={false}
+                styles={this.colourStyles}
+                components={{
+                  IndicatorSeparator: () => null
+                }}
+              />
+            </div>
+            
+            <div className="controls">
+              <span className="select-label">Difficulty: </span>
+              <Select                  
+                value={selectedDifficulty}
+                onChange={this.handleDifficultyChange}
+                options={this.difficultyOptions}
+                isSearchable={false}
+                styles={this.colourStyles}
+                components={{
+                  IndicatorSeparator: () => null
+                }}
+              />
+            </div>
+            <div className="controls">
+              <span className="select-label">Seasonality: </span>
+              <Select                  
+                value={selectedSeasonality}
+                onChange={this.handleSeasonalityChange}
+                options={this.seasonalityOptions}
+                isSearchable={false}
+                styles={this.colourStyles}
+                components={{
+                  IndicatorSeparator: () => null
+                }}
+              />
+            </div>
+            <div className="controls">
+              <span className="select-label">Grade-Level: </span>
+              <Select                  
+                value={selectedGradeLevel}
+                onChange={this.handleGradeLevelChange}
+                options={this.gradeLevelOptions}
+                isSearchable={false}
+                styles={this.colourStyles}
+                components={{
+                  IndicatorSeparator: () => null
+                }}
+              />
+            </div> */}
+            {/* <div className="separator-line">
+            </div>
+            <div className="settings"> 
+                {objectMapControls[1].controlList[0].show && (
+                   <Dropdown className="settings-dropdown">
+                    <Dropdown.Toggle  id="dropdown-basic" block>
+                      <img className="setting-icons" 
+                      src={objectMapControls[1].controlList[0].iconURL}
+                      onClick={()=>{}}
+                    />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {objectMapControls[1].controlList[0].target.menuItems.map((menu,i)=>(
+                          <Dropdown.Item
+                          key={i}
+                          onClick={()=>{}}
+                        >
+                          {menu.prompt}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>                    
+                  </Dropdown>
+                )}
+
+                {objectMapControls[1].controlList[1].show && !mapExpanded && (
+                  <img className="setting-icons" 
+                    src={objectMapControls[1].controlList[1].iconURL}
+                    onClick={this.handleExpandMap}
+                  />
+                )}
+
+                {objectMapControls[1].controlList[2] && mapExpanded &&(
+                  <img className="setting-icons" 
+                    src={objectMapControls[1].controlList[2].iconURL}
+                    onClick={this.handleContractMap}
+                    />
+                )}
+
+                {objectMapControls[1].controlList[3].show && !hideMap &&(
+                  <img className="setting-icons" 
+                    src={objectMapControls[1].controlList[3].iconURL}
+                    onClick={()=>this.setState({hideMap: !hideMap})}
+                  />
+                )}
+
+                {objectMapControls[1].controlList[4] && hideMap &&(
+                  <img className="setting-icons" 
+                    src={objectMapControls[1].controlList[4].iconURL}
+                    onClick={()=>this.setState({hideMap: !hideMap})}
+                    />
+                )} */}
+
+
+
+
+
+
+                {/* <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
+                <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
+                <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
+            {/* </div> */}
+            </div>
+           )}
+            
             <button onClick={()=>this.handleFindObject()}>find</button>
           </div>
         );
