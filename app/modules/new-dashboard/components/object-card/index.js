@@ -62,7 +62,7 @@ export class ObjectCard extends Component{
                     {objectCardDetails.showPlanMissionButton && (
                         <Button
                             type={"button"}
-                            onClickEvent={()=>{}} 
+                            onClickEvent={()=>{browserHistory.push(objectCardDetails.planMissionUrl)}} 
                             text={objectCardDetails.planMissionButtonCaption}                                             
                             style={"plan-btn"}
                         />

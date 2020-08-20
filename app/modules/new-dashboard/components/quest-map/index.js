@@ -94,7 +94,7 @@ export class QuestMap extends Component{
             token, 
             at, 
             cid,
-            questId: 178,
+            questId: 6,
             questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
             questVersion: 1.1
           }).then(response=>{
@@ -474,8 +474,27 @@ export class QuestMap extends Component{
             <div className="control-div">
               {questMapControls[0].controlList.map((control, i)=>(
                 <div className="controls">
-                <span className="select-label">{control.controlId}: </span>
-                <Select                 
+                <span className="select-label">{control.prompt} </span>
+                <Dropdown className="settings-dropdown">
+                    <Dropdown.Toggle  id="dropdown-basic">
+                      <span className="control-label">{control.list[selectedControls[i]].value}</span>
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            {control.list.map((item,j )=> (
+                              <Dropdown.Item
+                                key={item.controlId}
+                                onClick={()=>this.handleOptionChange(i,j)}
+                                className="control-menu-item"
+                              >
+                                <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
+                              </Dropdown.Item>
+                            ))}
+                          </Dropdown.Menu>
+                        </Dropdown>     
+
+
+                {/* <Select                 
                   value={control.list[selectedControls[i]]}
                   onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
                   options={control.list}
@@ -486,7 +505,7 @@ export class QuestMap extends Component{
                   components={{
                     IndicatorSeparator: () => null
                   }}
-                />
+                /> */}
               </div>
               ))}
               {/* <div className="controls">
@@ -562,6 +581,7 @@ export class QuestMap extends Component{
                             <Dropdown.Item
                             key={i}
                             onClick={()=>{}}
+                            className="control-menu-item"
                           >
                             {menu.prompt}
                           </Dropdown.Item>

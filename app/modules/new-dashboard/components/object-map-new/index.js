@@ -97,7 +97,7 @@ export class ObjectMap extends Component{
             token, 
             at, 
             cid,
-            objectId: 480,
+            objectId: 9,
             objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
             objectVersion: 1.1
           }).then(response=>{
@@ -482,19 +482,24 @@ export class ObjectMap extends Component{
                   controlArray.controlType === "dropdownList" ? (
                     controlArray.controlList.map((control,i)=>(
                       <div className="controls">
-                        <span className="select-label">{control.controlId}: </span>
-                        <Select                 
-                          value={control.list[selectedControls[i]]}
-                          onChange={(idx, selected)=>this.handleOptionChange(i,idx.index)}
-                          options={control.list}
-                          isSearchable={false}
-                          styles={this.colourStyles}
-                          getOptionLabel={option => option.value }
-                          getOptionValue={option => option.key}
-                          components={{
-                            IndicatorSeparator: () => null
-                          }}
-                        />
+                        <span className="select-label">{control.prompt} </span>
+                        <Dropdown className="settings-dropdown">
+                          <Dropdown.Toggle  id="dropdown-basic">
+                          <span className="control-label">{control.list[selectedControls[i]].value}</span>
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            {control.list.map((item,j )=> (
+                              <Dropdown.Item
+                                key={item.controlId}
+                                onClick={()=>this.handleOptionChange(i,j)}
+                                className="control-menu-item"
+                              >
+                                <span  style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
+                              </Dropdown.Item>
+                            ))}
+                          </Dropdown.Menu>
+                        </Dropdown>                       
                       </div>
                     ))                      
                   ) :
@@ -508,6 +513,10 @@ export class ObjectMap extends Component{
                           width={40}
                           height={20}
                           className={"toggle"}
+                          onColor="#888"
+                          offColor="#888"
+                          uncheckedIcon={false}
+                          checkedIcon={false}
                           />
                         <span className={selectedToggleControls[i] ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
                       </div>
@@ -528,6 +537,7 @@ export class ObjectMap extends Component{
                                <Dropdown.Item
                                key={i}
                                onClick={()=>{}}
+                               className="control-menu-item"
                              >
                                {menu.prompt}
                              </Dropdown.Item>
