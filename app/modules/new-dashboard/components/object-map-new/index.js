@@ -100,7 +100,7 @@ export class ObjectMap extends Component{
             token, 
             at, 
             cid,
-            objectId: 6,
+            objectId: 9,
             objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
             objectVersion: 1.1
           }).then(response=>{
