@@ -493,9 +493,9 @@ export class ObjectMap extends Component{
                               <Dropdown.Item
                                 key={item.controlId}
                                 onClick={()=>this.handleOptionChange(i,j)}
-                                className="control-menu-item"
+                                className={selectedControls[i] === j ? "control-menu-item-selected" : "control-menu-item"}                                
                               >
-                                <span  style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
+                                <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
                               </Dropdown.Item>
                             ))}
                           </Dropdown.Menu>
@@ -510,8 +510,8 @@ export class ObjectMap extends Component{
                         <Switch 
                           onChange={()=>this.handleToogleChange(i)} 
                           checked={selectedToggleControls[i]} 
-                          width={40}
-                          height={20}
+                          width={20}
+                          height={10}
                           className={"toggle"}
                           onColor="#888"
                           offColor="#888"

@@ -63,7 +63,7 @@ export class QuestCard extends Component{
                     {questCardDetails.showStartQuestButton && (
                         <Button
                             type={"button"}
-                            onClickEvent={()=>browserHistory.push(questCardDetails.startQuestUrl)} 
+                            onClickEvent={()=>browserHistory.push({ pathname: questCardDetails.startQuestUrl, state: { start: true } })} 
                             text={questCardDetails.startQuestButtonCaption}                                             
                             style={"quest-button-style"}
                         />

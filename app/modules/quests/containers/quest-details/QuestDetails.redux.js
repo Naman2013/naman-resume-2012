@@ -56,8 +56,12 @@ export class ConnectedQuestDetails extends Component {
   }
 
   handleResponse = () => {
-    const { handleRedirect, pageMeta } = this.props;
-    handleRedirect(pageMeta);
+    const { handleRedirect, pageMeta, location } = this.props;
+    const { state } = location
+    handleRedirect(pageMeta);    
+    if(pageMeta.showStartQuestButton && state && state.start){     
+      this.setupQuest();
+    }    
   };
 
   setupQuest = () => {

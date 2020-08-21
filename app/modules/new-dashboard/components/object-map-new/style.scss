@@ -19,10 +19,11 @@
     padding: 6px 24px;
 }
 
+.new-dash .control-menu-item-selected, 
+.new-dash .control-menu-item-selected:hover,
 .new-dash .control-menu-item:hover{
     background-color: #253446;
-    color: #FFFFFF
-
+    color: #FFFFFF;
 }
 
 .new-dash .select-label{
@@ -52,7 +53,7 @@
     font-size: 12px;
     line-height: 14px;
     /* identical to box height */
-    
+    min-width: 40px;
 
     color: #FFFFFF;
 
@@ -159,6 +160,8 @@
         border: none !important;
         box-shadow: none !important;
         padding: 0px !important;
+        color: #FFFFFF !important;  
+        text-transform: none;
     }    
 }
 
@@ -169,8 +172,11 @@
         box-shadow: none !important;
         // padding: 0px !important;
         color: #FFF;
+        text-transform: none;
     }    
 }
+
+
 
 .new-dash .object-card-popup{
     position: absolute;
