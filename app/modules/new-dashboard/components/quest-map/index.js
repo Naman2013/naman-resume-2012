@@ -40,6 +40,7 @@ export class QuestMap extends Component{
     selectedControls: [],
     mapExpanded: false,
     hideMap: false,
+    explanationText: null,
   }
 
   constructor (props){
@@ -241,7 +242,40 @@ export class QuestMap extends Component{
           });
           // map.on('click', this.handleMapClick.bind(this));
           this.setState({map: map, view: view });
-          
+          this.getQuestMapInit();
+    }
+
+    getQuestMapInit(){
+      const { token, at, cid } = getUserInfo();
+      const self = this;
+      
+      // console.log(filterList);
+      getQuestMap({token, cid, at, default: true}).then(response=>{
+       
+        const res=response.data;
+        if(!res.apiError){
+          const { layerList } = res;
+          let {map} = self.state;
+          const arrayLayers = map.getLayers().array_;
+
+          if(arrayLayers.length > 0)
+            arrayLayers.map(layer=>{
+              map.removeLayer(layer);
+            });
+            
+          layerList.map(layer=>{            
+            map.addLayer(this.getLayer(layer.source, layer.type));
+          })
+          map.addLayer(this.getVectorLayer());
+
+          // mapObject.addLayer(raster);
+
+          // map.addLayer([mapLayer]);
+          // map.getLayers().extend(layerList);
+          self.setState({map: map, explanationText: res.explanation});
+        }
+        
+      });
     }
 
     getSVGLayer(source){
@@ -419,7 +453,7 @@ export class QuestMap extends Component{
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
-          self.setState({map: map});
+          self.setState({map: map, explanationText: res.explanation});
         }
         
       });
@@ -447,7 +481,7 @@ export class QuestMap extends Component{
     render() {          
       const { showQuestCard, questCardDetails, isloading1 } = this.state
       const { questMapControls } = this.props;      
-      const { selectedControls, hideMap, mapExpanded } = this.state;
+      const { selectedControls, hideMap, mapExpanded, explanationText } = this.state;
       
         return (
           <div id="quest-Map">
@@ -485,7 +519,7 @@ export class QuestMap extends Component{
                               <Dropdown.Item
                                 key={item.controlId}
                                 onClick={()=>this.handleOptionChange(i,j)}
-                                className="control-menu-item"
+                                className={selectedControls[i] === j ? "control-menu-item-selected" : "control-menu-item"}                                
                               >
                                 <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
                               </Dropdown.Item>
@@ -618,6 +652,8 @@ export class QuestMap extends Component{
                       />
                   )}
 
+                    
+                
 
 
 
@@ -627,6 +663,9 @@ export class QuestMap extends Component{
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
                   <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
               </div>
+              {explanationText && (
+                      <span className="control-label">{explanationText}</span>
+                    )}
             </div>
             <button onClick={()=>this.handleFindObject()}>find</button>
           </div>

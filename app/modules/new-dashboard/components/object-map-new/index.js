@@ -25,12 +25,13 @@ import {getCenter} from 'ol/extent';
 import {composeCssTransform} from 'ol/transform';
 import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
-import { getObjectCard, getQuestMap } from '../../dashboardApi';
+import { getObjectCard, getObjectMap } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import Switch from "react-switch";
 import { Dropdown } from 'react-bootstrap';
 import { ObjectCard } from '../object-card';
+
 
 export class ObjectMap extends Component{
   state={
@@ -42,7 +43,8 @@ export class ObjectMap extends Component{
     selectedControls: [],
     mapExpanded: false,
     hideMap: false,
-    selectedToggleControls: []
+    selectedToggleControls: [],
+    explanationText: null,
   }
 
   constructor (props){
@@ -57,7 +59,8 @@ export class ObjectMap extends Component{
       objectCardDetails: [],
       isloading1: false,
       selectedControls:selectedControls,
-      selectedToggleControls: selectedToggleControls
+      selectedToggleControls: selectedToggleControls,
+      explanationText: null,
     }    
   }
     componentDidMount(){     
@@ -97,7 +100,7 @@ export class ObjectMap extends Component{
             token, 
             at, 
             cid,
-            objectId: 9,
+            objectId: 6,
             objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
             objectVersion: 1.1
           }).then(response=>{
@@ -174,7 +177,7 @@ export class ObjectMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        extent: [-180, -36, 22, 90],
+        // extent: [-180, -36, 22, 90],
         projection: 'EPSG:4326',
         zoom: 2,
         
@@ -244,7 +247,38 @@ export class ObjectMap extends Component{
           });
           // map.on('click', this.handleMapClick.bind(this));
           this.setState({map: map, view: view });
+          this.getObjectMapInit();
           
+    }
+
+    getObjectMapInit(){
+      const { token, at, cid } = getUserInfo();     
+      const self = this;
+      getObjectMap({token, cid, at,default: true}).then(response=>{       
+        const res=response.data;
+        if(!res.apiError){
+          const { layerList } = res;
+          let {map} = self.state;
+          const arrayLayers = map.getLayers().array_;
+
+          if(arrayLayers.length > 0)
+            arrayLayers.map(layer=>{
+              map.removeLayer(layer);
+            });
+            
+          layerList.map(layer=>{            
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
+          })
+          // map.addLayer(this.getVectorLayer());
+
+          // mapObject.addLayer(raster);
+
+          // map.addLayer([mapLayer]);
+          // map.getLayers().extend(layerList);
+          self.setState({map: map});
+        }
+        
+      });
     }
 
     getSVGLayer(source){
@@ -293,20 +327,37 @@ export class ObjectMap extends Component{
               return backgroundLayer;
     }
 
-    getVectorLayer(){
+    getVectorLayer(url, data){
       return new VectorLayer({
         source: new VectorSource({
+          // url: url,
           format: new GeoJSON(),
-          features: (new GeoJSON()).readFeatures(mapVector)   
-          // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
-        })
+          features: (new GeoJSON()).readFeatures(data)   
+         
+        }),
+        visible: true,
+        title: 'vector map'
       });
     }
 
-    getLayer(source, type){
+    getGraticleLayer(style){
+      return new Graticule({
+                // the style to use for the lines, optional.
+                style,
+                showLabels: true,
+                wrapX: false
+              });
+    }
+
+    getLayer(source, type, style, data){
       switch(type){
         case "Image":
           return this.getSVGLayer(source); 
+        case "Vector":
+          return this.getVectorLayer(source,data);
+        case "Graticule":
+          return this.getGraticleLayer(style)
+        
           // return this.getVectorLayer();         
       }
     }
@@ -391,7 +442,7 @@ export class ObjectMap extends Component{
       const { objectMapControls } = this.props;
       const { controlList } = objectMapControls[0];
       const { token, at, cid } = getUserInfo();
-      const layers = ["questMap", "pathfinder"];
+      const layers = ["astroObjects", "graticule"];
       const self = this;
       let filterList=[];
       selectedControls[controlIndex]=selectedIndex;
@@ -400,7 +451,7 @@ export class ObjectMap extends Component{
         filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
       });
       // console.log(filterList);
-      getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{       
+      getObjectMap({token, cid, at, filterList, layerList: layers}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
@@ -413,9 +464,9 @@ export class ObjectMap extends Component{
             });
             
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
-          map.addLayer(this.getVectorLayer());
+          // map.addLayer(this.getVectorLayer());
 
           // mapObject.addLayer(raster);
 
@@ -453,7 +504,7 @@ export class ObjectMap extends Component{
     render() {          
       const { showObjectCard, objectCardDetails, isloading1 } = this.state
       const { objectMapControls } = this.props;      
-      const { selectedControls, hideMap, mapExpanded, selectedToggleControls } = this.state;
+      const { selectedControls, hideMap, mapExpanded, selectedToggleControls, explanationText } = this.state;
   
         return (
           <div id="quest-Map">
@@ -713,6 +764,9 @@ export class ObjectMap extends Component{
                 <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
                 <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
             {/* </div> */}
+            {explanationText && (
+                      <span className="control-label">{explanationText}</span>
+                    )}
             </div>
            )}
             
