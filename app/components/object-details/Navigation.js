@@ -16,10 +16,10 @@ const generateNavItems = (objectId, t) => [
     title: t('Objects.Missions'),
     link: `/object-details/${objectId}/missions`,
   },
-  {
+  {/* {
     title: t('Objects.Quests'),
     link: `/object-details/${objectId}/quests`,
-  },
+  }, */}
   {
     title: t('Objects.Ask'),
     link: `/object-details/${objectId}/ask`,
