@@ -86,7 +86,6 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       telescopeName,
       instrumentName,
     } = observation;
-
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div

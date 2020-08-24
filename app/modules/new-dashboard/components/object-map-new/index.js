@@ -45,6 +45,7 @@ export class ObjectMap extends Component{
     hideMap: false,
     selectedToggleControls: [],
     explanationText: null,
+    layerList: [],
   }
 
   constructor (props){
@@ -61,6 +62,7 @@ export class ObjectMap extends Component{
       selectedControls:selectedControls,
       selectedToggleControls: selectedToggleControls,
       explanationText: null,
+      layerList: [],
     }    
   }
     componentDidMount(){     
@@ -83,31 +85,31 @@ export class ObjectMap extends Component{
       const self = this;
       var displayFeatureInfo = function(pixel) {
         const { showObjectCard } = self.state;
-        // vectorLayer.getFeatures(pixel).then(function(features) {
-        //   var feature = features.length ? features[0] : undefined; 
-        //   if (features.length) {         
-        //     console.log("object name: "+feature.get('name'));
-        //     console.log("object id: "+feature.getId());
-        //   }
-        // });
+        vectorLayer.getFeatures(pixel).then(function(features) {
+          var feature = features.length ? features[0] : undefined; 
+          if (features.length) {
+            console.log("object name: "+feature.get('name'));
+            console.log("object id: "+feature.getId());
+          }
+        });
 
-        if(showObjectCard)
-          self.setState({showObjectCard: false, objectCardDetails: []});
-        else{
-          self.setState({isloading1: true});
-          const { token, at, cid } = getUserInfo();
-          getObjectCard({
-            token, 
-            at, 
-            cid,
-            objectId: 9,
-            objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
-            objectVersion: 1.1
-          }).then(response=>{
-            self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
+        // if(showObjectCard)
+        //   self.setState({showObjectCard: false, objectCardDetails: []});
+        // else{
+        //   self.setState({isloading1: true});
+        //   const { token, at, cid } = getUserInfo();
+        //   getObjectCard({
+        //     token, 
+        //     at, 
+        //     cid,
+        //     objectId: 9,
+        //     objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
+        //     objectVersion: 1.1
+        //   }).then(response=>{
+        //     self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
             
-          });         
-        }
+        //   });         
+        // }
           
       };
       
@@ -345,7 +347,7 @@ export class ObjectMap extends Component{
                 // the style to use for the lines, optional.
                 style,
                 showLabels: true,
-                wrapX: false
+                // wrapX: false
               });
     }
 

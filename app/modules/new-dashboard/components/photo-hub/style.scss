@@ -39,6 +39,21 @@
     margin-right: 10px;
 }
 
+.new-dash .photo-mission-telescope{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.new-dash .photo-mission-item{
+    width: 200px; 
+    height: 250px; 
+    position: relative;  
+    // cursor: pointer;   
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
 .new-dash .overlay-div{
     position: absolute;
     top: 0;
@@ -82,6 +97,10 @@
 }
 
 .new-dash .photo-hub-item:hover .overlay-div{    
+    opacity: 1;
+}
+
+.new-dash .photo-mission-item:hover .overlay-div{    
     opacity: 1;
 }
 
@@ -269,6 +288,34 @@
     
 }
 
+.new-dash .photo-hub-mission-img{
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+}
+
+.new-dash .mission-main-div{
+    background: #202d3d;
+    border-radius: 8px;
+    padding: 16px;
+    height: 100%;
+}
+
+.new-dash .mission-center-bottom-div{
+    bottom: 0;
+    position: absolute;    
+    margin-bottom: 16px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+}
+
+.new-dash .photo-roll-menu{
+    width: 100%;
+    margin: 5px;
+}
+
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .upload-button span{
         display: none;
@@ -315,8 +362,13 @@
         font-size: 12px;
         line-height: 14px;
     }
+
+    .new-dash .mission-center-bottom-div{
+        margin-bottom: 0px;
+    }
     // .new-dash .button-style{
     //     background: rgba(255, 255, 255, 0.4);
     //     color: #FFFFFF;
     // }
+    
 }

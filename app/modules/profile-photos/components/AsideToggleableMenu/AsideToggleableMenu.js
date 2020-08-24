@@ -31,13 +31,14 @@ const AsideToggleableMenu = props => {
     tagsData = {},
     galleryId,
     typeGallery,
+    newDash
   } = props;
   const { t } = useTranslation();
-
+ 
   return (
     <div
       className={mod ? `root ${mod}` : 'root'}
-      style={{ width: visible ? '70%' : '0' }}
+      style={{ width: newDash ? '80%' : visible ? '70%' : '0' }}
       onClick={e => e.stopPropagation()}
       role="presentation"
     >

@@ -25,6 +25,7 @@ import {
 import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import { SelectedFilters } from '../../common/selected-filters';
 import { Observation } from './observation';
+import { Mission } from './mission';
 
   
   const mapTypeToRequest = {
@@ -215,6 +216,7 @@ class PhotoHub extends Component{
                                 getMyPictures={getMyPictures} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
+                                tagActions={tagActions}
                                 />;
                 case "Observations":
                     return <Observation 
@@ -224,7 +226,7 @@ class PhotoHub extends Component{
                                 totalCount={photoHub.totalCount}
                                 />;
                 case "Missions":
-                    return <PhotoRoll 
+                    return <Mission 
                                 imageList={photoHub.imageList}
                                 getMyPictures={getMyPictures} 
                                 countPerTab={photoHub.countPerTab}
