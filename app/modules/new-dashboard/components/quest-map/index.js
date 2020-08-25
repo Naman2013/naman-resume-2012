@@ -387,6 +387,7 @@ export class QuestMap extends Component{
             // Run code on exit            
             self.setState({mapExpanded: !mapExpanded});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
+            setTimeout( ()=> { self.state.map.updateSize();}, 100);
         }
       };
       if(elem.requestFullscreen){
