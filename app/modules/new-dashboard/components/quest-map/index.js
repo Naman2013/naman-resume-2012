@@ -174,7 +174,8 @@ export class QuestMap extends Component{
         center: [0, 0],
         extent: [-180, -36, 22, 90],
         projection: 'EPSG:4326',
-        zoom: 2,
+        zoom: 0,
+        showFullExtent: true,
         
       });
 
@@ -261,36 +262,42 @@ export class QuestMap extends Component{
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
-            });
-            
-          layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type));
+            });          
+          layerList.map(layer=>{                        
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.data));           
           })
-          map.addLayer(this.getVectorLayer());
+          // map.addLayer(this.getVectorLayer());
 
           // mapObject.addLayer(raster);
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
+         
+          
           self.setState({map: map, explanationText: res.explanation});
         }
         
       });
     }
 
-    getSVGLayer(source){
+    getSVGLayer(source,data){
       var svgContainer = document.createElement('div');
-            var xhr = new XMLHttpRequest();            
-            xhr.open('GET', source ,true);
-            // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
-            xhr.setRequestHeader('Content-Type','application/xml');
-            xhr.addEventListener('load', function () {
-              var svg = xhr.responseXML.documentElement;
-              svgContainer.ownerDocument.importNode(svg);
-              svgContainer.appendChild(svg);
-            });
-            xhr.send();
-
+            // var xhr = new XMLHttpRequest();            
+            // xhr.open('GET', source ,true);
+            // // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
+            // xhr.setRequestHeader('Content-Type','application/xml');
+            // xhr.addEventListener('load', function () {
+            //   var svg = xhr.responseXML.documentElement;
+            //   svgContainer.ownerDocument.importNode(svg);
+            //   svgContainer.appendChild(svg);
+            // });
+            // xhr.send();
+            // var svg = data;
+           
+            // var parser = new DOMParser();
+            // var doc = parser.parseFromString(data, "image/svg+xml");
+            // svgContainer.ownerDocument.importNode('data:image/svg+xml;charset=utf-8,'+svg);
+            svgContainer.innerHTML=data;
             var width = 2560;
             var height = 1280;
             var svgResolution = 360 / width;
@@ -334,10 +341,10 @@ export class QuestMap extends Component{
       });
     }
 
-    getLayer(source, type){
+    getLayer(source, type, data){
       switch(type){
         case "Image":
-          return this.getSVGLayer(source); 
+          return this.getSVGLayer(source, data); 
           // return this.getVectorLayer();         
       }
     }
@@ -445,7 +452,7 @@ export class QuestMap extends Component{
             });
             
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.data));
           })
           map.addLayer(this.getVectorLayer());
 
@@ -490,7 +497,7 @@ export class QuestMap extends Component{
               text="Please wait...loading discussions"
             />
             <div className="map-container">
-              <div id="map" class="map">
+              <div id="map" className={mapExpanded ? "Quest-map-fullscreen":"Quest-map"}>
               
               </div>
               {showQuestCard && (

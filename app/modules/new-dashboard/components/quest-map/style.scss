@@ -1,13 +1,15 @@
 @import "../../breakpoints.scss";
 @import "../../../../../app/styles/variables/fonts.scss";
 
-.new-dash .map {
+.new-dash .Quest-map  {
     width: 100%;
-    height:800px;
+    height: calc(40vw);
+    // height:800px;
     // background: url('https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png');
-    background-color: #111;
+    // background-color: #111;
     border-radius: 8px;
-  }
+    
+}
 
 .new-dash .control-div{
     background-color: #111111;
@@ -19,7 +21,11 @@
     padding: 6px 24px;
 }
 
-
+.new-dash .Quest-map-fullscreen{
+    width: 100%;
+    height: calc(95vh);
+    border-radius: 8px;
+}
 
 .new-dash .select-label{
     font-family: $primary-font;
@@ -143,6 +149,9 @@
         line-height: 23px;      
         color: #BDBDBD;         
     }
+    .new-dash .Quest-map  {
+        height: calc(45vw);  
+    }
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
@@ -162,5 +171,8 @@
         font-size: 14px;
         line-height: 20px;      
         color: #BDBDBD;         
+    }
+    .new-dash .Quest-map  {
+        height: calc(36.7vw) ;  
     }
 }
