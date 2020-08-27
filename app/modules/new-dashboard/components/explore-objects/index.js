@@ -33,7 +33,7 @@ export class ExploreObject extends Component{
         return (
             <div className="title-main">
                  <TabHeader
-                    headings={["Explore Quests", "Explore Objects"]}
+                    headings={["Explore Quests"]}
                     activeHeading={activeHeading}
                     spaceequally={false}
                     theme={"dark"}

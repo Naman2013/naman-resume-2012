@@ -175,6 +175,7 @@ export class QuestMap extends Component{
         extent: [-180, -36, 22, 90],
         projection: 'EPSG:4326',
         zoom: 0,
+        maxZoom: 6,
         showFullExtent: true,
         
       });
@@ -245,6 +246,43 @@ export class QuestMap extends Component{
           this.setState({map: map, view: view });
           this.getQuestMapInit();
     }
+
+
+    resetQuestMap(data){
+      const { token, at, cid } = getUserInfo();
+      const self = this;
+      
+      // console.log(filterList);
+      getQuestMap({token, cid, at, ...data}).then(response=>{       
+        const res=response.data;
+        if(!res.apiError){
+          const { layerList } = res;
+          let {map} = self.state;
+          const arrayLayers = map.getLayers().array_;
+
+          if(arrayLayers.length > 0)
+            arrayLayers.map(layer=>{
+              map.removeLayer(layer);
+            });          
+          layerList.map(layer=>{                        
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.data));           
+          })
+          // map.addLayer(this.getVectorLayer());
+
+          // mapObject.addLayer(raster);
+
+          // map.addLayer([mapLayer]);
+          // map.getLayers().extend(layerList);
+         
+          map.getView().setZoom(0);
+          self.setState({map: map, explanationText: res.explanation});
+        }
+        
+      });
+    }
+
+
+
 
     getQuestMapInit(){
       const { token, at, cid } = getUserInfo();
@@ -423,6 +461,24 @@ export class QuestMap extends Component{
       else if(document.msExitFullscreen){
           document.msExitFullscreen();
       }      
+    }
+
+    handleGearIconChange = (menu) => {      
+      debugger;
+      if(menu.resetFilters){
+        const { questMapControls } = this.props;
+        const selectedControls = questMapControls[0].controlList.map(control=>control.selectedIndex);     
+        this.setState({selectedControls: selectedControls});
+      }
+      // switch(menu.menuAction){
+      //   case "reset":
+      //     this.resetQuestMap({layerList: menu.menuTarget});
+          
+      //     break;
+      //   default:
+          this.resetQuestMap({layerList: menu.menuTarget});
+      //     break;
+      // }
     }
    
     handleOptionChange = (controlIndex, selectedIndex)=>{         
@@ -622,7 +678,7 @@ export class QuestMap extends Component{
                         {questMapControls[1].controlList[0].target.menuItems.map((menu,i)=>(
                             <Dropdown.Item
                             key={i}
-                            onClick={()=>{}}
+                            onClick={()=>{this.handleGearIconChange(menu)}}
                             className="control-menu-item"
                           >
                             {menu.prompt}
