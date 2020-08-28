@@ -4,7 +4,7 @@ import './style.scss';
 import { TabHeaderWithStatus } from '../tab-header-with-status';
 import { getWeatherActions, getSkyRating, getNewDahObs, getObsStatus } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
-import { Spinner } from 'app/components/spinner/index';
+import { Spinner } from '../../common/spinner';
 
 export class Observatories extends Component{
 
@@ -95,10 +95,10 @@ export class Observatories extends Component{
         
         return (
             <div className="observatory-main" >
-                <Spinner
+                {/* <Spinner
                     loading={loading}
                     text="Please wait...loading"
-                />                
+                />                 */}
                 <h2 className="observatory-heading">{heading}</h2>
                 <TabHeaderWithStatus
                         // headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
@@ -110,6 +110,10 @@ export class Observatories extends Component{
                 />
                 {wxList && obsWidgetData && obsStatus && (
                     <div className="observatory-content">
+                        <Spinner
+                            loading={loading}
+                            text="Loading..."
+                        /> 
                         <div className="observatory-row">
                             <div className="observatory-col-left">
                                 <h5 className="observatory-col-txt">{obsStatus.clockList.obsCurrentTime.displayLabel}</h5>
