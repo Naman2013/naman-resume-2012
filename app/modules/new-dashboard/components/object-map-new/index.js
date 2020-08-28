@@ -93,23 +93,23 @@ export class ObjectMap extends Component{
           }
         });
 
-        // if(showObjectCard)
-        //   self.setState({showObjectCard: false, objectCardDetails: []});
-        // else{
-        //   self.setState({isloading1: true});
-        //   const { token, at, cid } = getUserInfo();
-        //   getObjectCard({
-        //     token, 
-        //     at, 
-        //     cid,
-        //     objectId: 9,
-        //     objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
-        //     objectVersion: 1.1
-        //   }).then(response=>{
-        //     self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
+        if(showObjectCard)
+          self.setState({showObjectCard: false, objectCardDetails: []});
+        else{
+          self.setState({isloading1: true});
+          const { token, at, cid } = getUserInfo();
+          getObjectCard({
+            token, 
+            at, 
+            cid,
+            objectId: 9,
+            objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
+            objectVersion: 1.1
+          }).then(response=>{
+            self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
             
-        //   });         
-        // }
+          });         
+        }
           
       };
       

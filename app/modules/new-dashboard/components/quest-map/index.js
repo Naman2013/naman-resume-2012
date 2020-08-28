@@ -172,10 +172,10 @@ export class QuestMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        // extent: [-180, -36, 22, 90],
-        // projection: 'EPSG:4326',
+        extent: [-180, -36, 22, 90],
+        projection: 'EPSG:4326',
         zoom: 0,
-        maxZoom: 6,
+        // maxZoom: 6,
         showFullExtent: true,
         
       });
@@ -312,7 +312,7 @@ export class QuestMap extends Component{
         //     })
         // });
           // map.addLayer(this.getVectorLayer());
-          // map.getView().setMaxZoom(res.maxZoomLevel);
+          map.getView().setMaxZoom(res.maxZoomLevel);
           // mapObject.addLayer(raster);
 
           // map.addLayer([mapLayer]);

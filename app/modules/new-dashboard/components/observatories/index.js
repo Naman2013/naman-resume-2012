@@ -123,8 +123,8 @@ export class Observatories extends Component{
                             <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseLabel} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetLabel}</h5>
                                 <h5 className="observatory-col-value">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseTime} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetTime} {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.timeZone}</h5>
                                 <br/>
-                                <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementTitle - obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementTitle}</h5>
-                                <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementValue} - {obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementValue}</h5>
+                                <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementTitle} - {obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementTitle}</h5>
+                                <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementValue} - {obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementValue}</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementTitle}</h5>
                                 <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementValue}</h5>
