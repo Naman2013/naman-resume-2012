@@ -7,7 +7,8 @@
   // top: 0;
   // bottom: 0;
   // left: 0;
-  // right: 0;
+  // right: 0;  
+  margin-top: -25px;
 
   &.transparent {
     background: none;
@@ -21,13 +22,14 @@
     flex-flow: row;
     align-items: center;
     justify-content: center;
+    // top: -30px;
 
     .spinner {
-      height: 30px;
-      width: 30px;
-      margin: 10px;
+      height: 15px;
+      width: 15px;
+      margin: 5px;
       animation: rotation 1s infinite linear;
-      border: 3px solid $hawkesBlue;
+      border: 2px solid $hawkesBlue;
       border-top-color: $astronaut;
       border-radius: 100%;
     }
@@ -35,7 +37,7 @@
     .spinner-text {
       // margin-top: 20px;
       font-family: $primary-font;
-      font-size: 18px;
+      font-size: 10px;
       font-weight: normal;
       color: $hawkesBlue;
     }
