@@ -2,53 +2,103 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { TabHeaderWithStatus } from '../tab-header-with-status';
-import { getWeatherActions, getSkyRating } from '../../dashboardApi';
+import { getWeatherActions, getSkyRating, getNewDahObs, getObsStatus } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
-
+import { Spinner } from 'app/components/spinner/index';
 
 export class Observatories extends Component{
 
-    state = {
-        selectedheader: "Chile",
-        wxList: undefined,
-        skyConditions: undefined,        
+    constructor(props){
+        super(props);
+        this.state={
+            selectedheader: "Chile",
+            wxList: undefined,
+            skyConditions: undefined, 
+            obsStatus: undefined,
+            loading: true,
+        }
     }
 
     componentDidMount(){
-        const { list, getWeatherDataAction, getObsStatus, getNewDashObs } = this.props;        
+        const { list } = this.props;
+        const { token, at, cid } = getUserInfo();        
         if(list){
             const { obsId, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list[0];
-            getWeatherDataAction({ obsId });
-            getNewDashObs({obsId,                 
+            getWeatherActions({token, at, cid, obsId }).then(response=>{
+                const res=response.data;
+                if(!res.apiError){
+                    this.setState({wxList: res.wxList, loading: false});                    
+                }
+            });
+
+            getNewDahObs({token, at, cid, obsId,                 
                 dayNightBarWidgetUniqueId: DayNightBarWidgetId,
                 moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
-            getObsStatus(obsId);
+                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
+                    const res=response.data;
+                    if(!res.apiError){
+                        this.setState({obsWidgetData: res, loading: false});                       
+                    }
+                })
+            getObsStatus(obsId).then(response=>{
+                const res=response.data;
+                    if(!res.apiError){
+                        this.setState({obsStatus: res, loading: false});                        
+                    }
+            });
+            // getWeatherDataAction({ obsId });
+            // getNewDashObs({obsId,                 
+            //     dayNightBarWidgetUniqueId: DayNightBarWidgetId,
+            //     moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
+            //     seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
+            // getObsStatus(obsId);
             // getSkyData({ obsId , widgetUniqueId: SeeingConditionsWidgetId });
         }
             
     }
 
     onTabChange=(selectedHeader)=>{
-        const { getWeatherDataAction, getObsStatus, getNewDashObs } =this.props;
+        // const { getWeatherDataAction, getObsStatus, getNewDashObs } =this.props;
         const { obsId, obsShortName, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = selectedHeader;        
-        getWeatherDataAction({ obsId });
-        getNewDashObs({obsId,                 
+        const { token, at, cid } = getUserInfo();    
+        this.setState({loading: true});
+        getWeatherActions({token, at, cid, obsId }).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                this.setState({wxList: res.wxList, loading: false});                    
+            }
+        });
+
+        getNewDahObs({token, at, cid, obsId,                 
             dayNightBarWidgetUniqueId: DayNightBarWidgetId,
             moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-            seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
-        getObsStatus(obsId);
+            seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
+                const res=response.data;
+                if(!res.apiError){
+                    this.setState({obsWidgetData: res, loading: false});                       
+                }
+            })
+        getObsStatus(obsId).then(response=>{
+            const res=response.data;
+                if(!res.apiError){
+                    this.setState({obsStatus: res, loading: false});                        
+                }
+        });
         // getSkyData({ obsId , widgetUniqueId });
         this.setState({selectedheader: obsShortName});
     };     
 
     render() {
         const heading = "Observatories";        
-        const { list, wxList, obsWidgetData, obsStatus } = this.props;        
-        const { selectedheader } = this.state;       
+        const { list } = this.props;        
+        const { selectedheader, wxList, obsWidgetData, obsStatus, loading } = this.state;       
         
         return (
-            <div className="observatory-main" >                
+            <div className="observatory-main" >
+                <Spinner
+                    loading={loading}
+                    text="Please wait...loading"
+                />                
                 <h2 className="observatory-heading">{heading}</h2>
                 <TabHeaderWithStatus
                         // headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
@@ -73,8 +123,8 @@ export class Observatories extends Component{
                             <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseLabel} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetLabel}</h5>
                                 <h5 className="observatory-col-value">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseTime} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetTime} {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.timeZone}</h5>
                                 <br/>
-                                <h5 className="observatory-col-txt">Moonrise - Moonset</h5>
-                                <h5 className="observatory-col-value"> 03:10 - 17:00 UTC</h5>
+                                <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementTitle - obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementTitle}</h5>
+                                <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[2].elementValue} - {obsWidgetData.widgetsData.moonlightBar.subwidgets[1].elementValue}</h5>
                                 <br/>
                                 <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementTitle}</h5>
                                 <h5 className="observatory-col-value">{obsWidgetData.widgetsData.moonlightBar.subwidgets[0].elementValue}</h5>

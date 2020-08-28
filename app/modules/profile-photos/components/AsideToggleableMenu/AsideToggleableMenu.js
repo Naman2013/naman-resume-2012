@@ -34,7 +34,7 @@ const AsideToggleableMenu = props => {
     newDash
   } = props;
   const { t } = useTranslation();
- 
+  
   return (
     <div
       className={mod ? `root ${mod}` : 'root'}

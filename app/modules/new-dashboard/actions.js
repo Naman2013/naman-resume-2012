@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -41,6 +41,8 @@ export const GET_NEW_DASH_OBS_START = "GET_NEW_DASH_OBS_START";
 export const GET_NEW_DASH_OBS_SUCCESS = "GET_NEW_DASH_OBS_SUCCESS";
 export const GET_OBS_STATUS_START = "GET_OBS_STATUS_START";
 export const GET_OBS_STATUS_SUCCESS = "GET_OBS_STATUS_SUCCESS";
+export const GET_COMMUNITY_EXPLORATION_START = "GET_COMMUNITY_EXPLORATION_START";
+export const GET_COMMUNITY_EXPLORATION_SUCCESS = "GET_COMMUNITY_EXPLORATION_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -219,6 +221,15 @@ const getObsStatusStart = () => ({
 
 const getObsStatusSuccess = (payload) => ({
   type: GET_OBS_STATUS_SUCCESS,
+  payload    
+});
+
+const getCommunityObservationStart = () => ({
+  type: GET_COMMUNITY_EXPLORATION_START    
+});
+
+const getCommunityExplorationSuccess = (payload) => ({
+  type: GET_COMMUNITY_EXPLORATION_SUCCESS,
   payload    
 });
 
@@ -501,6 +512,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     return getObsStatus(data).then(
       result => {        
         dispatch(getObsStatusSuccess(result.data));
+      }
+    );
+  };
+
+  export const getCommunityExplorationAction = (data) => (dispatch, getState) => {
+    dispatch(getCommunityObservationStart());    
+    const { token, at, cid } = getState().user;    
+    return getCommunityExploration({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getCommunityExplorationSuccess(result.data));
       }
     );
   };

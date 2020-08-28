@@ -27,6 +27,7 @@ import { SectionDivider } from "./components/section-divider";
 import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
 import { ExploreObject } from "./components/explore-objects";
+import { CommunityExploration } from "./components/community-exploration";
 
 export class NewDashboard extends PureComponent{
 
@@ -92,6 +93,7 @@ export class NewDashboard extends PureComponent{
                 getWeatherDataAction,
                 getObservatoryListAction,
                 getQuestMapControlAction,
+                getCommunityExplorationAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -120,6 +122,7 @@ export class NewDashboard extends PureComponent{
         getRecentGravityDataAction();        
         getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
         getQuestMapControlAction();
+        getCommunityExplorationAction();
     };
     
     render(){
@@ -166,11 +169,12 @@ export class NewDashboard extends PureComponent{
                 obsStatus,    
                 getQuestMapControlAction,
                 getObjectMapControlAction,
-                objectMapControls, 
+                objectMapControls,
+                communityExploration, 
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
-      
+              
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -296,10 +300,9 @@ export class NewDashboard extends PureComponent{
                                     subHeading = {"Latest Community Insights"}
                                 />
 
-                                {photoHub && (
-                                    <ImageSlider
-                                    imageList={[{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."},
-                                        {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", imageTitle: "IC2602 (Southern Pleiades) With Chile 2", overlayData: {owners: "Marjorie Robertson", imageDate: "15 mins ago"}, likesCount: "1", commentsCount: "0", socialShareDescription: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound."}]}
+                                {communityExploration && (
+                                    <CommunityExploration
+                                        communityExploration={communityExploration}
                                     />
                                 )}                                    
 

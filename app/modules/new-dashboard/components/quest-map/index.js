@@ -14,7 +14,7 @@ import VectorSource from 'ol/source/Vector';
 import {mapVector} from "./map";
 import { WKT } from 'ol/format/WKT';
 import { Point } from 'ol/geom/Point';
-import {Fill, Stroke, Style, Text} from 'ol/style';
+import {Fill, Stroke, Style, Text, Icon} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
 import Select from 'react-select';
 import ImageLayer from 'ol/layer/Image';
@@ -172,8 +172,8 @@ export class QuestMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        extent: [-180, -36, 22, 90],
-        projection: 'EPSG:4326',
+        // extent: [-180, -36, 22, 90],
+        // projection: 'EPSG:4326',
         zoom: 0,
         maxZoom: 6,
         showFullExtent: true,
@@ -301,17 +301,26 @@ export class QuestMap extends Component{
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });          
+            
+          
           layerList.map(layer=>{                        
             map.addLayer(this.getLayer(layer.source, layer.type, layer.data));           
           })
+        //   var style = new Style({
+        //     image: new Icon({
+        //         src: 'http://www.williambuck.com/portals/0/Skins/WilliamBuck2014/images/location-icon.svg'
+        //     })
+        // });
           // map.addLayer(this.getVectorLayer());
-
+          // map.getView().setMaxZoom(res.maxZoomLevel);
           // mapObject.addLayer(raster);
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
-         
-          
+          // debugger
+          // var properties = map.getView().getProperties();
+          // properties["maxZoom"] = res.maxZoomLevel;
+          // map.setView(new ol.View(properties));
           self.setState({map: map, explanationText: res.explanation});
         }
         
@@ -372,7 +381,7 @@ export class QuestMap extends Component{
     getVectorLayer(){
       return new VectorLayer({
         source: new VectorSource({
-          format: new GeoJSON(),
+          format: new GeoJSON({dataProjection: 'EPSG:4326'}),
           features: (new GeoJSON()).readFeatures(mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
         })
@@ -463,8 +472,7 @@ export class QuestMap extends Component{
       }      
     }
 
-    handleGearIconChange = (menu) => {      
-      debugger;
+    handleGearIconChange = (menu) => { 
       if(menu.resetFilters){
         const { questMapControls } = this.props;
         const selectedControls = questMapControls[0].controlList.map(control=>control.selectedIndex);     
@@ -507,11 +515,11 @@ export class QuestMap extends Component{
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-            
+            map.addLayer(this.getVectorLayer());
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.data));
           })
-          map.addLayer(this.getVectorLayer());
+         
 
           // mapObject.addLayer(raster);
 

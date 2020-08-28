@@ -128,3 +128,9 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.obsStatus
   );
+
+  export const makeCommunityExplorationSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.communityExploration
+  );

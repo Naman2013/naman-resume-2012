@@ -99,3 +99,11 @@ export function getNewDahObs(data) {
 export function getObsStatus(obsId) {
   return API.get('/api/obs/getObservatoryStatus?obsId='+obsId);
 }
+
+export function getImageDetails(data) {
+  return API.post('/api/images/getImageDetails',data);
+}
+
+export function getCommunityExploration(data) {
+  return API.post('/api/newdashboard/getFeaturedObservationsAndActivities',data);
+}

@@ -109,6 +109,7 @@ export class PhotoRoll extends Component{
                                                     typeGallery={false}
                                                     currentItem={photo}
                                                     newDash
+                                                    tagsData={{isFetching: true, tagList: []}}
                                                     {...photo}
                                                 />
                                             </div>
