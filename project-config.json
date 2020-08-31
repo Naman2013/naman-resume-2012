@@ -68,6 +68,11 @@
       "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
     }
   },
+  "v4-prod-build.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/v4-prod-build.slooh.com.html"
+  },
   "southafrica.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
