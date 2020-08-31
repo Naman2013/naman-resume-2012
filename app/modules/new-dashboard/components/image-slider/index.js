@@ -9,6 +9,7 @@ import ObservationComments from 'app/modules/observations/containers/observation
 import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 import { SliderItem } from './sliderItem';
 import { getImageDetails } from '../../dashboardApi';
+import LikeButton from '../button/LikeButton';
 
 export class ImageSlider extends Component{
 
@@ -85,6 +86,9 @@ export class ImageSlider extends Component{
             speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1,
+            beforeChange: (current, after) =>{
+                this.setState({ isDiscussionsOpen: false});
+            },
             afterChange: ( after) =>{
                 const { limitedIndex, initialLoadIndex, imageDetailsList } = this.state;                
 
@@ -92,7 +96,7 @@ export class ImageSlider extends Component{
                     this.setState({limitedIndex: limitedIndex+1, currentIndex: after, currentItem: imageDetailsList[after]});
                 }
             }
-        };
+        };        
         const { currentItem, isDiscussionsOpen, limitedIndex, imageDetailsList } = this.state;
         const readOnly = false;
         return (
@@ -117,13 +121,25 @@ export class ImageSlider extends Component{
                             <p className="slider-content">{currentItem.observationLog}</p>
                             <div className="slider-content-footer">
                                 <div className="slider-buttons-container">
-                                    <Button
+                                    {/* <Button
                                         type={"button"}
-                                        onClickEvent={()=>{}} 
+                                        onClickEvent={onLikeClick} 
                                         text={currentItem.likesCount}                                             
                                         style={"slider-footer-button"}
                                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/heart.svg"}
+                                    /> */}
+                                    <LikeButton
+                                        mod="no-border"
+                                        likePrompt={currentItem.likePrompt}
+                                        likesCount={currentItem.likesCount}
+                                        likedByMe={currentItem.likedByMe}
+                                        likeTooltip={currentItem.likeTooltip}                                        
+                                        customerId={currentItem.customerImageId}
+                                        showLikePrompt={currentItem.showLikePrompt}
+                                        btnStyle={"slider-footer-button"}
                                     />
+                                        
+                                       
                                     <Button
                                         type={"button"}
                                         onClickEvent={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen})}} 
@@ -131,18 +147,20 @@ export class ImageSlider extends Component{
                                         style={"slider-footer-button"}
                                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
                                     />
-                                    <Button
+                                    {/* <Button
                                         type={"button"}
                                         onClickEvent={()=>{}} 
                                         text={"0"}                                             
                                         style={"slider-footer-button"}
                                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
-                                    />
+                                    /> */}
                                 </div>
                                 <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
                             </div> 
                             {/* <input type="text" className="slider-comment-input" placeholder="Write a Comment"/>  */}
-                            {isDiscussionsOpen && (
+                            
+                        </div>
+                        {isDiscussionsOpen && (
                                 <ObservationComments
                                     topLevelThread={false}
                                     callSource={CALLSOURCE_PHOTOVIEW}
@@ -155,8 +173,6 @@ export class ImageSlider extends Component{
                                     canSubmitReplies={currentItem.canSubmitReplies}
                                 />
                             )}
-                        </div>
-                       
                     </div>    
                 )}                      
             </div>

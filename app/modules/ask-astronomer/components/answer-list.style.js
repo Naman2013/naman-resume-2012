@@ -24,7 +24,8 @@ export default css`
   }
 
   .replies-list {
-    flex: 0 0 93%;
+    // flex: 0 0 93%;
+    flex: 1;
   }
 
   .num-replies {

@@ -6,6 +6,7 @@ import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/image
 import { getUserInfo } from 'app/modules/User';
 import { Button } from '../button';
 import ObservationComments from 'app/modules/observations/containers/observation-comments';
+import LikeButton from '../button/LikeButton';
 
 export class SliderItem extends Component{
 
@@ -34,12 +35,22 @@ export class SliderItem extends Component{
                                     <p className="slider-content">{imageDetails.observationLog}</p>
                                     <div className="slider-content-footer">
                                         <div className="slider-buttons-container">
-                                            <Button
+                                            {/* <Button
                                                 type={"button"}
                                                 onClickEvent={()=>{}} 
                                                 text={imageDetails.likesCount}                                             
                                                 style={"slider-footer-button"}
                                                 icon={"https://vega.slooh.com/assets/v4/dashboard-new/heart.svg"}
+                                            /> */}
+                                            <LikeButton
+                                                mod="no-border"
+                                                likePrompt={imageDetails.likePrompt}
+                                                likesCount={imageDetails.likesCount}
+                                                likedByMe={imageDetails.likedByMe}
+                                                likeTooltip={imageDetails.likeTooltip}                                        
+                                                customerId={imageDetails.customerImageId}
+                                                showLikePrompt={imageDetails.showLikePrompt}
+                                                btnStyle={"slider-footer-button"}
                                             />
                                             <Button
                                                 type={"button"}
@@ -48,18 +59,18 @@ export class SliderItem extends Component{
                                                 style={"slider-footer-button"}
                                                 icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
                                             />
-                                            <Button
+                                            {/* <Button
                                                 type={"button"}
                                                 onClickEvent={()=>{}} 
                                                 text={"0"}                                             
                                                 style={"slider-footer-button"}
                                                 icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
-                                            />
+                                            /> */}
                                         </div>
                                         <span className="slider-updated">{imageDetails.observationTimeDisplay[0]}</span>
                                     </div> 
                                     {/* <input type="text" className="slider-comment-input" placeholder="Write a Comment"/>  */}
-                                    {isDiscussionsOpen &&  (
+                                    {/* {isDiscussionsOpen &&  (
                                         <ObservationComments
                                             topLevelThread={false}
                                             callSource={CALLSOURCE_PHOTOVIEW}
@@ -71,7 +82,7 @@ export class SliderItem extends Component{
                                             threadId={imageDetails.commentsThreadId}
                                             canSubmitReplies={imageDetails.canSubmitReplies}
                                         />
-                                    )}
+                                    )} */}
                                 </div> 
                         <img className="img-slider" src={imageDetails.imageURL} />
                     </div>

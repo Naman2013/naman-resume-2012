@@ -107,3 +107,6 @@ export function getImageDetails(data) {
 export function getCommunityExploration(data) {
   return API.post('/api/newdashboard/getFeaturedObservationsAndActivities',data);
 }
+export function handleLikeReq(data) {
+  return API.post('/api/images/like',data);
+}

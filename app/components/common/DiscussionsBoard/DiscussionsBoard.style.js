@@ -85,11 +85,13 @@ export default css`
   }
 
   .replies-list {
-    flex: 0 0 93%;
+    // flex: 0 0 93%;
+    flex:1;
   }
 
   .comment-replies-list {
-    flex: 0 0 92.5%;
+    // flex: 0 0 92.5%;
+    flex: 1;
   }
 
   .comment-list-item {
