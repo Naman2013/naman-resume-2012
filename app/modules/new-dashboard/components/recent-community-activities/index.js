@@ -9,18 +9,20 @@ export class RecentCommunityActivities extends Component{
 
     
     render() {
-        const { heading } = this.props;
+        const { heading, activities } = this.props;
+        const { activitiesList } = activities;
         
         return (
             <div className="recent-main">
                 <h2 className="recent-heading">{heading}</h2> 
-                <TabHeader
+                {/* <TabHeader
                     headings={["All", "Only My Activites"]}
                     activeHeading={"All"}
                     spaceequally={false}
                     theme={"dark"}
-                />
+                /> */}
                 <ConversationLayout
+                    activitiesList={activitiesList}
                 />
             </div>   
         );

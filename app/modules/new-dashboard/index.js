@@ -308,9 +308,12 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
-                                <RecentCommunityActivities
-                                    heading={"Recent Community Activities"}
-                                />
+                                {communityExploration && (
+                                    <RecentCommunityActivities
+                                        heading={"Recent Community Activities"}
+                                        activities={communityExploration.activities}
+                                    />
+                                )}                               
 
                                 <SectionDivider/>
                                 
