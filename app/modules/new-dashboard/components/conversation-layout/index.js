@@ -55,7 +55,7 @@ export class ConversationLayout extends Component{
                                 <div className="col-right">
                                     <p className="message-text" dangerouslySetInnerHTML={{__html: message.message}} />
                                     <br/>
-                                    <p className="message-time">{"10:26"}</p>
+                                    <p className="message-time">{message.time}</p>
                                 </div>
                                 
                             </div>
