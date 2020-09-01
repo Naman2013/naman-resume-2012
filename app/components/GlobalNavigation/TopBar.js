@@ -150,7 +150,7 @@ const TopBar = ({
               </ul>
             </div>
             {upcomingStarPartyList && countdown && nextShow && (
-               <div className="center-menu">
+               <div className="center-menu" onClick={()=>browserHistory.push(nextShow.linkUrl)}>
                 {/* <CenterBar /> */}
                 {countdown > 0 ? 
                     <Countdown
@@ -302,6 +302,7 @@ const TopBar = ({
                   // flex-grow: 1;
                   display: flex;
                   align-self: center;
+                  cursor: pointer;
                 }
 
                 .button-list {
@@ -404,6 +405,7 @@ const TopBar = ({
                   text-align: center;
                   order: 0;
                   min-width: 130px;
+                  cursor: pointer;
                 }
 
                 @media ${screenMobile} {
