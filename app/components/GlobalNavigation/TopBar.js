@@ -20,6 +20,9 @@ import {
 import MENU_INTERFACE from './Menus/MenuInterface';
 import CenterBar from './CenterBar';
 import Button from './Button';
+import Countdown from 'react-countdown-now';
+import moment from 'moment';
+import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -50,7 +53,8 @@ const TopBar = ({
   isChatEnabled,
   scrollActivityFeedToBottom,
   subscribeToPubnubActivityFeedChannel,
-  setMemberChatState
+  setMemberChatState,
+  upcomingStarPartyList,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -68,6 +72,14 @@ const TopBar = ({
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
   const { t } = useTranslation();
   // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
+  const now= moment(Date.now()).unix();        
+  let countdown = null;      
+  let nextShow = null;
+  
+  if(upcomingStarPartyList !== null && upcomingStarPartyList !== undefined){
+    nextShow = upcomingStarPartyList.eventList[0];         
+    countdown = nextShow.eventStart-now;
+  }
 
   return (
     <Fragment>
@@ -137,10 +149,30 @@ const TopBar = ({
                 </li>
               </ul>
             </div>
-
-            {/*<div className="center-menu">*/}
-            {/*  <CenterBar />*/}
-            {/*</div>*/}
+            {upcomingStarPartyList && countdown && nextShow && (
+               <div className="center-menu">
+                {/* <CenterBar /> */}
+                {countdown > 0 ? 
+                    <Countdown
+                        date={nextShow.eventStart*1000}
+                        onComplete={null}                   
+                        renderer={props => (                        
+                            <span className="counter-text">
+                                {props.days < 1 ? 
+                                    "Starts in " + twoDigitsTimeFormatting(props.hours) + ":" + twoDigitsTimeFormatting(props.minutes) + ":" + twoDigitsTimeFormatting(props.seconds) :
+                                    "In " + props.days + " days - " + nextShow.eventTitle
+                                }
+                                
+                            </span>                        
+                        )}
+                    />
+                :
+                <span className="counter-text live">LIVE - {nextShow.eventTitle}</span>
+                }    
+                
+              </div>
+            )}
+           
 
             <div className="right-menu">
               <ul className="button-list">
@@ -267,7 +299,9 @@ const TopBar = ({
                 }
 
                 .center-menu {
-                  flex-grow: 1;
+                  // flex-grow: 1;
+                  display: flex;
+                  align-self: center;
                 }
 
                 .button-list {
@@ -347,6 +381,29 @@ const TopBar = ({
 
                 .foreducators-button > div > span:first-child {
                   margin-right: 3px;
+                }
+
+                .counter-text{
+                  display: flex;
+                  flex-direction: row;
+                  padding: 8px 12px;
+                  width: -webkit-fit-content;
+                  width: -moz-fit-content;
+                  width: fit-content;
+                  background: rgba(14,43,86,.6);
+                  -webkit-backdrop-filter: blur(4px);
+                  backdrop-filter: blur(4px);
+                  border-radius: 8px;
+                  font-family: Brandon Grotesque,brandon-grotesque,sans-serif;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 14px;
+                  line-height: 20px;
+                  color: #fff;
+                  flex: none;
+                  text-align: center;
+                  order: 0;
+                  min-width: 130px;
                 }
 
                 @media ${screenMobile} {
