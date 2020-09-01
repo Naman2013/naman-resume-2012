@@ -45,9 +45,11 @@ export class ConversationLayout extends Component{
                             ):null}
                             
                             <div className="message-content">
-                                {message.hasIcon && (
+                                {message.showIcon && (
                                     <div className="col-left">
-                                        <img className="conversation-obj-image" src={message.iconURL}/>
+                                        <div className={message.iconType==="gravityavatar"?"imgContainer":message.iconType==="object"?"objecticonContainer":"conversation-badge-icon"}>
+                                            <img className="conversation-obj-image" src={message.iconURL}/>
+                                        </div>
                                     </div>
                                 )}                            
                                 <div className="col-right">

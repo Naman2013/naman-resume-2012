@@ -125,15 +125,22 @@
     background-size: contain;
 }
 
-.conversation-obj-image{
+.new-dash .conversation-obj-image{
     position: relative;
     width: 100%;
-    height: 50px;    
-    background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon-new.svg') no-repeat;
-    background-size: contain;
-    background-position: center;
+    // height: 65px;    
+    // background: url('https://vega.slooh.com/assets/v4/dashboard-new/hexagon-new.svg') no-repeat;
+    // background-size: contain;
+    // background-position: center;
     padding: 10px;
 
+}
+
+.new-dash .conversation-badge-icon{
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
 }
 
 @media (min-width: $screenXLarge){
