@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -43,6 +43,8 @@ export const GET_OBS_STATUS_START = "GET_OBS_STATUS_START";
 export const GET_OBS_STATUS_SUCCESS = "GET_OBS_STATUS_SUCCESS";
 export const GET_COMMUNITY_EXPLORATION_START = "GET_COMMUNITY_EXPLORATION_START";
 export const GET_COMMUNITY_EXPLORATION_SUCCESS = "GET_COMMUNITY_EXPLORATION_SUCCESS";
+export const GET_COMMUNITY_FAME_START = "GET_COMMUNITY_FAME_START";
+export const GET_COMMUNITY_FAME_SUCCESS = "GET_COMMUNITY_FAME_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -230,6 +232,15 @@ const getCommunityObservationStart = () => ({
 
 const getCommunityExplorationSuccess = (payload) => ({
   type: GET_COMMUNITY_EXPLORATION_SUCCESS,
+  payload    
+});
+
+const getCommunityFameStart = () => ({
+  type: GET_COMMUNITY_FAME_START    
+});
+
+const getCommunityFameSuccess = (payload) => ({
+  type: GET_COMMUNITY_FAME_SUCCESS,
   payload    
 });
 
@@ -527,6 +538,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getCommunityExplorationSuccess(result.data));
+      }
+    );
+  };
+
+  export const getCommunityFameAction = (data) => (dispatch, getState) => {
+    dispatch(getCommunityFameStart());    
+    const { token, at, cid } = getState().user;    
+    return getCommunityFame({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getCommunityFameSuccess(result.data));
       }
     );
   };

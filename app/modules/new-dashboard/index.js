@@ -94,6 +94,7 @@ export class NewDashboard extends PureComponent{
                 getObservatoryListAction,
                 getQuestMapControlAction,
                 getCommunityExplorationAction,
+                getCommunityFameAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -123,6 +124,7 @@ export class NewDashboard extends PureComponent{
         getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
         getQuestMapControlAction();
         getCommunityExplorationAction();
+        getCommunityFameAction();
     };
     
     render(){
@@ -171,6 +173,7 @@ export class NewDashboard extends PureComponent{
                 getObjectMapControlAction,
                 objectMapControls,
                 communityExploration, 
+                communityFame,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -357,10 +360,10 @@ export class NewDashboard extends PureComponent{
 
                                 <SectionDivider/>
 
-                                <h2 className="recent-heading">{"Ask an Astronomer Anything"}</h2> 
+                                {/* <h2 className="recent-heading">{"Ask an Astronomer Anything"}</h2> 
                                 <AstronomerConversationLayout
                                 />
-                                <SectionDivider/>
+                                <SectionDivider/> */}
                                 
                             </div>
                         </div>
@@ -424,10 +427,16 @@ export class NewDashboard extends PureComponent{
                                     showRowCount={0}
                                     showMoreButton={false}
                                 />
-                                <CommunityFame
-                                    heading={"Community Hall of Fame"}
-                                    gpPoints={"18 647"}
-                                />
+
+                                {communityFame && (
+                                    <CommunityFame
+                                        // heading={"Community Hall of Fame"}
+                                        // gpPoints={"18 647"}
+                                        communityFame={communityFame}
+                                    />
+                                )}
+
+                                
                                 <ObjectList
                                     heading={"Community Top Object"}
                                     showTab={true}

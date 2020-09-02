@@ -3,12 +3,13 @@ import React from "react";
 import './style.scss';
 import { TabHeader } from '../tab-header';
 import { GPCard } from "../gp-card";
+import { LineChart } from '../../common/line-chart';
 
 export class CommunityFame extends Component{
 
     
     render() {
-        const {heading, gpPoints} = this.props;
+        const {heading, gpPoints, communityFame} = this.props;
         const gplist = [{gpPoints: "0", text: "Hubble"},
                             {gpPoints: "4", text: "Swan"},
                             {gpPoints: "14", text: "Herchels"}];
@@ -16,20 +17,23 @@ export class CommunityFame extends Component{
         return (
             <div className="community-fame-main">
 
-                <h2 className="community-fame-heading">{heading}</h2> 
+                <h2 className="community-fame-heading">{communityFame.sectionHeading }</h2> 
 
                     <GPCard
-                        points={gpPoints}
+                        gravityEarnedToday={communityFame.gravityEarnedToday}
                     />                   
 
                     <div className="community-flex-layout">
-                        {gplist.map(gp=>(
+                        {/* {communityFame.tierStats.map(gp=>(
                             <div className="community-gp-card">
-                                <h2 className="community-gp-points">{gp.gpPoints}</h2>
-                                <h2 className="community-gp-txt">{gp.text}</h2>
+                                <h2 className="community-gp-points">{gp.gravityPoints}</h2>
+                                <h2 className="community-gp-txt">{gp.gravityMessage}</h2>
                             </div>
-                        ))}
-                    </div>                                               
+                        ))} */}
+                    </div> 
+                    <LineChart
+                        data={communityFame.dataPoints}
+                    />                                              
             </div>   
         );
     }

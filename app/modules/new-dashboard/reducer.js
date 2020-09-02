@@ -41,6 +41,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_OBJECT_MAP_CONTROL_SUCCESS,
          GET_COMMUNITY_EXPLORATION_START,
          GET_COMMUNITY_EXPLORATION_SUCCESS,
+         GET_COMMUNITY_FAME_START,
+         GET_COMMUNITY_FAME_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -317,6 +319,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_COMMUNITY_EXPLORATION_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_COMMUNITY_FAME_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          communityFame: payload,
+          isFetching: false,
+        };
+      },
+      [GET_COMMUNITY_FAME_START](state) {
         return {
           ...state,
           isFetching: true,

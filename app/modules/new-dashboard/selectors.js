@@ -134,3 +134,9 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.communityExploration
   );
+
+  export const makeCommunityFameSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.communityFame
+  );

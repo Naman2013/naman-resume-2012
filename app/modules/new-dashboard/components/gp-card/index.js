@@ -8,12 +8,12 @@ export class GPCard extends Component{
 
     
     render() {
-        const {points} = this.props;      
+        const {gravityEarnedToday} = this.props;      
 
         return (
             <div className="gp-main">
                 <div className="gp-container">
-                    <h2 className="gp-txt">{points}</h2> 
+                    <h2 className="gp-txt">{gravityEarnedToday.gravityPoints}</h2> 
                     <div>
                         <h5 className="gravity-text">{"Gravity Points"}</h5>
                         <h5 className="gravity-by-tab">{"Earned Today"}</h5>

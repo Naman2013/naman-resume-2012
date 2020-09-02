@@ -159,7 +159,7 @@ const TopBar = ({
                         renderer={props => (                        
                             <span className="counter-text">
                                 {props.days < 1 ? 
-                                    "Starts in " + twoDigitsTimeFormatting(props.hours) + ":" + twoDigitsTimeFormatting(props.minutes) + ":" + twoDigitsTimeFormatting(props.seconds) :
+                                    "Starts in " + twoDigitsTimeFormatting(props.hours) + ":" + twoDigitsTimeFormatting(props.minutes) + ":" + twoDigitsTimeFormatting(props.seconds) + " - " + nextShow.eventTitle :
                                     "In " + props.days + " days - " + nextShow.eventTitle
                                 }
                                 

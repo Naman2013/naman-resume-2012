@@ -45,6 +45,7 @@ import {
     getNewDashObsAction,
     getObsStatusAction,
     getCommunityExplorationAction,
+    getCommunityFameAction,
   } from './actions';
 
 
@@ -70,6 +71,7 @@ import { makeStarPartyListSelector,
     makeObsWidgetDataSelector,
     makeObsStatusSelector,
     makeCommunityExplorationSelector,
+    makeCommunityFameSelector,
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -103,6 +105,7 @@ const mapStateToProps = createStructuredSelector({
     obsWidgetData: makeObsWidgetDataSelector(),
     obsStatus: makeObsStatusSelector(),
     communityExploration: makeCommunityExplorationSelector(),
+    communityFame: makeCommunityFameSelector(),
 });
 
 const mapDispatchToProps = {
@@ -132,6 +135,7 @@ const mapDispatchToProps = {
     getObsStatusAction,
     getObjectMapControlAction,
     getCommunityExplorationAction,
+    getCommunityFameAction,
 };
 
 export default compose(
