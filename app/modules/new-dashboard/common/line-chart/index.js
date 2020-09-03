@@ -1,21 +1,45 @@
 import { Component } from 'react';
 import React from "react";
-// import './style.scss';
+import './style.scss';
 import { Chart } from "react-google-charts";
 
 export class LineChart extends Component{
 
-    
+
+    constructor(props){
+        super(props);
+        const {data} = props;
+        let temp = [];
+        let hticks = []
+        temp.push(["Day", "Gravity Points", { role: "tooltip", type: "string", p: { html: true } }]);
+        data.map((data,i)=>{
+            temp.push([i, data.gp, this.createCustomTooltipContent(data.label, data.gp)]);
+            hticks.push({"v": i, "f": data.label});
+        });
+        this.state={
+            data: temp,
+            hticks: hticks
+        };
+    }
+
+    createCustomTooltipContent=(day, gp)=> {
+        return '<div class="tooltip-div">' +
+                    '<span class="tooltip-text-style">' +
+                        'Day: <b>' + day + '</b>'+
+                        '<br/>' +
+                        'Gravity: <b>' + gp + '</b>' +
+                '</div>';         
+      }
     
     render() {
-        // const {data} = this.props;
-        const data = {"Sunday": 100, "Monday": 200, "Tuesday": 800, "Wednesday": 500, "Thursday": 300, "Friday": 150, "Saturday": 80};
-            
+        const { data, hticks } = this.state;
+        const { yLabel } = this.props;
+        
         return (
-            <div className="title-main">
+            <div className="chart-main">
                 <Chart
                     chartType="LineChart"
-                    data={[["Day", "Gravity Points"], [0,100], [1, 200], [2,150], [3, 500], [4,300], [5,350], [6,100]]}
+                    data={data}
                     width="100%"
                     height="400px"
                     
@@ -26,10 +50,12 @@ export class LineChart extends Component{
                           textStyle:{color: '#FFF'},
                           titleTextStyle:{color: '#FFF'},
                           baselineColor:{color: '#FFF'},
-                        //   ticks: [{v:0, f:"100$"},{v:150, f:"150$"},{v:200, f:"200$"},{v:300, f:"300$"}]
+                          ticks: hticks,
+                          slantedTextAngle: 60,
+                          slantedText: true,
                         },
                         vAxis: {
-                          title: 'Gravity Points',
+                          title: yLabel,
                           textStyle:{color: '#FFF'},
                           titleTextStyle:{color: '#FFF'},
                           baselineColor:{color: '#FFF'},
@@ -42,9 +68,9 @@ export class LineChart extends Component{
                             textStyle: {color: '#FFF'},
                         },                        
                         pointShape: 'circle',
-                        chartArea: {
-                            // leave room for y-axis labels
-                            left:75,bottom:75, top: 20, right:20,width:"100%",height:"100%"
+                        pointSize: 5,
+                        chartArea: {                           
+                            left:75,bottom:120, top: 20, right:20,width:"100%",height:"100%"
                         },
                         axes: {
                             x: {
@@ -59,9 +85,9 @@ export class LineChart extends Component{
                             {title: 'Gravity Points',
                             textStyle:{color: '#FFF'},
                             titleTextStyle:{color: '#FFF'},
-                            baselineColor:{color: '#FFF'},},
-                            {}
-                        ]
+                            baselineColor:{color: '#FFF'},},                            
+                        ],
+                        tooltip: {isHtml: true},
                     }}
                 />
             </div>   

@@ -489,7 +489,7 @@ export class NewDashboard extends PureComponent{
                                 />
 
                                 <RankCard
-                                    heading={"Top Members"}
+                                    heading={"Top Students"}
                                     rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
                                                 {rank: "2", gpPoints: "49014", text: "Harold Russell", subText: "University of South Alabama"},
                                                 {rank: "3", gpPoints: "46799", text: "Colleen Henry", subText: "University of South Alabama"},

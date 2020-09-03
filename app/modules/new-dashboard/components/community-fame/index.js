@@ -13,7 +13,7 @@ export class CommunityFame extends Component{
         const gplist = [{gpPoints: "0", text: "Hubble"},
                             {gpPoints: "4", text: "Swan"},
                             {gpPoints: "14", text: "Herchels"}];
-
+        
         return (
             <div className="community-fame-main">
 
@@ -32,7 +32,8 @@ export class CommunityFame extends Component{
                         ))} */}
                     </div> 
                     <LineChart
-                        data={communityFame.dataPoints}
+                        data={communityFame.gravityGraph.dataPoints}
+                        yLabel={communityFame.gravityGraph.yLabel}
                     />                                              
             </div>   
         );

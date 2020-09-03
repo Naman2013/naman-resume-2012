@@ -14,8 +14,8 @@ export class CommunityClubList extends Component{
             <div className="community-club-main">
                 <h2 className="community-club-heading">{heading}</h2> 
                     <TabHeader
-                        headings={["Last 30 Days", "All Time"]}
-                        activeHeading={"Last 30 Days"}
+                        headings={["2020-2021 School Year", "All Time"]}
+                        activeHeading={"2020-2021 School Year"}
                         spaceequally={true}
                         theme={"light"}
                     />

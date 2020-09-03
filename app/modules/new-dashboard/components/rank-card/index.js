@@ -15,8 +15,8 @@ export class RankCard extends Component{
             <div className="rank-main">
                 <h2 className="rank-heading">{heading}</h2> 
                     <TabHeader
-                        headings={["Last 30 Days", "All Time"]}
-                        activeHeading={"Last 30 Days"}
+                        headings={["2020-2021 School Year", "All Time"]}
+                        activeHeading={"2020-2021 School Year"}
                         spaceequally={true}
                         theme={"light"}
 
