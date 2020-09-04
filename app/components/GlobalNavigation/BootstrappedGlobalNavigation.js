@@ -458,6 +458,7 @@ class GlobalNavigation extends Component {
               this.subscribeToPubnubActivityFeedChannel
             }
             upcomingStarPartyList={upcomingStarPartyList}
+            signIn={user.isAuthorized}
           />         
         </div>
         

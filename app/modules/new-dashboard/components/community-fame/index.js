@@ -24,12 +24,12 @@ export class CommunityFame extends Component{
                     />                   
 
                     <div className="community-flex-layout">
-                        {/* {communityFame.tierStats.map(gp=>(
+                        {communityFame.tierStats.map(gp=>(
                             <div className="community-gp-card">
-                                <h2 className="community-gp-points">{gp.gravityPoints}</h2>
-                                <h2 className="community-gp-txt">{gp.gravityMessage}</h2>
+                                <h2 className="community-gp-points">{gp.count}</h2>
+                                <h2 className="community-gp-txt">{gp.label}</h2>
                             </div>
-                        ))} */}
+                        ))}
                     </div> 
                     <LineChart
                         data={communityFame.gravityGraph.dataPoints}

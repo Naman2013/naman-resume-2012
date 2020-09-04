@@ -55,6 +55,7 @@ const TopBar = ({
   subscribeToPubnubActivityFeedChannel,
   setMemberChatState,
   upcomingStarPartyList,
+  signIn,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -76,7 +77,7 @@ const TopBar = ({
   let countdown = null;      
   let nextShow = null;
   
-  if(upcomingStarPartyList !== null && upcomingStarPartyList !== undefined){
+  if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList !== undefined){
     nextShow = upcomingStarPartyList.eventList[0];         
     countdown = nextShow.eventStart-now;
   }

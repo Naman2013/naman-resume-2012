@@ -20,13 +20,13 @@ export class GPCard extends Component{
                     </div>
                 </div>
                 <br/>
-                <br/>
+                {/* <br/>
                 <TabHeader
                         headings={["Earned Today", "Earned Last 30 Days"]}
                         activeHeading={"Earned Today"}
                         spaceequally={true}
                         theme={"light"}
-                    />                                                    
+                    />                                                     */}
             </div>   
         );
     }
