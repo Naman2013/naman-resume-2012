@@ -479,7 +479,7 @@ export class QuestMap extends Component{
 
     getIconFeature(lat, lon, text){
       return new Feature({
-        geometry: new Point([lat/10,lon/10]),
+        geometry: new Point([lat,lon]),
         name: text,
       });      
     }
@@ -495,10 +495,11 @@ export class QuestMap extends Component{
         }),
         text: new Text({
           text: text,
-          scale: 0.,
+          scale: 0.5,
           // rotation: Math.PI / 4,
           textAlign: 'center',
-          textBaseline: 'top',
+          textBaseline: 'bottom',
+          fill: new Fill({color: "#FFFFFF"}),
         }),
       });
     }
