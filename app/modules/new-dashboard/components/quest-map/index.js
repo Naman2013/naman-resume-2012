@@ -181,7 +181,7 @@ export class QuestMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        extent: [-180, -90, 180, 90],
+        extent: [-180, -36, 22, 90],
         projection: 'EPSG:4326',
         zoom: 0,
         // maxZoom: 6,
@@ -403,11 +403,10 @@ export class QuestMap extends Component{
       // feature = this.setIconSyle(feature,style);
       // features.push(feature);
       data.map(item => { 
-        if(item.badgeIconURL !== "")       {
-          console.log(fromLonLat([130, 433]));
-          let feature = this.getIconFeature(item.XBadgeCoord, item.YBadgeCoord, item.badgeLabel );
+        if(item.badgeIconURL !== ""){         
+          let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
-          let style = this.getIconSytle(item.XBadgeCoord, item.YBadgeCoord, item.badgeIconURL, item.badgeLabel );
+          let style = this.getIconSytle(0, 0, item.badgeIconURL, item.badgeLabel );
           // this.setIconSyle(feature,style);
           feature.setStyle(style);
           ifeatures.push(feature);
@@ -488,15 +487,15 @@ export class QuestMap extends Component{
     getIconSytle(alat, alon, icon, text){
      return new Style({
         image: new Icon({
-          // anchor: [0.5, 0.9],
+          anchor: [alat, alon],
           src: icon,
           crossOrigin: '',
-          scale: 0.1,
+          scale: 0.2,
           // rotation: Math.PI / 4,
         }),
         text: new Text({
           text: text,
-          scale: 0.1,
+          scale: 0.,
           // rotation: Math.PI / 4,
           textAlign: 'center',
           textBaseline: 'top',
