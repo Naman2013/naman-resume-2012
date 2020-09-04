@@ -11,9 +11,9 @@ import OSM from 'ol/source/OSM';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import {mapVector} from "./map";
+import {mapVector, testmapVector} from "./map";
 import { WKT } from 'ol/format/WKT';
-import { Point } from 'ol/geom/Point';
+import  Point from 'ol/geom/Point';
 import {Fill, Stroke, Style, Text, Icon} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
 import Select from 'react-select';
@@ -29,6 +29,9 @@ import { getQuestCard, getQuestMap } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import { Dropdown } from 'react-bootstrap';
+import Feature from 'ol/Feature';
+import {getVectorContext} from 'ol/render';
+import {Group as LayerGroup} from 'ol/layer';
 
 export class QuestMap extends Component{
   state={
@@ -41,6 +44,7 @@ export class QuestMap extends Component{
     mapExpanded: false,
     hideMap: false,
     explanationText: null,
+    vectorLayer: null,
   }
 
   constructor (props){
@@ -60,13 +64,14 @@ export class QuestMap extends Component{
   }
     componentDidMount(){     
      
-      var vectorLayer = new VectorLayer({
-        source: new VectorSource({
-          format: new GeoJSON(),
-          features: (new GeoJSON()).readFeatures(mapVector)   
-          // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
-        })
-      });
+      // var vectorLayer = new VectorLayer({
+      //   source: new VectorSource({
+      //     format: new GeoJSON(),
+      //     features: (new GeoJSON()).readFeatures(mapVector)   
+      //     // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
+      //   }),
+      //   zIndex: 1
+      // });
 
       
      
@@ -77,32 +82,36 @@ export class QuestMap extends Component{
       // // });
       const self = this;
       var displayFeatureInfo = function(pixel) {
-        const { showQuestCard } = self.state;
-        // vectorLayer.getFeatures(pixel).then(function(features) {
-        //   var feature = features.length ? features[0] : undefined; 
-        //   if (features.length) {         
-        //     console.log("object name: "+feature.get('name'));
-        //     console.log("object id: "+feature.getId());
-        //   }
-        // });
+        const { showQuestCard, vectorLayer } = self.state;
+        vectorLayer.getFeatures(pixel).then(function(features) {
+          var feature = features.length ? features[0] : undefined; 
+          if (features.length) {  
+            console.log("object name: "+feature.get('name'));
+            console.log("object id: "+feature.getId());
+            if(showQuestCard)
+              self.setState({showQuestCard: false, questCardDetails: []});
+            else{
+              self.setState({isloading1: true});
+              const { token, at, cid } = getUserInfo();
+              getQuestCard({
+                token, 
+                at, 
+                cid,
+                questId: feature.getId(),
+                questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
+                questVersion: 1.1
+              }).then(response=>{
+                self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
+                
+              });         
+            }
+          }
+          else
+          if(showQuestCard)
+              self.setState({showQuestCard: false, questCardDetails: []});
+        });
 
-        if(showQuestCard)
-          self.setState({showQuestCard: false, questCardDetails: []});
-        else{
-          self.setState({isloading1: true});
-          const { token, at, cid } = getUserInfo();
-          getQuestCard({
-            token, 
-            at, 
-            cid,
-            questId: 6,
-            questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
-            questVersion: 1.1
-          }).then(response=>{
-            self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
-            
-          });         
-        }
+        
           
       };
       
@@ -172,7 +181,7 @@ export class QuestMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        extent: [-180, -36, 22, 90],
+        extent: [-180, -90, 180, 90],
         projection: 'EPSG:4326',
         zoom: 0,
         // maxZoom: 6,
@@ -245,6 +254,7 @@ export class QuestMap extends Component{
           // map.on('click', this.handleMapClick.bind(this));
           this.setState({map: map, view: view });
           this.getQuestMapInit();
+          console.log(fromLonLat([ 130, 433 ]));
     }
 
 
@@ -259,14 +269,17 @@ export class QuestMap extends Component{
           const { layerList } = res;
           let {map} = self.state;
           const arrayLayers = map.getLayers().array_;
-
+          let mapLayerList=[]
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });          
-          layerList.map(layer=>{                        
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.data));           
+          layerList.map(layer=>{    
+            mapLayerList.push(this.getLayer(layer.source, layer.type, layer.data));                       
           })
+          map.addLayer(new LayerGroup({
+            layers: mapLayerList
+          }));
           // map.addLayer(this.getVectorLayer());
 
           // mapObject.addLayer(raster);
@@ -290,7 +303,6 @@ export class QuestMap extends Component{
       
       // console.log(filterList);
       getQuestMap({token, cid, at, default: true}).then(response=>{
-       
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
@@ -302,7 +314,9 @@ export class QuestMap extends Component{
               map.removeLayer(layer);
             });          
             
-          
+            // map.addLayer(this.testVectorLayer(false));
+            // map.addLayer(this.testVectorLayer(true));
+
           layerList.map(layer=>{                        
             map.addLayer(this.getLayer(layer.source, layer.type, layer.data));           
           })
@@ -345,6 +359,7 @@ export class QuestMap extends Component{
             // var doc = parser.parseFromString(data, "image/svg+xml");
             // svgContainer.ownerDocument.importNode('data:image/svg+xml;charset=utf-8,'+svg);
             svgContainer.innerHTML=data;
+            svgContainer.style.position="absolute";
             var width = 2560;
             var height = 1280;
             var svgResolution = 360 / width;
@@ -374,32 +389,140 @@ export class QuestMap extends Component{
                   svgContainer.style.opacity = 1;
                   return svgContainer;
                 },
-              })
+               
+              },                
+
+              )
               return backgroundLayer;
     }
 
-    getVectorLayer(){
+    getVectorLayer(data, layer){      
+      let ifeatures=[];
+      // let feature = this.getIconFeature(0, -10, "test" );
+      // let style = this.getIconSytle(0.5, 0.9, "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png", "test" );
+      // feature = this.setIconSyle(feature,style);
+      // features.push(feature);
+      data.map(item => { 
+        if(item.badgeIconURL !== "")       {
+          console.log(fromLonLat([130, 433]));
+          let feature = this.getIconFeature(item.XBadgeCoord, item.YBadgeCoord, item.badgeLabel );
+          feature.setId(item.questId);
+          let style = this.getIconSytle(item.XBadgeCoord, item.YBadgeCoord, item.badgeIconURL, item.badgeLabel );
+          // this.setIconSyle(feature,style);
+          feature.setStyle(style);
+          ifeatures.push(feature);
+          // layer.on('postrender', (event) => {
+          //   debugger;
+          //   let i = 0;
+          //   let j = 45;
+          //   var vectorContext = getVectorContext(event);
+          //   var x = Math.cos((i * Math.PI) / 180) * 3;
+          //   var y = Math.cos((j * Math.PI) / 180) * 4;
+          //   style.getImage().setScale([x, y]);
+          //   style.getText().setScale([x, y]);
+          //   vectorContext.drawFeature(feature, style);
+          // });
+        }
+        
+      });    
+     
+      // layer.on('postrender', (event) => {
+      //   let i = 0;
+      //   let j = 45;
+      //   debugger;
+      //   var vectorContext = getVectorContext(event);
+      //   var x = Math.cos((i * Math.PI) / 180) * 3;
+      //   var y = Math.cos((j * Math.PI) / 180) * 4;
+      //   iconStyle.getImage().setScale([x, y]);
+      //   iconStyle.getText().setScale([x, y]);
+      //   vectorContext.drawFeature(feature, style);
+      // });
+      const vectorLayer=new VectorLayer({        
+        source: new VectorSource({
+          // format: new GeoJSON({dataProjection: 'EPSG:4326'}),
+          // features: (new GeoJSON()).readFeatures(mapVector)   
+          // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
+          features: ifeatures
+        }),
+        // zIndex: 1
+      });
+      this.setState({vectorLayer: vectorLayer});
+      return vectorLayer;
+    }
+
+    testVectorLayer(test){
       return new VectorLayer({
         source: new VectorSource({
           format: new GeoJSON({dataProjection: 'EPSG:4326'}),
-          features: (new GeoJSON()).readFeatures(mapVector)   
+          features: (new GeoJSON()).readFeatures(test ? testmapVector : mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
-        })
+          // features: features
+        }),
+        zIndex: 1
       });
     }
 
+
     getLayer(source, type, data){
       switch(type){
+
         case "Image":
           return this.getSVGLayer(source, data); 
-          // return this.getVectorLayer();         
+
+        case "VectorLayer":
+          const { map } = this.state;
+          let layer = map.getLayers().array_[0];
+          return this.getVectorLayer(data, layer);
+          // return this.getVectorLayer();      
+          // return this.testVectorLayer(false)   ;
       }
+    }
+
+    getIconFeature(lat, lon, text){
+      return new Feature({
+        geometry: new Point([lat/10,lon/10]),
+        name: text,
+      });      
+    }
+
+    getIconSytle(alat, alon, icon, text){
+     return new Style({
+        image: new Icon({
+          // anchor: [0.5, 0.9],
+          src: icon,
+          crossOrigin: '',
+          scale: 0.1,
+          // rotation: Math.PI / 4,
+        }),
+        text: new Text({
+          text: text,
+          scale: 0.1,
+          // rotation: Math.PI / 4,
+          textAlign: 'center',
+          textBaseline: 'top',
+        }),
+      });
+    }
+
+    
+    
+    setIconSyle(iconFeature, iconStyle){
+      iconFeature.setStyle(()=> {
+        let i = 0;
+        let j = 45;
+        var x = Math.sin((i * Math.PI) / 180) * 3;
+        var y = Math.sin((j * Math.PI) / 180) * 4;
+        iconStyle.getImage().setScale([x, y]);
+        iconStyle.getText().setScale([x, y]);
+        return iconStyle;
+      });
+      return iconFeature;
     }
 
 
     handleFindObject(){
       // var position = fromLonLat();
-      this.state.view.animate({center:[ 81.5505, -67.5 ], zoom: 25, duration: 2000});
+      this.state.view.animate({center: fromLonLat([ 130, 433 ]), zoom: 18, duration: 2000});
     }
 
     handleMapClick(event) {
@@ -515,7 +638,7 @@ export class QuestMap extends Component{
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-            map.addLayer(this.getVectorLayer());
+            // map.addLayer(this.getVectorLayer());
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.data));
           })
