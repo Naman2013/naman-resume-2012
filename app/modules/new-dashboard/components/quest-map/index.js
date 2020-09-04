@@ -490,16 +490,18 @@ export class QuestMap extends Component{
           anchor: [alat, alon],
           src: icon,
           crossOrigin: '',
-          scale: 0.2,
+          scale: 0.4,
           // rotation: Math.PI / 4,
         }),
         text: new Text({
           text: text,
-          scale: 0.5,
+          scale: 1,
           // rotation: Math.PI / 4,
           textAlign: 'center',
           textBaseline: 'bottom',
           fill: new Fill({color: "#FFFFFF"}),
+          offsetX: 15,
+          offsetY: 50,
         }),
       });
     }
