@@ -406,9 +406,47 @@ export class QuestMap extends Component{
         if(item.badgeIconURL !== ""){         
           let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
-          let style = this.getIconSytle(0, 0, item.badgeIconURL, item.badgeLabel );
-          // this.setIconSyle(feature,style);
+          let style = this.getIconSytle(0.5, 1, item.badgeIconURL, item.badgeLabel );
+          // feature=this.setIconSyle(feature,style);
+          const self = this;
           feature.setStyle(style);
+          // feature.setStyle((feature,resolution)=>{
+          //   debugger;
+          //   // const temp=(1/Math.pow(resolution, 1/3));
+          //   const {map} = self.state;
+          //   const zoom=map.getView().getZoom();
+          //   let i =0.5;
+          //   switch(Math.floor(zoom)){
+          //     case 0:
+          //       i=0.5;
+          //       break;
+          //     case 1:
+          //       i=0.6;
+          //       break;
+          //     case 2:
+          //       i=0.7;
+          //       break;
+          //     case 3:
+          //       i=0.8;
+          //       break;
+          //     case 4:
+          //       i=0.9;
+          //       break;
+          //     case 5:
+          //       i= 1;
+          //       break;
+          //     case 6:
+          //       i=1.1;
+          //       break;
+          //   }
+          //   // let i = ((0.1-resolution))+0.5;       
+
+          //   var x = Math.sin((i * Math.PI) / 180) * 3;
+          //   var y = Math.sin((i * Math.PI) / 180) * 4;
+          //   style.getImage().setScale(i);
+          //   style.getText().setScale(i);
+          //   return style;
+          // });
           ifeatures.push(feature);
           // layer.on('postrender', (event) => {
           //   debugger;
@@ -498,10 +536,10 @@ export class QuestMap extends Component{
           scale: 1,
           // rotation: Math.PI / 4,
           textAlign: 'center',
-          textBaseline: 'bottom',
+          textBaseline: 'top',
           fill: new Fill({color: "#FFFFFF"}),
-          offsetX: 15,
-          offsetY: 50,
+          // offsetX: 15,
+          // offsetY: 50,
         }),
       });
     }
@@ -510,10 +548,11 @@ export class QuestMap extends Component{
     
     setIconSyle(iconFeature, iconStyle){
       iconFeature.setStyle(()=> {
-        let i = 0;
-        let j = 45;
+        debugger;
+        let i = 1;
+       
         var x = Math.sin((i * Math.PI) / 180) * 3;
-        var y = Math.sin((j * Math.PI) / 180) * 4;
+        var y = Math.sin((i * Math.PI) / 180) * 4;
         iconStyle.getImage().setScale([x, y]);
         iconStyle.getText().setScale([x, y]);
         return iconStyle;
