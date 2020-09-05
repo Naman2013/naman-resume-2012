@@ -406,8 +406,9 @@ export class QuestMap extends Component{
         if(item.badgeIconURL !== ""){ 
           let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
+          debugger;
           var font = 'normal ' + item.labelFontSize + 'px ' + 'Roboto';
-          let style = this.getIconSytle(item.badgeScaleX, item.badgeScaleY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font );
+          let style = this.getIconSytle(item.badgeAnchorX, item.badgeAnchorY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font, item.badgeScaleX, item.badgeScaleY, item.badgeLabelColor);
           // feature=this.setIconSyle(feature,style);
           const self = this;
           feature.setStyle(style);
@@ -523,13 +524,13 @@ export class QuestMap extends Component{
       });      
     }
 
-    getIconSytle(alat, alon, icon, text, offsetX, offsetY, font){
+    getIconSytle(alat, alon, icon, text, offsetX, offsetY, font, scalex, scaley, color){
      return new Style({
         image: new Icon({
           anchor: [alat, alon],
           src: icon,
           crossOrigin: '',
-          scale: 0.4,
+          scale: scalex,
           // rotation: Math.PI / 4,
         }),
         text: new Text({
@@ -538,7 +539,7 @@ export class QuestMap extends Component{
           // rotation: Math.PI / 4,
           textAlign: 'center',
           textBaseline: 'top',
-          fill: new Fill({color: "#FFFFFF"}),
+          fill: new Fill({color: color}),
           offsetX: offsetX,
           offsetY: offsetY,
           font: font,
