@@ -403,10 +403,11 @@ export class QuestMap extends Component{
       // feature = this.setIconSyle(feature,style);
       // features.push(feature);
       data.map(item => { 
-        if(item.badgeIconURL !== ""){         
+        if(item.badgeIconURL !== ""){ 
           let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
-          let style = this.getIconSytle(0.5, 1, item.badgeIconURL, item.badgeLabel );
+          var font = 'normal ' + item.labelFontSize + 'px ' + 'Roboto';
+          let style = this.getIconSytle(item.badgeScaleX, item.badgeScaleY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font );
           // feature=this.setIconSyle(feature,style);
           const self = this;
           feature.setStyle(style);
@@ -522,7 +523,7 @@ export class QuestMap extends Component{
       });      
     }
 
-    getIconSytle(alat, alon, icon, text){
+    getIconSytle(alat, alon, icon, text, offsetX, offsetY, font){
      return new Style({
         image: new Icon({
           anchor: [alat, alon],
@@ -533,13 +534,14 @@ export class QuestMap extends Component{
         }),
         text: new Text({
           text: text,
-          scale: 1,
+          scale: 0.8,
           // rotation: Math.PI / 4,
           textAlign: 'center',
           textBaseline: 'top',
           fill: new Fill({color: "#FFFFFF"}),
-          // offsetX: 15,
-          // offsetY: 50,
+          offsetX: offsetX,
+          offsetY: offsetY,
+          font: font,
         }),
       });
     }
