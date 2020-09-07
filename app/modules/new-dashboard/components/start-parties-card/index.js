@@ -13,12 +13,12 @@ export class StarPartyCard extends Component{
     }
     
     render() {
-        const { party } = this.props;
+        const { party, style } = this.props;
         const now= moment(Date.now()).unix();        
         const countdown = party.eventStart-now;        
         
         return (
-            <div className="star-party-card">
+            <div className="star-party-card" style={style}>
                 {countdown > 0 ? 
                     <Countdown
                         date={party.eventStart*1000}

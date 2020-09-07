@@ -152,7 +152,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   }
 
   render() {
-    const { onClick } = this.props;
+    const { onClick, upcomingStarPartyList } = this.props;
 
     const {
       livecastData,
@@ -194,7 +194,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
         />
 
         {isOpen && (
-          <LivecastPopup setOpen={this.setOpen} title={displayTitle}>
+          <LivecastPopup setOpen={this.setOpen} title={displayTitle} partylist={upcomingStarPartyList}>
             <Spinner loading={loading} />
             <>
               {liveShows.map(liveShow => (

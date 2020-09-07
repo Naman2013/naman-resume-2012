@@ -207,13 +207,16 @@ const TopBar = ({
                         }
                       />
                     </li>
-                    <li>
-                      <Livecast
-                        user={user}
-                        allLivecastsInProgress={allLivecastsInProgress}
-                        onClick={closeAllMenus}
-                      />
-                    </li>
+                    {upcomingStarPartyList && (
+                      <li>
+                        <Livecast
+                          user={user}
+                          allLivecastsInProgress={allLivecastsInProgress}
+                          onClick={closeAllMenus}
+                          upcomingStarPartyList={upcomingStarPartyList.eventList}
+                        />
+                      </li>
+                    )}                    
                     <li>
                       <Button
                         mod="no-border"

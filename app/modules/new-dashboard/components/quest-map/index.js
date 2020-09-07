@@ -84,6 +84,7 @@ export class QuestMap extends Component{
       var displayFeatureInfo = function(pixel) {
         const { showQuestCard, vectorLayer } = self.state;
         vectorLayer.getFeatures(pixel).then(function(features) {
+          debugger;
           var feature = features.length ? features[0] : undefined; 
           if (features.length) {  
             console.log("object name: "+feature.get('name'));
@@ -406,49 +407,49 @@ export class QuestMap extends Component{
         if(item.badgeIconURL !== ""){ 
           let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
-          debugger;
           var font = 'normal ' + item.labelFontSize + 'px ' + 'Roboto';
           let style = this.getIconSytle(item.badgeAnchorX, item.badgeAnchorY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font, item.badgeScaleX, item.badgeScaleY, item.badgeLabelColor);
           // feature=this.setIconSyle(feature,style);
           const self = this;
-          feature.setStyle(style);
-          // feature.setStyle((feature,resolution)=>{
-          //   debugger;
-          //   // const temp=(1/Math.pow(resolution, 1/3));
-          //   const {map} = self.state;
-          //   const zoom=map.getView().getZoom();
-          //   let i =0.5;
-          //   switch(Math.floor(zoom)){
-          //     case 0:
-          //       i=0.5;
-          //       break;
-          //     case 1:
-          //       i=0.6;
-          //       break;
-          //     case 2:
-          //       i=0.7;
-          //       break;
-          //     case 3:
-          //       i=0.8;
-          //       break;
-          //     case 4:
-          //       i=0.9;
-          //       break;
-          //     case 5:
-          //       i= 1;
-          //       break;
-          //     case 6:
-          //       i=1.1;
-          //       break;
-          //   }
-          //   // let i = ((0.1-resolution))+0.5;       
+          // feature.setStyle(style);
+          feature.setStyle((feature,resolution)=>{
+            const temp=(1/Math.pow(resolution, 1));
+            // const {map} = self.state;
+            // const zoom=map.getView().getZoom();
+            // let i =0.4;
+            // if(zoom>0)
+            //   i=i+(Math.floor(zoom)/10)
+            // switch(Math.floor(zoom)){
+            //   case 0:
+            //     i=0.4;
+            //     break;
+            //   case 1:
+            //     i=0.5;
+            //     break;
+            //   case 2:
+            //     i=0.6;
+            //     break;
+            //   case 3:
+            //     i=0.7;
+            //     break;
+            //   case 4:
+            //     i=0.8;
+            //     break;
+            //   case 5:
+            //     i= 0.9;
+            //     break;
+            //   case 6:
+            //     i=1;
+            //     break;
+            // }
+            // let i = ((0.1-resolution))+0.5;       
 
-          //   var x = Math.sin((i * Math.PI) / 180) * 3;
-          //   var y = Math.sin((i * Math.PI) / 180) * 4;
-          //   style.getImage().setScale(i);
-          //   style.getText().setScale(i);
-          //   return style;
-          // });
+            var x = Math.sin((temp * Math.PI) / 180) * 3;
+            // var y = Math.sin((i * Math.PI) / 180) * 4;
+            style.getImage().setScale(x);
+            style.getText().setScale(x < 0.8 ? 0.8 : x);
+            return style;
+          });
           ifeatures.push(feature);
           // layer.on('postrender', (event) => {
           //   debugger;
@@ -484,7 +485,9 @@ export class QuestMap extends Component{
           features: ifeatures
         }),
         // zIndex: 1
-      });
+       
+      },      
+      );
       this.setState({vectorLayer: vectorLayer});
       return vectorLayer;
     }
