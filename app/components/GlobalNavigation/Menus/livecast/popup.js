@@ -28,8 +28,8 @@ export const LivecastPopup = (props: TLivecastPopup) => {
         </Tooltip>
       </div>
       <div className="popup-body">{children}</div> */}
-      <div className="new-dash">
-        <div className="party-list" style={{margin: "10px"}}>
+      <div className="new-dash" style={{overflowY: "scroll", height: "100%"}}>
+        <div className="party-list" style={{marginRight: "10px"}}>
           {partylist.map(party=>(
             <StarPartyCard
               party={party}

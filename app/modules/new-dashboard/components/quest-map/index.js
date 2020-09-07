@@ -84,7 +84,7 @@ export class QuestMap extends Component{
       var displayFeatureInfo = function(pixel) {
         const { showQuestCard, vectorLayer } = self.state;
         vectorLayer.getFeatures(pixel).then(function(features) {
-          debugger;
+         
           var feature = features.length ? features[0] : undefined; 
           if (features.length) {  
             console.log("object name: "+feature.get('name'));
