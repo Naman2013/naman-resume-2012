@@ -407,7 +407,7 @@ export class QuestMap extends Component{
         if(item.badgeIconURL !== ""){ 
           let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
           feature.setId(item.questId);
-          var font = 'normal ' + item.labelFontSize + 'px ' + 'Roboto';
+          var font = 'normal ' + item.labelFontSize + 'px ' + item.labelFontName;
           let style = this.getIconSytle(item.badgeAnchorX, item.badgeAnchorY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font, item.badgeScaleX, item.badgeScaleY, item.badgeLabelColor);
           // feature=this.setIconSyle(feature,style);
           const self = this;

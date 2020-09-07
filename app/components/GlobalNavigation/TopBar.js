@@ -153,7 +153,7 @@ const TopBar = ({
             {upcomingStarPartyList && countdown && nextShow && (
                <div className="center-menu" onClick={()=>browserHistory.push(nextShow.linkUrl)}>
                 {/* <CenterBar /> */}
-                {countdown > 0 ? 
+                {/* {countdown > 0 ? 
                     <Countdown
                         date={nextShow.eventStart*1000}
                         onComplete={null}                   
@@ -169,8 +169,12 @@ const TopBar = ({
                     />
                 :
                 <span className="counter-text live">LIVE - {nextShow.eventTitle}</span>
-                }    
+                }     */}
                 
+                <span className="counter-text">
+                  {nextShow.eventTitle}<br/>
+                  {nextShow.displayDate}
+                </span> 
               </div>
             )}
            
