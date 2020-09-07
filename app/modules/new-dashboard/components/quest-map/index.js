@@ -413,7 +413,7 @@ export class QuestMap extends Component{
           const self = this;
           // feature.setStyle(style);
           feature.setStyle((feature,resolution)=>{
-            const temp=(1/Math.pow(resolution, 1));
+            const temp=(1/Math.pow(resolution, 1.1));
             // const {map} = self.state;
             // const zoom=map.getView().getZoom();
             // let i =0.4;

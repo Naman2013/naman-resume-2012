@@ -28,6 +28,8 @@
   width: 400px;
   @include boxShadow();
   z-index: 100;
+  height: 450px;
+  overflow-y: scroll;
 
   &::before {
     content: "";
@@ -115,7 +117,8 @@
     left: 0px;
     right: 0px;
     width: 100%;
-
+    height: 225px;
+    overflow-y: scroll;
     &::before {
       right: 97px;
     }
