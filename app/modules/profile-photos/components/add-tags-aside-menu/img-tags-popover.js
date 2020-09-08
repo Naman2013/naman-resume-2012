@@ -44,7 +44,7 @@ export const ImgTagsPopover = (props: TImgTagsPopover) => {
       customerImageId,
     });
   };
-
+  
   return (
     <div className="img-tags-popover  animated fadeIn faster" ref={ref}>
       <Spinner loading={isFetching} />

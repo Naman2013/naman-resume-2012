@@ -31,7 +31,8 @@ const AsideToggleableMenu = props => {
     tagsData = {},
     galleryId,
     typeGallery,
-    newDash
+    newDash,
+    refresh
   } = props;
   const { t } = useTranslation();
   
@@ -77,6 +78,8 @@ const AsideToggleableMenu = props => {
                 user={user}
                 maxImageCount={count}
                 firstImageNumber={firstImageNumber}
+                newDash
+                refresh={refresh}
                 render={removeImage => (
                   <button
                     style={!visible ? { display: 'none' } : null}

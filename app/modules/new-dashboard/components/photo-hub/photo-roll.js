@@ -4,6 +4,9 @@ import { Button } from '../button';
 import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
 import AsideToggleableMenu from 'app/modules/profile-photos/components/AsideToggleableMenu';
+import { getTagsApi } from 'app/modules/mission-details/api';
+import { getUserInfo } from 'app/modules/User';
+import { browserHistory } from 'react-router';
 
 export class PhotoRoll extends Component{
 
@@ -11,7 +14,8 @@ export class PhotoRoll extends Component{
         activePage: 1,
         menuIsVisible: false,
         menuIndex: null,
-    }    
+        
+    }      
 
     optionsList = [
         { label: 'Remove from This Gallery', action: 'removeFromGallery' },
@@ -26,7 +30,8 @@ export class PhotoRoll extends Component{
     PHOTOS_ON_ONE_PAGE=18
 
     componentDidMount() {
-        this.setState({ width: this.blockWidth.clientWidth });
+        if(this.blockWidth !== undefined)
+            this.setState({ width: this.blockWidth.clientWidth });
     }
 
     toggleMenuVisibility = (index) => {
@@ -39,12 +44,12 @@ export class PhotoRoll extends Component{
             this.setState({ menuIndex: index, menuIsVisible: true });
     };
 
-    redirectToImage = () => {
-        // const { currentItem, user, isShareToken } = this.props;
-        // const token = isShareToken ? currentItem.shareToken : user.token;
-        // return browserHistory.push(
-        //   `/my-pictures/show-image/${currentItem.customerImageId}/${token}`
-        // );
+    redirectToImage = (photo) => ()=> {
+        const { customerImageId } = photo;
+        const { token } = getUserInfo();
+        return browserHistory.push(
+          `/my-pictures/show-image/${customerImageId}/${token}`
+        );
     };
 
     handlePageChange = ({ activePage }) => {
@@ -60,13 +65,12 @@ export class PhotoRoll extends Component{
           maxImageCount: this.PHOTOS_ON_ONE_PAGE,
           pagingMode: "api",       
         });
-        this.setState({ activePage });
+        this.setState({ activePage, menuIndex: null });
       };
     
     render() {
-        const { imageList, totalCount, tagActions } = this.props;        
+        const { imageList, totalCount, tagActions, tagsData } = this.props;        
         const { activePage, menuIsVisible, width, menuIndex } = this.state;
-        
         return (
             imageList !== undefined ? ( 
                 <div>                
@@ -104,12 +108,13 @@ export class PhotoRoll extends Component{
                                                     visible={menuIsVisible}
                                                     tagActions={tagActions}
                                                     optionsList={this.optionsList}
-                                                    redirectToImage={this.redirectToImage}
+                                                    redirectToImage={()=>{return this.redirectToImage(photo)}}
                                                     toggleMenuVisibility={()=>this.toggleMenuVisibility(i)}
                                                     typeGallery={false}
                                                     currentItem={photo}
                                                     newDash
-                                                    tagsData={{isFetching: true, tagList: []}}
+                                                    refresh={()=>this.handlePageChange({activePage})}
+                                                    tagsData={tagsData}
                                                     {...photo}
                                                 />
                                             </div>

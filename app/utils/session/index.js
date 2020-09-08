@@ -19,7 +19,6 @@ export const initSessionToken = async ({ isAuthorized }, props) => {
   }
 
   // const { sloohSiteSessionToken } = cookie.parse(window.document.cookie);
-  // debugger;
   // if (!sloohSiteSessionToken) {
   //   return await generateSessionToken();
   // }

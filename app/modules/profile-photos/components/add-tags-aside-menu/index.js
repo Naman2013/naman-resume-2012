@@ -24,6 +24,7 @@ export const AddTagsAsideMenu = (props: TAddTagsAsideMenu) => {
     setTag,
     isFetching,
   } = props;
+  
   return (
     <div>
       <div role="presentation" onClick={() => setOpen(!isOpen)}>

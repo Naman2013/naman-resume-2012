@@ -45,8 +45,7 @@ export class ImageSlider extends Component{
     }
 
     
-    // addImageDetails(index, data){
-    //     debugger;
+    // addImageDetails(index, data){   
     //     const { currentIndex } = self.state;
     //     let { imageDetailsList } = self.state;
     //     imageDetailsList[index]=data;

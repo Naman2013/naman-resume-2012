@@ -451,8 +451,7 @@ export class QuestMap extends Component{
             return style;
           });
           ifeatures.push(feature);
-          // layer.on('postrender', (event) => {
-          //   debugger;
+          // layer.on('postrender', (event) => {         
           //   let i = 0;
           //   let j = 45;
           //   var vectorContext = getVectorContext(event);
@@ -469,7 +468,6 @@ export class QuestMap extends Component{
       // layer.on('postrender', (event) => {
       //   let i = 0;
       //   let j = 45;
-      //   debugger;
       //   var vectorContext = getVectorContext(event);
       //   var x = Math.cos((i * Math.PI) / 180) * 3;
       //   var y = Math.cos((j * Math.PI) / 180) * 4;
@@ -554,9 +552,7 @@ export class QuestMap extends Component{
     
     setIconSyle(iconFeature, iconStyle){
       iconFeature.setStyle(()=> {
-        debugger;
-        let i = 1;
-       
+        let i = 1;       
         var x = Math.sin((i * Math.PI) / 180) * 3;
         var y = Math.sin((i * Math.PI) / 180) * 4;
         iconStyle.getImage().setScale([x, y]);

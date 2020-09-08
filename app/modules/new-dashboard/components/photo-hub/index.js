@@ -21,12 +21,13 @@ import {
   } from 'app/modules/profile-photos/selectors';
   import { connect } from 'react-redux';
   import { bindActionCreators } from 'redux';
-  import { getFitsData, deleteTag, getTags, setTag } from 'app/modules/profile-photos/thunks';
+  import { getFitsData, deleteTag, setTag } from 'app/modules/profile-photos/thunks';
 import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import { SelectedFilters } from '../../common/selected-filters';
 import { Observation } from './observation';
 import { Mission } from './mission';
-
+import { getTagsApi, deleteTagApi, setTagApi } from 'app/modules/mission-details/api';
+import { getUserInfo } from 'app/modules/User';
   
   const mapTypeToRequest = {
     observations: 'fetchPhotoRollAndCounts',
@@ -55,6 +56,7 @@ class PhotoHub extends Component{
         //   publicGalleries: params.public ? 'y' : null,
         // });
         //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
+        
         this.fetchFilters();
       }
 
@@ -75,6 +77,7 @@ class PhotoHub extends Component{
     state = {
         selectedheader: "Photo Roll",
         isFilterOpen: false,
+        tagsData: {isFetching: true, tagList: []}
     }
 
     fetchFilters = () => {
@@ -177,7 +180,49 @@ class PhotoHub extends Component{
                 });
                 break;
         }        
-    };
+    };    
+
+    getTagsAction = (data) =>{ 
+        let {tagsData} = this.state;
+        tagsData.isFetching=true;        
+        this.setState({tagsData: tagsData});
+        const { token, at, cid, tagClass = 'image', tagType = 'user', } = getUserInfo();
+        const { customerImageId } = data;
+        getTagsApi({ token, at, cid, tagClass, tagType, customerImageId}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                this.setState({tagsData: {isFetching: false, tagList: res.tagList}});
+            }
+        });
+    }
+
+    deleteTagsAction = (data) =>{
+        let {tagsData} = this.state;
+        tagsData.isFetching=true;        
+        this.setState({tagsData: tagsData});
+        const { token, at, cid, tagClass = 'image', tagType = 'user', } = getUserInfo();
+        const { customerImageId, text } = data;
+        deleteTagApi({ token, at, cid, tagClass, tagType, customerImageId, text}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                this.setState({tagsData: {isFetching: false, tagList: res.tagList, data: res}});
+            }
+        });
+    }
+
+    setTagsAction = (data) =>{
+        let {tagsData} = this.state;
+        tagsData.isFetching=true;        
+        this.setState({tagsData: tagsData});
+        const { token, at, cid, tagClass = 'image', tagType = 'user', } = getUserInfo();
+        const { customerImageId, text } = data;
+        setTagApi({ token, at, cid, tagClass, tagType, customerImageId, text}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                this.setState({tagsData: {isFetching: false, tagList: res.tagList, data: res}});
+            }
+        });
+    }
 
     render() {
         const { heading, 
@@ -189,24 +234,23 @@ class PhotoHub extends Component{
                 myPicturesFilters,
                 headerspaceequally, 
                 photoHub, 
-                getMyPictures,                
-                tagsData,
+                getMyPictures,
                 params,
                 privateProfileData,
                 actions: {
                     getFitsData,
                     setSelectedTagsTabIndex,
-                    getTags,
-                    setTag,
-                    deleteTag,
+                    // getTags,
+                    // setTag,
+                    // deleteTag,
                   },
                  } = this.props;
                  const tagActions = {
-                    getTags,
-                    setTag,
-                    deleteTag,
+                    getTags: this.getTagsAction,
+                    setTag: this.setTagsAction,
+                    deleteTag: this.deleteTagsAction,
                   };
-        const { selectedheader, isFilterOpen } = this.state;
+        const { selectedheader, isFilterOpen, tagsData } = this.state;
         
         const getTabContent = header => {                        
             switch (header) {
@@ -217,6 +261,7 @@ class PhotoHub extends Component{
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
                                 tagActions={tagActions}
+                                tagsData= {tagsData}
                                 />;
                 case "Observations":
                     return <Observation 
@@ -243,7 +288,6 @@ class PhotoHub extends Component{
                     break;
             }
         }
-        
         return (
             <div className="photo-hub-main">
                 <h2 className="photo-hub-heading">{heading}</h2>    
@@ -328,7 +372,7 @@ const mapDispatchToProps = dispatch => ({
         setFilters,
         getFitsData,
         setSelectedTagsTabIndex,
-        getTags,
+        
         setTag,
         deleteTag,
       },

@@ -73,6 +73,8 @@ class DeleteImage extends Component {
       maxImageCount,
       firstImageNumber,
       scheduledMissionId,
+      newDash,
+      refresh
     } = this.props;
 
     let link;
@@ -114,8 +116,10 @@ class DeleteImage extends Component {
           link = '/profile/private/photos/photoroll';
         }
       }
-
-      browserHistory.push(link);
+      if(newDash)
+        refresh();
+      else
+        browserHistory.push(link);
     });
   }
 
