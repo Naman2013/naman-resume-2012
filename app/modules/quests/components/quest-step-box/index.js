@@ -44,11 +44,11 @@ export const QuestStepBox = props => {
             <div className="shield-row step-box-row">
               <div className="grey-ball" />
               <div className="shield">
-                <img
+                {/* <img
                   className="shield-background"
                   src={questShield}
                   alt="questShield"
-                />
+                /> */}
                 <img src={iconURL} alt="" className="quest-icon" />
               </div>
               <div className="grey-ball" />

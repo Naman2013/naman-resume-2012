@@ -19,7 +19,7 @@ export const QuestListItem: React.FC<TQuestListItemProps> = props => {
   const QuestTile = (
     <>
       <div className="container">
-        <div className="blue-shield" />
+        {/* <div className="blue-shield" /> */}
         <div className="icon-container">
           <img className="icon-content" alt="" src={iconUrl} />
         </div>

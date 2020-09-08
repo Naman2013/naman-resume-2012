@@ -23,8 +23,8 @@ const QuestCard = ({
                 <img
                   className="icon-content"
                   alt=""
-                  width="40"
-                  height="40"
+                  width="112"
+                  height="112"
                   src={iconURL}
                 />
               </div>

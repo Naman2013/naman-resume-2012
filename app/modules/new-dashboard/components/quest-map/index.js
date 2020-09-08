@@ -98,10 +98,12 @@ export class QuestMap extends Component{
                 token, 
                 at, 
                 cid,
-                questId: feature.getId(),
+                // questId: feature.getId(),
+                questId: 194,
                 questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
                 questVersion: 1.1
               }).then(response=>{
+                debugger;
                 self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
                 
               });         

@@ -80,8 +80,8 @@ export default css`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 35px;
-    height: 35px;
+    width: 90px;
+    height: 90px;
   }
 
   .title {
