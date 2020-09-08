@@ -122,13 +122,13 @@
 .new-dash .popup{
     position: absolute;
     width: 80%;
-    top: 0;
+    top: 7%;
     border: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    // bottom: 0;
     margin: auto;
-    height: 75%;
+    height: 90%;
 }
 
 @media (min-width: $screenXLarge) {

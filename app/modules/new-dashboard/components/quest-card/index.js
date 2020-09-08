@@ -14,7 +14,7 @@ export class QuestCard extends Component{
                
         const { onHide, questCardDetails } = this.props;
         const { seeMore } = this.state;
-     
+        
         return (
             <div id="quest-card" className="quest-card-main" style={{background: questCardDetails.cardBackgroundColor}}>
                 <div className="quest-badge-container">                    
@@ -73,7 +73,7 @@ export class QuestCard extends Component{
                     {questCardDetails.showClaimBadgeButton && (
                         <Button
                             type={"button"}
-                            onClickEvent={()=>browserHistory.push(questCardDetails.claimBadgeUrl)} 
+                            onClickEvent={()=>browserHistory.push({ pathname: questCardDetails.claimBadgeUrl, state: { claimBadge: true } })} 
                             text={questCardDetails.claimBadgeButtonCaption}                                             
                             style={"quest-button-style"}
                         />

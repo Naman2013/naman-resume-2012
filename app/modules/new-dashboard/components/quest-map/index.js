@@ -103,9 +103,7 @@ export class QuestMap extends Component{
                 questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
                 questVersion: 1.1
               }).then(response=>{
-                debugger;
-                self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});
-                
+                self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});                
               });         
             }
           }
@@ -254,6 +252,20 @@ export class QuestMap extends Component{
           map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
           });
+
+          map.on('pointermove', function (e) {            
+            if (e.dragging) {
+              $(element).popover('dispose');
+              return;
+            }
+            var pixel = map.getEventPixel(e.originalEvent);
+            var hit = map.hasFeatureAtPixel(pixel);
+            var target = map.getTarget();
+            document.getElementById(target).style.cursor = hit ? 'pointer' : '';
+            // map.getTarget().style.cursor = hit ? 'pointer' : '';
+          });
+
+
           // map.on('click', this.handleMapClick.bind(this));
           this.setState({map: map, view: view });
           this.getQuestMapInit();
@@ -334,7 +346,6 @@ export class QuestMap extends Component{
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
-          // debugger
           // var properties = map.getView().getProperties();
           // properties["maxZoom"] = res.maxZoomLevel;
           // map.setView(new ol.View(properties));

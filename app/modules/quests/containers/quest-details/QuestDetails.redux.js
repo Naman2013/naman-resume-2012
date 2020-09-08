@@ -58,10 +58,13 @@ export class ConnectedQuestDetails extends Component {
   handleResponse = () => {
     const { handleRedirect, pageMeta, location } = this.props;
     const { state } = location
-    handleRedirect(pageMeta);    
+    handleRedirect(pageMeta);
     if(pageMeta.showStartQuestButton && state && state.start){     
       this.setupQuest();
-    }    
+    }      
+    if(!pageMeta.completed && pageMeta.allStepsAreComplete && state && state.claimBadge){
+      this.goToStep( 0, "badge" );
+    }
   };
 
   setupQuest = () => {
@@ -82,7 +85,7 @@ export class ConnectedQuestDetails extends Component {
       });
   };
 
-  goToStep = (stepId, type) => {
+  goToStep = (stepId, type) => {   
     const { questId, pageMeta, actions } = this.props;
     const { setQuestCompleted } = actions;
     const { questCompletionList, stepList } = pageMeta;
