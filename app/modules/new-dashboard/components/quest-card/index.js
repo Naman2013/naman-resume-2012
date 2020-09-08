@@ -14,7 +14,7 @@ export class QuestCard extends Component{
                
         const { onHide, questCardDetails } = this.props;
         const { seeMore } = this.state;
-        
+
         return (
             <div id="quest-card" className="quest-card-main" style={{background: questCardDetails.cardBackgroundColor}}>
                 <div className="quest-badge-container">                    
@@ -24,7 +24,7 @@ export class QuestCard extends Component{
                 <h3 dangerouslySetInnerHTML={{ __html: questCardDetails.progressMessage.text}} className="quest-status" style={{color: questCardDetails.progressMessage.color}}/>
                 <h2 dangerouslySetInnerHTML={{ __html: questCardDetails.title.text}} className="quest-heading" style={{color: questCardDetails.title.color}}/>
                 <h5 dangerouslySetInnerHTML={{ __html: questCardDetails.subtitle.text}} className="quest-subheading" style={{color: questCardDetails.subtitle.color}}/>
-                <br/>           
+                {/* <br/>            */}
 
                 <div className="quest-steps">
                     {questCardDetails.bulletPointsList.map(point =>(
@@ -37,7 +37,7 @@ export class QuestCard extends Component{
                         </div>                    
                     ))}                    
                 </div>
-                <br/>                
+                {/* <br/>                 */}
 
                 <h4 dangerouslySetInnerHTML={{ __html: questCardDetails.description.title}} className="quest-heading-desc" />                
                 <div  className="quest-description" style={{color: questCardDetails.description.textColor}}>

@@ -53,7 +53,7 @@
     line-height: 20px;
     /* identical to box height */
     color: #FFFFFF;
-    // margin-bottom: 5px;
+    margin-top: 5px;
 }   
 
 .new-dash .quest-description{
@@ -95,9 +95,9 @@
     border-radius: 4px;
     flex: 1;
     display: flex;
-    flex-direction: row;
-    padding: 4px 8px;
-    margin-right: 8px;
+    flex-direction: column;
+    padding: 4px 4px;
+    margin-right: 4px;
     align-items: center;
     // justify-content: space-evenly;
 }
@@ -111,6 +111,10 @@
     /* identical to box height */
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .new-dash .step-100-title{
@@ -123,6 +127,8 @@
     color: rgba(255, 255, 255,1);
     margin-right: 10px;
     margin-bottom: 0px;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .new-dash .step-subtitle{    
@@ -133,6 +139,10 @@
     line-height: 14px;    
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .new-dash .step-icon{
@@ -143,12 +153,16 @@
 
 .new-dash .quest-item-container{
     margin-top: 5px;
+    display: table;
+    table-layout: fixed;
+    width: 95%;
 }
 
 .new-dash .quest-navigation{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    // margin-top: 5px;
 }
 
 .new-dash .quest-button-style{
@@ -158,8 +172,8 @@
     font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 16px;
     /* identical to box height */
     min-width: 50px;
     padding: 8px;
@@ -203,19 +217,19 @@
         color: #FFFFFF;    
     }
     .new-dash .quest-steps-item{
-        flex-direction: row;        
-        padding: 8px 16px;
+        flex-direction: column;        
+        padding: 8px 8px;
         margin-right: 8px;
     }
     .new-dash .quest-item-container{
-        margin-left: 10px;
+        // margin-left: 10px;
     }
 
     .new-dash .step-title{       
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
-        margin-bottom: .5rem;        
+        // margin-bottom: .5rem;        
     }
     
     .new-dash .step-100-title{        
@@ -234,12 +248,12 @@
     }
 
     .new-dash .step-icon{
-        width: 25px;        
+        width: 20px;        
     }
 
     .new-dash .quest-card-main{
         padding: 10px 32px; 
-        max-height: 38vw;
+        max-height: 41vw;
    }
    .new-dash .quest-heading-desc{       
         font-weight: 600;
@@ -250,20 +264,97 @@
     .new-dash .quest-description{
         font-size: 16px;
         line-height: 150%;
-        max-height: 200px;
+        max-height: 175px;
     }
     .new-dash .quest-badge-container{
         margin-top: -50px;  
     }
     .new-dash .quest-button-style{
-        font-size: 16px;
-        line-height: 22px;       
-        padding: 10px;
+        font-size: 14px;
+        line-height: 20px;       
+        padding: 6px;
         margin-right: 20px;
     }
     
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .quest-badge-icon{
+        width: 35px;
+        height: 35px;  
+       
+    }
+    .new-dash .quest-status{           
+        font-size: 10px;
+        line-height: 14px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    .new-dash .quest-heading{
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px; 
+    }
+    .new-dash .quest-subheading{        
+        font-size: 10px;
+        line-height: 14px;
+        color: #FFFFFF;    
+    }
+    .new-dash .quest-steps-item{
+        flex-direction: column;        
+        padding: 4px;
+        margin-right: 8px;
+    }
+    .new-dash .quest-item-container{
+        // margin-left: 10px;
+    }
+
+    .new-dash .step-title{       
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 14px;
+        // margin-bottom: .5rem;        
+    }
     
+    .new-dash .step-100-title{        
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 14px;
+    }
+    
+    .new-dash .step-subtitle{
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 14px;
+        margin-bottom: .5em;
+    }
+
+    .new-dash .step-icon{
+        width: 15px;        
+    }
+
+    .new-dash .quest-card-main{
+        padding: 8px 8px; 
+        max-height: 35vw;
+   }
+   .new-dash .quest-heading-desc{       
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 14px;       
+        margin-bottom: 5px;
+    }   
+    .new-dash .quest-description{
+        font-size: 10px;
+        line-height: 14px;
+        max-height: 60px;
+    }
+    .new-dash .quest-badge-container{
+        margin-top: -25px;  
+    }
+    .new-dash .quest-button-style{
+        font-size: 10px;
+        line-height: 14px;       
+        padding: 4px;
+        margin-right: 8px;
+    }
 }

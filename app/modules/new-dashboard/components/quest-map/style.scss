@@ -152,6 +152,9 @@
     .new-dash .Quest-map  {
         height: calc(45vw);  
     }
+    .new-dash .popup{
+        top: 7%;
+    }
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
@@ -174,5 +177,8 @@
     }
     .new-dash .Quest-map  {
         height: calc(36.7vw) ;  
+    }
+    .new-dash .popup{
+        top: 2%;
     }
 }
