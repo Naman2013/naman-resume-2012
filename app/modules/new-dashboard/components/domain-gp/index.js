@@ -7,10 +7,10 @@ export class DomainGP extends Component{
 
     
     render() {
-        const {heading} = this.props;
-        const domaingpList = [{rank: "1", gpPoints: "73 GP", text: "Solar System", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_1.svg"},
-                            {rank: "2", gpPoints: "31 GP", text: "Milky Way", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_2.svg"},
-                            {rank: "3", gpPoints: "29 GP", text: "Deep Space", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_3.svg"}];
+        const {heading, domaingpList} = this.props;
+        // const domaingpList = [{rank: "1", gpPoints: "73 GP", text: "Solar System", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_1.svg"},
+        //                     {rank: "2", gpPoints: "31 GP", text: "Milky Way", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_2.svg"},
+        //                     {rank: "3", gpPoints: "29 GP", text: "Deep Space", icon: "https://vega.slooh.com/assets/v4/dashboard-new/trophy_3.svg"}];
 
         return (
             <div className="domain-main">
@@ -22,8 +22,8 @@ export class DomainGP extends Component{
                                     <img src={domain.icon}/>
                                     {/* <span className="domain-rank">#{domain.rank}</span> */}
                                 </div>
-                                <h2 className="domain-name">{domain.text}</h2>
-                                <h4 className="domain-gp">{domain.gpPoints}</h4>
+                                <h2 className="domain-name">{domain.label}</h2>
+                                <h4 className="domain-gp">{domain.perc} GP</h4>
                             </div> 
                         ))}                            
                     </div>

@@ -44,7 +44,7 @@ export class LineChart extends Component{
                     height="400px"
                     
                     options={{
-                        backgroundColor: '#253446',
+                        backgroundColor: { fill:'transparent' },
                         hAxis: {
                           title: 'Days',
                           textStyle:{color: '#FFF'},

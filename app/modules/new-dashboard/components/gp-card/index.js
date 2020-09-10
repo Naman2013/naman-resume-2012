@@ -2,13 +2,14 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { TabHeader } from '../tab-header';
+import { LineChart } from '../../common/line-chart';
 
 
 export class GPCard extends Component{
 
     
     render() {
-        const {gravityEarnedToday} = this.props;      
+        const {gravityEarnedToday, data, yLabel, sectionHeading} = this.props;      
 
         return (
             <div className="gp-main">
@@ -19,14 +20,19 @@ export class GPCard extends Component{
                         <h5 className="gravity-by-tab">{"Earned Today"}</h5>
                     </div>
                 </div>
-                <br/>
+                {/* <br/> */}
                 {/* <br/>
                 <TabHeader
                         headings={["Earned Today", "Earned Last 30 Days"]}
                         activeHeading={"Earned Today"}
                         spaceequally={true}
                         theme={"light"}
-                    />                                                     */}
+                    />*/}
+                    <h2 className="gp-chart-heading">{sectionHeading}</h2> 
+                     <LineChart
+                        data={data}
+                        yLabel={yLabel}
+                    />   
             </div>   
         );
     }

@@ -115,3 +115,28 @@ export function handleLikeReq(data) {
 export function getCommunityFame(data) {
   return API.post('/api/newdashboard/getCommunityStats',data);
 }
+
+export function getMyRank(data) {
+  return API.post('/api/leaderboards/myRank',data);
+}
+
+export function getTopMembers(data) {
+  return API.post('/api/leaderboards/topMembers',data);
+}
+
+export function getTopStudents(data) {
+  return API.post('/api/leaderboards/topStudents',data);
+}
+
+export function getMostActiveClubs(data) {
+  return API.post('/api/leaderboards/mostActiveClubs',data);
+}
+
+export function getTopSchoolClubs(data) {
+  return API.post('/api/leaderboards/topSchoolClubs',data);
+}
+
+export function getGravityByDomain(data) {
+  return API.post('/api/newdashboard/getGravityByDomain',data);
+}
+

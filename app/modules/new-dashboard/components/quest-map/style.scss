@@ -11,14 +11,21 @@
     
 }
 
-.new-dash .control-div{
+.new-dash .controls-div{
+    display: flex;
+    flex-wrap: wrap;
+    // margin: 12px 0px;
+}
+
+.new-dash .dropdown-control-div{
     background-color: #111111;
     border-radius: 8px;
-    width: 100%;
+    // width: 100%;
     display: flex;
-    flex-direction: row;
-    margin: 12px 0px;
-    padding: 6px 24px;
+    flex-direction: row;   
+    // padding: 6px 24px;
+    // flex: 1
+    margin: 0px 5px;
 }
 
 .new-dash .Quest-map-fullscreen{
@@ -68,13 +75,16 @@
     margin: 5px 5px;
 }
 
-.new-dash .settings{
+.new-dash .settings-controls{
     display: flex;
     flex-direction: row;
     align-items: center;    
-    flex: 0.2;
+    // flex: 0.2;
     justify-content: space-around;   
-    padding: 7px 0px;
+    padding: 10px 15px;
+    background-color: #111111;
+    border-radius: 8px;
+    margin: 0px 5px;
 }
 
 .new-dash .title-main{
@@ -122,13 +132,15 @@
 .new-dash .popup{
     position: absolute;
     width: 80%;
-    top: 7%;
+    top: 0;
     border: 0;
     left: 0;
     right: 0;
-    // bottom: 0;
+    bottom: 0;
     margin: auto;
-    height: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 @media (min-width: $screenXLarge) {
@@ -152,9 +164,9 @@
     .new-dash .Quest-map  {
         height: calc(45vw);  
     }
-    .new-dash .popup{
-        top: 7%;
-    }
+    // .new-dash .popup{
+    //     top: 7%;
+    // }
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
@@ -178,7 +190,7 @@
     .new-dash .Quest-map  {
         height: calc(36.7vw) ;  
     }
-    .new-dash .popup{
-        top: 2%;
-    }
+    // .new-dash .popup{
+    //     top: 2%;
+    // }
 }

@@ -755,8 +755,8 @@ export class QuestMap extends Component{
                
               
             </div>
-           
-            <div className="control-div">
+           <div className="controls-div">
+            <div className="dropdown-control-div col-md-8 col-md-offset-1">
               {questMapControls[0].controlList.map((control, i)=>(
                 <div className="controls">
                 <span className="select-label">{control.prompt} </span>
@@ -793,6 +793,7 @@ export class QuestMap extends Component{
                 /> */}
               </div>
               ))}
+              </div>
               {/* <div className="controls">
                 <span className="select-label">Status: </span>
                 <Select                 
@@ -846,9 +847,10 @@ export class QuestMap extends Component{
                   }}
                 />
               </div> */}
-              <div className="separator-line">
-              </div>
-              <div className="settings"> 
+              {/* <div className="separator-line">
+              </div> */}
+               {/* <div className="control-div"> */}
+                  <div className="settings-controls col-md-3"> 
                 {/* {questMapControls[1].controlList.map(control=>(
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
                 ))}                */}
@@ -907,17 +909,18 @@ export class QuestMap extends Component{
                 
 
 
-
+                    {explanationText && (
+                      <span className="control-label">{explanationText}</span>
+                    )}
 
 
                   {/* <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>   
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
                   <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
               </div>
-              {explanationText && (
-                      <span className="control-label">{explanationText}</span>
-                    )}
-            </div>
+              
+              </div>
+            {/* </div> */}
             <button onClick={()=>this.handleFindObject()}>find</button>
           </div>
         );

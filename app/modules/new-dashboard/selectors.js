@@ -140,3 +140,39 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.communityFame
   );
+
+  export const makeMyRankSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.myRank
+  );
+
+  export const makeTopMembersSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.topMembers
+  );
+
+  export const makeTopStudentsSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.topStudents
+  );
+
+  export const makeMostActiveClubsSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.mostActiveClubs
+  );
+
+  export const makeTopSchoolClubsSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.topSchoolClubs
+  );
+
+  export const makeGetGravityByDomainSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.gravityByDomain
+  );

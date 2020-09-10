@@ -43,6 +43,18 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_COMMUNITY_EXPLORATION_SUCCESS,
          GET_COMMUNITY_FAME_START,
          GET_COMMUNITY_FAME_SUCCESS,
+         GET_MY_RANK_START,
+         GET_MY_RANK_SUCCESS,
+         GET_TOP_MEMBERS_START,
+         GET_TOP_MEMBERS_SUCCESS,
+         GET_TOP_STUDENTS_START,
+         GET_TOP_STUDENTS_SUCCESS,
+         GET_MOST_ACTIVE_CLUBS_START,
+         GET_MOST_ACTIVE_CLUBS_SUCCESS,
+         GET_TOP_SCHOOL_CLUBS_START,
+         GET_TOP_SCHOOL_CLUBS_SUCCESS,
+         GET_GRAVITY_BY_DOMAIN_START,
+         GET_GRAVITY_BY_DOMAIN_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -332,6 +344,84 @@ export default createReducer(initialState, {
         };
       },
       [GET_COMMUNITY_FAME_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_MY_RANK_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          myRank: payload,
+          isFetching: false,
+        };
+      },
+      [GET_MY_RANK_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_TOP_MEMBERS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          topMembers: payload,
+          isFetching: false,
+        };
+      },
+      [GET_TOP_MEMBERS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_TOP_STUDENTS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          topStudents: payload,
+          isFetching: false,
+        };
+      },
+      [GET_TOP_STUDENTS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_MOST_ACTIVE_CLUBS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          mostActiveClubs: payload,
+          isFetching: false,
+        };
+      },
+      [GET_MOST_ACTIVE_CLUBS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_TOP_SCHOOL_CLUBS_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          topSchoolClubs: payload,
+          isFetching: false,
+        };
+      },
+      [GET_TOP_SCHOOL_CLUBS_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_GRAVITY_BY_DOMAIN_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          gravityByDomain: payload,
+          isFetching: false,
+        };
+      },
+      [GET_GRAVITY_BY_DOMAIN_START](state) {
         return {
           ...state,
           isFetching: true,

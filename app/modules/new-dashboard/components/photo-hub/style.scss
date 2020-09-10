@@ -24,6 +24,17 @@
     margin-bottom: 10px;
 }
 
+.new-dash .photo-card-header{
+    display: flex;
+    align-items: center;
+}
+
+.new-dash .three-dot-icon{
+    height: fit-content;    
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
 .new-dash .photo-hub-list{
     display: flex;
     flex-wrap: wrap;

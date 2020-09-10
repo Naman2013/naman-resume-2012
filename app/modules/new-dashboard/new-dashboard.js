@@ -46,6 +46,12 @@ import {
     getObsStatusAction,
     getCommunityExplorationAction,
     getCommunityFameAction,
+    getMyRankAction,
+    getTopMembersAction,
+    getTopStudentsAction,
+    getMostActiveClubsAction,
+    getTopSchoolClubsAction,
+    getGravityByDomainAction,
   } from './actions';
 
 
@@ -72,6 +78,12 @@ import { makeStarPartyListSelector,
     makeObsStatusSelector,
     makeCommunityExplorationSelector,
     makeCommunityFameSelector,
+    makeMyRankSelector,
+    makeTopMembersSelector,
+    makeTopStudentsSelector,
+    makeMostActiveClubsSelector,
+    makeTopSchoolClubsSelector,
+    makeGetGravityByDomainSelector
   } from './selectors';
   
 import { NewDashboard } from './index';
@@ -106,6 +118,12 @@ const mapStateToProps = createStructuredSelector({
     obsStatus: makeObsStatusSelector(),
     communityExploration: makeCommunityExplorationSelector(),
     communityFame: makeCommunityFameSelector(),
+    myRank: makeMyRankSelector(),
+    topMembers: makeTopMembersSelector(),
+    topStudents: makeTopStudentsSelector(),
+    mostActiveClubs: makeMostActiveClubsSelector(),
+    topSchoolClubs: makeTopSchoolClubsSelector(),
+    gravityByDomain: makeGetGravityByDomainSelector(),
 });
 
 const mapDispatchToProps = {
@@ -136,6 +154,12 @@ const mapDispatchToProps = {
     getObjectMapControlAction,
     getCommunityExplorationAction,
     getCommunityFameAction,
+    getMyRankAction,
+    getTopMembersAction,
+    getTopStudentsAction,
+    getMostActiveClubsAction,
+    getTopSchoolClubsAction,
+    getGravityByDomainAction,
 };
 
 export default compose(

@@ -92,12 +92,15 @@ export class PhotoRoll extends Component{
                                             </div>
                                         )}
                                         <div className="overlay-div">
-                                            <h5 className="mission-obj-name">{photo.imageTitle}</h5>
+                                            <div className="photo-card-header">
+                                                <h5 className="mission-obj-name">{photo.imageTitle}</h5>
+                                                <img onClick={()=>this.toggleMenuVisibility(i)} className="three-dot-icon mar-top-2" src="https://vega.slooh.com/assets/v4/dashboard-new/three_dots_white.svg"/>
+                                            </div>                                            
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
                                             {/* <Link to={photo.photoViewFullURL}> */}
                                                 <div className="photo-hub-details">
                                                     <h5 onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="view-details">{"View Details"}</h5>
-                                                    <img onClick={()=>this.toggleMenuVisibility(i)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                    <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            
                                             {/* </Link>         */}
                                         </div>   

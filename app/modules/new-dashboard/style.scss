@@ -1,5 +1,10 @@
 @import "./breakpoints.scss";
 
+.new-dash{
+    display: flex;
+    flex-wrap: wrap;   
+}
+
 .new-dash .left{
     width: 67%;
     background-color: #32465e;

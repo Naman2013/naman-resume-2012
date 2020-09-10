@@ -28,6 +28,7 @@ import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
 import { ExploreObject } from "./components/explore-objects";
 import { CommunityExploration } from "./components/community-exploration";
+import { getMostActiveClubs } from "./dashboardApi";
 
 export class NewDashboard extends PureComponent{
 
@@ -95,6 +96,12 @@ export class NewDashboard extends PureComponent{
                 getQuestMapControlAction,
                 getCommunityExplorationAction,
                 getCommunityFameAction,
+                getMyRankAction,
+                getTopMembersAction,
+                getTopStudentsAction,
+                getMostActiveClubsAction,
+                getTopSchoolClubsAction,
+                getGravityByDomainAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -125,6 +132,12 @@ export class NewDashboard extends PureComponent{
         getQuestMapControlAction();
         getCommunityExplorationAction();
         getCommunityFameAction();
+        getMyRankAction();
+        getTopMembersAction();
+        getTopStudentsAction();
+        getMostActiveClubsAction();
+        getTopSchoolClubsAction();
+        getGravityByDomainAction();
     };
     
     render(){
@@ -174,6 +187,17 @@ export class NewDashboard extends PureComponent{
                 objectMapControls,
                 communityExploration, 
                 communityFame,
+                getMyRankAction,
+                getTopMembersAction,
+                getTopStudentsAction,
+                getMostActiveClubsAction,
+                getTopSchoolClubsAction,
+                myRank,
+                topMembers,
+                topStudents,
+                mostActiveClubs,
+                topSchoolClubs,
+                gravityByDomain,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -182,7 +206,7 @@ export class NewDashboard extends PureComponent{
             <div>
                 <Spinner loading={isFetching} />
                 {privateProfile && (
-                    <div className="row new-dash">
+                    <div className="new-dash">
                         <div className="left">
                             
                             <DashboardHeader                                
@@ -414,19 +438,29 @@ export class NewDashboard extends PureComponent{
                                     />
                                 )}
                                 
-                                <DomainGP
-                                    heading={"GP by Domain"}
-                                />
-                                <RankCard
-                                    heading={"Your Rank"}
-                                    rankList={[{rank: "2065", gpPoints: "49", text: "Serenity Henry"},
-                                                {rank: "2064", gpPoints: "48", text: "Harold Russell"},
-                                                {rank: "2063", gpPoints: "46", text: "Colleen Henry", highlight: true},
-                                                {rank: "2062", gpPoints: "46", text: "Tanya Pena"},
-                                                {rank: "2061", gpPoints: "45", text: "Bruce Mccoy"}]}
-                                    showRowCount={0}
-                                    showMoreButton={false}
-                                />
+                                {gravityByDomain &&(
+                                    <DomainGP
+                                        heading={gravityByDomain.title}
+                                        domaingpList={gravityByDomain.list}
+                                    />
+                                )}
+                                
+                                {myRank && (
+                                    <RankCard
+                                        heading={myRank.sectionHeading}
+                                        // rankList={[{rank: "2065", gpPoints: "49", text: "Serenity Henry"},
+                                        //             {rank: "2064", gpPoints: "48", text: "Harold Russell"},
+                                        //             {rank: "2063", gpPoints: "46", text: "Colleen Henry", highlight: true},
+                                        //             {rank: "2062", gpPoints: "46", text: "Tanya Pena"},
+                                        //             {rank: "2061", gpPoints: "45", text: "Bruce Mccoy"}]}
+                                        rankList={myRank.rankList}
+                                        showRowCount={0}
+                                        showMoreButton={false}
+                                        tabOptions={myRank.tabOptions}
+                                        getRankData={getMyRankAction}
+                                    />
+                                )}
+                                
 
                                 {communityFame && (
                                     <CommunityFame
@@ -459,64 +493,78 @@ export class NewDashboard extends PureComponent{
                                                     {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
                                                     {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
                                 />
-                                <RankCard
-                                    heading={"Top Members"}
-                                    rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry"},
-                                                {rank: "2", gpPoints: "49014", text: "Harold Russell"},
-                                                {rank: "3", gpPoints: "46799", text: "Colleen Henry"},
-                                                {rank: "4", gpPoints: "46034", text: "Tanya Pena"},
-                                                {rank: "5", gpPoints: "45857", text: "Bruce Mccoy"},
-                                                {rank: "6", gpPoints: "49088", text: "Serenity Henry"},
-                                                {rank: "7", gpPoints: "49014", text: "Harold Russell"},
-                                                {rank: "8", gpPoints: "46799", text: "Colleen Henry"},
-                                                {rank: "9", gpPoints: "46034", text: "Tanya Pena"},
-                                                {rank: "10", gpPoints: "45857", text: "Bruce Mccoy"},
-                                                {rank: "11", gpPoints: "49125", text: "Serenity Henry"},
-                                                {rank: "12", gpPoints: "48524", text: "Harold Russell"},
-                                                {rank: "13", gpPoints: "46447", text: "Colleen Henry"},
-                                                {rank: "14", gpPoints: "46984", text: "Tanya Pena"},
-                                                {rank: "15", gpPoints: "45547", text: "Bruce Mccoy"}]}
-                                    showRowCount={10}
-                                    showMoreButton={true}
-                                />
-                                <CommunityClubList
-                                    heading={"Most Active Clubs"}
-                                    clubList={[{rank: "1", gpPoints: "9547 GP", text: "Ad Asta", admin: "Admin: Paul Cox | 1304 Members"},
-                                                {rank: "2", gpPoints: "1054 GP", text: "Astronomy for the Soul", admin: "Admin: Paul Cox | 954 Members"},
-                                                {rank: "3", gpPoints: "457 GP", text: "Are We Alone?", admin: "Admin: Paul Cox | 847 Members"},
-                                                {rank: "4", gpPoints: "46034", text: "Tanya Pena", admin: ""}]}
-                                    showRowCount={3}                       
-                                />
-
-                                <RankCard
-                                    heading={"Top Students"}
-                                    rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
-                                                {rank: "2", gpPoints: "49014", text: "Harold Russell", subText: "University of South Alabama"},
-                                                {rank: "3", gpPoints: "46799", text: "Colleen Henry", subText: "University of South Alabama"},
-                                                {rank: "4", gpPoints: "46034", text: "Tanya Pena", subText: "University of South Alabama"},
-                                                {rank: "5", gpPoints: "45857", text: "Bruce Mccoy", subText: "University of South Alabama"},
-                                                {rank: "6", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
-                                                {rank: "7", gpPoints: "49014", text: "Harold Russell", subText: "University of South Alabama"},
-                                                {rank: "8", gpPoints: "46799", text: "Colleen Henry", subText: "University of South Alabama"},
-                                                {rank: "9", gpPoints: "46034", text: "Tanya Pena", subText: "University of South Alabama"},
-                                                {rank: "10", gpPoints: "45857", text: "Bruce Mccoy", subText: "University of South Alabama"},
-                                                {rank: "11", gpPoints: "49125", text: "Serenity Henry", subText: "University of South Alabama"},
-                                                {rank: "12", gpPoints: "48524", text: "Harold Russell", subText: "University of South Alabama"},
-                                                {rank: "13", gpPoints: "46447", text: "Colleen Henry", subText: "University of South Alabama"},
-                                                {rank: "14", gpPoints: "46984", text: "Tanya Pena", subText: "University of South Alabama"},
-                                                {rank: "15", gpPoints: "45547", text: "Bruce Mccoy", subText: "University of South Alabama"}]}
-                                    showRowCount={10}
-                                    showMoreButton={true}
-                                />
-
-                                <CommunityClubList
-                                    heading={"Top School Clubs"}
-                                    clubList={[{rank: "1", gpPoints: "9547 GP", text: "Austin High School", admin: "1304 Members"},
-                                                {rank: "2", gpPoints: "1054 GP", text: "Austin High School", admin: "984 Members"},
-                                                {rank: "3", gpPoints: "457 GP", text: "Austin High School", admin: "847 Members"},
-                                                {rank: "4", gpPoints: "46034", text: "Tanya Pena", admin: ""}]}
-                                    showRowCount={3}                       
-                                />
+                                {topMembers && (
+                                    <RankCard
+                                        heading={topMembers.sectionHeading}
+                                        // rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry"},
+                                        //             {rank: "2", gpPoints: "49014", text: "Harold Russell"},
+                                        //             {rank: "3", gpPoints: "46799", text: "Colleen Henry"},
+                                        //             {rank: "4", gpPoints: "46034", text: "Tanya Pena"},
+                                        //             {rank: "5", gpPoints: "45857", text: "Bruce Mccoy"},
+                                        //             {rank: "6", gpPoints: "49088", text: "Serenity Henry"},
+                                        //             {rank: "7", gpPoints: "49014", text: "Harold Russell"},
+                                        //             {rank: "8", gpPoints: "46799", text: "Colleen Henry"},
+                                        //             {rank: "9", gpPoints: "46034", text: "Tanya Pena"},
+                                        //             {rank: "10", gpPoints: "45857", text: "Bruce Mccoy"},
+                                        //             {rank: "11", gpPoints: "49125", text: "Serenity Henry"},
+                                        //             {rank: "12", gpPoints: "48524", text: "Harold Russell"},
+                                        //             {rank: "13", gpPoints: "46447", text: "Colleen Henry"},
+                                        //             {rank: "14", gpPoints: "46984", text: "Tanya Pena"},
+                                        //             {rank: "15", gpPoints: "45547", text: "Bruce Mccoy"}]}
+                                        rankList={topMembers.rankList}
+                                        showRowCount={10}
+                                        showMoreButton={true}
+                                        tabOptions={topMembers.tabOptions}
+                                        getRankData={getTopMembersAction}
+                                    />
+                                )}
+                                
+                                {mostActiveClubs && (
+                                    <CommunityClubList
+                                        heading={mostActiveClubs.sectionHeading}                                        
+                                        clubList={mostActiveClubs.rankList}
+                                        tabOptions={mostActiveClubs.tabOptions}
+                                        getClubData={getMostActiveClubsAction} 
+                                        showRowCount={3}                       
+                                    />
+                                )}
+                                
+                                {topStudents && (
+                                    <RankCard
+                                        heading={topStudents.sectionHeading}
+                                        // rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
+                                        //             {rank: "2", gpPoints: "49014", text: "Harold Russell", subText: "University of South Alabama"},
+                                        //             {rank: "3", gpPoints: "46799", text: "Colleen Henry", subText: "University of South Alabama"},
+                                        //             {rank: "4", gpPoints: "46034", text: "Tanya Pena", subText: "University of South Alabama"},
+                                        //             {rank: "5", gpPoints: "45857", text: "Bruce Mccoy", subText: "University of South Alabama"},
+                                        //             {rank: "6", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
+                                        //             {rank: "7", gpPoints: "49014", text: "Harold Russell", subText: "University of South Alabama"},
+                                        //             {rank: "8", gpPoints: "46799", text: "Colleen Henry", subText: "University of South Alabama"},
+                                        //             {rank: "9", gpPoints: "46034", text: "Tanya Pena", subText: "University of South Alabama"},
+                                        //             {rank: "10", gpPoints: "45857", text: "Bruce Mccoy", subText: "University of South Alabama"},
+                                        //             {rank: "11", gpPoints: "49125", text: "Serenity Henry", subText: "University of South Alabama"},
+                                        //             {rank: "12", gpPoints: "48524", text: "Harold Russell", subText: "University of South Alabama"},
+                                        //             {rank: "13", gpPoints: "46447", text: "Colleen Henry", subText: "University of South Alabama"},
+                                        //             {rank: "14", gpPoints: "46984", text: "Tanya Pena", subText: "University of South Alabama"},
+                                        //             {rank: "15", gpPoints: "45547", text: "Bruce Mccoy", subText: "University of South Alabama"}]}
+                                        showRowCount={10}
+                                        showMoreButton={true}
+                                        getRankData={getTopStudentsAction}
+                                        rankList={myRank.rankList}
+                                        tabOptions={myRank.tabOptions}
+                                    />
+                                )}
+                                
+                                {topSchoolClubs && (
+                                    <CommunityClubList
+                                        heading={topSchoolClubs.sectionHeading}                                        
+                                        clubList={topSchoolClubs.rankList}
+                                        tabOptions={topSchoolClubs.tabOptions}
+                                        getClubData={getTopSchoolClubsAction} 
+                                        showRowCount={3}    
+                                    />
+                                )}
+                                
                             </div>                    
                         </div>
                     </div>

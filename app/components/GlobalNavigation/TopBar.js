@@ -81,7 +81,7 @@ const TopBar = ({
     nextShow = upcomingStarPartyList.eventList[0];         
     countdown = nextShow.eventStart-now;
   }
-
+  
   return (
     <Fragment>
       <ConnectUser
@@ -153,28 +153,30 @@ const TopBar = ({
             {upcomingStarPartyList && countdown && nextShow && (
                <div className="center-menu" onClick={()=>browserHistory.push(nextShow.linkUrl)}>
                 {/* <CenterBar /> */}
-                {/* {countdown > 0 ? 
+                {countdown > 0 ? 
                     <Countdown
                         date={nextShow.eventStart*1000}
+                        // date={Date.now() + 10000}
                         onComplete={null}                   
-                        renderer={props => (                        
-                            <span className="counter-text">
-                                {props.days < 1 ? 
-                                    "Starts in " + twoDigitsTimeFormatting(props.hours) + ":" + twoDigitsTimeFormatting(props.minutes) + ":" + twoDigitsTimeFormatting(props.seconds) + " - " + nextShow.eventTitle :
-                                    "In " + props.days + " days - " + nextShow.eventTitle
-                                }
-                                
-                            </span>                        
+                        renderer={props => ( 
+                                props.days < 1 && !props.completed ? 
+                                <span className="counter-text">
+                                    {nextShow.eventTitle} <br/> Starts in {twoDigitsTimeFormatting(props.hours)} : {twoDigitsTimeFormatting(props.minutes)} : {twoDigitsTimeFormatting(props.seconds)}
+                                </span>
+                                    :
+                                <span className="counter-text">
+                                    {nextShow.eventTitle} <br/> {nextShow.displayDate}
+                                </span>                        
                         )}
                     />
                 :
                 <span className="counter-text live">LIVE - {nextShow.eventTitle}</span>
-                }     */}
+                }    
                 
-                <span className="counter-text">
+                {/* <span className="counter-text">
                   {nextShow.eventTitle}<br/>
                   {nextShow.displayDate}
-                </span> 
+                </span>  */}
               </div>
             )}
            

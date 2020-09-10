@@ -21,6 +21,9 @@ export class CommunityFame extends Component{
 
                     <GPCard
                         gravityEarnedToday={communityFame.gravityEarnedToday}
+                        data={communityFame.gravityGraph.dataPoints}
+                        yLabel={communityFame.gravityGraph.yLabel}
+                        sectionHeading={communityFame.gravityGraph.sectionHeading}
                     />                   
 
                     <div className="community-flex-layout">
@@ -31,10 +34,10 @@ export class CommunityFame extends Component{
                             </div>
                         ))}
                     </div> 
-                    <LineChart
+                    {/* <LineChart
                         data={communityFame.gravityGraph.dataPoints}
                         yLabel={communityFame.gravityGraph.yLabel}
-                    />                                              
+                    />                                               */}
             </div>   
         );
     }

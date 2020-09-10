@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -45,6 +45,18 @@ export const GET_COMMUNITY_EXPLORATION_START = "GET_COMMUNITY_EXPLORATION_START"
 export const GET_COMMUNITY_EXPLORATION_SUCCESS = "GET_COMMUNITY_EXPLORATION_SUCCESS";
 export const GET_COMMUNITY_FAME_START = "GET_COMMUNITY_FAME_START";
 export const GET_COMMUNITY_FAME_SUCCESS = "GET_COMMUNITY_FAME_SUCCESS";
+export const GET_MY_RANK_START = "GET_MY_RANK_START";
+export const GET_MY_RANK_SUCCESS = "GET_MY_RANK_SUCCESS";
+export const GET_TOP_MEMBERS_START = "GET_TOP_MEMBERS_START";
+export const GET_TOP_MEMBERS_SUCCESS = "GET_TOP_MEMBERS_SUCCESS";
+export const GET_TOP_STUDENTS_START = "GET_TOP_STUDENTS_START";
+export const GET_TOP_STUDENTS_SUCCESS = "GET_TOP_STUDENTS_SUCCESS";
+export const GET_MOST_ACTIVE_CLUBS_START = "GET_MOST_ACTIVE_CLUBS_START";
+export const GET_MOST_ACTIVE_CLUBS_SUCCESS = "GET_MOST_ACTIVE_CLUBS_SUCCESS";
+export const GET_TOP_SCHOOL_CLUBS_START = "GET_TOP_SCHOOL_CLUBS_START";
+export const GET_TOP_SCHOOL_CLUBS_SUCCESS = "GET_TOP_SCHOOL_CLUBS_SUCCESS";
+export const GET_GRAVITY_BY_DOMAIN_START = "GET_GRAVITY_BY_DOMAIN_START";
+export const GET_GRAVITY_BY_DOMAIN_SUCCESS = "GET_GRAVITY_BY_DOMAIN_SUCCESS";
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -241,6 +253,60 @@ const getCommunityFameStart = () => ({
 
 const getCommunityFameSuccess = (payload) => ({
   type: GET_COMMUNITY_FAME_SUCCESS,
+  payload    
+});
+
+const getMyRankStart = () => ({
+  type: GET_MY_RANK_START    
+});
+
+const getMyRankSuccess = (payload) => ({
+  type: GET_MY_RANK_SUCCESS,
+  payload    
+});
+
+const getTopMembersStart = () => ({
+  type: GET_TOP_MEMBERS_START    
+});
+
+const getTopMembersSuccess = (payload) => ({
+  type: GET_TOP_MEMBERS_SUCCESS,
+  payload    
+});
+
+const getTopStudentsStart = () => ({
+  type: GET_TOP_STUDENTS_START    
+});
+
+const getTopStudentsSuccess = (payload) => ({
+  type: GET_TOP_STUDENTS_SUCCESS,
+  payload    
+});
+
+const getMostActiveClubsStart = () => ({
+  type: GET_MOST_ACTIVE_CLUBS_START    
+});
+
+const getMostActiveClubsSuccess = (payload) => ({
+  type: GET_MOST_ACTIVE_CLUBS_SUCCESS,
+  payload    
+});
+
+const getTopSchoolClubsStart = () => ({
+  type: GET_TOP_SCHOOL_CLUBS_START    
+});
+
+const getTopSchoolClubsSuccess = (payload) => ({
+  type: GET_TOP_SCHOOL_CLUBS_SUCCESS,
+  payload    
+});
+
+const getGravityByDomainStart = () => ({
+  type: GET_GRAVITY_BY_DOMAIN_START    
+});
+
+const getGravityByDomainSuccess = (payload) => ({
+  type: GET_GRAVITY_BY_DOMAIN_SUCCESS,
   payload    
 });
 
@@ -553,6 +619,96 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getCommunityFameSuccess(result.data));
+      }
+    );
+  };
+
+  export const getMyRankAction = (data) => (dispatch, getState) => {
+    dispatch(getMyRankStart());    
+    const { token, at, cid } = getState().user;    
+    return getMyRank({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getMyRankSuccess(result.data));
+      }
+    );
+  };
+
+  export const getTopMembersAction = (data) => (dispatch, getState) => {
+    dispatch(getTopMembersStart());    
+    const { token, at, cid } = getState().user;    
+    return getTopMembers({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getTopMembersSuccess(result.data));
+      }
+    );
+  };
+
+  export const getTopStudentsAction = (data) => (dispatch, getState) => {
+    dispatch(getTopStudentsStart());    
+    const { token, at, cid } = getState().user;    
+    return getTopStudents({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getTopStudentsSuccess(result.data));
+      }
+    );
+  };
+
+  export const getMostActiveClubsAction = (data) => (dispatch, getState) => {
+    dispatch(getMostActiveClubsStart());    
+    const { token, at, cid } = getState().user;    
+    return getMostActiveClubs({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getMostActiveClubsSuccess(result.data));
+      }
+    );
+  };
+
+  export const getTopSchoolClubsAction = (data) => (dispatch, getState) => {
+    dispatch(getTopSchoolClubsStart());    
+    const { token, at, cid } = getState().user;    
+    return getTopSchoolClubs({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getTopSchoolClubsSuccess(result.data));
+      }
+    );
+  };
+
+  export const getGravityByDomainAction = (data) => (dispatch, getState) => {
+    dispatch(getGravityByDomainStart());    
+    const { token, at, cid } = getState().user;    
+    return getGravityByDomain({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getGravityByDomainSuccess(result.data));
       }
     );
   };

@@ -6,34 +6,49 @@ import { TabHeader } from '../tab-header';
 
 export class RankCard extends Component{
 
+
+    constructor(props){
+        super(props);
+        const tabHeaders=props.tabOptions.map(item => item.label);
+        this.state={tabHeaders: tabHeaders, activeHeading: tabHeaders[0]};
+    }
+
+    onTabChange = (title) =>{
+        const { tabOptions, getRankData } = this.props;
+        const { tabHeaders } = this.state;
+        const index = tabHeaders.indexOf(title);
+        getRankData({viewType: tabOptions[index].viewType})
+        this.setState({activeHeading: tabHeaders[index]});
+    }
     
     render() {
         const {heading, rankList, showRowCount, showMoreButton} = this.props;
         const showmorebtntext = "Show More";
+        const { tabHeaders, activeHeading } = this.state;
 
         return (
             <div className="rank-main">
                 <h2 className="rank-heading">{heading}</h2> 
                     <TabHeader
-                        headings={["2020-2021 School Year", "All Time"]}
-                        activeHeading={"2020-2021 School Year"}
+                        headings={tabHeaders}
+                        activeHeading={activeHeading}
                         spaceequally={true}
                         theme={"light"}
-
+                        onTabChange={this.onTabChange}
                     />
                     <table>
                         {rankList.slice(0, showRowCount === 0 ? rankList.length : showRowCount).map(rank=>(
                             <tr>
-                                <td className={"rank-id" + (rank.highlight ? " rank-highlight" : "")}>#{rank.rank}</td>
+                                <td className={"rank-id" + (rank.highlight ? " rank-highlight" : "")}>{rank.rank}</td>
                                 <td className={"rank-name" + (rank.highlight ? " rank-highlight" : "")}>
                                     <div>
-                                        {rank.text}
+                                        {rank.displayName}
                                         {rank.subText && (
                                             <span className="university mar-top-5"><br/>{rank.subText}</span>
                                         )}                                       
                                     </div>
                                 </td>
-                                <td className={"rank-gp" + (rank.highlight ? " rank-highlight" : "")}>{rank.gpPoints}</td>
+                                <td className={"rank-gp" + (rank.highlight ? " rank-highlight" : "")}>{rank.gp}</td>
                             </tr>
                         ))}
                     </table> 
