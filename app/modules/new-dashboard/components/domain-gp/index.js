@@ -23,7 +23,7 @@ export class DomainGP extends Component{
                                     {/* <span className="domain-rank">#{domain.rank}</span> */}
                                 </div>
                                 <h2 className="domain-name">{domain.label}</h2>
-                                <h4 className="domain-gp">{domain.perc} GP</h4>
+                                <h4 className="domain-gp">{domain.perc}</h4>
                             </div> 
                         ))}                            
                     </div>

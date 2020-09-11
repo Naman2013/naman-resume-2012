@@ -2,7 +2,7 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { TabHeader } from '../tab-header';
-
+import { browserHistory } from 'react-router';
 
 export class CommunityClubList extends Component{
 
@@ -38,12 +38,12 @@ export class CommunityClubList extends Component{
                         {clubList.slice(0, showRowCount === 0 ? clubList.length : showRowCount).map(club=>(
                             <tr>
                                 <td>
-                                    <div className="community-club-id-div">
+                                    <div className="community-club-id-div" onClick={()=>browserHistory.push(club.linkURL)}>
                                         <h2 className="community-club-id">{club.rank}</h2>
                                     </div>
                                 </td>
                                 <td className="community-clubs-div-pad-left-10">
-                                    <h3 className="community-club-name">{club.name}</h3>
+                                    <h3 className="community-club-name" onClick={()=>browserHistory.push(club.linkURL)} >{club.name}</h3>
                                     <h3 className="community-club-gp">{club.gp}</h3>
                                     <h3 className="community-club-admin">{club.descriptiveText}</h3>
                                 </td>                                

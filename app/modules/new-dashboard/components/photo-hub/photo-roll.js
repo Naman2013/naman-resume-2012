@@ -30,7 +30,7 @@ export class PhotoRoll extends Component{
     PHOTOS_ON_ONE_PAGE=18
 
     componentDidMount() {
-        if(this.blockWidth !== undefined)
+        if(this.blockWidth !== undefined && this.blockWidth !== null)
             this.setState({ width: this.blockWidth.clientWidth });
     }
 

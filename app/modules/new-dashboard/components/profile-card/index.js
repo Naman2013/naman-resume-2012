@@ -10,9 +10,9 @@ export class ProfileCard extends Component{
     render() {
         
         const { userGravityStatus } = this.props;
-        const { memberName, currentTierName, avatarURL, gravityPoints, nextTierName, currentTierProgress, maxTierProgress } = userGravityStatus;        
-        const subHeading = "Current Level";                
-
+        const { memberName, currentTierName, avatarURL, gravityPoints, nextTierName, currentTierProgress, maxTierProgress, memberSince } = userGravityStatus;        
+        const subHeading = "Current Level";               
+        
         return (
             <div>
                 {/* <Button
@@ -30,7 +30,7 @@ export class ProfileCard extends Component{
                     </div>
                     <div className="profile-card-right">
                         <h2 className="profile-card-heading">{memberName}</h2>               
-                        <h4 className="profile-card-subHeading">{subHeading}: </h4>
+                        <h4 className="profile-card-subHeading">since{memberSince} </h4>
                         <span className="profile-card-value">{currentTierName}</span>
                         <h2 className="profile-gp">{gravityPoints}GP</h2>
                     </div>

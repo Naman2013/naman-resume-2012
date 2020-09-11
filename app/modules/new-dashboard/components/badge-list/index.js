@@ -54,7 +54,8 @@ export class BadgeList extends Component{
 
         const { badgeLists, totalBadgeCount, currentBadgeCount } = this.props;
         const { showBadge, currentBadge, objectBadge, loading } = this.state;
-        const heading = "Badges(" +badgeLists.length + "/"+ totalBadgeCount + ")";        
+        // const heading = "Badges(" +badgeLists.length + "/"+ totalBadgeCount + ")";        
+        const heading = "Badges";
         const badgeCount = currentBadgeCount > 40 ? currentBadgeCount : 40;
         
         return (

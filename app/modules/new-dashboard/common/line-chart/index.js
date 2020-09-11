@@ -70,7 +70,7 @@ export class LineChart extends Component{
                         pointShape: 'circle',
                         pointSize: 5,
                         chartArea: {                           
-                            left:75,bottom:120, top: 20, right:20,width:"100%",height:"100%"
+                            left:50,bottom:120, top: 20, right:20,width:"100%",height:"100%"
                         },
                         axes: {
                             x: {
