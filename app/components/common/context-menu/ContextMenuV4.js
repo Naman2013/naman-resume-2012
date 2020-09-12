@@ -93,7 +93,7 @@ class ContextMenu extends Component {
 
     return (
       <div className={containerClass}>
-        <div
+        {/* <div
           className="arrow-right"
           style={{
             left: `${
@@ -103,7 +103,7 @@ class ContextMenu extends Component {
             }px`,
             top: '20%',
           }}
-        />
+        /> */}
         <div style={menuRootStyle} className={rootClasses}>
           {titleText && (
             <div className="header">

@@ -32,6 +32,7 @@ import { Dropdown } from 'react-bootstrap';
 import Feature from 'ol/Feature';
 import {getVectorContext} from 'ol/render';
 import {Group as LayerGroup} from 'ol/layer';
+import Overlay from 'ol/Overlay';
 
 export class QuestMap extends Component{
   state={
@@ -47,6 +48,7 @@ export class QuestMap extends Component{
     vectorLayer: null,
   }
 
+  
   constructor (props){
     super(props);
     const { questMapControls } = this.props;
@@ -234,7 +236,7 @@ export class QuestMap extends Component{
             //   })
             
             
-
+            
 
             var map = new Map({
               controls: [],
@@ -243,16 +245,17 @@ export class QuestMap extends Component{
               layers: [                   
                 // backgroundLayer,
                 // vectorLayer,
-              ]
+              ],
+              
             });
 
+            
            
             
                      
           map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
-          });
-
+          });          
           map.on('pointermove', function (e) {            
             if (e.dragging) {
               $(element).popover('dispose');
@@ -262,14 +265,19 @@ export class QuestMap extends Component{
             var hit = map.hasFeatureAtPixel(pixel);
             var target = map.getTarget();
             document.getElementById(target).style.cursor = hit ? 'pointer' : '';
+            // if(hit){   
+            //   var coordinate = e.coordinate;    
+            //   var content = document.getElementById('popup-content');               
+            //   content.innerHTML = '<h2>test</h2>';
+            //   self.overlay.setPosition(coordinate);
+            // }
             // map.getTarget().style.cursor = hit ? 'pointer' : '';
           });
 
 
           // map.on('click', this.handleMapClick.bind(this));
           this.setState({map: map, view: view });
-          this.getQuestMapInit();
-          console.log(fromLonLat([ 130, 433 ]));
+          this.getQuestMapInit();          
     }
 
 
@@ -698,7 +706,16 @@ export class QuestMap extends Component{
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.data));
           })
-         
+          // container = document.getElementById('popover');
+ 
+          // overlay = new Overlay({
+          //   element: container,
+          //   autoPan: true,
+          //   autoPanAnimation: {
+          //     duration: 250,
+          //   },
+          // });
+          // map.addOverlay(overlay)
 
           // mapObject.addLayer(raster);
 
@@ -753,6 +770,10 @@ export class QuestMap extends Component{
                 </div> 
               )}
                
+              <div id="popover" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+              </div>
               
             </div>
            <div className="controls-div">
