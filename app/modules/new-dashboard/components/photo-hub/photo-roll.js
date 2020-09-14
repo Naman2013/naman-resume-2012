@@ -69,7 +69,7 @@ export class PhotoRoll extends Component{
       };
     
     render() {
-        const { imageList, totalCount, tagActions, tagsData } = this.props;        
+        const { imageList, totalCount, tagActions, tagsData, showModal } = this.props;        
         const { activePage, menuIsVisible, width, menuIndex } = this.state;
         return (
             imageList !== undefined ? ( 
@@ -98,9 +98,10 @@ export class PhotoRoll extends Component{
                                             </div>                                            
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
                                             {/* <Link to={photo.photoViewFullURL}> */}
-                                                <div className="photo-hub-details">
-                                                    <h5 onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="view-details">{"View Details"}</h5>
-                                                    <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                <div className="photo-hub-details" onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})}>
+                                                    <h5 onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} className="view-details">{"View Details"}</h5>
+                                                    {/* <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/> */}
+                                                    <img onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            
                                             {/* </Link>         */}
                                         </div>   
@@ -129,8 +130,8 @@ export class PhotoRoll extends Component{
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
                                             {/* <Link to={photo.photoViewFullURL}> */}
-                                                <div className="photo-hub-details">                                                
-                                                    <h5 onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="view-details">{"View Details"}</h5>
+                                                <div className="photo-hub-details" onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})}>                                                
+                                                    <h5  className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>
                                             {/* </Link> */}

@@ -28,13 +28,37 @@ import { Observation } from './observation';
 import { Mission } from './mission';
 import { getTagsApi, deleteTagApi, setTagApi } from 'app/modules/mission-details/api';
 import { getUserInfo } from 'app/modules/User';
-  
-  const mapTypeToRequest = {
+import Modal from 'react-modal';
+import ImageDetails from 'app/modules/image-details/containers/image-details';
+import MissionDetails from 'app/modules/mission-details/containers/mission-details';
+import GalleryDetails from 'app/modules/gallery-details/containers/gallery-details';
+
+
+const mapTypeToRequest = {
     observations: 'fetchPhotoRollAndCounts',
     photoroll: 'fetchPhotoRollAndCounts',
     missions: 'fetchMissionsAndCounts',
     galleries: 'fetchGalleriesAndCounts',
-  };
+};
+
+const customModalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      minWidth: '300px',
+      width: '90%',
+      height: '90%',
+      maxWidth: '95%',
+      padding: '10px 20px',      
+    },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    },
+};
 
 class PhotoHub extends Component{
 
@@ -77,7 +101,9 @@ class PhotoHub extends Component{
     state = {
         selectedheader: "Photo Roll",
         isFilterOpen: false,
-        tagsData: {isFetching: true, tagList: []}
+        tagsData: {isFetching: true, tagList: []},
+        showModal: false,
+        modalParams:{},
     }
 
     fetchFilters = () => {
@@ -250,7 +276,7 @@ class PhotoHub extends Component{
                     setTag: this.setTagsAction,
                     deleteTag: this.deleteTagsAction,
                   };
-        const { selectedheader, isFilterOpen, tagsData } = this.state;
+        const { selectedheader, isFilterOpen, tagsData, showModal, modalParams } = this.state;
         
         const getTabContent = header => {                        
             switch (header) {
@@ -262,6 +288,7 @@ class PhotoHub extends Component{
                                 totalCount={photoHub.totalCount}
                                 tagActions={tagActions}
                                 tagsData= {tagsData}
+                                showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;
                 case "Observations":
                     return <Observation 
@@ -269,6 +296,7 @@ class PhotoHub extends Component{
                                 getMyPictures={getMyPictures} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
+                                showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;
                 case "Missions":
                     return <Mission 
@@ -276,6 +304,7 @@ class PhotoHub extends Component{
                                 getMyPictures={getMyPictures} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
+                                showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;             
                 case "Galleries":
                     return <GalleryCard 
@@ -283,6 +312,7 @@ class PhotoHub extends Component{
                                 getMyPictures={getMyPictures} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
+                                showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;
                 default:
                     break;
@@ -351,7 +381,38 @@ class PhotoHub extends Component{
                             ):null}                                                       
                         </div>
                     )}
-                                                      
+                    <Modal
+                        isOpen={showModal}
+                        contentLabel="Bio"
+                        onRequestClose={()=>this.setState({showModal: false})}
+                        style={customModalStyles}
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={false}
+                        >
+                        <i
+                            className="fa fa-close"
+                            onClick={()=>this.setState({showModal: false})}
+                            role="button"
+                        />
+                        {(selectedheader === "Photo Roll" || selectedheader === "Observations") && (
+                            <ImageDetails
+                                params={modalParams}                                
+                            />
+                        )}
+
+                        {selectedheader === "Missions" && (
+                            <MissionDetails
+                                params={modalParams}
+                            />
+                        )}
+                        
+                        {selectedheader === "Galleries" && (
+                            <GalleryDetails
+                                params={modalParams}
+                            />
+                        )}                        
+
+                    </Modal>         
             </div>   
         );
     }
