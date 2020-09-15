@@ -21,7 +21,7 @@ import {
   } from 'app/modules/profile-photos/selectors';
   import { connect } from 'react-redux';
   import { bindActionCreators } from 'redux';
-  import { getFitsData, deleteTag, setTag } from 'app/modules/profile-photos/thunks';
+  import { deleteTag, setTag } from 'app/modules/profile-photos/thunks';
 import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import { SelectedFilters } from '../../common/selected-filters';
 import { Observation } from './observation';
@@ -32,6 +32,7 @@ import Modal from 'react-modal';
 import ImageDetails from 'app/modules/image-details/containers/image-details';
 import MissionDetails from 'app/modules/mission-details/containers/mission-details';
 import GalleryDetails from 'app/modules/gallery-details/containers/gallery-details';
+import { getFitsDataApi } from 'app/modules/profile-photos/api';
 
 
 const mapTypeToRequest = {
@@ -101,7 +102,10 @@ class PhotoHub extends Component{
     state = {
         selectedheader: "Photo Roll",
         isFilterOpen: false,
-        tagsData: {isFetching: true, tagList: []},
+        tagsData: { isFetching: true, tagList: [] },
+        fitsData: { isFetching: false,
+                    isLoaded: false,
+                    data: {},},
         showModal: false,
         modalParams:{},
     }
@@ -250,6 +254,16 @@ class PhotoHub extends Component{
         });
     }
 
+    getFitsDataAction = (data) => {
+        const { token, at, cid} = getUserInfo();
+        return getFitsDataApi({token, at, cid, ...data}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                this.setState({fitsData: {isFetching: false, isLoaded: true, data: res}});
+            }
+        })
+    }
+
     render() {
         const { heading, 
                 headerlist, 
@@ -262,9 +276,8 @@ class PhotoHub extends Component{
                 photoHub, 
                 getMyPictures,
                 params,
-                privateProfileData,
-                actions: {
-                    getFitsData,
+                privateProfileData,                
+                actions: {                    
                     setSelectedTagsTabIndex,
                     // getTags,
                     // setTag,
@@ -276,7 +289,7 @@ class PhotoHub extends Component{
                     setTag: this.setTagsAction,
                     deleteTag: this.deleteTagsAction,
                   };
-        const { selectedheader, isFilterOpen, tagsData, showModal, modalParams } = this.state;
+        const { selectedheader, isFilterOpen, tagsData, showModal, modalParams, fitsData, } = this.state;
         
         const getTabContent = header => {                        
             switch (header) {
@@ -305,6 +318,8 @@ class PhotoHub extends Component{
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
                                 showModal={(params)=>this.setState({showModal: true, modalParams: params})}
+                                getFitsData={this.getFitsDataAction}
+                                fitsData={fitsData}
                                 />;             
                 case "Galleries":
                     return <GalleryCard 
@@ -433,8 +448,7 @@ const mapDispatchToProps = dispatch => ({
   
         fetchFiltersLists,
         fetchObjectTypeList,
-        setFilters,
-        getFitsData,
+        setFilters,        
         setSelectedTagsTabIndex,
         
         setTag,
@@ -457,8 +471,8 @@ const mapDispatchToProps = dispatch => ({
     //   observationsList: state.myPictures.photoRoll.response.imageList,
     //   photoRollEmptyMsg: state.myPictures.photoRoll.response.emptySetDisplay,
     //   observationsCount: state.myPictures.observations.imageCount,
-      fitsData: state.photoHubs.fitsData,
-      tagsData: state.photoHubs.tagsData,
+    //   fitsData: state.photoHubs.fitsData,
+    //   tagsData: state.photoHubs.tagsData,
   
       telescopeList: selectTelescopeList()(state),
       timeList: selectTimeList()(state),
