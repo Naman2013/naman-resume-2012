@@ -69,6 +69,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
       apiURL,
       params,
       renameGallery,
+      newDash
     } = this.props;
     const { activePage, isConfirmModalVisible } = this.state;
     if (isFetching) {
@@ -78,7 +79,11 @@ class GalleryDetails extends Component<TGalleryDetails> {
       <DeviceContext.Consumer>
         {({ isMobile, isTablet, isDesktop }) => (
           <section className="gallery-details root-wrapper">
-            <BackButton />
+            {!newDash ? (
+              <BackButton />
+            ):
+            <br />}  
+            {/* <BackButton /> */}
             <GalleryDetailsHeader
               image={imageList}
               isMobile={isMobile}

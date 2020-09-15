@@ -52,6 +52,7 @@ class MissionDetails extends Component<TMissionDetails> {
       imageList,
       apiURL,
       params: { missionId: scheduledMissionId },
+      newDash
     } = this.props;
     const { activePage } = this.state;
     if (isFetching) return <div>Loading...</div>;
@@ -59,7 +60,11 @@ class MissionDetails extends Component<TMissionDetails> {
       <DeviceContext.Consumer>
         {({ isMobile, isTablet, isDesktop }) => (
           <section className="mission-details root-wrapper">
-            <BackButton />
+            {!newDash ? (
+              <BackButton />
+            ):
+            <br />}     
+            {/* <BackButton />        */}
             <MissionDetailsHeader
               {...this.props}
               scheduledMissionId={scheduledMissionId}

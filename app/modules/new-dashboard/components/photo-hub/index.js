@@ -393,6 +393,7 @@ class PhotoHub extends Component{
                             className="fa fa-close"
                             onClick={()=>this.setState({showModal: false})}
                             role="button"
+                            style={{float: "right"}}
                         />
                         {(selectedheader === "Photo Roll" || selectedheader === "Observations") && (
                             <ImageDetails
@@ -403,12 +404,14 @@ class PhotoHub extends Component{
                         {selectedheader === "Missions" && (
                             <MissionDetails
                                 params={modalParams}
+                                newDash
                             />
                         )}
                         
                         {selectedheader === "Galleries" && (
                             <GalleryDetails
                                 params={modalParams}
+                                newDash
                             />
                         )}                        
 
