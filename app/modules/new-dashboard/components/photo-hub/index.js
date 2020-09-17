@@ -408,7 +408,7 @@ class PhotoHub extends Component{
                             className="fa fa-close"
                             onClick={()=>this.setState({showModal: false})}
                             role="button"
-                            style={{float: "right"}}
+                            style={{float: "right", fontSize: "20px"}}
                         />
                         {(selectedheader === "Photo Roll" || selectedheader === "Observations") && (
                             <ImageDetails

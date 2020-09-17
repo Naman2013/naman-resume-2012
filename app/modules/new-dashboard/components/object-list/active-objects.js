@@ -1,0 +1,51 @@
+import { Component } from 'react';
+import React from "react";
+import './style.scss';
+import { getUserActiveObject } from '../../dashboardApi';
+import { getUserInfo } from 'app/modules/User';
+import { ObjectList } from './index';
+
+export class ActiveObject extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            userActiveObject: undefined
+        }
+        this.getActiveObjectAction();
+    }
+
+    getActiveObjectAction = () =>{
+        const { at, cid, token } = getUserInfo();
+        getUserActiveObject({at, cid, token}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                const { timestamp, expires } = res;
+                const duration=(expires-timestamp)*1000;
+                console.log("Active Object Duration"+duration);                
+                setTimeout(this.getActiveObjectAction,duration );
+                this.setState({userActiveObject: res});
+            }
+        });
+    }
+    
+    render() {
+        const { userActiveObject } = this.state;
+        
+        return (
+            <div>
+                {userActiveObject && (
+                    <ObjectList
+                        heading={"Most Active Objects"}
+                        showTab={false}
+                        headerlist={[]}
+                        selectedheader={""}
+                        headerspaceequally={false}
+                        objectList={userActiveObject.activeObjects}
+                    />
+                )}                                             
+            </div>   
+        );
+    }
+
+}

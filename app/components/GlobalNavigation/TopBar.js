@@ -23,6 +23,7 @@ import Button from './Button';
 import Countdown from 'react-countdown-now';
 import moment from 'moment';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
+import { fetchEvents } from 'app/modules/upcoming-events/upcoming-events-actions';
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -77,7 +78,7 @@ const TopBar = ({
   let countdown = null;      
   let nextShow = null;
   
-  if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList !== undefined){
+  if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList.eventList.length > 0){
     nextShow = upcomingStarPartyList.eventList[0];         
     countdown = nextShow.eventStart-now;
   }
@@ -157,7 +158,7 @@ const TopBar = ({
                     <Countdown
                         date={nextShow.eventStart*1000}
                         // date={Date.now() + 10000}
-                        onComplete={null}                   
+                        onComplete={()=>fetchEvents()}                   
                         renderer={props => ( 
                                 props.days < 1 && !props.completed ? 
                                 <span className="counter-text">

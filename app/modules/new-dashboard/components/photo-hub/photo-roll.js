@@ -7,6 +7,7 @@ import AsideToggleableMenu from 'app/modules/profile-photos/components/AsideTogg
 import { getTagsApi } from 'app/modules/mission-details/api';
 import { getUserInfo } from 'app/modules/User';
 import { browserHistory } from 'react-router';
+import { downloadFile } from 'app/utils/downloadFile';
 
 export class PhotoRoll extends Component{
 
@@ -50,6 +51,11 @@ export class PhotoRoll extends Component{
         return browserHistory.push(
           `/my-pictures/show-image/${customerImageId}/${token}`
         );
+    };
+
+    onDownloadFile = (e, imageURL, imageTitle) => {
+        e.preventDefault();
+        downloadFile(imageURL, imageTitle);
     };
 
     handlePageChange = ({ activePage }) => {
@@ -100,6 +106,10 @@ export class PhotoRoll extends Component{
                                             {/* <Link to={photo.photoViewFullURL}> */}
                                                 <div className="photo-hub-details">
                                                     <h5 onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="view-details">{"View Details"}</h5>
+                                                    <i style={{color: "white"}} 
+                                                        className="white icon-download" 
+                                                        onClick={e =>this.onDownloadFile( e, photo.imageDownloadURL, photo.imageDownloadFilename )}
+                                                    />
                                                     {/* <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/> */}
                                                     <img onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            

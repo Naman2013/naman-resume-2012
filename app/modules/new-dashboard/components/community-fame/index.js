@@ -4,41 +4,65 @@ import './style.scss';
 import { TabHeader } from '../tab-header';
 import { GPCard } from "../gp-card";
 import { LineChart } from '../../common/line-chart';
+import { getCommunityFame } from '../../dashboardApi';
+import { getUserInfo } from 'app/modules/User';
 
 export class CommunityFame extends Component{
 
+    constructor(props){
+        super(props);
+        this.state={
+            communityFame: undefined
+        }
+        this.getCommunityStatsAction();
+    }
+
+    getCommunityStatsAction = () =>{
+        const { at, cid, token } = getUserInfo();
+        getCommunityFame({at, cid, token}).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+                const { timestamp, expires } = res;
+                const duration=(expires-timestamp)*1000;
+                console.log("community stats Duration"+duration);                
+                setTimeout(this.getCommunityStatsAction,duration );
+                this.setState({communityFame: res});
+            }
+        });
+    }
     
     render() {
-        const {heading, gpPoints, communityFame} = this.props;
-        const gplist = [{gpPoints: "0", text: "Hubble"},
-                            {gpPoints: "4", text: "Swan"},
-                            {gpPoints: "14", text: "Herchels"}];
+        const { communityFame } = this.state;        
         
         return (
-            <div className="community-fame-main">
+            <div>
+                {communityFame && (
+                    <div className="community-fame-main">
 
-                <h2 className="community-fame-heading">{communityFame.sectionHeading }</h2> 
+                        <h2 className="community-fame-heading">{communityFame.sectionHeading }</h2> 
 
-                    <GPCard
-                        gravityEarnedToday={communityFame.gravityEarnedToday}
-                        data={communityFame.gravityGraph.dataPoints}
-                        yLabel={communityFame.gravityGraph.yLabel}
-                        sectionHeading={communityFame.gravityGraph.sectionHeading}
-                    />                   
+                            <GPCard
+                                gravityEarnedToday={communityFame.gravityEarnedToday}
+                                data={communityFame.gravityGraph.dataPoints}
+                                yLabel={communityFame.gravityGraph.yLabel}
+                                sectionHeading={communityFame.gravityGraph.sectionHeading}
+                            />                   
 
-                    <div className="community-flex-layout">
-                        {communityFame.tierStats.map(gp=>(
-                            <div className="community-gp-card">
-                                <h2 className="community-gp-points">{gp.count}</h2>
-                                <h2 className="community-gp-txt">{gp.label}</h2>
-                            </div>
-                        ))}
-                    </div> 
-                    {/* <LineChart
-                        data={communityFame.gravityGraph.dataPoints}
-                        yLabel={communityFame.gravityGraph.yLabel}
-                    />                                               */}
-            </div>   
+                            <div className="community-flex-layout">
+                                {communityFame.tierStats.map(gp=>(
+                                    <div className="community-gp-card">
+                                        <h2 className="community-gp-points">{gp.count}</h2>
+                                        <h2 className="community-gp-txt">{gp.label}</h2>
+                                    </div>
+                                ))}
+                            </div> 
+                            {/* <LineChart
+                                data={communityFame.gravityGraph.dataPoints}
+                                yLabel={communityFame.gravityGraph.yLabel}
+                            />                                               */}
+                    </div>
+                )}
+            </div>  
         );
     }
 

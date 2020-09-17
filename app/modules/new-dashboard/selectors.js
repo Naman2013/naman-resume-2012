@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
 export const newDashList = state => state.newDashboard;
-
+export const state = state=> state;
 
 export const makeStarPartyListSelector = () =>
   createSelector(
-    newDashList,
-    state => state.upcomingStarPartyList
+    state,
+    state => state.upcomingEvents.upcomingEvents
   );
 
   export const makeUserGravityStatusSelector = () =>

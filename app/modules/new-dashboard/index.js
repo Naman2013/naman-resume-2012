@@ -29,6 +29,13 @@ import { QuestMap } from "./components/quest-map";
 import { ExploreObject } from "./components/explore-objects";
 import { CommunityExploration } from "./components/community-exploration";
 import { getMostActiveClubs } from "./dashboardApi";
+import { ActiveObject } from "./components/object-list/active-objects";
+import { PopularObservation } from "./components/object-list/popular-observation";
+import { SchoolClub } from "./components/community-club-list/top-school-clubs";
+import { ActiveClub } from "./components/community-club-list/most-active-clubs";
+import { MyRank } from "./components/rank-card/my-rank";
+import { TopMembers } from "./components/rank-card/top-members";
+import { TopStudents } from "./components/rank-card/top-students";
 
 export class NewDashboard extends PureComponent{
 
@@ -101,11 +108,11 @@ export class NewDashboard extends PureComponent{
                 getTopStudentsAction,
                 getMostActiveClubsAction,
                 getTopSchoolClubsAction,
-                getGravityByDomainAction,
+                // getGravityByDomainAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
-        fetchStarPartyDataAction();
+        // fetchStarPartyDataAction();
         getUserGravityDataAction();
         getPrivateProfileMissionDataAction();
         getMyPicturesDataAction({
@@ -125,19 +132,19 @@ export class NewDashboard extends PureComponent{
             paginationStartIndex: 1,
             maxItemsPerPage: 9
         });
-        getUserActiveObjectDataAction();
-        getUserPopularObservationDataAction();
-        getRecentGravityDataAction();        
+        // getUserActiveObjectDataAction();
+        // getUserPopularObservationDataAction();
+        // getRecentGravityDataAction();        
         getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
         getQuestMapControlAction();
-        getCommunityExplorationAction();
-        getCommunityFameAction();
-        getMyRankAction();
-        getTopMembersAction();
-        getTopStudentsAction();
-        getMostActiveClubsAction();
-        getTopSchoolClubsAction();
-        getGravityByDomainAction();
+        // getCommunityExplorationAction();
+        // getCommunityFameAction();
+        // getMyRankAction();
+        // getTopMembersAction();
+        // getTopStudentsAction();
+        // getMostActiveClubsAction();
+        // getTopSchoolClubsAction();
+        // getGravityByDomainAction();
     };
     
     render(){
@@ -186,7 +193,6 @@ export class NewDashboard extends PureComponent{
                 getObjectMapControlAction,
                 objectMapControls,
                 communityExploration, 
-                communityFame,
                 getMyRankAction,
                 getTopMembersAction,
                 getTopStudentsAction,
@@ -198,6 +204,7 @@ export class NewDashboard extends PureComponent{
                 mostActiveClubs,
                 topSchoolClubs,
                 gravityByDomain,
+                // getCommunityFameAction,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -327,11 +334,11 @@ export class NewDashboard extends PureComponent{
                                     subHeading = {"Latest Community Insights"}
                                 />
 
-                                {communityExploration && (
+                                {/* {communityExploration && ( */}
                                     <CommunityExploration
-                                        communityExploration={communityExploration}
+                                        // communityExploration={communityExploration}
                                     />
-                                )}                                    
+                                {/* )}                                     */}
 
                                 <SectionDivider/>
 
@@ -409,14 +416,14 @@ export class NewDashboard extends PureComponent{
                                     />
                                 )}
                                 
-                                {recentGravityAction && (
+                                {/* {recentGravityAction && ( */}
                                     <GravityActions
-                                        gravityList={recentGravityAction.actions}
+                                        // gravityList={recentGravityAction.actions}
                                     />
-                                )}
+                                {/* )} */}
                                 
-
-                                {userActiveObject && (
+                                <ActiveObject />
+                                {/* {userActiveObject && (
                                     <ObjectList
                                         heading={"Most Active Objects"}
                                         showTab={false}
@@ -425,9 +432,9 @@ export class NewDashboard extends PureComponent{
                                         headerspaceequally={false}
                                         objectList={userActiveObject.activeObjects}
                                     />
-                                )}
-                                
-                                {userPopularObservation && (
+                                )} */}
+                                <PopularObservation />
+                                {/* {userPopularObservation && (
                                     <ObjectList
                                         heading={"Most Popular Observations"}
                                         showTab={false}
@@ -436,16 +443,15 @@ export class NewDashboard extends PureComponent{
                                         headerspaceequally={false}
                                         objectList={userPopularObservation.popularObservations}
                                     />
-                                )}
+                                )} */}
                                 
-                                {gravityByDomain &&(
-                                    <DomainGP
-                                        heading={gravityByDomain.title}
-                                        domaingpList={gravityByDomain.list}
-                                    />
-                                )}
+                                {/* {gravityByDomain &&( */}
+                                    <DomainGP />
+                                {/* )} */}
                                 
-                                {myRank && (
+                                <MyRank />
+
+                                {/* {myRank && (
                                     <RankCard
                                         heading={myRank.sectionHeading}
                                         // rankList={[{rank: "2065", gpPoints: "49", text: "Serenity Henry"},
@@ -460,17 +466,9 @@ export class NewDashboard extends PureComponent{
                                         getRankData={getMyRankAction}
                                     />
                                 )}
-                                
-
-                                {communityFame && (
-                                    <CommunityFame
-                                        // heading={"Community Hall of Fame"}
-                                        // gpPoints={"18 647"}
-                                        communityFame={communityFame}
-                                    />
-                                )}
-
-                                
+                                 */}
+                                <CommunityFame />
+                               
                                 <ObjectList
                                     heading={"Community Top Object"}
                                     showTab={true}
@@ -493,7 +491,10 @@ export class NewDashboard extends PureComponent{
                                                     {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
                                                     {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
                                 />
-                                {topMembers && (
+
+                                <TopMembers />
+
+                                {/* {topMembers && (
                                     <RankCard
                                         heading={topMembers.sectionHeading}
                                         // rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry"},
@@ -517,9 +518,9 @@ export class NewDashboard extends PureComponent{
                                         tabOptions={topMembers.tabOptions}
                                         getRankData={getTopMembersAction}
                                     />
-                                )}
-                                
-                                {mostActiveClubs && (
+                                )} */}
+                                <ActiveClub />
+                                {/* {mostActiveClubs && (
                                     <CommunityClubList
                                         heading={mostActiveClubs.sectionHeading}                                        
                                         clubList={mostActiveClubs.rankList}
@@ -527,9 +528,9 @@ export class NewDashboard extends PureComponent{
                                         getClubData={getMostActiveClubsAction} 
                                         showRowCount={3}                       
                                     />
-                                )}
-                                
-                                {topStudents && (
+                                )} */}
+                                <TopStudents />
+                                {/* {topStudents && (
                                     <RankCard
                                         heading={topStudents.sectionHeading}
                                         // rankList={[{rank: "1", gpPoints: "49088", text: "Serenity Henry", subText: "University of South Alabama"},
@@ -553,9 +554,9 @@ export class NewDashboard extends PureComponent{
                                         rankList={myRank.rankList}
                                         tabOptions={myRank.tabOptions}
                                     />
-                                )}
-                                
-                                {topSchoolClubs && (
+                                )} */}
+                                <SchoolClub />
+                                {/* {topSchoolClubs && (
                                     <CommunityClubList
                                         heading={topSchoolClubs.sectionHeading}                                        
                                         clubList={topSchoolClubs.rankList}
@@ -563,7 +564,7 @@ export class NewDashboard extends PureComponent{
                                         getClubData={getTopSchoolClubsAction} 
                                         showRowCount={3}    
                                     />
-                                )}
+                                )} */}
                                 
                             </div>                    
                         </div>

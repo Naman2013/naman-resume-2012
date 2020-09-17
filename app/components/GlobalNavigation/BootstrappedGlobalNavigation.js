@@ -31,10 +31,12 @@ const mapStateToProps = ({
     locationBeforeTransitions: { key },
   },
   user,
+  upcomingEvents,
 }) => ({
   routeKey: key,
   user,
   ...globalNavigation,
+  upcomingStarPartyList: upcomingEvents.upcomingEvents
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,7 +93,7 @@ class GlobalNavigation extends Component {
     customerUUIDsList: [],
     activityWindowHasBeenScrolledToBottom: false,
     activityFeedMembersExpireDate: null,
-    upcomingStarPartyList: null,
+    // upcomingStarPartyList: null,
   };
 
   ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
@@ -192,12 +194,12 @@ class GlobalNavigation extends Component {
     if (!isMobile) {
       window.addEventListener('scroll', this.debouncedCloseAll);
     }
-    upcomingShows({}).then(response=>{
-      const res=response.data;
-      if(!res.apiError){
-        this.setState({upcomingStarPartyList: res});
-      }
-    })
+    // upcomingShows({}).then(response=>{
+    //   const res=response.data;
+    //   if(!res.apiError){
+    //     this.setState({upcomingStarPartyList: res});
+    //   }
+    // })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -406,6 +408,7 @@ class GlobalNavigation extends Component {
       user,
       userMenu,
       pubnubActivityFeedChannelName,
+      upcomingStarPartyList,
     } = this.props;
 
     const {
@@ -413,7 +416,7 @@ class GlobalNavigation extends Component {
       allLivecastsInProgress,
       activityFeedMessages,
       activityFeedMembers,
-      upcomingStarPartyList,
+      // upcomingStarPartyList,
     } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
@@ -434,7 +437,6 @@ class GlobalNavigation extends Component {
       isChatEnabled = userInfoIsChatEnabled;
       displayName = userInfoName;
     }
-      
     return (
       <div className="root">
         <div className="top-bar">
