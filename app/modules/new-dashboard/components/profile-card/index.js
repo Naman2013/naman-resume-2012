@@ -30,7 +30,7 @@ export class ProfileCard extends Component{
                     </div>
                     <div className="profile-card-right">
                         <h2 className="profile-card-heading">{memberName}</h2>               
-                        <h4 className="profile-card-subHeading">since{memberSince} </h4>
+                        <h4 className="profile-card-subHeading">{memberSince} </h4>
                         <span className="profile-card-value">{currentTierName}</span>
                         <h2 className="profile-gp">{gravityPoints}GP</h2>
                     </div>
