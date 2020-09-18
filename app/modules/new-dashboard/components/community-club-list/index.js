@@ -3,6 +3,7 @@ import React from "react";
 import './style.scss';
 import { TabHeader } from '../tab-header';
 import { browserHistory } from 'react-router';
+import { Spinner } from '../../common/spinner';
 
 export class CommunityClubList extends Component{
 
@@ -21,12 +22,18 @@ export class CommunityClubList extends Component{
     }
     
     render() {
-        const { heading, clubList, showRowCount } = this.props;
+        const { heading, clubList, showRowCount, loading } = this.props;
         const { tabHeaders, activeHeading } = this.state;
 
         return (
             <div className="community-club-main">
-                <h2 className="community-club-heading">{heading}</h2> 
+                <h2 className="community-club-heading">
+                    {heading}
+                    <Spinner
+                        loading={loading}
+                        text="Loading..."
+                    /> 
+                    </h2> 
                     <TabHeader
                         headings={tabHeaders}
                         activeHeading={activeHeading}

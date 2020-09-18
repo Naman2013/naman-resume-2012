@@ -114,7 +114,9 @@ class App extends Component {
             <IssueWithUserAccount />
 
             <nav className="navigation">
-              <GlobalNavigation />
+              <GlobalNavigation 
+                fetchEvents={this.props.fetchEvents}
+              />
               <QuestBreadCrumb
                 sloohQuestBreadCrumbQuestTitle={sloohQuestBreadCrumbQuestTitle}
                 sloohQuestBreadCrumbQuestLinkURL={sloohQuestBreadCrumbQuestLinkURL}

@@ -10,7 +10,8 @@ export class TopMembers extends Component{
     constructor(props){
         super(props);
         this.state={
-            topMembers: undefined
+            topMembers: undefined,     
+            loading: false,       
         }
         this.getTopMemberAction();
     }
@@ -19,6 +20,7 @@ export class TopMembers extends Component{
 
     getTopMemberAction = (data) =>{
         const { at, cid, token } = getUserInfo();
+        this.setState({loading: true});
         getTopMembers({at, cid, token, ...data}).then(response=>{
             const res=response.data;
             if(!res.apiError){
@@ -28,13 +30,13 @@ export class TopMembers extends Component{
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getTopMemberAction(data),duration );
-                this.setState({topMembers: res});
+                this.setState({topMembers: res, loading: false});
             }
         });
     }
     
     render() {
-        const { topMembers } = this.state;
+        const { topMembers, loading } = this.state;
         
         return (
             <div>
@@ -46,6 +48,7 @@ export class TopMembers extends Component{
                         showMoreButton={true}
                         tabOptions={topMembers.tabOptions}
                         getRankData={this.getTopMemberAction}
+                        loading={loading}
                     />
                 )}                                             
             </div>   

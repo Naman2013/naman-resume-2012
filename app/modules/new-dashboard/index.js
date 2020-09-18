@@ -36,6 +36,7 @@ import { ActiveClub } from "./components/community-club-list/most-active-clubs";
 import { MyRank } from "./components/rank-card/my-rank";
 import { TopMembers } from "./components/rank-card/top-members";
 import { TopStudents } from "./components/rank-card/top-students";
+import { ProfileStatus } from "./components/profile-card/profile-status";
 
 export class NewDashboard extends PureComponent{
 
@@ -399,14 +400,15 @@ export class NewDashboard extends PureComponent{
                             </div>
                         </div>
                         <div className="right">
-
-                            {userGravityStatus && (
-                                <ProfileCard
-                                    userGravityStatus={userGravityStatus}
-                                />
-                            )}
-                            
                             <div className="mar-left-right-16">
+                                <ProfileStatus />
+                                {/* {userGravityStatus && (
+                                    <ProfileCard
+                                        userGravityStatus={userGravityStatus}
+                                    />
+                                )}
+                            
+                            
 
                                 {userGravityStatus && (
                                     <BadgeList
@@ -414,7 +416,7 @@ export class NewDashboard extends PureComponent{
                                         totalBadgeCount={userGravityStatus.totalBadgeCount}
                                         currentBadgeCount={userGravityStatus.currentBadgeCount}
                                     />
-                                )}
+                                )} */}
                                 
                                 {/* {recentGravityAction && ( */}
                                     <GravityActions

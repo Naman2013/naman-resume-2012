@@ -409,8 +409,9 @@ class GlobalNavigation extends Component {
       userMenu,
       pubnubActivityFeedChannelName,
       upcomingStarPartyList,
+      fetchEvents,
     } = this.props;
-
+    
     const {
       totalViewersCount,
       allLivecastsInProgress,
@@ -461,6 +462,7 @@ class GlobalNavigation extends Component {
             }
             upcomingStarPartyList={upcomingStarPartyList}
             signIn={user.isAuthorized}
+            fetchEvents={fetchEvents}
           />         
         </div>
         

@@ -1,6 +1,6 @@
 import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
 import { LiveActivityLoadable } from 'app/modules/live-activity';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { browserHistory, Link } from 'react-router';
 import ConnectUser from 'app/redux/components/ConnectUser';
@@ -23,7 +23,7 @@ import Button from './Button';
 import Countdown from 'react-countdown-now';
 import moment from 'moment';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
-import { fetchEvents } from 'app/modules/upcoming-events/upcoming-events-actions';
+
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -57,6 +57,7 @@ const TopBar = ({
   setMemberChatState,
   upcomingStarPartyList,
   signIn,
+  fetchEvents
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -74,15 +75,23 @@ const TopBar = ({
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
   const { t } = useTranslation();
   // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
-  const now= moment(Date.now()).unix();        
+  const [now, setTimeNow]= useState(moment(Date.now()).unix());        
   let countdown = null;      
   let nextShow = null;
-  
-  if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList.eventList.length > 0){
+  let difference= null;
+  // let timerId=null;
+  if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList.eventList.length > 0){    
+    difference=((now-upcomingStarPartyList.timestamp)*1000)+2000;
     nextShow = upcomingStarPartyList.eventList[0];         
-    countdown = nextShow.eventStart-now;
+    countdown = nextShow.eventStart-now;     
+    // const { timestamp, expires } = upcomingStarPartyList;
+    // const duration=(expires-timestamp)*1000; 
+    // console.log("Upcoming Star Parties Duration"+duration);      
+    // if (timerId !== null )
+    //   clearTimeout(timerId);
+    // timerId=setTimeout(()=>fetchEvents(),duration );
   }
-  
+
   return (
     <Fragment>
       <ConnectUser
@@ -94,7 +103,8 @@ const TopBar = ({
                   <Button
                     handleClick={() => {
                       if (user.isAuthorized) {
-                        browserHistory.push('/');
+                        // browserHistory.push('/');
+                        browserHistory.push('/NewDashboard');
                       } else {
                         browserHistory.push('/guestDashboard');
                       }
@@ -158,7 +168,7 @@ const TopBar = ({
                     <Countdown
                         date={nextShow.eventStart*1000}
                         // date={Date.now() + 10000}
-                        onComplete={()=>fetchEvents()}                   
+                        onComplete={null}                   
                         renderer={props => ( 
                                 props.days < 1 && !props.completed ? 
                                 <span className="counter-text">
@@ -171,7 +181,14 @@ const TopBar = ({
                         )}
                     />
                 :
-                <span className="counter-text live">LIVE - {nextShow.eventTitle}</span>
+                <Countdown
+                        date={((nextShow.eventEnd*1000)+difference)}
+                        // date={Date.now() + 10000}
+                        onComplete={()=>fetchEvents()}                   
+                        renderer={props => ( 
+                          <span className="counter-text live">LIVE - {nextShow.eventTitle}</span>                       
+                        )}
+                    />                
                 }    
                 
                 {/* <span className="counter-text">

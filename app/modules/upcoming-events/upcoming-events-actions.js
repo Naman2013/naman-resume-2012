@@ -82,7 +82,6 @@ export const endEvent = () => (dispatch, getState) => {
 
 export const fetchEvents = () => (dispatch) => {
   dispatch(fetchEventsStart());
-
   return fetchUpcomingEvents()
     .then((result) => {
       if (!result.data.apiError) {

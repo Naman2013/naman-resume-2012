@@ -33,7 +33,8 @@ export const LivecastPopup = (props: TLivecastPopup) => {
           {partylist.map(party=>(
             <StarPartyCard
               party={party}
-              style={{width: "100%", marginRight: "0px"}}                                
+              style={{width: "100%", marginRight: "0px"}}   
+              close={close}                             
             />
           ))}                                                 
         </div>

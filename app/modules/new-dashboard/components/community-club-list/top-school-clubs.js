@@ -10,7 +10,8 @@ export class SchoolClub extends Component{
     constructor(props){
         super(props);
         this.state={
-            topSchoolClubs: undefined
+            topSchoolClubs: undefined,
+            loading: false,
         }
         this.getActiveClubAction();
     }
@@ -19,6 +20,7 @@ export class SchoolClub extends Component{
 
     getActiveClubAction = (data) =>{
         const { at, cid, token } = getUserInfo();
+        this.setState({loading: true});
         getTopSchoolClubs({at, cid, token, ...data}).then(response=>{
             const res=response.data;
             if(!res.apiError){
@@ -28,13 +30,13 @@ export class SchoolClub extends Component{
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getActiveClubAction(data),duration );
-                this.setState({topSchoolClubs: res});
+                this.setState({topSchoolClubs: res, loading: false});
             }
         });
     }
     
     render() {
-        const { topSchoolClubs } = this.state;
+        const { topSchoolClubs, loading } = this.state;
         
         return (
             <div>
@@ -44,7 +46,8 @@ export class SchoolClub extends Component{
                         clubList={topSchoolClubs.rankList}
                         tabOptions={topSchoolClubs.tabOptions}
                         getClubData={this.getActiveClubAction} 
-                        showRowCount={3}                     
+                        showRowCount={3}    
+                        loading={loading}                 
                     />
                 )}                                             
             </div>   

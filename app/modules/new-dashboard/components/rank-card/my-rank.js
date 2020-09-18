@@ -10,7 +10,8 @@ export class MyRank extends Component{
     constructor(props){
         super(props);
         this.state={
-            myRank: undefined
+            myRank: undefined,
+            loading: false
         }
         this.getMyRankAction();
     }
@@ -19,6 +20,7 @@ export class MyRank extends Component{
 
     getMyRankAction = (data) =>{
         const { at, cid, token } = getUserInfo();
+        this.setState({loading: true});
         getMyRank({at, cid, token, ...data}).then(response=>{
             const res=response.data;
             if(!res.apiError){
@@ -28,13 +30,13 @@ export class MyRank extends Component{
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getMyRankAction(data),duration );
-                this.setState({myRank: res});
+                this.setState({myRank: res, loading: false});
             }
         });
     }
     
     render() {
-        const { myRank } = this.state;
+        const { myRank, loading } = this.state;
         
         return (
             <div>
@@ -46,6 +48,7 @@ export class MyRank extends Component{
                         showMoreButton={false}
                         tabOptions={myRank.tabOptions}
                         getRankData={this.getMyRankAction}
+                        loading={loading}
                     />
                 )}                                             
             </div>   

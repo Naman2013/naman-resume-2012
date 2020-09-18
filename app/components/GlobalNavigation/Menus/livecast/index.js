@@ -164,7 +164,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
       displayTitle,
       nbrLivecastsInProgress,
     } = this.state;
-
+    
     return (
      <Fragment>
       <div className="livecast-btn">
@@ -181,8 +181,9 @@ export class Livecast extends PureComponent<TLivecast, TState> {
           role="presentation"
           className="icon-volume"
           onClick={() => {
+            this.setOpen(!isOpen);
             onClick();
-            this.setOpen(true);
+            
           }}
         />
 

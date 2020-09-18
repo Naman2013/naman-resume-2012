@@ -2,6 +2,7 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { TabHeader } from '../tab-header';
+import { Spinner } from '../../common/spinner';
 
 
 export class RankCard extends Component{
@@ -22,13 +23,19 @@ export class RankCard extends Component{
     }
     
     render() {
-        const {heading, rankList, showRowCount, showMoreButton} = this.props;
+        const {heading, rankList, showRowCount, showMoreButton, loading} = this.props;
         const showmorebtntext = "Show More";
-        const { tabHeaders, activeHeading } = this.state;
+        const { tabHeaders, activeHeading} = this.state;
 
         return (
             <div className="rank-main">
-                <h2 className="rank-heading">{heading}</h2> 
+                <h2 className="rank-heading">
+                    {heading}
+                    <Spinner
+                            loading={loading}
+                            text="Loading..."
+                    /> 
+                </h2> 
                     <TabHeader
                         headings={tabHeaders}
                         activeHeading={activeHeading}

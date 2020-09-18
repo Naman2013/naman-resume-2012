@@ -13,7 +13,7 @@ export class StarPartyCard extends Component{
     }
     
     render() {
-        const { party, style } = this.props;
+        const { party, style, close } = this.props;
         const now= moment(Date.now()).unix();        
         const countdown = party.eventStart-now;        
         
@@ -36,9 +36,9 @@ export class StarPartyCard extends Component{
                 :
                 <span className="counter-text live">LIVE</span>
                 }               
-                <Link
+                <Link                    
                     to={party.linkUrl}>
-                    <h2 className="party-name" >{party.eventTitle}</h2>
+                    <h2 onClick={close !== undefined ? close:null } className="party-name" >{party.eventTitle}</h2>
                 </Link>
                 <div className="card-bottom">
                     <h5 className="party-date-time">{party.displayDate}</h5>                                    

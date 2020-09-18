@@ -10,7 +10,8 @@ export class TopStudents extends Component{
     constructor(props){
         super(props);
         this.state={
-            topStudents: undefined
+            topStudents: undefined,
+            loading: false,
         }
         this.getTopStudentsAction();
     }
@@ -19,6 +20,7 @@ export class TopStudents extends Component{
 
     getTopStudentsAction = (data) =>{
         const { at, cid, token } = getUserInfo();
+        this.setState({loading: true});
         getTopStudents({at, cid, token, ...data}).then(response=>{
             const res=response.data;
             if(!res.apiError){
@@ -28,13 +30,13 @@ export class TopStudents extends Component{
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getTopStudentsAction(data),duration );
-                this.setState({topStudents: res});
+                this.setState({topStudents: res, loading: false});
             }
         });
     }
     
     render() {
-        const { topStudents } = this.state;
+        const { topStudents, loading } = this.state;
         
         return (
             <div>
@@ -46,6 +48,7 @@ export class TopStudents extends Component{
                         showMoreButton={true}
                         tabOptions={topStudents.tabOptions}
                         getRankData={this.getTopStudentsAction}
+                        loading={loading}
                     />
                 )}                                             
             </div>   

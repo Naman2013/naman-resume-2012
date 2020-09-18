@@ -30,7 +30,7 @@ const mainMenuModel = {
   }),
 };
 
-const GlobalNavigation = () => (
+const GlobalNavigation = ({fetchEvents}) => (
   <Request
     serviceURL={GET_MAIN_NAVIGATION}
     method="POST"
@@ -48,6 +48,7 @@ const GlobalNavigation = () => (
               userMenu={USER_MENU}
               mainMenu={MAIN_MENU}
               isMobile={context.isMobile}
+              fetchEvents={fetchEvents}
             />
           )}
         </DeviceContext.Consumer>
