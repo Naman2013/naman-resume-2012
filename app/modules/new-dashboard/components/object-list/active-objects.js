@@ -15,6 +15,8 @@ export class ActiveObject extends Component{
         this.getActiveObjectAction();
     }
 
+    timerId=null;
+
     getActiveObjectAction = () =>{
         const { at, cid, token } = getUserInfo();
         getUserActiveObject({at, cid, token}).then(response=>{
@@ -22,11 +24,18 @@ export class ActiveObject extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("Active Object Duration"+duration);                
-                setTimeout(this.getActiveObjectAction,duration );
+                console.log("Active Object Duration"+duration); 
+                if(this.timerId !== null)
+                    clearTimeout(this.timerId);               
+                this.timerId=setTimeout(this.getActiveObjectAction,duration );
                 this.setState({userActiveObject: res});
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
     
     render() {

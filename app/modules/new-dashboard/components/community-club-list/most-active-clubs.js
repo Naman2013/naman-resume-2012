@@ -34,6 +34,11 @@ export class ActiveClub extends Component{
             }
         });
     }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
+    }
     
     render() {
         const { mostActiveClubs, loading } = this.state;

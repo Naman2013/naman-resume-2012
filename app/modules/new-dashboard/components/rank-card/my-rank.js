@@ -35,6 +35,11 @@ export class MyRank extends Component{
         });
     }
     
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
+    }
+
     render() {
         const { myRank, loading } = this.state;
         

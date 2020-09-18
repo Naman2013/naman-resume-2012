@@ -10,7 +10,6 @@ import { GravityActions } from "./components/gravity-actions";
 import { ObjectList } from "./components/object-list"
 import { DomainGP } from "./components/domain-gp";
 import { RankCard } from "./components/rank-card";
-import { CommunityFame } from "./components/community-fame";
 import { CommunityClubList } from "./components/community-club-list";
 import { Observatories } from "./components/observatories";
 import { UpcomingMissionList }  from "./components/upcoming-mission-list";
@@ -37,6 +36,7 @@ import { MyRank } from "./components/rank-card/my-rank";
 import { TopMembers } from "./components/rank-card/top-members";
 import { TopStudents } from "./components/rank-card/top-students";
 import { ProfileStatus } from "./components/profile-card/profile-status";
+import { CommunityFame } from "./components/community-fame";
 
 export class NewDashboard extends PureComponent{
 
@@ -341,14 +341,14 @@ export class NewDashboard extends PureComponent{
                                     />
                                 {/* )}                                     */}
 
-                                <SectionDivider/>
+                                {/* <SectionDivider/>
 
                                 {communityExploration && (
                                     <RecentCommunityActivities
                                         heading={"Recent Community Activities"}
                                         activities={communityExploration.activities}
                                     />
-                                )}                               
+                                )}                                */}
 
                                 <SectionDivider/>
                                 

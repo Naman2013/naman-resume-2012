@@ -34,6 +34,11 @@ export class TopStudents extends Component{
             }
         });
     }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
+    }
     
     render() {
         const { topStudents, loading } = this.state;

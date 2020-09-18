@@ -21,6 +21,7 @@
     color: #FFFFFF;
 }
 
+
 .new-dash .badge-icon{
    width: 13px;
    height: 13px;  
@@ -31,6 +32,16 @@
    vertical-align: middle;
 }
 
+.new-dash .badge-icon-quest{
+    width: 25px;
+    height: 25px;  
+    /* min-height: 25px; */
+    /* border-radius: 35px; */
+    /* background: #C4C4C4;    */
+    // margin-top: 2px;    
+    vertical-align: middle;
+ }
+
 .badge-icon-popup{
     width: 85px;
     height: 85px;  
@@ -38,6 +49,16 @@
     /* border-radius: 35px; */
     /* background: #C4C4C4;    */
     margin-top: 2px;    
+    vertical-align: middle;
+ }
+
+ .quest-badge-icon-popup{
+    width: 150px;
+    height: 150px;  
+    /* min-height: 25px; */
+    /* border-radius: 35px; */
+    /* background: #C4C4C4;    */
+    // margin-top: 2px;    
     vertical-align: middle;
  }
 
@@ -50,12 +71,42 @@
     text-align: center;
     vertical-align: middle;
     margin-right: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.new-dash .quest-badge-present{
+    // background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
+    // background-size: contain;
+    width: 25px;
+    height: 25px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 4px;
     cursor: pointer;
 }
 
 .popup-badge-present{
     background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
     background-size: contain;
+    width: 150px;
+    height: 150px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.popup-quest-badge-present{
+    // background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
+    // background-size: contain;
     width: 150px;
     height: 150px;
     display: table-cell;

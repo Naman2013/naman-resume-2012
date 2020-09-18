@@ -81,7 +81,7 @@ const TopBar = ({
   let difference= null;
   // let timerId=null;
   if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList.eventList.length > 0){    
-    difference=((now-upcomingStarPartyList.timestamp)*1000)+2000;
+    difference=20000;
     nextShow = upcomingStarPartyList.eventList[0];         
     countdown = nextShow.eventStart-now;     
     // const { timestamp, expires } = upcomingStarPartyList;

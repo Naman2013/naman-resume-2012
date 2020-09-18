@@ -4,6 +4,7 @@ import './style.css';
 import { ImageSlider } from '../image-slider';
 import { getCommunityExploration } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
+import { RecentCommunityActivities } from '../recent-community-activities';
 
 
 export class CommunityExploration extends Component{
@@ -16,6 +17,8 @@ export class CommunityExploration extends Component{
         this.getCommunityObservationAction();
     }
 
+    timerId=null;
+
     getCommunityObservationAction = () =>{
         const { at, cid, token } = getUserInfo();
         getCommunityExploration({at, cid, token}).then(response=>{
@@ -23,11 +26,18 @@ export class CommunityExploration extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("Community Exploration Duration"+duration);                
-                setTimeout(this.getCommunityObservationAction,duration );
+                console.log("Community Exploration Duration"+duration);
+                if(this.timerId !== null)
+                    clearTimeout(this.timerId);                
+                this.timerId=setTimeout(this.getCommunityObservationAction,duration );
                 this.setState({communityExploration: res});
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
 
     render() {
@@ -37,9 +47,15 @@ export class CommunityExploration extends Component{
             <div className="explore-main">
                 {/* <h2 className="explore-heading">{heading}</h2> */}
                 {communityExploration && (
-                    <ImageSlider
-                        communityExploration={communityExploration}
-                    />
+                    <div>
+                        <ImageSlider
+                            communityExploration={communityExploration}
+                        />
+                        <RecentCommunityActivities
+                            heading={"Recent Community Activities"}
+                            activities={communityExploration.activities}
+                        />
+                    </div>
                 )}                                
             </div>   
         );

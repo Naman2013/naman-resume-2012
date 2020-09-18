@@ -64,9 +64,9 @@ export class BadgeList extends Component{
                 <h2 className="badge-heading">{heading}</h2>
                 <div className="badgelist">   
                     {[...Array(badgeCount)].map((e,index)=>(
-                        <div className={ index < badgeLists.length ? "badge-present" : "badge-empty"}>
+                        <div className={ index < badgeLists.length ? badgeLists[index].itemType === "badge" ? "quest-badge-present" : "badge-present" : "badge-empty"}>
                             {badgeLists[index] && (
-                                <img src={badgeLists[index].badgeIconURL} className="badge-icon" onClick={()=>this.handleBadgeClick(badgeLists[index])}/>
+                                <img src={badgeLists[index].badgeIconURL} className={badgeLists[index].itemType === "badge" ? "badge-icon-quest" : "badge-icon"} onClick={()=>this.handleBadgeClick(badgeLists[index])}/>
                             )}
                         </div>
                     ))} 
@@ -102,8 +102,8 @@ export class BadgeList extends Component{
                                 <div>
                                     <i className="fa fa-close float-right" onClick={this.closePopup} />
                                     <div className="popup-div">
-                                        <div className="popup-badge-present">
-                                            <img className="badge-icon-popup" src={currentBadge.badgeIconURL} />
+                                        <div className={currentBadge.itemType === "badge" ? "popup-quest-badge-present" : "popup-badge-present"}>
+                                            <img className={currentBadge.itemType === "badge" ? "quest-badge-icon-popup" : "badge-icon-popup"} src={currentBadge.badgeIconURL} />
                                         </div>                            
                                         <h3 className="popup-badge-name">{currentBadge.badgeTitle}</h3>
                                         {/* <h5 className="popup-badge-desc">{currentBadge.badgeDescription}</h5> */}

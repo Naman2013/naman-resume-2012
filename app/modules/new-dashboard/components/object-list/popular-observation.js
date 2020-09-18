@@ -15,6 +15,8 @@ export class PopularObservation extends Component{
         this.getPopularObservationtAction();
     }
 
+    timerId=null;
+
     getPopularObservationtAction = () =>{
         const { at, cid, token } = getUserInfo();
         getUserPouplarObservation({at, cid, token}).then(response=>{
@@ -22,11 +24,18 @@ export class PopularObservation extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("Popular Observation Duration"+duration);                
-                setTimeout(this.getPopularObservationtAction,duration );
+                console.log("Popular Observation Duration"+duration);
+                if(this.timerId !== null)
+                    clearTimeout(this.timerId);                
+                this.timerId=setTimeout(this.getPopularObservationtAction,duration );
                 this.setState({userPopularObservation: res});
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
     
     render() {

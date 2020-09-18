@@ -202,16 +202,27 @@ class GlobalNavigation extends Component {
     // })
   }
 
+  timerId=null;
+
   componentWillReceiveProps(nextProps) {
-    const { routeKey } = this.props;
+    const { routeKey, upcomingStarPartyList, fetchEvents } = this.props;
     if (nextProps.routeKey !== routeKey) {
       this.debouncedCloseAll();
+    }
+    if(nextProps.upcomingStarPartyList !== upcomingStarPartyList && nextProps.upcomingStarPartyList.eventList.length > 0){
+      const { timestamp, expires } = nextProps.upcomingStarPartyList;
+      const duration=(expires-timestamp)*1000; 
+      console.log("Upcoming Star Parties Duration"+duration); 
+      if(this.timerId !== null)
+        clearTimeout(this.timerId);
+      this.timerId=setTimeout(()=>fetchEvents(), duration);
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.debouncedCloseAll);
-
+    if(this.timerId !== null)
+        clearTimeout(this.timerId);
     const {
       pubnubActivityFeedChannelName,
       pubnubLiveEventsChannelName,

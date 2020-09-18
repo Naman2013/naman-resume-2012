@@ -34,6 +34,11 @@ export class SchoolClub extends Component{
             }
         });
     }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
+    }
     
     render() {
         const { topSchoolClubs, loading } = this.state;

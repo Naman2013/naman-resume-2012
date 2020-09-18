@@ -14,6 +14,8 @@ export class DomainGP extends Component{
         this.getDomainGPAction();
     }
 
+    timerId=null;
+
     getDomainGPAction = () =>{
         const { at, cid, token } = getUserInfo();
         getGravityByDomain({at, cid, token}).then(response=>{
@@ -21,11 +23,18 @@ export class DomainGP extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("community stats Duration"+duration);                
-                setTimeout(this.getDomainGPAction,duration );
+                console.log("community stats Duration"+duration);  
+                if(this.timerId !== null)
+                    clearTimeout(this.timerId);              
+                this.timerId=setTimeout(this.getDomainGPAction,duration );
                 this.setState({domaingpList: res});
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
     
     render() {

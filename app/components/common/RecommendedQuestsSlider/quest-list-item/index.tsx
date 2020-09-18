@@ -36,7 +36,7 @@ export const QuestListItem: React.FC<TQuestListItemProps> = props => {
       </div>
     </>
   );
-
+    
   return (
     <div className="quest-dashboard-list-item">
       {readOnly || !hasLink ? QuestTile : <Link to={linkUrl}>{QuestTile}</Link>}

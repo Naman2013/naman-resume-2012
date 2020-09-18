@@ -14,6 +14,8 @@ export class GravityActions extends Component{
         this.getRecentGravityAction();
     }
 
+    timerId=null;
+
     getRecentGravityAction = () =>{
         const { at, cid, token } = getUserInfo();
         getRecentGravityActions({at, cid, token}).then(response=>{
@@ -21,11 +23,18 @@ export class GravityActions extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("Recent Gravity Action Duration"+duration);                
-                setTimeout(this.getRecentGravityAction,duration );
+                console.log("Recent Gravity Action Duration"+duration);   
+                if(this.timerId !== null)
+                    clearTimeout(this.timerId);             
+                this.timerId=setTimeout(this.getRecentGravityAction,duration );
                 this.setState({gravityList: res});
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
 
     render() {

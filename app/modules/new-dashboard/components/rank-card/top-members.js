@@ -35,6 +35,11 @@ export class TopMembers extends Component{
         });
     }
     
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
+    }
+
     render() {
         const { topMembers, loading } = this.state;
         

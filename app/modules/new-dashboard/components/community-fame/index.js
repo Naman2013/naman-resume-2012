@@ -7,6 +7,7 @@ import { LineChart } from '../../common/line-chart';
 import { getCommunityFame } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
 
+
 export class CommunityFame extends Component{
 
     constructor(props){
@@ -17,6 +18,8 @@ export class CommunityFame extends Component{
         this.getCommunityStatsAction();
     }
 
+    timerId=null;
+
     getCommunityStatsAction = () =>{
         const { at, cid, token } = getUserInfo();
         getCommunityFame({at, cid, token}).then(response=>{
@@ -24,11 +27,19 @@ export class CommunityFame extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("community stats Duration"+duration);                
-                setTimeout(this.getCommunityStatsAction,duration );
+                console.log("community stats Duration"+duration);  
                 this.setState({communityFame: res});
+                if(this.timerId !== null)              
+                    clearTimeout(this.timerId);
+                this.timerId=setTimeout(this.getCommunityStatsAction,duration );
+                
             }
         });
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
     
     render() {
