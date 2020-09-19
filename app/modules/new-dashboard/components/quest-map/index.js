@@ -85,15 +85,12 @@ export class QuestMap extends Component{
       const self = this;
       var displayFeatureInfo = function(pixel) {
         const { showQuestCard, vectorLayer } = self.state;
-        vectorLayer.getFeatures(pixel).then(function(features) {
-         
-          var feature = features.length ? features[0] : undefined; 
-          if (features.length) {  
-            console.log("object name: "+feature.get('name'));
-            console.log("object id: "+feature.getId());
-            if(showQuestCard)
-              self.setState({showQuestCard: false, questCardDetails: []});
-            else{
+        map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+          console.log("object name: "+feature.get('name'));
+          console.log("object id: "+feature.getId());
+          if(showQuestCard)
+            self.setState({showQuestCard: false, questCardDetails: []});
+          else{
               self.setState({isloading1: true});
               const { token, at, cid } = getUserInfo();
               getQuestCard({
@@ -107,12 +104,37 @@ export class QuestMap extends Component{
               }).then(response=>{
                 self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});                
               });         
-            }
           }
-          else
-          if(showQuestCard)
-              self.setState({showQuestCard: false, questCardDetails: []});
+          
         });
+        // vectorLayer.getFeatures(pixel).then(function(features) {
+         
+        //   var feature = features.length ? features[0] : undefined; 
+        //   if (features.length) {  
+        //     console.log("object name: "+feature.get('name'));
+        //     console.log("object id: "+feature.getId());
+        //     if(showQuestCard)
+        //       self.setState({showQuestCard: false, questCardDetails: []});
+        //     else{
+        //       self.setState({isloading1: true});
+        //       const { token, at, cid } = getUserInfo();
+        //       getQuestCard({
+        //         token, 
+        //         at, 
+        //         cid,
+        //         questId: feature.getId(),
+        //         // questId: 194,
+        //         questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
+        //         questVersion: 1.1
+        //       }).then(response=>{
+        //         self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});                
+        //       });         
+        //     }
+        //   }
+        //   else
+        //   if(showQuestCard)
+        //       self.setState({showQuestCard: false, questCardDetails: []});
+        // });
 
         
           
@@ -256,6 +278,13 @@ export class QuestMap extends Component{
           map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
           });          
+          let popup = document.getElementById('hover_popup');
+          let popupOverlay = new Overlay({
+            element: popup,
+            offset: [-9,-9]
+          });
+          map.addOverlay(popupOverlay);
+
           map.on('pointermove', function (e) {            
             if (e.dragging) {
               $(element).popover('dispose');
@@ -265,12 +294,17 @@ export class QuestMap extends Component{
             var hit = map.hasFeatureAtPixel(pixel);
             var target = map.getTarget();
             document.getElementById(target).style.cursor = hit ? 'pointer' : '';
-            // if(hit){   
-            //   var coordinate = e.coordinate;    
-            //   var content = document.getElementById('popup-content');               
-            //   content.innerHTML = '<h2>test</h2>';
-            //   self.overlay.setPosition(coordinate);
-            // }
+            if(hit){ 
+               
+              var coordinate = e.coordinate;    
+              popup.innerHTML = "test";
+              // popup.hidden = false;
+              popupOverlay.setPosition(coordinate);              
+            }
+            else{
+              popup.innerHTML = '';
+              // popup.hidden = true;
+            }
             // map.getTarget().style.cursor = hit ? 'pointer' : '';
           });
 
@@ -468,7 +502,8 @@ export class QuestMap extends Component{
             var x = Math.sin((temp * Math.PI) / 180) * 3;
             // var y = Math.sin((i * Math.PI) / 180) * 4;
             style.getImage().setScale(x);
-            style.getText().setScale(x < 0.8 ? 0.8 : x);
+            // style.getText().setScale(x < 0.8 ? 0.8 : x);
+            style.getText().setScale(x+0.5);
             return style;
           });
           ifeatures.push(feature);
@@ -504,8 +539,19 @@ export class QuestMap extends Component{
           features: ifeatures
         }),
         // zIndex: 1
-       
-      },      
+        
+      },{
+        eventListeners:{
+          'featureselected':function(evt){                
+              //whatever you want
+              debugger;
+          },
+          'featureunselected':function(evt){
+                              //whatever you want
+                              debugger;
+          }
+        }
+      }      
       );
       this.setState({vectorLayer: vectorLayer});
       return vectorLayer;
@@ -759,8 +805,9 @@ export class QuestMap extends Component{
             />
             <div className="map-container">
               <div id="map" className={mapExpanded ? "Quest-map-fullscreen":"Quest-map"}>
-              
               </div>
+              
+              <div id="hover_popup" className="hover-popup" >test</div>
               {showQuestCard && (
                   <div className="popup">
                     <QuestCard
@@ -770,10 +817,7 @@ export class QuestMap extends Component{
                 </div> 
               )}
                
-              <div id="popover" class="ol-popup">
-                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                <div id="popup-content"></div>
-              </div>
+              
               
             </div>
            <div className="controls-div">

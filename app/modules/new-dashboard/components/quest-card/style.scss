@@ -189,8 +189,8 @@
 
 .new-dash .quest-badge-icon{    
     background-size: contain;
-    width: 50px;
-    height: 50px;  
+    width: 75px;
+    height: 75px;  
    
 }
 
@@ -280,8 +280,8 @@
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .quest-badge-icon{
-        width: 35px;
-        height: 35px;  
+        width: 40px;
+        height: 40px;  
        
     }
     .new-dash .quest-status{           
@@ -352,8 +352,8 @@
         margin-top: -25px;  
     }
     .new-dash .quest-button-style{
-        font-size: 10px;
-        line-height: 14px;       
+        font-size: 9px;
+        line-height: 8px;       
         padding: 4px;
         margin-right: 8px;
     }

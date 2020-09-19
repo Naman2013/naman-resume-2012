@@ -17,6 +17,10 @@
     // margin: 12px 0px;
 }
 
+.new-dash .svg-layer path:hover {
+    opacity: 0.4;
+}
+
 .new-dash .dropdown-control-div{
     background-color: #111111;
     border-radius: 8px;
@@ -141,6 +145,13 @@
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+.new-dash .hover-popup {
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2px;
 }
 
 @media (min-width: $screenXLarge) {
