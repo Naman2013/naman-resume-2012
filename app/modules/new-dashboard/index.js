@@ -37,6 +37,7 @@ import { TopMembers } from "./components/rank-card/top-members";
 import { TopStudents } from "./components/rank-card/top-students";
 import { ProfileStatus } from "./components/profile-card/profile-status";
 import { CommunityFame } from "./components/community-fame";
+import { TitleHeaderNew } from "./components/title-header-new";
 
 export class NewDashboard extends PureComponent{
 
@@ -225,7 +226,7 @@ export class NewDashboard extends PureComponent{
                             <div className="left-contents">
 
                                 <div ref={this.exploreRef}/>
-                                <TitleHeader                                    
+                                <TitleHeaderNew                                    
                                     heading = {"Explore the Universe"}
                                     subHeading = {"Discover and Observe"}
                                 />

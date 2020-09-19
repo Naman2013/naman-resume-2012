@@ -14,7 +14,8 @@ export class Dashboard extends Component {
 
     // Redirect user to /profile/dashboard from / if user is authenticated
     if (!embed && user.isAuthorized) {
-      router.push('/profile/private');
+      // router.push('/profile/private');
+      router.push('/NewDashboard');
     }
     if (!user.isAuthorized) {
       if (params.marketingTrackingId) {

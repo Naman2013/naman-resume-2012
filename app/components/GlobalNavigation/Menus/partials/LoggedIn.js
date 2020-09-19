@@ -19,7 +19,8 @@ const LoggedIn = ({ displayName, avatarURL, menuItems }) => {
   const { t } = useTranslation();
   return (
     <div className="root">
-      <Link to="/profile/private">
+      {/* <Link to="/profile/private"> */}
+      <Link to="/NewDashboard">
         <MenuTitleBar title="">
           <div className="nav-icon avatar-container">
             <div

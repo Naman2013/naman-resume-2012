@@ -88,6 +88,8 @@ export class QuestMap extends Component{
         map.forEachFeatureAtPixel(pixel, function(feature, layer) {
           console.log("object name: "+feature.get('name'));
           console.log("object id: "+feature.getId());
+          popup.innerHTML = '';
+          popup.hidden = true;
           if(showQuestCard)
             self.setState({showQuestCard: false, questCardDetails: []});
           else{

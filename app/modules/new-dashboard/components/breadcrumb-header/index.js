@@ -21,9 +21,9 @@ export class DashboardHeader extends Component{
                         <li className={"header-txt" + (activeHeading === heading ? "-active": "")} key={heading} onClick={()=>this.onHeadingChange(heading, i)}>
                             <div className="header_div">
                                 {heading}
-                                {activeHeading === heading && (
+                                {/* {activeHeading === heading && (
                                     <img className="active-dot mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/circle_white.svg"/>
-                                )}
+                                )} */}
                             </div>
                             
                         </li>
