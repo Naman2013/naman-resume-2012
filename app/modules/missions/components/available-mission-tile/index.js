@@ -114,23 +114,23 @@ export class AvailbleMissionTile extends Component {
         )}
         {communityMissions && (
           <div className="actions community-mission-actions">
-            <div>
+            {/* <div> */}
               {/* {!piggyback == undefined || showLearnButton ? ( */}
-                {showLearnButton ? (
+                {/* {showLearnButton ? (
                 <Link to={learnButtonLink} className="learn-btn">
                   <Button text={learnButtonCaption} />
                 </Link>
-              ) : null}
+              ) : null} */}
               {/* {!piggyback || showFollowPromptFlag ? ( */}
-                {showFollowPromptFlag ? (
+                {/* {showFollowPromptFlag ? (
                 <FollowObjectButton
                   objectId={objectId}
                   user={user}
                   followButtonText={followPrompt}
                   followButtonIconURL={followPromptIconUrl}
                 />
-              ) : null}
-            </div>
+              ) : null} */}
+            {/* </div> */}
             <div>
               <Button
                 text={viewMissionButtonCaption}

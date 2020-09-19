@@ -75,15 +75,16 @@ const TopBar = ({
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
   const { t } = useTranslation();
   // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
-  const [now, setTimeNow]= useState(moment(Date.now()).unix());        
+  // const [now, setTimeNow]= useState(moment(Date.now()).unix());        
   let countdown = null;      
   let nextShow = null;
   let difference= null;
   // let timerId=null;
   if(signIn && upcomingStarPartyList !== null && upcomingStarPartyList.eventList.length > 0){    
+    const now=moment(Date.now()).unix();
     difference=20000;
     nextShow = upcomingStarPartyList.eventList[0];         
-    countdown = nextShow.eventStart-now;     
+    countdown = nextShow.eventStart-now;
     // const { timestamp, expires } = upcomingStarPartyList;
     // const duration=(expires-timestamp)*1000; 
     // console.log("Upcoming Star Parties Duration"+duration);      

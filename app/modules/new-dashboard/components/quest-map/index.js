@@ -281,7 +281,11 @@ export class QuestMap extends Component{
           let popup = document.getElementById('hover_popup');
           let popupOverlay = new Overlay({
             element: popup,
-            offset: [-9,-9]
+            autoPan: true,
+            autoPanAnimation: {
+              duration: 250,
+            },
+            // offset: [-9,-9]
           });
           map.addOverlay(popupOverlay);
 
@@ -293,18 +297,31 @@ export class QuestMap extends Component{
             var pixel = map.getEventPixel(e.originalEvent);
             var hit = map.hasFeatureAtPixel(pixel);
             var target = map.getTarget();
-            document.getElementById(target).style.cursor = hit ? 'pointer' : '';
-            if(hit){ 
-               
-              var coordinate = e.coordinate;    
-              popup.innerHTML = "test";
-              // popup.hidden = false;
-              popupOverlay.setPosition(coordinate);              
+            document.getElementById(target).style.cursor = hit ? 'pointer' : '';            
+            
+            if(hit){
+              var coordinate = e.coordinate;  
+              map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
+                popup.innerHTML = "<h2 class='popup-text'>" + feature.get('name') + "</h2>";
+                popup.hidden = false;
+                popupOverlay.setPosition(coordinate); 
+              });  
+                           
             }
             else{
               popup.innerHTML = '';
-              // popup.hidden = true;
+              popup.hidden = true;              
             }
+            // var fs = map.queryRenderedFeatures(e.point, { layers: ['svg-layer']});
+           
+            // if (fs.length > 0) {
+              
+            //   f = fs[0];
+            //   if (f.id !== lastFeatureId) {
+            //     lastFeatureId = f.id;
+            //     // some visual effect now that the mouse is over a new layer.
+            //   }
+            // }
             // map.getTarget().style.cursor = hit ? 'pointer' : '';
           });
 
@@ -540,19 +557,7 @@ export class QuestMap extends Component{
         }),
         // zIndex: 1
         
-      },{
-        eventListeners:{
-          'featureselected':function(evt){                
-              //whatever you want
-              debugger;
-          },
-          'featureunselected':function(evt){
-                              //whatever you want
-                              debugger;
-          }
-        }
-      }      
-      );
+      });
       this.setState({vectorLayer: vectorLayer});
       return vectorLayer;
     }
@@ -986,7 +991,7 @@ export class QuestMap extends Component{
               
               </div>
             {/* </div> */}
-            <button onClick={()=>this.handleFindObject()}>find</button>
+            {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
           </div>
         );
     }

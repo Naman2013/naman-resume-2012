@@ -148,11 +148,49 @@
 }
 
 .new-dash .hover-popup {
-    border-radius: 5px;
-    border: 1px solid grey;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 2px;
+    position: absolute;
+        background-color: white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        bottom: 10px;
+        left: -10px;        
 }
+
+.new-dash .hover-popup:after, .new-dash .hover-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.new-dash .popup-text{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  
+    color: #253446;
+}
+
+//   .new-dash .hover-popup:after {
+//     border-top-color: white;
+//     border-width: 10px;
+//     // left: 48px;
+//     // margin-left: -10px;
+//   }
+
+  .new-dash .hover-popup:before {
+    border-top-color: white;
+    border-width: 6px;
+    // left: 48px;
+    // margin-left: -11px;
+  }
 
 @media (min-width: $screenXLarge) {
     .new-dash .title-main{
