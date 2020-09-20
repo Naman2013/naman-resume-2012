@@ -812,6 +812,16 @@ export class QuestMap extends Component{
       
     };
 
+    onQuestCardClose = () =>{
+      let { map } = this.state;
+      map.getInteractions().forEach(function(interaction) {
+        if (interaction instanceof MouseWheelZoom) {
+          interaction.setActive(true);
+        }
+      }, this);
+      this.setState({showQuestCard: false, map: map});
+    }
+
     render() {          
       const { showQuestCard, questCardDetails, isloading1 } = this.state
       const { questMapControls } = this.props;      
@@ -831,7 +841,7 @@ export class QuestMap extends Component{
               {showQuestCard && (
                   <div className="popup">
                     <QuestCard
-                      onHide={()=> this.setState({showQuestCard: false})}
+                      onHide={this.onQuestCardClose}
                       questCardDetails={questCardDetails}
                     />
                 </div> 
