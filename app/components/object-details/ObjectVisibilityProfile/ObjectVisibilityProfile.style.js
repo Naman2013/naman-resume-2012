@@ -82,7 +82,7 @@ export default css`
 
   @media ${screenLarge} {
     .obs-visibility-root {
-      flex-direction: row;
+      // flex-direction: row;
     }
   }
 `;

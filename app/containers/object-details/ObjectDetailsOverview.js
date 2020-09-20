@@ -189,7 +189,7 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-    debugger;
+    
     return (
       <Fragment>
         <TopicContent

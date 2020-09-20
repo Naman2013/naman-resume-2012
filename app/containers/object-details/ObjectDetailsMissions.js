@@ -25,6 +25,7 @@ import {
   makeObjectDetailsMissionsSelector,
   makeObjectDetailsDataSelector,
   makeObjectDetailsFetchingSelector,
+  makeObjectDataSelector
 } from '../../modules/object-details/selectors';
 import {
   makeQueueTabReservedCommunityMissionDataSelector,
@@ -51,6 +52,7 @@ const mapStateToProps = createStructuredSelector({
   user: makeUserSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
   isFetching: makeObjectDetailsFetchingSelector(),
+  objectData: makeObjectDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -132,6 +134,7 @@ class Missions extends Component {
     const {
       params: { objectId },
       objectDetails,
+      objectData,
       missionData,
       t,
       user,
@@ -166,7 +169,7 @@ class Missions extends Component {
         </DeviceProvider>
         <CenterColumn widths={['768px', '965px', '965px']}>
           <ObjectVisibilityProfileNew
-              // defaultObsId={objectData.obsIdDefault}
+              defaultObsId={objectData.obsIdDefault}
               objectId={objectId}            
           />
           <br/>

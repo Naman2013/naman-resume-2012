@@ -33,6 +33,7 @@ import Feature from 'ol/Feature';
 import {getVectorContext} from 'ol/render';
 import {Group as LayerGroup} from 'ol/layer';
 import Overlay from 'ol/Overlay';
+import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 
 export class QuestMap extends Component{
   state={
@@ -85,30 +86,41 @@ export class QuestMap extends Component{
       const self = this;
       var displayFeatureInfo = function(pixel) {
         const { showQuestCard, vectorLayer } = self.state;
-        map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-          console.log("object name: "+feature.get('name'));
-          console.log("object id: "+feature.getId());
-          popup.innerHTML = '';
-          popup.hidden = true;
-          if(showQuestCard)
+        if(showQuestCard)
+        {
             self.setState({showQuestCard: false, questCardDetails: []});
-          else{
-              self.setState({isloading1: true});
-              const { token, at, cid } = getUserInfo();
-              getQuestCard({
-                token, 
-                at, 
-                cid,
-                questId: feature.getId(),
-                // questId: 194,
-                questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
-                questVersion: 1.1
-              }).then(response=>{
-                self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});                
-              });         
-          }
-          
-        });
+            map.getInteractions().forEach(function(interaction) {
+              if (interaction instanceof MouseWheelZoom) {
+                interaction.setActive(true);
+              }
+            }, this);
+        }
+        else{     
+          map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+            console.log("object name: "+feature.get('name'));
+            console.log("object id: "+feature.getId());
+                popup.innerHTML = '';
+                popup.hidden = true;
+                self.setState({isloading1: true});
+                const { token, at, cid } = getUserInfo();
+                getQuestCard({
+                  token, 
+                  at, 
+                  cid,
+                  questId: feature.getId(),
+                  // questId: 194,
+                  questUUID: 'ae699819-c1df-11ea-a953-062dce25bfa1',
+                  questVersion: 1.1
+                }).then(response=>{
+                  self.setState({isloading1: false, questCardDetails: response.data, showQuestCard: true});            
+                  map.getInteractions().forEach(function(interaction) {
+                    if (interaction instanceof MouseWheelZoom) {
+                      interaction.setActive(false);
+                    }
+                  }, this);    
+                });    
+          });
+        }
         // vectorLayer.getFeatures(pixel).then(function(features) {
          
         //   var feature = features.length ? features[0] : undefined; 
@@ -304,7 +316,7 @@ export class QuestMap extends Component{
             if(hit){
               var coordinate = e.coordinate;  
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
-                popup.innerHTML = "<h2 class='popup-text'>" + feature.get('name') + "</h2>";
+                popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";
                 popup.hidden = false;
                 popupOverlay.setPosition(coordinate); 
               });  
@@ -485,6 +497,7 @@ export class QuestMap extends Component{
           let style = this.getIconSytle(item.badgeAnchorX, item.badgeAnchorY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font, item.badgeScaleX, item.badgeScaleY, item.badgeLabelColor);
           // feature=this.setIconSyle(feature,style);
           const self = this;
+          feature.set('tooltip', item.badgeTooltipText);
           // feature.setStyle(style);
           feature.setStyle((feature,resolution)=>{
             const temp=(1/Math.pow(resolution, 1.1));
