@@ -17,14 +17,6 @@ const generateNavItems = (objectId, t) => [
     link: `/object-details/${objectId}/missions`,
   },
   {
-    title: t('Objects.Quests'),
-    link: `/object-details/${objectId}/quests`,
-  },
-  {
-    title: t('Objects.Ask'),
-    link: `/object-details/${objectId}/ask`,
-  },
-  {
     title: t('Objects.Observations'),
     link: `/object-details/${objectId}/observations`,
   },
@@ -33,8 +25,16 @@ const generateNavItems = (objectId, t) => [
     link: `/object-details/${objectId}/shows`,
   },
   {
+    title: t('Objects.Ask'),
+    link: `/object-details/${objectId}/ask`,
+  },
+  {
     title: t('Objects.Stories'),
     link: `/object-details/${objectId}/stories`,
+  },
+  {
+    title: t('Objects.Quests'),
+    link: `/object-details/${objectId}/quests`,
   },
 ];
 
