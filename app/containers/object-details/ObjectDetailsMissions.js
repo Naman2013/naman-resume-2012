@@ -41,6 +41,7 @@ import Button1 from 'app/components/common/style/buttons/Button';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import Popup from 'react-modal';
 import { AccountDetailsHeader } from 'app/modules/account-settings/components/account-details/header';
+import ObjectVisibilityProfileNew from 'app/components/object-details/ObjectVisibilityProfile/ObjectVisibilityProfileNew';
 
 
 const mapStateToProps = createStructuredSelector({
@@ -163,6 +164,13 @@ class Missions extends Component {
             )}
           />
         </DeviceProvider>
+        <CenterColumn widths={['768px', '965px', '965px']}>
+          <ObjectVisibilityProfileNew
+              // defaultObsId={objectData.obsIdDefault}
+              objectId={objectId}            
+          />
+          <br/>
+        </CenterColumn>
         <CenterColumn>
           {missionCount > 0 ? (
             <div style={{ margin: '0 20px 40px' }}>
@@ -222,7 +230,7 @@ class Missions extends Component {
           </div>
           </Popup>
         )}
-        )}
+        )
         <style jsx>{`         
           .actions-err-btn{
             display: flex;       

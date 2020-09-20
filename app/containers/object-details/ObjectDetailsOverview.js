@@ -189,7 +189,7 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-
+    debugger;
     return (
       <Fragment>
         <TopicContent
@@ -249,6 +249,7 @@ class Overview extends Component {
             <ObjectVisibilityProfile
               defaultObsId={objectData.obsIdDefault}
               objectId={objectId}
+              visibilityGuide={objectData.visibilityGuide}
             />
 
             {modeledResult.hasHowBigData && (
