@@ -851,7 +851,7 @@ export class QuestMap extends Component{
               
             </div>
            <div className="controls-div">
-            <div className="dropdown-control-div col-md-8 col-md-offset-1">
+            <div className="dropdown-control-div col-md-offset-1">
               {questMapControls[0].controlList.map((control, i)=>(
                 <div className="controls">
                 <span className="select-label">{control.prompt} </span>
@@ -945,7 +945,7 @@ export class QuestMap extends Component{
               {/* <div className="separator-line">
               </div> */}
                {/* <div className="control-div"> */}
-                  <div className="settings-controls col-md-3"> 
+                  <div className="settings-controls"> 
                 {/* {questMapControls[1].controlList.map(control=>(
                   <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/gear_icon.svg"/>
                 ))}                */}

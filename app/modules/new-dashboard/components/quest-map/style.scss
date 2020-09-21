@@ -21,15 +21,20 @@
     opacity: 0.4;
 }
 
+.new-dash .settings-dropdown .control-label{
+    line-height: normal !important;
+}
+
 .new-dash .dropdown-control-div{
     background-color: #111111;
     border-radius: 8px;
-    // width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;   
-    // padding: 6px 24px;
-    // flex: 1
-    margin: 0px 5px;
+    padding: 10px 15px;   
+    margin: 10px 0px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .new-dash .Quest-map-fullscreen{
@@ -62,7 +67,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;    
-    flex: 0.22;
+    flex: 1;
     margin-right: 24px;
 }
 
@@ -83,12 +88,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;    
+    width: 30%;
     // flex: 0.2;
     justify-content: space-around;   
     padding: 10px 15px;
     background-color: #111111;
     border-radius: 8px;
-    margin: 0px 5px;
+    margin: 0px;
 }
 
 .new-dash .title-main{
@@ -214,6 +220,17 @@
     .new-dash .Quest-map  {
         height: calc(45vw);  
     }
+
+    .new-dash .dropdown-control-div{
+        width: 72%;
+        margin-right: 10px;
+    }
+
+    .new-dash .settings-controls{
+        width: 25%;
+        margin: 10px 0px;
+    }
+
     // .new-dash .popup{
     //     top: 7%;
     // }
@@ -239,6 +256,11 @@
     }
     .new-dash .Quest-map  {
         height: calc(36.7vw) ;  
+    }
+
+    .new-dash .settings-controls{
+        width: 40%;
+        margin: 0px;
     }
     // .new-dash .popup{
     //     top: 2%;
