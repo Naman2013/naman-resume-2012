@@ -423,6 +423,11 @@ export class QuestMap extends Component{
           // properties["maxZoom"] = res.maxZoomLevel;
           // map.setView(new ol.View(properties));
           self.setState({map: map, explanationText: res.explanation});
+          
+          setTimeout(()=>{            
+            document.getElementsByClassName('ol-layer')[0].style.pointerEvents='none';            
+          }, 500);
+          
         }
         
       });
@@ -563,13 +568,14 @@ export class QuestMap extends Component{
       //   iconStyle.getText().setScale([x, y]);
       //   vectorContext.drawFeature(feature, style);
       // });
+      const style={pointerEvents: 'none'};
       const vectorLayer=new VectorLayer({        
         source: new VectorSource({
           // format: new GeoJSON({dataProjection: 'EPSG:4326'}),
           // features: (new GeoJSON()).readFeatures(mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
           features: ifeatures
-        }),
+        })        
         // zIndex: 1
         
       });
