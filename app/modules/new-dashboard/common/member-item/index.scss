@@ -1,0 +1,34 @@
+@import '~app/styles/variables/colors.scss';
+
+.live-activity-members-list {
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .active-member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $hawkesBlue;
+    padding-top: 4px !important;
+    line-height: 16px;
+
+    .member-name {
+      display: block;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .member-info {
+      display: flex;
+      justify-content: space-between;
+
+      .member-gravity-level {
+        padding-right: 8px;
+      }
+    }
+  }
+}

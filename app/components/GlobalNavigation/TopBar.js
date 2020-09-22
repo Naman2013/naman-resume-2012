@@ -212,7 +212,7 @@ const TopBar = ({
                 </li> */}
                 {user.isAuthorized ? (
                   <>
-                    <li>
+                    {/* <li>
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
                         activityFeedMessages={activityFeedMessages}
@@ -231,7 +231,7 @@ const TopBar = ({
                           subscribeToPubnubActivityFeedChannel
                         }
                       />
-                    </li>
+                    </li> */}
                     {upcomingStarPartyList && (
                       <li>
                         <Livecast

@@ -38,6 +38,8 @@ import { TopStudents } from "./components/rank-card/top-students";
 import { ProfileStatus } from "./components/profile-card/profile-status";
 import { CommunityFame } from "./components/community-fame";
 import { TitleHeaderNew } from "./components/title-header-new";
+import LiveActivity from "../live-activity/containers/live-activity";
+import { LiveChat } from "./components/live-chat";
 
 export class NewDashboard extends PureComponent{
 
@@ -403,13 +405,16 @@ export class NewDashboard extends PureComponent{
                         <div className="right">
                             <div className="mar-left-right-16">
                                 <ProfileStatus />
+                                <LiveChat
+                                    // isOpen={true}
+                                />
                                 {/* {userGravityStatus && (
                                     <ProfileCard
                                         userGravityStatus={userGravityStatus}
                                     />
                                 )}
                             
-                            
+                                
 
                                 {userGravityStatus && (
                                     <BadgeList
