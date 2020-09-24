@@ -40,6 +40,7 @@ import { CommunityFame } from "./components/community-fame";
 import { TitleHeaderNew } from "./components/title-header-new";
 import LiveActivity from "../live-activity/containers/live-activity";
 import { LiveChat } from "./components/live-chat";
+import { pubnubInit } from "../pubnub-handler/actions";
 
 export class NewDashboard extends PureComponent{
 
@@ -112,6 +113,7 @@ export class NewDashboard extends PureComponent{
                 getTopStudentsAction,
                 getMostActiveClubsAction,
                 getTopSchoolClubsAction,
+                pubnubInit,
                 // getGravityByDomainAction,
             } = this.props;   
 
@@ -149,6 +151,7 @@ export class NewDashboard extends PureComponent{
         // getMostActiveClubsAction();
         // getTopSchoolClubsAction();
         // getGravityByDomainAction();
+        pubnubInit();
     };
     
     render(){
@@ -209,10 +212,16 @@ export class NewDashboard extends PureComponent{
                 topSchoolClubs,
                 gravityByDomain,
                 // getCommunityFameAction,
+                pubnubData,
+                sendMessage,
+                setDock, 
+                setTab, 
+                unSubscribePubnub,
+                pubnubInit,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
-              
+             
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -405,9 +414,19 @@ export class NewDashboard extends PureComponent{
                         <div className="right">
                             <div className="mar-left-right-16">
                                 <ProfileStatus />
-                                <LiveChat
-                                    // isOpen={true}
-                                />
+                                {pubnubData && (
+                                    <LiveChat
+                                        // isOpen={true}
+                                        activityFeedMessages={pubnubData.activityFeedMessages}
+                                        sendMessage={sendMessage}
+                                        setDock={setDock} 
+                                        setTab={setTab} 
+                                        unSubscribePubnub={unSubscribePubnub} 
+                                        pubnubInit={pubnubInit}
+                                        docked={pubnubData.docked}
+                                    />                                
+                                )}
+                                
                                 {/* {userGravityStatus && (
                                     <ProfileCard
                                         userGravityStatus={userGravityStatus}

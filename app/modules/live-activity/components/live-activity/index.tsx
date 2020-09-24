@@ -80,14 +80,14 @@ const submitMessage = (
       },
     };
     setMessageIdToLocalStorage(null);
-
+    props.sendMessage(message);
     //publish the message
-    pubnubConnection.publish({
-      message,
-      channel: pubnubActivityFeedChannelName,
-      sendByPost: false, // true to send via post
-      storeInHistory: true, //override default storage options
-    });
+    // pubnubConnection.publish({
+    //   message,
+    //   channel: pubnubActivityFeedChannelName,
+    //   sendByPost: false, // true to send via post
+    //   storeInHistory: true, //override default storage options
+    // });
     
     setMemberChatState('sentMessage');
 
@@ -120,7 +120,13 @@ type TLiveActivity = {
   userDisplayName: string;
   isChatEnabled: boolean;
   scrollActivityFeedToBottom: any;
-  subscribeToPubnubActivityFeedChannel: Function;  
+  subscribeToPubnubActivityFeedChannel: Function;
+  sendMessage: Function;
+  docked: boolean;
+  setDock: Function;
+  setTab: Function;
+  unSubscribePubnub: Function;
+  pubnubInit: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -135,14 +141,19 @@ export const LiveActivity = (props: TLiveActivity) => {
     activityFeedMembers,
     getActivityFeedMembers,
     setMemberChatState,
-    subscribeToPubnubActivityFeedChannel    
+    subscribeToPubnubActivityFeedChannel,  
+    docked,
+    setDock,
+    setTab,
+    unSubscribePubnub,
+    pubnubInit,  
   } = props;
 
   const rnd = useRef(null);
 
   const [activeTab, setActiveTab] = React.useState(MEMBERS_TAB);
 
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setOpen] = React.useState(!docked);
 
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
 
@@ -175,7 +186,8 @@ export const LiveActivity = (props: TLiveActivity) => {
   useEffect(() => {
     const handleOrientationChangeEvent = (): void => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
-      rnd.current.updatePosition({ x: -300, y: 80 });
+      if(rnd.current !== null)
+        rnd.current.updatePosition({ x: -300, y: 80 });
     };
 
     window.addEventListener('orientationchange', handleOrientationChangeEvent);
@@ -222,9 +234,9 @@ export const LiveActivity = (props: TLiveActivity) => {
   };
 
   const onTabChange = (): void => {
-    if (!isSubscribed) {
-      subscribeToPubnubActivityFeedChannel();     
-    }
+    // if (!isSubscribed) {
+    //   subscribeToPubnubActivityFeedChannel();     
+    // }
     // setOpen(!isOpen);
     // setActiveTab(MEMBERS_TAB);
 
@@ -258,7 +270,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       const isMobile = isMobileScreen() || isTabletScreen();
 
       if (isMobile) {
-        setOpen(false);
+        // setOpen(false);
         setActiveTab(LIVE_FEEDS_TAB);
       }
     }
@@ -275,7 +287,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       // if (!isSubscribed) {
       //   subscribeToPubnubActivityFeedChannel();
       // }
-      setOpen(!isOpen);
+      // setOpen(!isOpen);
       setActiveTab(MEMBERS_TAB);
   
       // setMessageIdToLocalStorage(lastMessageId);
@@ -297,7 +309,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
     >
       {/* BTN */}
-      {props.isChatEnabled?(
+      {/* {props.isChatEnabled?(
       <div
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
@@ -313,7 +325,7 @@ export const LiveActivity = (props: TLiveActivity) => {
           })}
         />
       </div>
-      ):null}
+      ):null} */}
       {/* WINDOW */}
       {isOpen && (
         <div
@@ -382,11 +394,12 @@ export const LiveActivity = (props: TLiveActivity) => {
                     <div className="close-window">
                       <span
                         className="icon-close"
-                        onClick={() => {
-                          setOpen(false);
-                          setActiveTab(MEMBERS_TAB);
-                          setMemberChatState('leave');
-                        }}
+                        // onClick={() => {
+                        //   setOpen(false);
+                        //   setActiveTab(MEMBERS_TAB);
+                        //   setMemberChatState('leave');
+                        // }}
+                        onClick={()=>setDock(true)}
                         role="presentation"
                       />
                     </div>

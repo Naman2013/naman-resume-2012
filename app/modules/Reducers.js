@@ -100,6 +100,8 @@ import galleryDetails from './gallery-details/reducer';
 import photoHubs from './profile-photos/reducer';
 import leaderboard from './leaderboard/reducer';
 import purchaseConfirmation from './purchase-confirmation/reducer';
+import pubnubChat from '../modules/pubnub-handler/reducer'
+
 
 export default combineReducers({
   routing: routerReducer,
@@ -202,4 +204,5 @@ export default combineReducers({
   photoHubs,
   leaderboard,
   purchaseConfirmation,
+  pubnubChat,
 });

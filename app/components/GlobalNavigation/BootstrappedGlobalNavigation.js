@@ -24,6 +24,8 @@ import TopBar from './TopBar';
 import { setupLiveActivityTimer, stopLiveActivityTimer } from 'app/services/live-activity/timer';
 import QuestBreadCrumb from './breadcrumb';
 import { upcomingShows } from 'app/services/shows/upcoming-shows';
+import { sendMessage, setDock, setTab, unSubscribePubnub, pubnubInit } from 'app/modules/pubnub-handler/actions';
+
 
 const mapStateToProps = ({
   globalNavigation,
@@ -32,11 +34,13 @@ const mapStateToProps = ({
   },
   user,
   upcomingEvents,
+  pubnubChat,
 }) => ({
   routeKey: key,
   user,
   ...globalNavigation,
-  upcomingStarPartyList: upcomingEvents.upcomingEvents
+  upcomingStarPartyList: upcomingEvents.upcomingEvents,
+  pubnubData: pubnubChat
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -46,9 +50,15 @@ const mapDispatchToProps = dispatch => ({
       closeUpsellModal,
       toggleGlobalNavMenu,
       toggleGlobalNavNotificationMenu,
+      sendMessage,  
+      setDock, 
+      setTab, 
+      unSubscribePubnub, 
+      pubnubInit,          
     },
     dispatch
   ),
+  
 });
 
 @connect(
@@ -102,10 +112,10 @@ class GlobalNavigation extends Component {
   constructor(params) {
     super(params);
 
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
+    // const {
+    //   pubnubActivityFeedChannelName,
+    //   pubnubLiveEventsChannelName,
+    // } = this.props;
 
     this.debouncedCloseAll = debounce(this.closeAll, 500, {
       leading: true,
@@ -113,80 +123,80 @@ class GlobalNavigation extends Component {
     });
 
     //get a connection to pubnub feeds
-    this.pubnub = new PubNubReact({
-      ssl: true,
-      uuid: getUserInfo().cid,
-      publishKey: projectPubnubConf.PUBNUB_FEEDS_PUBKEY,
-      subscribeKey: projectPubnubConf.PUBNUB_FEEDS_SUBKEY,
-      secretKey: projectPubnubConf.PUBNUB_FEEDS_SECRETKEY,
-    });
+    // this.pubnub = new PubNubReact({
+    //   ssl: true,
+    //   uuid: getUserInfo().cid,
+    //   publishKey: projectPubnubConf.PUBNUB_FEEDS_PUBKEY,
+    //   subscribeKey: projectPubnubConf.PUBNUB_FEEDS_SUBKEY,
+    //   secretKey: projectPubnubConf.PUBNUB_FEEDS_SECRETKEY,
+    // });
 
-    this.pubnub.addListener({
-      status: statusEvent => {
-        if (statusEvent.category === 'PNConnectedCategory') {
-          this.pubnub.history(
-            {
-              channel: pubnubActivityFeedChannelName,
-              count: 20,
-              stringifiedTimeToken: false,
-              reverse: false,
-            },
-            (status, response) => {
-              let historyMessages = response.messages;
-            }
-          );
-          this.pubnub.history(
-            {
-              channel: pubnubActivityFeedChannelName,
-              count: 20,
-              stringifiedTimeToken: false,
-              reverse: false,
-            },
-            (status, response) => {
-              let historyMessages = response.messages;
+    // this.pubnub.addListener({
+    //   status: statusEvent => {
+    //     if (statusEvent.category === 'PNConnectedCategory') {
+    //       this.pubnub.history(
+    //         {
+    //           channel: pubnubActivityFeedChannelName,
+    //           count: 20,
+    //           stringifiedTimeToken: false,
+    //           reverse: false,
+    //         },
+    //         (status, response) => {
+    //           let historyMessages = response.messages;
+    //         }
+    //       );
+    //       this.pubnub.history(
+    //         {
+    //           channel: pubnubActivityFeedChannelName,
+    //           count: 20,
+    //           stringifiedTimeToken: false,
+    //           reverse: false,
+    //         },
+    //         (status, response) => {
+    //           let historyMessages = response.messages;
 
-              historyMessages.forEach(historyMessage => {
-                this.buildFeedMessage(historyMessage.entry, true);
-              });
+    //           historyMessages.forEach(historyMessage => {
+    //             this.buildFeedMessage(historyMessage.entry, true);
+    //           });
 
-              //setInterval(() => this.checkActivityWindowScroll(), 5000);
-            }
-          );
-        } //end of if connected
-      },
-      message: msg => {
-        //what channel did this message come from???
-        const { channel } = msg;
+    //           //setInterval(() => this.checkActivityWindowScroll(), 5000);
+    //         }
+    //       );
+    //     } //end of if connected
+    //   },
+    //   message: msg => {
+    //     //what channel did this message come from???
+    //     const { channel } = msg;
 
-        //what is the message??
-        const { message } = msg;
+    //     //what is the message??
+    //     const { message } = msg;
 
-        if (channel === pubnubLiveEventsChannelName) {
-          if (message.messageType) {
-            if (message.messageType === 'livecast') {
-              if (message.action === 'broadcastUpdate') {
-                //update the livecasts in progress
-                this.setState({ allLivecastsInProgress: message.livecasts });
-              }
-            }
-          }
-        } else if (channel === pubnubActivityFeedChannelName) {
-          this.buildFeedMessage(message, true);
-        }
-      },
-      presence: presenceEvent => {
-        // handle presence (users that have joined or left the channel)
+    //     if (channel === pubnubLiveEventsChannelName) {
+    //       if (message.messageType) {
+    //         if (message.messageType === 'livecast') {
+    //           if (message.action === 'broadcastUpdate') {
+    //             //update the livecasts in progress
+    //             this.setState({ allLivecastsInProgress: message.livecasts });
+    //           }
+    //         }
+    //       }
+    //     } else if (channel === pubnubActivityFeedChannelName) {
+    //       this.buildFeedMessage(message, true);
+    //     }
+    //   },
+    //   presence: presenceEvent => {
+    //     // handle presence (users that have joined or left the channel)
 
-        if (presenceEvent.channel === pubnubActivityFeedChannelName) {
-          //update the list of Customer UUIDs online
+    //     if (presenceEvent.channel === pubnubActivityFeedChannelName) {
+    //       //update the list of Customer UUIDs online
 
-          //update the total count of members online
-          this.setState({ totalViewersCount: presenceEvent.occupancy });
-        }
-      },
-    });
+    //       //update the total count of members online
+    //       this.setState({ totalViewersCount: presenceEvent.occupancy });
+    //     }
+    //   },
+    // });
 
-    this.pubnub.init(this);
+    // this.pubnub.init(this);
   }
 
   componentDidMount() {
@@ -211,6 +221,8 @@ class GlobalNavigation extends Component {
     }
     if(nextProps.upcomingStarPartyList !== upcomingStarPartyList && nextProps.upcomingStarPartyList.eventList.length > 0){
       const { timestamp, expires } = nextProps.upcomingStarPartyList;
+      if( timestamp === undefined || expires === undefined)
+        return;
       const duration=(expires-timestamp)*1000; 
       console.log("Upcoming Star Parties Duration"+duration); 
       if(this.timerId !== null)
@@ -223,19 +235,19 @@ class GlobalNavigation extends Component {
     window.removeEventListener('scroll', this.debouncedCloseAll);
     if(this.timerId !== null)
         clearTimeout(this.timerId);
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
+    // const {
+    //   pubnubActivityFeedChannelName,
+    //   pubnubLiveEventsChannelName,
+    // } = this.props;
 
-    //unmount pubnub
-    this.pubnub.unsubscribe({
-      channels: [
-        pubnubActivityFeedChannelName,
-        pubnubLiveEventsChannelName,
-        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
-      ],
-    });
+    // //unmount pubnub
+    // this.pubnub.unsubscribe({
+    //   channels: [
+    //     pubnubActivityFeedChannelName,
+    //     pubnubLiveEventsChannelName,
+    //     `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
+    //   ],
+    // });
   }
 
   getActivityFeedMembers = () => {
@@ -277,21 +289,21 @@ class GlobalNavigation extends Component {
     });
   };
 
-  subscribeToPubnubActivityFeedChannel = () => {
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
+  // subscribeToPubnubActivityFeedChannel = () => {
+  //   const {
+  //     pubnubActivityFeedChannelName,
+  //     pubnubLiveEventsChannelName,
+  //   } = this.props;
 
-    this.pubnub.subscribe({
-      channels: [
-        pubnubActivityFeedChannelName,
-        pubnubLiveEventsChannelName,
-        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
-      ],
-      withPresence: true,
-    });
-  };
+  //   this.pubnub.subscribe({
+  //     channels: [
+  //       pubnubActivityFeedChannelName,
+  //       pubnubLiveEventsChannelName,
+  //       `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
+  //     ],
+  //     withPresence: true,
+  //   });
+  // };
 
   scrollActivityFeedToBottom = () => {
     let liveActivityWindowBodyFeedObj = document.getElementById(
@@ -322,50 +334,50 @@ class GlobalNavigation extends Component {
     }
   };
 
-  buildFeedMessage = (message, appendFlag) => {
-    const { activityFeedMessages: activityFeedMessagesState } = this.state;
-    try {
-      //messages are in JSON format
-      let messageJSONObj = message;
+  // buildFeedMessage = (message, appendFlag) => {
+  //   const { activityFeedMessages: activityFeedMessagesState } = this.state;
+  //   try {
+  //     //messages are in JSON format
+  //     let messageJSONObj = message;
 
-      let isMessageFromCurrentUser = false;
-      if (messageJSONObj.customerUUID === getUserInfo().customerUUID) {
-        isMessageFromCurrentUser = true;
-      }
+  //     let isMessageFromCurrentUser = false;
+  //     if (messageJSONObj.customerUUID === getUserInfo().customerUUID) {
+  //       isMessageFromCurrentUser = true;
+  //     }
 
-      let newMessage = {
-        id: messageJSONObj.messageID,
-        user: messageJSONObj.displayName,
-        currentUser: isMessageFromCurrentUser,
-        date: messageJSONObj.displayTimestamp,
-        text: messageJSONObj.message_by_locale.en,
-      };
+  //     let newMessage = {
+  //       id: messageJSONObj.messageID,
+  //       user: messageJSONObj.displayName,
+  //       currentUser: isMessageFromCurrentUser,
+  //       date: messageJSONObj.displayTimestamp,
+  //       text: messageJSONObj.message_by_locale.en,
+  //     };
 
-      if (appendFlag === true) {
-        this.setState(() => {
-          const activityFeedMessages = [
-            newMessage,
-            ...activityFeedMessagesState,
-          ];
-          return {
-            activityFeedMessages,
-          };
-        });
-      } else {
-        this.setState(() => {
-          const activityFeedMessages = [
-            newMessage,
-            ...activityFeedMessagesState,
-          ];
-          return {
-            activityFeedMessages,
-          };
-        });
-      }
-    } catch (e) {
-      //do nothing, ignore this message....
-    }
-  };
+  //     if (appendFlag === true) {
+  //       this.setState(() => {
+  //         const activityFeedMessages = [
+  //           newMessage,
+  //           ...activityFeedMessagesState,
+  //         ];
+  //         return {
+  //           activityFeedMessages,
+  //         };
+  //       });
+  //     } else {
+  //       this.setState(() => {
+  //         const activityFeedMessages = [
+  //           newMessage,
+  //           ...activityFeedMessagesState,
+  //         ];
+  //         return {
+  //           activityFeedMessages,
+  //         };
+  //       });
+  //     }
+  //   } catch (e) {
+  //     //do nothing, ignore this message....
+  //   }
+  // };
 
   closeAll = () => {
     const { actions } = this.props;
@@ -408,6 +420,7 @@ class GlobalNavigation extends Component {
 
   render() {
     const {
+      actions,
       activeLeft,
       activeMenu,
       activeRight,
@@ -421,8 +434,17 @@ class GlobalNavigation extends Component {
       pubnubActivityFeedChannelName,
       upcomingStarPartyList,
       fetchEvents,
+      pubnubData,      
     } = this.props;
     
+    const { 
+      sendMessage,  
+      setDock, 
+      setTab, 
+      unSubscribePubnub, 
+      pubnubInit
+    } = actions;
+
     const {
       totalViewersCount,
       allLivecastsInProgress,
@@ -449,6 +471,7 @@ class GlobalNavigation extends Component {
       isChatEnabled = userInfoIsChatEnabled;
       displayName = userInfoName;
     }
+  
     return (
       <div className="root">
         <div className="top-bar">
@@ -457,23 +480,29 @@ class GlobalNavigation extends Component {
             handleMenuClick={this.handleMenuClick}
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
-            totalViewersCount={totalViewersCount}
+            // totalViewersCount={totalViewersCount}
             allLivecastsInProgress={allLivecastsInProgress}
-            activityFeedMessages={activityFeedMessages}
+            activityFeedMessages={pubnubData.activityFeedMessages}
             activityFeedMembers={activityFeedMembers}
             getActivityFeedMembers={this.getActivityFeedMembers}
             setMemberChatState={this.setMemberChatState}
-            pubnubConnection={this.pubnub}
-            pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+            // pubnubConnection={this.pubnub}
+            // pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}
             isChatEnabled={isChatEnabled}
             scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
-            subscribeToPubnubActivityFeedChannel={
-              this.subscribeToPubnubActivityFeedChannel
-            }
+            // subscribeToPubnubActivityFeedChannel={
+            //   this.subscribeToPubnubActivityFeedChannel
+            // }
             upcomingStarPartyList={upcomingStarPartyList}
             signIn={user.isAuthorized}
             fetchEvents={fetchEvents}
+            docked={pubnubData.docked}
+            sendMessage={sendMessage}            
+            setDock={setDock} 
+            setTab={setTab} 
+            unSubscribePubnub={unSubscribePubnub} 
+            pubnubInit={pubnubInit}
           />         
         </div>
         

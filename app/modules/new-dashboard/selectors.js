@@ -9,6 +9,13 @@ export const makeStarPartyListSelector = () =>
     state => state.upcomingEvents.upcomingEvents
   );
 
+  export const makePubnubDataSelector = () =>    
+  createSelector(
+    state,
+    state => state.pubnubChat
+  );
+  
+
   export const makeUserGravityStatusSelector = () =>
   createSelector(
     newDashList,

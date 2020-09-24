@@ -54,6 +54,8 @@ import {
     getGravityByDomainAction,
   } from './actions';
 
+import { pubnubInit, sendMessage, setDock, setTab, unSubscribePubnub } from '../../modules/pubnub-handler/actions'
+
 
 import { makeStarPartyListSelector,
     makeUserGravityStatusSelector ,
@@ -83,9 +85,10 @@ import { makeStarPartyListSelector,
     makeTopStudentsSelector,
     makeMostActiveClubsSelector,
     makeTopSchoolClubsSelector,
-    makeGetGravityByDomainSelector
+    makeGetGravityByDomainSelector,
+    makePubnubDataSelector,
   } from './selectors';
-  
+
 import { NewDashboard } from './index';
 
 const mapStateToProps = createStructuredSelector({
@@ -124,6 +127,7 @@ const mapStateToProps = createStructuredSelector({
     mostActiveClubs: makeMostActiveClubsSelector(),
     topSchoolClubs: makeTopSchoolClubsSelector(),
     gravityByDomain: makeGetGravityByDomainSelector(),
+    pubnubData: makePubnubDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -160,6 +164,11 @@ const mapDispatchToProps = {
     getMostActiveClubsAction,
     getTopSchoolClubsAction,
     getGravityByDomainAction,
+    pubnubInit,
+    sendMessage,
+    setDock, 
+    setTab, 
+    unSubscribePubnub,
 };
 
 export default compose(

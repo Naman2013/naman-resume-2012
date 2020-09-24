@@ -41,115 +41,11 @@ state = {
     docked: true,
 };
 
-componentDidMount() {    
 
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
 
-    // this.debouncedCloseAll = debounce(this.closeAll, 500, {
-    //   leading: true,
-    //   trailing: false,
-    // });
-
-    //get a connection to pubnub feeds
-    this.pubnub = new PubNubReact({
-      ssl: true,
-      uuid: getUserInfo().cid,
-      publishKey: projectPubnubConf.PUBNUB_FEEDS_PUBKEY,
-      subscribeKey: projectPubnubConf.PUBNUB_FEEDS_SUBKEY,
-      secretKey: projectPubnubConf.PUBNUB_FEEDS_SECRETKEY,
-    });
-
-    this.pubnub.addListener({
-      status: statusEvent => {
-        if (statusEvent.category === 'PNConnectedCategory') {
-          this.pubnub.history(
-            {
-              channel: pubnubActivityFeedChannelName,
-              count: 20,
-              stringifiedTimeToken: false,
-              reverse: false,
-            },
-            (status, response) => {
-              let historyMessages = response.messages;
-            }
-          );
-          this.pubnub.history(
-            {
-              channel: pubnubActivityFeedChannelName,
-              count: 20,
-              stringifiedTimeToken: false,
-              reverse: false,
-            },
-            (status, response) => {
-              let historyMessages = response.messages;
-              historyMessages.forEach(historyMessage => {
-                this.buildFeedMessage(historyMessage.entry, true);
-              });
-
-              //setInterval(() => this.checkActivityWindowScroll(), 5000);
-            }
-          );
-        } //end of if connected
-      },
-      message: msg => {
-        //what channel did this message come from???
-        const { channel } = msg;
-
-        //what is the message??
-        const { message } = msg;
-
-        if (channel === pubnubLiveEventsChannelName) {
-          if (message.messageType) {
-            if (message.messageType === 'livecast') {
-              if (message.action === 'broadcastUpdate') {
-                //update the livecasts in progress
-                this.setState({ allLivecastsInProgress: message.livecasts });
-              }
-            }
-          }
-        } else if (channel === pubnubActivityFeedChannelName) {
-          this.buildFeedMessage(message, true);
-        }
-      },
-      presence: presenceEvent => {
-        // handle presence (users that have joined or left the channel)
-
-        if (presenceEvent.channel === pubnubActivityFeedChannelName) {
-          //update the list of Customer UUIDs online
-
-          //update the total count of members online
-          this.setState({ totalViewersCount: presenceEvent.occupancy });
-        }
-      },
-    });
-
-    this.pubnub.init(this);
-  }
-
-  componentWillUnmount() {
-    // window.removeEventListener('scroll', this.debouncedCloseAll);
-    // if(this.timerId !== null)
-    //     clearTimeout(this.timerId);
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
-
-    //unmount pubnub
-    this.pubnub.unsubscribe({
-      channels: [
-        pubnubActivityFeedChannelName,
-        pubnubLiveEventsChannelName,
-        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
-      ],
-    });
-  }
-
+  
   getActivityFeedMembers = () => {
-    const { activityFeedMembersExpireDate } = this.state;
+    // const { activityFeedMembersExpireDate } = this.state;
     const { token, at, cid } = getUserInfo();
     stopLiveActivityTimer();   
     return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
@@ -186,76 +82,15 @@ componentDidMount() {
       chatState,
     });
   };
+  
 
-  subscribeToPubnubActivityFeedChannel = () => {
-    const {
-      pubnubActivityFeedChannelName,
-      pubnubLiveEventsChannelName,
-    } = this.props;
-
-    this.pubnub.subscribe({
-      channels: [
-        pubnubActivityFeedChannelName,
-        pubnubLiveEventsChannelName,
-        `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
-      ],
-      withPresence: true,
-    });
-  };
-
-  buildFeedMessage = (message, appendFlag) => {
-    const { activityFeedMessages: activityFeedMessagesState } = this.state;
-    try {
-      //messages are in JSON format
-      let messageJSONObj = message;
-
-      let isMessageFromCurrentUser = false;
-      if (messageJSONObj.customerUUID === getUserInfo().customerUUID) {
-        isMessageFromCurrentUser = true;
-      }
-
-      let newMessage = {
-        id: messageJSONObj.messageID,
-        user: messageJSONObj.displayName,
-        currentUser: isMessageFromCurrentUser,
-        date: messageJSONObj.displayTimestamp,
-        text: messageJSONObj.message_by_locale.en,
-      };
-      if (appendFlag === true) {
-        this.setState(() => {
-          const activityFeedMessages = [
-            newMessage,
-            ...activityFeedMessagesState,
-          ];
-          return {
-            activityFeedMessages,
-          };
-        });
-      } else {
-        this.setState(() => {
-          const activityFeedMessages = [
-            newMessage,
-            ...activityFeedMessagesState,
-          ];
-          return {
-            activityFeedMessages,
-          };
-        });
-      }
-    } catch (e) {
-      //do nothing, ignore this message....
-    }
-  };
-
-    
+     
     render() {
-        const { pubnubActivityFeedChannelName, userMenu, subHeading } = this.props;
+        const { docked, activityFeedMessages, sendMessage, setDock, setTab, unSubscribePubnub, pubnubInit } = this.props;
         const {
             totalViewersCount,
-            allLivecastsInProgress,
-            activityFeedMessages,
-            activityFeedMembers,
-            docked,            
+            allLivecastsInProgress,         
+            activityFeedMembers,                       
           } = this.state;
         // let displayName =
         //   userMenu && userMenu.userInfo ? userMenu.userInfo.displayName : '';
@@ -269,30 +104,34 @@ componentDidMount() {
         //     isChatEnabled = userInfoIsChatEnabled;
         //     displayName = userInfoName;
         // }
-
+          
         return (
             <div className="">
-                <LiveActivity
-                        totalViewersCount={totalViewersCount}
-                        activityFeedMessages={activityFeedMessages}
-                        activityFeedMembers={activityFeedMembers}
-                        setMemberChatState={this.setMemberChatState}
-                        getActivityFeedMembers={this.getActivityFeedMembers}
-                        pubnubConnection={this.pubnub}
-                        pubnubActivityFeedChannelName={
-                          pubnubActivityFeedChannelName
-                        }
-                        userDisplayName={""}
-                        // userDisplayName={displayName}
-                        isChatEnabled={true}
-                        onClick={null}
-                        // scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
-                        subscribeToPubnubActivityFeedChannel={
-                          this.subscribeToPubnubActivityFeedChannel
-                        }
-                        docked={docked}
-                        setDock={()=>this.setState({docked: !docked})}
-                />
+              {docked && (
+                  <LiveActivity
+                    // totalViewersCount={totalViewersCount}
+                    activityFeedMessages={activityFeedMessages}
+                    activityFeedMembers={activityFeedMembers}
+                    setMemberChatState={this.setMemberChatState}
+                    getActivityFeedMembers={this.getActivityFeedMembers}
+                    // pubnubConnection={this.pubnub}
+                    // pubnubActivityFeedChannelName={
+                    //   pubnubActivityFeedChannelName
+                    // }
+                    userDisplayName={""}
+                    // userDisplayName={displayName}
+                    isChatEnabled={true}
+                    onClick={null}
+                    // scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
+                    // subscribeToPubnubActivityFeedChannel={
+                    //   this.subscribeToPubnubActivityFeedChannel
+                    // }
+                    docked={docked}
+                    setDock={setDock}
+                    sendMessage={sendMessage}
+                  />
+              )}
+                
             </div>   
         );
     }

@@ -43,21 +43,27 @@ const TopBar = ({
   activeMenu,
   handleNotificationClick,
   closeAllMenus,
-  totalViewersCount,
+  // totalViewersCount,
   allLivecastsInProgress,
   activityFeedMessages,
   activityFeedMembers,
   getActivityFeedMembers,
-  pubnubConnection,
-  pubnubActivityFeedChannelName,
+  // pubnubConnection,
+  // pubnubActivityFeedChannelName,
   userDisplayName,
   isChatEnabled,
   scrollActivityFeedToBottom,
-  subscribeToPubnubActivityFeedChannel,
+  // subscribeToPubnubActivityFeedChannel,
   setMemberChatState,
   upcomingStarPartyList,
   signIn,
-  fetchEvents
+  fetchEvents,
+  docked,  
+  sendMessage,            
+  setDock, 
+  setTab, 
+  unSubscribePubnub,
+  pubnubInit,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -92,7 +98,7 @@ const TopBar = ({
     //   clearTimeout(timerId);
     // timerId=setTimeout(()=>fetchEvents(),duration );
   }
-
+  
   return (
     <Fragment>
       <ConnectUser
@@ -212,26 +218,35 @@ const TopBar = ({
                 </li> */}
                 {user.isAuthorized ? (
                   <>
-                    {/* <li>
+                  {!docked && (
+                    <li>
                       <LiveActivityLoadable
-                        totalViewersCount={totalViewersCount}
+                        // totalViewersCount={totalViewersCount}
                         activityFeedMessages={activityFeedMessages}
                         activityFeedMembers={activityFeedMembers}
                         setMemberChatState={setMemberChatState}
                         getActivityFeedMembers={getActivityFeedMembers}
-                        pubnubConnection={pubnubConnection}
-                        pubnubActivityFeedChannelName={
-                          pubnubActivityFeedChannelName
-                        }
+                        // pubnubConnection={pubnubConnection}
+                        // pubnubActivityFeedChannelName={
+                        //   pubnubActivityFeedChannelName
+                        // }
                         userDisplayName={userDisplayName}
                         isChatEnabled={isChatEnabled}
-                        onClick={closeAllMenus}
+                        // onClick={closeAllMenus}
                         scrollActivityFeedToBottom={scrollActivityFeedToBottom}
-                        subscribeToPubnubActivityFeedChannel={
-                          subscribeToPubnubActivityFeedChannel
-                        }
+                        // subscribeToPubnubActivityFeedChannel={
+                        //   subscribeToPubnubActivityFeedChannel
+                        // }
+                        docked={docked}
+                        sendMessage={sendMessage}            
+                        setDock={setDock} 
+                        setTab={setTab} 
+                        unSubscribePubnub={unSubscribePubnub} 
+                        pubnubInit={pubnubInit}
                       />
-                    </li> */}
+                    </li>
+                  )}
+                    
                     {upcomingStarPartyList && (
                       <li>
                         <Livecast

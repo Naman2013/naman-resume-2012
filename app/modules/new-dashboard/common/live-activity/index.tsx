@@ -80,14 +80,14 @@ const submitMessage = (
       },
     };
     setMessageIdToLocalStorage(null);
-
+    props.sendMessage(message);
     //publish the message
-    pubnubConnection.publish({
-      message,
-      channel: pubnubActivityFeedChannelName,
-      sendByPost: false, // true to send via post
-      storeInHistory: true, //override default storage options
-    });
+    // pubnubConnection.publish({
+    //   message,
+    //   channel: pubnubActivityFeedChannelName,
+    //   sendByPost: false, // true to send via post
+    //   storeInHistory: true, //override default storage options
+    // });
     
     setMemberChatState('sentMessage');
 
@@ -123,13 +123,14 @@ type TLiveActivity = {
   subscribeToPubnubActivityFeedChannel: Function;  
   docked: boolean;
   setDock: Function;
+  sendMessage: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
   const LIVE_FEEDS_TAB = 'liveFeeds';
   const MEMBERS_TAB = 'activeMembers';
   const MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
-
+  
   const {
     scrollActivityFeedToBottom,
     isChatEnabled,
@@ -140,6 +141,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     subscribeToPubnubActivityFeedChannel,  
     docked,
     setDock,  
+    sendMessage
   } = props;
 
   const rnd = useRef(null);
@@ -179,7 +181,8 @@ export const LiveActivity = (props: TLiveActivity) => {
   useEffect(() => {
     const handleOrientationChangeEvent = (): void => {
       calculateFeedMenuSize(isTablet, setFeedMenuSize);
-      rnd.current.updatePosition({ x: -300, y: 80 });
+      if(rnd.current !== null)
+        rnd.current.updatePosition({ x: -300, y: 80 });
     };
 
     window.addEventListener('orientationchange', handleOrientationChangeEvent);
@@ -226,14 +229,14 @@ export const LiveActivity = (props: TLiveActivity) => {
   };
 
   const onTabChange = (): void => {
-    if (!isSubscribed) {
-      subscribeToPubnubActivityFeedChannel();     
-    }
+    // if (!isSubscribed) {
+    //   subscribeToPubnubActivityFeedChannel();     
+    // }
     // setOpen(!isOpen);
     // setActiveTab(MEMBERS_TAB);
 
     setMessageIdToLocalStorage(lastMessageId);
-    pubNubFeedChannelSubscribingStatus(true);
+    // pubNubFeedChannelSubscribingStatus(true);
 
     // if (!isOpen) {
     //   setMemberChatState('enter');
@@ -375,7 +378,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         //   setActiveTab(MEMBERS_TAB);
                         //   setMemberChatState('leave');
                         // }}
-                        onClick={()=>setDock()}
+                        onClick={()=>setDock(false)}
                         role="presentation"
                       />
                     </div>
@@ -447,144 +450,7 @@ export const LiveActivity = (props: TLiveActivity) => {
               )}
             </div>
           ):(
-            <Rnd
-            default={{
-              width: boxSize.width,
-              height: boxSize.height,
-              x: isTabletscreen ? -160 : isMobileDevice ? 0 : boxSize.left,
-              y: boxSize.top,
-            }}
-            minWidth={300}
-            minHeight={300}
-            disableDragging={isFullscreen || isMobileDevice}
-            enableResizing={
-              isFullscreen || isMobileDevice ? disableResizing : enableResizing
-            }
-            dragHandleClassName="live-activity-window-header"
-            bounds="window"
-            ref={rnd}
-          > 
-            <div className="live-activity-window">
-            <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-              <Tab.Container
-                defaultActiveKey="activeMembers"
-                id="tabs"
-                unmountOnExit
-                mountOnEnter
-                onSelect={(key: string): void => {
-                  //console.log(`key`, key)
-                  // if (key === MEMBERS_TAB) {
-                  //   getActivityFeedMembers();
-                  // }
-                  if( key === LIVE_FEEDS_TAB)
-                  {
-                    onTabChange();
-                  }
-                  setActiveTab(key);
-                }}
-              >
-                <Nav variant="tabs">
-                  <Nav.Item>
-                    <Nav.Link eventKey={LIVE_FEEDS_TAB} className="chat-nav">Chat</Nav.Link>
-                  </Nav.Item>
-
-                  <Nav.Item>
-                    <Nav.Link eventKey={MEMBERS_TAB} className="chat-nav">Roll Call</Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </Tab.Container>
-
-              <div className="live-activity-window-header-right chat-tab-div">
-                <div className="desktop-container">
-                  <Tooltip title="Fullscreen">
-                    <Button
-                      mod="full-screen-button"
-                      renderIcon={() => <i className="fa fa-arrows-alt" />}
-                      onClickEvent={() => setFullscreen(!isFullscreen)}
-                    />
-                  </Tooltip>
-                </div>
-                <Tooltip title="Close">
-                  <div className="close-window">
-                    <span
-                      className="icon-close"
-                      // onClick={() => {
-                      //   setOpen(false);
-                      //   setActiveTab(MEMBERS_TAB);
-                      //   setMemberChatState('leave');
-                      // }}
-                      onClick={()=>setDock()}
-                      role="presentation"
-                    />
-                  </div>
-                </Tooltip>
-              </div>
-            </div>
-
-            {activeTab === MEMBERS_TAB && (
-              <div className="live-activity-members-list">
-                {activityFeedMembers.map(memberItem => (
-                  <MemberItem
-                    key={memberItem.customerId}
-                    member={memberItem}
-                    contentClickHandler={contentClickHandler}
-                    onKeyPressed={onKeyPressed}
-                  />
-                  
-                ))}
-              
-                  <Spinner
-                      loading={isFetching}
-                      text="Loading..."
-                />
-                
-              </div>
-            )}
-
-            {activeTab === LIVE_FEEDS_TAB && isChatEnabled === true && (
-              <div className="live-activity-window-footer">
-                <input
-                  type="text"
-                  placeholder="Please type a message"
-                  onKeyUp={e =>
-                    submitMessage(
-                      e,
-                      props.pubnubConnection,
-                      props.pubnubActivityFeedChannelName,
-                      props.userDisplayName,
-                      e.target,
-                      setMemberChatState,
-                      props
-                    )
-                  }
-                  onMouseDown={e => e.stopPropagation()}
-                />
-              </div>
-            )}
-
-            {activeTab === LIVE_FEEDS_TAB && (
-              <div className="live-activity-window-body">
-                <div
-                  id="live-activity-window-body-feed"
-                  className="live-activity-window-body-feed"
-                >
-                  {activityFeedMessages.map(feedItem => (
-                    <FeedItem
-                      key={feedItem.id}
-                      item={feedItem}
-                      contentClickHandler={contentClickHandler}
-                      onKeyPressed={onKeyPressed}
-                    />
-                  ))}
-                  <Spinner
-                      loading={isFetching}
-                      text="Loading..."
-                />
-                </div>
-              </div>
-            )}
-          </div>
-          </Rnd>
+            null
           )}               
 
         </div>
