@@ -6,7 +6,7 @@ import { projectPubnubConf } from 'app/config/project-config';
 import { setupLiveActivityTimer, stopLiveActivityTimer } from 'app/services/live-activity/timer';
 import debounce from 'lodash/debounce';
 import { getUserInfo } from 'app/modules/User';
-
+import has from 'lodash/has';
 import { API } from 'app/api';
 import { LiveActivity } from '../../common/live-activity';
 
@@ -41,34 +41,6 @@ state = {
     docked: true,
 };
 
-
-
-  
-  getActivityFeedMembers = () => {
-    // const { activityFeedMembersExpireDate } = this.state;
-    const { token, at, cid } = getUserInfo();
-    stopLiveActivityTimer();   
-    return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
-      token,
-      at,
-      cid,
-    }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
-      const milliExpires = expires * 1000;
-      const milliTimestamp = timestamp * 1000;      
-      const remainingTime = milliExpires - milliTimestamp;
-      if (remainingTime > 1000) {
-        setupLiveActivityTimer(remainingTime, () => {        
-          this.getActivityFeedMembers();
-        });
-      }
-      this.setState({
-        activityFeedMembers: membersOnlineList,
-        activityFeedMembersExpireDate: expires,
-      });
-    });
-    
-  };
-
   setMemberChatState = chatState => {
     if(chatState=='leave')
       stopLiveActivityTimer();    
@@ -86,12 +58,26 @@ state = {
 
      
     render() {
-        const { docked, activityFeedMessages, sendMessage, setDock, setTab, unSubscribePubnub, pubnubInit } = this.props;
-        const {
-            totalViewersCount,
-            allLivecastsInProgress,         
-            activityFeedMembers,                       
-          } = this.state;
+        const { 
+          pubnubData, 
+          sendMessage, 
+          setDock, setTab, 
+          unSubscribePubnub, 
+          pubnubInit, 
+          getActivityFeedMembers, 
+          setMemberChatState,
+           } = this.props;
+
+        const {  
+          docked, 
+          activityFeedMessages, 
+          activityFeedMembers, 
+          allLivecastsInProgress,
+          activeTab,
+          displayName, } = pubnubData;
+        
+        // const userInfo= has(resp, 'mainMenu.userInfo') ? resp.mainMenu.userInfo : {};
+        
         // let displayName =
         //   userMenu && userMenu.userInfo ? userMenu.userInfo.displayName : '';
         
@@ -112,13 +98,13 @@ state = {
                     // totalViewersCount={totalViewersCount}
                     activityFeedMessages={activityFeedMessages}
                     activityFeedMembers={activityFeedMembers}
-                    setMemberChatState={this.setMemberChatState}
-                    getActivityFeedMembers={this.getActivityFeedMembers}
+                    setMemberChatState={setMemberChatState}
+                    getActivityFeedMembers={getActivityFeedMembers}
                     // pubnubConnection={this.pubnub}
                     // pubnubActivityFeedChannelName={
                     //   pubnubActivityFeedChannelName
                     // }
-                    userDisplayName={""}
+                    userDisplayName={displayName}
                     // userDisplayName={displayName}
                     isChatEnabled={true}
                     onClick={null}
@@ -129,6 +115,8 @@ state = {
                     docked={docked}
                     setDock={setDock}
                     sendMessage={sendMessage}
+                    selectedTab={activeTab}
+                    setTab={setTab}
                   />
               )}
                 

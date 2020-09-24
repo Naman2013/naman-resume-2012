@@ -113,7 +113,8 @@ export class NewDashboard extends PureComponent{
                 getTopStudentsAction,
                 getMostActiveClubsAction,
                 getTopSchoolClubsAction,
-                pubnubInit,
+                pubnubInit, 
+                pubnubData,               
                 // getGravityByDomainAction,
             } = this.props;   
 
@@ -151,8 +152,14 @@ export class NewDashboard extends PureComponent{
         // getMostActiveClubsAction();
         // getTopSchoolClubsAction();
         // getGravityByDomainAction();
-        pubnubInit();
+        if(!pubnubData.pubnubInitialize)
+            pubnubInit();
     };
+
+    // componentWillUnmount(){
+    //     if(this.props.pubnubData.docked)
+    //         this.props.unSubscribePubnub();
+    // }
     
     render(){
     
@@ -218,6 +225,8 @@ export class NewDashboard extends PureComponent{
                 setTab, 
                 unSubscribePubnub,
                 pubnubInit,
+                getActivityFeedMembers,
+                setMemberChatState,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
@@ -424,6 +433,9 @@ export class NewDashboard extends PureComponent{
                                         unSubscribePubnub={unSubscribePubnub} 
                                         pubnubInit={pubnubInit}
                                         docked={pubnubData.docked}
+                                        getActivityFeedMembers={getActivityFeedMembers}
+                                        pubnubData={pubnubData}
+                                        setMemberChatState={setMemberChatState}
                                     />                                
                                 )}
                                 

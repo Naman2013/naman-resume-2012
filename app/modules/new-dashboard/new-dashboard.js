@@ -54,7 +54,14 @@ import {
     getGravityByDomainAction,
   } from './actions';
 
-import { pubnubInit, sendMessage, setDock, setTab, unSubscribePubnub } from '../../modules/pubnub-handler/actions'
+import { 
+  pubnubInit, 
+  sendMessage, 
+  setDock, 
+  setTab, 
+  unSubscribePubnub, 
+  getActivityFeedMembers, 
+  setMemberChatState } from '../../modules/pubnub-handler/actions'
 
 
 import { makeStarPartyListSelector,
@@ -169,6 +176,8 @@ const mapDispatchToProps = {
     setDock, 
     setTab, 
     unSubscribePubnub,
+    getActivityFeedMembers,
+    setMemberChatState,
 };
 
 export default compose(

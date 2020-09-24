@@ -64,6 +64,7 @@ const TopBar = ({
   setTab, 
   unSubscribePubnub,
   pubnubInit,
+  activeTab,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -168,8 +169,21 @@ const TopBar = ({
                 </li>
               </ul>
             </div>
-            {upcomingStarPartyList && countdown && nextShow && (
-               <div className="center-menu" onClick={()=>browserHistory.push(nextShow.linkUrl)}>
+         
+               <div className="center-menu">
+                {/* <CenterBar /> */}
+                
+               
+              </div>
+           
+           
+
+            <div className="right-menu">
+            
+              <ul className="button-list">
+              {upcomingStarPartyList && countdown && nextShow && (
+                <li>
+               <div onClick={()=>browserHistory.push(nextShow.linkUrl)}>
                 {/* <CenterBar /> */}
                 {countdown > 0 ? 
                     <Countdown
@@ -203,11 +217,8 @@ const TopBar = ({
                   {nextShow.displayDate}
                 </span>  */}
               </div>
+              </li>
             )}
-           
-
-            <div className="right-menu">
-              <ul className="button-list">
                 {/* <li>
                   <Button
                     mod="no-border"
@@ -243,6 +254,7 @@ const TopBar = ({
                         setTab={setTab} 
                         unSubscribePubnub={unSubscribePubnub} 
                         pubnubInit={pubnubInit}
+                        selectedTab={activeTab}
                       />
                     </li>
                   )}

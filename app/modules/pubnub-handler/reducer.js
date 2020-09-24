@@ -6,6 +6,8 @@ import {
   DOCK_CHANGED,
   TAB_CHANGED,
   FEED_MEMBERS_CHANGED,
+  SET_DISPLAY_NAME,
+  UPDATE_PUBNUB_INIT,
 } from './actions';
 
 import { projectPubnubConf } from 'app/config/project-config';
@@ -24,9 +26,17 @@ const initialState = {
   activityWindowHasBeenScrolledToBottom: false,
   activityFeedMembersExpireDate: null,
   activeTab: 'activeMembers',
+  displayName: '',
+  pubnubInitialize: false,
 };
 
 export default createReducer(initialState, {
+  [UPDATE_PUBNUB_INIT](state,{flag}) { 
+    state.pubnubInitialize=flag;
+    return {
+      ...state      
+    };
+  },  
   [CHANGE_VIEWERS_COUNT](state,{payload}) {
     return {
       ...state,
@@ -55,7 +65,13 @@ export default createReducer(initialState, {
     return {
       ...state      
     };
-  },  
+  },
+  [SET_DISPLAY_NAME](state,{name}) { 
+    state.displayName=name;
+    return {
+      ...state      
+    };
+  },    
   [FEED_MEMBERS_CHANGED](state,{activityFeedMembers, activityFeedMembersExpireDate}) {
     state.activityFeedMembers=activityFeedMembers;
     state.activityFeedMembersExpireDate=activityFeedMembersExpireDate;

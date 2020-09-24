@@ -12,6 +12,9 @@ export const FEED_MESSAGE_RECEIVED = 'FEED_MESSAGE_RECEIVED';
 export const DOCK_CHANGED = 'DOCK_CHANGED';
 export const TAB_CHANGED = 'TAB_CHANGED';
 export const FEED_MEMBERS_CHANGED = 'FEED_MEMBERS_CHANGED';
+export const SET_DISPLAY_NAME = 'SET_DISPLAY_NAME';
+export const UPDATE_PUBNUB_INIT = 'UPDATE_PUBNUB_INIT';
+
 let initialState = {
   pubnubActivityFeedChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
   pubnubLiveEventsChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.liveevents`,
@@ -39,6 +42,7 @@ export const pubnubInit = () => (dispatch, getState) => {
   addPubnubListener(dispatch);  
   pubnub.init(initialState);
   subscribeToPubnubActivityFeedChannel();
+  dispatch(updatePubnubInitialized(true));
 };
 
 const updateViewersCount = (count) => ({
@@ -61,10 +65,20 @@ const changeTab = (tabName) => ({
   tabName
 })
 
+const changeDisplayName = (name) => ({
+  type: SET_DISPLAY_NAME,
+  name
+})
+
 const updateFeedMembers = (activityFeedMembers, activityFeedMembersExpireDate) => ({
   type: FEED_MEMBERS_CHANGED,
   activityFeedMembers,
   activityFeedMembersExpireDate
+})
+
+const updatePubnubInitialized = (flag) => ({
+  type: UPDATE_PUBNUB_INIT,
+  flag
 })
 
 const addPubnubListener = (dispatch) => {  
@@ -220,9 +234,10 @@ export const unSubscribePubnub = () => {
       `${process.env.PUBNUB_CHANNEL_PREFIX}.customer.${getUserInfo().cid}`,
     ],
   });
+  dispatch(updatePubnubInitialized(false));
 }
 
-export const getActivityFeedMembers = () => (dispatch, getState) =>{
+export const getActivityFeedMembers = () => (dispatch, getState) => {
   const { token, at, cid } = getUserInfo();
     stopLiveActivityTimer();   
     return API.post(ACTIVITY_FEED_MEMBERS_API_URL, {
@@ -233,17 +248,31 @@ export const getActivityFeedMembers = () => (dispatch, getState) =>{
       const milliExpires = expires * 1000;
       const milliTimestamp = timestamp * 1000;      
       const remainingTime = milliExpires - milliTimestamp;
-      if (remainingTime > 1000) {
-        setupLiveActivityTimer(remainingTime, () => {        
-          getActivityFeedMembers();
+      if (remainingTime > 1000) {        
+        setupLiveActivityTimer(remainingTime, () => { 
+          dispatch(getActivityFeedMembers());
         });
       }
-      dispatch(updateFeedMembers(membersOnlineList, expires ))
-      // this.setState({
-      //   activityFeedMembers: membersOnlineList,
-      //   activityFeedMembersExpireDate: expires,
-      // });
+      dispatch(updateFeedMembers(membersOnlineList, expires ));     
     });
+}
+
+export const setMemberChatState = (state) => (dispatch, getState) => {
+  if(state=='leave')
+      stopLiveActivityTimer();    
+      
+    const { token, at, cid } = getUserInfo();
+    
+    return API.post(MEMBER_CHAT_STATE_API_URL, {
+      token,
+      at,
+      cid,
+      state,
+    });
+}
+
+export const setDisplayName = (name) => (dispatch, getState) => {
+  dispatch(changeDisplayName(name));
 }
 
 

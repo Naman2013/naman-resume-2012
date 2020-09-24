@@ -89,8 +89,7 @@ const submitMessage = (
     //   storeInHistory: true, //override default storage options
     // });
     
-    setMemberChatState('sentMessage');
-
+    setMemberChatState('sentMessage');    
     const { token, at, cid } = getUserInfo();  
     const { activityFeedMembers } = props;
     API.post("/api/app/postChatMessage", {      
@@ -124,6 +123,8 @@ type TLiveActivity = {
   docked: boolean;
   setDock: Function;
   sendMessage: Function;
+  selectedTab: string;
+  setTab: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -141,14 +142,16 @@ export const LiveActivity = (props: TLiveActivity) => {
     subscribeToPubnubActivityFeedChannel,  
     docked,
     setDock,  
-    sendMessage
+    sendMessage,
+    selectedTab,
+    setTab,
   } = props;
-
+  
   const rnd = useRef(null);
 
-  const [activeTab, setActiveTab] = React.useState(MEMBERS_TAB);
+  const [activeTab, setActiveTab] = React.useState(selectedTab);
 
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setOpen] = React.useState(docked);
 
   const [isSubscribed, pubNubFeedChannelSubscribingStatus] = useState(false);
 
@@ -266,7 +269,8 @@ export const LiveActivity = (props: TLiveActivity) => {
 
       if (isMobile) {
         setOpen(false);
-        setActiveTab(LIVE_FEEDS_TAB);
+        // setActiveTab(LIVE_FEEDS_TAB);
+        setTab(LIVE_FEEDS_TAB);
       }
     }
   };
@@ -282,9 +286,9 @@ export const LiveActivity = (props: TLiveActivity) => {
       // if (!isSubscribed) {
       //   subscribeToPubnubActivityFeedChannel();
       // }
-      setOpen(!isOpen);
-      setActiveTab(MEMBERS_TAB);
-  
+      // setOpen(!isOpen);
+      // setActiveTab(MEMBERS_TAB);
+      // setTab(MEMBERS_TAB);
       // setMessageIdToLocalStorage(lastMessageId);
       // pubNubFeedChannelSubscribingStatus(true);
   
@@ -297,7 +301,7 @@ export const LiveActivity = (props: TLiveActivity) => {
       
   }, []);
 
-  const isFetching = !(activeTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
+  const isFetching = !(selectedTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
   
   return (
     <div
@@ -332,7 +336,7 @@ export const LiveActivity = (props: TLiveActivity) => {
               <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
                 <Tab.Container
-                  defaultActiveKey="activeMembers"
+                  defaultActiveKey={selectedTab}
                   id="tabs"
                   unmountOnExit
                   mountOnEnter
@@ -345,7 +349,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                     {
                       onTabChange();
                     }
-                    setActiveTab(key);
+                    // setActiveTab(key);
+                    setTab(key)
                   }}
                 >
                   <Nav variant="tabs">
@@ -386,7 +391,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
 
-              {activeTab === MEMBERS_TAB && (
+              {selectedTab === MEMBERS_TAB && (
                 <div className="live-activity-members-list">
                   {activityFeedMembers.map(memberItem => (
                     <MemberItem
@@ -406,7 +411,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               )}
 
-              {activeTab === LIVE_FEEDS_TAB && isChatEnabled === true && (
+              {selectedTab === LIVE_FEEDS_TAB && isChatEnabled === true && (
                 <div className="live-activity-window-footer">
                   <input
                     type="text"
@@ -427,7 +432,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               )}
 
-              {activeTab === LIVE_FEEDS_TAB && (
+              {selectedTab === LIVE_FEEDS_TAB && (
                 <div className="live-activity-window-body">
                   <div
                     id="live-activity-window-body-feed"

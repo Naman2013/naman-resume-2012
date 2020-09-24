@@ -24,7 +24,7 @@ import TopBar from './TopBar';
 import { setupLiveActivityTimer, stopLiveActivityTimer } from 'app/services/live-activity/timer';
 import QuestBreadCrumb from './breadcrumb';
 import { upcomingShows } from 'app/services/shows/upcoming-shows';
-import { sendMessage, setDock, setTab, unSubscribePubnub, pubnubInit } from 'app/modules/pubnub-handler/actions';
+import { sendMessage, setDock, setTab, unSubscribePubnub, pubnubInit, getActivityFeedMembers, setMemberChatState, setDisplayName } from 'app/modules/pubnub-handler/actions';
 
 
 const mapStateToProps = ({
@@ -54,7 +54,10 @@ const mapDispatchToProps = dispatch => ({
       setDock, 
       setTab, 
       unSubscribePubnub, 
-      pubnubInit,          
+      pubnubInit,
+      getActivityFeedMembers,
+      setMemberChatState,
+      setDisplayName,          
     },
     dispatch
   ),
@@ -115,8 +118,7 @@ class GlobalNavigation extends Component {
     // const {
     //   pubnubActivityFeedChannelName,
     //   pubnubLiveEventsChannelName,
-    // } = this.props;
-
+    // } = this.props;    
     this.debouncedCloseAll = debounce(this.closeAll, 500, {
       leading: true,
       trailing: false,
@@ -229,6 +231,13 @@ class GlobalNavigation extends Component {
         clearTimeout(this.timerId);
       this.timerId=setTimeout(()=>fetchEvents(), duration);
     }
+    if(nextProps.userMenu !== this.props.userMenu){
+      const { userMenu, actions } = nextProps;
+      const { setDisplayName } = actions;
+      let displayName =
+        userMenu && userMenu.userInfo ? userMenu.userInfo.displayName : '';
+        setDisplayName(displayName);
+    }
   }
 
   componentWillUnmount() {
@@ -250,44 +259,44 @@ class GlobalNavigation extends Component {
     // });
   }
 
-  getActivityFeedMembers = () => {
-    const { activityFeedMembersExpireDate } = this.state;
-    const { token, at, cid } = getUserInfo();
-    stopLiveActivityTimer();   
-    return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
-      token,
-      at,
-      cid,
-    }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
-      const milliExpires = expires * 1000;
-      const milliTimestamp = timestamp * 1000;      
-      const remainingTime = milliExpires - milliTimestamp;
-      if (remainingTime > 1000) {
-        setupLiveActivityTimer(remainingTime, () => {        
-          this.getActivityFeedMembers();
-        });
-      }
-      this.setState({
-        activityFeedMembers: membersOnlineList,
-        activityFeedMembersExpireDate: expires,
-      });
-    });
+  // getActivityFeedMembers = () => {
+  //   const { activityFeedMembersExpireDate } = this.state;
+  //   const { token, at, cid } = getUserInfo();
+  //   stopLiveActivityTimer();   
+  //   return API.post(this.ACTIVITY_FEED_MEMBERS_API_URL, {
+  //     token,
+  //     at,
+  //     cid,
+  //   }).then(({ data: { membersOnlineList, expires, timestamp } }) => {
+  //     const milliExpires = expires * 1000;
+  //     const milliTimestamp = timestamp * 1000;      
+  //     const remainingTime = milliExpires - milliTimestamp;
+  //     if (remainingTime > 1000) {
+  //       setupLiveActivityTimer(remainingTime, () => {        
+  //         this.getActivityFeedMembers();
+  //       });
+  //     }
+  //     this.setState({
+  //       activityFeedMembers: membersOnlineList,
+  //       activityFeedMembersExpireDate: expires,
+  //     });
+  //   });
     
-  };
+  // };
 
-  setMemberChatState = chatState => {
-    if(chatState=='leave')
-      stopLiveActivityTimer();    
+  // setMemberChatState = chatState => {
+  //   if(chatState=='leave')
+  //     stopLiveActivityTimer();    
       
-    const { token, at, cid } = getUserInfo();
+  //   const { token, at, cid } = getUserInfo();
     
-    return API.post(this.MEMBER_CHAT_STATE_API_URL, {
-      token,
-      at,
-      cid,
-      chatState,
-    });
-  };
+  //   return API.post(this.MEMBER_CHAT_STATE_API_URL, {
+  //     token,
+  //     at,
+  //     cid,
+  //     chatState,
+  //   });
+  // };
 
   // subscribeToPubnubActivityFeedChannel = () => {
   //   const {
@@ -442,7 +451,9 @@ class GlobalNavigation extends Component {
       setDock, 
       setTab, 
       unSubscribePubnub, 
-      pubnubInit
+      pubnubInit,
+      getActivityFeedMembers,
+      setMemberChatState,
     } = actions;
 
     const {
@@ -481,11 +492,11 @@ class GlobalNavigation extends Component {
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
             // totalViewersCount={totalViewersCount}
-            allLivecastsInProgress={allLivecastsInProgress}
+            allLivecastsInProgress={pubnubData.allLivecastsInProgress}
             activityFeedMessages={pubnubData.activityFeedMessages}
-            activityFeedMembers={activityFeedMembers}
-            getActivityFeedMembers={this.getActivityFeedMembers}
-            setMemberChatState={this.setMemberChatState}
+            activityFeedMembers={pubnubData.activityFeedMembers}
+            getActivityFeedMembers={getActivityFeedMembers}
+            setMemberChatState={setMemberChatState}
             // pubnubConnection={this.pubnub}
             // pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
             userDisplayName={displayName}
@@ -503,6 +514,7 @@ class GlobalNavigation extends Component {
             setTab={setTab} 
             unSubscribePubnub={unSubscribePubnub} 
             pubnubInit={pubnubInit}
+            activeTab={pubnubData.activeTab}
           />         
         </div>
         
