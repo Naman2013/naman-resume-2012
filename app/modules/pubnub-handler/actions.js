@@ -217,6 +217,9 @@ export const setDock = (flag) => (dispatch, getState) =>{
 }
 
 export const setTab = (tabName) => (dispatch, getState) =>{
+  const { pubnubChat } = getState();
+  if(!pubnubChat.pubnubInitialize && tabName === "liveFeeds")
+    dispatch(pubnubInit());
   dispatch(changeTab(tabName));
 }
 

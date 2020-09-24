@@ -152,8 +152,8 @@ export class NewDashboard extends PureComponent{
         // getMostActiveClubsAction();
         // getTopSchoolClubsAction();
         // getGravityByDomainAction();
-        if(!pubnubData.pubnubInitialize)
-            pubnubInit();
+        // if(!pubnubData.pubnubInitialize)
+        //     pubnubInit();
     };
 
     // componentWillUnmount(){
