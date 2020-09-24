@@ -183,7 +183,7 @@ const TopBar = ({
               <ul className="button-list">
               {upcomingStarPartyList && countdown && nextShow && (
                 <li>
-               <div onClick={()=>browserHistory.push(nextShow.linkUrl)}>
+               <div className="counter-div" onClick={()=>browserHistory.push(nextShow.linkUrl)}>
                 {/* <CenterBar /> */}
                 {countdown > 0 ? 
                     <Countdown
@@ -438,6 +438,13 @@ const TopBar = ({
 
                 .foreducators-button > div > span:first-child {
                   margin-right: 3px;
+                }
+
+                .counter-div{
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
                 }
 
                 .counter-text{
