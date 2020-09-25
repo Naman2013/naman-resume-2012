@@ -14,6 +14,7 @@ import Request from '../../../../components/common/network/Request';
 import { WhereInTheSky, ConnectedAllSkyCamera, HowBigModule } from './index';
 
 import style from './tab-live.style';
+import { LiveChat } from 'app/modules/new-dashboard/components/live-chat';
 
 const TabLive = ({
   mission,
@@ -28,6 +29,14 @@ const TabLive = ({
   currentMissionCountdown,
   fetchAllTelescopeStatus,
   user,
+  pubnubData,
+  pubnubInit,
+  sendMessage,
+  setDock, 
+  setTab, 
+  unSubscribePubnub,
+  getActivityFeedMembers,
+  setMemberChatState,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
@@ -52,6 +61,24 @@ const TabLive = ({
         </div>
       </Fragment>
     )}
+
+      {/* chatwindow */}
+    
+    {pubnubData && (
+      <LiveChat       
+        activityFeedMessages={pubnubData.activityFeedMessages}
+        sendMessage={sendMessage}
+        setDock={setDock} 
+        setTab={setTab} 
+        unSubscribePubnub={unSubscribePubnub} 
+        pubnubInit={pubnubInit}
+        docked={pubnubData.docked}
+        getActivityFeedMembers={getActivityFeedMembers}
+        pubnubData={pubnubData}
+        setMemberChatState={setMemberChatState}
+      />                                
+    )}
+     
 
     {mission.missionAvailable && (
       <div className="tile-container">

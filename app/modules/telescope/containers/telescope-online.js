@@ -20,6 +20,18 @@ import {
   makeWeatherConditionsSelector,
   makeTeidePeakCamCameraSelector,
 } from 'app/modules/telescope/selectors';
+
+import { 
+  pubnubInit, 
+  sendMessage, 
+  setDock, 
+  setTab, 
+  unSubscribePubnub, 
+  getActivityFeedMembers, 
+  setMemberChatState } from '../../pubnub-handler/actions';
+
+import { makePubnubDataSelector } from '../../new-dashboard/selectors';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -35,6 +47,7 @@ const mapStateToProps = createStructuredSelector({
   facilityWebcam: makeFacilityWebcamSelector(),
   moonlightBar: makeMoonlightBarSelector(),
   teidePeakCam: makeTeidePeakCamCameraSelector(),
+  pubnubData: makePubnubDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -45,6 +58,13 @@ const mapDispatchToProps = {
   setTelescopesActiveTab: ACTION.setTelescopesActiveTab,
   fetchAllTelescopeStatus,
   updateCurrentInstrument,
+  pubnubInit,
+  sendMessage,
+  setDock, 
+  setTab, 
+  unSubscribePubnub,
+  getActivityFeedMembers,
+  setMemberChatState,
 };
 
 export default compose(

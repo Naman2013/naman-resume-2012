@@ -11,51 +11,6 @@ import { API } from 'app/api';
 import { LiveActivity } from '../../common/live-activity';
 
 export class LiveChat extends Component{
-
-ACTIVITY_FEED_MEMBERS_API_URL = '/api/app/getActiveMembersOnline';
-MEMBER_CHAT_STATE_API_URL = '/api/app/setMemberChatState';
-
-static defaultProps = {
-    actions: {},
-    activeLeft: '',
-    activeMenu: '',
-    activeRight: '',
-    isLeftOpen: false,
-    isNotificationMenuOpen: false,
-    isRightOpen: false,
-    showUpsellModal: false,
-    isMobile: false,
-    pubnubActivityFeedChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
-    pubnubLiveEventsChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.liveevents`,
-    docked: true,
-  };
-
-state = {
-    totalViewersCount: 0,
-    allLivecastsInProgress: {},
-    activityFeedMessages: [],
-    activityFeedMembers: [],
-    customerUUIDsList: [],
-    activityWindowHasBeenScrolledToBottom: false,
-    activityFeedMembersExpireDate: null,
-    docked: true,
-};
-
-  setMemberChatState = chatState => {
-    if(chatState=='leave')
-      stopLiveActivityTimer();    
-      
-    const { token, at, cid } = getUserInfo();
-    
-    return API.post(this.MEMBER_CHAT_STATE_API_URL, {
-      token,
-      at,
-      cid,
-      chatState,
-    });
-  };
-  
-
      
     render() {
         const { 

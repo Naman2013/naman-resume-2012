@@ -15,6 +15,12 @@ import React, { Component } from 'react';
 import style from '../telescope-details/v4-telescope-details.style';
 
 export class TelescopeOnline extends Component {
+
+  constructor(props){
+    super(props);
+    props.setDock(true);
+  }
+
   componentDidMount = () => {
     const {
       fetchAllWidgets,
@@ -93,6 +99,14 @@ export class TelescopeOnline extends Component {
       params,
       weatherConditions,
       user,
+      pubnubData,
+      pubnubInit,
+      sendMessage,
+      setDock, 
+      setTab, 
+      unSubscribePubnub,
+      getActivityFeedMembers,
+      setMemberChatState,
     } = this.props;
     
     const {
@@ -110,7 +124,7 @@ export class TelescopeOnline extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId
     );
-
+      
     return (
       <div className="details-root">
         <DisplayAtBreakpoint screenLarge screenXLarge>
@@ -200,6 +214,14 @@ export class TelescopeOnline extends Component {
                     currentObservatory={currentObservatory}
                     currentMissionCountdown={currentMissionCountdown}
                     user={user}
+                    pubnubData={pubnubData}
+                    pubnubInit={pubnubInit}
+                    sendMessage={sendMessage}
+                    setDock={setDock} 
+                    setTab={setTab} 
+                    unSubscribePubnub={unSubscribePubnub}
+                    getActivityFeedMembers={getActivityFeedMembers}
+                    setMemberChatState={setMemberChatState}
                     renderTelescopeViewer={() => (
                       <div>
                         {currentInstrument.instrImageSourceType === 'video' ? (
