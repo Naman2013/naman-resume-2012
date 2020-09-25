@@ -13,7 +13,7 @@ export class Slooh1000 extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.successModalShow !== this.state.successModalShow)
+    if(prevState.successModalShow !== this.state.successModalShow || prevProps.missionSlot !== this.missionSlot)
       window.scrollTo(0,0);
   }
 
@@ -59,7 +59,7 @@ export class Slooh1000 extends Component {
     const { successModalShow } = this.state;
 
     if (!successModalShow) {
-      cancelMissionSlot({ callSource: 'bySlooh1000V4' });
+      cancelMissionSlot({ callSource: 'bySlooh1000V4' });      
     }
   };
 

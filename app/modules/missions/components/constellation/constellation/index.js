@@ -13,7 +13,7 @@ export class Constellation extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.successModalShow !== this.state.successModalShow)
+    if(prevState.successModalShow !== this.state.successModalShow || prevProps.missionSlot !== this.missionSlot)
       window.scrollTo(0,0);
   }
 
