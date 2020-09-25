@@ -114,7 +114,8 @@ export class NewDashboard extends PureComponent{
                 getMostActiveClubsAction,
                 getTopSchoolClubsAction,
                 pubnubInit, 
-                pubnubData,               
+                pubnubData,
+                setDock,               
                 // getGravityByDomainAction,
             } = this.props;   
 
@@ -154,6 +155,7 @@ export class NewDashboard extends PureComponent{
         // getGravityByDomainAction();
         // if(!pubnubData.pubnubInitialize)
         //     pubnubInit();
+        setDock(true);
     };
 
     // componentWillUnmount(){

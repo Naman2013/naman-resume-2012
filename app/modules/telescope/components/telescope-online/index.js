@@ -16,11 +16,6 @@ import style from '../telescope-details/v4-telescope-details.style';
 
 export class TelescopeOnline extends Component {
 
-  constructor(props){
-    super(props);
-    props.setDock(true);
-  }
-
   componentDidMount = () => {
     const {
       fetchAllWidgets,
@@ -43,7 +38,8 @@ export class TelescopeOnline extends Component {
     } = observatoryData;
 
     this.checkCurrentInstrument();
-
+    this.props.setDock(true);
+    
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
@@ -59,8 +55,13 @@ export class TelescopeOnline extends Component {
     });
   };
 
+  componentWillReceiveProps(nextProps){
+    if(this.props.activeTelescope !== nextProps.activeTelescope)
+      this.props.setDock(true);
+  }
+
   componentDidUpdate() {
-    this.checkCurrentInstrument();
+    this.checkCurrentInstrument();    
   }
 
   checkCurrentInstrument = () => {
