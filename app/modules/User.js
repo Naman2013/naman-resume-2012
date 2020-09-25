@@ -443,3 +443,15 @@ export default createReducer(initialState, {
     };
   },
 });
+
+export function setDisableAudioMission(){
+  sessionStorage.setItem('disableMissionAudio', true);
+}
+
+export function getAudioMission(){  
+  return ((sessionStorage.getItem('disableMissionAudio')) === null);
+}
+
+export function removeDisableAudioMission(){
+  sessionStorage.removeItem('disableMissionAudio');
+}

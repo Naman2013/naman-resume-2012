@@ -268,8 +268,8 @@ class JoinStep2 extends Component {
       accountFormDetails: newAccountFormData,
     }));
   };
-
-  handleCaptchaCode=(token)=>{     
+    
+  handleCaptchaCode=(token)=>{   
     const { _sloohsstkn } = getUserInfo();    
     if(token !==null){
       API.post(VERIFY_CAPTCHA_CODE_URL,

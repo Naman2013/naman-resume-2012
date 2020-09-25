@@ -4,10 +4,17 @@ import { ModuleContainer } from 'app/modules/telescope/components/old/module-con
 import SectionHeader from '../../common/headers/SectionHeader';
 import { primaryFont } from '../../../styles/variables/fonts';
 import { lightBlack } from '../../../styles/variables/colors';
+import { getAudioMission, setDisableAudioMission, removeDisableAudioMission } from 'app/modules/User';
 
 const SECTION_TITLE = 'Mission Audio';
 
 class MissionAudio extends Component {
+
+  constructor(props){
+    super(props);   
+    this.state={displayPlayer: getAudioMission()};    
+  }
+
   static propTypes = {
     missionAudioURL: PropTypes.string.isRequired,
     audioEnabled: PropTypes.bool,
@@ -15,13 +22,14 @@ class MissionAudio extends Component {
 
   static defaultProps = {
     audioEnabled: true,
-  };
-
-  state = {
-    displayPlayer: false,
-  };
+  };  
 
   handleEnableViewerChange = () => {
+    const { displayPlayer } = this.state;    
+    if(!displayPlayer)    
+      removeDisableAudioMission();
+    else
+      setDisableAudioMission();
     this.setState(state => ({
       displayPlayer: !state.displayPlayer,
     }));
