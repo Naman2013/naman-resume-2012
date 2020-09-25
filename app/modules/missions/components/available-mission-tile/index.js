@@ -58,7 +58,9 @@ export class AvailbleMissionTile extends Component {
       showFollowPromptFlag,
       showLearnButton,
       hasWeatherForecastData,  
-      weatherForecastData
+      weatherForecastData,
+      joinButtonCaption,
+      showJoinButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
     const { countdown }=this.state;
@@ -106,10 +108,12 @@ export class AvailbleMissionTile extends Component {
               text={cancelButtonCaption || 'Cancel'}
               onClickEvent={onCancel}
             />
-            <Button
-              text={scheduleMissionCaption || 'Schedule Mission'}
-              onClickEvent={onSubmit}
-            />
+            {showJoinButton && (
+              <Button
+                text={joinButtonCaption || 'Schedule Mission'}
+                onClickEvent={onSubmit}
+              />
+            )}            
           </div>
         )}
         {communityMissions && (
