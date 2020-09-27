@@ -23,10 +23,9 @@ export class RankCard extends Component{
     }
     
     render() {
-        const {heading, rankList, showRowCount, showMoreButton, loading} = this.props;
+        const {heading, rankList, showRowCount, showMoreButton, loading, onClickItem} = this.props;
         const showmorebtntext = "Show More";
         const { tabHeaders, activeHeading} = this.state;
-
         return (
             <div className="rank-main">
                 <h2 className="rank-heading">
@@ -45,7 +44,7 @@ export class RankCard extends Component{
                     />
                     <table>
                         {rankList.slice(0, showRowCount === 0 ? rankList.length : showRowCount).map(rank=>(
-                            <tr>
+                            <tr className="show-cusor" onClick={onClickItem !== undefined ? ()=>onClickItem(rank.memberUUID) : null}>
                                 <td className={"rank-id" + (rank.highlight ? " rank-highlight" : "")}>{rank.rank}</td>
                                 <td className={"rank-name" + (rank.highlight ? " rank-highlight" : "")}>
                                     <div>

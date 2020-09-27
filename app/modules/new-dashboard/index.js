@@ -117,6 +117,7 @@ export class NewDashboard extends PureComponent{
                 pubnubData,
                 setDock,               
                 // getGravityByDomainAction,
+                getDashboardMissionListAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -155,6 +156,7 @@ export class NewDashboard extends PureComponent{
         // getGravityByDomainAction();
         // if(!pubnubData.pubnubInitialize)
         //     pubnubInit();
+        getDashboardMissionListAction();
         setDock(true);
     };
 
@@ -229,10 +231,12 @@ export class NewDashboard extends PureComponent{
                 pubnubInit,
                 getActivityFeedMembers,
                 setMemberChatState,
+                getDashboardMissionListAction,
+                dashboardMissionList,
               } =this.props;
 
               const { selectedBulletingHeader } = this.state;
-             
+           
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -281,13 +285,15 @@ export class NewDashboard extends PureComponent{
                                 
                                 <SectionDivider/>
 
-                                {privateProfileMission &&(
+                                {privateProfileMission && dashboardMissionList && (
                                     <div>
                                         <UpcomingMissionList
                                             heading={"Upcoming Missions"}
                                             scheduleMission={true}
-                                            missionList = {privateProfileMission.missionList}
+                                            showMissionsList={dashboardMissionList.missions.showMissionsList}
+                                            missionList = {dashboardMissionList.missions.missionsList}
                                             advancedmissionList = {[{missionTitle: "Comet C/2017 T2 (PanSTARRS)" , missionStartFormatted: { displayDateTime: "Wednesday, April 1, 20:20" }, telescopePierName: "Canary One", emptyslot: false}]}
+                                            // advancedmissionList={dashboardMissionList.advancedMissionsList}
                                             showSubHeading={true}
                                             featuredMission={true}
                                             dashboardFeaturedObjects={dashboardFeaturedObjects}
@@ -309,8 +315,8 @@ export class NewDashboard extends PureComponent{
                                         />
 
                                         <UpcomingMissionList
-                                            heading={"Past Missions"}
-                                            missionList = {privateProfileMission.recentMissionList}
+                                            heading={dashboardMissionList.pastMissions.missionsTitle}
+                                            missionList = {dashboardMissionList.pastMissions.missionsList}
                                             scheduleMission={false}
                                             showSubHeading={false}
                                             advancedmissionList={[]}

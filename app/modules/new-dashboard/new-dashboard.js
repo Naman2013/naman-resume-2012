@@ -52,6 +52,7 @@ import {
     getMostActiveClubsAction,
     getTopSchoolClubsAction,
     getGravityByDomainAction,
+    getDashboardMissionListAction
   } from './actions';
 
 import { 
@@ -94,6 +95,7 @@ import { makeStarPartyListSelector,
     makeTopSchoolClubsSelector,
     makeGetGravityByDomainSelector,
     makePubnubDataSelector,
+    makeGetDashboardMissionListSelector,
   } from './selectors';
 
 import { NewDashboard } from './index';
@@ -135,6 +137,7 @@ const mapStateToProps = createStructuredSelector({
     topSchoolClubs: makeTopSchoolClubsSelector(),
     gravityByDomain: makeGetGravityByDomainSelector(),
     pubnubData: makePubnubDataSelector(),
+    dashboardMissionList: makeGetDashboardMissionListSelector(),
 });
 
 const mapDispatchToProps = {
@@ -178,6 +181,7 @@ const mapDispatchToProps = {
     unSubscribePubnub,
     getActivityFeedMembers,
     setMemberChatState,
+    getDashboardMissionListAction,
 };
 
 export default compose(

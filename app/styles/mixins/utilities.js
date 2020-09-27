@@ -136,6 +136,23 @@ export const customModalStylesSloohBlueOverlay = {
   },
 };
 
+export const customModalStylesPublicProfileCardBlueOverlay = {
+  content: {
+    ...defaultModalContent,
+    maxWidth: '650px',
+    minHeight: '300px',
+    minWidth: '300px',
+    maxHeight: '80%',
+    border: 0,
+    padding: '20px 25px',
+    backgroundColor: '#253446',
+    // overflowY: 'scroll',
+  },
+  overlay: {
+    backgroundColor: 'rgba(60,70,85, 0.9)',
+  },
+};
+
 export const customModalStylesFitDevice = {
   content: {
     ...defaultModalContent,

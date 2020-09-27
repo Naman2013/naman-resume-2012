@@ -20,7 +20,12 @@ export class ProfileStatus extends Component{
 
     getUserProfileGravityAction = () =>{
         const { at, cid, token } = getUserInfo();
-        getUserGravityStatus({at, cid, token}).then(response=>{
+        let data;
+        if(this.props.publicProfile)
+            data={customerUUID: this.props.customerUUID};
+        else
+            data={at, cid, token};
+        getUserGravityStatus(data).then(response=>{
             const res=response.data;
             if(!res.apiError){
                 const { timestamp, expires } = res;

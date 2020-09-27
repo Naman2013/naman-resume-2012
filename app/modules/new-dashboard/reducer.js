@@ -55,6 +55,8 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_TOP_SCHOOL_CLUBS_SUCCESS,
          GET_GRAVITY_BY_DOMAIN_START,
          GET_GRAVITY_BY_DOMAIN_SUCCESS,
+         GET_DASHBOARD_MISSION_LIST_START,
+         GET_DASHBOARD_MISSION_LIST_SUCCESS
         } from './actions';
 
 const initialState = {
@@ -422,6 +424,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_GRAVITY_BY_DOMAIN_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_DASHBOARD_MISSION_LIST_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          dashboardMissionList: payload,
+          isFetching: false,
+        };
+      },
+      [GET_DASHBOARD_MISSION_LIST_START](state) {
         return {
           ...state,
           isFetching: true,

@@ -44,14 +44,25 @@ class LiveShow extends Component {
   };
 
   state = {
-    aboutIsActive: true,
+    liveIsActive: true,
+    aboutIsActive: false,
     commentsIsActive: false,
     detailsIsActive: false,
     selectedTab: 0,
   };
 
+  showLive = () => {
+    this.setState({
+      liveIsActive: true,
+      aboutIsActive: false,
+      commentsIsActive: false,
+      detailsIsActive: false,
+    });
+  };
+
   showAbout = () => {
     this.setState({
+      liveIsActive: false,
       aboutIsActive: true,
       commentsIsActive: false,
       detailsIsActive: false,
@@ -60,6 +71,7 @@ class LiveShow extends Component {
 
   showComments = () => {
     this.setState({
+      liveIsActive: false,
       aboutIsActive: false,
       commentsIsActive: true,
       detailsIsActive: false,
@@ -68,6 +80,7 @@ class LiveShow extends Component {
 
   showDetails = () => {
     this.setState({
+      liveIsActive: false,
       aboutIsActive: false,
       commentsIsActive: false,
       detailsIsActive: true,
@@ -93,6 +106,7 @@ class LiveShow extends Component {
     } = this.props;
 
     const {
+      liveIsActive,
       aboutIsActive,
       commentsIsActive,
       detailsIsActive,
@@ -148,6 +162,8 @@ class LiveShow extends Component {
                 showDetails={this.showDetails}
                 showAbout={this.showAbout}
                 showComments={this.showComments}
+                liveIsActive={liveIsActive}
+                showLive={this.showLive}
               />
             )}
             isScreenSize={isDesktop}

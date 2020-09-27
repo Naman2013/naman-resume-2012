@@ -151,6 +151,7 @@ export class UpcomingMissionList extends Component{
             reservedCommunityMission,
             user,
             callSource,
+            showMissionsList, 
             totalCount } = this.props;
         const {
             cancelReservationModalVisible,
@@ -200,8 +201,9 @@ export class UpcomingMissionList extends Component{
                             <h3 className="upcoming-subheadings">{"Missions"}</h3>
                             <h5 className="upcoming-subheading-status">{missionList.length + "/5 Missions"}</h5>  
                         </div>                    
-                    )}                 
-                    <div className="upcoming-list">
+                    )}
+                    {showMissionsList && (
+                      <div className="upcoming-list">
                         {[...Array(totalCount)].map((e,index)=>(                            
                               index < missionList.length ? (
                                 <UpcomingMissionCard
@@ -233,6 +235,8 @@ export class UpcomingMissionList extends Component{
                         </div>
                         )}                             */}
                     </div>
+                    )}                  
+                    
                     {/* {missionList.length === 0 ? (
                         <div className="empty-mission-card">
                             <h3 className="upcoming-subheadings">{emptySetDisplay}</h3>

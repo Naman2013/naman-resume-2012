@@ -183,3 +183,9 @@ export const makeStarPartyListSelector = () =>
     newDashList,
     state => state.gravityByDomain
   );
+
+  export const makeGetDashboardMissionListSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.dashboardMissionList
+  );

@@ -140,3 +140,7 @@ export function getGravityByDomain(data) {
   return API.post('/api/newdashboard/getGravityByDomain',data);
 }
 
+export function getDashboardMissionList(data) {
+  return API.post('/api/reservation/getDashboardMissionList',data);
+}
+

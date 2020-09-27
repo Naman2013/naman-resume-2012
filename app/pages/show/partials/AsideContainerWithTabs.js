@@ -17,6 +17,8 @@ import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerWithTabs.style';
+import FourTabbedNav from 'app/components/FourTabbedNav';
+import LiveTab from './LiveTab';
 
 const {
   any,
@@ -31,10 +33,12 @@ const {
 @withTranslation()
 class AsideContainerWithTabs extends Component {
   static propTypes = {
+    liveIsActive: bool.isRequired,
     aboutIsActive: bool.isRequired,
     commentsIsActive: bool.isRequired,
     detailsIsActive: bool.isRequired,
     hasDiscussionThread: bool,
+    showLive: func,
     showAbout: func,
     showComments: func,
     showDetails: func,
@@ -47,6 +51,7 @@ class AsideContainerWithTabs extends Component {
 
   static defaultProps = {
     hasDiscussionThread: false,
+    showLive: noop,
     showAbout: noop,
     showComments: noop,
     showDetails: noop,
@@ -56,19 +61,21 @@ class AsideContainerWithTabs extends Component {
 
   render() {
     const {
+      liveIsActive,
       aboutIsActive,
       commentsIsActive,
       detailsIsActive,
       hasDiscussionThread,
       isScreenMedium,
       isScreenLarge,
+      showLive,
       showAbout,
       showComments,
       showDetails,
       headerTitle,
       t,
     } = this.props;
-
+    
     return (
       <div className="root">
         <div
@@ -77,28 +84,54 @@ class AsideContainerWithTabs extends Component {
         />
         <div className="full-width">
           {hasDiscussionThread ? (
-            <ThreeTabbedNav
-              firstTitle={t('Shows.About')}
-              secondTitle={t('Shows.Comments')}
-              thirdTitle={t('Shows.Details')}
-              firstTabIsActive={aboutIsActive}
-              firstTabOnClick={showAbout}
-              secondTabIsActive={commentsIsActive}
-              secondTabOnClick={showComments}
-              thirdTabIsActive={detailsIsActive}
-              thirdTabOnClick={showDetails}
+            // <ThreeTabbedNav
+            //   firstTitle={t('Shows.About')}
+            //   secondTitle={t('Shows.Comments')}
+            //   thirdTitle={t('Shows.Details')}
+            //   firstTabIsActive={aboutIsActive}
+            //   firstTabOnClick={showAbout}
+            //   secondTabIsActive={commentsIsActive}
+            //   secondTabOnClick={showComments}
+            //   thirdTabIsActive={detailsIsActive}
+            //   thirdTabOnClick={showDetails}
+            // />
+            <FourTabbedNav
+              firstTitle={t('Shows.Live')}
+              secondTitle={t('Shows.About')}
+              thirdTitle={t('Shows.Comments')}
+              fourthTitle={t('Shows.Details')}
+              firstTabIsActive={liveIsActive}
+              firstTabOnClick={showLive}
+              secondTabIsActive={aboutIsActive}
+              secondTabOnClick={showAbout}
+              thirdTabIsActive={commentsIsActive}
+              thirdTabOnClick={showComments}
+              fourthTabIsActive={detailsIsActive}
+              fourthTabOnClick={showDetails}
             />
           ) : (
-            <TwoTabbedNav
-              firstTitle={t('Shows.About')}
-              secondTitle={t('Shows.Details')}
-              firstTabIsActive={aboutIsActive}
-              firstTabOnClick={showAbout}
-              secondTabIsActive={detailsIsActive}
-              secondTabOnClick={showDetails}
+            // <TwoTabbedNav
+            //   firstTitle={t('Shows.About')}
+            //   secondTitle={t('Shows.Details')}
+            //   firstTabIsActive={aboutIsActive}
+            //   firstTabOnClick={showAbout}
+            //   secondTabIsActive={detailsIsActive}
+            //   secondTabOnClick={showDetails}
+            // />
+            <ThreeTabbedNav
+            firstTitle={t('Shows.Live')}
+            secondTitle={t('Shows.About')}
+            thirdTitle={t('Shows.Details')}
+            firstTabIsActive={liveIsActive}
+            firstTabOnClick={showLive}
+            secondTabIsActive={aboutIsActive}
+            secondTabOnClick={showAbout}
+            thirdTabIsActive={detailsIsActive}
+            thirdTabOnClick={showDetails}
             />
           )}
         </div>
+        {liveIsActive ? <LiveTab {...this.props} /> : null}
         {aboutIsActive ? <AboutTab {...this.props} /> : null}
         {commentsIsActive ? <CommentsTab {...this.props} /> : null}
         {detailsIsActive ? <DetailsTab {...this.props} /> : null}

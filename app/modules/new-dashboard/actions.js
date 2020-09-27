@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents, getDashboardMissionList} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -57,6 +57,9 @@ export const GET_TOP_SCHOOL_CLUBS_START = "GET_TOP_SCHOOL_CLUBS_START";
 export const GET_TOP_SCHOOL_CLUBS_SUCCESS = "GET_TOP_SCHOOL_CLUBS_SUCCESS";
 export const GET_GRAVITY_BY_DOMAIN_START = "GET_GRAVITY_BY_DOMAIN_START";
 export const GET_GRAVITY_BY_DOMAIN_SUCCESS = "GET_GRAVITY_BY_DOMAIN_SUCCESS";
+export const GET_DASHBOARD_MISSION_LIST_START = "GET_DASHBOARD_MISSION_LIST_START";
+export const GET_DASHBOARD_MISSION_LIST_SUCCESS = "GET_DASHBOARD_MISSION_LIST_SUCCESS";
+
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -307,6 +310,15 @@ const getGravityByDomainStart = () => ({
 
 const getGravityByDomainSuccess = (payload) => ({
   type: GET_GRAVITY_BY_DOMAIN_SUCCESS,
+  payload    
+});
+
+const getDashboardMissionListStart = () => ({
+  type: GET_DASHBOARD_MISSION_LIST_START    
+});
+
+const getDashboardMissionListSuccess = (payload) => ({
+  type: GET_DASHBOARD_MISSION_LIST_SUCCESS,
   payload    
 });
 
@@ -709,6 +721,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getGravityByDomainSuccess(result.data));
+      }
+    );
+  };
+
+  export const getDashboardMissionListAction = (data) => (dispatch, getState) => {
+    dispatch(getDashboardMissionListStart());    
+    const { token, at, cid } = getState().user;    
+    return getDashboardMissionList({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getDashboardMissionListSuccess(result.data));
       }
     );
   };

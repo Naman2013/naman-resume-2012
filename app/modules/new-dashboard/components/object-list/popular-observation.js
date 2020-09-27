@@ -19,7 +19,12 @@ export class PopularObservation extends Component{
 
     getPopularObservationtAction = () =>{
         const { at, cid, token } = getUserInfo();
-        getUserPouplarObservation({at, cid, token}).then(response=>{
+        let data;
+        if(this.props.publicProfile)
+            data={customerUUID: this.props.customerUUID};
+        else
+            data={at, cid, token};
+        getUserPouplarObservation(data).then(response=>{
             const res=response.data;
             if(!res.apiError){
                 const { timestamp, expires } = res;
