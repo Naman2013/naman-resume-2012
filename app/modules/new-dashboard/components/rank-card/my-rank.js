@@ -42,7 +42,8 @@ export class MyRank extends Component{
 
     render() {
         const { myRank, loading } = this.state;
-        
+        const { onClickItem } = this.props;
+
         return (
             <div>
                 {myRank && (
@@ -54,6 +55,7 @@ export class MyRank extends Component{
                         tabOptions={myRank.tabOptions}
                         getRankData={this.getMyRankAction}
                         loading={loading}
+                        onClickItem={onClickItem}
                     />
                 )}                                             
             </div>   

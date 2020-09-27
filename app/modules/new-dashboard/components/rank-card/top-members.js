@@ -14,9 +14,7 @@ export class TopMembers extends Component{
         super(props);
         this.state={
             topMembers: undefined,     
-            loading: false, 
-            customerUUID: null,
-            showPublicProfile: false,      
+            loading: false,                
         }
         this.getTopMemberAction();
     }
@@ -40,19 +38,14 @@ export class TopMembers extends Component{
         });
     }
 
-    handlePublicProfileCard = (customerUUID) =>{
-        this.setState({showPublicProfile: true, customerUUID: customerUUID});
-    }
-
-    
     componentWillUnmount(){
         if(this.timerId !== null)
             clearTimeout(this.timerId);
     }
 
     render() {
-        const { topMembers, loading, showPublicProfile, customerUUID } = this.state;
-        
+        const { topMembers, loading } = this.state;
+        const { onClickItem } = this.props;
         return (
             <div>
                 {topMembers && (
@@ -60,29 +53,13 @@ export class TopMembers extends Component{
                         heading={topMembers.sectionHeading}                        
                         rankList={topMembers.rankList}
                         showRowCount={0}
-                        showMoreButton={true}
+                        showMoreButton={false}
                         tabOptions={topMembers.tabOptions}
                         getRankData={this.getTopMemberAction}
                         loading={loading}
-                        onClickItem={this.handlePublicProfileCard}
+                        onClickItem={onClickItem}
                     />
-                )}
-
-                {showPublicProfile && (
-                    <Popup
-                    // ariaHideApp={false}
-                    isOpen={true}
-                    style={customModalStylesPublicProfileCardBlueOverlay}
-                    contentLabel="Badge"
-                    shouldCloseOnOverlayClick={false}
-                    onRequestClose={()=>this.setState({customerUUID: null, showPublicProfile: false})}
-                    >   
-                        <PublicProfileCard
-                            customerUUID={customerUUID}
-                            onClose={()=>this.setState({customerUUID: null, showPublicProfile: false})}
-                        />
-                    </Popup>
-                )}                                             
+                )}                                                        
             </div>   
         );
     }

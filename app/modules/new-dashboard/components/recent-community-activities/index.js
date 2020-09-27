@@ -9,7 +9,7 @@ export class RecentCommunityActivities extends Component{
 
     
     render() {
-        const { activities } = this.props;
+        const { activities, onClickItem } = this.props;
         const { activitiesList } = activities;
         
         return (
@@ -22,6 +22,7 @@ export class RecentCommunityActivities extends Component{
                     theme={"dark"}
                 /> */}
                 <ConversationLayout
+                    onClickItem={onClickItem}
                     activitiesList={activitiesList}
                 />
             </div>   

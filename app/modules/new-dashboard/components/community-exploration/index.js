@@ -42,6 +42,7 @@ export class CommunityExploration extends Component{
 
     render() {
         const { communityExploration } = this.state;
+        const { onClickItem } = this.props;
         
         return (
             <div className="explore-main">
@@ -50,10 +51,12 @@ export class CommunityExploration extends Component{
                     <div>
                         <ImageSlider
                             communityExploration={communityExploration}
+                            onClickItem={onClickItem}
                         />
                         <RecentCommunityActivities
                             heading={"Recent Community Activities"}
                             activities={communityExploration.activities}
+                            onClickItem={onClickItem}
                         />
                     </div>
                 )}                                

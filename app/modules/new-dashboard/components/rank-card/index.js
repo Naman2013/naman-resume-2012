@@ -26,6 +26,7 @@ export class RankCard extends Component{
         const {heading, rankList, showRowCount, showMoreButton, loading, onClickItem} = this.props;
         const showmorebtntext = "Show More";
         const { tabHeaders, activeHeading} = this.state;
+        
         return (
             <div className="rank-main">
                 <h2 className="rank-heading">

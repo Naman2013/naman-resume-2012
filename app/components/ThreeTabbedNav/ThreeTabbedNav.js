@@ -62,40 +62,41 @@ class ThreeTabbedNav extends Component {
       thirdTabIsActive,
       thirdTabOnClick,
     } = this.props;
+    
     return (
       <div className="root component-container">
-        <div className="split-nav-item-container" onClick={firstTabOnClick}>
+        <div className={classnames("split-nav-item-container",{'active': firstTabIsActive})} onClick={firstTabOnClick}>
           <div
-            className="split-nav-item"
+            className={classnames("split-nav-item",{'active': firstTabIsActive})}
             dangerouslySetInnerHTML={{ __html: firstTitle }}
           />
           <img
             src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
-            className={classnames('arrow', {
+            className={classnames('arrow-live', {
               'is-hidden': !firstTabIsActive,
             })}
           />
         </div>
         <div className="split-nav-item-container" onClick={secondTabOnClick}>
           <div
-            className="split-nav-item"
+            className={classnames("split-nav-item",{'active': secondTabIsActive})}
             dangerouslySetInnerHTML={{ __html: secondTitle }}
           />
           <img
             src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
-            className={classnames('arrow', {
+            className={classnames('arrow-live', {
               'is-hidden': !secondTabIsActive,
             })}
           />
         </div>
         <div className="split-nav-item-container" onClick={thirdTabOnClick}>
           <div
-            className="split-nav-item"
+            className={classnames("split-nav-item",{'active': thirdTabIsActive})}
             dangerouslySetInnerHTML={{ __html: thirdTitle }}
           />
           <img
             src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
-            className={classnames('arrow', {
+            className={classnames('arrow-live', {
               'is-hidden': !thirdTabIsActive,
             })}
           />
@@ -115,7 +116,7 @@ class ThreeTabbedNav extends Component {
             background-color: ${romance};
           }
 
-          .arrow {
+          .arrow-live {
             margin-bottom: -5px;
           }
 
@@ -127,7 +128,11 @@ class ThreeTabbedNav extends Component {
             cursor: pointer;
             margin: 0 5px;
             margin-top: 15px;
-            color: #8d969f;
+            color: #8d969f;            
+          }
+
+          .active{
+            color: #41566f;
           }
 
           .component-container {

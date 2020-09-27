@@ -35,6 +35,8 @@ export class ProfileStatus extends Component{
                     clearTimeout(this.timerId);               
                 this.timerId=setTimeout(this.getUserProfileGravityAction,duration );
                 this.setState({userGravityStatus: res});
+                if(this.props.publicProfile)
+                    this.props.onHide();
             }
         });
     }

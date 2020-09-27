@@ -42,6 +42,7 @@ export class TopStudents extends Component{
     
     render() {
         const { topStudents, loading } = this.state;
+        const { onClickItem } = this.props;
         
         return (
             <div>
@@ -50,10 +51,11 @@ export class TopStudents extends Component{
                         heading={topStudents.sectionHeading}                        
                         rankList={topStudents.rankList}
                         showRowCount={10}
-                        showMoreButton={true}
+                        showMoreButton={false}
                         tabOptions={topStudents.tabOptions}
                         getRankData={this.getTopStudentsAction}
                         loading={loading}
+                        onClickItem={onClickItem}
                     />
                 )}                                             
             </div>   

@@ -41,11 +41,16 @@ import { TitleHeaderNew } from "./components/title-header-new";
 import LiveActivity from "../live-activity/containers/live-activity";
 import { LiveChat } from "./components/live-chat";
 import { pubnubInit } from "../pubnub-handler/actions";
+import { PublicProfileCard } from "./components/public-card";
+import Popup from 'react-modal';
+import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 
 export class NewDashboard extends PureComponent{
 
     state={
         selectedBulletingHeader: "Explore the Universe",
+        customerUUID: null,
+        showPublicProfile: false,  
     }
     
     constructor(props){
@@ -69,6 +74,10 @@ export class NewDashboard extends PureComponent{
         let scrollTop = event.srcElement.body.scrollTop;
         if(scrollTop < this.observatoryRef.current.offsetTop)
             this.setState({selectedBulletingHeader: "Explore the Universe"});
+    }
+
+    handlePublicProfileCard = (customerUUID) =>{
+        this.setState({showPublicProfile: true, customerUUID: customerUUID});
     }
 
     scrollToRef = (index, heading) => {
@@ -235,7 +244,7 @@ export class NewDashboard extends PureComponent{
                 dashboardMissionList,
               } =this.props;
 
-              const { selectedBulletingHeader } = this.state;
+              const { selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
            
         return(
             <div>
@@ -366,6 +375,7 @@ export class NewDashboard extends PureComponent{
 
                                 {/* {communityExploration && ( */}
                                     <CommunityExploration
+                                        onClickItem={this.handlePublicProfileCard}
                                         // communityExploration={communityExploration}
                                     />
                                 {/* )}                                     */}
@@ -496,7 +506,9 @@ export class NewDashboard extends PureComponent{
                                     <DomainGP />
                                 {/* )} */}
                                 
-                                <MyRank />
+                                <MyRank 
+                                    onClickItem={this.handlePublicProfileCard}
+                                />
 
                                 {/* {myRank && (
                                     <RankCard
@@ -539,7 +551,9 @@ export class NewDashboard extends PureComponent{
                                                     {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
                                 />
 
-                                <TopMembers />
+                                <TopMembers 
+                                    onClickItem={this.handlePublicProfileCard}
+                                />
 
                                 {/* {topMembers && (
                                     <RankCard
@@ -576,7 +590,9 @@ export class NewDashboard extends PureComponent{
                                         showRowCount={3}                       
                                     />
                                 )} */}
-                                <TopStudents />
+                                <TopStudents 
+                                    onClickItem={this.handlePublicProfileCard}
+                                />
                                 {/* {topStudents && (
                                     <RankCard
                                         heading={topStudents.sectionHeading}
@@ -616,7 +632,23 @@ export class NewDashboard extends PureComponent{
                             </div>                    
                         </div>
                     </div>
-                )}                
+                )} 
+
+              {showPublicProfile && (
+                    <Popup
+                    ariaHideApp={false}
+                    isOpen={true}
+                    style={customModalStylesPublicProfileCardBlueOverlay}
+                    contentLabel="Public Profile"
+                    shouldCloseOnOverlayClick={false}
+                    onRequestClose={()=>this.setState({customerUUID: null, showPublicProfile: false})}
+                    >   
+                        <PublicProfileCard
+                            customerUUID={customerUUID}
+                            onClose={()=>this.setState({customerUUID: null, showPublicProfile: false})}
+                        />
+                    </Popup>
+                )}                      
             </div>
         );
     }
