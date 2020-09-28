@@ -301,8 +301,22 @@ export class NewDashboard extends PureComponent{
                                             scheduleMission={true}
                                             showMissionsList={dashboardMissionList.missions.showMissionsList}
                                             missionList = {dashboardMissionList.missions.missionsList}
-                                            advancedmissionList = {[{missionTitle: "Comet C/2017 T2 (PanSTARRS)" , missionStartFormatted: { displayDateTime: "Wednesday, April 1, 20:20" }, telescopePierName: "Canary One", emptyslot: false}]}
-                                            // advancedmissionList={dashboardMissionList.advancedMissionsList}
+                                            showMissionTitle = {dashboardMissionList.missions.showMissionsTitle}
+                                            showMissionQuota = {dashboardMissionList.missions.showMissionsQuota}
+                                            showMissionExplanation = {dashboardMissionList.missions.showMissionsExplanation}
+                                            missionTitle = {dashboardMissionList.missions.missionsTitle}
+                                            missionQuota = {dashboardMissionList.missions.missionsQuota}
+                                            missionExplanation = {dashboardMissionList.missions.missionsExplanation}
+
+                                            showAdvancedMissionsList={dashboardMissionList.advancedMissions.showMissionsList}
+                                            showAdvancedMissionTitle = {dashboardMissionList.advancedMissions.showMissionsTitle}
+                                            showAdvancedMissionQuota = {dashboardMissionList.advancedMissions.showMissionsQuota}
+                                            showAdvancedMissionExplanation = {dashboardMissionList.advancedMissions.showMissionsExplanation}
+                                            advancedMissionTitle = {dashboardMissionList.advancedMissions.missionsTitle}
+                                            advancedMissionQuota = {dashboardMissionList.advancedMissions.missionsQuota}
+                                            advancedMissionExplanation = {dashboardMissionList.advancedMissions.missionsExplanation}
+                                            // advancedmissionList = {[{missionTitle: "Comet C/2017 T2 (PanSTARRS)" , missionStartFormatted: { displayDateTime: "Wednesday, April 1, 20:20" }, telescopePierName: "Canary One", emptyslot: false}]}
+                                            advancedmissionList={dashboardMissionList.advancedMissions.missionsList}
                                             showSubHeading={true}
                                             featuredMission={true}
                                             dashboardFeaturedObjects={dashboardFeaturedObjects}
@@ -324,8 +338,16 @@ export class NewDashboard extends PureComponent{
                                         />
 
                                         <UpcomingMissionList
-                                            heading={dashboardMissionList.pastMissions.missionsTitle}
+                                            heading={undefined}
                                             missionList = {dashboardMissionList.pastMissions.missionsList}
+                                            showMissionsList={dashboardMissionList.pastMissions.showMissionsList}
+                                            missionList = {dashboardMissionList.pastMissions.missionsList}
+                                            showMissionTitle = {dashboardMissionList.pastMissions.showMissionsTitle}
+                                            showMissionQuota = {dashboardMissionList.pastMissions.showMissionsQuota}
+                                            showMissionExplanation = {dashboardMissionList.pastMissions.showMissionsExplanation}
+                                            missionTitle = {dashboardMissionList.pastMissions.missionsTitle}
+                                            missionQuota = {dashboardMissionList.pastMissions.missionsQuota}
+                                            missionExplanation = {dashboardMissionList.pastMissions.missionsExplanation}
                                             scheduleMission={false}
                                             showSubHeading={false}
                                             advancedmissionList={[]}

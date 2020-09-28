@@ -86,9 +86,10 @@ export class FeaturedObjects extends PureComponent {
     const {
       missionCount,
       missionList,
-      reservedButtonCaption,
+      reservedButtonCaption,      
     } = featuredObjectsData;
     const defaultSliderConfig = getDefaultConfig();
+    
     return (
       <div className="featured-objects">
         <h3 className="featured-objects-title h3-custom">
@@ -108,7 +109,8 @@ export class FeaturedObjects extends PureComponent {
                 key={item.scheduledMissionId}
                 featureObject={item}
                 onOptionClick={() => this.reservationModalShow(item)}
-                reservedButtonCaption={reservedButtonCaption}
+                optionsButtonCaption={item.optionsButtonCaption}
+                // reservedButtonCaption={reservedButtonCaption}
               />
             ))}
           </Slider>
