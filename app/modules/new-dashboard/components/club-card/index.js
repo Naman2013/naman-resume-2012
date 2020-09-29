@@ -18,7 +18,7 @@ export class ClubCard extends Component{
                 
                 <div className="card-bottom">
                     <h4 className="club-type">{club.accessDescription}</h4>
-                    <h4 className="club-info">{"Admin: Paul Cox | " + club.memberCountDisplay}</h4> 
+                    <h4 className="club-info">{club.descriptiveText}</h4> 
                 </div>                
             </div>
         );
