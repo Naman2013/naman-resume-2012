@@ -334,7 +334,8 @@ export class NewDashboard extends PureComponent{
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
                                             user={user} 
-                                            totalCount={5}                                           
+                                            totalCount={5}
+                                            getDashboardMissionList={getDashboardMissionListAction}                                           
                                         />
 
                                         <UpcomingMissionList

@@ -223,8 +223,8 @@ export const LiveActivity = (props: TLiveActivity) => {
     // if (!isSubscribed) {
     //   subscribeToPubnubActivityFeedChannel();
     // }
-    setOpen(!isOpen);
-    setActiveTab(MEMBERS_TAB);
+    // setOpen(!isOpen);
+    // setActiveTab(MEMBERS_TAB);
 
     // setMessageIdToLocalStorage(lastMessageId);
     // pubNubFeedChannelSubscribingStatus(true);
@@ -268,19 +268,20 @@ export const LiveActivity = (props: TLiveActivity) => {
       // const targetLink = e.target.closest('a');
       // e.preventDefault();
       // browserHistory.push(targetLink.href);
+      e.preventDefault();
       const el = e.target.closest("a");
       if (el && e.currentTarget.contains(el) && el.id !== "") {
-        e.preventDefault();
+        // e.preventDefault();
         props.onClickItem(el.id, true);
       } 
       // if Mobile then close modal
-      const isMobile = isMobileScreen() || isTabletScreen();
+      // const isMobile = isMobileScreen() || isTabletScreen();
 
-      if (isMobile) {
-        setOpen(false);
-        // setActiveTab(LIVE_FEEDS_TAB);
-        setTab(LIVE_FEEDS_TAB);
-      }
+      // if (isMobile) {
+      //   setOpen(false);
+      //   // setActiveTab(LIVE_FEEDS_TAB);
+      //   setTab(LIVE_FEEDS_TAB);
+      // }
     }
   };
 

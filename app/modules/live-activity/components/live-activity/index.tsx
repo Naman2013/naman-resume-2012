@@ -226,9 +226,9 @@ export const LiveActivity = (props: TLiveActivity) => {
     // if (!isSubscribed) {
     //   subscribeToPubnubActivityFeedChannel();
     // }
-    setOpen(!isOpen);
+    // setOpen(!isOpen);
     // setActiveTab(MEMBERS_TAB);
-    setTab(MEMBERS_TAB);
+    // setTab(MEMBERS_TAB);
 
     // setMessageIdToLocalStorage(lastMessageId);
     // pubNubFeedChannelSubscribingStatus(true);
@@ -280,13 +280,13 @@ export const LiveActivity = (props: TLiveActivity) => {
       } 
 
       // if Mobile then close modal
-      const isMobile = isMobileScreen() || isTabletScreen();
+      // const isMobile = isMobileScreen() || isTabletScreen();
 
-      if (isMobile) {
-        // setOpen(false);
-        // setActiveTab(LIVE_FEEDS_TAB);
-        setTab(LIVE_FEEDS_TAB);
-      }
+      // if (isMobile) {
+      //   // setOpen(false);
+      //   // setActiveTab(LIVE_FEEDS_TAB);
+      //   // setTab(LIVE_FEEDS_TAB);
+      // }
     }
   };
 

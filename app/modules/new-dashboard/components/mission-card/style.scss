@@ -55,19 +55,28 @@
     background-color: #FFFFFF;
     border-radius: 4px;
     padding: 5px;
+    height: 40px;
 }
 
 .new-dash .join-mission{   
-    font-family: $primary-font;
+    padding: 7px 4px;
+    background: #fff;
+    border-radius: 4px;
+    border: none;
+    font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 11px;
+    line-height: 11px;
+    text-align: center;
+    color: #253446;
+    display: flex;
+    margin-right: 8px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
     float: left;
-    /* identical to box height */
-    /* #FFF - Text */
-    color: #FFFFFF;
-    cursor: pointer;
+    margin-top: 7px;
 }
 
 @media (min-width: $screenXLarge){

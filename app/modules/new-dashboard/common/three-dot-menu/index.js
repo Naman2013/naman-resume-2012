@@ -14,7 +14,7 @@ export class ThreeDotsMenu extends PureComponent {
   handleSelect = key => {
     const {
       finnishReservation,
-      // grabPiggyback,
+      grabPiggyback,
       editCoordinates,
       cancelReservation,
       cancelPiggyback,
@@ -27,7 +27,7 @@ export class ThreeDotsMenu extends PureComponent {
         break;
       }
       case MENU_ITEMS.PIGGYBACK: {
-        // grabPiggyback(timeSlot);
+        grabPiggyback(timeSlot);
         break;
       }
       case MENU_ITEMS.EDIT_COORDINATES: {

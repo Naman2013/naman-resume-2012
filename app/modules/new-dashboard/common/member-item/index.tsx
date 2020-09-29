@@ -22,8 +22,9 @@ export const MemberItem = (props: TFeedItem) => {
         role="button"       
         className="member-name"       
       >
-        <a          
-          onClick={()=>onClickItem(customerUUID, true)}
+        <a    
+          id={customerUUID}      
+          // onClick={()=>onClickItem(customerUUID, true)}
           // href={linkUrl}
           href=""
           >
