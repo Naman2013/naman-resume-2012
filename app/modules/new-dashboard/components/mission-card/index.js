@@ -15,9 +15,12 @@ export class MissionCard extends Component{
             <div className="mission-card">                
                 <h4 className="obj-name" >{mission.title}</h4>
                 <h4 className="time">{mission.missionStartFormatted.displayWeekdayMonthDayYearUTC + " " + mission.missionStartFormatted.displayTimeZone}</h4>
-                <h4 className="scheduled-by"> 
+                {/* <h4 className="scheduled-by"> 
                      by <u>{mission.ownerDisplayName}</u> 
                      &nbsp;at <u>{mission.telescopeName}</u>
+                </h4> */}
+                <h4 className="upcoming-telescope">                      
+                    {mission.telescopeName}
                 </h4>
                 {/* {mission.missionAvailable && !mission.userHasReservation && !readOnly && (
                     <Link onClick={()=>reservationModalShow(mission)}>
@@ -37,7 +40,7 @@ export class MissionCard extends Component{
                         </div> 
                     </Link>
                 )} */}
-                <div className="upcoming-mission-card-head  vertical-middle pad-top-10">
+                <div className="vertical-middle pad-top-10">
                     {mission.missionAvailable && !mission.userHasReservation && !readOnly && (
                         <Link onClick={()=>reservationModalShow(mission)}>
                             <h4 className="join-mission">{mission.joinPrompt}</h4>
@@ -45,7 +48,7 @@ export class MissionCard extends Component{
                     )}
                     {mission.showJoiningMission ? ( 
                         <Tooltip
-                            className="mission-tooltip"
+                            className="mission-tooltip-icon"
                             title={mission.joiningMissionTooltipText}
                             position="top"
                             theme="light">

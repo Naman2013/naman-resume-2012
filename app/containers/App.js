@@ -11,16 +11,21 @@ import PageMetaManagement from '../components/PageMetaManagement';
 import GlobalNavigation from '../components/GlobalNavigation';
 
 import Footer from '../components/Footer';
-import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
+import { fetchEvents, setPublicCardStatusAction } from '../modules/upcoming-events/upcoming-events-actions';
 
 import { fireSloohPageView, veritySloohId } from 'app/utils/slooh-pageview-wrapper';
 import QuestBreadCrumb from '../components/GlobalNavigation/breadcrumb';
 import { getUserInfo } from 'app/modules/User';
 
+import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
+import Popup from 'react-modal';
+import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       fetchEvents,
+      setPublicCardStatusAction,
     },
     dispatch
   );
@@ -28,10 +33,12 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   const { isLanding} = state;
-
+  const { showPublicCard, customerUUID } = state.upcomingEvents;  
   return {
     isLanding,
     user: makeUserSelector()(state),
+    showPublicCard,
+    customerUUID,
   };
 }
 
@@ -97,9 +104,10 @@ class App extends Component {
   }
 
   render() {
-    const { isLanding } = this.props;
+    const { isLanding, showPublicCard, customerUUID, setPublicCardStatusAction } = this.props;
     const { isSessionInitialized } = this.state;
     const { sloohQuestBreadCrumbQuestTitle, sloohQuestBreadCrumbQuestLinkURL } = getUserInfo();
+    
     return (
       <Suspense fallback={<div>Loading</div>}>
 
@@ -126,6 +134,23 @@ class App extends Component {
             <section className="app-content-container clearfix v4" style={{marginTop: (sloohQuestBreadCrumbQuestLinkURL ? "85px" : "60px")}}>
               <div className="clearfix">{this.props.children}</div>
             </section>
+
+            {showPublicCard && (
+              <Popup
+                ariaHideApp={false}
+                isOpen={true}
+                style={customModalStylesPublicProfileCardBlueOverlay}
+                contentLabel="Public Profile"
+                shouldCloseOnOverlayClick={false}
+                onRequestClose={()=>setPublicCardStatusAction(null, false)}
+                >   
+                  <PublicProfileCard
+                    customerUUID={customerUUID}
+                    onClose={()=>setPublicCardStatusAction(null, false)}
+                  />
+              </Popup>
+              )}
+
             <Footer />
           </DeviceProvider>
              :null}

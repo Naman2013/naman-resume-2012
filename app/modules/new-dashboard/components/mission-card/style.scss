@@ -10,6 +10,10 @@
     width: 200px;
 }
 
+.new-dash .mission-tooltip-icon{
+    float:right
+}
+
 .new-dash .time{
    
     font-family: $primary-font;
@@ -59,6 +63,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
+    float: left;
     /* identical to box height */
     /* #FFF - Text */
     color: #FFFFFF;
@@ -67,7 +72,7 @@
 
 @media (min-width: $screenXLarge){
     .new-dash .mission-card{       
-        width: 264px;
+        width: 200px;
     }
     .new-dash .obj-name{       
         font-size: 14px;
@@ -77,7 +82,7 @@
 
 @media (min-width: $screenMedium){
     .new-dash .mission-card{       
-        width: 264px;
+        width: 200px;
     }
     .new-dash .obj-name{       
         font-size: 14px;

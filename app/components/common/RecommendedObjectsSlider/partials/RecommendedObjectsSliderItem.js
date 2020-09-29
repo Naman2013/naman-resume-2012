@@ -17,7 +17,7 @@ const RecommendedObjectsItem = ({
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,
-  readOnly,
+  readOnly,  
 }) => {
   const {
     missionStartFormatted,
@@ -32,13 +32,15 @@ const RecommendedObjectsItem = ({
     showJoiningMission,
     joiningMissionTooltipText,
     joiningMissionIconURL,
+    joinButtonCaption,
+    showJoinButton,
   } = object;
   const {
     displayWeekdayMonthDayYearUTC,
     displayTime,
     displayTimeZone,
   } = missionStartFormatted;
-  
+ 
   return (
     <div className="card-object">
       <div className="object-icon">
@@ -65,10 +67,10 @@ const RecommendedObjectsItem = ({
         </div>
       </div>
       <div className="center-div">
-      {missionAvailable && !userHasReservation && !readOnly && [(
+      {missionAvailable && !userHasReservation && !readOnly && showJoinButton && [(
         <Button
           onClickEvent={() => reservationModalShow(object)}
-          text={optionsButtonCaption}
+          text={joinButtonCaption}
           theme={{ margin: '30px auto 0', width: '140px', display: 'inline-flex' }}
         />),
         (showJoiningMission ? ( 

@@ -5,13 +5,14 @@ type TFeedItem = {
   member: Record<string, any>;
   contentClickHandler: (e: any) => void;
   onKeyPressed: (e: any) => void;
+  onClickItem: Function;
 };
 
 export const MemberItem = (props: TFeedItem) => {
   const {
-    member: { displayName, gravityLabel, gravity, linkUrl }, contentClickHandler, onKeyPressed
+    member: { displayName, gravityLabel, gravity, linkUrl, customerUUID }, contentClickHandler, onKeyPressed, onClickItem
   } = props;
-
+  
   return (
     <div className="active-member-item">
       <span
@@ -21,8 +22,11 @@ export const MemberItem = (props: TFeedItem) => {
         role="button"       
         className="member-name"       
       >
-        <a
-          href={linkUrl}>
+        <a          
+          onClick={()=>onClickItem(customerUUID, true)}
+          // href={linkUrl}
+          href=""
+          >
           {displayName}
         </a>
       </span>

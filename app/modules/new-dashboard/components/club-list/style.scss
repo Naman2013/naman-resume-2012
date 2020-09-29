@@ -5,6 +5,13 @@
     padding: 24px 0px;
 }
 
+.new-dash .my-club-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
 .new-dash .club-list-heading{
     /* position: absolute;
     width: 48px;

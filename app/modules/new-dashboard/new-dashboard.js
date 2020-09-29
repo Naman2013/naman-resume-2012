@@ -98,6 +98,8 @@ import { makeStarPartyListSelector,
     makeGetDashboardMissionListSelector,
   } from './selectors';
 
+import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
+
 import { NewDashboard } from './index';
 
 const mapStateToProps = createStructuredSelector({
@@ -182,6 +184,7 @@ const mapDispatchToProps = {
     getActivityFeedMembers,
     setMemberChatState,
     getDashboardMissionListAction,
+    setPublicCardStatusAction,
 };
 
 export default compose(

@@ -5,7 +5,7 @@ import * as cx from 'classnames';
 type TFeedItem = {
   item: any;
   contentClickHandler: (e: any) => void;
-  onKeyPressed: (e: any) => void;
+  onKeyPressed: (e: any) => void;  
 };
 
 export const FeedItem = (props: TFeedItem) => {

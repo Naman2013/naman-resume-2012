@@ -11,7 +11,7 @@ import { API } from 'app/api';
 import { LiveActivity } from '../../common/live-activity';
 
 export class LiveChat extends Component{
-     
+    
     render() {
         const { 
           pubnubData, 
@@ -20,7 +20,8 @@ export class LiveChat extends Component{
           unSubscribePubnub, 
           pubnubInit, 
           getActivityFeedMembers, 
-          setMemberChatState,
+          setMemberChatState, 
+          onClickItem,         
            } = this.props;
 
         const {  
@@ -72,6 +73,7 @@ export class LiveChat extends Component{
                     sendMessage={sendMessage}
                     selectedTab={activeTab}
                     setTab={setTab}
+                    onClickItem={onClickItem}
                   />
               )}
                 

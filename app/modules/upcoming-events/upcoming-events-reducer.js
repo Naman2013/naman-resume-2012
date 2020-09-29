@@ -8,6 +8,7 @@ import {
   SET_NEXT_EVENT,
   SET_TIMER_VALUES,
   SET_CALCULATED_EVENT_VALUES,
+  SET_PUBLIC_CARD_STATUS,
 } from './upcoming-events-actions';
 
 const currentTimePlaceholder = moment();
@@ -53,6 +54,8 @@ const initialState = {
     minutesTo: 0,
     secondsTo: 0,
   },
+  showPublicCard: false,
+  customerUUID: null,
 };
 
 export default createReducer(initialState, {
@@ -99,6 +102,13 @@ export default createReducer(initialState, {
       eventTimer: {
         ...payload,
       },
+    };
+  },
+  [SET_PUBLIC_CARD_STATUS](state, { flag, customerUUID }) {
+    return {
+      ...state,
+      showPublicCard: flag,
+      customerUUID: customerUUID,
     };
   },
 });

@@ -15,6 +15,18 @@ export const SET_CALCULATED_EVENT_VALUES = 'SET_CALCULATED_EVENT_VALUES';
 
 export const SET_TIMER_VALUES = 'SET_TIMER_VALUES';
 
+export const SET_PUBLIC_CARD_STATUS = 'SET_PUBLIC_CARD_STATUS';
+
+export const setPublicCardStatus = (flag, customerUUID) => ({
+  type: SET_PUBLIC_CARD_STATUS,
+  flag,
+  customerUUID
+});
+
+export const setPublicCardStatusAction = (customerUUID, flag) => (dispatch, getState) => {    
+  dispatch(setPublicCardStatus(flag, customerUUID));
+};
+
 export const fetchEventsStart = () => ({
   type: FETCH_EVENTS_START,
 });

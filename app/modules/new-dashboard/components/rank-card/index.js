@@ -45,7 +45,7 @@ export class RankCard extends Component{
                     />
                     <table>
                         {rankList.slice(0, showRowCount === 0 ? rankList.length : showRowCount).map(rank=>(
-                            <tr className="show-cusor" onClick={onClickItem !== undefined ? ()=>onClickItem(rank.memberUUID) : null}>
+                            <tr className="show-cusor" onClick={onClickItem !== undefined ? ()=>onClickItem(rank.memberUUID, true) : null}>
                                 <td className={"rank-id" + (rank.highlight ? " rank-highlight" : "")}>{rank.rank}</td>
                                 <td className={"rank-name" + (rank.highlight ? " rank-highlight" : "")}>
                                     <div>

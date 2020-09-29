@@ -121,7 +121,7 @@ export class UpcomingMissionList extends Component{
         // });
       };
 
-      reserveCommunityMission = () => {
+      reserveCommunityMission = () => {        
         const { reserveCommunityMission, dashboardFeaturedObjects } = this.props;
         const { callSource } = dashboardFeaturedObjects;
         const { selectedSlot } = this.state;
@@ -182,7 +182,7 @@ export class UpcomingMissionList extends Component{
           } = selectedSlot;        
           
           const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
-         
+        
         return (
             <div>
                 <MissionConfirmationModal

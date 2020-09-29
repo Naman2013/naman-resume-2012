@@ -10,7 +10,7 @@ export class ConversationLayout extends Component{
         console.log("Customer UUID: "+ el.id);
         if (el && e.currentTarget.contains(el) && el.id !== "") {
             e.preventDefault();
-            this.props.onClickItem(el.id);
+            this.props.onClickItem(el.id, true);
         }        
     }
     render() {        

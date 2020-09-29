@@ -144,3 +144,11 @@ export function getDashboardMissionList(data) {
   return API.post('/api/reservation/getDashboardMissionList',data);
 }
 
+export function getTopCommunityObjects(data) {
+  return API.post('/api/leaderboards/topCommunityObjects',data);
+}
+
+export function getTopCommunityObservations(data) {
+  return API.post('/api/leaderboards/topCommunityObservations',data);
+}
+

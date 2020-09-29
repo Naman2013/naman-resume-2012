@@ -9,7 +9,7 @@ type TFeedItem = {
 
 export const MemberItem = (props: TFeedItem) => {
   const {
-    member: { displayName, gravityLabel, gravity, linkUrl }, contentClickHandler, onKeyPressed
+    member: { displayName, gravityLabel, gravity, linkUrl, customerUUID }, contentClickHandler, onKeyPressed
   } = props;
 
   return (
@@ -22,7 +22,10 @@ export const MemberItem = (props: TFeedItem) => {
         className="member-name"       
       >
         <a
-          href={linkUrl}>
+          // href={linkUrl}
+          href=""
+          id={customerUUID}
+          >
           {displayName}
         </a>
       </span>

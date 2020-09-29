@@ -4,6 +4,8 @@ import './style.scss';
 import { ClubCard } from '../club-card';
 import { Link } from 'react-router';
 import Pagination from '../../common/v4-pagination/pagination';
+import ProfileGroups from '../../common/profile-groups/profile-groups';
+
 
 export class ClubList extends Component{
 
@@ -27,12 +29,18 @@ export class ClubList extends Component{
       };
 
     render() {
-        const { heading, showExploreClubs, clubList, totalClubsCount } = this.props;
+        const { heading, showExploreClubs, clubList, totalClubsCount, data } = this.props;
         const { activePage } = this.state;
         return (
             clubList !== (undefined || null) ? (
             <div className="club-list-main">
-                <h2 className="club-list-heading">{heading}</h2>                        
+                <div className="my-club-header">
+                    <h2 className="club-list-heading">{heading}</h2>    
+                    <ProfileGroups
+                        data={data}
+                    />
+                </div>
+                                    
                     <div className="club-list">
                         {clubList.map(club=>(
                             <ClubCard

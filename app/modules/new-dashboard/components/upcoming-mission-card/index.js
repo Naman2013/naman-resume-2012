@@ -2,7 +2,7 @@ import { Component } from 'react';
 import React from "react";
 import './style.scss';
 import { ThreeDotsMenu } from '../../common/three-dot-menu';
-
+import { Tooltip } from 'react-tippy';
 
 export class UpcomingMissionCard extends Component{
 
@@ -39,7 +39,18 @@ export class UpcomingMissionCard extends Component{
                 </div>
                 <div className="mar-top-auto">
                     <h4 className="upcoming-time">{mission.missionStartFormatted.displayDateTime}</h4>
-                    <h4 className="upcoming-telescope">{mission.telescopePierName}</h4>                
+                    <div>
+                        <h4 className="upcoming-telescope">{mission.telescopePierName}</h4> 
+                        {mission.showJoiningMission ? (   
+                            <Tooltip
+                            className="mission-tooltip-icon"
+                            title={mission.joiningMissionTooltipText}
+                            position="top"
+                            theme="light">
+                                <img alt="" className="scheduled-mission-icon" src={mission.joiningMissionIconURL} />
+                            </Tooltip>) : null}
+                    </div>
+                                   
                 </div>                
                 {mission.showPicturetaken && (
                     <br/>,

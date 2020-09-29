@@ -73,10 +73,13 @@ const submitMessage = (
       displayName: userDisplayName,
       customerUUID: getUserInfo().customerUUID,
       date: '',
+      // message_by_locale: {
+      //   en: `<a href="/profile/public/${
+      //     getUserInfo().customerUUID
+      //   }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
+      // },
       message_by_locale: {
-        en: `<a href="/profile/public/${
-          getUserInfo().customerUUID
-        }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
+        en: `<a id="${getUserInfo().customerUUID}" href="">${tmpUserDisplayName}</a> - ${event.target.value}`,
       },
     };
     setMessageIdToLocalStorage(null);
@@ -125,6 +128,7 @@ type TLiveActivity = {
   sendMessage: Function;
   selectedTab: string;
   setTab: Function;
+  onClickItem: Function;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -145,6 +149,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     sendMessage,
     selectedTab,
     setTab,
+    onClickItem,
   } = props;
   
   const rnd = useRef(null);
@@ -260,10 +265,14 @@ export const LiveActivity = (props: TLiveActivity) => {
   const contentClickHandler = (e: any): void => {
     // detect click on Link
     if (e.target instanceof window.HTMLAnchorElement) {
-      const targetLink = e.target.closest('a');
-      e.preventDefault();
-      browserHistory.push(targetLink.href);
-
+      // const targetLink = e.target.closest('a');
+      // e.preventDefault();
+      // browserHistory.push(targetLink.href);
+      const el = e.target.closest("a");
+      if (el && e.currentTarget.contains(el) && el.id !== "") {
+        e.preventDefault();
+        props.onClickItem(el.id, true);
+      } 
       // if Mobile then close modal
       const isMobile = isMobileScreen() || isTabletScreen();
 
@@ -399,6 +408,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                       member={memberItem}
                       contentClickHandler={contentClickHandler}
                       onKeyPressed={onKeyPressed}
+                      onClickItem={onClickItem}
                     />
                     
                   ))}
@@ -443,7 +453,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                         key={feedItem.id}
                         item={feedItem}
                         contentClickHandler={contentClickHandler}
-                        onKeyPressed={onKeyPressed}
+                        onKeyPressed={onKeyPressed}                        
                       />
                     ))}
                     <Spinner

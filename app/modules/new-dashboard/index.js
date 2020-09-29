@@ -27,7 +27,7 @@ import { QuestCard } from "./components/quest-card";
 import { QuestMap } from "./components/quest-map";
 import { ExploreObject } from "./components/explore-objects";
 import { CommunityExploration } from "./components/community-exploration";
-import { getMostActiveClubs } from "./dashboardApi";
+import { getMostActiveClubs, getTopCommunityObjects, getTopCommunityObservations } from "./dashboardApi";
 import { ActiveObject } from "./components/object-list/active-objects";
 import { PopularObservation } from "./components/object-list/popular-observation";
 import { SchoolClub } from "./components/community-club-list/top-school-clubs";
@@ -38,12 +38,14 @@ import { TopStudents } from "./components/rank-card/top-students";
 import { ProfileStatus } from "./components/profile-card/profile-status";
 import { CommunityFame } from "./components/community-fame";
 import { TitleHeaderNew } from "./components/title-header-new";
-import LiveActivity from "../live-activity/containers/live-activity";
 import { LiveChat } from "./components/live-chat";
 import { pubnubInit } from "../pubnub-handler/actions";
 import { PublicProfileCard } from "./components/public-card";
 import Popup from 'react-modal';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+import { TopCommunityObjects } from './components/object-list/top-objects';
+import { TopCommunityObservations } from './components/object-list/top-observations';
+
 
 export class NewDashboard extends PureComponent{
 
@@ -74,11 +76,7 @@ export class NewDashboard extends PureComponent{
         let scrollTop = event.srcElement.body.scrollTop;
         if(scrollTop < this.observatoryRef.current.offsetTop)
             this.setState({selectedBulletingHeader: "Explore the Universe"});
-    }
-
-    handlePublicProfileCard = (customerUUID) =>{
-        this.setState({showPublicProfile: true, customerUUID: customerUUID});
-    }
+    }  
 
     scrollToRef = (index, heading) => {
         switch(index){
@@ -127,6 +125,7 @@ export class NewDashboard extends PureComponent{
                 setDock,               
                 // getGravityByDomainAction,
                 getDashboardMissionListAction,
+                
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -242,6 +241,7 @@ export class NewDashboard extends PureComponent{
                 setMemberChatState,
                 getDashboardMissionListAction,
                 dashboardMissionList,
+                setPublicCardStatusAction,
               } =this.props;
 
               const { selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
@@ -397,7 +397,7 @@ export class NewDashboard extends PureComponent{
 
                                 {/* {communityExploration && ( */}
                                     <CommunityExploration
-                                        onClickItem={this.handlePublicProfileCard}
+                                        onClickItem={setPublicCardStatusAction}
                                         // communityExploration={communityExploration}
                                     />
                                 {/* )}                                     */}
@@ -433,6 +433,7 @@ export class NewDashboard extends PureComponent{
                                         clubList={myClubList.groupsList}
                                         totalClubsCount={myClubList.totalClubsCount}
                                         getClubList={getMyClubListDataAction}
+                                        data={privateProfile}
                                     />
                                 )}
                                 
@@ -476,6 +477,7 @@ export class NewDashboard extends PureComponent{
                                         getActivityFeedMembers={getActivityFeedMembers}
                                         pubnubData={pubnubData}
                                         setMemberChatState={setMemberChatState}
+                                        onClickItem={setPublicCardStatusAction}
                                     />                                
                                 )}
                                 
@@ -529,7 +531,7 @@ export class NewDashboard extends PureComponent{
                                 {/* )} */}
                                 
                                 <MyRank 
-                                    onClickItem={this.handlePublicProfileCard}
+                                    onClickItem={setPublicCardStatusAction}
                                 />
 
                                 {/* {myRank && (
@@ -549,8 +551,12 @@ export class NewDashboard extends PureComponent{
                                 )}
                                  */}
                                 <CommunityFame />
-                               
-                                <ObjectList
+
+                                <TopCommunityObjects />
+
+                                <TopCommunityObservations />
+
+                                {/* <ObjectList
                                     heading={"Community Top Object"}
                                     showTab={true}
                                     headerlist={["Last 30 Days", "All Time"]}
@@ -560,8 +566,9 @@ export class NewDashboard extends PureComponent{
                                                     {gravityPoints: "41 GP", title: "Saturn", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/saturn.svg"},
                                                     {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
                                                     {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
-                                />
-                                <ObjectList
+                                                    getTopCommunityDataAction={getTopCommunityObjects}
+                                /> */}
+                                {/* <ObjectList
                                     heading={"Community Top Observations"}
                                     showTab={true}
                                     headerlist={["Last 30 Days", "All Time"]}
@@ -571,10 +578,11 @@ export class NewDashboard extends PureComponent{
                                                     {gravityPoints: "41 GP", title: "Saturn", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/saturn.svg"},
                                                     {gravityPoints: "28 GP", title: "Moon", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/moon.svg"},
                                                     {gravityPoints: "24 GP", title: "Pluto", iconUrl: "https://vega.slooh.com/assets/v4/dashboard-new/pluto.svg"}]}
-                                />
+                                                    getTopCommunityDataAction={getTopCommunityObservations}
+                                /> */}
 
                                 <TopMembers 
-                                    onClickItem={this.handlePublicProfileCard}
+                                    onClickItem={setPublicCardStatusAction}
                                 />
 
                                 {/* {topMembers && (
@@ -613,7 +621,7 @@ export class NewDashboard extends PureComponent{
                                     />
                                 )} */}
                                 <TopStudents 
-                                    onClickItem={this.handlePublicProfileCard}
+                                    onClickItem={setPublicCardStatusAction}
                                 />
                                 {/* {topStudents && (
                                     <RankCard

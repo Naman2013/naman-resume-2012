@@ -32,10 +32,10 @@ const generateNavItems = (objectId, t) => [
     title: t('Objects.Stories'),
     link: `/object-details/${objectId}/stories`,
   },
-  {
-    title: t('Objects.Quests'),
-    link: `/object-details/${objectId}/quests`,
-  },
+  // {
+  //   title: t('Objects.Quests'),
+  //   link: `/object-details/${objectId}/quests`,
+  // },
 ];
 
 const Navigation = ({ items, objectId }) => {

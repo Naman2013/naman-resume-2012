@@ -136,10 +136,16 @@ export class AvailbleMissionTile extends Component {
               ) : null} */}
             {/* </div> */}
             <div>
-              <Button
+              {showJoinButton && (
+                <Button
+                  text={joinButtonCaption}
+                  onClickEvent={onMissionView}
+                />
+              )}
+              {/* <Button
                 text={viewMissionButtonCaption}
                 onClickEvent={onMissionView}
-              />
+              /> */}
             </div>
           </div>
         )}
