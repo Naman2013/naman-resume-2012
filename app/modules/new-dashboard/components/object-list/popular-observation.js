@@ -50,7 +50,7 @@ export class PopularObservation extends Component{
             <div>
                 {userPopularObservation && (
                     <ObjectList
-                        heading={"Most Popular Observations"}
+                        heading={"Popular Observations"}
                         showTab={false}
                         headerlist={[]}
                         selectedheader={""}

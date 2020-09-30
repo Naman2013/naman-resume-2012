@@ -51,7 +51,7 @@ export class SchoolClub extends Component{
                         clubList={topSchoolClubs.rankList}
                         tabOptions={topSchoolClubs.tabOptions}
                         getClubData={this.getActiveClubAction} 
-                        showRowCount={3}    
+                        showRowCount={0}    
                         loading={loading}                 
                     />
                 )}                                             

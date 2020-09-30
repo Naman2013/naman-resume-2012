@@ -51,7 +51,7 @@ export class ActiveClub extends Component{
                         clubList={mostActiveClubs.rankList}
                         tabOptions={mostActiveClubs.tabOptions}
                         getClubData={this.getActiveClubAction}  
-                        showRowCount={3}   
+                        showRowCount={0}   
                         loading={loading}                    
                     />
                 )}                                             

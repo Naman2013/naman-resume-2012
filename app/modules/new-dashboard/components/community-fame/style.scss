@@ -11,7 +11,7 @@
     height: 16px;
     left: 715px;
     top: 203px; */
-    
+    margin-top: 20px;
     font-family: $secondary-font;
     font-style: normal;
     font-weight: 500;
@@ -19,6 +19,10 @@
     line-height: 25px;    
     margin-bottom: 10px;
     color: #FFFFFF;
+}
+
+.new-dash .center-align{
+    text-align: center;    
 }
 
 .new-dash .community-flex-layout{
@@ -30,7 +34,7 @@
 .new-dash .community-gp-card{  
     width: 90px;
     height: 102px;    
-    margin: 10px 0px;
+    // margin: 10px 0px;
     background: url('https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg');
     border-radius: 4px;
 }
@@ -48,6 +52,21 @@
     text-align: center;
 
     color: #FFFFFF;
+}
+
+.new-dash .comming-soon{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+    color: #fff;
+    height: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);
+    border-radius: 8px;
 }
 
 .new-dash .community-gp-txt{   

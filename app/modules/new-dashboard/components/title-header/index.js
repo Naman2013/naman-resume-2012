@@ -11,8 +11,12 @@ export class TitleHeader extends Component{
         
         return (
             <div className="title-main">
-                <h2 className="title-heading">{heading}</h2>               
-                <h4 className="title-subHeading">{subHeading}</h4>
+                {heading && (
+                    <h2 className="title-heading">{heading}</h2>
+                )}
+                {subHeading && (
+                    <h4 className="title-subHeading">{subHeading}</h4>
+                )}
             </div>   
         );
     }

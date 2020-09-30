@@ -78,7 +78,7 @@ export class BookMark extends Component{
                 <div className="guide-list-main">
                     <h2 className="guide-list-heading">{heading}</h2>
                         <TabHeader
-                            headings={["Objects", "Illuminations", "Star Party", "Guides"]}
+                            headings={["Objects", "Guides", "Star Party", "Illuminations"]}
                             activeHeading={activeHeading}
                             spaceequally={false}
                             theme={"dark"}

@@ -11,7 +11,8 @@ export class TitleHeaderNew extends Component{
         
         return (
             <div className="title-main">
-                <h2 className="title-heading">{heading} : <span className="title-subHeading">{subHeading}</span></h2>               
+                <h2 className="title-heading">{heading}</h2>
+                {/* : <span className="title-subHeading">{subHeading}</span>                */}
                 {/* <h4 className="title-subHeading">{subHeading}</h4> */}
             </div>   
         );

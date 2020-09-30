@@ -57,7 +57,7 @@ export class NewDashboard extends PureComponent{
     
     constructor(props){
         super(props)
-        this.exploreRef = React.createRef();  
+        this.missionref = React.createRef();  
         this.observatoryRef = React.createRef();  
         this.photoRef = React.createRef();  
         this.communityRef = React.createRef();  
@@ -81,10 +81,10 @@ export class NewDashboard extends PureComponent{
     scrollToRef = (index, heading) => {
         switch(index){
             case 0:                
-                window.scrollTo(0, this.exploreRef.current.offsetTop);
+                window.scrollTo(0, this.observatoryRef.current.offsetTop);
                 break;
             case 1:
-                window.scrollTo(0, this.observatoryRef.current.offsetTop);
+                window.scrollTo(0, this.missionref.current.offsetTop);
                 break;
             case 2:
                 window.scrollTo(0, this.photoRef.current.offsetTop);
@@ -259,8 +259,7 @@ export class NewDashboard extends PureComponent{
                                 // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
                             />
                             <div className="left-contents">
-
-                                <div ref={this.exploreRef}/>
+                                
                                 <TitleHeaderNew                                    
                                     heading = {"Explore the Universe"}
                                     subHeading = {"Discover and Observe"}
@@ -294,6 +293,7 @@ export class NewDashboard extends PureComponent{
                                 
                                 <SectionDivider/>
 
+                                <div ref={this.missionref}/>
                                 {privateProfileMission && dashboardMissionList && (
                                     <div>
                                         <UpcomingMissionList
@@ -377,7 +377,7 @@ export class NewDashboard extends PureComponent{
 
                                 <div ref={this.photoRef}/>
                                 <PhotoHub
-                                    heading={"Photo Hub (1 New)"}                            
+                                    heading={"Photos (1 New)"}                            
                                     headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
                                     selectedheader={"Photo Roll"}
                                     headerspaceequally={false}
@@ -416,7 +416,7 @@ export class NewDashboard extends PureComponent{
                                 
                                 {upcomingStarPartyList && (
                                     <StarPartyList
-                                    heading={"Upcoming StarParties"}
+                                    heading={"Star Party Schedule"}
                                     partylist={upcomingStarPartyList.eventList}                            
                                     // partylist={[{startText: "Starts in 00:24:21", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" },
                                     //             {startText: "Upcoming StarParty", name: "Supermoon Trilogy: Episode II - The Super Pink Moon", dateTime: "Wednesday, April 7, 18:30", astronomerImageURL: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-person-512.png", astronomerName: "Paul Cox" }]}
@@ -427,7 +427,7 @@ export class NewDashboard extends PureComponent{
 
                                 {myClubList && (
                                     <ClubList
-                                        heading={"My Clubs"}
+                                        heading={"Clubs"}
                                         showExploreClubs={true}
                                         // clubList={[{name: "Ad Astra", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},
                                         //             {name: "Astronomy for the Soul", type: "Public Community", info: "Admin: Paul Cox | 684 Members"},]}

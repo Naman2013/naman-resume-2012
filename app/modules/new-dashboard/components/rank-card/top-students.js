@@ -50,7 +50,7 @@ export class TopStudents extends Component{
                     <RankCard
                         heading={topStudents.sectionHeading}                        
                         rankList={topStudents.rankList}
-                        showRowCount={10}
+                        showRowCount={0}
                         showMoreButton={false}
                         tabOptions={topStudents.tabOptions}
                         getRankData={this.getTopStudentsAction}

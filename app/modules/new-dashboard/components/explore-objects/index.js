@@ -8,17 +8,17 @@ import { ObjectMap } from '../object-map-new';
 export class ExploreObject extends Component{
 
     state={
-        activeHeading: "Explore Quests"
+        activeHeading: "Quest Map"
     }
 
     onTabChange = (title) =>{
         const { getObjectMapControl, getQuestMapControl } = this.props;
         switch(title){
-            case "Explore Quests":
+            case "Quest Map":
                 getQuestMapControl();
                 break;
-            case "Explore Objects":
-                getObjectMapControl();
+            case "Object Map":
+                // getObjectMapControl();
                 break;
         }
 
@@ -33,23 +33,25 @@ export class ExploreObject extends Component{
         return (
             <div className="title-main">
                  <TabHeader
-                    headings={["Explore Quests"]}
+                    headings={["Quest Map", "Object Map"]}
                     activeHeading={activeHeading}
                     spaceequally={false}
                     theme={"dark"}
                     onTabChange={this.onTabChange}
                 />
 
-                {activeHeading === "Explore Quests" && questMapControls && (
+                {activeHeading === "Quest Map" && questMapControls && (
                     <QuestMap
                         questMapControls={questMapControls.mapControls}
                     /> 
                 )}
 
-                {activeHeading === "Explore Objects" && objectMapControls && (
-                    <ObjectMap
-                        objectMapControls={objectMapControls.mapControls}
-                    /> 
+                {/* {activeHeading === "Object Map" && objectMapControls && ( */}
+                {activeHeading === "Object Map" && (
+                    // <ObjectMap
+                    //     objectMapControls={objectMapControls.mapControls}
+                    // /> 
+                    <h2 className="comming-soon">Comming Soon...</h2>
                 )}
             </div>   
         );

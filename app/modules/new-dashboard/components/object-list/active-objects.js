@@ -45,7 +45,7 @@ export class ActiveObject extends Component{
             <div>
                 {userActiveObject && (
                     <ObjectList
-                        heading={"Most Active Objects"}
+                        heading={"Active Objects"}
                         showTab={false}
                         headerlist={[]}
                         selectedheader={""}
