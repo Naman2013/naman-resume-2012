@@ -21,6 +21,9 @@ import styles, {
   profilePicSmall,
   profilePicLeader,
 } from './members-list.style';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { setPublicCardStatusAction } from '../../../modules/upcoming-events/upcoming-events-actions';
 
 const { bool, func, string } = PropTypes;
 
@@ -36,6 +39,8 @@ const GroupMemberListSort = ({
   theme,
   clubLeaderLabel,
   linkUrl,
+  setPublicCardStatusAction,
+  customerUUID
 }) => (
   <div className="members-list-card" key={uniqueId()} style={theme}>
     {clubLeaderLabel ? (
@@ -66,7 +71,7 @@ const GroupMemberListSort = ({
       <>
         <div className="header">
           <div className="pic" style={profilePicSmall(iconUrl)} />
-          <Link to={linkUrl}>
+          <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
             <div
               className="user-title"
               dangerouslySetInnerHTML={{ __html: displayName }}
@@ -97,4 +102,8 @@ GroupMemberListSort.propTypes = {
   theme: PropTypes.shape({}),
 };
 
-export default GroupMemberListSort;
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null,mapDispatchToProps)) (GroupMemberListSort);

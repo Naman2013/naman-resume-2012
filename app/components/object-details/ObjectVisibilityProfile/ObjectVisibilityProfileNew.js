@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
-import { RISE_SET_TIMES } from 'app/services/objects';
+import { RISE_SET_TIMES, GET_JOIN_MISSIONS } from 'app/services/objects';
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
@@ -63,6 +63,7 @@ class ObjectVisibilityProfileNew extends Component {
     return (
       <Request
         serviceURL={RISE_SET_TIMES}
+        // serviceURL={GET_JOIN_MISSIONS}
         requestBody={{
           dateString,
           objectId,

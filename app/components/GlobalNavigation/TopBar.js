@@ -458,9 +458,9 @@ const TopBar = ({
                   -webkit-backdrop-filter: blur(4px);
                   backdrop-filter: blur(4px);
                   border-radius: 8px;
-                  font-family: Brandon Grotesque,brandon-grotesque,sans-serif;
+                  font-family: Roboto;
                   font-style: normal;
-                  font-weight: bold;
+                  font-weight: 500;
                   font-size: 14px;
                   line-height: 20px;
                   color: blue;

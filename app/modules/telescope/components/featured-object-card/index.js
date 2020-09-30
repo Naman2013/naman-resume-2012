@@ -22,6 +22,8 @@ export class FeaturedObjectCard extends PureComponent {
       joiningMissionTooltipText,
       joiningMissionIconURL,
       telescopeName,
+      joinButtonCaption,
+      showJoinButton,
     } = featureObject;
     const {
       displayTime,
@@ -58,9 +60,9 @@ export class FeaturedObjectCard extends PureComponent {
         <div className="featured-object-card-footer">
           <div className="mission-date">{displayWeekdayMonthDayUTC}</div>
           <div className="mission-date">{ telescopeName }</div>
-          {missionAvailable && !userHasReservation && !readOnly && (
+          {missionAvailable && !userHasReservation && !readOnly && showJoinButton && (
             <Button className="option-btn" onClick={onOptionClick}>
-              {optionsButtonCaption || 'Options'}
+              {joinButtonCaption || 'Options'}
             </Button>
             )}
 

@@ -21,6 +21,9 @@ import {
 } from 'app/styles/mixins/utilities';
 
 import styles, { profPic } from './Card.style';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { setPublicCardStatusAction } from '../../../upcoming-events/upcoming-events-actions';
 
 const {
   any,
@@ -64,6 +67,7 @@ const Card = props => {
     user,
     commentBtnDisabled,
     authorInfo,
+    setPublicCardStatusAction,    
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -75,14 +79,14 @@ const Card = props => {
     });
     modalActions.showModal();
   };
-
+  
   return (
     <div className="root">
       <div className="comment-item">
         <div className="user-info-container">
           <div className="user-info">
             <div style={profPic(avatarURL)} />
-            <Link to={authorInfo?.linkUrl}>
+            <Link onClick={()=>setPublicCardStatusAction(authorInfo.customerUUID, true)}>
               <div
                 className="display-name"
                 dangerouslySetInnerHTML={{ __html: displayName }}
@@ -200,4 +204,8 @@ Card.defaultProps = {
   renderChildReplies: null,
 };
 
-export default Card;
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null, mapDispatchToProps)) (Card);

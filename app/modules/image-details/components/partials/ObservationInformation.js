@@ -21,6 +21,9 @@ import { Modal } from 'app/components/modal';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { WriteObservationStep3 } from 'app/modules/object-details/components/write-observation-step3';
 import { ClubListPopover } from 'app/modules/clubs/components/club-list-popover';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { setPublicCardStatusAction } from '../../../upcoming-events/upcoming-events-actions';
 
 const {
   any,
@@ -160,8 +163,11 @@ class ObservationInformation extends Component {
       customerImageId,
       profileGroupList,
       canShareObservations,
+      setPublicCardStatusAction,
+      customerUUID,
     } = this.props;
-    const { isOpen, likePrompt, count, promptText } = this.state;    
+    const { isOpen, likePrompt, count, promptText } = this.state; 
+     
     return (
       <div className="root">
         <div className="obs-container component-container clearfix">
@@ -170,7 +176,7 @@ class ObservationInformation extends Component {
             dangerouslySetInnerHTML={{ __html: observationTitle || imageTitle }}
           />
           <div className="obs-name-and-time">
-            <Link to={iconFileData?.Member?.linkUrl}>
+            <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)}>
               <div
                 className="obs-author"
                 dangerouslySetInnerHTML={{ __html: fileData['Photo by'] }}
@@ -287,4 +293,8 @@ class ObservationInformation extends Component {
   }
 }
 
-export default ObservationInformation;
+const mapDispatchToProps={
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null, mapDispatchToProps))(ObservationInformation);

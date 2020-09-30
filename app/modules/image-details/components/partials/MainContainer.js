@@ -38,6 +38,7 @@ const MainContainer = ({
   profileGroupList,
   canShareObservations,
   canSubmitReplies,
+  customerUUID,
 }) => {
   const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState('');
@@ -78,6 +79,7 @@ const MainContainer = ({
             shareMemberPhotoData={shareMemberPhotoData}
             profileGroupList={profileGroupList}
             canShareObservations={canShareObservations}
+            customerUUID={customerUUID}
           />
           <br />
         </>

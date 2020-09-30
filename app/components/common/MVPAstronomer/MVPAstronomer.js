@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import MVPAstronomerCard from './MVPAstronomerCard';
 import style from './MVPAstronomer.style';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { setPublicCardStatusAction } from '../../../modules/upcoming-events/upcoming-events-actions';
 
 const MVPAstronomer = ({
   gravityRankLabel,
@@ -17,10 +20,12 @@ const MVPAstronomer = ({
   hasLinkFlag,
   linkUrl,
   cardClass,
+  customerUUID,
+  setPublicCardStatusAction,
 }) => (
   <Fragment>
     {hasLinkFlag ? (
-      <Link to={linkUrl}>
+      <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
         <MVPAstronomerCard
           gravityRankLabel={gravityRankLabel}
           displayName={displayName}
@@ -50,6 +55,11 @@ MVPAstronomer.propTypes = {
   hasLinkFlag: PropTypes.bool.isRequired,
   linkUrl: PropTypes.string.isRequired,
   cardClass: PropTypes.string.isRequired,
+  customerUUID: PropTypes.string.isRequired,
 };
 
-export default MVPAstronomer;
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null,mapDispatchToProps)) (MVPAstronomer);

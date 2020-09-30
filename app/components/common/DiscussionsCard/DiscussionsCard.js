@@ -72,6 +72,7 @@ class DiscussionsCard extends PureComponent {
       flagParams,
       authorInfo,
       t,
+      setPublicCardStatusAction
     } = this.props;
    
     return (
@@ -84,7 +85,7 @@ class DiscussionsCard extends PureComponent {
           <div className="user-info-container">
             <div className="user-info">
               <div style={profPic(avatarURL)} />
-              <Link to={authorInfo?.linkUrl}>
+              <Link onClick={()=>setPublicCardStatusAction(authorInfo.customerUUID, true)} >
                 <div
                   className="display-name"
                   dangerouslySetInnerHTML={{ __html: displayName }}
