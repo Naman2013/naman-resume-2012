@@ -60,6 +60,7 @@ type TProfileActivityProps = {
   profileGroupList: IProfileGroupList;
   canShareObservations: boolean;
   canSubmitReplies: boolean;
+  customerUUID: string;
 };
 
 type TProfileActivityState = {
@@ -113,13 +114,14 @@ export class ImageDetails extends Component<
       observationTitle,
       profileGroupList,
       canShareObservations,
-      canSubmitReplies,
+      canSubmitReplies,     
     } = this.props;
     const { isOpenModal } = this.state;
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
     const showRightContainer =
       rightPanelDisplayFlags.filter(flag => !!flag).length > 0;  
+      
     return (
       <Fragment>
         <div className="row mb-5">
