@@ -180,6 +180,12 @@
 }
 
 @media (min-width: $screenXLarge){
+
+    .new-dash .observatory-heading{        
+        font-size: 28px;
+        line-height: 32px;
+    }
+
     .new-dash .observatory-col{
         display: none; 
     }

@@ -10,11 +10,21 @@ export class FeaturedMissionList extends Component{
         // const featuredMissionList = [{objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"},
         // {objectname: "LMT Cluster Bennett 36 (NGC 2214)" , time: "10:30 UTC", scheduledby: "Regina Murphy", telescope: "Chile One"}];
 
-        const { featuredMissionList, readOnly, reservationModalShow  } = this.props;
+        const { featuredMissionList, readOnly, reservationModalShow, heading, subHeading  } = this.props;
        
         return (
             <div className="featured-main">
-                <h2 className="featured-heading">Featured Missions</h2>
+                {heading && (
+                    <div>                       
+                        {heading && (
+                            <h3 className="upcoming-subheadings">{heading}</h3>
+                        )}
+                        {subHeading && (                        
+                            <h5 className="upcoming-subheading-status">{subHeading}</h5>
+                        )}  
+                    </div> 
+                )}
+                {/* <h2 className="featured-heading">Featured Missions</h2> */}
                     <div className="featured-row">
                         {featuredMissionList.map( mission => (                            
                             <MissionCard

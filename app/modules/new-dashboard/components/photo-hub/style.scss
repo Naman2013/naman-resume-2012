@@ -330,6 +330,14 @@
     margin: 5px;
 }
 
+@media (min-width: $screenXLarge){
+
+    .new-dash .photo-hub-heading{        
+        font-size: 28px;
+        line-height: 32px;
+    }
+}
+
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .upload-button span{
         display: none;

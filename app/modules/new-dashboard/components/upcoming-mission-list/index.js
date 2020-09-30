@@ -29,7 +29,7 @@ export class UpcomingMissionList extends Component{
         }).then(() => {
           this.setState({ cancelReservationModalVisible: false });
           // getPrivateProfile();
-          getPrivateProfileMissions(); 
+          // getPrivateProfileMissions(); 
           getDashboardMissionList(); 
         });
       };
@@ -42,7 +42,7 @@ export class UpcomingMissionList extends Component{
         cancelPiggyback({ scheduledMissionId }).then(() => {
           this.setState({ cancelPiggybackModalVisible: false });
           // getPrivateProfile();      
-          getPrivateProfileMissions();
+          // getPrivateProfileMissions();
           getDashboardMissionList(); 
         });
       };
@@ -132,7 +132,7 @@ export class UpcomingMissionList extends Component{
         const { getDashboardFeaturedObjects, getPrivateProfileMissions } = this.props;
         
         getDashboardFeaturedObjects({callSource: "featuredObjectsDashboardV4New"});
-        getPrivateProfileMissions();
+        // getPrivateProfileMissions();
         // stopFeaturedObjectsExpireTimer();
         // getDashboardFeaturedObjects('').then(({ payload }) => {
         //   const timerTime = payload.expires - payload.timestamp;
@@ -158,36 +158,28 @@ export class UpcomingMissionList extends Component{
       };
 
     render() {
-        const {heading, scheduleMission, 
-            piggyBackMissionSlot,
-            piggybackReservedMissionData,
-            piggybackReservedMission, 
-            emptySetDisplay, 
-            missionList, 
-            advancedmissionList, 
-            showSubHeading, 
-            featuredMission, 
-            dashboardFeaturedObjects,
-            reservedCommunityMissionData,
-            reservedCommunityMission,
-            user,
-            callSource,
-            showMissionsList, 
-            totalCount,
-            showMissionTitle,
-            showMissionQuota,
-            showMissionExplanation,
-            missionTitle,
-            missionQuota,
-            missionExplanation,
-            showAdvancedMissionsList,
-            showAdvancedMissionTitle,
-            showAdvancedMissionQuota,
-            showAdvancedMissionExplanation,
-            advancedMissionTitle,
-            advancedMissionQuota,
-            advancedMissionExplanation,
-          } = this.props;
+        const {                 
+                dashboardMissionList,
+                dashboardFeaturedObjects,                
+                reservedCommunityMissionData,
+                reservedCommunityMission,
+                user,                
+              } = this.props;
+        
+        const {
+          missions,
+          advancedMissions,
+          pastMissions,
+          missionsSectionHeader,
+          missionsSectionSubheader,          
+        } = dashboardMissionList;
+
+        const {
+          recommendedObjectsHeading,
+          recommendedObjectsSubHeading,
+          recommendedObjectsShow
+        } = dashboardFeaturedObjects;
+
         const {
             cancelReservationModalVisible,
             cancelPiggybackModalVisible,
@@ -203,7 +195,7 @@ export class UpcomingMissionList extends Component{
           } = selectedSlot;        
           
           const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
-        
+       
         return (
             <div>
                 <MissionConfirmationModal
@@ -220,32 +212,53 @@ export class UpcomingMissionList extends Component{
                     confirmationPrompt={cancelPiggybackDialogPrompt}
                 />            
                 <div className="upcoming-main">
-                  {heading && (
-                      <h2 className="upcoming-heading">{heading}</h2>
-                  )}                      
+                  {missionsSectionHeader && (
+                      <h2 className="upcoming-heading">{missionsSectionHeader}</h2>
+                  )}
+                  {missionsSectionSubheader && (
+                      <h5 className="upcoming-subheading-status">{missionsSectionSubheader}</h5> 
+                  )}                       
 
-                    {featuredMission && dashboardFeaturedObjects && (
+                    {dashboardFeaturedObjects && (
                         <FeaturedMissionList
+                            heading={recommendedObjectsHeading}
+                            subHeading={recommendedObjectsSubHeading}
+                            recommendedObjectsShow={recommendedObjectsShow}
                             featuredMissionList={dashboardFeaturedObjects.missionList}
                             reservationModalShow={this.reservationModalShow}
                             readOnly={false}
                         />
                     )}
-                    
-                    {showMissionTitle && (
+                    {missions.showMissionsTitle && (
                         <div>
                             <br/>
-                            {showMissionTitle && (
-                              <h3 className="upcoming-subheadings">{missionTitle}</h3>
+                            {missions.showMissionsTitle && (
+                              <h3 className="upcoming-subheadings">{missions.missionsTitle}</h3>
                             )}
-                            {showMissionQuota && (                        
-                              <h5 className="upcoming-subheading-status">{missionQuota}</h5>
+                            {missions.showMissionsQuota && (                        
+                              <h5 className="upcoming-subheading-status">{missions.missionsQuota}</h5>
                             )}  
-                        </div>                    
-                    )}
-                    {showMissionsList && (
+                        </div> 
+                    )}                  
+                   
+                    {missions.showMissionsList && (
                       <div className="upcoming-list">
-                        {[...Array(totalCount)].map((e,index)=>(                            
+                        {missions.missionsList.map(mission=>(
+                            <UpcomingMissionCard
+                              mission={mission}
+                              key={mission.scheduledMissionId}
+                              timeSlot={mission}
+                              cancelReservation={(selectedSlot) => 
+                                  this.setState({cancelReservationModalVisible: true, selectedSlot, })}
+                              cancelPiggyback={(selectedSlot) =>
+                                  this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
+                              grabPiggyback={this.grabPiggyback}
+                            />
+                        ))}
+
+                        {/* empty slot to plan an mission */}
+
+                        {/* {[...Array(totalCount)].map((e,index)=>(                            
                               index < missionList.length ? (
                                 <UpcomingMissionCard
                                   mission={missionList[index]}
@@ -265,7 +278,7 @@ export class UpcomingMissionList extends Component{
                               ))
                             
                             
-                        )}
+                        )} */}
                         
                         {/* {scheduleMission &&(
                             <div className="schedule-mission-card">
@@ -279,9 +292,9 @@ export class UpcomingMissionList extends Component{
                         
                     </div>
                     )}
-                    {showMissionExplanation && (
+                    {missions.showMissionsExplanation && (
                       <div class="empty-guide">
-                        <h3 class="guide-list-heading">{missionExplanation}</h3>
+                        <h3 class="guide-list-heading">{missions.missionsExplanation}</h3>
                       </div>                        
                     )}                  
                     
@@ -290,21 +303,21 @@ export class UpcomingMissionList extends Component{
                             <h3 className="upcoming-subheadings">{emptySetDisplay}</h3>
                         </div>
                     ):null} */}
-                    {showAdvancedMissionTitle &&(
+                    {advancedMissions.showMissionsTitle &&(
                         <div>
                             <br/>
-                            {showAdvancedMissionTitle && (
-                              <h3 className="upcoming-subheadings">{advancedMissionTitle}</h3>
+                            {advancedMissions.showMissionsTitle && (
+                              <h3 className="upcoming-subheadings">{advancedMissions.missionsTitle}</h3>
                             )}
-                            {showAdvancedMissionQuota && (
-                              <h5 className="upcoming-subheading-status">{advancedMissionQuota}</h5> 
+                            {advancedMissions.showMissionsQuota && (
+                              <h5 className="upcoming-subheading-status">{advancedMissions.missionsQuota}</h5> 
                             )}
                             
                         </div>                    
                     )}
-                    {showAdvancedMissionsList && (
+                    {advancedMissions.showMissionsList && (
                       <div className="upcoming-list">
-                      {advancedmissionList.map(mission=>(
+                      {advancedMissions.missionsList.map(mission=>(
                           <UpcomingMissionCard
                               mission={mission}
                               key={mission.scheduledMissionId}
@@ -327,12 +340,84 @@ export class UpcomingMissionList extends Component{
                       )}                             */}
                       </div>    
                     )}                
-                    {showAdvancedMissionExplanation && (
+                    {advancedMissions.showMissionsExplanation && (
                       <div class="empty-guide">
-                        <h3 class="guide-list-heading">{advancedMissionExplanation}</h3>
+                        <h3 class="guide-list-heading">{advancedMissions.missionsExplanation}</h3>
                       </div>                         
-                    )}                            
+                    )}    
+
+
+                    <div>
+                  <br/>
+                  {pastMissions.showMissionsTitle && (
+                    <h3 className="upcoming-subheadings">{pastMissions.missionsTitle}</h3>
+                  )}
+                  {pastMissions.showMissionsQuota && (                        
+                    <h5 className="upcoming-subheading-status">{pastMissions.missionsQuota}</h5>
+                  )}  
+                </div>                    
+                   
+                    {pastMissions.showMissionsList && (
+                      <div className="upcoming-list">
+                        {pastMissions.missionsList.map(mission=>(
+                            <UpcomingMissionCard
+                              mission={mission}
+                              key={mission.scheduledMissionId}
+                              timeSlot={mission}
+                              cancelReservation={(selectedSlot) => 
+                                  this.setState({cancelReservationModalVisible: true, selectedSlot, })}
+                              cancelPiggyback={(selectedSlot) =>
+                                  this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
+                              grabPiggyback={this.grabPiggyback}
+                            />
+                        ))}
+
+                        {/* {[...Array(totalCount)].map((e,index)=>(                            
+                              index < missionList.length ? (
+                                <UpcomingMissionCard
+                                  mission={missionList[index]}
+                                  key={missionList[index].scheduledMissionId}
+                                  timeSlot={missionList[index]}
+                                  cancelReservation={(selectedSlot) => 
+                                      this.setState({cancelReservationModalVisible: true, selectedSlot, })}
+                                  cancelPiggyback={(selectedSlot) =>
+                                      this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
+                                  grabPiggyback={this.grabPiggyback}
+                                />
+                              ):(
+                                // <UpcomingMissionCard
+                                //   mission={emptyMissionCard}                                  
+                                // />
+                                null
+                              ))
+                            
+                            
+                        )} */}
+                        
+                        {/* {scheduleMission &&(
+                            <div className="schedule-mission-card">
+                                <div className="upcoming-mission-card-head">
+                                    <h4 className="schedule-misssion-title">Schedule a New Mission</h4>
+                                    <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                </div>        
+                                <h4 className="schedule-mission-subtitle">Schedule your next adventure</h4>
+                        </div>
+                        )}                             */}
+                        
+                    </div>
+                    )}
+                    {pastMissions.showMissionsExplanation && (
+                      <div class="empty-guide">
+                        <h3 class="guide-list-heading">{pastMissions.missionsExplanation}</h3>
+                      </div>                        
+                    )}                           
                 </div>
+
+                 
+
+
+
+
                 {/* {reservationPiggybackVisible && (
                     <FeaturedObjectsModal
                         onHide={() => this.setState({ reservationPiggybackVisible: false })}

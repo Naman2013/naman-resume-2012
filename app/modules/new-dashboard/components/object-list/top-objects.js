@@ -48,7 +48,7 @@ export class TopCommunityObjects extends Component{
             <div>
                 {topCommunityObjects && (
                     <ObjectList
-                        heading={"Community Top Object"}
+                        heading={"Community Top Objects"}
                         showTab={true}
                         // headerlist={["Last 30 Days", "All Time"]}
                         tabOptions={topCommunityObjects.tabOptions}

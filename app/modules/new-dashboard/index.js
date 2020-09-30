@@ -245,7 +245,7 @@ export class NewDashboard extends PureComponent{
               } =this.props;
 
               const { selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
-           
+        
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -294,33 +294,13 @@ export class NewDashboard extends PureComponent{
                                 <SectionDivider/>
 
                                 <div ref={this.missionref}/>
-                                {privateProfileMission && dashboardMissionList && (
+                                {dashboardMissionList && dashboardFeaturedObjects && (
                                     <div>
                                         <UpcomingMissionList
-                                            heading={"Upcoming Missions"}
-                                            scheduleMission={true}
-                                            showMissionsList={dashboardMissionList.missions.showMissionsList}
-                                            missionList = {dashboardMissionList.missions.missionsList}
-                                            showMissionTitle = {dashboardMissionList.missions.showMissionsTitle}
-                                            showMissionQuota = {dashboardMissionList.missions.showMissionsQuota}
-                                            showMissionExplanation = {dashboardMissionList.missions.showMissionsExplanation}
-                                            missionTitle = {dashboardMissionList.missions.missionsTitle}
-                                            missionQuota = {dashboardMissionList.missions.missionsQuota}
-                                            missionExplanation = {dashboardMissionList.missions.missionsExplanation}
-
-                                            showAdvancedMissionsList={dashboardMissionList.advancedMissions.showMissionsList}
-                                            showAdvancedMissionTitle = {dashboardMissionList.advancedMissions.showMissionsTitle}
-                                            showAdvancedMissionQuota = {dashboardMissionList.advancedMissions.showMissionsQuota}
-                                            showAdvancedMissionExplanation = {dashboardMissionList.advancedMissions.showMissionsExplanation}
-                                            advancedMissionTitle = {dashboardMissionList.advancedMissions.missionsTitle}
-                                            advancedMissionQuota = {dashboardMissionList.advancedMissions.missionsQuota}
-                                            advancedMissionExplanation = {dashboardMissionList.advancedMissions.missionsExplanation}
-                                            // advancedmissionList = {[{missionTitle: "Comet C/2017 T2 (PanSTARRS)" , missionStartFormatted: { displayDateTime: "Wednesday, April 1, 20:20" }, telescopePierName: "Canary One", emptyslot: false}]}
-                                            advancedmissionList={dashboardMissionList.advancedMissions.missionsList}
-                                            showSubHeading={true}
-                                            featuredMission={true}
+                                            // privateProfileMission = {privateProfileMission}
+                                            dashboardMissionList={dashboardMissionList}
                                             dashboardFeaturedObjects={dashboardFeaturedObjects}
-                                            emptySetDisplay={privateProfileMission.emptySetUpcomingMissionsDisplay}
+                                            // emptySetDisplay={privateProfileMission.emptySetUpcomingMissionsDisplay}
                                             piggyBackMissionSlot={piggyBackMissionSlot}
                                             piggybackReservedMissionData={piggybackReservedMissionData}
                                             piggybackReservedMission={piggybackReservedMission}
@@ -334,11 +314,11 @@ export class NewDashboard extends PureComponent{
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
                                             user={user} 
-                                            totalCount={5}
+                                            // totalCount={5}
                                             getDashboardMissionList={getDashboardMissionListAction}                                           
                                         />
 
-                                        <UpcomingMissionList
+                                        {/* <UpcomingMissionList
                                             heading={undefined}
                                             missionList = {dashboardMissionList.pastMissions.missionsList}
                                             showMissionsList={dashboardMissionList.pastMissions.showMissionsList}
@@ -368,7 +348,7 @@ export class NewDashboard extends PureComponent{
                                             reservedCommunityMission={reservedCommunityMission}
                                             user={user} 
                                             totalCount={privateProfileMission.recentMissionList.length}                                           
-                                        />
+                                        /> */}
                                     </div>
                                 )}
                                 
@@ -392,7 +372,7 @@ export class NewDashboard extends PureComponent{
                                 <div ref={this.communityRef}/>    
                                 <TitleHeader
                                     
-                                    heading = {"Community Exploration"}
+                                    heading = {"Community"}
                                     subHeading = {"Latest Community Insights"}
                                 />
 

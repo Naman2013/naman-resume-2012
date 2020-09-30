@@ -2,7 +2,7 @@
 @import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .featured-main{
-    padding: 24px 0px;
+    // padding: 24px 0px;
 }
 
 .new-dash .featured-heading{
@@ -29,6 +29,7 @@
 .new-dash .featured-row{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 @media (min-width: $screenXLarge){

@@ -11,7 +11,7 @@ export class DashboardHeader extends Component{
     }
 
     render() {
-        const headings = ["Observatory", "Missions", "Photos", "Community Exploration"];       
+        const headings = ["Observatories", "Missions", "Photos", "Community Exploration"];       
         const { activeHeading } = this.props;
 
         return (

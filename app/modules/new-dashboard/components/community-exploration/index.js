@@ -43,12 +43,17 @@ export class CommunityExploration extends Component{
     render() {
         const { communityExploration } = this.state;
         const { onClickItem } = this.props;
-        
+       
         return (
-            <div className="explore-main">
-                {/* <h2 className="explore-heading">{heading}</h2> */}
+            <div className="explore-main">                
                 {communityExploration && (
                     <div>
+                        {communityExploration.featuredObservations.sectionHeading && (
+                            <h2 className="recent-heading">{communityExploration.featuredObservations.sectionHeading}</h2>
+                        )}
+                        {communityExploration.featuredObservations.sectionSubHeading && (
+                            <h4 className="title-subHeading">{communityExploration.featuredObservations.sectionSubHeading}</h4>
+                        )}
                         <ImageSlider
                             communityExploration={communityExploration}
                             onClickItem={onClickItem}

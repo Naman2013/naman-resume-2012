@@ -15,8 +15,8 @@
     font-family: $secondary-font;
     font-style: normal;
     font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 21px;
+    line-height: 25px;
     margin-bottom: 10px;
     /* identical to box height */
     /* #FFF - Text */
@@ -76,8 +76,8 @@
 
 @media (min-width: $screenXLarge){
     .new-dash .upcoming-heading{
-        font-size: 21px;
-        line-height: 25px;
+        font-size: 28px;
+        line-height: 32px;
     }
 }
 
