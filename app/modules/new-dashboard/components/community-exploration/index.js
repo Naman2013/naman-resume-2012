@@ -48,6 +48,7 @@ export class CommunityExploration extends Component{
             <div className="explore-main">                
                 {communityExploration && (
                     <div>
+                        <br/>
                         {communityExploration.featuredObservations.sectionHeading && (
                             <h2 className="recent-heading">{communityExploration.featuredObservations.sectionHeading}</h2>
                         )}
