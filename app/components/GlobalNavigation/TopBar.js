@@ -463,7 +463,7 @@ const TopBar = ({
                   font-weight: 500;
                   font-size: 14px;
                   line-height: 20px;
-                  color: blue;
+                  color: rgb(37, 52, 70);
                   flex: none;
                   text-align: right;
                   order: 0;

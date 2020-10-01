@@ -51,7 +51,7 @@ export class ExploreObject extends Component{
                     // <ObjectMap
                     //     objectMapControls={objectMapControls.mapControls}
                     // /> 
-                    <h2 className="comming-soon">Comming Soon...</h2>
+                    <h2 className="comming-soon">Coming Soon...</h2>
                 )}
             </div>   
         );

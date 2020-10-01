@@ -8,6 +8,7 @@ import React, { memo } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
 import './index.scss';
+import { Button as  NewButton} from '../../../new-dashboard/components/button';
 
 type TFilterDropdown = {
   isOpen: Boolean,
@@ -78,9 +79,16 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
   };
 
   return (
-    <div className="filter-dropdown-wrapper">
+    <div className={"filter-dropdown-wrapper" + newButton ? "right-align" : "" }>
       {newButton ? 
-        <h5 className="sort-filter" onClick={open}>{"Sort & Filter"}</h5> 
+        <NewButton
+          type={"button"}
+          onClickEvent={open} 
+          text={"Sort & Filter"}                                             
+          style={"upload-button"}
+          icon={null}
+        />
+        // <h5 className="sort-filter" onClick={open}>{"Sort & Filter"}</h5> 
         :
         <Button onClick={open}>Options</Button>
       }
