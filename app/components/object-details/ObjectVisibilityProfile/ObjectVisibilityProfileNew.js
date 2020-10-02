@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
-import { RISE_SET_TIMES, GET_JOIN_MISSIONS } from 'app/services/objects';
+import { RISE_SET_TIMES, RISE_SET_TIMES_NEW, GET_JOIN_MISSIONS } from 'app/services/objects';
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
@@ -11,18 +11,21 @@ import style from './ObjectVisibilityProfile.style';
 
 import { DEFAULT_OBSID } from './constants';
 
+import  ObjectRiseSet from './ObjectRiseSet';
+import ObjectMissionList from './ObjectMissionList';
+
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
   model: resp => ({
-    obsLabel: resp.obsLabel,
+    obsLabel: resp.obsHeader,
     riseLabel: resp.riseLabel,
     rise: resp.riseText,
     transitLabel: resp.transitLabel,
     transit: resp.transitText,
     setLabel: resp.setLabel,
     set: resp.setText,
-    subtitle: resp.subtitle,
-    title: resp.title,
+    subtitle: resp.dateSelectorDescription,
+    title: resp.dateSelectorHeading,
     notesLabel: resp.notesLabel,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
@@ -31,6 +34,10 @@ const riseSetModel = {
     guideSubTitle: resp.linkTitle,
     hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
     riseAndSetSelectors: resp.riseAndSetSelectors,
+    obsList: resp.obsList,
+    tzHeading: resp.tzSelectorHeading,
+    tzDescription: resp.tzSelectorDescription,
+    tzList: resp.tzList,
   }),
 };
 @withTranslation()
@@ -41,11 +48,16 @@ class ObjectVisibilityProfileNew extends Component {
 
   state = {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
+    tzId:  this.props.defaulttzId ? this.props.defaulttzId : "UTC",
     activeDateIndex: 0,
   };
 
   handleObservatoryChange = event => {
     this.setState({ obsId: event.target.value });
+  };
+
+  handleTimeZoneChange = event => {
+    this.setState({ tzId: event.target.value });
   };
 
   handleDateSelect = (dateString, index) => {
@@ -56,18 +68,19 @@ class ObjectVisibilityProfileNew extends Component {
   };
 
   render() {
-    const { dateString, obsId, activeDateIndex } = this.state;
+    const { dateString, obsId, activeDateIndex, tzId } = this.state;
 
-    const { objectId, t, visibilityGuide } = this.props;
+    const { objectId, t, visibilityGuide, scheduleMission } = this.props;
     
     return (
       <Request
-        serviceURL={RISE_SET_TIMES}
-        // serviceURL={GET_JOIN_MISSIONS}
+        // serviceURL={RISE_SET_TIMES}
+        serviceURL={GET_JOIN_MISSIONS}
         requestBody={{
           dateString,
           objectId,
           obsId,
+          tzId,
         }}
         withoutUser
         model={riseSetModel}
@@ -75,10 +88,10 @@ class ObjectVisibilityProfileNew extends Component {
           const riseSet = RISE_SET_MODEL || {};
           return (
             <div>
-              {riseSet.hasRiseAndSetTimes === true && (
+              {riseSet.riseAndSetSelectors && (
                 <div className="obs-visibility-root">
                   <GridContainer theme={{ margin: '20px 0 0 0' }}>
-                    <form method="POST">
+                    {/* <form method="POST"> */}
                       <Row wrap>
                         <StaticCell
                           flexScale={['100%', '75%']}
@@ -118,6 +131,58 @@ class ObjectVisibilityProfileNew extends Component {
                             }}
                           />
                         </StaticCell>
+                        
+                      </Row>
+                      <Row>
+                        <StaticCell
+                          title={riseSet.tzHeading}
+                          hasBorderScale={[true]}
+                        >
+                          <div className="select-field">
+                            <label
+                              className="option-label"
+                              htmlFor="select-tzId"
+                            >
+                              <span className="field-value-name">
+                                {
+                                  // riseSet.tzList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
+                                 
+                                    this.state.tzId
+                                  
+                                }
+                              </span>
+                              <img
+                                alt=""
+                                width="8"
+                                src={downwardFacingChevron}
+                              />
+                            </label>
+                            <select
+                              className="select"
+                              id="select-tzId"
+                              value={this.state.tzId}
+                              onChange={this.handleTimeZoneChange}
+                            >
+                              {/* {Object.entries(
+                                riseSet.obsList
+                              ) */}
+                              {riseSet.tzList.map(obs => (
+                                <option value={obs}>{obs}</option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div
+                            className="rise-set-subtitle"
+                            dangerouslySetInnerHTML={{
+                              __html: riseSet.tzDescription,
+                            }}
+                          />
+                        </StaticCell>
+
+                        
+                        
+
                         <StaticCell
                           title={riseSet.obsLabel}
                           flexScale={['100%', '25%']}
@@ -129,9 +194,10 @@ class ObjectVisibilityProfileNew extends Component {
                             >
                               <span className="field-value-name">
                                 {
-                                  riseSet.riseAndSetSelectors.observatories[
-                                    this.state.obsId
-                                  ]
+                                  riseSet.obsList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
+                                  // riseSet.tzList[
+                                  //   this.state.tzList
+                                  // ]
                                 }
                               </span>
                               <img
@@ -146,16 +212,43 @@ class ObjectVisibilityProfileNew extends Component {
                               value={this.state.obsId}
                               onChange={this.handleObservatoryChange}
                             >
-                              {Object.entries(
-                                riseSet.riseAndSetSelectors.observatories
-                              ).map(obs => (
-                                <option value={obs[0]}>{obs[1]}</option>
+                              {/* {Object.entries(
+                                riseSet.obsList
+                              ) */}
+                              {riseSet.obsList.map(obs => (
+                                <option value={obs.obsId}>{obs.obsShortName}</option>
                               ))}
                             </select>
                           </div>
                         </StaticCell>
-                      </Row>
-                      <Row>
+                      </Row> 
+                    </GridContainer>
+                    {riseSet.obsList.map(obs=>(
+                      <div>
+                        <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                          <ObjectRiseSet
+                            dateString
+                            objectId
+                            obsId={obs.obsId}
+                            tzId
+                            t
+                          />
+                        </GridContainer>
+                        <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                            <ObjectMissionList
+                              dateString
+                              objectId
+                              obsId={obs.obsId}
+                              tzId
+                              t
+                              scheduleMission
+                            />
+                        </GridContainer>
+                      </div>
+                    ))}
+                    
+
+                      {/* <Row>
                         <StaticCell
                           title={riseSet.riseLabel}
                           hasBorderScale={[true]}
@@ -195,9 +288,9 @@ class ObjectVisibilityProfileNew extends Component {
                               : riseSet.notes}
                           </p>
                         </StaticCell>
-                      </Row>
-                    </form>
-                  </GridContainer>
+                      </Row> */}
+                    {/* </form> */}
+                    {/* </GridContainer> */}
                   {/* <ViewOurGuide
                     guideHeader={riseSet.guideHeader}
                     guideTitle={riseSet.guideLabel}

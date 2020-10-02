@@ -117,7 +117,7 @@ const AsideToggleableMenu = props => {
             return (
               <button
                 style={!visible ? { display: 'none' } : null}
-                onClick={redirectToImage()}
+                onClick={redirectToImage(option.label)}
                 className="option"
               >
                 {option.label}

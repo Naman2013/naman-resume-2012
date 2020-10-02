@@ -15,6 +15,7 @@ export class LineChart extends Component{
         data.map((data,i)=>{
             temp.push([i, data.gp, this.createCustomTooltipContent(data.label, data.gp)]);
             hticks.push({"v": i, "f": data.label});
+            
         });
         this.state={
             data: temp,
@@ -59,6 +60,7 @@ export class LineChart extends Component{
                           textStyle:{color: '#FFF'},
                           titleTextStyle:{color: '#FFF'},
                           baselineColor:{color: '#FFF'},
+                          format: 'short',
                         },
                         series: {
                         //   0: { curveType: 'function' },
@@ -70,8 +72,9 @@ export class LineChart extends Component{
                         pointShape: 'circle',
                         pointSize: 5,
                         chartArea: {                           
-                            left:50,bottom:120, top: 20, right:20,width:"100%",height:"100%"
+                            right: 20, bottom: 120, top: 20, width: "70%", 
                         },
+                        // left:50,bottom:120, top: 20, right:20,width:"100%",height:"100%"
                         axes: {
                             x: {
                               0: {side: 'bottom'}

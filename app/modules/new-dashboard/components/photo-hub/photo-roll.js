@@ -45,11 +45,23 @@ export class PhotoRoll extends Component{
             this.setState({ menuIndex: index, menuIsVisible: true });
     };
 
-    redirectToImage = (photo) => ()=> {
+    redirectToImage = (photo, label) => ()=> {
         const { customerImageId } = photo;
         const { token } = getUserInfo();
-        return browserHistory.push(
-          `/my-pictures/show-image/${customerImageId}/${token}`
+        let option = undefined;
+        switch(label){
+            case "Write observation":
+                if(photo.canEditFlag && !photo.observationLog)
+                    option=label;
+                break;
+            case "Share Image":
+                if(photo.canShareFlag)
+                    option=label;
+                break;
+        }
+        return browserHistory.push({
+            pathname: `/my-pictures/show-image/${customerImageId}/${token}`,
+            state: {option: option}}
         );
     };
 
@@ -110,8 +122,8 @@ export class PhotoRoll extends Component{
                                                         className="white icon-download" 
                                                         onClick={e =>this.onDownloadFile( e, photo.imageDownloadURL, photo.imageDownloadFilename )}
                                                     />
-                                                    {/* <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/> */}
-                                                    <img onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                    <img onClick={()=>browserHistory.push(photo.photoViewFullURL)} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                    {/* <img onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/> */}
                                                 </div>                            
                                             {/* </Link>         */}
                                         </div>   
@@ -122,7 +134,7 @@ export class PhotoRoll extends Component{
                                                     visible={menuIsVisible}
                                                     tagActions={tagActions}
                                                     optionsList={this.optionsList}
-                                                    redirectToImage={()=>{return this.redirectToImage(photo)}}
+                                                    redirectToImage={(label)=>{return this.redirectToImage(photo,label)}}
                                                     toggleMenuVisibility={()=>this.toggleMenuVisibility(i)}
                                                     typeGallery={false}
                                                     currentItem={photo}
@@ -142,7 +154,8 @@ export class PhotoRoll extends Component{
                                             {/* <Link to={photo.photoViewFullURL}> */}
                                                 <div className="photo-hub-details" >                                                
                                                     <h5  className="view-details" onClick={()=>browserHistory.push(photo.photoViewFullURL)}>{"View Details"}</h5>
-                                                    <img className="card-options" onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})} src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                    <img className="card-options" onClick={()=>browserHistory.push(photo.photoViewFullURL)} src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
+                                                    {/* ()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token}) */}
                                                 </div>
                                             {/* </Link> */}
                                         </div>                                                                        

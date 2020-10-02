@@ -75,7 +75,7 @@ class Missions extends Component {
   };
 
   componentDidMount() {
-    this.getCommunityMissions();
+    // this.getCommunityMissions();
   }
 
   componentWillUnmount() {
@@ -170,11 +170,12 @@ class Missions extends Component {
         <CenterColumn widths={['768px', '965px', '965px']}>
           <ObjectVisibilityProfileNew
               defaultObsId={objectData.obsIdDefault}
-              objectId={objectId}            
+              objectId={objectId}    
+              scheduleMission={(mission) => this.reservationModalShow(mission)}        
           />
           <br/>
         </CenterColumn>
-        <CenterColumn>
+        {/* <CenterColumn>
           {missionCount > 0 ? (
             <div style={{ margin: '0 20px 40px' }}>
               {missionList.map(item => (
@@ -232,7 +233,7 @@ class Missions extends Component {
           <Button1 onClickEvent={()=>{this.setState({errorPopup: false})}} text={t('Objects.ErrorStatusBtnTxt')} /> 
           </div>
           </Popup>
-        )}
+        )} */}
         )
         <style jsx>{`         
           .actions-err-btn{

@@ -20,9 +20,46 @@ type TProfileActivityProps = {
   params: any;
   user: User;
   profileGroupList: IProfileGroupList;
+  location: any;
 };
 
-export class ImageDetails extends Component<TProfileActivityProps> {
+type TProfileActivityState = {
+  option: string
+}
+
+export class ImageDetails extends Component<TProfileActivityProps, TProfileActivityState> {
+
+  constructor(props: TProfileActivityProps){
+    super(props);
+    if(props.location.state !== undefined)
+      this.state={option: props.location.state.option};
+    
+  }
+
+  componentWillReceiveProps(newProps: any){
+    
+    if(this.props.imageDetailsData !== newProps.imageDetailsData && newProps.imageDetailsData.apiError !== undefined && this.state !== null)
+    {      
+      switch(this.state.option)
+      {
+        case "Write observation":
+          setTimeout(()=>window.scrollTo(
+            0,
+            document.getElementById('img-details-obs-form').offsetTop
+          ), 500);          
+          break;
+
+        case "Share Image":
+          setTimeout(()=>window.scrollTo(
+            0,
+            document.getElementById('image-main-container').offsetTop
+          ), 500); 
+          break;
+      }
+    }
+    
+  }
+
   render() {
     const {
       getImageDetails,

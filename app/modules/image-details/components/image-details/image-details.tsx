@@ -121,7 +121,7 @@ export class ImageDetails extends Component<
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
     const showRightContainer =
       rightPanelDisplayFlags.filter(flag => !!flag).length > 0;  
-      
+    
     return (
       <Fragment>
         <div className="row mb-5">
