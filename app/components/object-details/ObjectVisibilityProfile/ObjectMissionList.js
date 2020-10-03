@@ -59,7 +59,7 @@ class ObjectMissionList extends Component {
           dateString,
           objectId,
           obsId,
-          tzId,
+          // tzId,
         }}
         withoutUser
         // model={riseSetModel}
@@ -67,7 +67,7 @@ class ObjectMissionList extends Component {
           // const riseSet = RISE_SET_MODEL || {};
           
           return (
-            <div>
+            <div style={{margin: "20px 0 0 0"}}>
               {!fetchingContent && serviceResponse && (
                 <div>                
                     <CenterColumn>

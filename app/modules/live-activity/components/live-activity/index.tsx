@@ -410,7 +410,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                   </div>
                   <Tooltip title="Close">
                     <div className="close-window">
-                      <span
+                      <img
+                        src="https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"
                         className="icon-close"
                         // onClick={() => {
                         //   setOpen(false);

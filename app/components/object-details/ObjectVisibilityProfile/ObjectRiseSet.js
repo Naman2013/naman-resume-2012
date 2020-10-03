@@ -42,7 +42,7 @@ class ObjectRiseSet extends Component {
  
   render() {   
 
-    const { dateString, objectId, obsId, tzId, t,  visibilityGuide } = this.props;
+    const { dateString, objectId, obsId, tzId, t,  visibilityGuide, obsName } = this.props;
     
     return (
       <Request
@@ -52,7 +52,7 @@ class ObjectRiseSet extends Component {
           dateString,
           objectId,
           obsId,
-          tzId,
+          // tzId,
         }}
         withoutUser
         // model={riseSetModel}
@@ -71,7 +71,7 @@ class ObjectRiseSet extends Component {
                           <p>
                             {fetchingContent
                               ? `${t('Objects.Loading')}...`
-                              : serviceResponse.title}
+                              : obsName}
                           </p>
                     </StaticCell>
                     </Row>

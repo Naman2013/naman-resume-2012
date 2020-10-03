@@ -38,6 +38,7 @@ const riseSetModel = {
     tzHeading: resp.tzSelectorHeading,
     tzDescription: resp.tzSelectorDescription,
     tzList: resp.tzList,
+    tzSelection: resp.tzSelection,
   }),
 };
 @withTranslation()
@@ -48,7 +49,7 @@ class ObjectVisibilityProfileNew extends Component {
 
   state = {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
-    tzId:  this.props.defaulttzId ? this.props.defaulttzId : "UTC",
+    tzId:  this.props.defaulttzId ? this.props.defaulttzId : undefined,
     activeDateIndex: 0,
   };
 
@@ -78,9 +79,8 @@ class ObjectVisibilityProfileNew extends Component {
         serviceURL={GET_JOIN_MISSIONS}
         requestBody={{
           dateString,
-          objectId,
-          obsId,
-          tzId,
+          objectId,          
+          tz: tzId,
         }}
         withoutUser
         model={riseSetModel}
@@ -90,8 +90,8 @@ class ObjectVisibilityProfileNew extends Component {
             <div>
               {riseSet.riseAndSetSelectors && (
                 <div className="obs-visibility-root">
-                  <GridContainer theme={{ margin: '20px 0 0 0' }}>
-                    {/* <form method="POST"> */}
+                  <form method="POST">
+                  <GridContainer theme={{ margin: '20px 0 0 0' }}>                    
                       <Row wrap>
                         <StaticCell
                           flexScale={['100%', '75%']}
@@ -147,7 +147,7 @@ class ObjectVisibilityProfileNew extends Component {
                                 {
                                   // riseSet.tzList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
                                  
-                                    this.state.tzId
+                                    riseSet.tzSelection
                                   
                                 }
                               </span>
@@ -160,7 +160,7 @@ class ObjectVisibilityProfileNew extends Component {
                             <select
                               className="select"
                               id="select-tzId"
-                              value={this.state.tzId}
+                              value={riseSet.tzSelection}
                               onChange={this.handleTimeZoneChange}
                             >
                               {/* {Object.entries(
@@ -227,23 +227,22 @@ class ObjectVisibilityProfileNew extends Component {
                       <div>
                         <GridContainer theme={{ margin: '20px 0 0 0' }}>
                           <ObjectRiseSet
-                            dateString
-                            objectId
+                            dateString={riseSet.riseAndSetSelectors.dateString}
+                            objectId={objectId}
                             obsId={obs.obsId}
-                            tzId
-                            t
+                            tzId={tzId}
+                            t={t}
+                            obsName={obs.obsShortName}
                           />
-                        </GridContainer>
-                        <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                        </GridContainer>                       
                             <ObjectMissionList
-                              dateString
-                              objectId
-                              obsId={obs.obsId}
-                              tzId
-                              t
-                              scheduleMission
-                            />
-                        </GridContainer>
+                               dateString={riseSet.riseAndSetSelectors.dateString}
+                               objectId={objectId}
+                               obsId={obs.obsId}
+                               tzId={tzId}
+                               t={t}
+                              scheduleMission={scheduleMission}
+                            />                        
                       </div>
                     ))}
                     
@@ -289,7 +288,7 @@ class ObjectVisibilityProfileNew extends Component {
                           </p>
                         </StaticCell>
                       </Row> */}
-                    {/* </form> */}
+                    </form>
                     {/* </GridContainer> */}
                   {/* <ViewOurGuide
                     guideHeader={riseSet.guideHeader}
