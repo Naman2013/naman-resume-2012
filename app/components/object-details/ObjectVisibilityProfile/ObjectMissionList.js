@@ -45,16 +45,21 @@ class ObjectMissionList extends Component {
   }
 
   componentDidMount(){
-    this.getCommunityMissions();
+    const { dateString, objectId, obsId } = this.props; 
+    this.getCommunityMissions(dateString, objectId, obsId);
   }
 
   componentWillReceiveProps(nextProps){   
-    if(this.props.refreshMissionCard !== nextProps.refreshMissionCard) 
-      this.getCommunityMissions();
+    if(this.props.refreshMissionCard !== nextProps.refreshMissionCard)
+    {
+      const { dateString, objectId, obsId } = nextProps; 
+      this.getCommunityMissions(dateString, objectId, obsId);
+    } 
+      
   }
 
-  getCommunityMissions = () =>{    
-    const { dateString, objectId, obsId } = this.props;    
+  getCommunityMissions = (dateString, objectId, obsId) =>{
+    // const { dateString, objectId, obsId } = this.props;    
     const { at, cid, token } = getUserInfo();
     this.setState({isFetching: true});    
     API.post(GET_COMMUNITY_MISSIONS_NEW,{ at, cid, token, dateString, objectId, obsId }).then(response=>{
