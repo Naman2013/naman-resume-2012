@@ -64,11 +64,11 @@ export class PhotoRoll extends Component{
         let option = undefined;
         switch(label){
             case "Write observation":
-                if((!(photo.canEditFlag && !photo.observationLog)))
+                if((!!(photo.canEditFlag && !photo.observationLog)))
                     option=label;
                 break;
             case "Share Image":
-                if(!(!(photo.canEditFlag && !photo.observationLog) && !!photo.canShareFlag))
+                if((!(photo.canEditFlag && !photo.observationLog) && !!photo.canShareFlag))
                     option=label;
                 break;
         }
