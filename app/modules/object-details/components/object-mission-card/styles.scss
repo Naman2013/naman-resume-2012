@@ -21,7 +21,7 @@
   }
 
   > div {
-    width: 50%;
+    width: 45%;
   }
 
   .left {
@@ -94,7 +94,9 @@
     text-transform: uppercase;
   }
 
-  .end{
+  .end-tab{
+    display: block;
+    width: 40%;
     align-items: center;
     padding: 10px 25px;
     font-family: $primary-font;
@@ -112,12 +114,37 @@
   
   }
 
+  .end{
+    display: none;
+    width: 25%;
+    align-items: center;
+    padding: 10px 25px;
+    font-family: $primary-font;
+    position: relative;
+    border-left: 1px solid #d9dee4;
+
+    .details-text {
+      margin-top: 0px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.6px;
+      color: $lightHeadedAstronaut;
+      // text-transform: uppercase;
+    }
+  
+  }
+
+  .description{
+    font-size: 12px !important;
+  }
+
   .right {
     display: none;
     align-items: center;
     padding: 0 30px;
     font-family: $primary-font;
     position: relative;
+    width: 30%;
 
     .mission-info {
       width: 100%;
@@ -172,9 +199,14 @@
     right: -20px;
   }
 
+  .left-tab{
+    width: 60%
+  }
+
   .mobile {
     width: 100%;
     position: relative;
+    display: flex;
 
     .mission-owner {
       display: flex;
@@ -204,6 +236,7 @@
 
     .mission-owner {
       padding-top: 20px;
+      padding-right: 20px;
       padding-bottom: 0;
       min-height: unset;
     }
@@ -244,9 +277,20 @@
       display: block;
     }
 
+    .end {
+      display: block;
+    }
+    .end-tab {
+      display: none;
+    }
+
     .right {
       display: flex;
       justify-content: space-between;
+    }
+
+    .description{
+      font-size: 14px !important;
     }
 
     .mobile {

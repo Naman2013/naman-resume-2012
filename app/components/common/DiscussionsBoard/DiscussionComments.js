@@ -18,6 +18,7 @@ import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
 import ShowMoreFullSet from '../ShowMoreFullSet';
 import styles from './DiscussionsBoard.style';
+import Button from 'app/components/common/style/buttons/Button';
 
 const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
 
@@ -281,7 +282,8 @@ class DiscussionsComment extends Component {
       topicId,
       user,
       validateResponseAccess,
-      flagParams,      
+      flagParams,
+      toggleComment,      
     } = this.props;
 
     const { commentsList } = discussions;
@@ -289,6 +291,7 @@ class DiscussionsComment extends Component {
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
     const threadData = this.getThreadData(); 
+
     return (
       <div className="comment" key={uniqueId()}>
         <div>
@@ -364,6 +367,13 @@ class DiscussionsComment extends Component {
               totalCount={comments.length}
               page={page}
             />
+            {toggleComment&&(
+              <Button
+                theme={{marginLeft: "20px"}}
+                icon="https://vega.slooh.com/assets/v4/common/close_icon.svg"
+                onClickEvent={toggleComment}
+              />
+            )}
             
             </div>
           )}

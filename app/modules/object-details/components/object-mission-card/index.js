@@ -120,43 +120,63 @@ export class ObjectMissionCard extends PureComponent {
         
 
         <div className="mobile">
-          <div className="actions">
-            {showDotMenu && (
-              <ThreeDotsMenu
-                timeSlot={timeSlot}
-                cancelReservation={() => cancelReservation(timeSlot)}
-                cancelPiggyback={() => cancelPiggyback(timeSlot)}
-                grabPiggyback={grabPiggyback}
+          <div class="left-tab">
+              <div className="actions">
+                {showDotMenu && (
+                  <ThreeDotsMenu
+                    timeSlot={timeSlot}
+                    cancelReservation={() => cancelReservation(timeSlot)}
+                    cancelPiggyback={() => cancelPiggyback(timeSlot)}
+                    grabPiggyback={grabPiggyback}
+                  />
+                )}
+              </div>
+
+              <div className="mission-title">{title || missionTitle}</div>
+                
+              <div className="time">
+                <div className="large">
+                  {displayTime}
+                  <span className="timezone">{displayTimeZone}</span>
+                </div>
+              </div>
+
+              <div className="mission-owner">            
+                <div className="date">{displayWeekdayMonthDayUTC}</div>
+                <span>{telescopeName || telescopePierName}</span>
+                {showJoiningMission ? ( 
+                  <Tooltip
+                  className="mission-tooltip"
+                  title={joiningMissionTooltipText}
+                  position="top"
+                  theme="light">
+                      <img alt="" className="mission-icon" src={joiningMissionIconURL} />
+                  </Tooltip>) : null}
+              </div>
+              {hasWeatherForecastData && weatherForecastData && (
+                    <div className="weather-div">
+                      <span className="description"><b>{weatherForecastData.ForecastHeading}</b>{weatherForecastData.ForecastDetails}</span>
+                      <img src={weatherForecastData.ForecastIconURL} className="weather-icon"/>
+                    </div>
+                )}
+              <div
+                className="mission-status"
+                dangerouslySetInnerHTML={{ __html: missionStatusText }}
               />
+          </div>
+         
+            {showDetails && (
+              <div className="end-tab">
+                <div className="date">{details.detailsHeader}</div>
+                <br/>
+                <div className="details-text">{details.objectAltitude}</div>
+                <div className="details-text">{details.objectAzimuth}</div>
+                <div className="details-text">{details.moonAltitude}</div>
+                <div className="details-text">{details.moonIllumination}</div>
+              </div>
             )}
-          </div>
-
-          <div className="mission-title">{title || missionTitle}</div>
-
-          <div className="time">
-            <div className="large">
-              {displayTime}
-              <span className="timezone">{displayTimeZone}</span>
-            </div>
-          </div>
-
-          <div className="mission-owner">
-            <div className="date">{displayWeekdayMonthDayUTC}</div>
-            <span>{telescopeName || telescopePierName}</span>
-            {showJoiningMission ? ( 
-              <Tooltip
-              className="mission-tooltip"
-              title={joiningMissionTooltipText}
-              position="top"
-              theme="light">
-                  <img alt="" className="mission-icon" src={joiningMissionIconURL} />
-              </Tooltip>) : null}
-          </div>
-
-          <div
-            className="mission-status"
-            dangerouslySetInnerHTML={{ __html: missionStatusText }}
-          />
+         
+          
         </div>
       </div>
     );

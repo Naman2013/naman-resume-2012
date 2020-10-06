@@ -91,9 +91,9 @@ class ObjectMissionList extends Component {
             <div style={{margin: "20px 0 0 0"}}>
               {!isFetching && missionData && (
                 <div>                
-                    <CenterColumn>
+                    {/* <CenterColumn> */}
                       {missionData.missionCount > 0 ? (
-                        <div style={{ margin: '0 20px 40px' }}>
+                        <div >
                           {missionData.missionList.map(item => (
                             <div
                               className={`mission-card-container${
@@ -111,7 +111,7 @@ class ObjectMissionList extends Component {
                       ) : (
                         <div>{!isFetching && missionData.explanation}</div>
                       )}
-                    </CenterColumn>                    
+                    {/* </CenterColumn>                     */}
                 </div>
               )}              
             </div>

@@ -378,6 +378,7 @@ export class NewDashboard extends PureComponent{
 
                                 {/* {communityExploration && ( */}
                                     <CommunityExploration
+                                        scrollToRef={this.scrollToRef}
                                         onClickItem={setPublicCardStatusAction}
                                         // communityExploration={communityExploration}
                                     />

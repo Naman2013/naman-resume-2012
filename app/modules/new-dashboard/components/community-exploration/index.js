@@ -42,7 +42,7 @@ export class CommunityExploration extends Component{
 
     render() {
         const { communityExploration } = this.state;
-        const { onClickItem } = this.props;
+        const { onClickItem, scrollToRef } = this.props;
        
         return (
             <div className="explore-main">  
@@ -59,6 +59,7 @@ export class CommunityExploration extends Component{
                         <ImageSlider
                             communityExploration={communityExploration}
                             onClickItem={onClickItem}
+                            scrollToRef={scrollToRef}
                         />
                         <RecentCommunityActivities
                             heading={"Recent Community Activities"}

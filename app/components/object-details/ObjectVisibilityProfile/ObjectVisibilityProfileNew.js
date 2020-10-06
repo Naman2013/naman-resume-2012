@@ -17,6 +17,7 @@ import { API } from 'app/api';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import { setupCommunityMissionExpireTimer, stopCommunityMissionExpireTimer } from 'app/services/objects/timer';
+import ViewOurGuideNew from '../view-our-guide-new';
 
 // const riseSetModel = {
 //   name: 'RISE_SET_MODEL',
@@ -267,7 +268,7 @@ class ObjectVisibilityProfileNew extends Component {
                                 flexScale={['100%', '25%']}
                               >
                                 <div className="obs-visibility-root">
-                                  <ViewOurGuide
+                                  <ViewOurGuideNew
                                     guideHeader={joinMissionData.astronomicalTimeGuide.linkHeader}
                                     guideTitle={joinMissionData.astronomicalTimeGuide.linkLabel}
                                     guideUrl={joinMissionData.astronomicalTimeGuide.linkUrl}

@@ -27,9 +27,10 @@ export default css`
     ${faintShadow}
     ${resetMarginPadding}
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 15px;
     padding: 5px 7.5px;
     cursor: pointer;
+    min-width: 60px;
   }
   .day-sell:focus {
     outline:0;

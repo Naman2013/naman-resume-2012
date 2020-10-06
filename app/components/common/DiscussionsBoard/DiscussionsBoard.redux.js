@@ -223,6 +223,7 @@ class DiscussionsBoard extends Component {
       discussionGroupId,
       showId,
       isClub,
+      toggleComment,
     } = props;
 
     const { page } = this.state;
@@ -287,6 +288,7 @@ class DiscussionsBoard extends Component {
                   updateComments
                   flagParams={flagParams}
                   canSubmitReplies={this.props.canSubmitReplies}
+                  toggleComment={toggleComment}
                 />
               )}
             </Fragment>

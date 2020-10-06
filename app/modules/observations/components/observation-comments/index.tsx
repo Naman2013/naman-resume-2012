@@ -13,6 +13,7 @@ type ObservationCommentsProps = {
   user: User;
   validateResponseAccess: Function;
   canSubmitReplies: boolean;
+  toggleComment: Function;
 };
 
 export const ObservationComments: React.FC<
@@ -29,7 +30,7 @@ export const ObservationComments: React.FC<
     threadId,
     user,
     validateResponseAccess,
-    
+    toggleComment,
   } = props;
   
   return (
@@ -46,6 +47,7 @@ export const ObservationComments: React.FC<
         user={user}
         validateResponseAccess={validateResponseAccess}
         canSubmitReplies={props.canSubmitReplies}
+        toggleComment={toggleComment}
       />
     </div>
   );

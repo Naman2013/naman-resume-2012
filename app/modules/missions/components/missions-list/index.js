@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
 import { MissionsDaySelector } from '../missions-day-selector';
-import { MissionTimeSlot } from '../mission-time-slot';
+import MissionTimeSlot from '../mission-time-slot';
 import './styles.scss';
 
 export class MissionsList extends Component {

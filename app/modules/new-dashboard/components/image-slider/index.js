@@ -75,7 +75,7 @@ export class ImageSlider extends Component{
     render() {      
         const slideImages = [{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", title: "IC2602 (Southern Pleiades) With Chile 2", subtile: "Marjorie Robertson", content: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound.", updated: "15 mins ago"},
                                 {imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", title: "IC2602 (Southern Pleiades) With Chile 2", subtile: "Marjorie Robertson", content: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound.", updated: "15 mins ago"}];
-        const { communityExploration, onClickItem } = this.props;
+        const { communityExploration, onClickItem, scrollToRef } = this.props;
         const { featuredObservations, activites} = communityExploration;
         
         const showSliderInfo = true;
@@ -172,6 +172,7 @@ export class ImageSlider extends Component{
                                     topicId={currentItem.commentsTopicId}
                                     threadId={currentItem.commentsThreadId}
                                     canSubmitReplies={currentItem.canSubmitReplies}
+                                    toggleComment={()=>{this.setState({isDiscussionsOpen: !isDiscussionsOpen},()=>scrollToRef(3, ""))}}
                                 />
                             )}
                     </div>    

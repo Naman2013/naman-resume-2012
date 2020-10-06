@@ -5,16 +5,24 @@ import { ThreeDotsMenu } from '../three-dots-menu';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { setPublicCardStatusAction } from '../../../../modules/upcoming-events/upcoming-events-actions';
 
 const SLOT_STATUS = {
   AVAILABLE: 'available',
   NOT_AVAILABLE: 'notavailable',
 };
 
-export class MissionTimeSlot extends PureComponent {
+class MissionTimeSlot extends PureComponent {
   navigateToPublicProfile(link){
     browserHistory.push(link);
   }
+
+  handleOwnerProfile = (customerUUID) => {
+    this.props.setPublicCardStatusAction(customerUUID, true);
+  }
+
   render() {
     const {
       timeSlot,
@@ -24,7 +32,7 @@ export class MissionTimeSlot extends PureComponent {
       editCoordinates,
       locked,
       timestamp,
-      currenttime      
+      currenttime,
     } = this.props;
     const {
       slotStatus,
@@ -47,6 +55,7 @@ export class MissionTimeSlot extends PureComponent {
       linkUrl,
       showSlotPrompt,
       slotPromptText,
+      customerUUID,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -56,8 +65,8 @@ export class MissionTimeSlot extends PureComponent {
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
         ? locked ? () => {}:() => getTelescopeSlot()
-        : () => {};
-
+        : () => {};    
+    
     const title = showNoReservations ? noReservationsExplanation : slotTitle; 
     
     return (
@@ -91,7 +100,8 @@ export class MissionTimeSlot extends PureComponent {
             ) : (
               <Fragment>
                 {noReservationsExplanation && !showSlotPrompt ? null : <span>{slotPromptText} </span>}                
-                <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
+                {/* <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} > */}
+                <div className="profile" onClick={(customerUUID && customerUUID != "") ? ()=>this.handleOwnerProfile(customerUUID) : null} >
                 {ownerAvatarURL && (
                   <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
@@ -187,7 +197,8 @@ export class MissionTimeSlot extends PureComponent {
             ):null}
           </div>
           <div className="mission-owner">     
-          <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} >
+          {/* <div className="profile" onClick={hasLinkFlag ? ()=>{this.navigateToPublicProfile(linkUrl)} : null} > */}
+          <div className="profile" onClick={(customerUUID && customerUUID != "") ? ()=>this.handleOwnerProfile(customerUUID) : null}>
              {ownerAvatarURL && (
                   <div className={`${showSloohUser ? '':'avatar-container'}`}>
                   <img
@@ -217,3 +228,9 @@ export class MissionTimeSlot extends PureComponent {
     );
   }
 }
+
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null,mapDispatchToProps))(MissionTimeSlot)
