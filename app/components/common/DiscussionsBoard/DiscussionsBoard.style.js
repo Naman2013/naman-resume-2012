@@ -76,6 +76,7 @@ export default css`
   .toggle-container {
     padding: 15px 0;
     border: 1px solid ${shadows};
+    background: white;
   }
 
   .replies-list-contanier {

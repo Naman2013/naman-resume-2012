@@ -26,8 +26,7 @@ export class PhotoRoll extends Component{
             { label: 'Write observation', action: 'redirect' },
             { label: 'Add Tags', action: 'tagging' },
             { label: 'Share Image', action: 'redirect' },
-        ];
-        debugger;
+        ];        
         if((!(photo.canEditFlag && !photo.observationLog))){
             optionsList=optionsList.filter((item)=>item.label !== "Write observation");
         }

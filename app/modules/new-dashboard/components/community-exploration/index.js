@@ -45,10 +45,11 @@ export class CommunityExploration extends Component{
         const { onClickItem } = this.props;
        
         return (
-            <div className="explore-main">                
+            <div className="explore-main">  
+                <h2 className="photo-hub-heading">{"Community"}</h2>                
                 {communityExploration && (
                     <div>
-                        <br/>
+                        {/* <br/> */}
                         {communityExploration.featuredObservations.sectionHeading && (
                             <h2 className="recent-heading">{communityExploration.featuredObservations.sectionHeading}</h2>
                         )}

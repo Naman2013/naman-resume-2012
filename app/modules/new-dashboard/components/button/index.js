@@ -11,7 +11,7 @@ export class Button extends Component{
 
         return (            
                 <button className={"button-container "+ style} onClick={onClickEvent} type={type}>
-                    {icon && <img alt="" className="button-icon" src={icon} />}
+                    {icon && <img alt="" className="new-button-icon" src={icon} />}
                     {text}
                 </button>
         );

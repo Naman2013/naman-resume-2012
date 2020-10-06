@@ -1,6 +1,6 @@
 @import "../../breakpoints.scss";
 
-.new-dash .button-icon{
+.new-dash .new-button-icon{
     margin-right: 8px;
     width: 17px;
     height: 13px;
@@ -16,7 +16,7 @@
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
-    .new-dash .button-icon{
+    .new-dash .new-button-icon{
         margin-right: 0px;        
     }
 

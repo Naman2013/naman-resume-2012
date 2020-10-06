@@ -2,7 +2,7 @@
 @import "../../../../../app/styles/variables/fonts.scss";
 
 .new-dash .title-main{
-    padding: 24px 0px;
+    padding: 24px 0px 0px 0px;
 }
 
 .new-dash .title-heading{
@@ -32,7 +32,7 @@
 
 @media (min-width: $screenXLarge) {
     .new-dash .title-main{
-        padding: 16px 0px;
+        padding: 16px 0px 0px 0px;
     }    
     .new-dash .title-heading{
         font-style: normal;
@@ -52,7 +52,7 @@
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .title-main{
-        padding: 16px 0px;
+        padding: 16px 0px 0px 0px;
     }    
     .new-dash .title-heading{
         font-style: normal;

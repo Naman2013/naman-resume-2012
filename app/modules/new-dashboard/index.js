@@ -370,11 +370,11 @@ export class NewDashboard extends PureComponent{
                                 <SectionDivider/>
 
                                 <div ref={this.communityRef}/>    
-                                <TitleHeader
+                                {/* <TitleHeader
                                     
                                     heading = {"Community"}
-                                    subHeading = {"Latest Community Insights"}
-                                />
+                                    // subHeading = {"Latest Community Insights"}
+                                /> */}
 
                                 {/* {communityExploration && ( */}
                                     <CommunityExploration
