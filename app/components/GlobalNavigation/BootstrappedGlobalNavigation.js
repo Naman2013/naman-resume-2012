@@ -204,7 +204,7 @@ class GlobalNavigation extends Component {
   componentDidMount() {
     const { isMobile } = this.props;
     if (!isMobile) {
-      window.addEventListener('scroll', this.debouncedCloseAll);
+      // window.addEventListener('scroll', this.debouncedCloseAll);
     }
     // upcomingShows({}).then(response=>{
     //   const res=response.data;
@@ -241,7 +241,7 @@ class GlobalNavigation extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.debouncedCloseAll);
+    // window.removeEventListener('scroll', this.debouncedCloseAll);
     if(this.timerId !== null)
         clearTimeout(this.timerId);
     // const {
@@ -482,7 +482,7 @@ class GlobalNavigation extends Component {
       isChatEnabled = userInfoIsChatEnabled;
       displayName = userInfoName;
     }
-  
+    
     return (
       <div className="root">
         <div className="top-bar">
