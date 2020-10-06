@@ -64,7 +64,7 @@ class ObjectVisibilityProfileNew extends Component {
   };  
 
   componentDidMount(){    
-    this.props.getJoinMissions(this.state.dateString, this.state.tzId);
+    // this.props.getJoinMissions(this.state.dateString, this.state.tzId);
   }
 
   // componentWillUnmount() {
@@ -131,7 +131,7 @@ class ObjectVisibilityProfileNew extends Component {
               {/* <Spinner loading={isfetching} /> */}
               {joinMissionData && (                       
                     <div className="obs-visibility-root">
-                      <form method="POST">
+                      {/* <form method="POST"> */}
                       <GridContainer theme={{ margin: '20px 0 0 0' }}>                    
                           <Row wrap>
                             <StaticCell
@@ -384,7 +384,7 @@ class ObjectVisibilityProfileNew extends Component {
                               </p>
                             </StaticCell>
                           </Row> */}
-                        </form>
+                        {/* </form> */}
                         {/* </GridContainer> */}
                       {/* <ViewOurGuide
                         guideHeader={joinMissionData.guideHeader}
