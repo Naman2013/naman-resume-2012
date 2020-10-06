@@ -27,12 +27,12 @@ export class PhotoRoll extends Component{
             { label: 'Add Tags', action: 'tagging' },
             { label: 'Share Image', action: 'redirect' },
         ];
-        
-        if(!(photo.canEditFlag && !photo.observationLog)){
+        debugger;
+        if((!(photo.canEditFlag && !photo.observationLog))){
             optionsList=optionsList.filter((item)=>item.label !== "Write observation");
         }
 
-        if(!photo.canShareFlag){
+        if(!(!(photo.canEditFlag && !photo.observationLog) && !!photo.canShareFlag)){
             optionsList=optionsList.filter((item)=>item.label !== "Share Image");
         }
         return optionsList;
@@ -64,11 +64,11 @@ export class PhotoRoll extends Component{
         let option = undefined;
         switch(label){
             case "Write observation":
-                if(photo.canEditFlag && !photo.observationLog)
+                if((!(photo.canEditFlag && !photo.observationLog)))
                     option=label;
                 break;
             case "Share Image":
-                if(photo.canShareFlag)
+                if(!(!(photo.canEditFlag && !photo.observationLog) && !!photo.canShareFlag))
                     option=label;
                 break;
         }
