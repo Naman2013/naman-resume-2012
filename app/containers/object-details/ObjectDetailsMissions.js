@@ -43,6 +43,11 @@ import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import Popup from 'react-modal';
 import { AccountDetailsHeader } from 'app/modules/account-settings/components/account-details/header';
 import ObjectVisibilityProfileNew from 'app/components/object-details/ObjectVisibilityProfile/ObjectVisibilityProfileNew';
+import { API } from 'app/api';
+import { GET_JOIN_MISSIONS } from 'app/services/objects';
+import { getUserInfo } from 'app/modules/User';
+import { DEFAULT_OBSID } from 'app/components/object-details/ObjectVisibilityProfile/constants';
+import ObjectDetailsSectionTitleNew from 'app/components/object-details/ObjectDetailsSectionTitle/ObjectDetailsSectionTitleNew';
 
 
 const mapStateToProps = createStructuredSelector({
@@ -72,36 +77,61 @@ class Missions extends Component {
     successModalShow: false,
     missionListExpired: false,
     errorPopup: false,
+    callSource: '',
+    joinMissionData: undefined,
+    isFetching: true,
+    obsId: DEFAULT_OBSID,
+    tzId: undefined,
+    refreshMissionCard: false,
   };
 
   componentDidMount() {
-    // this.getCommunityMissions();
+    this.getJoinMissions();
   }
 
   componentWillUnmount() {
     stopCommunityMissionExpireTimer();
   }
 
-  getCommunityMissions = () => {
-    const {
-      getCommunityMissions,
-      params: { objectId },
-    } = this.props;
+  getJoinMissions = (dateString, tzId) =>{    
+    const { params: { objectId }, onExpired } = this.props;
+    const { refreshMissionCard } = this.state;
+    const { at, cid, token } = getUserInfo();
+    this.setState({isFetching: true, dateString: dateString, tzId: tzId});
     stopCommunityMissionExpireTimer();
-    getCommunityMissions(objectId).then(({ data }) => {
-      const timerTime = data.expires - data.timestamp;
-      this.setState({ missionListExpired: false });
-      setupCommunityMissionExpireTimer(timerTime, () =>
-        this.setState({ missionListExpired: true })
-      );
-    });
-  };
+    API.post(GET_JOIN_MISSIONS,{ at, cid, token, dateString, objectId, tz: tzId,}).then(response=>{
+      const res=response.data;
+      if(!res.apiError){       
+        const timerTime = (res.expires - res.timestamp);
+        // this.setState({ missionListExpired: false });
+        // const timerTime=10;
+        // if(timerTime > 1000 )
+          setupCommunityMissionExpireTimer(timerTime, () =>this.setState({ missionListExpired: true }));
+        this.setState({joinMissionData: res, isFetching: false, missionListExpired: false, refreshMissionCard: !refreshMissionCard});
+      }
+    })
+  }
+
+  // getCommunityMissions = () => {
+  //   const {
+  //     getCommunityMissions,
+  //     params: { objectId },
+  //   } = this.props;
+  //   stopCommunityMissionExpireTimer();
+  //   getCommunityMissions(objectId).then(({ data }) => {
+  //     const timerTime = data.expires - data.timestamp;
+  //     this.setState({ missionListExpired: false });
+  //     setupCommunityMissionExpireTimer(timerTime, () =>
+  //       this.setState({ missionListExpired: true })
+  //     );
+  //   });
+  // };
 
   reserveCommunityMission = () => {
     const { reserveCommunityMission, missionData } = this.props;
-    const { selectedMission } = this.state;
+    const { selectedMission, callSource } = this.state;
     const { scheduledMissionId, missionStart } = selectedMission;
-    const { callSource } = missionData;
+    // const { callSource } = missionData;
 
     reserveCommunityMission({
       callSource,
@@ -117,8 +147,8 @@ class Missions extends Component {
     );
   };
 
-  reservationModalShow = mission => {
-    this.setState({ reservationModalVisible: true, selectedMission: mission });
+  reservationModalShow = (mission, callSource ) => {    
+    this.setState({ reservationModalVisible: true, selectedMission: mission, callSource: callSource });
   };
 
   reservationModalHide = () => {
@@ -127,7 +157,8 @@ class Missions extends Component {
 
   modalClose = () => {
     this.setState({ successModalShow: false, selectedMission: {} });
-    this.getCommunityMissions();
+    // this.getCommunityMissions();
+    this.getJoinMissions(this.state.dateString, this.state.tzId);
   };
 
   render() {
@@ -140,38 +171,54 @@ class Missions extends Component {
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
-      isFetching,      
+      // isFetching,      
     } = this.props;
-    const { missionCount, missionList, explanation } = missionData;
+    // const { missionCount, missionList, explanation } = missionData;
     const {
       reservationModalVisible,
       selectedMission,
       successModalShow,
       missionListExpired,
       errorPopup,
+      isFetching,
+      joinMissionData,
+      dateString,
+      tzId,
+      refreshMissionCard
     } = this.state;
     
     return (
       <Fragment>
         <Spinner loading={isFetching} />
         <DeviceProvider>
-          <ObjectDetailsSectionTitle
-            title={`${objectDetails.objectTitle}'s`}
-            subTitle={t('Objects.UpcomingMissions')}
-            renderNav={() => (
-              <div className="object-details-missions-actions">
-                {missionListExpired && (
-                  <Button onClick={this.getCommunityMissions}>Refresh</Button>
-                )}
-              </div>
-            )}
-          />
+          {joinMissionData && (
+            <ObjectDetailsSectionTitleNew
+              // title={`${objectDetails.objectTitle}'s`}
+              // subTitle={t('Objects.UpcomingMissions')}
+              title={`${joinMissionData.pageHeading}`}
+              subTitle={joinMissionData.pageSubheading}
+              renderNav={() => (
+                <div className="object-details-missions-actions">
+                  {missionListExpired && (
+                    <Button onClick={()=>this.getJoinMissions(dateString, tzId)}>Refresh</Button>
+                  )}
+                </div>
+              )}
+            />
+          )}
+          
         </DeviceProvider>
         <CenterColumn widths={['768px', '965px', '965px']}>
           <ObjectVisibilityProfileNew
               defaultObsId={objectData.obsIdDefault}
               objectId={objectId}    
-              scheduleMission={(mission) => this.reservationModalShow(mission)}        
+              scheduleMission={(mission, callSource) => this.reservationModalShow(mission, callSource)}        
+              // onExpired={() => this.setState({ missionListExpired: true })}
+              isFetching={isFetching}
+              joinMissionData={joinMissionData}
+              getJoinMissions={this.getJoinMissions}
+              refreshMissionCard={refreshMissionCard}
+              missionListExpired={missionListExpired}
           />
           <br/>
         </CenterColumn>
@@ -195,15 +242,15 @@ class Missions extends Component {
           ) : (
             <div>{!isFetching && explanation}</div>
           )}
-        </CenterColumn>
+        </CenterColumn> */}
 
         {reservationModalVisible && (
           <FeaturedObjectsModal
             onHide={this.reservationModalHide}
-            onComplete={this.reserveCommunityMission}
+            onComplete={()=>this.reserveCommunityMission(selectedMission)}
             selectedMission={selectedMission}
             user={user}
-            onMissionView={this.reserveCommunityMission}
+            onMissionView={()=>this.reserveCommunityMission(selectedMission)}
             show
           />
         )}
@@ -233,7 +280,7 @@ class Missions extends Component {
           <Button1 onClickEvent={()=>{this.setState({errorPopup: false})}} text={t('Objects.ErrorStatusBtnTxt')} /> 
           </div>
           </Popup>
-        )} */}
+        )}
         )
         <style jsx>{`         
           .actions-err-btn{

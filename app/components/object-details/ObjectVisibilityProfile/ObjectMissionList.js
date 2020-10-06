@@ -4,19 +4,11 @@ import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
 import { GET_COMMUNITY_MISSIONS_NEW } from 'app/services/objects';
-import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
-import ViewOurGuide from '../view-our-guide';
-import { GridContainer, Row, StaticCell } from '../../common/grid';
-import style from './ObjectVisibilityProfile.style';
 import CenterColumn from '../../../components/common/CenterColumn';
-import { DEFAULT_OBSID } from './constants';
-import Button1 from 'app/components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
-import Popup from 'react-modal';
-import { AccountDetailsHeader } from 'app/modules/account-settings/components/account-details/header';
-import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
-import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
-import { MissionCard } from '../../../modules/object-details/components/mission-card';
+
+import { ObjectMissionCard } from 'app/modules/object-details/components/object-mission-card';
+import { getUserInfo } from 'app/modules/User';
+import { API } from 'app/api';
 
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
@@ -47,57 +39,86 @@ const riseSetModel = {
 @withTranslation()
 class ObjectMissionList extends Component {
  
+  state={
+    missionData: undefined,
+    isFetching: true,
+  }
+
+  componentDidMount(){
+    this.getCommunityMissions();
+  }
+
+  componentWillReceiveProps(nextProps){   
+    if(this.props.refreshMissionCard !== nextProps.refreshMissionCard) 
+      this.getCommunityMissions();
+  }
+
+  getCommunityMissions = () =>{    
+    const { dateString, objectId, obsId } = this.props;    
+    const { at, cid, token } = getUserInfo();
+    this.setState({isFetching: true});    
+    API.post(GET_COMMUNITY_MISSIONS_NEW,{ at, cid, token, dateString, objectId, obsId }).then(response=>{
+      const res=response.data;
+      if(!res.apiError){
+        // const timerTime = res.expires - res.timestamp;
+        // // this.setState({ missionListExpired: false });
+        // if(timerTime > 1000 )
+        //   setupCommunityMissionExpireTimer(timerTime, () => this.setState({ missionListExpired: true }) );
+        this.setState({missionData: res, isFetching: false});
+      }
+    })
+  }
   
   render() {   
 
-    const { dateString, objectId, obsId, tzId, t,  visibilityGuide, scheduleMission } = this.props;
-    
+    const { missionListExpired, scheduleMission } = this.props;
+    const { isFetching, missionData } =this.state;
     return (
-      <Request        
-        serviceURL={GET_COMMUNITY_MISSIONS_NEW}
-        requestBody={{
-          dateString,
-          objectId,
-          obsId,
-          // tzId,
-        }}
-        withoutUser
-        // model={riseSetModel}
-        render={({ fetchingContent, serviceResponse}) => {
-          // const riseSet = RISE_SET_MODEL || {};
-          
-          return (
+      // <Request        
+      //   serviceURL={GET_COMMUNITY_MISSIONS_NEW}
+      //   requestBody={{
+      //     dateString,
+      //     objectId,
+      //     obsId,
+      //     // tzId,
+      //   }}
+      //   withoutUser
+      //   // model={riseSetModel}
+      //   render={({ fetchingContent, serviceResponse}) => {
+      //     // const riseSet = RISE_SET_MODEL || {};
+        
+      //     return (
             <div style={{margin: "20px 0 0 0"}}>
-              {!fetchingContent && serviceResponse && (
+              {!isFetching && missionData && (
                 <div>                
                     <CenterColumn>
-                      {serviceResponse.missionCount > 0 ? (
+                      {missionData.missionCount > 0 ? (
                         <div style={{ margin: '0 20px 40px' }}>
-                          {serviceResponse.missionList.map(item => (
+                          {missionData.missionList.map(item => (
                             <div
                               className={`mission-card-container${
-                                serviceResponse.missionListExpired ? ' mission-expired' : ''
+                                missionListExpired ? ' mission-expired' : ''
                               }`}
                             >
-                              <MissionCard
+                              <ObjectMissionCard
                                 key={item.scheduledMissionId}
                                 timeSlot={item}
-                                onClickHandler={item.missionAvailable ? () => scheduleMission(item) : null}
+                                onClickHandler={item.missionAvailable ? () => scheduleMission(item, missionData.callSource) : ()=>{}}
                               />
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <div>{!fetchingContent && serviceResponse.explanation}</div>
+                        <div>{!isFetching && missionData.explanation}</div>
                       )}
                     </CenterColumn>                    
                 </div>
               )}              
             </div>
           );
-        }}
-      />
-    );
+    //     }}
+    //   />
+    // );
 
     
 

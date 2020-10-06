@@ -11,5 +11,5 @@ export const OBJECT_HOW_BIG = '/api/object/getHowBig';
 
 export const GET_JOIN_MISSIONS = '/api/reservation/getJoinMissions';
 export const RISE_SET_TIMES_NEW = '/api/object/getRiseAndSetTimes';
-export const GET_COMMUNITY_MISSIONS_NEW = '/api/reservation/getCommunityMissions';
+export const GET_COMMUNITY_MISSIONS_NEW = '/api/reservation/getCommunityMissionsNew';
 

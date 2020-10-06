@@ -18,14 +18,27 @@ export class PhotoRoll extends Component{
         
     }      
 
-    optionsList = [
-        { label: 'Remove from This Gallery', action: 'removeFromGallery' },
-        { label: 'Add to gallery', action: 'addToGallery' },
-        { label: 'Delete image', action: 'remove' },
-        { label: 'Write observation', action: 'redirect' },
-        { label: 'Add Tags', action: 'tagging' },
-        { label: 'Share Image', action: 'redirect' },
-    ];
+    getOptionList = (photo) => {
+        let optionsList = [
+            { label: 'Remove from This Gallery', action: 'removeFromGallery' },
+            { label: 'Add to gallery', action: 'addToGallery' },
+            { label: 'Delete image', action: 'remove' },
+            { label: 'Write observation', action: 'redirect' },
+            { label: 'Add Tags', action: 'tagging' },
+            { label: 'Share Image', action: 'redirect' },
+        ];
+        
+        if(!(photo.canEditFlag && !photo.observationLog)){
+            optionsList=optionsList.filter((item)=>item.label !== "Write observation");
+        }
+
+        if(!photo.canShareFlag){
+            optionsList=optionsList.filter((item)=>item.label !== "Share Image");
+        }
+        return optionsList;
+    }
+
+    
     
     blockWidth = null;
     PHOTOS_ON_ONE_PAGE=18
@@ -133,7 +146,7 @@ export class PhotoRoll extends Component{
                                                     blockWidth={width}
                                                     visible={menuIsVisible}
                                                     tagActions={tagActions}
-                                                    optionsList={this.optionsList}
+                                                    optionsList={this.getOptionList(photo)}
                                                     redirectToImage={(label)=>{return this.redirectToImage(photo,label)}}
                                                     toggleMenuVisibility={()=>this.toggleMenuVisibility(i)}
                                                     typeGallery={false}

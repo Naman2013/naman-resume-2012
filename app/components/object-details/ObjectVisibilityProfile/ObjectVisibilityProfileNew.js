@@ -7,40 +7,48 @@ import { RISE_SET_TIMES, RISE_SET_TIMES_NEW, GET_JOIN_MISSIONS } from 'app/servi
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
-import style from './ObjectVisibilityProfile.style';
+import style from './ObjectVisibilityProfileNew.style';
 
 import { DEFAULT_OBSID } from './constants';
 
 import  ObjectRiseSet from './ObjectRiseSet';
 import ObjectMissionList from './ObjectMissionList';
+import { API } from 'app/api';
+import { Spinner } from 'app/components/spinner/index';
+import { getUserInfo } from 'app/modules/User';
+import { setupCommunityMissionExpireTimer, stopCommunityMissionExpireTimer } from 'app/services/objects/timer';
 
-const riseSetModel = {
-  name: 'RISE_SET_MODEL',
-  model: resp => ({
-    obsLabel: resp.obsHeader,
-    riseLabel: resp.riseLabel,
-    rise: resp.riseText,
-    transitLabel: resp.transitLabel,
-    transit: resp.transitText,
-    setLabel: resp.setLabel,
-    set: resp.setText,
-    subtitle: resp.dateSelectorDescription,
-    title: resp.dateSelectorHeading,
-    notesLabel: resp.notesLabel,
-    notes: resp.notesText,
-    guideHeader: resp.linkHeader,
-    guideUrl: resp.linkUrl,
-    guideLabel: resp.linkLabel,
-    guideSubTitle: resp.linkTitle,
-    hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
-    riseAndSetSelectors: resp.riseAndSetSelectors,
-    obsList: resp.obsList,
-    tzHeading: resp.tzSelectorHeading,
-    tzDescription: resp.tzSelectorDescription,
-    tzList: resp.tzList,
-    tzSelection: resp.tzSelection,
-  }),
-};
+// const riseSetModel = {
+//   name: 'RISE_SET_MODEL',
+//   model: resp => ({
+//     obsLabel: resp.obsHeader,
+//     riseLabel: resp.riseLabel,
+//     rise: resp.riseText,
+//     transitLabel: resp.transitLabel,
+//     transit: resp.transitText,
+//     setLabel: resp.setLabel,
+//     set: resp.setText,
+//     subtitle: resp.dateSelectorDescription,
+//     title: resp.dateSelectorHeading,
+//     notesLabel: resp.notesLabel,
+//     notes: resp.notesText,
+//     guideHeader: resp.linkHeader,
+//     guideUrl: resp.linkUrl,
+//     guideLabel: resp.linkLabel,
+//     guideSubTitle: resp.linkTitle,
+//     hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
+//     riseAndSetSelectors: resp.riseAndSetSelectors,
+//     obsList: resp.obsList,
+//     tzHeading: resp.tzSelectorHeading,
+//     tzDescription: resp.tzSelectorDescription,
+//     tzList: resp.tzList,
+//     tzSelection: resp.tzSelection,
+//     astronomicalTimeGuide: resp.astronomicalTimeGuide,
+//     showAstronomicalTimeGuide: resp.showAstronomicalTimeGuide,
+//     obsPrompt: resp.obsPrompt,
+//   }),
+// };
+
 @withTranslation()
 class ObjectVisibilityProfileNew extends Component {
   static propTypes = {
@@ -51,10 +59,39 @@ class ObjectVisibilityProfileNew extends Component {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     tzId:  this.props.defaulttzId ? this.props.defaulttzId : undefined,
     activeDateIndex: 0,
-  };
+    // joinMissionData: undefined,
+    // isfetching: true,
+  };  
 
-  handleObservatoryChange = event => {
-    this.setState({ obsId: event.target.value });
+  componentDidMount(){    
+    this.props.getJoinMissions(this.state.dateString, this.state.tzId);
+  }
+
+  // componentWillUnmount() {
+  //   stopCommunityMissionExpireTimer();
+  // }
+
+  // getJoinMissions = () =>{
+  //   const { dateString, tzId } = this.state;
+  //   const { objectId, onExpired } = this.props;
+  //   const { at, cid, token } = getUserInfo();
+  //   this.setState({isfetching: true});
+  //   stopCommunityMissionExpireTimer();
+  //   API.post(GET_JOIN_MISSIONS,{ at, cid, token, dateString, objectId, tz: tzId,}).then(response=>{
+  //     const res=response.data;
+  //     if(!res.apiError){
+  //       const timerTime = res.expires - res.timestamp;
+  //       this.setState({ missionListExpired: false });
+  //       if(timerTime >1000 )
+  //         setupCommunityMissionExpireTimer(timerTime, () => onExpired() );
+  //       this.setState({joinMissionData: res, isfetching: false});
+  //     }
+  //   })
+  // }
+
+  handleObservatoryChange = id => {
+    // this.setState({ obsId: event.target.value });
+    window.scrollTo(0,document.getElementById(id).offsetTop-10);    
   };
 
   handleTimeZoneChange = event => {
@@ -62,248 +99,307 @@ class ObjectVisibilityProfileNew extends Component {
   };
 
   handleDateSelect = (dateString, index) => {
-    this.setState({
-      activeDateIndex: index,
-      dateString,
-    });
+    this.props.getJoinMissions(dateString, this.state.tzId)
+
+    // this.setState({
+    //   activeDateIndex: index,
+    //   dateString,
+    // },()=>this.props.getJoinMissions(dateString,this.state.tzId));
   };
 
   render() {
-    const { dateString, obsId, activeDateIndex, tzId } = this.state;
+    const { activeDateIndex, tzId } = this.state;
 
-    const { objectId, t, visibilityGuide, scheduleMission } = this.props;
+    const { objectId, t, scheduleMission, missionListExpired, joinMissionData, isFetching, refreshMissionCard } = this.props;
     
     return (
-      <Request
-        // serviceURL={RISE_SET_TIMES}
-        serviceURL={GET_JOIN_MISSIONS}
-        requestBody={{
-          dateString,
-          objectId,          
-          tz: tzId,
-        }}
-        withoutUser
-        model={riseSetModel}
-        render={({ fetchingContent, modeledResponses: { RISE_SET_MODEL } }) => {
-          const riseSet = RISE_SET_MODEL || {};
-          return (
+      // <Request
+      //   // serviceURL={RISE_SET_TIMES}
+      //   serviceURL={GET_JOIN_MISSIONS}
+      //   requestBody={{
+      //     dateString,
+      //     objectId,          
+      //     tz: tzId,
+      //   }}
+      //   withoutUser
+      //   model={riseSetModel}
+      //   render={({ fetchingContent, modeledResponses: { RISE_SET_MODEL } }) => {
+      //     const riseSet = RISE_SET_MODEL || {};
+      //     return (
+        
             <div>
-              {riseSet.riseAndSetSelectors && (
-                <div className="obs-visibility-root">
-                  <form method="POST">
-                  <GridContainer theme={{ margin: '20px 0 0 0' }}>                    
-                      <Row wrap>
-                        <StaticCell
-                          flexScale={['100%', '75%']}
-                          hasBorderScale={[true]}
-                          titleHtml={riseSet.title}
-                        >
-                          {riseSet.riseAndSetSelectors &&
-                            riseSet.riseAndSetSelectors.dates.map(
-                              (date, index) => (
-                                <div
-                                  key={date.dateString}
-                                  role="button"
-                                  tabIndex={index + 1}
-                                  className={cn('day-sell', {
-                                    'is-active': activeDateIndex === index,
-                                  })}
-                                  onClick={() =>
-                                    this.handleDateSelect(
-                                      date.dateString,
-                                      index
-                                    )
-                                  }
+              {/* <Spinner loading={isfetching} /> */}
+              {joinMissionData && (                       
+                    <div className="obs-visibility-root">
+                      <form method="POST">
+                      <GridContainer theme={{ margin: '20px 0 0 0' }}>                    
+                          <Row wrap>
+                            <StaticCell
+                              flexScale={['100%', '70%']}
+                              hasBorderScale={[true]}
+                              titleHtml={joinMissionData.dateSelectorHeading}
+                            >
+                              {joinMissionData.riseAndSetSelectors &&
+                                joinMissionData.riseAndSetSelectors.dates.map(
+                                  (date, index) => (
+                                    <div
+                                      key={date.dateString}
+                                      role="button"
+                                      tabIndex={index + 1}
+                                      className={cn('day-sell', {
+                                        'is-active': joinMissionData.riseAndSetSelectors.dateString === date.dateString,
+                                      })}
+                                      onClick={() =>
+                                        this.handleDateSelect(
+                                          date.dateString,
+                                          index
+                                        )
+                                      }
+                                    >
+                                      <div
+                                        className="day-month"
+                                        dangerouslySetInnerHTML={{
+                                          __html: date.dateLabel,
+                                        }}
+                                      />
+                                    </div>
+                                  )
+                                )}
+                              <div
+                                className="rise-set-subtitle"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinMissionData.dateSelectorDescription,
+                                }}
+                              />
+                            </StaticCell>
+                            <StaticCell
+                              title={joinMissionData.obsPrompt}
+                              flexScale={['100%', '30%']}
+                            >
+                              {joinMissionData.obsList.map(obs => (
+                                <div className="select-field">
+                                  <label
+                                    className="option-label"
+                                    htmlFor="select-obsId"
+                                  >
+                                    <span className="field-value-name" onClick={()=>this.handleObservatoryChange(obs.obsId)}>
+                                      {obs.obsShortName}
+                                    </span>
+                                  </label>
+                                </div>                               
+                                ))}
+                                                      
+
+
+                              {/* <div className="select-field">
+                                <label
+                                  className="option-label"
+                                  htmlFor="select-obsId"
                                 >
-                                  <div
-                                    className="day-month"
-                                    dangerouslySetInnerHTML={{
-                                      __html: date.dateLabel,
-                                    }}
+                                  <span className="field-value-name">
+                                    {
+                                      joinMissionData.obsList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
+                                    
+                                    }
+                                  </span>
+                                  <img
+                                    alt=""
+                                    width="8"
+                                    src={downwardFacingChevron}
+                                  />
+                                </label>
+                                <select
+                                  className="select"
+                                  id="select-obsId"
+                                  value={this.state.obsId}
+                                  onChange={this.handleObservatoryChange}
+                                >                           
+                                  {joinMissionData.obsList.map(obs => (
+                                    <option value={obs.obsId}>{obs.obsShortName}</option>
+                                  ))}
+                                </select>
+                              </div> */}
+                            </StaticCell>
+                          </Row>
+                          <Row>
+                            <StaticCell
+                              // title={joinMissionData.tzHeading}
+                              hasBorderScale={[true]}
+                            >
+                              {/* <div className="select-field">
+                                <label
+                                  className="option-label"
+                                  htmlFor="select-tzId"
+                                >
+                                  <span className="field-value-name">
+                                    {
+                                        joinMissionData.tzSelection
+                                    }
+                                  </span>
+                                  <img
+                                    alt=""
+                                    width="8"
+                                    src={downwardFacingChevron}
+                                  />
+                                </label>
+                                <select
+                                  className="select"
+                                  id="select-tzId"
+                                  value={joinMissionData.tzSelection}
+                                  onChange={this.handleTimeZoneChange}
+                                >                              
+                                  {joinMissionData.tzList.map(obs => (
+                                    <option value={obs}>{obs}</option>
+                                  ))}
+                                </select>
+                              </div> */}
+
+                              <div
+                                className="rise-set-subtitle"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinMissionData.tzSelectorDescription,
+                                }}
+                              />
+                            </StaticCell>
+                            
+                            {joinMissionData.showAstronomicalTimeGuide && (
+                              <StaticCell
+                                flexScale={['100%', '25%']}
+                              >
+                                <div className="obs-visibility-root">
+                                  <ViewOurGuide
+                                    guideHeader={joinMissionData.astronomicalTimeGuide.linkHeader}
+                                    guideTitle={joinMissionData.astronomicalTimeGuide.linkLabel}
+                                    guideUrl={joinMissionData.astronomicalTimeGuide.linkUrl}
+                                    guideSubTitle={joinMissionData.astronomicalTimeGuide.linkTitle}
                                   />
                                 </div>
-                              )
+                              </StaticCell>
                             )}
-                          <div
-                            className="rise-set-subtitle"
-                            dangerouslySetInnerHTML={{
-                              __html: riseSet.subtitle,
-                            }}
-                          />
-                        </StaticCell>
-                        
-                      </Row>
-                      <Row>
-                        <StaticCell
-                          title={riseSet.tzHeading}
-                          hasBorderScale={[true]}
-                        >
-                          <div className="select-field">
-                            <label
-                              className="option-label"
-                              htmlFor="select-tzId"
+                            
+                            
+                            
+
+                            {/* <StaticCell
+                              title={joinMissionData.obsLabel}
+                              flexScale={['100%', '25%']}
                             >
-                              <span className="field-value-name">
-                                {
-                                  // riseSet.tzList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
-                                 
-                                    riseSet.tzSelection
-                                  
-                                }
-                              </span>
-                              <img
-                                alt=""
-                                width="8"
-                                src={downwardFacingChevron}
+                              <div className="select-field">
+                                <label
+                                  className="option-label"
+                                  htmlFor="select-obsId"
+                                >
+                                  <span className="field-value-name">
+                                    {
+                                      joinMissionData.obsList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
+                                      // joinMissionData.tzList[
+                                      //   this.state.tzList
+                                      // ]
+                                    }
+                                  </span>
+                                  <img
+                                    alt=""
+                                    width="8"
+                                    src={downwardFacingChevron}
+                                  />
+                                </label>
+                                <select
+                                  className="select"
+                                  id="select-obsId"
+                                  value={this.state.obsId}
+                                  onChange={this.handleObservatoryChange}
+                                >                             
+                                  {joinMissionData.obsList.map(obs => (
+                                    <option value={obs.obsId}>{obs.obsShortName}</option>
+                                  ))}
+                                </select>
+                              </div>
+                            </StaticCell> */}
+                          </Row> 
+                        </GridContainer>
+                        {joinMissionData.obsList.map(obs=>(
+                          <div id={obs.obsId}>
+                            <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                              <ObjectRiseSet
+                                dateString={joinMissionData.riseAndSetSelectors.dateString}
+                                objectId={objectId}
+                                obsId={obs.obsId}
+                                tzId={tzId}
+                                t={t}
+                                obsName={obs.obsShortName}
                               />
-                            </label>
-                            <select
-                              className="select"
-                              id="select-tzId"
-                              value={riseSet.tzSelection}
-                              onChange={this.handleTimeZoneChange}
-                            >
-                              {/* {Object.entries(
-                                riseSet.obsList
-                              ) */}
-                              {riseSet.tzList.map(obs => (
-                                <option value={obs}>{obs}</option>
-                              ))}
-                            </select>
+                            </GridContainer>                       
+                                <ObjectMissionList
+                                  dateString={joinMissionData.riseAndSetSelectors.dateString}
+                                  objectId={objectId}
+                                  obsId={obs.obsId}
+                                  tzId={tzId}
+                                  t={t}
+                                  scheduleMission={scheduleMission}
+                                  refreshMissionCard={refreshMissionCard}
+                                  missionListExpired={missionListExpired}
+                                />                        
                           </div>
-
-                          <div
-                            className="rise-set-subtitle"
-                            dangerouslySetInnerHTML={{
-                              __html: riseSet.tzDescription,
-                            }}
-                          />
-                        </StaticCell>
-
-                        
+                        ))}
                         
 
-                        <StaticCell
-                          title={riseSet.obsLabel}
-                          flexScale={['100%', '25%']}
-                        >
-                          <div className="select-field">
-                            <label
-                              className="option-label"
-                              htmlFor="select-obsId"
+                          {/* <Row>
+                            <StaticCell
+                              title={joinMissionData.riseLabel}
+                              hasBorderScale={[true]}
                             >
-                              <span className="field-value-name">
-                                {
-                                  riseSet.obsList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
-                                  // riseSet.tzList[
-                                  //   this.state.tzList
-                                  // ]
-                                }
-                              </span>
-                              <img
-                                alt=""
-                                width="8"
-                                src={downwardFacingChevron}
-                              />
-                            </label>
-                            <select
-                              className="select"
-                              id="select-obsId"
-                              value={this.state.obsId}
-                              onChange={this.handleObservatoryChange}
+                              <p>
+                                {fetchingContent
+                                  ? `${t('Objects.Loading')}...`
+                                  : joinMissionData.rise}
+                              </p>
+                            </StaticCell>
+                            <StaticCell
+                              title={joinMissionData.transitLabel}
+                              hasBorderScale={[true]}
                             >
-                              {/* {Object.entries(
-                                riseSet.obsList
-                              ) */}
-                              {riseSet.obsList.map(obs => (
-                                <option value={obs.obsId}>{obs.obsShortName}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </StaticCell>
-                      </Row> 
-                    </GridContainer>
-                    {riseSet.obsList.map(obs=>(
-                      <div>
-                        <GridContainer theme={{ margin: '20px 0 0 0' }}>
-                          <ObjectRiseSet
-                            dateString={riseSet.riseAndSetSelectors.dateString}
-                            objectId={objectId}
-                            obsId={obs.obsId}
-                            tzId={tzId}
-                            t={t}
-                            obsName={obs.obsShortName}
-                          />
-                        </GridContainer>                       
-                            <ObjectMissionList
-                               dateString={riseSet.riseAndSetSelectors.dateString}
-                               objectId={objectId}
-                               obsId={obs.obsId}
-                               tzId={tzId}
-                               t={t}
-                              scheduleMission={scheduleMission}
-                            />                        
-                      </div>
-                    ))}
-                    
-
-                      {/* <Row>
-                        <StaticCell
-                          title={riseSet.riseLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : riseSet.rise}
-                          </p>
-                        </StaticCell>
-                        <StaticCell
-                          title={riseSet.transitLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : riseSet.transit}
-                          </p>
-                        </StaticCell>
-                        <StaticCell
-                          title={riseSet.setLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : riseSet.set}
-                          </p>
-                        </StaticCell>
-                      </Row>
-                      <Row>
-                        <StaticCell title={riseSet.notesLabel}>
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : riseSet.notes}
-                          </p>
-                        </StaticCell>
-                      </Row> */}
-                    </form>
-                    {/* </GridContainer> */}
-                  {/* <ViewOurGuide
-                    guideHeader={riseSet.guideHeader}
-                    guideTitle={riseSet.guideLabel}
-                    guideUrl={riseSet.guideUrl}
-                    guideSubTitle={riseSet.guideSubTitle}
-                  /> */}
-                </div>
-              )}
+                              <p>
+                                {fetchingContent
+                                  ? `${t('Objects.Loading')}...`
+                                  : joinMissionData.transit}
+                              </p>
+                            </StaticCell>
+                            <StaticCell
+                              title={joinMissionData.setLabel}
+                              hasBorderScale={[true]}
+                            >
+                              <p>
+                                {fetchingContent
+                                  ? `${t('Objects.Loading')}...`
+                                  : joinMissionData.set}
+                              </p>
+                            </StaticCell>
+                          </Row>
+                          <Row>
+                            <StaticCell title={joinMissionData.notesLabel}>
+                              <p>
+                                {fetchingContent
+                                  ? `${t('Objects.Loading')}...`
+                                  : joinMissionData.notes}
+                              </p>
+                            </StaticCell>
+                          </Row> */}
+                        </form>
+                        {/* </GridContainer> */}
+                      {/* <ViewOurGuide
+                        guideHeader={joinMissionData.guideHeader}
+                        guideTitle={joinMissionData.guideLabel}
+                        guideUrl={joinMissionData.guideUrl}
+                        guideSubTitle={joinMissionData.guideSubTitle}
+                      /> */}
+                    </div>
+                  )}                
               <style jsx>{style}</style>
             </div>
           );
-        }}
-      />
-    );
+    //     }}
+    //   />
+    // );
 
     
 
