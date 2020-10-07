@@ -53,8 +53,12 @@ export class Observatories extends Component{
         const { list } = this.props;         
         if(list){
             this.fetchAllApi(list[0]);                     
-        }
-            
+        }            
+    }
+
+    componentWillUnmount(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);
     }
 
     onTabChange=(selectedHeader)=>{        
