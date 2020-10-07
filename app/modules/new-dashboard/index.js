@@ -173,6 +173,11 @@ export class NewDashboard extends PureComponent{
     //         this.props.unSubscribePubnub();
     // }
     
+    getSortedObsList = (obsList) =>{        
+        return obsList.sort((a, b) => a.dashboardObsIndex > b.dashboardObsIndex ? 1 : -1);        
+    }
+
+
     render(){
     
         const { privateProfile, 
@@ -279,7 +284,7 @@ export class NewDashboard extends PureComponent{
                                 {observatoryList && (
                                     <Observatories                                                                               
                                         getWeatherDataAction={getWeatherDataAction}                                        
-                                        list={observatoryList.observatoryList}                                        
+                                        list={this.getSortedObsList(observatoryList.observatoryList)}                                        
                                         getSkyData={getSkyAction}
                                         wxList={weatherStatus}
                                         skyConditions={skyConditions}

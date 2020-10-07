@@ -33,6 +33,7 @@
     list-style-type: none;
     display: inline-block; 
     cursor: pointer;   
+    text-align: center;
 }
 
 .new-dash .tab-header-status-txt-active{
@@ -61,7 +62,8 @@
     color: #FFFFFF;     
     list-style-type: none;
     display: inline-block; 
-    cursor: pointer;   
+    cursor: pointer; 
+    text-align: center;  
 }
 
 .new-dash .tab-header-status-main{    
@@ -112,6 +114,20 @@
     color: #C4C4C4;
     margin: 5px 0px;
 }
+
+.new-dash .status-text{  
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    // display: flex;
+    // align-items: center;   
+    margin: 5px 0px;
+    text-align: center;
+}
+
 
 .new-dash .dot {
     height: 6px;

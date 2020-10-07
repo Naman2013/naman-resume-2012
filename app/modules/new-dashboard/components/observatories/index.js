@@ -5,6 +5,7 @@ import { TabHeaderWithStatus } from '../tab-header-with-status';
 import { getWeatherActions, getSkyRating, getNewDahObs, getObsStatus } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
 import { Spinner } from '../../common/spinner';
+import { Link } from 'react-router';
 
 export class Observatories extends Component{
 
@@ -123,6 +124,7 @@ export class Observatories extends Component{
                                 <h5 className="observatory-col-txt">Night Telescope Hours</h5>
                                 <h5 className="observatory-col-value">{obsStatus.clockList.obsOpen.displayTime} - {obsStatus.clockList.obsClosed.displayTime} {obsStatus.clockList.obsClosed.displayTimeZone}</h5>
                                 <br/>
+                                <Link to={obsStatus.dashboardTeleLinkURL }><h5 className="observatory-col-value">{obsStatus.dashboardTeleLinkLabel}</h5></Link>
                             </div>
                             <div className="observatory-col-right">
                             <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseLabel} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetLabel}</h5>
