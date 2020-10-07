@@ -19,47 +19,50 @@ export class Observatories extends Component{
         }
     }
 
-    componentDidMount(){
-        const { list } = this.props;
-        const { token, at, cid } = getUserInfo();        
-        if(list){
-            const { obsId, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list[0];
-            getWeatherActions({token, at, cid, obsId }).then(response=>{
-                const res=response.data;
-                if(!res.apiError){
-                    this.setState({wxList: res.wxList, loading: false});                    
-                }
-            });
+    timerId=null;
 
-            getNewDahObs({token, at, cid, obsId,                 
-                dayNightBarWidgetUniqueId: DayNightBarWidgetId,
-                moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-                seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
-                    const res=response.data;
-                    if(!res.apiError){
-                        this.setState({obsWidgetData: res, loading: false});                       
-                    }
-                })
-            getObsStatus(obsId).then(response=>{
-                const res=response.data;
-                    if(!res.apiError){
-                        this.setState({obsStatus: res, loading: false});                        
-                    }
-            });
-            // getWeatherDataAction({ obsId });
-            // getNewDashObs({obsId,                 
-            //     dayNightBarWidgetUniqueId: DayNightBarWidgetId,
-            //     moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-            //     seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId });                
-            // getObsStatus(obsId);
-            // getSkyData({ obsId , widgetUniqueId: SeeingConditionsWidgetId });
+    componentWillReceiveProps(newProps)
+    {           
+        newProps.list.map((item, index)=>{
+            const { SeeingConditionsWidgetId: sc, DayNightBarWidgetId: dn, MoonlightBarWidgetId: ml, } = item;
+            const { SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = this.props.list[index];
+            const { selectedHeader } = this.state;
+            if(sc != SeeingConditionsWidgetId || dn != DayNightBarWidgetId || ml != MoonlightBarWidgetId && item.observatoryName === selectedHeader){
+                this.fetchAllApi(item);
+                return;
+            }
+        });
+        
+    }
+
+    getObsStatusAction = (obsId) => {
+        getObsStatus(obsId).then(response=>{
+            const res=response.data;
+                if(!res.apiError){
+                    const duration = (res.statusExpires-res.statusTimestamp) * 1000;
+                    if(this.timerId !== null)
+                        clearTimeout(this.timerId);
+                    if(duration > 1000)
+                        this.timerId=setTimeout(()=>this.getObsStatusAction(obsId), duration);
+                    this.setState({obsStatus: res, loading: false});                        
+                }
+        });
+    }
+
+    componentDidMount(){
+        const { list } = this.props;         
+        if(list){
+            this.fetchAllApi(list[0]);                     
         }
             
     }
 
-    onTabChange=(selectedHeader)=>{
-        // const { getWeatherDataAction, getObsStatus, getNewDashObs } =this.props;
-        const { obsId, obsShortName, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = selectedHeader;        
+    onTabChange=(selectedHeader)=>{        
+       this.fetchAllApi(selectedHeader);
+    };     
+
+    fetchAllApi = (list) =>{
+        const { obsId, observatoryName, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list;        
         const { token, at, cid } = getUserInfo();    
         this.setState({loading: true});
         getWeatherActions({token, at, cid, obsId }).then(response=>{
@@ -78,15 +81,9 @@ export class Observatories extends Component{
                     this.setState({obsWidgetData: res, loading: false});                       
                 }
             })
-        getObsStatus(obsId).then(response=>{
-            const res=response.data;
-                if(!res.apiError){
-                    this.setState({obsStatus: res, loading: false});                        
-                }
-        });
-        // getSkyData({ obsId , widgetUniqueId });
-        this.setState({selectedheader: obsShortName});
-    };     
+        this.getObsStatusAction(obsId);       
+        this.setState({selectedheader: observatoryName});
+    }
 
     render() {
         const heading = "Observatories";        

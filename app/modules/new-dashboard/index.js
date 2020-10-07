@@ -152,7 +152,7 @@ export class NewDashboard extends PureComponent{
         // getUserActiveObjectDataAction();
         // getUserPopularObservationDataAction();
         // getRecentGravityDataAction();        
-        getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
+        // getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
         getQuestMapControlAction();
         // getCommunityExplorationAction();
         // getCommunityFameAction();

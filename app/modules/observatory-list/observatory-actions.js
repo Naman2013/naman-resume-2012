@@ -23,7 +23,9 @@ export const fetchList = () => (dispatch) => {
   dispatch(fetchListStart()); 
   return fetchObservatoryList()
     .then((result) => {
-      if (!result.data.apiError) {       
+      if (!result.data.apiError) {  
+        const duration=(result.data.expires-result.data.timestamp) * 1000;     
+        setTimeout(()=>dispatch(fetchList()),duration);
         dispatch(fetchListSuccess(result.data));
       }
     })

@@ -18,22 +18,30 @@ import TELESCOPE_CONFIGURATION, {
   modelTelescopesFromObsList,
 } from './telescopeConfiguration';
 import { getUserInfo } from 'app/modules/User';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { flatten } from 'lodash';
 
 const Telescopes = (props) => {
   const { token, at, cid } = getUserInfo();
-  const { t } = useTranslation();   
+  const { t } = useTranslation();
+  const { observatoryList } = props;  
+  const telescopesByObservatory = observatoryList.observatoryList.map(
+    _observatory => _observatory.obsTelescopes
+  );
+  const TELESCOPES_ONLY= flatten(telescopesByObservatory);
   return (
-    <Request
-      serviceURL={OBSERVATORIES_COMPACT}
-      method="GET"
-      model={modelTelescopesFromObsList}
-      callLink={props.isOpen}
-      // requestBody={{ cid, at, token }}
-      render={({
-        fetchingContent,
-        modeledResponses: { TELESCOPES_ONLY },
-        serviceResponse: { observatoryList },
-      }) => (
+    // <Request
+    //   serviceURL={OBSERVATORIES_COMPACT}
+    //   method="GET"
+    //   model={modelTelescopesFromObsList}
+    //   callLink={props.isOpen}
+    //   // requestBody={{ cid, at, token }}
+    //   render={({
+    //     fetchingContent,
+    //     modeledResponses: { TELESCOPES_ONLY },
+    //     serviceResponse: { observatoryList },
+    //   }) => (
         <div className="root">
           <MenuTitleBar title={t('Telescopes.title')}>
             <div className="center-buttons">
@@ -60,7 +68,7 @@ const Telescopes = (props) => {
               />
             </div>
           </MenuTitleBar>
-          {!fetchingContent && (
+          {observatoryList && (
             <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
           )}
 
@@ -97,11 +105,15 @@ const Telescopes = (props) => {
             `}
           </style>
         </div>
-      )}
-    />
+    //   )}
+    // />
   );
 };
 
 Telescopes.propTypes = {};
 
-export default Telescopes;
+const mapStateToProps=(state)=>({
+  observatoryList: state.observatoryList.obsList  
+})
+
+export default compose(connect(mapStateToProps, null)) (Telescopes);

@@ -9,11 +9,11 @@ export const makeStarPartyListSelector = () =>
     state => state.upcomingEvents.upcomingEvents
   );
 
-// export const makeObservatoryListSelector = () =>
-//   createSelector(
-//     state,
-//     state => state.observatoryList.obsList
-//   );
+export const makeObservatoryListSelector = () =>
+  createSelector(
+    state,
+    state => state.observatoryList.obsList
+  );
 
   export const makePubnubDataSelector = () =>    
   createSelector(
@@ -112,11 +112,11 @@ export const makeStarPartyListSelector = () =>
     state => state.skyConditions
   );
 
-  export const makeObservatoryListSelector = () =>
-  createSelector(
-    newDashList,
-    state => state.observatoryList
-  );
+  // export const makeObservatoryListSelector = () =>
+  // createSelector(
+  //   newDashList,
+  //   state => state.observatoryList
+  // );
 
   export const makeQuestMapControlSelector = () =>
   createSelector(
