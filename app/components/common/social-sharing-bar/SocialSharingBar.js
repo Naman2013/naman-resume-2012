@@ -36,6 +36,7 @@ const LivejournalIcon = generateShareIcon('livejournal');
 class SocialSharingBar extends Component {
   render() {
     const {
+      shareIntroText,
       shareTitle,
       shareURL,
       shareImageURL,
@@ -84,7 +85,7 @@ class SocialSharingBar extends Component {
                   <TwitterShareButton
 		    text={shareDescription}
                     url={shareURL}
-                    title="Slooh Observation"
+                    title={shareIntroText}
                     hashtags={TW_hashtags}>
                   <TwitterIcon
                       size={32}

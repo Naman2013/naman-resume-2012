@@ -139,6 +139,7 @@ export class Observation extends Component{
                                             shareDescription={shareInformation.socialShareDescription}
                                             shareURL={shareInformation.socialShareURL}
                                             shareImageURL={shareInformation.shareImageURL ? shareInformation.shareImageURL : null}
+					    shareIntroText={shareInformation.socialShareIntroText}
                                         />
                                     </div>
                                 )}                                            
