@@ -93,6 +93,7 @@ import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
 import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
+import observatoryList from './observatory-list/observatory-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
@@ -187,6 +188,7 @@ export default combineReducers({
   tierLimits,
   userPublicGalleries,
   upcomingEvents,
+  observatoryList,
   user,
   usersUpcomingMission,
   videoViewerBrowser,

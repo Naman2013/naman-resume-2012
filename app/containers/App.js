@@ -12,7 +12,7 @@ import GlobalNavigation from '../components/GlobalNavigation';
 
 import Footer from '../components/Footer';
 import { fetchEvents, setPublicCardStatusAction } from '../modules/upcoming-events/upcoming-events-actions';
-
+import { fetchList } from '../modules/observatory-list/observatory-actions';
 import { fireSloohPageView, veritySloohId } from 'app/utils/slooh-pageview-wrapper';
 import QuestBreadCrumb from '../components/GlobalNavigation/breadcrumb';
 import { getUserInfo } from 'app/modules/User';
@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch) {
     {
       fetchEvents,
       setPublicCardStatusAction,
+      fetchList,
     },
     dispatch
   );
@@ -65,7 +66,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     props.fetchEvents();
-    
+    props.fetchList();
   }
 
   // async componentWillMount(){

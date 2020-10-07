@@ -9,6 +9,12 @@ export const makeStarPartyListSelector = () =>
     state => state.upcomingEvents.upcomingEvents
   );
 
+// export const makeObservatoryListSelector = () =>
+//   createSelector(
+//     state,
+//     state => state.observatoryList.obsList
+//   );
+
   export const makePubnubDataSelector = () =>    
   createSelector(
     state,

@@ -186,32 +186,32 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    const handleOrientationChangeEvent = (): void => {
-      calculateFeedMenuSize(isTablet, setFeedMenuSize);
-      if(rnd.current !== null)
-        rnd.current.updatePosition({ x: -300, y: 80 });
-    };
+  // useEffect(() => {
+  //   const handleOrientationChangeEvent = (): void => {
+  //     calculateFeedMenuSize(isTablet, setFeedMenuSize);
+  //     if(rnd.current !== null)
+  //       rnd.current.updatePosition({ x: -300, y: 80 });
+  //   };
 
-    window.addEventListener('orientationchange', handleOrientationChangeEvent);
-    return (): void => {
-      handleOrientationChangeEvent();
-      window.removeEventListener(
-        'orientationchange',
-        handleOrientationChangeEvent
-      );
-    };
-  }, [isTablet]);
+  //   window.addEventListener('orientationchange', handleOrientationChangeEvent);
+  //   return (): void => {
+  //     handleOrientationChangeEvent();
+  //     window.removeEventListener(
+  //       'orientationchange',
+  //       handleOrientationChangeEvent
+  //     );
+  //   };
+  // }, [isTablet]);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
-    if (isOpen && (isFullscreen || isTablet)) {
-      document.body.classList.add('disable-overflow');
-      document.documentElement.classList.add('disable-overflow');
-    } else {
-      document.body.classList.remove('disable-overflow');
-      document.documentElement.classList.remove('disable-overflow');
-    }
+    // if (isOpen && (isFullscreen || isTablet)) {
+    //   document.body.classList.add('disable-overflow');
+    //   document.documentElement.classList.add('disable-overflow');
+    // } else {
+    //   document.body.classList.remove('disable-overflow');
+    //   document.documentElement.classList.remove('disable-overflow');
+    // }
     if (isOpen) setMessageIdToLocalStorage(lastMessageId);
   }, [isFullscreen, isTablet, isOpen, lastMessageId]);
 
