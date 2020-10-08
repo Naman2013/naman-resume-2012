@@ -20,7 +20,9 @@ export class Observatories extends Component{
         }
     }
 
-    timerId=null;
+    statusTimerId= null;
+    wxTimerId= null;
+    newDashTimerId= null;
 
     componentWillReceiveProps(newProps)
     {           
@@ -41,12 +43,43 @@ export class Observatories extends Component{
             const res=response.data;
                 if(!res.apiError){
                     const duration = (res.statusExpires-res.statusTimestamp) * 1000;
-                    if(this.timerId !== null)
-                        clearTimeout(this.timerId);
+                    if(this.statusTimerId !== null)
+                        clearTimeout(this.statusTimerId);
                     if(duration > 1000)
-                        this.timerId=setTimeout(()=>this.getObsStatusAction(obsId), duration);
+                        this.statusTimerId=setTimeout(()=>this.getObsStatusAction(obsId), duration);
                     this.setState({obsStatus: res, loading: false});                        
                 }
+        });
+    }
+
+    getNewDahObsAction = (token, at, cid, obsId, DayNightBarWidgetId, MoonlightBarWidgetId, SeeingConditionsWidgetId ) => {
+        getNewDahObs({token, at, cid, obsId,                 
+            dayNightBarWidgetUniqueId: DayNightBarWidgetId,
+            moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
+            seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
+                const res=response.data;
+                if(!res.apiError){
+                    const duration = (res.expires-res.timestamp) * 1000;
+                    if(this.newDashTimerId !== null)
+                        clearTimeout(this.newDashTimerId);
+                    if(duration > 1000)
+                        this.newDashTimerId=setTimeout(()=>this.getNewDahObsAction(token, at, cid, obsId, DayNightBarWidgetId, MoonlightBarWidgetId, SeeingConditionsWidgetId), duration);
+                    this.setState({obsWidgetData: res, loading: false});                       
+                }
+        })
+    }
+
+    getWxDataAction = (token, at, cid, obsId) =>{
+        getWeatherActions({token, at, cid, obsId }).then(response=>{
+            const res=response.data;
+            if(!res.apiError){                
+                const duration = (res.expires-res.timestamp) * 1000;
+                    if(this.wxTimerId !== null)
+                        clearTimeout(this.wxTimerId);
+                    if(duration > 1000)
+                        this.wxTimerId=setTimeout(()=>this.getWxDataAction(token, at, cid, obsId), duration);
+                this.setState({wxList: res.wxList, loading: false});                    
+            }
         });
     }
 
@@ -58,8 +91,12 @@ export class Observatories extends Component{
     }
 
     componentWillUnmount(){
-        if(this.timerId !== null)
-            clearTimeout(this.timerId);
+        if(this.statusTimerId !== null)
+            clearTimeout(this.statusTimerId);
+        if(this.newDashTimerId !== null)
+            clearTimeout(this.newDashTimerId);
+        if(this.wxTimerId !== null)
+            clearTimeout(this.wxTimerId);
     }
 
     onTabChange=(selectedHeader)=>{        
@@ -70,22 +107,23 @@ export class Observatories extends Component{
         const { obsId, observatoryName, SeeingConditionsWidgetId, DayNightBarWidgetId, MoonlightBarWidgetId, } = list;        
         const { token, at, cid } = getUserInfo();    
         this.setState({loading: true});
-        getWeatherActions({token, at, cid, obsId }).then(response=>{
-            const res=response.data;
-            if(!res.apiError){
-                this.setState({wxList: res.wxList, loading: false});                    
-            }
-        });
-
-        getNewDahObs({token, at, cid, obsId,                 
-            dayNightBarWidgetUniqueId: DayNightBarWidgetId,
-            moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
-            seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
-                const res=response.data;
-                if(!res.apiError){
-                    this.setState({obsWidgetData: res, loading: false});                       
-                }
-            })
+        this.getWxDataAction(token, at, cid, obsId);
+        // getWeatherActions({token, at, cid, obsId }).then(response=>{
+        //     const res=response.data;
+        //     if(!res.apiError){
+        //         this.setState({wxList: res.wxList, loading: false});                    
+        //     }
+        // });
+        this.getNewDahObsAction(token, at, cid, obsId, DayNightBarWidgetId, MoonlightBarWidgetId, SeeingConditionsWidgetId);
+        // getNewDahObs({token, at, cid, obsId,                 
+        //     dayNightBarWidgetUniqueId: DayNightBarWidgetId,
+        //     moonlightBarWidgetUniqueId: MoonlightBarWidgetId,
+        //     seeingConditionsWidgetUniqueId: SeeingConditionsWidgetId }).then(response=>{
+        //         const res=response.data;
+        //         if(!res.apiError){
+        //             this.setState({obsWidgetData: res, loading: false});                       
+        //         }
+        //     })
         this.getObsStatusAction(obsId);       
         this.setState({selectedheader: observatoryName});
     }
