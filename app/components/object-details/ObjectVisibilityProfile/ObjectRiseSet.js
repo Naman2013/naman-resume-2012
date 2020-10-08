@@ -7,7 +7,7 @@ import { RISE_SET_TIMES, RISE_SET_TIMES_NEW, GET_JOIN_MISSIONS } from 'app/servi
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
-import style from './ObjectVisibilityProfile.style';
+import style from './ObjectVisibilityProfileNew.style';
 
 import { DEFAULT_OBSID } from './constants';
 
@@ -62,60 +62,113 @@ class ObjectRiseSet extends Component {
           return (
             <div>
               {!fetchingContent && serviceResponse && (
-                <div>                
-                    <Row>
-                    <StaticCell
-                          title={serviceResponse.obsLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : obsName}
-                          </p>
-                    </StaticCell>
-                    </Row>
+                <div>
+                  <br/>
+                  <br/>
+                    <h1 className="rise-title">{serviceResponse.obsHeading}</h1>
+                    <h3 className="rise-subtitle">{serviceResponse.obsSubheading}</h3>
+                    <h3 className="rise-visibility-text">{serviceResponse.obsVisibilityMsg}</h3>
+                    <GridContainer theme={{ margin: '20px 0 0 0' }}>             
                       <Row>
-                        <StaticCell
-                          title={serviceResponse.riseLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : serviceResponse.riseText}
-                          </p>
-                        </StaticCell>
-                        <StaticCell
-                          title={serviceResponse.transitLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : serviceResponse.transitText}
-                          </p>
-                        </StaticCell>
-                        <StaticCell
-                          title={serviceResponse.setLabel}
-                          hasBorderScale={[true]}
-                        >
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : serviceResponse.setText}
-                          </p>
-                        </StaticCell>
+                      <StaticCell
+                            title={serviceResponse.riseSetTransitHeading}
+                            hasBorderScale={[true]}
+                          >
+                            <p dangerouslySetInnerHTML={{__html: fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.riseSetTransitDescription}}>
+                              {/* {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.riseSetTransitDescription} */}
+                            </p>
+                      </StaticCell>
                       </Row>
                       <Row>
-                        <StaticCell title={serviceResponse.notesLabel}>
-                          <p>
-                            {fetchingContent
-                              ? `${t('Objects.Loading')}...`
-                              : serviceResponse.notesText}
-                          </p>
-                        </StaticCell>
-                      </Row>
+                          <StaticCell
+                            title={serviceResponse.localHorizonPrompt}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.riseLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.riseText}
+                            </p>
+                          </StaticCell>
+                          <StaticCell
+                            title={" "}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.transitLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.transitText}
+                            </p>
+                          </StaticCell>
+                          <StaticCell
+                            title={" "}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.setLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.setText}
+                            </p>
+                          </StaticCell>
+                        </Row>
+                        <Row>
+                          <StaticCell
+                            title={serviceResponse.trueHorizonPrompt}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.trueHorizonRiseLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.trueHorizonRiseText}
+                            </p>
+                          </StaticCell>
+                          <StaticCell
+                            title={" "}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.trueHorizonTransitLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.trueHorizonTransitText}
+                            </p>
+                          </StaticCell>
+                          <StaticCell
+                            title={" "}
+                            hasBorderScale={[true]}
+                            flexScale={['100%', '33%']}
+                          >
+                            <h2 className="local-rise-title">{serviceResponse.trueHorizonSetLabel}</h2>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.trueHorizonSetText}
+                            </p>
+                          </StaticCell>
+                        </Row>
+                        <Row>
+                          <StaticCell title={serviceResponse.notesLabel}>
+                            <p>
+                              {fetchingContent
+                                ? `${t('Objects.Loading')}...`
+                                : serviceResponse.notesText}
+                            </p>
+                          </StaticCell>
+                        </Row>
+                    </GridContainer>   
                     
                   {/* <ViewOurGuide
                     guideHeader={riseSet.guideHeader}

@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from 'app/styles/variables/fonts';
-import { lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import { astronaut, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { resetMarginPadding } from 'app/styles/variables/utils';
 import { screenLarge } from 'app/styles/variables/breakpoints';
@@ -77,6 +77,44 @@ export default css`
     left: 0;
     width: 100%;
     opacity: 0;
+  }
+
+  .rise-title {  
+    
+    font-family: ${primaryFont};
+    font-weight: 600;
+    font-size: 24px; 
+    color: ${astronaut};
+    text-align: center;
+  }
+
+  .rise-subtitle {  
+    
+    font-family: ${primaryFont};
+    font-weight: 500;
+    font-size: 20px; 
+    color: ${astronaut};
+    text-align: center;
+  }
+
+  .rise-visibility-text {  
+    
+    font-family: ${primaryFont};
+    font-weight: 500;
+    font-size: 20px; 
+    color: ${astronaut};
+    text-align: center;
+  }
+
+  .local-rise-title{
+    font-size: 11px;
+    text-transform: uppercase;    
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: ${primaryFont};
+    margin: 0;
+    margin-bottom: 25px;
+    white-space: nowrap;
   }
 
   .select option {

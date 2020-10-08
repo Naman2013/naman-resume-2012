@@ -199,9 +199,12 @@ class Missions extends Component {
               subTitle={joinMissionData.pageSubheading}
               renderNav={() => (
                 <div className="object-details-missions-actions">
-                  {missionListExpired && (
-                    <Button onClick={()=>this.getJoinMissions(dateString, tzId)}>Refresh</Button>
-                  )}
+                  {/* {missionListExpired && ( */}
+                    <div>
+                      <Button onClick={()=>this.getJoinMissions(dateString, tzId)}>Refresh</Button>
+                      <br/>
+                    </div>
+                  {/* )} */}
                 </div>
               )}
             />

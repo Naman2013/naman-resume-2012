@@ -559,8 +559,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getQuestMapControlSuccess(result.data));
+      result => {    
+        if(!result.data.apiError)    
+          dispatch(getQuestMapControlSuccess(result.data));
       }
     );
   };

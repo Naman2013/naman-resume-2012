@@ -320,7 +320,7 @@ class ObjectVisibilityProfileNew extends Component {
                         </GridContainer>
                         {joinMissionData.obsList.map(obs=>(
                           <div id={obs.obsId}>
-                            <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                            {/* <GridContainer theme={{ margin: '20px 0 0 0' }}> */}
                               <ObjectRiseSet
                                 dateString={joinMissionData.riseAndSetSelectors.dateString}
                                 objectId={objectId}
@@ -329,7 +329,7 @@ class ObjectVisibilityProfileNew extends Component {
                                 t={t}
                                 obsName={obs.obsShortName}
                               />
-                            </GridContainer>                       
+                            {/* </GridContainer>                        */}
                                 <ObjectMissionList
                                   dateString={joinMissionData.riseAndSetSelectors.dateString}
                                   objectId={objectId}

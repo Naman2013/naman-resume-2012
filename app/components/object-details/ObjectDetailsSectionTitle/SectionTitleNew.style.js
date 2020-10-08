@@ -15,7 +15,7 @@ export default css`
     font-family: ${secondaryFont};
     transition: height 0.4s ease-in-out, font-size 0.4s ease-in-out;
     width: 100%;
-    min-height: 130px;
+    min-height: 220px;
     padding-top: 60px;
     font-size: 16px;
     color: ${astronaut};
