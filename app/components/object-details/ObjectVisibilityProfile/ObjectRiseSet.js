@@ -73,7 +73,7 @@ class ObjectRiseSet extends Component {
                       <StaticCell
                             title={serviceResponse.riseSetTransitHeading}
                             hasBorderScale={[true]}                            
-                          >
+                          >                           
                             <p dangerouslySetInnerHTML={{__html: fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.riseSetTransitDescription}}>
@@ -85,88 +85,104 @@ class ObjectRiseSet extends Component {
                       </Row>
                       <Row>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={serviceResponse.localHorizonPrompt}
                             titleStyle={{marginBottom: "10px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.riseLabel}</h2>
+                             <p><span className="local-rise-title">{serviceResponse.riseLabel} </span> {serviceResponse.riseText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.riseLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.riseText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={" "}
                             titleStyle={{marginBottom: "20px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.transitLabel}</h2>
+                            <p><span className="local-rise-title">{serviceResponse.transitLabel} </span> {serviceResponse.transitText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.transitLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.transitText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={" "}
-                            titleStyle={{marginBottom: "20px"}}
+                            titleStyle={{marginBottom: "23px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.setLabel}</h2>
+                            <p><span className="local-rise-title">{serviceResponse.setLabel} </span> {serviceResponse.setText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.setLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.setText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                         </Row>
                         <Row>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={serviceResponse.trueHorizonPrompt}
                             titleStyle={{marginBottom: "10px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.trueHorizonRiseLabel}</h2>
+                            <p><span className="local-rise-title">{serviceResponse.trueHorizonRiseLabel} </span> {serviceResponse.trueHorizonRiseText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonRiseLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.trueHorizonRiseText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={" "}
-                            titleStyle={{marginBottom: "20px"}}
+                            titleStyle={{marginBottom: "23px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.trueHorizonTransitLabel}</h2>
+                            <p><span className="local-rise-title">{serviceResponse.trueHorizonTransitLabel} </span> {serviceResponse.trueHorizonTransitText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonTransitLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.trueHorizonTransitText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                           <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}}
                             title={" "}
-                            titleStyle={{marginBottom: "20px"}}
+                            titleStyle={{marginBottom: "23px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <h2 className="local-rise-title">{serviceResponse.trueHorizonSetLabel}</h2>
+                            <p><span className="local-rise-title">{serviceResponse.trueHorizonSetLabel} </span> {serviceResponse.trueHorizonSetText}</p>
+                            {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonSetLabel}</h2>
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.trueHorizonSetText}
-                            </p>
+                            </p> */}
                           </StaticCell>
                         </Row>
                         <Row>
-                          <StaticCell title={serviceResponse.notesLabel}>
+                          <StaticCell
+                            theme={{padding: "10px 30px 30px 30px"}} 
+                            titleStyle={{marginBottom: "10px"}}
+                            title={serviceResponse.notesLabel}
+                            >
                             <p>
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`

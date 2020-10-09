@@ -94,7 +94,7 @@ class ObjectMissionList extends Component {
       //     // const riseSet = RISE_SET_MODEL || {};
         
       //     return (
-            <div style={{margin: "20px 0 0 0"}}>
+            <div style={{margin: "20px 0 50px 0"}}>
               {!isFetching && missionData && (
                 <div>                
                     {/* <CenterColumn> */}
@@ -122,15 +122,12 @@ class ObjectMissionList extends Component {
                               observatoryName={missionData.noMissionsList.obsName}
                               time={missionData.noMissionsList.date}
                               missionStatusText={missionData.noMissionsList.explanation}
-                            />
-                            // <div>
-                            //   {missionData.explanation}
-                            // </div>
+                            />                            
                           )}
                         </div>                       
                         
-                      )}
-                    {/* </CenterColumn>                     */}
+                      )}                   
+
                 </div>
               )}      
 

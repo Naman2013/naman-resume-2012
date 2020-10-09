@@ -13,6 +13,15 @@ export default css`
     border-bottom: 1px solid;
   }
 
+  .root1 {
+    display: flex;
+    align-items: flex-start;
+    ${resetMarginPadding}
+    color: ${lightHeadedAstronaut};
+    padding: 10px 30px 30px 30px;
+    border-bottom: 1px solid;
+  }
+
   .positioning-container {
     width: 100%;
   }

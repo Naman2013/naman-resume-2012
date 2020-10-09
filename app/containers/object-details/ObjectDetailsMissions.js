@@ -189,7 +189,7 @@ class Missions extends Component {
     
     return (
       <Fragment>
-        <Spinner loading={isFetching} />
+        <Spinner loading={isFetching} text={objectDetails.missionsWaitingText}/>
         <DeviceProvider>
           {joinMissionData && (
             <ObjectDetailsSectionTitleNew

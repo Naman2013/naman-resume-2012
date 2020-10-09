@@ -112,12 +112,13 @@ class ObjectDetails extends Component {
         objectIconURL,
         showFollowPromptFlag,
         followPrompt,
+        overviewWaitingText,
       },
       user,
       children,
       objectData,
     } = this.props;
-    
+   
     return (
       <div key={`object-details-${objectId}`}>
         <header className="header">
@@ -137,7 +138,7 @@ class ObjectDetails extends Component {
         <Navigation objectId={objectId} />
         {objectData?.objectId && cloneElement(children)}
         {!objectData?.objectId && (
-          <Spinner loading={true} />
+          <Spinner loading={true} text={overviewWaitingText ? overviewWaitingText : "Loading..."} />
         )}
         <style jsx>{style}</style>
         <style jsx>{`
