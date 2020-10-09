@@ -60,6 +60,7 @@ class ObjectVisibilityProfileNew extends Component {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     tzId:  this.props.defaulttzId ? this.props.defaulttzId : undefined,
     activeDateIndex: 0,
+    readMore: false,
     // joinMissionData: undefined,
     // isfetching: true,
   };  
@@ -109,7 +110,7 @@ class ObjectVisibilityProfileNew extends Component {
   };
 
   render() {
-    const { activeDateIndex, tzId } = this.state;
+    const { activeDateIndex, tzId, readMore, } = this.state;
 
     const { objectId, t, scheduleMission, missionListExpired, joinMissionData, isFetching, refreshMissionCard } = this.props;
     
@@ -222,7 +223,9 @@ class ObjectVisibilityProfileNew extends Component {
                               </div> */}
                             </StaticCell>
                           </Row>
-                          <Row>
+                          {readMore && (
+                            <div>
+                                <Row>
                             <StaticCell
                               // title={joinMissionData.tzHeading}
                               hasBorderScale={[true]}
@@ -317,10 +320,28 @@ class ObjectVisibilityProfileNew extends Component {
                               </div>
                             </StaticCell> */}
                           </Row> 
+                          {joinMissionData.showRiseSetTransitSection && (
+                            <Row>
+                              <StaticCell
+                                title={joinMissionData.riseSetTransitTitle}
+                                flexScale={['100%', '30%']}
+                              >
+                                <p dangerouslySetInnerHTML={{__html: joinMissionData.riseSetTransitText}} />
+                                
+                              </StaticCell>
+                            </Row>
+                          )}
+                            </div>
+                          )} 
+                          <div className="read-more" onClick={()=>this.setState({readMore: !readMore})}>
+                            <h4>{readMore ? "Read Less" : "Read More..."}</h4>
+                          </div>                        
+                          
                         </GridContainer>
                         {joinMissionData.obsList.map(obs=>(
                           <div id={obs.obsId}>
                             {/* <GridContainer theme={{ margin: '20px 0 0 0' }}> */}
+                            
                               <ObjectRiseSet
                                 dateString={joinMissionData.riseAndSetSelectors.dateString}
                                 objectId={objectId}
@@ -329,6 +350,10 @@ class ObjectVisibilityProfileNew extends Component {
                                 t={t}
                                 obsName={obs.obsShortName}
                               />
+                           
+                            
+                              
+
                             {/* </GridContainer>                        */}
                                 <ObjectMissionList
                                   dateString={joinMissionData.riseAndSetSelectors.dateString}

@@ -9,6 +9,7 @@ import CenterColumn from '../../../components/common/CenterColumn';
 import { ObjectMissionCard } from 'app/modules/object-details/components/object-mission-card';
 import { getUserInfo } from 'app/modules/User';
 import { API } from 'app/api';
+import { NoMissionCard } from 'app/modules/object-details/components/no-mission-card';
 
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
@@ -114,11 +115,26 @@ class ObjectMissionList extends Component {
                           ))}
                         </div>
                       ) : (
-                        <div>{!isFetching && missionData.explanation}</div>
+                        <div className="no-mission">
+                          {missionData.showNoMissionsList && missionData.noMissionsList && (
+                            <NoMissionCard
+                              title={missionData.noMissionsList.title}
+                              observatoryName={missionData.noMissionsList.obsName}
+                              time={missionData.noMissionsList.date}
+                              missionStatusText={missionData.noMissionsList.explanation}
+                            />
+                            // <div>
+                            //   {missionData.explanation}
+                            // </div>
+                          )}
+                        </div>                       
+                        
                       )}
                     {/* </CenterColumn>                     */}
                 </div>
-              )}              
+              )}      
+
+                   
             </div>
           );
     //     }}

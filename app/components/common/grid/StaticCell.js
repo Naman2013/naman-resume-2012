@@ -27,6 +27,7 @@ const StaticCell = ({
   hasBorderScale,
   title,
   titleHtml,
+  titleStyle,
   theme,
 }) => (
   <div
@@ -47,7 +48,7 @@ const StaticCell = ({
           }}
         />
       )}
-      {title && <h2 className="title">{title}</h2>}
+      {title && <h2 style={titleStyle} className="title">{title}</h2>}
       {children}
     </div>
 
@@ -105,6 +106,7 @@ StaticCell.propTypes = {
   hasBottomBorder: PropTypes.bool,
   children: PropTypes.node.isRequired,
   theme: PropTypes.shape({}),
+  titleStyle: PropTypes.any,
 };
 
 StaticCell.defaultProps = {

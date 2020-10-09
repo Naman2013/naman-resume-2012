@@ -113,8 +113,17 @@ export default css`
     font-weight: 600;
     font-family: ${primaryFont};
     margin: 0;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     white-space: nowrap;
+  }
+
+  .read-more{
+    background: ${astronaut};
+    color: white;
+    padding-left: 30px;
+    padding-top: 2px;
+    height: 25px;
+    cursor: pointer;
   }
 
   .select option {

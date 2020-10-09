@@ -42,7 +42,7 @@ class ObjectRiseSet extends Component {
  
   render() {   
 
-    const { dateString, objectId, obsId, tzId, t,  visibilityGuide, obsName } = this.props;
+    const { dateString, objectId, obsId, readMore, tzId, t,  visibilityGuide, obsName } = this.props;
     
     return (
       <Request
@@ -72,7 +72,7 @@ class ObjectRiseSet extends Component {
                       <Row>
                       <StaticCell
                             title={serviceResponse.riseSetTransitHeading}
-                            hasBorderScale={[true]}
+                            hasBorderScale={[true]}                            
                           >
                             <p dangerouslySetInnerHTML={{__html: fetchingContent
                                 ? `${t('Objects.Loading')}...`
@@ -86,6 +86,7 @@ class ObjectRiseSet extends Component {
                       <Row>
                           <StaticCell
                             title={serviceResponse.localHorizonPrompt}
+                            titleStyle={{marginBottom: "10px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -98,6 +99,7 @@ class ObjectRiseSet extends Component {
                           </StaticCell>
                           <StaticCell
                             title={" "}
+                            titleStyle={{marginBottom: "20px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -110,6 +112,7 @@ class ObjectRiseSet extends Component {
                           </StaticCell>
                           <StaticCell
                             title={" "}
+                            titleStyle={{marginBottom: "20px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -124,6 +127,7 @@ class ObjectRiseSet extends Component {
                         <Row>
                           <StaticCell
                             title={serviceResponse.trueHorizonPrompt}
+                            titleStyle={{marginBottom: "10px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -136,6 +140,7 @@ class ObjectRiseSet extends Component {
                           </StaticCell>
                           <StaticCell
                             title={" "}
+                            titleStyle={{marginBottom: "20px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -148,6 +153,7 @@ class ObjectRiseSet extends Component {
                           </StaticCell>
                           <StaticCell
                             title={" "}
+                            titleStyle={{marginBottom: "20px"}}
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
@@ -168,7 +174,7 @@ class ObjectRiseSet extends Component {
                             </p>
                           </StaticCell>
                         </Row>
-                    </GridContainer>   
+                    </GridContainer>                      
                     
                   {/* <ViewOurGuide
                     guideHeader={riseSet.guideHeader}
@@ -177,7 +183,7 @@ class ObjectRiseSet extends Component {
                     guideSubTitle={riseSet.guideSubTitle}
                   /> */}
                 </div>
-              )}
+              )}               
               <style jsx>{style}</style>
             </div>
           );

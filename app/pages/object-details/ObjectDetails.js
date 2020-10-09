@@ -17,6 +17,7 @@ import {
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
 import style from './ObjectDetails.style';
+import { Spinner } from 'app/components/spinner/index';
 
 const MAX_MVP_ASTRONOMERS = 3;
 
@@ -116,7 +117,7 @@ class ObjectDetails extends Component {
       children,
       objectData,
     } = this.props;
-
+    
     return (
       <div key={`object-details-${objectId}`}>
         <header className="header">
@@ -135,6 +136,9 @@ class ObjectDetails extends Component {
         </header>
         <Navigation objectId={objectId} />
         {objectData?.objectId && cloneElement(children)}
+        {!objectData?.objectId && (
+          <Spinner loading={true} />
+        )}
         <style jsx>{style}</style>
         <style jsx>{`
           .icon {
