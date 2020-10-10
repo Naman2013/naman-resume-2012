@@ -72,12 +72,12 @@ export class Observation extends Component{
                             <div>
                                 <div className="photo-hub-item">                               
                                     <img className="img-fit" src={photo.imageURL}/>                                
-                                        {photo.showNewButton &&(
+                                        {photo.dashboardIsImageNewFlag &&(
                                             <div className="overlay-without-bg-div">
                                                 <Button
                                                     type={"button"}
                                                     onClickEvent={()=>{}} 
-                                                    text={"New"}                                             
+                                                    text={photo.dashboardIsImageNewLabel}                                             
                                                     style={"button-style"}
                                                 />
                                             </div>
@@ -102,6 +102,7 @@ export class Observation extends Component{
                                                     shareURL={shareInformation.socialShareURL}
                                                     shareImageURL={shareInformation.shareImageURL ? shareInformation.shareImageURL : null}
                                                     shareIntroText={shareInformation.socialShareIntroText}
+                                                    shareText={"How would you like to share your observation?"}
                                                 />
                                             </div>
                                         )}                                  

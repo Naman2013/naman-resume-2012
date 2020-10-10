@@ -2,32 +2,18 @@ import { Component, PureComponent } from "react";
 import { DashboardHeader } from './components/breadcrumb-header/index';
 import React, { useRef } from "react";
 import './style.scss';
-import { TitleHeader } from "./components/title-header";
-import { TabHeader } from "./components/tab-header";
-import { ProfileCard} from "./components/profile-card";
-import { BadgeList } from "./components/badge-list";
 import { GravityActions } from "./components/gravity-actions";
-import { ObjectList } from "./components/object-list"
 import { DomainGP } from "./components/domain-gp";
-import { RankCard } from "./components/rank-card";
-import { CommunityClubList } from "./components/community-club-list";
 import { Observatories } from "./components/observatories";
 import { UpcomingMissionList }  from "./components/upcoming-mission-list";
 import  PhotoHub  from "./components/photo-hub";
-import { ImageSlider } from "./components/image-slider";
-import { RecentCommunityActivities } from "./components/recent-community-activities";
 import { StarPartyList } from "./components/start-party-list";
 import { ClubList } from "./components/club-list";
 import { BookMark } from "./components/bookmark";
-import { AstronomerConversationLayout } from "./components/astronomer-conversation-layout";
-import { ObjectMap } from "./components/object-map";
 import { Spinner } from 'app/components/spinner/index';
 import { SectionDivider } from "./components/section-divider";
-import { QuestCard } from "./components/quest-card";
-import { QuestMap } from "./components/quest-map";
 import { ExploreObject } from "./components/explore-objects";
 import { CommunityExploration } from "./components/community-exploration";
-import { getMostActiveClubs, getTopCommunityObjects, getTopCommunityObservations } from "./dashboardApi";
 import { ActiveObject } from "./components/object-list/active-objects";
 import { PopularObservation } from "./components/object-list/popular-observation";
 import { SchoolClub } from "./components/community-club-list/top-school-clubs";
@@ -39,12 +25,12 @@ import { ProfileStatus } from "./components/profile-card/profile-status";
 import { CommunityFame } from "./components/community-fame";
 import { TitleHeaderNew } from "./components/title-header-new";
 import { LiveChat } from "./components/live-chat";
-import { pubnubInit } from "../pubnub-handler/actions";
 import { PublicProfileCard } from "./components/public-card";
 import Popup from 'react-modal';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import { TopCommunityObjects } from './components/object-list/top-objects';
 import { TopCommunityObservations } from './components/object-list/top-observations';
+
 
 
 export class NewDashboard extends PureComponent{
@@ -97,35 +83,19 @@ export class NewDashboard extends PureComponent{
     }
 
     getInitialData = () => {
-        const { fetchStarPartyDataAction, 
-                getUserGravityDataAction, 
-                getUserActiveObjectDataAction, 
-                getUserPopularObservationDataAction, 
+        const { 
+                getUserGravityDataAction,                
                 getMyPicturesDataAction, 
                 getDashboardFeaturedObjectsDataAction, 
                 getMyClubListDataAction, 
                 getBookmarkListDataAction, 
                 getPrivateProfileDataAction, 
                 getPrivateProfileMissionDataAction,
-                getMissionImagesDataAction,
-                getGalleryListDataAction,
-                getRecentGravityDataAction,
-                getWeatherDataAction,
-                getObservatoryListAction,
                 getQuestMapControlAction,
-                getCommunityExplorationAction,
-                getCommunityFameAction,
-                getMyRankAction,
-                getTopMembersAction,
-                getTopStudentsAction,
-                getMostActiveClubsAction,
-                getTopSchoolClubsAction,
-                pubnubInit, 
-                pubnubData,
                 setDock,               
                 // getGravityByDomainAction,
                 getDashboardMissionListAction,
-                
+                getPhotoHubHeadingAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
@@ -165,6 +135,7 @@ export class NewDashboard extends PureComponent{
         // if(!pubnubData.pubnubInitialize)
         //     pubnubInit();
         getDashboardMissionListAction();
+        getPhotoHubHeadingAction();
         setDock(true);
     };
 
@@ -180,12 +151,8 @@ export class NewDashboard extends PureComponent{
 
     render(){
     
-        const { privateProfile, 
-                userActiveObject, 
-                userPopularObservation, 
-                privateProfileMission, 
-                upcomingStarPartyList, 
-                userGravityStatus, 
+        const { privateProfile,                 
+                upcomingStarPartyList,                
                 photoHub, 
                 dashboardFeaturedObjects, 
                 myClubList, 
@@ -206,7 +173,6 @@ export class NewDashboard extends PureComponent{
                 user,
                 getMissionImagesDataAction,
                 getGalleryListDataAction,
-                recentGravityAction,
                 weatherStatus,
                 getWeatherDataAction,
                 getMyClubListDataAction,
@@ -223,19 +189,6 @@ export class NewDashboard extends PureComponent{
                 getQuestMapControlAction,
                 getObjectMapControlAction,
                 objectMapControls,
-                communityExploration, 
-                getMyRankAction,
-                getTopMembersAction,
-                getTopStudentsAction,
-                getMostActiveClubsAction,
-                getTopSchoolClubsAction,
-                myRank,
-                topMembers,
-                topStudents,
-                mostActiveClubs,
-                topSchoolClubs,
-                gravityByDomain,
-                // getCommunityFameAction,
                 pubnubData,
                 sendMessage,
                 setDock, 
@@ -247,6 +200,7 @@ export class NewDashboard extends PureComponent{
                 getDashboardMissionListAction,
                 dashboardMissionList,
                 setPublicCardStatusAction,
+                photoHubHeadings,
               } =this.props;
 
               const { selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
@@ -361,16 +315,20 @@ export class NewDashboard extends PureComponent{
                                 <SectionDivider/>
 
                                 <div ref={this.photoRef}/>
-                                <PhotoHub
-                                    heading={"Photos (1 New)"}                            
-                                    headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
-                                    selectedheader={"Photo Roll"}
-                                    headerspaceequally={false}
-                                    photoHub={photoHub}
-                                    getMyPictures={getMyPicturesDataAction}                                    
-                                    getMissionImages={getMissionImagesDataAction}
-                                    getGalleryList={getGalleryListDataAction}                                                                       
-                                />
+                                {photoHubHeadings && (
+                                    <PhotoHub
+                                        heading={photoHubHeadings.sectionHeading}       
+                                        sectionHeadingLabel={photoHubHeadings.sectionHeadingLabel}                     
+                                        headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
+                                        selectedheader={"Photo Roll"}
+                                        headerspaceequally={false}
+                                        photoHub={photoHub}
+                                        getMyPictures={getMyPicturesDataAction}                                    
+                                        getMissionImages={getMissionImagesDataAction}
+                                        getGalleryList={getGalleryListDataAction}                                                                       
+                                    />
+                                )}
+                                
 
                                 <SectionDivider/>
 

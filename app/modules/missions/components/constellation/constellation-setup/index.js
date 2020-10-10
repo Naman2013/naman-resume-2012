@@ -5,7 +5,27 @@ import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
+import { fetchMissionQuota } from '../../../../observatory-list/observatory-actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { MissionQuota } from '../../slooh-1000/mission-quota';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchMissionQuota,      
+    },
+    dispatch
+  );
+
+const mapStateToProps = (state) => ({
+  missionQuota: state.observatoryList.missionQuota
+});
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export class ConstellationSetup extends Component {
 
   // callgetMissionSlot(){
@@ -14,6 +34,10 @@ export class ConstellationSetup extends Component {
   // }
   state={
     showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
+  componentDidMount(){
+    this.props.fetchMissionQuota({ callSource: 'byConstellationV4' });
   }
 
   render() {
@@ -39,6 +63,7 @@ export class ConstellationSetup extends Component {
       pageConfig,
       userHasHold,
       showHoldOneHourButtonWhenExpanded,
+      missionQuota,
     } = this.props;
     const {
       header,
@@ -58,6 +83,9 @@ export class ConstellationSetup extends Component {
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{subheader}</p>
+          <MissionQuota
+            missionQuota={missionQuota}
+          />
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}

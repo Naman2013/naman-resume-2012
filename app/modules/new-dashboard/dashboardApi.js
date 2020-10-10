@@ -152,3 +152,8 @@ export function getTopCommunityObservations(data) {
   return API.post('/api/leaderboards/topCommunityObservations',data);
 }
 
+export function getPhotoHubHeadings(data) {
+  return API.post('/api/images/newDashboardPhotoHubSection',data);
+}
+
+

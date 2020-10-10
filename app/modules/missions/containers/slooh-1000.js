@@ -21,7 +21,6 @@ import {
   makeBySlooh1000AvailableMissionsSelector,
   makeBySlooh1000NoObjectsSelector,
   makeMissionsPageSetupSelector,
-  makeMissionsQuotaSelector,
 } from '../selectors';
 import {
   cancelMissionSlot,
@@ -31,8 +30,6 @@ import {
   getObjectList,
   reserveMissionSlot,
 } from '../thunks';
-
-import { fetchMissionQuota } from '../../observatory-list/observatory-actions';
 
 const mapStateToProps = createStructuredSelector({
   categoryList: makeBySlooh1000CategoryListSelector(),
@@ -50,7 +47,6 @@ const mapStateToProps = createStructuredSelector({
   availableMissions: makeBySlooh1000AvailableMissionsSelector(),
   noObjects: makeBySlooh1000NoObjectsSelector(),
   pageSetup: makeMissionsPageSetupSelector(),
-  missionQuota: makeMissionsQuotaSelector(),
 });
 
 const mapDispatchToProps = {
@@ -63,7 +59,6 @@ const mapDispatchToProps = {
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,
   cancelMissionSlot,
-  fetchMissionQuota,
 };
 
 export default compose(

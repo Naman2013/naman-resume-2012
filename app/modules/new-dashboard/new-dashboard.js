@@ -52,7 +52,8 @@ import {
     getMostActiveClubsAction,
     getTopSchoolClubsAction,
     getGravityByDomainAction,
-    getDashboardMissionListAction
+    getDashboardMissionListAction,
+    getPhotoHubHeadingAction,
   } from './actions';
 
 import { 
@@ -96,6 +97,7 @@ import { makeStarPartyListSelector,
     makeGetGravityByDomainSelector,
     makePubnubDataSelector,
     makeGetDashboardMissionListSelector,
+    makePhotoHubHeadingSelector,
   } from './selectors';
 
 import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
@@ -140,6 +142,7 @@ const mapStateToProps = createStructuredSelector({
     gravityByDomain: makeGetGravityByDomainSelector(),
     pubnubData: makePubnubDataSelector(),
     dashboardMissionList: makeGetDashboardMissionListSelector(),
+    photoHubHeadings: makePhotoHubHeadingSelector(),
 });
 
 const mapDispatchToProps = {
@@ -185,6 +188,7 @@ const mapDispatchToProps = {
     setMemberChatState,
     getDashboardMissionListAction,
     setPublicCardStatusAction,
+    getPhotoHubHeadingAction,
 };
 
 export default compose(

@@ -5,14 +5,37 @@ import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
-import { getMissions } from 'app/modules/missions/thunks';
+import { fetchMissionQuota } from '../../../../observatory-list/observatory-actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { MissionQuota } from '../../slooh-1000/mission-quota';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchMissionQuota,      
+    },
+    dispatch
+  );
+
+const mapStateToProps = (state) => ({
+  missionQuota: state.observatoryList.missionQuota
+});
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export class Slooh1000Setup extends Component {
 
   state={
     showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
   }
   
+  componentDidMount(){
+    this.props.fetchMissionQuota({ callSource: 'bySlooh1000V4' });
+  }
+
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
@@ -57,7 +80,8 @@ export class Slooh1000Setup extends Component {
       completeReservationPromptLong,
       pageConfig,
       userHasHold,
-      showHoldOneHourButtonWhenExpanded
+      showHoldOneHourButtonWhenExpanded,
+      missionQuota,
     } = this.props;
     const {
       header,
@@ -78,6 +102,11 @@ export class Slooh1000Setup extends Component {
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{subheader}</p>
+          {missionQuota && (
+            <MissionQuota
+              missionQuota={missionQuota}
+            />
+          )}
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}

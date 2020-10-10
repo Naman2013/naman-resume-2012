@@ -42,6 +42,7 @@ class SocialSharingBar extends Component {
       shareImageURL,
       shareDescription,
       shareHashTags,
+      shareText,
     } = this.props;
 
     /* FB wants the hashsymbol for each hashtag, twitter does not */
@@ -68,6 +69,7 @@ class SocialSharingBar extends Component {
 
     return (
       <div className="social-share-outercontainer">
+          <h6 className="social-share-text">{shareText}</h6>
           <ul className={'social-share-innercontainer-' + this.props.contentLayout}>
               {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
                   <FacebookShareButton
@@ -83,7 +85,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showTwitter && <li className={'social-share-button-' + this.props.contentLayout}>
                   <TwitterShareButton
-		    text={shareDescription}
+		                text={shareDescription}
                     url={shareURL}
                     title={shareIntroText}
                     hashtags={TW_hashtags}>
@@ -130,11 +132,11 @@ class SocialSharingBar extends Component {
             .social-share-innercontainer-horizontal {
               list-style-type: none;
               min-width: 100px;
-              // display: inline-block;
+              display: inline-block;
               margin: 0;
               padding: 0;
-              display: flex;
-              flex-direction: column;
+              // display: flex;
+              // flex-direction: column;
             }
 
             .social-share-innercontainer-vertical {
@@ -147,8 +149,8 @@ class SocialSharingBar extends Component {
             .social-share-button-horizontal {
               display: inline-block;
               cursor: pointer;
-              // margin-right: 5px;
-              margin-bottom: 5px;
+              margin-right: 5px;
+              // margin-bottom: 5px;
             }
 
             .social-share-button-vertical {
@@ -159,6 +161,11 @@ class SocialSharingBar extends Component {
 
             .social-share-button:hover:not(:active) {
               opacity: 0.75;
+            }
+
+            .social-share-text {
+              color: white;
+              margin: 10px 0px;
             }
         `}</style>
       </div>
@@ -190,6 +197,7 @@ SocialSharingBar.defaultProps = {
   showLiveJournal: false,
   showMailru: false,
   showEmail: false,
+  shareText: '',
 };
 
 SocialSharingBar.propTypes = {
@@ -214,4 +222,5 @@ SocialSharingBar.propTypes = {
   showLiveJournal: PropTypes.bool,
   showMailru: PropTypes.bool,
   showEmail: PropTypes.bool,
+  shareText: PropTypes.string,
 };

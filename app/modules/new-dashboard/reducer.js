@@ -56,7 +56,9 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_GRAVITY_BY_DOMAIN_START,
          GET_GRAVITY_BY_DOMAIN_SUCCESS,
          GET_DASHBOARD_MISSION_LIST_START,
-         GET_DASHBOARD_MISSION_LIST_SUCCESS
+         GET_DASHBOARD_MISSION_LIST_SUCCESS,
+         GET_PHOTO_HUB_HEADING_START,
+         GET_PHOTO_HUB_HEADING_SUCCESS,
         } from './actions';
 
 const initialState = {
@@ -437,6 +439,19 @@ export default createReducer(initialState, {
         };
       },
       [GET_DASHBOARD_MISSION_LIST_START](state) {
+        return {
+          ...state,
+          isFetching: true,
+        };
+      },
+      [GET_PHOTO_HUB_HEADING_SUCCESS](state, { payload }) {               
+        return {
+          ...state,
+          photoHubHeadings: payload,
+          isFetching: false,
+        };
+      },
+      [GET_PHOTO_HUB_HEADING_START](state) {
         return {
           ...state,
           isFetching: true,

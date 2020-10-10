@@ -12,7 +12,27 @@ import { FeaturedObjects } from '../featured-objects';
 import { FeaturedObjectsModal } from '../featured-objects-modal';
 import { MissionSuccessModal } from '../../../missions/components/mission-success-modal';
 import './styles.scss';
+import { MissionQuota } from 'app/modules/missions/components/slooh-1000/mission-quota';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchMissionQuota } from '../../../observatory-list/observatory-actions';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchMissionQuota,      
+    },
+    dispatch
+  );
+
+const mapStateToProps = (state) => ({
+  missionQuota: state.observatoryList.missionQuota
+});
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export class QueueTab extends Component {
   state = {
     reservationModalVisible: false,
@@ -23,7 +43,7 @@ export class QueueTab extends Component {
   };
 
   componentDidMount(){
-    const { setTelescope, currentTelescope, currentObservatory, showFeaturedObjects } = this.props;
+    const { setTelescope, currentTelescope, currentObservatory, showFeaturedObjects, fetchMissionQuota } = this.props;
     if (showFeaturedObjects) {
       this.getFeaturedObjectsByTelescope();
     }
@@ -34,6 +54,7 @@ export class QueueTab extends Component {
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
     });
+    fetchMissionQuota({callSource: 'offlineQueue'})
   }
 
   componentWillUnmount() {
@@ -194,6 +215,7 @@ export class QueueTab extends Component {
       piggybackReservedMission,
       timestamp,
       currenttime,
+      missionQuota
     } = this.props;
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption, requestedSlotCount } = upcomingSlotsData;
@@ -226,7 +248,11 @@ export class QueueTab extends Component {
               getFeaturedObjectsByTelescope={this.getFeaturedObjectsByTelescope}
             />
           )}
-
+          {missionQuota && (
+            <MissionQuota
+              missionQuota={missionQuota}
+            />
+          )}
           <MissionsList 
             selectedDate={{ reservationDateFormatted }}
             missionList={missionList}

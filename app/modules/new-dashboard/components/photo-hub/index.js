@@ -266,6 +266,7 @@ class PhotoHub extends Component{
 
     render() {
         const { heading, 
+                sectionHeadingLabel,
                 headerlist, 
                 telescopeList,
                 objectTypeList,
@@ -335,7 +336,7 @@ class PhotoHub extends Component{
         }
         return (
             <div className="photo-hub-main">
-                <h2 className="photo-hub-heading">{heading}</h2>    
+                <h2 className="photo-hub-heading">{heading} {sectionHeadingLabel}</h2>    
                     <div className="photo-hub-card-header">
                         <TabHeader
                             headings={headerlist}

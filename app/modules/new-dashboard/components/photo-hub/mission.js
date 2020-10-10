@@ -210,12 +210,12 @@ export class Mission extends Component{
                                         </div>
                                     </div>                             
                                                                
-                                        {photo.showNewButton &&(
+                                        {photo.dashboardIsImageNewFlag &&(
                                             <div className="overlay-without-bg-div">
                                                 <NewButton
                                                     type={"button"}
                                                     onClickEvent={()=>{}} 
-                                                    text={"New"}                                             
+                                                    text={photo.dashboardIsImageNewLabel}                                             
                                                     style={"button-style"}
                                                 />
                                             </div>

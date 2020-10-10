@@ -9,6 +9,9 @@ export const FETCH_QUOTA_START = 'FETCH_QUOTA_START';
 export const FETCH_QUOTA_SUCCESS = 'FETCH_QUOTA_SUCCESS';
 export const FETCH_QUOTA_FAIL = 'FETCH_QUOTA_FAIL';
 
+const observatoryTimerId=null;
+const missionQuotaTimerId=null;
+
 export const fetchListStart = () => ({
   type: FETCH_LIST_START,
 });
@@ -43,8 +46,7 @@ export const fetchList = () => (dispatch) => {
   return fetchObservatoryList({at, cid, token})
     .then((result) => {
       if (!result.data.apiError) {  
-        const duration=(result.data.expires-result.data.timestamp) * 1000;     
-        setTimeout(()=>dispatch(fetchList()),duration);
+        setTimer(observatoryTimerId, result.data.expires, result.data.timestamp, fetchList, dispatch);
         dispatch(fetchListSuccess(result.data));
       }
     })
@@ -57,11 +59,17 @@ export const fetchMissionQuota = () => (dispatch) => {
   return fetchMissionQuotaData({at, cid, token})
     .then((result) => {
       if (!result.data.apiError) {  
-        // const duration=(result.data.expires-result.data.timestamp) * 1000;     
-        // setTimeout(()=>dispatch(fetchList()),duration);
+        setTimer( observatoryTimerId, result.data.expires, result.data.timestamp, fetchMissionQuota, dispatch);
         dispatch(fetchQuotaSuccess(result.data));
       }
     })
     .catch(error => dispatch(fetchQuotaFail(error)));
 };
 
+const setTimer = (timerId, expires, timestamp, callback, dispatch) =>{
+  if(timerId !== null)
+    clearTimeout(timerId);
+  const duration=(expires-timestamp) * 1000;
+  if(duration > 1000)
+    timerId=setTimeout(()=>dispatch(callback()),duration);
+}

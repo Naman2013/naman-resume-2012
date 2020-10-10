@@ -227,6 +227,8 @@ export class UpcomingMissionList extends Component{
                             featuredMissionList={dashboardFeaturedObjects.missionList}
                             reservationModalShow={this.reservationModalShow}
                             readOnly={false}
+                            explanation={dashboardFeaturedObjects.explanation}
+                            showExplanation={dashboardFeaturedObjects.showExplanation}
                         />
                     )}
                     {missions.showMissionsTitle && (

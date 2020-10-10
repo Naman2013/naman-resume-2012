@@ -18,10 +18,9 @@ export class Slooh1000 extends Component {
   }
 
   componentDidMount() {
-    const { getCategoryList, resetMissionsData, fetchMissionQuota } = this.props;
+    const { getCategoryList, resetMissionsData } = this.props;
     resetMissionsData();
     getCategoryList({ callSource: 'bySlooh1000V4' });
-    fetchMissionQuota();
   }
 
   componentWillUnmount() {
@@ -88,7 +87,6 @@ export class Slooh1000 extends Component {
       availableMissions,
       noObjects,
       pageSetup,
-      missionQuota,
     } = this.props;
     const { successModalShow } = this.state;
     const {
@@ -120,7 +118,6 @@ export class Slooh1000 extends Component {
                   noObjects={noObjects}
                   choosePrompt={choosePrompt}
                   pageConfig={navigationConfig[0]}
-                  missionQuota={missionQuota}
                 />
               </Box>
             </div>

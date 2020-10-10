@@ -195,3 +195,9 @@ export const makeObservatoryListSelector = () =>
     newDashList,
     state => state.dashboardMissionList
   );
+
+  export const makePhotoHubHeadingSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.photoHubHeadings
+  );

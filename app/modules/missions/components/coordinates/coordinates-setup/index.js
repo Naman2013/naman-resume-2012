@@ -6,11 +6,35 @@ import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import { CoordinatesCalculation } from '../coordinates-calculation';
 import './styles.scss';
+import { fetchMissionQuota } from '../../../../observatory-list/observatory-actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { MissionQuota } from '../../slooh-1000/mission-quota';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchMissionQuota,      
+    },
+    dispatch
+  );
+
+const mapStateToProps = (state) => ({
+  missionQuota: state.observatoryList.missionQuota
+});
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export class CoordinatesSetup extends PureComponent {
 
   state={
     showHoldOneHourButton: this.props.showHoldOneHourButtonWhenExpanded
+  }
+
+  componentDidMount(){
+    this.props.fetchMissionQuota({ callSource: 'byConstellationV4' });
   }
 
   renderCategoryOption = props => {
@@ -59,6 +83,7 @@ export class CoordinatesSetup extends PureComponent {
       userHasHold,
       editCoordinates,
       showHoldOneHourButtonWhenExpanded,
+      missionQuota,
     } = this.props;
     const {
       header,
@@ -83,12 +108,17 @@ export class CoordinatesSetup extends PureComponent {
     const { ra, dec } = coordinatesData;
 
     const { showHoldOneHourButton } = this.state;
-
+    
     return (
       <div className="coordinates-setup">
         <div className="row setup-header">
           <h2>{header}</h2>
           <p>{editCoordinates ? subheaderEdit : subheader }</p>
+          {missionQuota && (
+            <MissionQuota
+              missionQuota={missionQuota}
+            />
+          )}
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}

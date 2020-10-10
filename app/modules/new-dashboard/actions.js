@@ -1,5 +1,5 @@
 import {fetchStartPartyList, getUserGravityStatus, 
-        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents, getDashboardMissionList} from "./dashboardApi";
+        getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents, getDashboardMissionList, getPhotoHubHeadings} from "./dashboardApi";
 
 export const FETCH_STAR_PARTY_LIST_START = "FETCH_START_PARTY_LIST_START";
 export const FETCH_STAR_PARTY_LIST_SUCCESS = "FETCH_START_PARTY_LIST_SUCCESS";
@@ -59,6 +59,8 @@ export const GET_GRAVITY_BY_DOMAIN_START = "GET_GRAVITY_BY_DOMAIN_START";
 export const GET_GRAVITY_BY_DOMAIN_SUCCESS = "GET_GRAVITY_BY_DOMAIN_SUCCESS";
 export const GET_DASHBOARD_MISSION_LIST_START = "GET_DASHBOARD_MISSION_LIST_START";
 export const GET_DASHBOARD_MISSION_LIST_SUCCESS = "GET_DASHBOARD_MISSION_LIST_SUCCESS";
+export const GET_PHOTO_HUB_HEADING_START = "GET_PHOTO_HUB_HEADING_START";
+export const GET_PHOTO_HUB_HEADING_SUCCESS = "GET_PHOTO_HUB_HEADING_SUCCESS";
 
 
 const fetchStartPartyListStart = () => ({
@@ -319,6 +321,15 @@ const getDashboardMissionListStart = () => ({
 
 const getDashboardMissionListSuccess = (payload) => ({
   type: GET_DASHBOARD_MISSION_LIST_SUCCESS,
+  payload    
+});
+
+const getPhotoHubHeadingStart = () => ({
+  type: GET_PHOTO_HUB_HEADING_START    
+});
+
+const getPhotoHubHeadingSuccess = (payload) => ({
+  type: GET_PHOTO_HUB_HEADING_SUCCESS,
   payload    
 });
 
@@ -737,6 +748,21 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         dispatch(getDashboardMissionListSuccess(result.data));
+      }
+    );
+  };
+
+  export const getPhotoHubHeadingAction = (data) => (dispatch, getState) => {
+    dispatch(getPhotoHubHeadingStart());    
+    const { token, at, cid } = getState().user;      
+    return getPhotoHubHeadings({
+      token,
+      at,
+      cid,
+      ...data,           
+    }).then(
+      result => {        
+        dispatch(getPhotoHubHeadingSuccess(result.data));
       }
     );
   };

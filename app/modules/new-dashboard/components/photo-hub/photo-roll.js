@@ -111,12 +111,12 @@ export class PhotoRoll extends Component{
                                         this.blockWidth = node;
                                     }}>                               
                                     <img className="img-fit" src={photo.imageURL}/>                                
-                                        {photo.markImageAsViewed &&(
+                                        {photo.dashboardIsImageNewFlag &&(
                                             <div className="overlay-without-bg-div">
                                                 <Button
                                                     type={"button"}
                                                     onClickEvent={()=>{}} 
-                                                    text={"New"}                                             
+                                                    text={photo.dashboardIsImageNewLabel}                                             
                                                     style={"button-style"}
                                                 />
                                             </div>
