@@ -1,9 +1,13 @@
 import moment from 'moment';
-import {fetchObservatoryList} from '../../services/events/fetch-upcoming-events';
+import {fetchObservatoryList, fetchMissionQuotaData} from '../../services/events/fetch-upcoming-events';
+import { getUserInfo } from '../User';
 
 export const FETCH_LIST_START = 'FETCH_LIST_START';
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
 export const FETCH_LIST_FAIL = 'FETCH_LIST_FAIL';
+export const FETCH_QUOTA_START = 'FETCH_QUOTA_START';
+export const FETCH_QUOTA_SUCCESS = 'FETCH_QUOTA_SUCCESS';
+export const FETCH_QUOTA_FAIL = 'FETCH_QUOTA_FAIL';
 
 export const fetchListStart = () => ({
   type: FETCH_LIST_START,
@@ -19,9 +23,24 @@ export const fetchListFail = payload => ({
   payload,
 });
 
+export const fetchQuotaFail = payload => ({
+  type: FETCH_QUOTA_FAIL,
+  payload,
+});
+
+export const fetchQuotaStart = () => ({
+  type: FETCH_QUOTA_START,
+});
+
+export const fetchQuotaSuccess = payload => ({
+  type: FETCH_QUOTA_SUCCESS,
+  payload,
+});
+
 export const fetchList = () => (dispatch) => {
   dispatch(fetchListStart()); 
-  return fetchObservatoryList()
+  const {at, cid, token}=getUserInfo();
+  return fetchObservatoryList({at, cid, token})
     .then((result) => {
       if (!result.data.apiError) {  
         const duration=(result.data.expires-result.data.timestamp) * 1000;     
@@ -30,5 +49,19 @@ export const fetchList = () => (dispatch) => {
       }
     })
     .catch(error => dispatch(fetchListFail(error)));
+};
+
+export const fetchMissionQuota = () => (dispatch) => {
+  dispatch(fetchQuotaStart()); 
+  const {at, cid, token}=getUserInfo();
+  return fetchMissionQuotaData({at, cid, token})
+    .then((result) => {
+      if (!result.data.apiError) {  
+        // const duration=(result.data.expires-result.data.timestamp) * 1000;     
+        // setTimeout(()=>dispatch(fetchList()),duration);
+        dispatch(fetchQuotaSuccess(result.data));
+      }
+    })
+    .catch(error => dispatch(fetchQuotaFail(error)));
 };
 

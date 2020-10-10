@@ -111,7 +111,7 @@ export class PhotoRoll extends Component{
                                         this.blockWidth = node;
                                     }}>                               
                                     <img className="img-fit" src={photo.imageURL}/>                                
-                                        {photo.showNewButton &&(
+                                        {photo.markImageAsViewed &&(
                                             <div className="overlay-without-bg-div">
                                                 <Button
                                                     type={"button"}

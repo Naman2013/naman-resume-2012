@@ -3,6 +3,13 @@ import _get from 'lodash/get';
 import { createSelector } from 'reselect';
 
 export const selectMissions = state => state.missions;
+export const state = state=> state;
+
+export const makeMissionsQuotaSelector = () =>
+  createSelector(
+    state,
+    state => state.observatoryList.missionQuota
+  );
 
 export const makeMissionsLoadingSelector = () =>
   createSelector(

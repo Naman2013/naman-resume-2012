@@ -26,14 +26,17 @@ const Telescopes = (props) => {
   const { token, at, cid } = getUserInfo();
   const { t } = useTranslation();
   const { observatoryList } = props;
-  let obs_List=observatoryList.observatoryList;
-  if(obs_List!==undefined){
+  let obs_List;
+  let TELESCOPES_ONLY;
+  if(observatoryList!==undefined){
+    obs_List=observatoryList.observatoryList;
     obs_List=obs_List.sort((a, b) => a.obsIndex > b.obsIndex ? 1 : -1);
+    const telescopesByObservatory = obs_List.map(
+      _observatory => _observatory.obsTelescopes
+    );
+    TELESCOPES_ONLY= flatten(telescopesByObservatory);
   }  
-  const telescopesByObservatory = obs_List.map(
-    _observatory => _observatory.obsTelescopes
-  );
-  const TELESCOPES_ONLY= flatten(telescopesByObservatory);
+  
   return (
     // <Request
     //   serviceURL={OBSERVATORIES_COMPACT}

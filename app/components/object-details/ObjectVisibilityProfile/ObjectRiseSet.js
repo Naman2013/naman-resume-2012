@@ -91,7 +91,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                             <p><span className="local-rise-title">{serviceResponse.riseLabel} </span> {serviceResponse.riseText}</p>
+                             <p className="center-label"><span className="local-rise-title">{serviceResponse.riseLabel} </span> {serviceResponse.riseText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.riseLabel}</h2>
                             <p>
                               {fetchingContent
@@ -106,7 +106,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <p><span className="local-rise-title">{serviceResponse.transitLabel} </span> {serviceResponse.transitText}</p>
+                            <p className="center-label"><span className="local-rise-title">{serviceResponse.transitLabel} </span> {serviceResponse.transitText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.transitLabel}</h2>
                             <p>
                               {fetchingContent
@@ -121,7 +121,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <p><span className="local-rise-title">{serviceResponse.setLabel} </span> {serviceResponse.setText}</p>
+                            <p className="center-label"><span className="local-rise-title">{serviceResponse.setLabel} </span> {serviceResponse.setText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.setLabel}</h2>
                             <p>
                               {fetchingContent
@@ -138,7 +138,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <p><span className="local-rise-title">{serviceResponse.trueHorizonRiseLabel} </span> {serviceResponse.trueHorizonRiseText}</p>
+                            <p className="center-label"><span className="local-rise-title">{serviceResponse.trueHorizonRiseLabel} </span> {serviceResponse.trueHorizonRiseText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonRiseLabel}</h2>
                             <p>
                               {fetchingContent
@@ -153,7 +153,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <p><span className="local-rise-title">{serviceResponse.trueHorizonTransitLabel} </span> {serviceResponse.trueHorizonTransitText}</p>
+                            <p className="center-label"><span className="local-rise-title">{serviceResponse.trueHorizonTransitLabel} </span> {serviceResponse.trueHorizonTransitText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonTransitLabel}</h2>
                             <p>
                               {fetchingContent
@@ -168,7 +168,7 @@ class ObjectRiseSet extends Component {
                             hasBorderScale={[true]}
                             flexScale={['100%', '33%']}
                           >
-                            <p><span className="local-rise-title">{serviceResponse.trueHorizonSetLabel} </span> {serviceResponse.trueHorizonSetText}</p>
+                            <p className="center-label"><span className="local-rise-title">{serviceResponse.trueHorizonSetLabel} </span> {serviceResponse.trueHorizonSetText}</p>
                             {/* <h2 className="local-rise-title">{serviceResponse.trueHorizonSetLabel}</h2>
                             <p>
                               {fetchingContent
@@ -183,7 +183,7 @@ class ObjectRiseSet extends Component {
                             titleStyle={{marginBottom: "10px"}}
                             title={serviceResponse.notesLabel}
                             >
-                            <p>
+                            <p className="center-label">
                               {fetchingContent
                                 ? `${t('Objects.Loading')}...`
                                 : serviceResponse.notesText}

@@ -83,6 +83,28 @@
     padding: 16px;
 }
 
+.new-dash .overlay-social-div{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    // left: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    opacity: 1;
+    transition: .5s ease;
+    background-color: rgba(32, 32, 32, 0.6);
+    border-radius: 4px;
+    padding: 8px 8px 16px 16px;
+}
+
+.new-dash .photo-roll-icon{
+    color: white;
+    font-size: 10px;
+    float: right;
+    margin-bottom: 5px;
+}
+
 .new-dash .gallery-overlay-div{
     position: absolute;
     top: 0;
@@ -388,6 +410,10 @@
 
     .new-dash .mission-center-bottom-div{
         margin-bottom: 0px;
+    }
+
+    .new-dash .overlay-social-div{
+        height: 136px;
     }
     // .new-dash .button-style{
     //     background: rgba(255, 255, 255, 0.4);

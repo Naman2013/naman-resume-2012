@@ -130,9 +130,11 @@ class SocialSharingBar extends Component {
             .social-share-innercontainer-horizontal {
               list-style-type: none;
               min-width: 100px;
-              display: inline-block;
+              // display: inline-block;
               margin: 0;
               padding: 0;
+              display: flex;
+              flex-direction: column;
             }
 
             .social-share-innercontainer-vertical {
@@ -145,7 +147,8 @@ class SocialSharingBar extends Component {
             .social-share-button-horizontal {
               display: inline-block;
               cursor: pointer;
-              margin-right: 5px;
+              // margin-right: 5px;
+              margin-bottom: 5px;
             }
 
             .social-share-button-vertical {

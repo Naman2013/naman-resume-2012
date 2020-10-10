@@ -18,9 +18,10 @@ export class NoMissionCard extends PureComponent {
         role="presentation"
       >
         <div className="left">
-          <div className="mission-title">{title}</div>          
-            <span className="empty-obs-name">{observatoryName}</span>  
-            <span className="empty-obs-name">{time}</span>  
+          <div className="mission-title">{title}</div>    
+            <br/>      
+            <h4 className="empty-obs-name">{observatoryName}</h4>  
+            <h4 className="empty-obs-name">{time}</h4>  
          
         </div>
         <div className="right"> 

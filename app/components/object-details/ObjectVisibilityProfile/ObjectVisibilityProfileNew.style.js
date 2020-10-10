@@ -3,7 +3,7 @@ import { primaryFont } from 'app/styles/variables/fonts';
 import { astronaut, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { resetMarginPadding } from 'app/styles/variables/utils';
-import { screenLarge } from 'app/styles/variables/breakpoints';
+import { screenLarge, screenMobile, screenTablet } from 'app/styles/variables/breakpoints';
 
 export default css`
 
@@ -126,6 +126,13 @@ export default css`
     cursor: pointer;
   }
 
+  .center-label{
+    // text-align center;
+    margin-left: 0.5in;
+    font-family: ${primaryFont};
+    font-size: 16px;
+  }
+
   .select option {
     font-family: ${primaryFont};
     font-weight: 600;
@@ -136,6 +143,12 @@ export default css`
   @media ${screenLarge} {
     .obs-visibility-root {
       // flex-direction: row;
+    }
+  }
+  
+  @media ${screenMobile} {
+    .center-label{     
+      margin-left: 10px;
     }
   }
 `;

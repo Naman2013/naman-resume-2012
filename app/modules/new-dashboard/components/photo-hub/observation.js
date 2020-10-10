@@ -91,7 +91,20 @@ export class Observation extends Component{
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            
                                             {/* </Link>         */}
-                                        </div>                                
+                                        </div>  
+                                        { selectedShareItem === i && shareInformation && (
+                                            <div className="overlay-social-div">
+                                                <i onClick={()=>{this.handleShowShareOptionClick(i, photo.customerImageId)}} className="photo-roll-icon icon-close" />
+                                                <SocialSharingBar
+                                                    contentLayout="horizontal"
+                                                    shareTitle={shareInformation.socialShareTitle}
+                                                    shareDescription={shareInformation.socialShareDescription}
+                                                    shareURL={shareInformation.socialShareURL}
+                                                    shareImageURL={shareInformation.shareImageURL ? shareInformation.shareImageURL : null}
+                                                    shareIntroText={shareInformation.socialShareIntroText}
+                                                />
+                                            </div>
+                                        )}                                  
                                     
                                     <div className="overlay-div-tab">
                                         <h5 className="mission-obj-name">{photo.imageTitle}</h5>
@@ -130,19 +143,7 @@ export class Observation extends Component{
                                             icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
                                         />
                                     </div>                                    
-                                </div> 
-                                { selectedShareItem === i && shareInformation && (
-                                    <div className="socialsharingbar">
-                                        <SocialSharingBar
-                                            contentLayout="horizontal"
-                                            shareTitle={shareInformation.socialShareTitle}
-                                            shareDescription={shareInformation.socialShareDescription}
-                                            shareURL={shareInformation.socialShareURL}
-                                            shareImageURL={shareInformation.shareImageURL ? shareInformation.shareImageURL : null}
-					    shareIntroText={shareInformation.socialShareIntroText}
-                                        />
-                                    </div>
-                                )}                                            
+                                </div>                                                                         
                             </div>    
                         ))}                           
                     </div>

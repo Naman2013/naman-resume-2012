@@ -5,6 +5,9 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import { IProfileGroupList } from 'app/modules/profile-photos/types';
 import ImageDetailsContent from './image-details';
 import './styles.scss';
+import { API } from 'app/api';
+import { getUserInfo } from 'app/modules/User';
+import noop from 'lodash/noop';
 
 type TProfileActivityProps = {
   getImageDetails: (data: any) => Promise<any>;
@@ -21,6 +24,7 @@ type TProfileActivityProps = {
   user: User;
   profileGroupList: IProfileGroupList;
   location: any;
+  change: Function,
 };
 
 type TProfileActivityState = {
@@ -28,6 +32,10 @@ type TProfileActivityState = {
 }
 
 export class ImageDetails extends Component<TProfileActivityProps, TProfileActivityState> {
+
+  static defaultProps = {
+    change: noop,
+  };
 
   constructor(props: TProfileActivityProps){
     super(props);
@@ -39,9 +47,10 @@ export class ImageDetails extends Component<TProfileActivityProps, TProfileActiv
   componentWillReceiveProps(newProps: any){
     
     if(this.props.imageDetailsData !== newProps.imageDetailsData && newProps.imageDetailsData.apiError !== undefined && this.state !== null)
-    {      
+    { 
       switch(this.state.option)
       {
+
         case "Write observation":
           setTimeout(()=>window.scrollTo(
             0,
@@ -56,6 +65,18 @@ export class ImageDetails extends Component<TProfileActivityProps, TProfileActiv
           ), 500); 
           break;
       }
+    }
+    
+    if(newProps.imageDetailsData!==undefined && this.props.imageDetailsData !== newProps.imageDetailsData && newProps.imageDetailsData.markImageAsViewed)
+    {
+      console.log("entered");      
+      const {at, cid, token} = getUserInfo();
+      API.post("/api/images/markCustomerImageAsViewed", {at, cid, token, customerImageId: newProps.imageDetailsData.customerImageId}).then(response=>{
+        const res=response.data;        
+        if(!res.apiError){
+          this.props.change('imageDetailsData', {markImageAsViewed: false, ...newProps.imageDetailsData});
+        }
+      })
     }
     
   }
