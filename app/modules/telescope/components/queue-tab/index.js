@@ -15,12 +15,13 @@ import './styles.scss';
 import { MissionQuota } from 'app/modules/missions/components/slooh-1000/mission-quota';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMissionQuota } from '../../../observatory-list/observatory-actions';
+import { fetchMissionQuota, stopMissionQuotaTimer } from '../../../observatory-list/observatory-actions';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchMissionQuota,      
+      fetchMissionQuota,
+      stopMissionQuotaTimer,      
     },
     dispatch
   );
@@ -59,6 +60,7 @@ export class QueueTab extends Component {
 
   componentWillUnmount() {
     stopMissionListTimer();
+    this.props.stopMissionQuotaTimer();
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {

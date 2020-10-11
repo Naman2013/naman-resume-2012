@@ -92,22 +92,14 @@ export class NewDashboard extends PureComponent{
                 getPrivateProfileDataAction, 
                 getPrivateProfileMissionDataAction,
                 getQuestMapControlAction,
-                setDock,               
-                // getGravityByDomainAction,
+                setDock,
                 getDashboardMissionListAction,
                 getPhotoHubHeadingAction,
             } = this.props;   
 
         getPrivateProfileDataAction();
-        // fetchStarPartyDataAction();
         getUserGravityDataAction();
         getPrivateProfileMissionDataAction();
-        getMyPicturesDataAction({
-            viewType: 'photoRoll',
-            maxImageCount: 18,
-            firstImageNumber: 1,
-            sharedOnly: false,                 
-        });        
         getDashboardFeaturedObjectsDataAction({callSource: "featuredObjectsDashboardV4New"});
         getMyClubListDataAction({
             callSource: "profile",
@@ -119,35 +111,15 @@ export class NewDashboard extends PureComponent{
             paginationStartIndex: 1,
             maxItemsPerPage: 9
         });
-        // getUserActiveObjectDataAction();
-        // getUserPopularObservationDataAction();
-        // getRecentGravityDataAction();        
-        // getObservatoryListAction({listType: "full", status: "live", callSource: "details"});
         getQuestMapControlAction();
-        // getCommunityExplorationAction();
-        // getCommunityFameAction();
-        // getMyRankAction();
-        // getTopMembersAction();
-        // getTopStudentsAction();
-        // getMostActiveClubsAction();
-        // getTopSchoolClubsAction();
-        // getGravityByDomainAction();
-        // if(!pubnubData.pubnubInitialize)
-        //     pubnubInit();
         getDashboardMissionListAction();
         getPhotoHubHeadingAction();
         setDock(true);
     };
-
-    // componentWillUnmount(){
-    //     if(this.props.pubnubData.docked)
-    //         this.props.unSubscribePubnub();
-    // }
     
     getSortedObsList = (obsList) =>{        
         return obsList.sort((a, b) => a.dashboardObsIndex > b.dashboardObsIndex ? 1 : -1);        
     }
-
 
     render(){
     
@@ -318,9 +290,9 @@ export class NewDashboard extends PureComponent{
                                 {photoHubHeadings && (
                                     <PhotoHub
                                         heading={photoHubHeadings.sectionHeading}       
-                                        sectionHeadingLabel={photoHubHeadings.sectionHeadingLabel}                     
-                                        headerlist={["Photo Roll", "Observations", "Missions", "Galleries"]}
-                                        selectedheader={"Photo Roll"}
+                                        sectionHeadingLabel={photoHubHeadings.sectionHeadingLabel} 
+                                        headerlist={photoHubHeadings.tabOptions} 
+                                        defaultTabIndex={photoHubHeadings.defaultTabIndex}
                                         headerspaceequally={false}
                                         photoHub={photoHub}
                                         getMyPictures={getMyPicturesDataAction}                                    

@@ -5,7 +5,7 @@ import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
-import { fetchMissionQuota } from '../../../../observatory-list/observatory-actions';
+import { fetchMissionQuota, stopMissionQuotaTimer } from '../../../../observatory-list/observatory-actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MissionQuota } from '../../slooh-1000/mission-quota';
@@ -13,7 +13,8 @@ import { MissionQuota } from '../../slooh-1000/mission-quota';
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchMissionQuota,      
+      fetchMissionQuota,
+      stopMissionQuotaTimer,      
     },
     dispatch
   );
@@ -38,6 +39,10 @@ export class ConstellationSetup extends Component {
 
   componentDidMount(){
     this.props.fetchMissionQuota({ callSource: 'byConstellationV4' });
+  }
+
+  componentWillUnmount(){
+    this.props.stopMissionQuotaTimer();
   }
 
   render() {

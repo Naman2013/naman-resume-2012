@@ -9,8 +9,8 @@ export const FETCH_QUOTA_START = 'FETCH_QUOTA_START';
 export const FETCH_QUOTA_SUCCESS = 'FETCH_QUOTA_SUCCESS';
 export const FETCH_QUOTA_FAIL = 'FETCH_QUOTA_FAIL';
 
-const observatoryTimerId=null;
-const missionQuotaTimerId=null;
+let observatoryTimerId=null;
+let missionQuotaTimerId=null;
 
 export const fetchListStart = () => ({
   type: FETCH_LIST_START,
@@ -45,31 +45,37 @@ export const fetchList = () => (dispatch) => {
   const {at, cid, token}=getUserInfo();
   return fetchObservatoryList({at, cid, token})
     .then((result) => {
-      if (!result.data.apiError) {  
-        setTimer(observatoryTimerId, result.data.expires, result.data.timestamp, fetchList, dispatch);
+      if (!result.data.apiError) {
+        if(observatoryTimerId !== null)
+          clearTimeout(observatoryTimerId);
+        const duration=(result.data.expires-result.data.timestamp) * 1000;
+        if(duration > 1000)
+          observatoryTimerId=setTimeout(()=>dispatch(fetchList()), duration );          
         dispatch(fetchListSuccess(result.data));
       }
     })
     .catch(error => dispatch(fetchListFail(error)));
 };
 
-export const fetchMissionQuota = () => (dispatch) => {
+export const fetchMissionQuota = (data) => (dispatch) => {  
   dispatch(fetchQuotaStart()); 
   const {at, cid, token}=getUserInfo();
-  return fetchMissionQuotaData({at, cid, token})
+  return fetchMissionQuotaData({at, cid, token, ...data})
     .then((result) => {
       if (!result.data.apiError) {  
-        setTimer( observatoryTimerId, result.data.expires, result.data.timestamp, fetchMissionQuota, dispatch);
+        if(missionQuotaTimerId !== null)
+          clearTimeout(missionQuotaTimerId);
+        const duration=(result.data.expires-result.data.timestamp) * 1000;
+        if(duration > 1000)
+          missionQuotaTimerId=setTimeout(()=>dispatch(fetchMissionQuota(data)), duration );        
         dispatch(fetchQuotaSuccess(result.data));
       }
     })
     .catch(error => dispatch(fetchQuotaFail(error)));
 };
 
-const setTimer = (timerId, expires, timestamp, callback, dispatch) =>{
-  if(timerId !== null)
-    clearTimeout(timerId);
-  const duration=(expires-timestamp) * 1000;
-  if(duration > 1000)
-    timerId=setTimeout(()=>dispatch(callback()),duration);
+export const stopMissionQuotaTimer = () => (dispatch) => {
+  if(missionQuotaTimerId !== null)
+    clearTimeout(missionQuotaTimerId);
 }
+

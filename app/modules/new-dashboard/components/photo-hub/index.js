@@ -33,6 +33,7 @@ import ImageDetails from 'app/modules/image-details/containers/image-details';
 import MissionDetails from 'app/modules/mission-details/containers/mission-details';
 import GalleryDetails from 'app/modules/gallery-details/containers/gallery-details';
 import { getFitsDataApi } from 'app/modules/profile-photos/api';
+import { TabHeaderCount } from '../tab-header-with-count';
 
 
 const mapTypeToRequest = {
@@ -63,27 +64,25 @@ const customModalStyles = {
 
 class PhotoHub extends Component{
 
-    componentDidMount() {
-        // const { actions, type, params = {} } = this.props;
-        // const { activePage } = this.state;
-        // const fetchImages = actions[mapTypeToRequest[type]];
-        // const { customerUUID } = params;
-        // const PHOTOS_ON_ONE_PAGE = 9;
-        // const PREVIOUS_PAGE = activePage - 1;
-        // const firstImageNumber =
-        //   activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
-    
-        // fetchImages({
-        //   sharedOnly: type === 'observations',
-        //   firstImageNumber,
-        //   firstMissionNumber: firstImageNumber,
-        //   customerUUID,
-        //   publicGalleries: params.public ? 'y' : null,
-        // });
-        //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
-        
+    constructor(props){
+        super(props);
+        this.state={
+            selectedheader: props.headerlist[props.defaultTabIndex],
+            isFilterOpen: false,
+            tagsData: { isFetching: true, tagList: [] },
+            fitsData: { isFetching: false,
+                        isLoaded: false,
+                        data: {},},
+            showModal: false,
+            modalParams:{},
+        }
+    }
+
+
+    componentDidMount() {        
         this.fetchFilters();
-      }
+        this.onTabChange(this.state.selectedheader);
+    }
 
 
     componentWillUnmount() {
@@ -98,17 +97,7 @@ class PhotoHub extends Component{
           pictureUserTags: [],
         });
         this.handleApplyFilter();
-    }
-    state = {
-        selectedheader: "Photo Roll",
-        isFilterOpen: false,
-        tagsData: { isFetching: true, tagList: [] },
-        fitsData: { isFetching: false,
-                    isLoaded: false,
-                    data: {},},
-        showModal: false,
-        modalParams:{},
-    }
+    }   
 
     fetchFilters = () => {
         const { actions } = this.props;
@@ -117,12 +106,11 @@ class PhotoHub extends Component{
         fetchObjectTypeList();
     };
 
-    onTabChange=(title)=>{
+    onTabChange=(header)=>{
         const { getMyPictures, ref, getMissionImages, getGalleryList } = this.props;
-        
-        switch(title){
+        switch(header.tabAction){
 
-            case "Photo Roll":
+            case "photoroll":
                 getMyPictures({
                     viewType: 'photoRoll',
                     maxImageCount: 18,
@@ -131,7 +119,7 @@ class PhotoHub extends Component{
                 });                
                 break;
 
-            case "Observations":
+            case "observations":
                 getMyPictures({
                     viewType: 'photoRoll',  
                     sharedOnly: true,
@@ -140,21 +128,21 @@ class PhotoHub extends Component{
                 }); 
                 break;
             
-            case "Missions":
+            case "missions":
                 getMissionImages({
                     maxMissionCount: 18,
                     firstMissionNumber: 1,                    
                 }); 
                 break;
 
-            case "Galleries":
+            case "galleries":
                 getGalleryList({
                     maxItemsPerPage : 18,
                     paginationStartIndex: 1,                   
                 });
                 break;
         }
-        this.setState({selectedheader: title});
+        this.setState({selectedheader: header});
     };        
 
     setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
@@ -176,9 +164,9 @@ class PhotoHub extends Component{
         //   customerUUID,
         //   publicGalleries: params.public ? 'y' : null,
         // });
-        switch(selectedheader){
+        switch(selectedheader.tabAction){
 
-            case "Photo Roll":
+            case "photoroll":
                 getMyPictures({
                     viewType: 'photoRoll',
                     maxImageCount: 18,
@@ -187,7 +175,7 @@ class PhotoHub extends Component{
                 });                
                 break;
 
-            case "Observations":
+            case "observations":
                 getMyPictures({
                     viewType: 'photoRoll',
                     maxImageCount: 18,
@@ -196,14 +184,14 @@ class PhotoHub extends Component{
                 }); 
                 break;
             
-            case "Missions":
+            case "missions":
                 getMissionImages({
                     maxMissionCount: 18,
                     firstMissionNumber: 1, 
                 }); 
                 break;
 
-            case "Galleries":
+            case "galleries":
                 getGalleryList({
                     maxItemsPerPage : 18,
                     paginationStartIndex: 1, 
@@ -293,8 +281,8 @@ class PhotoHub extends Component{
         const { selectedheader, isFilterOpen, tagsData, showModal, modalParams, fitsData, } = this.state;
         
         const getTabContent = header => {                        
-            switch (header) {
-                case "Photo Roll":
+            switch (header.tabAction) {
+                case "photoroll":
                     return <PhotoRoll 
                                 imageList={photoHub.imageList} 
                                 getMyPictures={getMyPictures} 
@@ -304,7 +292,7 @@ class PhotoHub extends Component{
                                 tagsData= {tagsData}
                                 showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;
-                case "Observations":
+                case "observations":
                     return <Observation 
                                 imageList={photoHub.imageList}
                                 getMyPictures={getMyPictures} 
@@ -312,7 +300,7 @@ class PhotoHub extends Component{
                                 totalCount={photoHub.totalCount}
                                 showModal={(params)=>this.setState({showModal: true, modalParams: params})}
                                 />;
-                case "Missions":
+                case "missions":
                     return <Mission 
                                 imageList={photoHub.imageList}
                                 getMyPictures={getMyPictures} 
@@ -322,7 +310,7 @@ class PhotoHub extends Component{
                                 getFitsData={this.getFitsDataAction}
                                 fitsData={fitsData}
                                 />;             
-                case "Galleries":
+                case "galleries":
                     return <GalleryCard 
                                 imageList={photoHub.galleryList}
                                 getMyPictures={getMyPictures} 
@@ -338,7 +326,7 @@ class PhotoHub extends Component{
             <div className="photo-hub-main">
                 <h2 className="photo-hub-heading">{heading} {sectionHeadingLabel}</h2>    
                     <div className="photo-hub-card-header">
-                        <TabHeader
+                        <TabHeaderCount
                             headings={headerlist}
                             activeHeading={selectedheader}
                             spaceequally={headerspaceequally}
@@ -411,20 +399,20 @@ class PhotoHub extends Component{
                             role="button"
                             style={{float: "right", fontSize: "20px"}}
                         />
-                        {(selectedheader === "Photo Roll" || selectedheader === "Observations") && (
+                        {(selectedheader.tabAction === "photoroll" || selectedheader.tabAction === "observations") && (
                             <ImageDetails
                                 params={modalParams}                                
                             />
                         )}
 
-                        {selectedheader === "Missions" && (
+                        {selectedheader.tabAction === "missions" && (
                             <MissionDetails
                                 params={modalParams}
                                 newDash
                             />
                         )}
                         
-                        {selectedheader === "Galleries" && (
+                        {selectedheader.tabAction === "galleries" && (
                             <GalleryDetails
                                 params={modalParams}
                                 newDash
