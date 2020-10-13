@@ -8,6 +8,8 @@ import { MissionSuccessModal } from '../mission-success-modal';
 import UpgradeModal from '../../../../modules/account-settings/containers/upgrade-modal';
 import { browserHistory } from 'react-router';
 import './styles.scss';
+import { fetchMissionQuotaData } from 'app/services/events/fetch-upcoming-events';
+import { getUserInfo } from 'app/modules/User';
 
 export class Telescope extends Component {
   state = {
@@ -19,10 +21,12 @@ export class Telescope extends Component {
     callSource: "",
     upsellCallSource: "",
     showHoldOneHourButtonWhenExpanded: false,
+    missionQuota: undefined,
   };  
 
   componentDidMount() {
     this.getMissionSlotDates();
+    this.fetchMissionQuotaAction();
   }
 
   componentDidUpdate() {
@@ -31,6 +35,36 @@ export class Telescope extends Component {
       this.scrollToSlot();
     } 
   }
+
+  componentWillUnmount() {   
+    this.stopMissionQuotaTimer();  
+  }
+
+  fetchMissionQuotaAction = () =>{
+    const { at, cid, token} = getUserInfo();    
+    const callSource='byTelescopeV4';
+    fetchMissionQuotaData({ at, cid, token, callSource}).then(response=>{
+      const res = response.data;
+      if(!res.apiError){
+        this.stopMissionQuotaTimer();
+        const duration = (res.expires - res.timestamp) * 1000;
+        if(duration > 1000)
+          this.startMissionQuotaTimer(duration);
+        this.setState({missionQuota: res});
+      }
+    })
+  }
+
+  startMissionQuotaTimer = (duration) => {
+    this.timerId=setTimeout(()=>this.fetchMissionQuotaAction(), duration);        
+  }
+  
+  stopMissionQuotaTimer = () => {
+    if(this.timerId !== null)
+      clearTimeout(this.timerId);
+  }
+
+
 
   getMissionSlotDates = (requestedDate = '') => {    
     const { getMissionSlotDates, selectedTelescope } = this.props;
@@ -63,7 +97,10 @@ export class Telescope extends Component {
       scheduledMissionId,
       uniqueId,
       callSource,    
-    }).then(() => this.setState({ reservationModalVisible: true, showHoldOneHourButtonWhenExpanded: showHoldOneHourButtonWhenExpanded  }));
+    }).then(() => {
+      this.stopMissionQuotaTimer(); 
+      this.setState({ reservationModalVisible: true, showHoldOneHourButtonWhenExpanded: showHoldOneHourButtonWhenExpanded  });
+    });
   };
 
   reservationModalHide = (cancelMission = true) => {
@@ -79,6 +116,7 @@ export class Telescope extends Component {
       });
     }
     this.getMissionSlotDates(selectedDate.reservationDate);
+    this.fetchMissionQuotaAction();
     this.setState({
       reservationModalVisible: false,
       reservationPiggybackVisible: false,
@@ -90,6 +128,7 @@ export class Telescope extends Component {
   reservationComplete = () => {
     const { selectedDate } = this.props;
     this.getMissionSlotDates(selectedDate.reservationDate);
+    this.fetchMissionQuotaAction();
     this.setState({ reservationModalVisible: false, editCoordinates: false });
   };
 
@@ -136,9 +175,10 @@ export class Telescope extends Component {
       obsId,
       domeId,
       reservationDate,
-    }).then(() =>
+    }).then(() =>{
+      this.stopMissionQuotaTimer();
       this.setState({ reservationModalVisible: true, editCoordinates: true })
-    );
+    });
   };
 
   scrollToSlot = () => {
@@ -180,6 +220,7 @@ export class Telescope extends Component {
       successModalShow,
       editCoordinates,
       showHoldOneHourButtonWhenExpanded,
+      missionQuota
     } = this.state;
     
     return (
@@ -190,6 +231,7 @@ export class Telescope extends Component {
             telescopeList={telescopeList}
             setTelescope={setTelescope}
             setUpTelescopePrompt={setUpTelescopePrompt}
+            missionQuota={missionQuota}
           />
 
           <MissionsList

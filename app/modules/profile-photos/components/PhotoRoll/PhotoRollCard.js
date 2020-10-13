@@ -12,8 +12,10 @@ import { Button } from 'react-bootstrap';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
+import {Button as NewButton} from '../../../../modules/new-dashboard/components/button';
 
 import style from './PhotoRollCard.style';
+
 
 type TPhotoRollCard = {
   index: number,
@@ -85,7 +87,10 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       displayTime,
       telescopeName,
       instrumentName,
+      dashboardIsImageNewFlag,
+      dashboardIsImageNewLabel,
     } = observation;
+   
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
@@ -158,9 +163,18 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                       <Dots />
                     </Button>
                   </div>
-                </div>
-              </div>
+                </div>                
+              </div>              
             </div>
+            {dashboardIsImageNewFlag &&(
+                  <div className="overlay-without-bg-div">
+                    <button
+                      type={"button"}
+                      onClick={null}                      
+                      className="button-style"
+                    >{dashboardIsImageNewLabel}</button>
+                  </div>
+                )}
           </div>
         </div>
         <style jsx>{style}</style>

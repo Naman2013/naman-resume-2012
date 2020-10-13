@@ -37,6 +37,8 @@ export class ObjectMissionCard extends PureComponent {
       displayWeekdayMonthDayUTC,
       displayTime,
       displayTimeZone,
+      displayUSEasternTime,
+      displayUSPacificTime,
     } = missionStartFormatted;
     
     return (
@@ -71,6 +73,20 @@ export class ObjectMissionCard extends PureComponent {
           </div>
           
         </div>
+        
+        {showDetails && details && (
+          <div className="end">
+            <div className="date">{details.detailsHeader}</div>
+            <br/>
+            {details.detailsList.map(detail=>(
+              <div className="details-text">
+                {detail.label}&nbsp; 
+                <span className="details-value">{detail.value}</span>
+              </div>
+            ))}            
+          </div>
+        )}
+
         <div className="right">
           <div className="actions">
             {showDotMenu && (
@@ -91,8 +107,9 @@ export class ObjectMissionCard extends PureComponent {
                 <div className="large">
                   {displayTime}
                   <span className="timezone">{displayTimeZone}</span>
-                </div>
+                </div>                
               </div>
+              <div className="est-time">{displayUSEasternTime} / {displayUSPacificTime}</div>
               {showJoinButton && (
                 <Button
                   text={joinButtonCaption || 'Schedule Mission'}
@@ -107,16 +124,6 @@ export class ObjectMissionCard extends PureComponent {
             />
           </div>
         </div>
-        {showDetails && (
-          <div className="end">
-            <div className="date">{details.detailsHeader}</div>
-            <br/>
-            <div className="details-text">{details.objectAltitude}</div>
-            <div className="details-text">{details.objectAzimuth}</div>
-            <div className="details-text">{details.moonAltitude}</div>
-            <div className="details-text">{details.moonIllumination}</div>
-          </div>
-        )}
         
 
         <div className="mobile">
@@ -132,18 +139,35 @@ export class ObjectMissionCard extends PureComponent {
                 )}
               </div>
 
-              <div className="mission-title">{title || missionTitle}</div>
-                
-              <div className="time">
-                <div className="large">
-                  {displayTime}
-                  <span className="timezone">{displayTimeZone}</span>
+              <div className="mission-title">{title || missionTitle}</div>              
+                <div className="time">
+                  <div className="date">{displayWeekdayMonthDayUTC}</div>
+                  <div className="large">
+                    {displayTime}
+                    <span className="timezone">{displayTimeZone}</span>
+                  </div>
+                  <div className="est-time">{displayUSEasternTime} / {displayUSPacificTime}</div>
+                  {showJoinButton && (
+                    <div style={{display: "inline", marginTop: "15px"}}>
+                      <Button
+                        text={joinButtonCaption || 'Schedule Mission'}
+                        onClickEvent={onClickHandler}
+                      />
+                    </div>
+                  )}
                 </div>
-              </div>
+              
 
-              <div className="mission-owner">            
-                <div className="date">{displayWeekdayMonthDayUTC}</div>
-                <span>{telescopeName || telescopePierName}</span>
+              <div className="mission-owner">                            
+                <div style={{flex: "1"}}>
+                  <span>{telescopeName || telescopePierName}</span>
+                  {hasWeatherForecastData && weatherForecastData && (
+                    <div className="weather-div">
+                      <span className="description"><b>{weatherForecastData.ForecastHeading}</b>{weatherForecastData.ForecastDetails}</span>
+                      <img src={weatherForecastData.ForecastIconURL} className="weather-icon"/>
+                    </div>
+                )}
+                </div>
                 {showJoiningMission ? ( 
                   <Tooltip
                   className="mission-tooltip"
@@ -153,29 +177,26 @@ export class ObjectMissionCard extends PureComponent {
                       <img alt="" className="mission-icon" src={joiningMissionIconURL} />
                   </Tooltip>) : null}
               </div>
-              {hasWeatherForecastData && weatherForecastData && (
-                    <div className="weather-div">
-                      <span className="description"><b>{weatherForecastData.ForecastHeading}</b>{weatherForecastData.ForecastDetails}</span>
-                      <img src={weatherForecastData.ForecastIconURL} className="weather-icon"/>
-                    </div>
-                )}
+              
               <div
                 className="mission-status"
                 dangerouslySetInnerHTML={{ __html: missionStatusText }}
               />
           </div>
          
-            {showDetails && (
+            {showDetails && details && (
               <div className="end-tab">
                 <div className="date">{details.detailsHeader}</div>
                 <br/>
-                <div className="details-text">{details.objectAltitude}</div>
-                <div className="details-text">{details.objectAzimuth}</div>
-                <div className="details-text">{details.moonAltitude}</div>
-                <div className="details-text">{details.moonIllumination}</div>
+                {details.detailsList.map(detail=>(
+                  <div className="details-text">
+                    <span>{detail.label} </span>
+                    <span className="details-value">{detail.value}</span>
+                  </div>
+                ))}  
               </div>
             )}
-         
+
           
         </div>
       </div>

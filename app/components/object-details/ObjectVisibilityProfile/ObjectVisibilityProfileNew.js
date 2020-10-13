@@ -139,7 +139,8 @@ class ObjectVisibilityProfileNew extends Component {
                             <StaticCell
                               flexScale={['100%', '70%']}
                               hasBorderScale={[true]}
-                              titleHtml={joinMissionData.dateSelectorHeading}
+                              title={joinMissionData.dateSelectorHeading}
+                              titleStyle={{fontSize: "16px"}}
                             >
                               {joinMissionData.riseAndSetSelectors &&
                                 joinMissionData.riseAndSetSelectors.dates.map(
@@ -225,38 +226,11 @@ class ObjectVisibilityProfileNew extends Component {
                           </Row>
                           {readMore && (
                             <div>
-                                <Row>
-                            <StaticCell
-                              // title={joinMissionData.tzHeading}
+                                {/* <Row>
+                            <StaticCell                             
                               hasBorderScale={[true]}
                             >
-                              {/* <div className="select-field">
-                                <label
-                                  className="option-label"
-                                  htmlFor="select-tzId"
-                                >
-                                  <span className="field-value-name">
-                                    {
-                                        joinMissionData.tzSelection
-                                    }
-                                  </span>
-                                  <img
-                                    alt=""
-                                    width="8"
-                                    src={downwardFacingChevron}
-                                  />
-                                </label>
-                                <select
-                                  className="select"
-                                  id="select-tzId"
-                                  value={joinMissionData.tzSelection}
-                                  onChange={this.handleTimeZoneChange}
-                                >                              
-                                  {joinMissionData.tzList.map(obs => (
-                                    <option value={obs}>{obs}</option>
-                                  ))}
-                                </select>
-                              </div> */}
+                             
 
                               <div
                                 className="rise-set-subtitle"
@@ -280,46 +254,8 @@ class ObjectVisibilityProfileNew extends Component {
                                 </div>
                               </StaticCell>
                             )}
-                            
-                            
-                            
-
-                            {/* <StaticCell
-                              title={joinMissionData.obsLabel}
-                              flexScale={['100%', '25%']}
-                            >
-                              <div className="select-field">
-                                <label
-                                  className="option-label"
-                                  htmlFor="select-obsId"
-                                >
-                                  <span className="field-value-name">
-                                    {
-                                      joinMissionData.obsList.filter((item)=> {return item.obsId==this.state.obsId})[0].obsShortName
-                                      // joinMissionData.tzList[
-                                      //   this.state.tzList
-                                      // ]
-                                    }
-                                  </span>
-                                  <img
-                                    alt=""
-                                    width="8"
-                                    src={downwardFacingChevron}
-                                  />
-                                </label>
-                                <select
-                                  className="select"
-                                  id="select-obsId"
-                                  value={this.state.obsId}
-                                  onChange={this.handleObservatoryChange}
-                                >                             
-                                  {joinMissionData.obsList.map(obs => (
-                                    <option value={obs.obsId}>{obs.obsShortName}</option>
-                                  ))}
-                                </select>
-                              </div>
-                            </StaticCell> */}
-                          </Row> 
+                           
+                          </Row>  */}
                           {joinMissionData.showRiseSetTransitSection && (
                             <Row>
                               <StaticCell

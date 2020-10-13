@@ -8,32 +8,32 @@ import { bindActionCreators } from 'redux';
 import { MissionQuota } from '../slooh-1000/mission-quota';
 
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchMissionQuota,
-      stopMissionQuotaTimer,        
-    },
-    dispatch
-  );
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(
+//     {
+//       fetchMissionQuota,
+//       stopMissionQuotaTimer,        
+//     },
+//     dispatch
+//   );
 
-const mapStateToProps = (state) => ({
-  missionQuota: state.observatoryList.missionQuota
-});
+// const mapStateToProps = (state) => ({
+//   missionQuota: state.observatoryList.missionQuota
+// });
 
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+// @connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )
 export class TelescopeSetup extends Component {
 
-  componentDidMount(){
-    this.props.fetchMissionQuota({ callSource: 'byTelescopeV4' });
-  }
+  // componentDidMount(){
+  //   this.props.fetchMissionQuota({ callSource: 'byTelescopeV4' });
+  // }
 
-  componentWillUnmount(){
-    this.props.stopMissionQuotaTimer();
-  }
+  // componentWillUnmount(){
+  //   this.props.stopMissionQuotaTimer();
+  // }
 
   render() {
     const { selectedTelescope, telescopeList, setTelescope, setUpTelescopePrompt, missionQuota } = this.props;

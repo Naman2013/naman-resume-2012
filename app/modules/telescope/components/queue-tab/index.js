@@ -15,25 +15,27 @@ import './styles.scss';
 import { MissionQuota } from 'app/modules/missions/components/slooh-1000/mission-quota';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMissionQuota, stopMissionQuotaTimer } from '../../../observatory-list/observatory-actions';
+// import { fetchMissionQuota, stopMissionQuotaTimer } from '../../../observatory-list/observatory-actions';
+import { fetchMissionQuotaData } from 'app/services/events/fetch-upcoming-events';
+import { getUserInfo } from 'app/modules/User';
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchMissionQuota,
-      stopMissionQuotaTimer,      
-    },
-    dispatch
-  );
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(
+//     {
+//       fetchMissionQuota,
+//       stopMissionQuotaTimer,      
+//     },
+//     dispatch
+//   );
 
-const mapStateToProps = (state) => ({
-  missionQuota: state.observatoryList.missionQuota
-});
+// const mapStateToProps = (state) => ({
+//   missionQuota: state.observatoryList.missionQuota
+// });
 
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+// @connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )
 export class QueueTab extends Component {
   state = {
     reservationModalVisible: false,
@@ -41,7 +43,10 @@ export class QueueTab extends Component {
     successModalShow: false,
     editCoordinates: false,
     showHoldOneHourButtonWhenExpanded: false,
+    missionQuota: undefined,
   };
+
+  timerId=null;
 
   componentDidMount(){
     const { setTelescope, currentTelescope, currentObservatory, showFeaturedObjects, fetchMissionQuota } = this.props;
@@ -55,12 +60,37 @@ export class QueueTab extends Component {
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
     });
-    fetchMissionQuota({callSource: 'offlineQueue'})
+    this.fetchMissionQuotaAction();
   }
 
   componentWillUnmount() {
     stopMissionListTimer();
-    this.props.stopMissionQuotaTimer();
+    this.stopMissionQuotaTimer();  
+  }
+
+  fetchMissionQuotaAction = () =>{
+    const { at, cid, token} = getUserInfo();
+    const { offlineQueueTab } = this.props;
+    const callSource=offlineQueueTab ? 'offlineQueue' : 'onlineQueue';
+    fetchMissionQuotaData({ at, cid, token, callSource}).then(response=>{
+      const res = response.data;
+      if(!res.apiError){
+        this.stopMissionQuotaTimer();
+        const duration = (res.expires - res.timestamp) * 1000;
+        if(duration > 1000)
+          this.startMissionQuotaTimer(duration);
+        this.setState({missionQuota: res});
+      }
+    })
+  }
+
+  startMissionQuotaTimer = (duration) => {
+    this.timerId=setTimeout(()=>this.fetchMissionQuotaAction(), duration);        
+  }
+  
+  stopMissionQuotaTimer = () => {
+    if(this.timerId !== null)
+      clearTimeout(this.timerId);
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
@@ -109,6 +139,7 @@ export class QueueTab extends Component {
       const { apiError, statusCode } = payload;
       if(!apiError && (statusCode < 400 || statusCode >= 500)){
         this.setState({ reservationModalVisible: true, showHoldOneHourButtonWhenExpanded: showHoldOneHourButtonWhenExpanded });
+        this.stopMissionQuotaTimer();    
       }
     });
   };
@@ -125,7 +156,10 @@ export class QueueTab extends Component {
       obsId,
       domeId: currentTelescope.telePierNumber,
       reservationDate,
-    }).then(() => this.setState({ reservationModalVisible: true, editCoordinates: true }));
+    }).then(() => {
+      this.stopMissionQuotaTimer();
+      this.setState({ reservationModalVisible: true, editCoordinates: true });
+    });
   };
 
   grabPiggyback = mission => {
@@ -184,6 +218,7 @@ export class QueueTab extends Component {
     } else {
       this.getUpcomingSlotsByTelescope(requestedSlotCount);
     }
+    this.fetchMissionQuotaAction();
     this.setState({
       reservationModalVisible: false,
       reservationPiggybackVisible: false,
@@ -196,6 +231,7 @@ export class QueueTab extends Component {
     const { upcomingSlotsData } = this.props;
     const { requestedSlotCount } = upcomingSlotsData;
     this.getUpcomingSlotsByTelescope(requestedSlotCount);
+    this.fetchMissionQuotaAction();
     this.setState({ reservationModalVisible: false, editCoordinates: false });
   };
 
@@ -216,8 +252,7 @@ export class QueueTab extends Component {
       piggybackReservedMissionData,
       piggybackReservedMission,
       timestamp,
-      currenttime,
-      missionQuota
+      currenttime,      
     } = this.props;
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption, requestedSlotCount } = upcomingSlotsData;
@@ -227,6 +262,7 @@ export class QueueTab extends Component {
       successModalShow,
       editCoordinates,
       showHoldOneHourButtonWhenExpanded,
+      missionQuota,
     } = this.state;
     const { navigationConfig } = pageSetup;
     

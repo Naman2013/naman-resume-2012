@@ -83,7 +83,7 @@ class ObjectRiseSet extends Component {
                             </p>
                       </StaticCell>
                       </Row>
-                      <Row>
+                      {/* <Row>
                           <StaticCell
                             theme={{padding: "10px 30px 30px 30px"}}
                             title={serviceResponse.localHorizonPrompt}
@@ -92,12 +92,7 @@ class ObjectRiseSet extends Component {
                             flexScale={['100%', '33%']}
                           >
                              <p className="center-label"><span className="local-rise-title">{serviceResponse.riseLabel} </span> {serviceResponse.riseText}</p>
-                            {/* <h2 className="local-rise-title">{serviceResponse.riseLabel}</h2>
-                            <p>
-                              {fetchingContent
-                                ? `${t('Objects.Loading')}...`
-                                : serviceResponse.riseText}
-                            </p> */}
+                           
                           </StaticCell>
                           <StaticCell
                             theme={{padding: "10px 30px 30px 30px"}}
@@ -107,12 +102,7 @@ class ObjectRiseSet extends Component {
                             flexScale={['100%', '33%']}
                           >
                             <p className="center-label"><span className="local-rise-title">{serviceResponse.transitLabel} </span> {serviceResponse.transitText}</p>
-                            {/* <h2 className="local-rise-title">{serviceResponse.transitLabel}</h2>
-                            <p>
-                              {fetchingContent
-                                ? `${t('Objects.Loading')}...`
-                                : serviceResponse.transitText}
-                            </p> */}
+                           
                           </StaticCell>
                           <StaticCell
                             theme={{padding: "10px 30px 30px 30px"}}
@@ -122,14 +112,9 @@ class ObjectRiseSet extends Component {
                             flexScale={['100%', '33%']}
                           >
                             <p className="center-label"><span className="local-rise-title">{serviceResponse.setLabel} </span> {serviceResponse.setText}</p>
-                            {/* <h2 className="local-rise-title">{serviceResponse.setLabel}</h2>
-                            <p>
-                              {fetchingContent
-                                ? `${t('Objects.Loading')}...`
-                                : serviceResponse.setText}
-                            </p> */}
+                           
                           </StaticCell>
-                        </Row>
+                        </Row> */}
                         <Row>
                           <StaticCell
                             theme={{padding: "10px 30px 30px 30px"}}

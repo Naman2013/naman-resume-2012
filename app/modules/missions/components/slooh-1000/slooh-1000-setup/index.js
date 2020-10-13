@@ -44,7 +44,7 @@ export class Slooh1000Setup extends Component {
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
-
+    
     return (
       <div
         {...props.innerProps}

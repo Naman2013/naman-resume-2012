@@ -94,11 +94,21 @@
     text-transform: uppercase;
   }
 
+  .est-time {
+    margin-top: 0px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    color: $lightHeadedAstronaut;
+    text-transform: uppercase;
+  }
+
   .end-tab{
     display: block;
     width: 40%;
     align-items: center;
-    padding: 10px 25px;
+    padding: 10px 0px 10px 25px;
     font-family: $primary-font;
     position: relative;
     border-left: 1px solid #d9dee4;
@@ -111,6 +121,10 @@
       color: $lightHeadedAstronaut;
       // text-transform: uppercase;
     }
+
+    .details-value {
+      white-space: nowrap;
+    }
   
   }
 
@@ -118,7 +132,7 @@
     display: none;
     width: 25%;
     align-items: center;
-    padding: 10px 25px;
+    padding: 10px 15px;
     font-family: $primary-font;
     position: relative;
     border-left: 1px solid #d9dee4;
@@ -130,6 +144,10 @@
       letter-spacing: 0.6px;
       color: $lightHeadedAstronaut;
       // text-transform: uppercase;
+    }
+
+    .details-value {
+      white-space: nowrap;
     }
   
   }
@@ -141,10 +159,11 @@
   .right {
     display: none;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 20px;
     font-family: $primary-font;
     position: relative;
     width: 30%;
+    border-left: 1px solid #d9dee4;
 
     .mission-info {
       width: 100%;
@@ -163,7 +182,7 @@
             align-self: flex-end;
             font-size: 60px;
             font-weight: 400;
-            line-height: 1.13;
+            line-height: 1;
             letter-spacing: 1.7px;
             text-align: right;
             position: relative;
@@ -216,6 +235,8 @@
       .date {
         margin: 0;
       }
+
+      
     }
 
     .actions {
@@ -252,7 +273,7 @@
       .large {
         font-size: 48px;
         font-weight: 400;
-        line-height: 1.13;
+        line-height: 1;
         letter-spacing: 1.7px;
         position: relative;
         // margin: 5px 0px;

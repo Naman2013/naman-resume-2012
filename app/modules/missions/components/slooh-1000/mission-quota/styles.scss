@@ -1,7 +1,7 @@
 @import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
-  p {
+  .mission-quota-text {
     margin: 0;
     font-family: $secondary-font;
     font-size: 19px;
@@ -9,4 +9,16 @@
     line-height: 29px;
     letter-spacing: 0;
     color: $raven;
+  }
+
+  .circular-list-div{
+    display: flex;
+    justify-content: space-evenly;    
+  }
+
+  .circular-progress-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }

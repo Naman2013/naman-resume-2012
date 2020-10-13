@@ -42,20 +42,46 @@ export class NewDashboard extends PureComponent{
     }
     
     constructor(props){
-        super(props)
+        super(props)        
         this.missionref = React.createRef();  
         this.observatoryRef = React.createRef();  
         this.photoRef = React.createRef();  
         this.communityRef = React.createRef();  
+        this.clubsRef = React.createRef(); 
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
         this.getInitialData();
+        setTimeout(()=>this.handleHashAnchor(this.props.location.hash),1000);    
+    }
+
+    componentWillReceiveProps(newProps){        
+        if(this.props.location.hash !== newProps.location.hash)
+            setTimeout(()=>this.handleHashAnchor(newProps.location.hash),100);
     }
 
     componentWillUnmount(){
         window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleHashAnchor = (hash) =>{
+        switch(hash){
+            case 0:                
+                window.scrollTo(0, this.observatoryRef.current.offsetTop);
+                break;
+            case "#missions":
+                window.scrollTo(0, this.missionref.current.offsetTop);
+                break;
+            case "#photos":
+                window.scrollTo(0, this.photoRef.current.offsetTop);
+                break;
+            case 3:
+                window.scrollTo(0, this.communityRef.current.offsetTop);
+                break;
+            case "#clubs":
+                window.scrollTo(0, this.clubsRef.current.offsetTop);
+        }
     }
 
     handleScroll= (event) => {
@@ -79,7 +105,7 @@ export class NewDashboard extends PureComponent{
                 window.scrollTo(0, this.communityRef.current.offsetTop);
                 break;
         }  
-        this.setState({selectedBulletingHeader: heading});
+        // this.setState({selectedBulletingHeader: heading});
     }
 
     getInitialData = () => {
@@ -186,7 +212,7 @@ export class NewDashboard extends PureComponent{
                             
                             <DashboardHeader                                
                                 scrollToRef={this.scrollToRef}
-                                activeHeading={selectedBulletingHeader}
+                                // activeHeading={selectedBulletingHeader}
                                 // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
                             />
                             <div className="left-contents">
@@ -224,7 +250,7 @@ export class NewDashboard extends PureComponent{
                                 
                                 <SectionDivider/>
 
-                                <div ref={this.missionref}/>
+                                <div id="missions" ref={this.missionref}/>
                                 {dashboardMissionList && dashboardFeaturedObjects && (
                                     <div>
                                         <UpcomingMissionList
@@ -340,7 +366,7 @@ export class NewDashboard extends PureComponent{
                                 )}
                                 
                                 <SectionDivider/>
-
+                                <div ref={this.clubsRef}/>
                                 {myClubList && (
                                     <ClubList
                                         heading={"Clubs"}
