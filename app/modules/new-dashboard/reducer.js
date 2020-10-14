@@ -89,7 +89,7 @@ export default createReducer(initialState, {
       [GET_USER_GRAVITY_STATUS_START](state) {
         return {
           ...state,
-          isFetching: true,
+          // isFetching: true,
         };
       },
       [GET_MY_PICTURES_SUCCESS](state, { payload }) {  

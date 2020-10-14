@@ -14,6 +14,7 @@
 .new-dash .right{
     width: 33%;
     padding: 10px 0px;
+    // background: #32465e;
     background: linear-gradient(180deg, #253446 0%, #1E2A38 100%);
     display: block; 
 }
@@ -101,9 +102,11 @@
     .new-dash .right{
         position: absolute;
         right: 0;
-        width: 60%;
+        width: 100%;
         height: 100%;
-        display: none;       
+        display: none;
+        z-index: 9;
+        padding: 10px 10px;       
     }
     .new-dash .mar-left-right-16{
         margin: 0px 14px;

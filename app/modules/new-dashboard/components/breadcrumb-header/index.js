@@ -29,7 +29,7 @@ export class DashboardHeader extends Component{
                         </li>
                     ))}
                 </ul>
-                <img onClick={changeStatus} className="active-dot mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/hamburger-icon.svg"/>                
+                {/* <img onClick={changeStatus} className="active-dot mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/hamburger-icon.svg"/>                 */}
             </div>   
         );
     }

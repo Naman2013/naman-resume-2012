@@ -116,15 +116,19 @@
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
+
     .new-dash .header-main{
         padding: 10px 10px 5px 10px;    
-   }
+    }
+
    .new-dash .header-txt{      
         font-size: 12px;
     }
+
     .new-dash .header-txt-active,.header-txt:hover{
         font-weight: normal;
     }
+    
     .new-dash .active-dot{
         display: block;
     }

@@ -5,6 +5,7 @@ import { Button } from '../button';
 import { ProfileStatus } from '../profile-card/profile-status';
 import { PopularObservation } from '../object-list/popular-observation';
 import { Spinner } from 'app/components/spinner/index';
+import { ProfileStatusNew } from '../profile-card-new/profile-status-new';
 
 export class PublicProfileCard extends Component{
 
@@ -29,7 +30,10 @@ export class PublicProfileCard extends Component{
                     />
                 </div>
                 <div>
-                    <ProfileStatus 
+                    <ProfileStatusNew 
+                        showRightButton={false}
+                        showLeftBuuton={false}
+                        changeStatus={null}
                         customerUUID={customerUUID}
                         publicProfile={true}
                         onHide={()=>this.setState({loading: false})}

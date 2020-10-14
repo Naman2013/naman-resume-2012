@@ -20,10 +20,11 @@ export const MemberItem = (props: TFeedItem) => {
         onClick={contentClickHandler}     
         tabIndex={0}
         role="button"       
-        className="member-name"       
+           
       >
         <a    
-          id={customerUUID}      
+          id={customerUUID} 
+          className="member-name"         
           // onClick={()=>onClickItem(customerUUID, true)}
           // href={linkUrl}
           href=""

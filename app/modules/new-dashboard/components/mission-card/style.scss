@@ -62,24 +62,18 @@
 }
 
 .new-dash .join-mission{   
-    padding: 7px 4px;
-    background: #fff;
-    border-radius: 4px;
-    border: none;
+    padding: 7px 4px;    
     font-family: $primary-font;
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
     line-height: 11px;
-    text-align: center;
-    color: #253446;
-    display: flex;
-    margin-right: 8px;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    float: left;
-    margin-top: 7px;
+    text-align: center;    
+    margin-top: 7px;       
+    border-radius: 4px; 
+    border: 2px dashed #17202b; 
+    color: #fff;    
+    background: #253446;
 }
 
 @media (min-width: $screenXLarge){

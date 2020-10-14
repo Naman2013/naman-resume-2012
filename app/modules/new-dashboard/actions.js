@@ -62,6 +62,7 @@ export const GET_DASHBOARD_MISSION_LIST_SUCCESS = "GET_DASHBOARD_MISSION_LIST_SU
 export const GET_PHOTO_HUB_HEADING_START = "GET_PHOTO_HUB_HEADING_START";
 export const GET_PHOTO_HUB_HEADING_SUCCESS = "GET_PHOTO_HUB_HEADING_SUCCESS";
 
+let profileTimer = null;
 
 const fetchStartPartyListStart = () => ({
     type: FETCH_STAR_PARTY_LIST_START    
@@ -350,8 +351,16 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       at,
       cid,
     }).then(
-      result => {          
-        dispatch(getUserGravityStatusSuccess(result.data));
+      result => { 
+        const res= result.data;
+        if(!res.apiError)         {
+          const duration = (res.expires - res.timestamp) * 1000;
+          if(profileTimer !== null)
+            clearTimeout(profileTimer);
+          if(duration>1000)
+            profileTimer=setTimeout(()=>dispatch(getUserGravityDataAction()), duration);
+          dispatch(getUserGravityStatusSuccess(result.data));
+        }        
       }
     );
   };

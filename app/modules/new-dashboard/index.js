@@ -31,6 +31,8 @@ import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins
 import { TopCommunityObjects } from './components/object-list/top-objects';
 import { TopCommunityObservations } from './components/object-list/top-observations';
 import classnames from 'classnames';
+import { Button } from "./components/button";
+import { ProfileCard } from "./components/profile-card";
 
 
 export class NewDashboard extends PureComponent{
@@ -200,10 +202,12 @@ export class NewDashboard extends PureComponent{
                 dashboardMissionList,
                 setPublicCardStatusAction,
                 photoHubHeadings,
+                userGravityStatus,
               } =this.props;
 
               const { showRightbar, selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
-        
+              let width = window.innerWidth;
+
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -215,11 +219,23 @@ export class NewDashboard extends PureComponent{
                                 showRightbar={showRightbar}                                
                                 changeStatus={()=>this.setState({showRightbar: !showRightbar})}
                                 scrollToRef={this.scrollToRef}
+                                width={width}
                                 // activeHeading={selectedBulletingHeader}
                                 // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
-                            />
+                            />                             
                             <div className="left-contents">
+
+                                {userGravityStatus && (
+                                    <ProfileCard
+                                        showRightButton={true}
+                                        showLeftBuuton={false}
+                                        userGravityStatus={userGravityStatus}
+                                        changeStatus={()=>this.setState({showRightbar: !showRightbar})}
+                                    />
+                                )}                                
                                 
+                                <br />
+
                                 <TitleHeaderNew                                    
                                     heading = {"Explore the Universe"}
                                     subHeading = {"Discover and Observe"}
@@ -409,9 +425,16 @@ export class NewDashboard extends PureComponent{
                         </div>
                         <div className={classnames('right', {'show': showRightbar})}>
                             <div className="mar-left-right-16">
-                                <ProfileStatus 
-                                    changeStatus={()=>this.setState({showRightbar: !showRightbar})}
-                                />
+
+                                {userGravityStatus && (
+                                    <ProfileStatus 
+                                        showRightButton={false}
+                                        showLeftBuuton={true}
+                                        userGravityStatus={userGravityStatus}
+                                        changeStatus={()=>this.setState({showRightbar: !showRightbar})}
+                                    />
+                                )}                                
+                                 
                                 {pubnubData && (
                                     <LiveChat
                                         // isOpen={true}
