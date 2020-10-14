@@ -111,3 +111,11 @@
         padding: 8px 20px;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .tab-header-txt-active, .new-dash .tab-header-txt{       
+        padding: 6px 12px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+}

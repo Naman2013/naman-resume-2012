@@ -8,6 +8,7 @@ import { MissionSuccessModal } from 'app/modules/missions/components/mission-suc
 import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
 import { select } from 'redux-saga/effects';
 import { getMissionSlotEdit } from 'app/modules/missions/thunks';
+import { TitleHeaderNew } from '../title-header-new';
 
 export class UpcomingMissionList extends Component{
 
@@ -212,12 +213,17 @@ export class UpcomingMissionList extends Component{
                     confirmationPrompt={cancelPiggybackDialogPrompt}
                 />            
                 <div className="upcoming-main">
-                  {missionsSectionHeader && (
+                  <TitleHeaderNew
+                    heading = {missionsSectionHeader}
+                    subHeading = {missionsSectionSubheader}
+                  />
+
+                  {/* {missionsSectionHeader && (
                       <h2 className="upcoming-heading">{missionsSectionHeader}</h2>
                   )}
                   {missionsSectionSubheader && (
                       <h5 className="upcoming-subheading-status">{missionsSectionSubheader}</h5> 
-                  )}                       
+                  )}                        */}
 
                     {dashboardFeaturedObjects && (
                         <FeaturedMissionList

@@ -103,3 +103,31 @@
         width: 45%;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .guide-list-main{
+        padding: 5px 0px;
+    }
+    
+    .new-dash .guide-card {
+        padding: 1em;        
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 47%;
+    }
+
+    .new-dash .guide-title {        
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .new-dash .guide-info {        
+        font-size: 13px;
+        line-height: 150%;
+        margin-top: 8px;
+    }
+
+    .new-dash .button-border {
+        font-size: 12px;
+    }
+}

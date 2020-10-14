@@ -23,3 +23,9 @@
 .new-dash .rotated{
     transform: rotate(180deg);
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .section-divider-main{
+        padding: 16px 0px;     
+    }
+}

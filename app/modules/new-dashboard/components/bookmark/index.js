@@ -92,7 +92,7 @@ export class BookMark extends Component{
                             ))}
                             {guideList.length === 0 && (
                                 <div className="empty-guide">
-                                    <h3 className="guide-list-heading">{emptySetDisplay}</h3>
+                                    <h3 className="empty-card-heading">{emptySetDisplay}</h3>
                                 </div>
                                 
                             )}                                                

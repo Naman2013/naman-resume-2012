@@ -15,6 +15,7 @@
     width: 33%;
     padding: 10px 0px;
     background: linear-gradient(180deg, #253446 0%, #1E2A38 100%);
+    display: block; 
 }
 
 .new-dash .left-contents{    
@@ -45,6 +46,14 @@
     border-radius: 5px;
     border: 2px #253446 solid;
   }
+
+.new-dash .show{
+    display: block !important;
+}
+
+.new-dash .hide{
+    display: none !important;
+}
   
   /* Handle on hover */
 //   ::-webkit-scrollbar-thumb:hover {
@@ -76,6 +85,27 @@
         padding: 16px 24px;
     }
     .new-dash .right{
-        width: 37%;       
+        width: 37%;  
+        display: block;      
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .left{     
+        width: 100%;     
+        padding-left: 10px;      
+    }
+    .new-dash .left-contents{    
+        padding: 10px 10px 10px 0px;
+    }
+    .new-dash .right{
+        position: absolute;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        display: none;       
+    }
+    .new-dash .mar-left-right-16{
+        margin: 0px 14px;
     }
 }

@@ -8,7 +8,10 @@
     margin-right: 10px;
     margin-bottom: 10px;
     width: 200px;
+    
 }
+
+
 
 .new-dash .mission-tooltip-icon{
     float:right
@@ -91,10 +94,20 @@
 
 @media (min-width: $screenMedium){
     .new-dash .mission-card{       
-        width: 200px;
+        width: 200px;        
     }
     .new-dash .obj-name{       
         font-size: 14px;
         line-height: 17px;        
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .mission-card{       
+        width: 100%;       
+    }
+    .new-dash .obj-name{        
+        font-size: 14px;
+        line-height: 18px;
     }
 }

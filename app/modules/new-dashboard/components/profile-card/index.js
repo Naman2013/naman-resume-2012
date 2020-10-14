@@ -9,19 +9,19 @@ export class ProfileCard extends Component{
     
     render() {
         
-        const { userGravityStatus } = this.props;
+        const { userGravityStatus,changeStatus } = this.props;
         const { memberName, currentTierName, avatarURL, gravityPoints, nextTierName, currentTierProgress, maxTierProgress, memberSince } = userGravityStatus;        
         const subHeading = "Current Level";               
         
         return (
             <div>
-                {/* <Button
+                <Button
                     type={"button"}
-                    onClickEvent={()=>{}} 
+                    onClickEvent={changeStatus} 
                     text={""}                                             
-                    style={""}
+                    style={"close-right-panel"}
                     icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
-                />   */}
+                />  
                 <div className="profile-card-main">                    
                     <div className="profile-card-left">
                         <div className="imgContainer">

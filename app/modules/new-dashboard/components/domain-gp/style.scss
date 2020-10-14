@@ -128,3 +128,29 @@
     }
 
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .domain-main {
+        padding: 24px 0px 0px 0px;
+    }
+
+    .new-dash .domain-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .domain-name {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .new-dash .domain-item {
+        width: 50px;
+    }
+
+    .new-dash .domainiconContainer {
+        width: 50px;
+        height: 40px;
+    }
+}

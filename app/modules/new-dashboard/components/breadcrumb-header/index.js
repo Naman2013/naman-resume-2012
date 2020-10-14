@@ -12,7 +12,7 @@ export class DashboardHeader extends Component{
 
     render() {
         const headings = ["Observatories", "Missions", "Photos", "Community"];       
-        const { activeHeading } = this.props;
+        const { activeHeading, showRightbar, changeStatus } = this.props;
 
         return (
             <div className="header-main">
@@ -28,7 +28,8 @@ export class DashboardHeader extends Component{
                             
                         </li>
                     ))}
-                </ul>                
+                </ul>
+                <img onClick={changeStatus} className="active-dot mar-top-10" src="https://vega.slooh.com/assets/v4/dashboard-new/hamburger-icon.svg"/>                
             </div>   
         );
     }

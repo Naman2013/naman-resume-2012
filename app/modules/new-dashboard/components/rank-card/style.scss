@@ -144,3 +144,20 @@
         line-height: 17px;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .rank-main {
+        padding: 24px 0px 0px 0px;
+    }
+
+    .new-dash .rank-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .rank-gp, .new-dash .rank-id, .new-dash .rank-name, .new-dash .rank-show-more-button {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}

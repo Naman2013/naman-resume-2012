@@ -85,7 +85,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
           type={"button"}
           onClickEvent={open} 
           text={"Sort & Filter"}                                             
-          style={"upload-button"}
+          style={"sort-filter-button"}
           icon={null}
         />
         // <h5 className="sort-filter" onClick={open}>{"Sort & Filter"}</h5> 

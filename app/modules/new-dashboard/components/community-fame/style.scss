@@ -101,3 +101,32 @@
     //     line-height: 19px;    
     // }   
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .community-fame-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .community-fame-main{
+        padding: 24px 0px 0px 0px;
+    }  
+
+    .new-dash .community-gp-points {       
+        font-size: 30px;
+        line-height: 30px;
+        margin-top: 30%;        
+    }
+
+    .new-dash .community-gp-txt {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .new-dash .community-gp-card {
+        width: 60px;
+        height: auto;
+    }
+
+}

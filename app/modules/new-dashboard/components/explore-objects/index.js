@@ -40,11 +40,11 @@ export class ExploreObject extends Component{
                     onTabChange={this.onTabChange}
                 />
 
-                {activeHeading === "Quest Map" && questMapControls && (
+                {/* {activeHeading === "Quest Map" && questMapControls && (
                     <QuestMap
                         questMapControls={questMapControls.mapControls}
                     /> 
-                )}
+                )} */}
 
                 {/* {activeHeading === "Object Map" && objectMapControls && ( */}
                 {activeHeading === "Object Map" && (

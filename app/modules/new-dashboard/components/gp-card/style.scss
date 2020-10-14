@@ -77,3 +77,27 @@
         line-height: 23px;
     }        
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+   
+    .new-dash .gp-txt {
+        font-size: 30px;
+        line-height: 30px;
+    }
+
+    .new-dash .gp-container {
+        padding: 16px 0;
+    }
+
+    .new-dash .gravity-text {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .new-dash .gp-chart-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    
+}

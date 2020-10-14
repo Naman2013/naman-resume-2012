@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     background: #32465E;
-    border: 1px solid #253446;
+    // border: 1px solid #253446;
     box-sizing: border-box;
     border-radius: 8px;
     color: #FFFFFF;
@@ -160,5 +160,26 @@
     .new-dash .online, .new-dash .offline{        
         font-size: 12px;
         line-height: 14px;
+    }
+    .new-dash .status-text{  
+        font-size: 12px;
+        line-height: 14px;
     }    
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .tab-header-status-txt, .new-dash .tab-header-status-txt-active{ 
+        padding: 8px 16px;
+        font-size: 14px;
+        line-height: 16px;
+        min-width: 100px;
+    }
+    .new-dash .online, .new-dash .offline{        
+        font-size: 12px;
+        line-height: 14px;
+    }   
+    .new-dash .status-text{  
+        font-size: 12px;
+        line-height: 14px;
+    } 
 }

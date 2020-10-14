@@ -21,6 +21,22 @@
     color: #FFFFFF;
 }
 
+.new-dash .empty-card-heading{
+    /* position: absolute;
+    width: 48px;
+    height: 16px;
+    left: 715px;
+    top: 203px; */
+    
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
 .new-dash .guide-list{
     display: flex;
     flex-wrap: wrap;    
@@ -44,4 +60,30 @@
         font-size: 16px;
         line-height: 19px;
     }
+
+    .new-dash .empty-card-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .guide-list-main{
+        padding: 5px 0px;
+    }
+
+    .new-dash .guide-list-heading{
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .new-dash .empty-guide{
+        height: 150px;
+    }
+
+    .new-dash .empty-card-heading{
+        font-size: 14px;
+        line-height: 18px;
+    }
+   
 }

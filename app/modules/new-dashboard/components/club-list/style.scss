@@ -95,3 +95,22 @@
         padding: 1.5em;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .club-explore-card{
+        padding: 1em; 
+        margin-right: 8px;
+        margin-bottom: 10px;
+        width: 160px;        
+    }
+
+    .new-dash .club-title{   
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    .new-dash .club-list-main{
+        padding: 5px 0px;
+    }
+    
+}

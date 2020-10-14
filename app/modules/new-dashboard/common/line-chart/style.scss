@@ -3,6 +3,7 @@
 
 .new-dash .chart-main{
     // padding: 24px 0px;
+    height: 400px;
 }
 
 .new-dash .tooltip-div{
@@ -25,5 +26,15 @@
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
-   
+    .new-dash .chart-main{
+        // padding: 24px 0px;
+        height: 300px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .chart-main{
+        // padding: 24px 0px;
+        height: 250px;
+    }
 }

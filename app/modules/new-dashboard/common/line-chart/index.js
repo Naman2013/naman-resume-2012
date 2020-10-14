@@ -42,7 +42,7 @@ export class LineChart extends Component{
                     chartType="LineChart"
                     data={data}
                     width="100%"
-                    height="400px"
+                    height="100%"
                     
                     options={{
                         backgroundColor: { fill:'transparent' },

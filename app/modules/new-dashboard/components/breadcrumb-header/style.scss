@@ -46,6 +46,8 @@
      padding: 24px 24px 8px 24px;
      background: #253446;
      border-radius: 0px 0px 0px 8px;
+     display: flex;
+     justify-content: space-between;
 }
 
 .new-dash ul{
@@ -63,8 +65,9 @@
 }
 
 .new-dash .active-dot{
-    width: 7px;
-    height: 7px;
+    width: 15px;
+    height: 10px;
+    display: none;
 }
 
 @media (min-width: $screenXLarge){
@@ -109,5 +112,20 @@
    .new-dash .active-dot{
         width: 6px;
         height: 6px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .header-main{
+        padding: 10px 10px 5px 10px;    
+   }
+   .new-dash .header-txt{      
+        font-size: 12px;
+    }
+    .new-dash .header-txt-active,.header-txt:hover{
+        font-weight: normal;
+    }
+    .new-dash .active-dot{
+        display: block;
     }
 }

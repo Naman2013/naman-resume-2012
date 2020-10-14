@@ -98,3 +98,45 @@
         flex: 0.35;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .left{     
+        width: 100%;     
+        padding-left: 10px;      
+    }
+
+    .new-dash .left-contents{    
+        padding: 10px 10px 10px 0px;
+    }
+
+    .new-dash .right{
+        position: absolute;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        display: none;       
+    }
+
+    .new-dash .mar-left-right-16{
+        margin: 0px 14px;
+    }
+
+    .new-dash .gravity-heading {        
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .gravitypoints {        
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .new-dash .gravitytext {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .new-dash .gravity-main{
+        padding: 24px 0px 0px 0px;
+    }
+}

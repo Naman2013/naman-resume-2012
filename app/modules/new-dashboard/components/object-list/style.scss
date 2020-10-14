@@ -21,6 +21,10 @@
     color: #FFFFFF;
 }
 
+.new-dash .object-icon{
+    margin: 2px;
+}
+
 .new-dash .object-list{
     display: flex;
     flex-wrap: wrap;
@@ -106,5 +110,29 @@
     .new-dash .object-name{
         font-size: 14px;
         line-height: 17px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .object-main {
+        padding: 24px 0px 0px 0px;
+    }
+
+    .new-dash .object-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .objecticonContainer {
+        width: 35px;
+        height: 35px;
+    }
+    .new-dash .object-name {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .new-dash .object-item {
+        width: 55px;
     }
 }

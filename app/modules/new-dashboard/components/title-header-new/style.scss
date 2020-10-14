@@ -69,3 +69,13 @@
         color: #BDBDBD;         
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .title-main{
+        padding: 5px 0px 0px 0px;
+    }
+    .new-dash .title-heading{        
+        font-size: 16px;
+        line-height: 20px;
+    }
+}

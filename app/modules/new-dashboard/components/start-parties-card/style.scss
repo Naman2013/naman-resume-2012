@@ -175,3 +175,26 @@
         line-height: 20px;
     }
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .star-party-card {       
+        padding: 16px 16px;
+        width: 100%;      
+    }
+
+    .new-dash .party-name {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .new-dash .party-date-time {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .new-dash .astronomer-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}

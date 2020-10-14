@@ -30,7 +30,8 @@ export class Mission extends Component{
     PHOTOS_ON_ONE_PAGE=18
 
     componentDidMount() {
-        this.setState({ width: this.blockWidth.clientWidth });
+        if(this.blockWidth !== null)
+          this.setState({ width: this.blockWidth.clientWidth });
     }
 
     handlePageChange = ({ activePage }) => {

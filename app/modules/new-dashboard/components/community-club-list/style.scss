@@ -21,6 +21,10 @@
     color: #FFFFFF;
 }
 
+.new-dash .community-club-row{
+    margin-bottom: 0px;
+}
+
 .new-dash .community-club-id-div{    
     width: 56px;
     height: 56px;    
@@ -127,4 +131,35 @@
         line-height: 14px;
         color: rgba(255, 255, 255, 1);    
     }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .community-club-main{
+        padding: 24px 0px 0px 0px;
+    }
+
+    .new-dash .community-club-heading {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .community-club-id-div {
+        width: 50px;
+        height: 50px;
+    }
+
+    .new-dash .community-club-id {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .community-club-name {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    // .new-dash .community-clubs-div-pad-left-10 {
+    //     padding-bottom: 10px;
+    // }
 }

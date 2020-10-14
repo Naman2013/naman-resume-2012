@@ -74,6 +74,44 @@
     justify-content: center;
 }
 
+.new-dash .upcoming-subheadings{
+    /* position: absolute;
+    width: 156px;
+    height: 22px;
+    left: 80px;
+    top: 1691px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    /* #FFF - Text */
+
+    color: #FFFFFF;
+}
+
+.new-dash .upcoming-subheading-status{
+    /* position: absolute;
+    width: 114px;
+    height: 20px;
+    left: 80px;
+    top: 1713px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+
+    color: rgba(255, 255, 255, 0.6);
+}
+
 @media (min-width: $screenXLarge){
     .new-dash .upcoming-heading{
         font-size: 28px;
@@ -85,5 +123,27 @@
     .new-dash .upcoming-heading{
         font-size: 16px;
         line-height: 19px;
+    }
+    .new-dash .upcoming-subheadings{
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .new-dash .upcoming-subheading-status{
+        font-size: 12px;
+        line-height: 17px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .upcoming-main{
+        padding: 5px 0px;
+    }
+    .new-dash .upcoming-subheadings{
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .new-dash .upcoming-subheading-status{
+        font-size: 12px;
+        line-height: 16px;
     }
 }

@@ -30,7 +30,7 @@ import Popup from 'react-modal';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import { TopCommunityObjects } from './components/object-list/top-objects';
 import { TopCommunityObservations } from './components/object-list/top-observations';
-
+import classnames from 'classnames';
 
 
 export class NewDashboard extends PureComponent{
@@ -38,7 +38,8 @@ export class NewDashboard extends PureComponent{
     state={
         selectedBulletingHeader: "Explore the Universe",
         customerUUID: null,
-        showPublicProfile: false,  
+        showPublicProfile: false,
+        showRightbar: false,  
     }
     
     constructor(props){
@@ -201,7 +202,7 @@ export class NewDashboard extends PureComponent{
                 photoHubHeadings,
               } =this.props;
 
-              const { selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
+              const { showRightbar, selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
         
         return(
             <div>
@@ -210,7 +211,9 @@ export class NewDashboard extends PureComponent{
                     <div className="new-dash">
                         <div className="left">
                             
-                            <DashboardHeader                                
+                            <DashboardHeader
+                                showRightbar={showRightbar}                                
+                                changeStatus={()=>this.setState({showRightbar: !showRightbar})}
                                 scrollToRef={this.scrollToRef}
                                 // activeHeading={selectedBulletingHeader}
                                 // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
@@ -404,9 +407,11 @@ export class NewDashboard extends PureComponent{
                                 
                             </div>
                         </div>
-                        <div className="right">
+                        <div className={classnames('right', {'show': showRightbar})}>
                             <div className="mar-left-right-16">
-                                <ProfileStatus />
+                                <ProfileStatus 
+                                    changeStatus={()=>this.setState({showRightbar: !showRightbar})}
+                                />
                                 {pubnubData && (
                                     <LiveChat
                                         // isOpen={true}

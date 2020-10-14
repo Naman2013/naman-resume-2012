@@ -48,13 +48,15 @@ export class ProfileStatus extends Component{
     
     render() {
         const { userGravityStatus } = this.state;
-        
+        const { changeStatus } = this.props;
+
         return (
             <div>
                 {userGravityStatus && (
                     <div>                
                         <ProfileCard
                             userGravityStatus={userGravityStatus}
+                            changeStatus={changeStatus}
                         />
                         <BadgeList
                             badgeLists={userGravityStatus.userBadgeList}

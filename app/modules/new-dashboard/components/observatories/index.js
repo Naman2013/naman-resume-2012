@@ -6,6 +6,9 @@ import { getWeatherActions, getSkyRating, getNewDahObs, getObsStatus } from '../
 import { getUserInfo } from 'app/modules/User';
 import { Spinner } from '../../common/spinner';
 import { Link } from 'react-router';
+import { Button } from '../button';
+import { browserHistory } from 'react-router';
+import { TitleHeaderNew } from '../title-header-new';
 
 export class Observatories extends Component{
 
@@ -139,7 +142,10 @@ export class Observatories extends Component{
                     loading={loading}
                     text="Please wait...loading"
                 />                 */}
-                <h2 className="observatory-heading">{heading}</h2>
+                {/* <h2 className="observatory-heading">{heading}</h2> */}
+                <TitleHeaderNew                                    
+                    heading = {heading}                    
+                />
                 <TabHeaderWithStatus
                         // headings={[{heading: "Chile", status: false, statusText: "Offline(Non-Active Hours)"},
                         //            {heading: "Canary Islands", status: true, statusText: "Online"}]}
@@ -162,7 +168,14 @@ export class Observatories extends Component{
                                 <h5 className="observatory-col-txt">Night Telescope Hours</h5>
                                 <h5 className="observatory-col-value">{obsStatus.clockList.obsOpen.displayTime} - {obsStatus.clockList.obsClosed.displayTime} {obsStatus.clockList.obsClosed.displayTimeZone}</h5>
                                 <br/>
-                                <Link to={obsStatus.dashboardTeleLinkURL }><h5 className="observatory-col-value">{obsStatus.dashboardTeleLinkLabel}</h5></Link>
+                                <Button
+                                    type={"button"}
+                                    onClickEvent={()=>browserHistory.push(obsStatus.dashboardTeleLinkURL)} 
+                                    text={obsStatus.dashboardTeleLinkLabel}
+                                    style={"observatory-go-to"}
+                                    icon={null}
+                                />
+                                {/* <Link to={obsStatus.dashboardTeleLinkURL }><h5 className="observatory-col-value">{obsStatus.dashboardTeleLinkLabel}</h5></Link> */}
                             </div>
                             <div className="observatory-col-right">
                             <h5 className="observatory-col-txt">{obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunriseLabel} - {obsWidgetData.widgetsData.dayNightBar.dayNightRawData.sunsetLabel}</h5>

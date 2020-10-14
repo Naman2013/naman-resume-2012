@@ -60,7 +60,7 @@ export class ObjectList extends Component{
                             >
                                 <div className="object-item">
                                     <div className="objecticonContainer">
-                                        <img src={object.iconUrl} className=""/>
+                                        <img className="object-icon" src={object.iconUrl}/>
                                     </div>
                                     <h2 className="object-name">{object.title}</h2>
                                     <h4 className="object-gp">{object.gravityPoints}</h4>

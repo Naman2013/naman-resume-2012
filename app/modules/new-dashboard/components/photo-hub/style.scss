@@ -261,6 +261,24 @@
     align-items: center;
 }
 
+.new-dash .sort-filter-button{
+    padding: 8px 16px;    
+    border-radius: 8px;
+    border: 2px dashed #17202B;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    /* #FFF - Text */
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    height: fit-content;
+    background: #253446;
+    align-items: center;
+}
+
 .new-dash .photo-hub-card-header{
     display: inline-flex;
     justify-content: space-between;
@@ -362,18 +380,14 @@
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
-    .new-dash .upload-button span{
-        display: none;
-    }
-
-    .new-dash .upload-button .button-icon{
-        margin-right: 0;
-    }
-
     .new-dash .upload-button{
-        padding: 8px 16px;    
-        border: none;
+        font-size: 0px;
+        padding: 8px 8px;        
     }
+
+    .new-dash .upload-button .new-button-icon{
+        margin-right: 0px !important;
+    }       
 
     .new-dash .photo-hub-item{
         width: 136px; 
@@ -420,4 +434,20 @@
     //     color: #FFFFFF;
     // }
     
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .photo-hub-main{
+        padding: 5px 0px;
+    }
+
+    .new-dash .upload-button{
+        font-size: 0px;
+        padding: 8px 8px;
+    }
+
+    .new-dash .upload-button .new-button-icon{
+        margin-right: 0px !important;
+    }
+   
 }

@@ -14,7 +14,9 @@ export class TabHeaderCount extends Component{
                     {headings.map(heading=>(
                         <li className={"tab-header-txt " + theme + (activeHeading.tabAction === heading.tabAction ? "-active ": " ") + (spaceequally ? " space-equally" : "")} key={heading} onClick={()=>onTabChange(heading)}>
                             {heading.label}
-                            <h6 className="photohub-status-text">{heading.newCountLabel}</h6>
+                            {heading.newCountLabel && (
+                                <h6 className="photohub-status-text">{heading.newCountLabel}</h6>
+                            )}
                         </li>
                     ))}
                 </ul>                

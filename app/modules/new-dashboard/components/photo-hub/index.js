@@ -34,6 +34,7 @@ import MissionDetails from 'app/modules/mission-details/containers/mission-detai
 import GalleryDetails from 'app/modules/gallery-details/containers/gallery-details';
 import { getFitsDataApi } from 'app/modules/profile-photos/api';
 import { TabHeaderCount } from '../tab-header-with-count';
+import { TitleHeaderNew } from '../title-header-new';
 
 
 const mapTypeToRequest = {
@@ -324,7 +325,10 @@ class PhotoHub extends Component{
         }
         return (
             <div className="photo-hub-main">
-                <h2 className="photo-hub-heading">{heading} {sectionHeadingLabel}</h2>    
+                <TitleHeaderNew                                    
+                    heading = {heading + " " + sectionHeadingLabel}
+                />
+                {/* <h2 className="photo-hub-heading">{heading} {sectionHeadingLabel}</h2>     */}
                     <div className="photo-hub-card-header">
                         <TabHeaderCount
                             headings={headerlist}

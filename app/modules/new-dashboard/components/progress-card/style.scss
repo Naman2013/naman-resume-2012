@@ -84,3 +84,30 @@
         line-height: 14px;
     }    
 }
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .left{     
+        width: 100%;     
+        padding-left: 10px;      
+    }
+    .new-dash .left-contents{    
+        padding: 10px 10px 10px 0px;
+    }
+    .new-dash .right{
+        position: absolute;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        display: none;       
+    }
+    .new-dash .mar-left-right-16{
+        margin: 0px 14px;
+    }
+    .new-dash .currentProgress, .new-dash .nextLevelName {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .new-dash .progress {       
+        height: 10px;
+    }
+}
