@@ -218,14 +218,13 @@ export class NewDashboard extends PureComponent{
                             <DashboardHeader
                                 showRightbar={showRightbar}                                
                                 changeStatus={()=>this.setState({showRightbar: !showRightbar})}
-                                scrollToRef={this.scrollToRef}
-                                width={width}
+                                scrollToRef={this.scrollToRef}                               
                                 // activeHeading={selectedBulletingHeader}
                                 // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
                             />                             
                             <div className="left-contents">
 
-                                {userGravityStatus && (
+                                {userGravityStatus && width < 768 && (
                                     <ProfileCard
                                         showRightButton={true}
                                         showLeftBuuton={false}
