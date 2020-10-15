@@ -78,7 +78,7 @@ class ProfileGroups extends Component {
               type={"button"}
               onClickEvent={() => this.setState({ showCreatePopup: true })} 
               text={createNewClubButtonText}                                             
-              style={"join-mission"}
+              style={"club-button"}
               icon={null}
           />
 
@@ -96,7 +96,7 @@ class ProfileGroups extends Component {
               type={"button"}
               onClickEvent={() => this.setState({ showImportPopup: true })} 
               text={importGoogleClassroomsPrompt}                                             
-              style={"join-mission"}
+              style={"club-button"}
               icon={null}
           />
           // <button

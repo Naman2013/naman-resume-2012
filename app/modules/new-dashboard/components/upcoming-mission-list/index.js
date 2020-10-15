@@ -9,6 +9,9 @@ import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-
 import { select } from 'redux-saga/effects';
 import { getMissionSlotEdit } from 'app/modules/missions/thunks';
 import { TitleHeaderNew } from '../title-header-new';
+import { cancelMissionReservationApi } from 'app/modules/missions/api';
+import { getUserInfo } from 'app/modules/User';
+import { RecentMissionCard } from '../recent-mission-card';
 
 export class UpcomingMissionList extends Component{
 
@@ -22,16 +25,19 @@ export class UpcomingMissionList extends Component{
     };
 
     cancelReservation = () => {
-        const { cancelReservation, getPrivateProfileMissions, getDashboardMissionList } = this.props;
+        const { getPrivateProfileMissions, getDashboardMissionList } = this.props;
         const { selectedSlot } = this.state;
-    
-        cancelReservation({
+        const { at, cid, token } = getUserInfo();
+        cancelMissionReservationApi({ at, cid, token, 
           scheduledMissionId: selectedSlot.scheduledMissionId,
-        }).then(() => {
-          this.setState({ cancelReservationModalVisible: false });
-          // getPrivateProfile();
-          // getPrivateProfileMissions(); 
-          getDashboardMissionList(); 
+        }).then((response) => {
+          const res=response.data;
+          if(!res.apiError){
+            this.setState({ cancelReservationModalVisible: false });
+            // getPrivateProfile();
+            // getPrivateProfileMissions(); 
+            getDashboardMissionList(); 
+          }          
         });
       };
     
@@ -368,7 +374,7 @@ export class UpcomingMissionList extends Component{
                     {pastMissions.showMissionsList && (
                       <div className="upcoming-list">
                         {pastMissions.missionsList.map(mission=>(
-                            <UpcomingMissionCard
+                            <RecentMissionCard
                               mission={mission}
                               key={mission.scheduledMissionId}
                               timeSlot={mission}

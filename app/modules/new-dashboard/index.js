@@ -233,10 +233,11 @@ export class NewDashboard extends PureComponent{
                                             userGravityStatus={userGravityStatus}
                                             changeStatus={()=>this.setState({showRightbar: !showRightbar})}
                                         />
+                                        <SectionDivider/>
                                     </div>
                                 )}                                
                                 
-                                <br />
+                                
 
                                 <TitleHeaderNew                                    
                                     heading = {"Explore the Universe"}

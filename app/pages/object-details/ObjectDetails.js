@@ -82,8 +82,8 @@ class ObjectDetails extends Component {
     } = nextProps;
 
     if (
-      this.props.objectDetails.objectId !== nextProps.objectDetails.objectId
-    ) {
+      this.props.objectDetails.objectId !== nextProps.objectDetails.objectId && nextProps.objectDetails.objectId !== undefined
+    ) {      
       actions.fetchObjectSpecialistsAction(
         nextProps.objectDetails.objectId,
         MAX_MVP_ASTRONOMERS

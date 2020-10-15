@@ -54,7 +54,7 @@
 }
 
 .new-dash .scheduled-mission-icon{
-    width: 30px;
+    // width: 30px;
     background-color: #FFFFFF;
     border-radius: 4px;
     padding: 5px;
@@ -62,6 +62,22 @@
 }
 
 .new-dash .join-mission{   
+    padding: 7px 4px;    
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 11px;
+    text-align: center;    
+    margin-top: 7px;       
+    border-radius: 4px; 
+    border: 2px dashed #17202b; 
+    color: #fff;    
+    background: #253446;
+    float: left;
+}
+
+.new-dash .club-button{   
     padding: 7px 4px;    
     font-family: $primary-font;
     font-style: normal;

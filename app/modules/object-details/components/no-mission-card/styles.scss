@@ -96,9 +96,14 @@
   // }
 
   .empty-obs-name{
-      font-family: adobe-garamond-pro, serif;
+      font-family: $primary-font;
       font-size: 18px;
   }
+
+  .empty-mission-time{
+    font-family: $secondary-font;
+    font-size: 18px;
+  } 
 
   .right {
     display: none;

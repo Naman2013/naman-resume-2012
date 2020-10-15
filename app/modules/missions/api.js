@@ -11,6 +11,8 @@ export const getMissionListApi = data =>
   API.post('/api/reservation/getMissionList', data);
 export const cancelReservationApi = data =>
   API.post('/api/reservation/cancelReservation', data);
+export const cancelMissionReservationApi = data =>
+  API.post('/api/reservation/cancelMissionReservation', data);
 
 // bySlooh1000 page
 export const getBySlooh1000Api = data =>

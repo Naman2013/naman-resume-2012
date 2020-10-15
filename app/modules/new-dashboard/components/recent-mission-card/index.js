@@ -4,7 +4,7 @@ import './style.scss';
 import { ThreeDotsMenu } from '../../common/three-dot-menu';
 import { Tooltip } from 'react-tippy';
 
-export class UpcomingMissionCard extends Component{
+export class RecentMissionCard extends Component{
 
     
     render() {
@@ -41,24 +41,30 @@ export class UpcomingMissionCard extends Component{
                     <h4 className="upcoming-time">{mission.missionStartFormatted.displayDateTime}</h4>
                     <div>
                         <h4 className="upcoming-telescope">{mission.telescopePierName}</h4> 
-                        {mission.showJoiningMission ? (   
-                            <Tooltip
-                            className="mission-tooltip-icon"
-                            title={mission.joiningMissionTooltipText}
-                            position="top"
-                            theme="light">
-                                <img alt="" className="scheduled-mission-icon" src={mission.joiningMissionIconURL} />
-                            </Tooltip>) : null}
+                        <div className="past-mission-details">
+                            {mission.missionStatusText && mission.missionStatusText !== "" && (                                   
+                                <h4 className="upcoming-telescope" dangerouslySetInnerHTML={{__html: mission.missionStatusText}}/>
+                            )}
+                            {mission.showJoiningMission ? (   
+                                <Tooltip
+                                className="mission-tooltip-icon"
+                                title={mission.joiningMissionTooltipText}
+                                position="top"
+                                theme="light">
+                                    <img alt="" className="scheduled-mission-icon" src={mission.joiningMissionIconURL} />
+                                </Tooltip>) : null}
+                        </div>                        
                     </div>
                                    
                 </div>                
-                {mission.showPicturetaken && (
+                {/* {mission.showPicturetaken && (
                     <br/>,
                     <div className="upcoming-mission-card-head  vertical-middle pad-top-10">
                         <h4 className="upcoming-telescope">{mission.picturetakentext}</h4>
                         <img className="card-options mar-left-10" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                     </div>                    
-                )}               
+                )} */}
+             
             </div>
         );
     }
