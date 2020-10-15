@@ -98,6 +98,7 @@ import { makeStarPartyListSelector,
     makePubnubDataSelector,
     makeGetDashboardMissionListSelector,
     makePhotoHubHeadingSelector,
+    makePublicProfileCardSelector,
   } from './selectors';
 
 import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
@@ -143,6 +144,7 @@ const mapStateToProps = createStructuredSelector({
     pubnubData: makePubnubDataSelector(),
     dashboardMissionList: makeGetDashboardMissionListSelector(),
     photoHubHeadings: makePhotoHubHeadingSelector(),
+    showPublicCard: makePublicProfileCardSelector(),
 });
 
 const mapDispatchToProps = {
@@ -189,6 +191,7 @@ const mapDispatchToProps = {
     getDashboardMissionListAction,
     setPublicCardStatusAction,
     getPhotoHubHeadingAction,
+    setPublicCardStatusAction,
 };
 
 export default compose(

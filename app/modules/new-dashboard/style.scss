@@ -55,6 +55,10 @@
 .new-dash .hide{
     display: none !important;
 }
+
+.new-dash .mobile-profile{
+    display: none;
+}
   
   /* Handle on hover */
 //   ::-webkit-scrollbar-thumb:hover {
@@ -110,5 +114,8 @@
     }
     .new-dash .mar-left-right-16{
         margin: 0px 14px;
+    }
+    .new-dash .mobile-profile{
+        display: block;
     }
 }

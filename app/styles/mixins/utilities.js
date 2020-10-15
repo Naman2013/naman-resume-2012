@@ -139,7 +139,7 @@ export const customModalStylesSloohBlueOverlay = {
 export const customModalStylesPublicProfileCardBlueOverlay = {
   content: {
     ...defaultModalContent,
-    width: '650px',
+    width: window.innerWidth < 768 ? '90%' : '650px',
     minHeight: '300px',
     minWidth: '300px',
     maxHeight: '80%',

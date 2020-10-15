@@ -203,11 +203,12 @@ export class NewDashboard extends PureComponent{
                 setPublicCardStatusAction,
                 photoHubHeadings,
                 userGravityStatus,
+                showPublicCard,
               } =this.props;
 
               const { showRightbar, selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
-              let width = window.innerWidth;
-
+              
+            
         return(
             <div>
                 <Spinner loading={isFetching} />
@@ -224,13 +225,15 @@ export class NewDashboard extends PureComponent{
                             />                             
                             <div className="left-contents">
 
-                                {userGravityStatus && width < 768 && (
-                                    <ProfileCard
-                                        showRightButton={true}
-                                        showLeftBuuton={false}
-                                        userGravityStatus={userGravityStatus}
-                                        changeStatus={()=>this.setState({showRightbar: !showRightbar})}
-                                    />
+                                {userGravityStatus && (
+                                    <div className="mobile-profile">
+                                        <ProfileCard
+                                            showRightButton={true}
+                                            showLeftBuuton={false}
+                                            userGravityStatus={userGravityStatus}
+                                            changeStatus={()=>this.setState({showRightbar: !showRightbar})}
+                                        />
+                                    </div>
                                 )}                                
                                 
                                 <br />
@@ -634,7 +637,7 @@ export class NewDashboard extends PureComponent{
                     </div>
                 )} 
 
-              {showPublicProfile && (
+              {/* {showPublicProfile && (
                     <Popup
                     ariaHideApp={false}
                     isOpen={true}
@@ -648,7 +651,7 @@ export class NewDashboard extends PureComponent{
                             onClose={()=>this.setState({customerUUID: null, showPublicProfile: false})}
                         />
                     </Popup>
-                )}                      
+                )}                       */}
             </div>
         );
     }

@@ -223,9 +223,9 @@
         padding: 8px 8px;
         margin-right: 8px;
     }
-    .new-dash .quest-item-container{
-        // margin-left: 10px;
-    }
+    // .new-dash .quest-item-container{
+    //     margin-left: 10px;
+    // }
 
     .new-dash .step-title{       
         font-weight: 500;
@@ -307,9 +307,9 @@
         padding: 4px;
         margin-right: 8px;
     }
-    .new-dash .quest-item-container{
-        // margin-left: 10px;
-    }
+    // .new-dash .quest-item-container{
+    //     margin-left: 10px;
+    // }
 
     .new-dash .step-title{       
         font-weight: 500;
@@ -358,5 +358,76 @@
         line-height: 8px;       
         padding: 4px;
         margin-right: 8px;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+    .new-dash .quest-card-main{
+        max-height: 65vw;
+        padding: 8px 10px;
+    }
+
+    .new-dash .quest-badge-icon {       
+        width: 35px;
+        height: 35px;
+    }
+
+    .new-dash .quest-badge-container {
+        margin-top: -25px;
+    }
+
+    .new-dash .quest-status {
+        font-size: 12px;
+        line-height: 16px;
+        margin-bottom: 5px;
+    }
+
+    .new-dash .quest-heading {
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    .new-dash .quest-subheading {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .new-dash .step-icon {
+        width: 10px;        
+        margin-top: 0px;
+    }
+
+    .new-dash .quest-item-container {
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+
+    .new-dash .step-title {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .new-dash .step-subtitle {
+        font-size: 9px;
+        line-height: 13px;
+    }
+
+    .new-dash .quest-heading-desc {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .new-dash .quest-description {
+        font-size: 10px;
+        line-height: 14px;
+        max-height: 50px;
+
+    }
+
+    .new-dash .quest-button-style {
+        font-size: 10px;
+        line-height: 10px;        
+        padding: 4px;
     }
 }

@@ -9,6 +9,12 @@ export const makeStarPartyListSelector = () =>
     state => state.upcomingEvents.upcomingEvents
   );
 
+export const makePublicProfileCardSelector = () =>
+  createSelector(
+    state,
+    state => state.upcomingEvents.showPublicCard
+  );
+
 export const makeObservatoryListSelector = () =>
   createSelector(
     state,

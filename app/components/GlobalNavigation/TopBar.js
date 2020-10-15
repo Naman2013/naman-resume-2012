@@ -192,13 +192,27 @@ const TopBar = ({
                         onComplete={null}                   
                         renderer={props => ( 
                                 props.days < 1 && !props.completed ? 
-                                <span className="counter-text">
-                                    {nextShow.eventTitle} <br/> Starts in {twoDigitsTimeFormatting(props.hours)} : {twoDigitsTimeFormatting(props.minutes)} : {twoDigitsTimeFormatting(props.seconds)}
-                                </span>
+                                <div>
+                                  <span className="counter-text">
+                                    {nextShow.eventTitle} <br/> 
+                                  </span>
+                                  <span className="counter-text">
+                                    Starts in {twoDigitsTimeFormatting(props.hours)} : {twoDigitsTimeFormatting(props.minutes)} : {twoDigitsTimeFormatting(props.seconds)}
+                                  </span>
+                                </div>
+                                
                                     :
-                                <span className="counter-text">
-                                    {nextShow.eventTitle} <br/> {twoDigitsTimeFormatting(props.days)}d : {twoDigitsTimeFormatting(props.hours)}h : {twoDigitsTimeFormatting(props.minutes)}m
-                                </span>                        
+                                    <div>
+                                      <h6 className="counter-text">
+                                        {nextShow.eventTitle} 
+                                      </h6>
+                                      <h6 className="counter-text">
+                                      {twoDigitsTimeFormatting(props.days)+"d : " + twoDigitsTimeFormatting(props.hours) + "h : " + twoDigitsTimeFormatting(props.minutes) + "m"}
+                                      </h6>
+                                    </div>
+                                // <span className="counter-text">
+                                //     {nextShow.eventTitle} <br/> {twoDigitsTimeFormatting(props.days)}d : {twoDigitsTimeFormatting(props.hours)}h : {twoDigitsTimeFormatting(props.minutes)}m
+                                // </span>                        
                         )}
                     />
                 :
@@ -447,33 +461,32 @@ const TopBar = ({
                   justify-content: center;
                 }
 
-                .counter-text{
-                  display: flex;
-                  flex-direction: row;
-                  padding: 8px 12px;
-                  width: -webkit-fit-content;
-                  width: -moz-fit-content;
-                  width: fit-content;
+                .counter-text{                 
+                  // padding: 8px 12px;                 
                   // background: rgba(14,43,86,.6);
-                  -webkit-backdrop-filter: blur(4px);
-                  backdrop-filter: blur(4px);
-                  border-radius: 8px;
                   font-family: Roboto;
                   font-style: normal;
                   font-weight: 500;
                   font-size: 14px;
                   line-height: 20px;
-                  color: rgb(37, 52, 70);
-                  flex: none;
-                  text-align: right;
-                  order: 0;
+                  color: rgb(37, 52, 70);                  
+                  text-align: right;                  
                   min-width: 130px;
-                  cursor: pointer;
+                  cursor: pointer;                  
                 }
 
                 @media ${screenMobile} {
                   .free-trial-button {
                     padding: 5px !important;
+                  }
+
+                  .counter-text{
+                    font-size: 10px;
+                    line-height: 14px;
+                    width: 140px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                   }
                 }
 

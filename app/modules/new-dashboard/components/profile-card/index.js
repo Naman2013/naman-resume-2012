@@ -16,13 +16,15 @@ export class ProfileCard extends Component{
         
         return (
             <div>
-                <Button
-                    type={"button"}
-                    onClickEvent={changeStatus} 
-                    text={""}                                             
-                    style={classnames({"left-arrow-btn": showLeftBuuton}, {"right-arrow-btn": showRightButton})}
-                    icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
-                />  
+                {(showLeftBuuton || showRightButton) && (
+                    <Button
+                        type={"button"}
+                        onClickEvent={changeStatus} 
+                        text={""}                                             
+                        style={classnames({"left-arrow-btn": showLeftBuuton}, {"right-arrow-btn": showRightButton})}
+                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
+                    />
+                )}                 
 
                 <div className="profile-card-main">                    
                     <div className="profile-card-left">

@@ -53,9 +53,7 @@ const initialState = {
     hoursTo: 0,
     minutesTo: 0,
     secondsTo: 0,
-  },
-  showPublicCard: false,
-  customerUUID: null,
+  },   
 };
 
 export default createReducer(initialState, {
@@ -104,7 +102,7 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SET_PUBLIC_CARD_STATUS](state, { flag, customerUUID }) {
+  [SET_PUBLIC_CARD_STATUS](state, { flag, customerUUID }) {    
     return {
       ...state,
       showPublicCard: flag,

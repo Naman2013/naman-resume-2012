@@ -268,10 +268,15 @@
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
+    
     .new-dash .Quest-map  {
         height: calc(60vw) ;  
     }
     .new-dash .settings-controls{
         width: 60%;        
+    }
+
+    .new-dash .popup {
+        width: 100%;
     }
 }
