@@ -59,6 +59,11 @@ export class TelescopeSetup extends Component {
         <div className="telescope-setup-dropdown">
           <div className="telescope-setup-telescope-info">
             Select a Telescope
+            {missionQuota && (
+              <MissionQuota
+                missionQuota={missionQuota}
+              />
+            )}
           </div>
           <TelescopeDropdown
             telescopeList={telescopeList}
