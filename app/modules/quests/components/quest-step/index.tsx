@@ -91,8 +91,14 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
     const { questId, step } = routeParams;
     getQuestStep(questId, step).then(data => {
       const {
-        payload: { redirectStep, redirectStepURL },
+        payload: { redirectStep, redirectStepURL, redirectQuest, redirectQuestUrl  },
       } = data;
+
+      if (redirectQuest === true) {
+        browserHistory.push(redirectQuestUrl);
+        return;
+      }
+
       if (redirectStep === true) {
         browserHistory.push(redirectStepURL);
         return;
