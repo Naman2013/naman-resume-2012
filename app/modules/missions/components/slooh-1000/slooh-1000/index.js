@@ -8,6 +8,12 @@ import { Slooh1000Setup } from '../slooh-1000-setup';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
+
+  constructor(props){
+    super(props);
+    this.child = React.createRef();
+  }
+
   state = {
     successModalShow: false,
   };
@@ -52,6 +58,7 @@ export class Slooh1000 extends Component {
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
+    this.child.current.selector.props.fetchMissionQuota({ callSource: 'bySlooh1000V4' });
   };
 
   cancelMissionSlot = () => {
@@ -61,6 +68,7 @@ export class Slooh1000 extends Component {
     if (!successModalShow) {
       cancelMissionSlot({ callSource: 'bySlooh1000V4' });      
     }
+
   };
 
   setCategory = value => {
@@ -105,6 +113,7 @@ export class Slooh1000 extends Component {
             <div className="col-lg-12">
               <Box>
                 <Slooh1000Setup
+                  ref={this.child}
                   categoryList={categoryList}
                   categoryListOpts={categoryListOpts}
                   objectListOpts={objectListOpts}

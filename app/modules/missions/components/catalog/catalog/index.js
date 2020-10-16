@@ -7,6 +7,12 @@ import { CatalogSetup } from '../catalog-setup';
 import './styles.scss';
 
 export class Catalog extends Component {
+
+  constructor(props){
+    super(props);
+    this.child = React.createRef();
+  }
+
   state = {
     successModalShow: false,
   };
@@ -28,6 +34,7 @@ export class Catalog extends Component {
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
+    this.child.current.selector.props.fetchMissionQuota({ callSource: 'byCatalogV4' });
   };
 
   getMissionSlot = () => {
@@ -101,6 +108,7 @@ export class Catalog extends Component {
             <div className="col-lg-12">
               <Box>
                 <CatalogSetup
+                  ref={this.child}
                   catalogListOpts={catalogListOpts}
                   setCatalog={setCatalog}
                   getMissionSlot={this.getMissionSlot}

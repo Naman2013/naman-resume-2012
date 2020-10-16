@@ -8,6 +8,12 @@ import { MissionSuccessModal } from '../../mission-success-modal';
 import './styles.scss';
 
 export class Constellation extends Component {
+
+  constructor(props){
+    super(props);
+    this.child = React.createRef();
+  }
+
   state = {
     successModalShow: false,
   };
@@ -51,6 +57,7 @@ export class Constellation extends Component {
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
+    this.child.current.selector.props.fetchMissionQuota({ callSource: 'byConstellationV4' });
   };
 
   cancelMissionSlot = () => {
@@ -98,6 +105,7 @@ export class Constellation extends Component {
             <div className="col-lg-12">
               <Box>
                 <ConstellationSetup
+                  ref={this.child}
                   constellationListOpt={constellationListOpt}
                   objectListOpts={objectListOpts}
                   setConstellation={this.setConstellation}
