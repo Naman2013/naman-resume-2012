@@ -5,7 +5,7 @@ import style from './HorizontalList.style';
 const HorizontalList = ({ list, theme, iconList }) => (
   <Fragment>
     <ul style={theme}>
-      {list.map((entry, i) => (
+      {list.length > 0 ? list.map((entry, i) => (
         <li key={`horizontal-list-${entry}`}>
           {' '}
           <span className="list-container">
@@ -13,7 +13,7 @@ const HorizontalList = ({ list, theme, iconList }) => (
             <p>{entry} </p>
           </span>
         </li>
-      ))}
+      )):null}
     </ul>
     <style jsx>{style}</style>
   </Fragment>

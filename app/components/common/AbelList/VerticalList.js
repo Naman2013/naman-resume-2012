@@ -5,12 +5,12 @@ import style from './VerticalList.style';
 const VerticalList = ({ list, iconList }) => (
   <Fragment>
     <ul>
-      {list.map((entry, i) => (
+      {list.length > 0 ? list.map((entry, i) => (
         <li key={`vertical-list-${entry}`}>
           {iconList[i] && <img className="bullet-image" src={iconList[i]} />}{' '}
           {entry}
         </li>
-      ))}
+      )):null}
     </ul>
     <style jsx>{style}</style>
   </Fragment>

@@ -168,11 +168,11 @@ class ObjectRiseSet extends Component {
                             titleStyle={{marginBottom: "10px"}}
                             title={serviceResponse.notesLabel}
                             >
-                            <p className="center-label">
-                              {fetchingContent
-                                ? `${t('Objects.Loading')}...`
-                                : serviceResponse.notesText}
-                            </p>
+                            <p className="center-label" 
+                            dangerouslySetInnerHTML={{__html: fetchingContent
+                              ? `${t('Objects.Loading')}...`
+                              : serviceResponse.notesText}}                             
+                            />
                           </StaticCell>
                         </Row>
                     </GridContainer>                      
