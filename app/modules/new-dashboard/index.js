@@ -129,7 +129,7 @@ export class NewDashboard extends PureComponent{
         getPrivateProfileDataAction();
         getUserGravityDataAction();
         getPrivateProfileMissionDataAction();
-        getDashboardFeaturedObjectsDataAction({callSource: "featuredObjectsDashboardV4New"});
+        // getDashboardFeaturedObjectsDataAction({callSource: "featuredObjectsDashboardV4New"});
         getMyClubListDataAction({
             callSource: "profile",
             paginationStartIndex: 1,
@@ -141,7 +141,7 @@ export class NewDashboard extends PureComponent{
             maxItemsPerPage: 9
         });
         getQuestMapControlAction();
-        getDashboardMissionListAction();
+        // getDashboardMissionListAction();
         getPhotoHubHeadingAction();
         setDock(true);
     };
@@ -165,10 +165,8 @@ export class NewDashboard extends PureComponent{
                 cancelReservation,
                 cancelPiggyback,
                 grabPiggyback,
-                reservePiggyback,
-                getPrivateProfileMissionDataAction,
-                reserveCommunityMission,
-                getDashboardFeaturedObjectsDataAction,
+                reservePiggyback,               
+                reserveCommunityMission,                
                 reservedCommunityMissionData,
                 reservedCommunityMission,
                 user,
@@ -197,16 +195,13 @@ export class NewDashboard extends PureComponent{
                 unSubscribePubnub,
                 pubnubInit,
                 getActivityFeedMembers,
-                setMemberChatState,
-                getDashboardMissionListAction,
-                dashboardMissionList,
+                setMemberChatState,               
                 setPublicCardStatusAction,
                 photoHubHeadings,
-                userGravityStatus,
-                showPublicCard,
+                userGravityStatus,                
               } =this.props;
 
-              const { showRightbar, selectedBulletingHeader, customerUUID, showPublicProfile } = this.state;
+              const { showRightbar } = this.state;
               
             
         return(
@@ -219,9 +214,7 @@ export class NewDashboard extends PureComponent{
                             <DashboardHeader
                                 showRightbar={showRightbar}                                
                                 changeStatus={()=>this.setState({showRightbar: !showRightbar})}
-                                scrollToRef={this.scrollToRef}                               
-                                // activeHeading={selectedBulletingHeader}
-                                // onChange={(header)=>this.setState({selectedBulletingHeader: header})}
+                                scrollToRef={this.scrollToRef}                                                              
                             />                             
                             <div className="left-contents">
 
@@ -273,63 +266,23 @@ export class NewDashboard extends PureComponent{
                                 <SectionDivider/>
 
                                 <div id="missions" ref={this.missionref}/>
-                                {dashboardMissionList && dashboardFeaturedObjects && (
+                                
                                     <div>
-                                        <UpcomingMissionList
-                                            // privateProfileMission = {privateProfileMission}
-                                            dashboardMissionList={dashboardMissionList}
-                                            dashboardFeaturedObjects={dashboardFeaturedObjects}
-                                            // emptySetDisplay={privateProfileMission.emptySetUpcomingMissionsDisplay}
+                                        <UpcomingMissionList                                            
                                             piggyBackMissionSlot={piggyBackMissionSlot}
                                             piggybackReservedMissionData={piggybackReservedMissionData}
                                             piggybackReservedMission={piggybackReservedMission}
                                             cancelReservation={cancelReservation}
                                             cancelPiggyback={cancelPiggyback}
                                             grabPiggyback={grabPiggyback}
-                                            reservePiggyback={reservePiggyback}
-                                            getPrivateProfileMissions={getPrivateProfileMissionDataAction}
-                                            reserveCommunityMission={reserveCommunityMission}
-                                            getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
+                                            reservePiggyback={reservePiggyback}                                            
+                                            reserveCommunityMission={reserveCommunityMission}                                            
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
-                                            user={user} 
-                                            // totalCount={5}
-                                            getDashboardMissionList={getDashboardMissionListAction}                                           
-                                        />
-
-                                        {/* <UpcomingMissionList
-                                            heading={undefined}
-                                            missionList = {dashboardMissionList.pastMissions.missionsList}
-                                            showMissionsList={dashboardMissionList.pastMissions.showMissionsList}
-                                            missionList = {dashboardMissionList.pastMissions.missionsList}
-                                            showMissionTitle = {dashboardMissionList.pastMissions.showMissionsTitle}
-                                            showMissionQuota = {dashboardMissionList.pastMissions.showMissionsQuota}
-                                            showMissionExplanation = {dashboardMissionList.pastMissions.showMissionsExplanation}
-                                            missionTitle = {dashboardMissionList.pastMissions.missionsTitle}
-                                            missionQuota = {dashboardMissionList.pastMissions.missionsQuota}
-                                            missionExplanation = {dashboardMissionList.pastMissions.missionsExplanation}
-                                            scheduleMission={false}
-                                            showSubHeading={false}
-                                            advancedmissionList={[]}
-                                            featuredMission={false}
-                                            emptySetDisplay={privateProfileMission.emptySetRecentMissionsDisplay}
-                                            piggyBackMissionSlot={piggyBackMissionSlot}
-                                            piggybackReservedMissionData={piggybackReservedMissionData}
-                                            piggybackReservedMission={piggybackReservedMission}
-                                            cancelReservation={cancelReservation}
-                                            cancelPiggyback={cancelPiggyback}
-                                            grabPiggyback={grabPiggyback}
-                                            reservePiggyback={reservePiggyback}
-                                            getPrivateProfileMissions={getPrivateProfileMissionDataAction}
-                                            reserveCommunityMission={reserveCommunityMission}
-                                            getDashboardFeaturedObjects={getDashboardFeaturedObjectsDataAction}
-                                            reservedCommunityMissionData={reservedCommunityMissionData } 
-                                            reservedCommunityMission={reservedCommunityMission}
-                                            user={user} 
-                                            totalCount={privateProfileMission.recentMissionList.length}                                           
-                                        /> */}
+                                            user={user}                                                                                    
+                                        />                                        
                                     </div>
-                                )}
+                               
                                 
                                 
                                 <SectionDivider/>

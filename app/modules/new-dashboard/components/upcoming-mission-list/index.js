@@ -12,6 +12,8 @@ import { TitleHeaderNew } from '../title-header-new';
 import { cancelMissionReservationApi } from 'app/modules/missions/api';
 import { getUserInfo } from 'app/modules/User';
 import { RecentMissionCard } from '../recent-mission-card';
+import { getDashboardFeaturedObjects, getDashboardMissionList } from '../../dashboardApi';
+import { Spinner } from 'app/components/spinner/index';
 
 export class UpcomingMissionList extends Component{
 
@@ -22,10 +24,24 @@ export class UpcomingMissionList extends Component{
         successModalShow: false,
         selectedSlot: {},
         reservationModalVisible: false,
+        loading: true,
+        dashboardFeaturedObjects: undefined,
+        dashboardMissionList: undefined,
     };
 
-    cancelReservation = () => {
-        const { getPrivateProfileMissions, getDashboardMissionList } = this.props;
+    timerId = null;
+
+    constructor (props){
+      super(props);
+      this.getDashboardFeaturedObjects();
+    }
+
+    componentWillUnmount(){
+      if(this.timerId !==null)
+        clearTimeout(this.timerId);
+    }
+
+    cancelReservation = () => {       
         const { selectedSlot } = this.state;
         const { at, cid, token } = getUserInfo();
         cancelMissionReservationApi({ at, cid, token, 
@@ -33,24 +49,20 @@ export class UpcomingMissionList extends Component{
         }).then((response) => {
           const res=response.data;
           if(!res.apiError){
-            this.setState({ cancelReservationModalVisible: false });
-            // getPrivateProfile();
-            // getPrivateProfileMissions(); 
-            getDashboardMissionList(); 
+            this.setState({ cancelReservationModalVisible: false });            
+            this.getDashboardFeaturedObjects(); 
           }          
         });
       };
     
       cancelPiggyback = () => {
-        const { cancelPiggyback, getPrivateProfile, getPrivateProfileMissions, getDashboardMissionList } = this.props;
+        const { cancelPiggyback } = this.props;
         const { selectedSlot } = this.state;
         const { scheduledMissionId } = selectedSlot;
         
         cancelPiggyback({ scheduledMissionId }).then(() => {
           this.setState({ cancelPiggybackModalVisible: false });
-          // getPrivateProfile();      
-          // getPrivateProfileMissions();
-          getDashboardMissionList(); 
+          this.getDashboardMissionListAction(); 
         });
       };
 
@@ -131,26 +143,38 @@ export class UpcomingMissionList extends Component{
           successModalShow: false,
           selectedMission: {},
         });
-        this.getDashboardFeaturedObjects();
-        this.props.getDashboardMissionList();
+        this.getDashboardFeaturedObjects();        
       };
 
-      getDashboardFeaturedObjects = () => {
-        const { getDashboardFeaturedObjects, getPrivateProfileMissions } = this.props;
-        
-        getDashboardFeaturedObjects({callSource: "featuredObjectsDashboardV4New"});
-        // getPrivateProfileMissions();
-        // stopFeaturedObjectsExpireTimer();
-        // getDashboardFeaturedObjects('').then(({ payload }) => {
-        //   const timerTime = payload.expires - payload.timestamp;
-        //   setupFeaturedObjectsExpireTimer(timerTime, () =>
-            // this.getDashboardFeaturedObjects()
-        //   );
-        // });
+      getDashboardFeaturedObjects = () => {        
+        const { at, cid, token } = getUserInfo();
+        getDashboardFeaturedObjects({at, cid, token, callSource: "featuredObjectsDashboardV4New" }).then(response=>{
+            const res=response.data;
+            if(!res.apiError){
+              const duration = (res.expires-res.timestamp) * 1000;
+              if(this.timerId !== null)
+                clearTimeout(this.timerId);
+              if(duration > 1000)
+                this.timerId = setTimeout(this.getDashboardFeaturedObjects, duration);
+              this.setState({dashboardFeaturedObjects: res});
+            }
+        });
+        this.getDashboardMissionListAction();        
+      };
+
+      getDashboardMissionListAction = () => {        
+        const { at, cid, token } = getUserInfo();
+        getDashboardMissionList({at, cid, token }).then(response=>{
+            const res=response.data;
+            if(!res.apiError){              
+              this.setState({dashboardMissionList: res, loading: false});
+            }
+        });              
       };
 
       reserveCommunityMission = () => {        
-        const { reserveCommunityMission, dashboardFeaturedObjects } = this.props;
+        const { reserveCommunityMission } = this.props;
+        const { dashboardFeaturedObjects } = this.state;
         const { callSource } = dashboardFeaturedObjects;
         const { selectedSlot } = this.state;
         const { scheduledMissionId, missionStart } = selectedSlot;
@@ -166,35 +190,24 @@ export class UpcomingMissionList extends Component{
 
     render() {
         const {                 
-                dashboardMissionList,
-                dashboardFeaturedObjects,                
+                // dashboardMissionList,
+                // dashboardFeaturedObjects,                
                 reservedCommunityMissionData,
                 reservedCommunityMission,
                 user,                
               } = this.props;
-        
-        const {
-          missions,
-          advancedMissions,
-          pastMissions,
-          missionsSectionHeader,
-          missionsSectionSubheader,          
-        } = dashboardMissionList;
 
-        const {
-          recommendedObjectsHeading,
-          recommendedObjectsSubHeading,
-          recommendedObjectsShow
-        } = dashboardFeaturedObjects;
-
-        const {
-            cancelReservationModalVisible,
-            cancelPiggybackModalVisible,
-            reservationPiggybackVisible,
-            successModalShow,
-            selectedSlot,
-            reservationModalVisible,
-          } = this.state;
+              const {
+                cancelReservationModalVisible,
+                cancelPiggybackModalVisible,
+                reservationPiggybackVisible,
+                successModalShow,
+                selectedSlot,
+                reservationModalVisible,
+                dashboardMissionList,
+                dashboardFeaturedObjects, 
+                loading,  
+              } = this.state;             
 
           const {
             cancelMissionDialogPrompt,
@@ -204,7 +217,9 @@ export class UpcomingMissionList extends Component{
           const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
        
         return (
-            <div>
+          <div>
+            {dashboardMissionList && dashboardFeaturedObjects && (
+              <div>
                 <MissionConfirmationModal
                     onConfirm={this.cancelReservation}
                     onHide={() => this.setState({ cancelReservationModalVisible: false })}
@@ -220,8 +235,8 @@ export class UpcomingMissionList extends Component{
                 />            
                 <div className="upcoming-main">
                   <TitleHeaderNew
-                    heading = {missionsSectionHeader}
-                    subHeading = {missionsSectionSubheader}
+                    heading = {dashboardMissionList.missionsSectionHeader}
+                    subHeading = {dashboardMissionList.missionsSectionSubheader}
                   />
 
                   {/* {missionsSectionHeader && (
@@ -233,9 +248,9 @@ export class UpcomingMissionList extends Component{
 
                     {dashboardFeaturedObjects && (
                         <FeaturedMissionList
-                            heading={recommendedObjectsHeading}
-                            subHeading={recommendedObjectsSubHeading}
-                            recommendedObjectsShow={recommendedObjectsShow}
+                            heading={dashboardFeaturedObjects.recommendedObjectsHeading}
+                            subHeading={dashboardFeaturedObjects.recommendedObjectsSubHeading}
+                            recommendedObjectsShow={dashboardFeaturedObjects.recommendedObjectsShow}
                             featuredMissionList={dashboardFeaturedObjects.missionList}
                             reservationModalShow={this.reservationModalShow}
                             readOnly={false}
@@ -243,21 +258,21 @@ export class UpcomingMissionList extends Component{
                             showExplanation={dashboardFeaturedObjects.showExplanation}
                         />
                     )}
-                    {missions.showMissionsTitle && (
+                    {dashboardMissionList.missions.showMissionsTitle && (
                         <div>
                             <br/>
-                            {missions.showMissionsTitle && (
-                              <h3 className="upcoming-subheadings">{missions.missionsTitle}</h3>
+                            {dashboardMissionList.missions.showMissionsTitle && (
+                              <h3 className="upcoming-subheadings">{dashboardMissionList.missions.missionsTitle}</h3>
                             )}
-                            {missions.showMissionsQuota && (                        
-                              <h5 className="upcoming-subheading-status">{missions.missionsQuota}</h5>
+                            {dashboardMissionList.missions.showMissionsQuota && (                        
+                              <h5 className="upcoming-subheading-status">{dashboardMissionList.missions.missionsQuota}</h5>
                             )}  
                         </div> 
                     )}                  
-                   
-                    {missions.showMissionsList && (
+                  
+                    {dashboardMissionList.missions.showMissionsList && (
                       <div className="upcoming-list">
-                        {missions.missionsList.map(mission=>(
+                        {dashboardMissionList.missions.missionsList.map(mission=>(
                             <UpcomingMissionCard
                               mission={mission}
                               key={mission.scheduledMissionId}
@@ -306,9 +321,9 @@ export class UpcomingMissionList extends Component{
                         
                     </div>
                     )}
-                    {missions.showMissionsExplanation && (
+                    {dashboardMissionList.missions.showMissionsExplanation && (
                       <div class="empty-guide">
-                        <h3 class="guide-list-heading">{missions.missionsExplanation}</h3>
+                        <h3 class="guide-list-heading">{dashboardMissionList.missions.missionsExplanation}</h3>
                       </div>                        
                     )}                  
                     
@@ -317,21 +332,21 @@ export class UpcomingMissionList extends Component{
                             <h3 className="upcoming-subheadings">{emptySetDisplay}</h3>
                         </div>
                     ):null} */}
-                    {advancedMissions.showMissionsTitle &&(
+                    {dashboardMissionList.advancedMissions.showMissionsTitle &&(
                         <div>
                             <br/>
-                            {advancedMissions.showMissionsTitle && (
-                              <h3 className="upcoming-subheadings">{advancedMissions.missionsTitle}</h3>
+                            {dashboardMissionList.advancedMissions.showMissionsTitle && (
+                              <h3 className="upcoming-subheadings">{dashboardMissionList.advancedMissions.missionsTitle}</h3>
                             )}
-                            {advancedMissions.showMissionsQuota && (
-                              <h5 className="upcoming-subheading-status">{advancedMissions.missionsQuota}</h5> 
+                            {dashboardMissionList.advancedMissions.showMissionsQuota && (
+                              <h5 className="upcoming-subheading-status">{dashboardMissionList.advancedMissions.missionsQuota}</h5> 
                             )}
                             
                         </div>                    
                     )}
-                    {advancedMissions.showMissionsList && (
+                    {dashboardMissionList.advancedMissions.showMissionsList && (
                       <div className="upcoming-list">
-                      {advancedMissions.missionsList.map(mission=>(
+                      {dashboardMissionList.advancedMissions.missionsList.map(mission=>(
                           <UpcomingMissionCard
                               mission={mission}
                               key={mission.scheduledMissionId}
@@ -354,26 +369,26 @@ export class UpcomingMissionList extends Component{
                       )}                             */}
                       </div>    
                     )}                
-                    {advancedMissions.showMissionsExplanation && (
+                    {dashboardMissionList.advancedMissions.showMissionsExplanation && (
                       <div class="empty-guide">
-                        <h3 class="guide-list-heading">{advancedMissions.missionsExplanation}</h3>
+                        <h3 class="guide-list-heading">{dashboardMissionList.advancedMissions.missionsExplanation}</h3>
                       </div>                         
                     )}    
 
 
                     <div>
                   <br/>
-                  {pastMissions.showMissionsTitle && (
-                    <h3 className="upcoming-subheadings">{pastMissions.missionsTitle}</h3>
+                  {dashboardMissionList.pastMissions.showMissionsTitle && (
+                    <h3 className="upcoming-subheadings">{dashboardMissionList.pastMissions.missionsTitle}</h3>
                   )}
-                  {pastMissions.showMissionsQuota && (                        
-                    <h5 className="upcoming-subheading-status">{pastMissions.missionsQuota}</h5>
+                  {dashboardMissionList.pastMissions.showMissionsQuota && (                        
+                    <h5 className="upcoming-subheading-status">{dashboardMissionList.pastMissions.missionsQuota}</h5>
                   )}  
                 </div>                    
-                   
-                    {pastMissions.showMissionsList && (
+                  
+                    {dashboardMissionList.pastMissions.showMissionsList && (
                       <div className="upcoming-list">
-                        {pastMissions.missionsList.map(mission=>(
+                        {dashboardMissionList.pastMissions.missionsList.map(mission=>(
                             <RecentMissionCard
                               mission={mission}
                               key={mission.scheduledMissionId}
@@ -420,14 +435,17 @@ export class UpcomingMissionList extends Component{
                         
                     </div>
                     )}
-                    {pastMissions.showMissionsExplanation && (
+                    {dashboardMissionList.pastMissions.showMissionsExplanation && (
                       <div class="empty-guide">
-                        <h3 class="guide-list-heading">{pastMissions.missionsExplanation}</h3>
+                        <h3 class="guide-list-heading">{dashboardMissionList.pastMissions.missionsExplanation}</h3>
                       </div>                        
                     )}                           
                 </div>
-
-                 
+                
+                <div className="overlay-loading-div">
+                  <Spinner loading={loading} />
+                </div>
+                
 
 
 
@@ -469,6 +487,9 @@ export class UpcomingMissionList extends Component{
                     missionSlot={reservedCommunityMission}
                 />
             </div>
+            )}
+          </div>
+            
         );
     }
 

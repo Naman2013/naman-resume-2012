@@ -88,6 +88,7 @@ export class DataCollectionSlotModal extends Component {
       showSlotContentsDesc,
       showEmptySetContentsDesc,
       emptySetContentsDesc,
+      emptySetAdditionalDisplay,
     } = questDataCollectionSlotImages;
   
     return (
@@ -131,14 +132,24 @@ export class DataCollectionSlotModal extends Component {
                       key={`object-mission-link-${link.linkIndex}`}
                     >
                       <Link to={link.linkURL} onClick={handleBacktoQuest} className="modal-p">
-                        {link.linkLabel}
+                        <img className="object-icon" src={link.linkIconURL} /> {link.linkLabel}
                       </Link>
                     </div>
                   ))}
                 </div>
               )}
+                <br/>
+                  <p
+                    className="modal-p"
+                    dangerouslySetInnerHTML={{
+                      __html: emptySetAdditionalDisplay,
+                    }}
+                  />
+
             </>
           )}
+
+          
 
           {imageCount > 0 && (
             <Row>
