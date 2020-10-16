@@ -97,8 +97,10 @@
 
   .empty-obs-name{
       font-family: $primary-font;
-      font-size: 18px;
+      font-size: 14px;
+      font-weight: 700;
   }
+  
 
   .empty-mission-time{
     font-family: $secondary-font;
@@ -165,7 +167,8 @@
   .mobile {
     width: 100%;
     position: relative;
-
+    display: unset;
+    
     .mission-owner {
       display: flex;
       align-items: center;

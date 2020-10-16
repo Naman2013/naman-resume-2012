@@ -47,7 +47,8 @@ export class NoMissionCard extends PureComponent {
         <div className="mobile">          
 
           <div className="mission-title">{title}</div>
-          <span className="empty-obs-name">{observatoryName}</span>  
+          <span className="empty-obs-name">{observatoryName}</span> 
+          <br/> 
           <span className="empty-mission-time">{time}</span> 
           <div
             className="empty-obs-name"
