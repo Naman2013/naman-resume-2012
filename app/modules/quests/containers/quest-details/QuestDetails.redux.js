@@ -44,6 +44,7 @@ export class ConnectedQuestDetails extends Component {
 
   state = {
     isLoading: false,
+    questPdfUrl: null,
   };
 
   startLoading = () => this.setState({ isLoading: true });
@@ -52,7 +53,16 @@ export class ConnectedQuestDetails extends Component {
 
   componentDidMount() {
     const { actions, questId } = this.props;
+    let accessorCustomerId = 414670;
+    let requestedCustomerId = 49;
     actions.fetchQuestPageMeta({ questId }).then(this.handleResponse);
+    actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.QuestReportResponse);
+  }
+
+
+  QuestReportResponse = (questReporData) =>  {
+      let questPdfUrl = questReporData.data.questPdfUrl;
+      this.setState({ questPdfUrl });
   }
 
   handleResponse = () => {
@@ -116,7 +126,7 @@ export class ConnectedQuestDetails extends Component {
         <Spinner loading={isLoading} />
         <DeviceContext.Consumer>
           {context => (
-            <Quest {...this.props} {...context} userActions={userActions} />
+            <Quest {...this.props} {...context} userActions={userActions} questPdfUrl={this.state.questPdfUrl} />
           )}
         </DeviceContext.Consumer>
       </div>

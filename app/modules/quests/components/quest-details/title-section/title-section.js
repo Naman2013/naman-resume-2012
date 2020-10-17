@@ -7,6 +7,8 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import Medallion from 'app/components/common/TiaraTitleSection/Medallion';
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
+
+
 import {
   white_tile_paper,
   golden,
@@ -20,6 +22,7 @@ const QuestDetailsTitleSection = ({
   questData,
   actionButtonEvent,
   onDownloadPDF,
+  questPdfUrl
 }) => {
   const { 
     iconURL,
@@ -29,6 +32,9 @@ const QuestDetailsTitleSection = ({
     questTitle,
     showInProgressButton,
     inProgressButtonCaption,
+    questReportPDFDownloadLabel,
+    showQuestReportPDFDownloadFlag,
+    aboutDownloadPDFURL,
     completed,
     showQuestCompletionIcons,
     questCompletionIcons = {},
@@ -51,6 +57,11 @@ const QuestDetailsTitleSection = ({
     questCompleteBadgeIconLinkUrl,
   } = questCompletionIcons;
 
+  const buttonStyle = {
+    margin:5,
+    padding:10
+
+  }
   return (
   <div className="root">
     <CenterColumn
@@ -88,8 +99,17 @@ const QuestDetailsTitleSection = ({
         ) : null}
 
         {showInProgressButton && !completed ? (
-          <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
+          <GenericButton style={buttonStyle} text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
+
+
+        { showQuestReportPDFDownloadFlag ? (
+
+          <Button style = {buttonStyle}><a onClick={() => onDownloadPDF(questPdfUrl)}>{questReportPDFDownloadLabel}
+          <img src="https://img.icons8.com/metro/15/000000/downloading-updates.png"/>
+          </a></Button>
+
+        ) : null }
 
         {showQuestCompletionIcons && (
           <>

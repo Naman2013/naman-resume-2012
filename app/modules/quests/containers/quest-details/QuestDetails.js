@@ -32,7 +32,7 @@ export const QuestDetails = props => {
   };
 
   const onDownloadPDF = pdfUrl => {
-    downloadFile(pdfUrl, 'QuestCompletion.pdf');
+    downloadFile(pdfUrl, 'QuestCompletion.pdf', props.questPdfUrl);
   };
 
   const questSectionProps = {
@@ -77,7 +77,9 @@ export const QuestDetails = props => {
       <QuestTitleSection
         questData={pageMeta}
         actionButtonEvent={userActions.setupQuest}
-        onDownloadPDF={onDownloadPDF}
+        questPdfUrl={props.questPdfUrl}
+        onDownloadPDF = {onDownloadPDF}
+        
       />
       <CenterColumn>
         <GuideSection
