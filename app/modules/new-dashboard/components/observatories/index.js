@@ -172,7 +172,7 @@ export class Observatories extends Component{
                                     type={"button"}
                                     onClickEvent={()=>browserHistory.push(obsStatus.dashboardTeleLinkURL)} 
                                     text={obsStatus.dashboardTeleLinkLabel}
-                                    style={"observatory-go-to"}
+                                    style={"button-border"}
                                     icon={null}
                                 />
                                 {/* <Link to={obsStatus.dashboardTeleLinkURL }><h5 className="observatory-col-value">{obsStatus.dashboardTeleLinkLabel}</h5></Link> */}

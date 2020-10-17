@@ -7,6 +7,7 @@ import { getUserInfo } from 'app/modules/User';
 import { Button } from '../button';
 import ObservationComments from 'app/modules/observations/containers/observation-comments';
 import LikeButton from '../button/LikeButton';
+import { Link } from 'react-router';
 
 export class SliderItem extends Component{
 
@@ -24,7 +25,7 @@ export class SliderItem extends Component{
     render() {
         const { imageDetails, onClickItem } = this.props;
         const { index, isDiscussionsOpen, onCommentButtonClick  } = this.props;        
-   
+        
         return (
             imageDetails && (
                 <div>
@@ -33,6 +34,13 @@ export class SliderItem extends Component{
                                     <h2 className="slider-title">{imageDetails.observationTitle}</h2>
                                     <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(imageDetails.customerUUID, true)}>{imageDetails.displayName}</u></h4>
                                     <p className="slider-content">{imageDetails.observationLog}</p>
+                                    <div className="icon-container">
+                                        <img onClick={()=>onClickItem(imageDetails.customerUUID, true)} className="member-icons" src={imageDetails.iconFileData.Member.iconUrl}/>
+                                        <Link to={imageDetails.iconFileData.Telescope.linkUrl} >
+                                        <img className="member-icons" src={imageDetails.iconFileData.Telescope.iconUrl}/>
+                                        </Link>
+                                        
+                                    </div>
                                     <div className="slider-content-footer">
                                         <div className="slider-buttons-container">
                                             {/* <Button
@@ -83,8 +91,10 @@ export class SliderItem extends Component{
                                             canSubmitReplies={imageDetails.canSubmitReplies}
                                         />
                                     )} */}
-                                </div> 
-                        <img className="img-slider" src={imageDetails.imageURL} />
+                                </div>
+                        <Link to={imageDetails.linkUrl} >
+                            <img className="img-slider" src={imageDetails.imageURL} />
+                        </Link>
                     </div>
                     {/* <div>
                         <div className="slider-info-container">

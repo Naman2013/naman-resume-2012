@@ -20,7 +20,7 @@ const MVPAstronomerCard = ({
         <img className="mvp-icon-content" src={iconUrl} alt="" />
       </div>
     </div>
-    <h5>{displayName}</h5>
+    <h5 className="mvp-name">{displayName}</h5>
     <div className="mvp-gravity">
       <div className="mvp-gravity-label">{gravityRankLabel}</div>
       <div className="mvp-gravity-rank">

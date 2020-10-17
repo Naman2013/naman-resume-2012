@@ -47,12 +47,13 @@ const GroupMemberListSort = ({
       <div>
         <p className="leader-label"> {clubLeaderLabel}</p>
         <div className="pic" style={profilePicLeader(iconUrl)} />
-        <Link to={linkUrl}>
+        {/* <Link  to={linkUrl}> */}
           <div
+            onClick={()=>setPublicCardStatusAction(customerUUID, true)}
             className="leader-title"
             dangerouslySetInnerHTML={{ __html: displayName }}
           />
-        </Link>
+        {/* </Link> */}
         <div className="leader-info">
           <span
             className="gravity-label"

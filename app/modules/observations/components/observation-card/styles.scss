@@ -55,15 +55,16 @@
             padding: 12px 0;
           }
 
-          a {
+          // a {
             .author {
               font-size: 10px;
               @include borderBottom;
               @include toUpper;
               padding: 4px 0;
               color: #415671;
+              cursor: pointer;
             }
-          }
+          // }
         }
 
         .links {

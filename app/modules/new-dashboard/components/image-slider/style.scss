@@ -233,6 +233,18 @@
   flex: 1;
 }
 
+.new-dash .member-icons{
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.new-dash .icon-container{
+  display: flex;
+  padding: 15px;
+}
+
 @media (min-width: $screenXLarge){
 
     .new-dash .slider-info-container{
@@ -259,7 +271,7 @@
     }
     
     .new-dash .img-slider{
-      max-width: 40%;
+      // max-width: 40%;
       height: 230px;
       margin-left: 16px;
     }

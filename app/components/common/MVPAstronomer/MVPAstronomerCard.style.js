@@ -24,6 +24,10 @@ export default css`
     text-decoration: none;
   }
 
+  .mvp-name{
+    cursor: pointer;
+  }
+
   .mvp-card h5 {
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};

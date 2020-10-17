@@ -10,6 +10,7 @@ import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/image
 import { SliderItem } from './sliderItem';
 import { getImageDetails } from '../../dashboardApi';
 import LikeButton from '../button/LikeButton';
+import { Link } from 'react-router';
 
 export class ImageSlider extends Component{
 
@@ -120,6 +121,12 @@ export class ImageSlider extends Component{
                             <h2 className="slider-title">{currentItem.observationTitle}</h2>
                             <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u></h4>
                             <p className="slider-content">{currentItem.observationLog}</p>
+                            <div className="icon-container">
+                                <img onClick={()=>onClickItem(currentItem.customerUUID, true)} className="member-icons" src={currentItem.iconFileData.Member.iconUrl}/>
+                                <Link to={currentItem.iconFileData.Telescope.linkUrl} >
+                                    <img className="member-icons" src={currentItem.iconFileData.Telescope.iconUrl}/>
+                                </Link>                                        
+                            </div>
                             <div className="slider-content-footer">
                                 <div className="slider-buttons-container">
                                     {/* <Button

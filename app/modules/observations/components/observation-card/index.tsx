@@ -9,8 +9,12 @@ import { ReturnObservationIcon } from 'app/components/common/RecommendedObservat
 import { IObservationData } from 'app/modules/observations/types';
 import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
 import ObservationComments from 'app/modules/observations/containers/observation-comments';
+import { setPublicCardStatusAction } from '../../../upcoming-events/upcoming-events-actions';
 
 import './styles.scss';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
 
 type ObservationCardProps = {
   observationData: IObservationData;
@@ -18,9 +22,14 @@ type ObservationCardProps = {
   readOnly: boolean;
   currentIndex: number;
   imageIndex: number;
+  setPublicCardStatusAction: Function;
 };
 
-export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+const TObservationCard: React.FC<ObservationCardProps> = React.memo(
   props => {
     const {
       observationData,
@@ -28,6 +37,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
       readOnly,
       currentIndex,
       imageIndex,
+      setPublicCardStatusAction,
     } = props;
 
     const {
@@ -50,6 +60,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
       commentsForumId,
       commentsTopicId,
       canSubmitReplies,
+      customerUUID,
     } = observationData;
 
     const [isOpen, openModal] = useState(false);
@@ -82,9 +93,9 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
                     {readOnly ? (
                       <h5 className="author h-5 h-5-normal">{displayName}</h5>
                     ) : (
-                      <Link to={iconFileData.Member.linkUrl}>
-                        <h5 className="author">{displayName}</h5>
-                      </Link>
+                      // <Link to={iconFileData.Member.linkUrl}>
+                        <h5 className="author" onClick={()=>setPublicCardStatusAction(customerUUID, true)}>{displayName}</h5>
+                      // </Link>
                     )}
                     {observationLog && (
                       <p
@@ -202,3 +213,7 @@ export const ObservationCard: React.FC<ObservationCardProps> = React.memo(
     );
   }
 );
+
+
+
+export const ObservationCard = compose(connect(null, mapDispatchToProps)) (TObservationCard)

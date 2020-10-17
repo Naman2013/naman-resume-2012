@@ -190,5 +190,6 @@ export default css`
     line-height: 1.4;
     letter-spacing: normal;
     color: ${lightHeadedAstronaut};
+    cursor: pointer;
   }
 `;

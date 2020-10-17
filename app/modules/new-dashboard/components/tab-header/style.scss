@@ -10,14 +10,15 @@
     left: 24px;
     top: 12px; */
     padding: 12px 24px;
-
+    border: 1px solid #253446;
+    border-radius: 8px;
     font-family: $primary-font;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
     line-height: 20px;
     /* identical to box height */
-    
+    margin-right: 10px;
     
     color: #FFFFFF;
     
@@ -69,7 +70,7 @@
 .new-dash .space-equally{
     width: 50%;
     text-align: center;
-    margin-right: 0px;
+    // margin-right: 0px;
 }
 
 .new-dash .light-active{
@@ -80,7 +81,8 @@
 
 .new-dash .light{
     /* background: #253446; */
-    color: #FFFFFF;   
+    color: #FFFFFF; 
+    border: 1px solid rgb(50,70,94);  
 }
 
 .new-dash .dark{   
@@ -108,14 +110,15 @@
     .new-dash .tab-header-txt, .new-dash .tab-header-txt-active{  
         font-size: 12px;
         line-height: 17px;
-        padding: 8px 20px;
+        padding: 8px 16px;
     }
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
     .new-dash .tab-header-txt-active, .new-dash .tab-header-txt{       
-        padding: 6px 12px;
+        padding: 6px 8px;
         font-size: 12px;
         line-height: 16px;
     }
+    
 }
