@@ -13,6 +13,9 @@ import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 import Button from 'app/components/common/style/buttons/Button';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import styles from './HostLongTile.style';
+import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
@@ -60,14 +63,16 @@ class HostLongTile extends Component {
       hostPhotoURL,
       hostTitle,
       hostGravity,
+      hostUUID,
+      setPublicCardStatusAction
     } = this.props;
 
     return (
       <div className="root">
         <div className="left">
           <div className="title-container">{title}</div>
-          <Link to={hostURL}>
-            <span
+          {/* <Link to={hostURL}> */}
+            <span onClick={()=>setPublicCardStatusAction(hostUUID, true)}
               className="host-name"
               dangerouslySetInnerHTML={{ __html: hostName }}
             />
@@ -88,16 +93,16 @@ class HostLongTile extends Component {
                 />
               </div>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
         <div>
-          <Link to={hostURL}>
-            <div className="icon-container-circle">
+          {/* <Link to={hostURL}> */}
+            <div className="icon-container-circle" onClick={()=>setPublicCardStatusAction(hostUUID, true)}>
               <div className="circle-icon-line">
                 <div className="icon" style={profPic(hostPhotoURL)} />
               </div>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
         <style jsx>{styles}</style>
       </div>
@@ -105,4 +110,8 @@ class HostLongTile extends Component {
   }
 }
 
-export default HostLongTile;
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null,mapDispatchToProps)) (HostLongTile);

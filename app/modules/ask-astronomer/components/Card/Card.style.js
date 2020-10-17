@@ -45,6 +45,7 @@ export default css`
 
   .display-name {
     color: ${astronaut};
+    cursor: pointer;
   }
 
   .user-info,

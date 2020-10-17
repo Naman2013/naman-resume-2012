@@ -46,6 +46,7 @@ export default css`
   }
   .display-name {
     margin-left: 10px;
+    cursor: pointer;
   }
 
   .content {

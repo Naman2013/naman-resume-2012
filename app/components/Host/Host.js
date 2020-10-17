@@ -16,6 +16,9 @@ import {
 import Button from 'app/components/common/style/buttons/Button';
 
 import styles from './Host.style';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
@@ -65,6 +68,8 @@ class Hosts extends Component {
       hostGravity,
       hostGravityRankLabel,
       hostProfileURL,
+      hostUUID,
+      setPublicCardStatusAction
     } = this.props;
 
     return (
@@ -72,12 +77,13 @@ class Hosts extends Component {
         <div className="title-container">{title}</div>
         <Link to={hostURL}>
           <div className="info-container">
-            <Link to={hostProfileURL}>
+            {/* <Link to={hostProfileURL}> */}
               <span
+                onClick={()=>setPublicCardStatusAction(hostUUID, true)}
                 className="host-name"
                 dangerouslySetInnerHTML={{ __html: hostName }}
               />
-            </Link>
+            {/* </Link> */}
             <span className="icon-line-horz" />
             <div className="icon-container flex-item">
               <div className="vert-line" />
@@ -119,4 +125,8 @@ class Hosts extends Component {
   }
 }
 
-export default Hosts;
+const mapDispatchToProps = {
+  setPublicCardStatusAction
+}
+
+export default compose(connect(null,mapDispatchToProps)) (Hosts);

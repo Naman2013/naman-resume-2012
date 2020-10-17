@@ -207,7 +207,7 @@ const TopBar = ({
                                         {nextShow.eventTitle} 
                                       </h6>
                                       <h6 className="counter-text">
-                                      {twoDigitsTimeFormatting(props.days)+"d : " + twoDigitsTimeFormatting(props.hours) + "h : " + twoDigitsTimeFormatting(props.minutes) + "m"}
+                                      {props.days+"d : " + twoDigitsTimeFormatting(props.hours) + "h : " + twoDigitsTimeFormatting(props.minutes) + "m"}
                                       </h6>
                                     </div>
                                 // <span className="counter-text">

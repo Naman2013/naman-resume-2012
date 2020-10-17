@@ -86,6 +86,7 @@ export default css`
     font-size: 18px;
     font-family: ${secondaryFont};
     color: #1e1e1e;
+    cursor: pointer;
   }
 
   .member-info {

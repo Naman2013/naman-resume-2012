@@ -8,6 +8,7 @@ import {
   makeTopThreadsLoadingSelector,
 } from '../selectors';
 import { getTopThreadList } from '../thunks';
+import { setPublicCardStatusAction } from '../../../modules/upcoming-events/upcoming-events-actions';
 
 const mapStateToProps = createStructuredSelector({
   topThreadsList: makeTopThreadsDataSelector(),
@@ -16,6 +17,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getTopThreadList,
+  setPublicCardStatusAction,
 };
 
 export default compose(

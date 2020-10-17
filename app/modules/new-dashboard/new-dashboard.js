@@ -190,8 +190,7 @@ const mapDispatchToProps = {
     setMemberChatState,
     getDashboardMissionListAction,
     setPublicCardStatusAction,
-    getPhotoHubHeadingAction,
-    setPublicCardStatusAction,
+    getPhotoHubHeadingAction,   
 };
 
 export default compose(

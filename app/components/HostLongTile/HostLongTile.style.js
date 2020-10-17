@@ -93,6 +93,7 @@ export default css`
     color: ${astronaut};
     font-family: ${secondaryFont};
     padding: 5px 0;
+    cursor:  pointer;
   }
 
   .icon-container-circle {

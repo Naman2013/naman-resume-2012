@@ -60,6 +60,7 @@ export default css`
   .display-name {
     margin-left: 10px;
     color: ${astronaut};
+    cursor: pointer;
   }
 
   .content {
