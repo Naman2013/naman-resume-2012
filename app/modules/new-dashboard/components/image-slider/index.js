@@ -122,10 +122,20 @@ export class ImageSlider extends Component{
                             <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u></h4>
                             <p className="slider-content">{currentItem.observationLog}</p>
                             <div className="icon-container">
-                                <img onClick={()=>onClickItem(currentItem.customerUUID, true)} className="member-icons" src={currentItem.iconFileData.Member.iconUrl}/>
-                                <Link to={currentItem.iconFileData.Telescope.linkUrl} >
-                                    <img className="member-icons" src={currentItem.iconFileData.Telescope.iconUrl}/>
-                                </Link>                                        
+                                {Object.keys(currentItem.iconFileData).map(icon=>(
+                                    <div>
+                                        {currentItem.iconFileData[icon].hasLink ? (
+                                            <Link to={currentItem.iconFileData[icon].linkUrl} >
+                                                <img className="member-icons" src={currentItem.iconFileData[icon].iconUrl}/>
+                                            </Link>
+                                        ):(                                                
+                                            <img 
+                                                onClick={ icon === "Member" ? ()=>onClickItem(currentItem.customerUUID, true) : null } 
+                                                 className="member-icons" 
+                                                src={currentItem.iconFileData[icon].iconUrl}/>                                                
+                                        )}
+                                    </div>
+                                ))}                                        
                             </div>
                             <div className="slider-content-footer">
                                 <div className="slider-buttons-container">
