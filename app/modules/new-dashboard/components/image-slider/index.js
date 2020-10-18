@@ -11,6 +11,7 @@ import { SliderItem } from './sliderItem';
 import { getImageDetails } from '../../dashboardApi';
 import LikeButton from '../button/LikeButton';
 import { Link } from 'react-router';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 
 export class ImageSlider extends Component{
 
@@ -36,7 +37,9 @@ export class ImageSlider extends Component{
                 initialLoadIndex: 5,
                 limitedIndex: 5,
                 imageDetailsList: [],
-                imageDetailsList: imageDetailsList};
+                imageDetailsList: imageDetailsList,
+                isOpen: false,
+            };
         }        
         //     this.state = { currentItem: props.photoHub.imageList[0],
         //                     isDiscussionsOpen: false };
@@ -97,7 +100,7 @@ export class ImageSlider extends Component{
                 }
             }
         };        
-        const { currentItem, isDiscussionsOpen, limitedIndex, imageDetailsList } = this.state;
+        const { currentItem, isOpen, isDiscussionsOpen, limitedIndex, imageDetailsList } = this.state;
         const readOnly = false;
         
         return (
@@ -112,6 +115,7 @@ export class ImageSlider extends Component{
                                 imageDetails={imageDetailsList[i]}
                                 getImageDetails={this.getImageDetails}
                                 onClickItem={onClickItem}
+                                onImageClick={()=>this.setState({isOpen: true})}
                             />                            
                     ))}
                 </Slider>
@@ -193,6 +197,16 @@ export class ImageSlider extends Component{
                                 />
                             )}
                     </div>    
+                )}
+
+                {currentItem && (
+                    <ModalImg
+                        isOpen={isOpen}
+                        imageURL={currentItem.imageDownloadURL}
+                        onHide={() => this.setState({isOpen: false})}
+                        customClassName="obs-image-wrapper"
+                        magnifierClassName="obs-image-magnifier"
+                    />
                 )}                      
             </div>
         );

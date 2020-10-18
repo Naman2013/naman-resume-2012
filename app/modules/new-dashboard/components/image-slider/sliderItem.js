@@ -23,7 +23,7 @@ export class SliderItem extends Component{
     }
     
     render() {
-        const { imageDetails, onClickItem } = this.props;
+        const { imageDetails, onClickItem, onImageClick } = this.props;
         const { index, isDiscussionsOpen, onCommentButtonClick  } = this.props;        
         
         return (
@@ -101,9 +101,9 @@ export class SliderItem extends Component{
                                         />
                                     )} */}
                                 </div>
-                        <Link to={imageDetails.linkUrl} >
-                            <img className="img-slider" src={imageDetails.imageURL} />
-                        </Link>
+                        {/* <Link to={imageDetails.linkUrl} > */}
+                            <img className="img-slider" src={imageDetails.imageURL} onClick={onImageClick} />
+                        {/* </Link> */}
                     </div>
                     {/* <div>
                         <div className="slider-info-container">

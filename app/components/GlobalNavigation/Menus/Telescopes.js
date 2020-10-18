@@ -70,7 +70,7 @@ const Telescopes = (props) => {
                   width: '47%',
                 }}
                 onClickEvent={() =>
-                  browserHistory.push('/profile/private/photos/photoroll')
+                  browserHistory.push('/NewDashboard#photos')
                 }
               />
             </div>
