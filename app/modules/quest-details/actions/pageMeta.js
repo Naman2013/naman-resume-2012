@@ -6,6 +6,10 @@ export const FETCH_QUEST_PAGE_META_START = 'FETCH_QUEST_PAGE_META_START';
 export const FETCH_QUEST_PAGE_META_SUCCESS = 'FETCH_QUEST_PAGE_META_SUCCESS';
 export const FETCH_QUEST_PAGE_META_FAILURE = 'FETCH_QUEST_PAGE_META_FAILURE';
 
+export const FETCH_QUEST_PDF_START = 'FETCH_QUEST_PDF_START';
+export const FETCH_QUEST_PDF_SUCCESS = 'FETCH_QUEST_PDF_SUCCESS';
+export const FETCH_QUEST_PDF_FAILURE = 'FETCH_QUEST_PDF_FAILURE';
+
 const fetchQuestPageMetaStart = () => ({
   type: FETCH_QUEST_PAGE_META_START,
 });
@@ -17,6 +21,20 @@ const fetchQuestPageMetaSuccess = payload => ({
 
 const fetchQuestPageMetaFailure = payload => ({
   type: FETCH_QUEST_PAGE_META_FAILURE,
+  payload,
+});
+
+const fetchQuestPdfStart = () => ({
+  type: FETCH_QUEST_PDF_START,
+});
+
+const fetchQuestPdfSuccess = payload => ({
+  type: FETCH_QUEST_PDF_SUCCESS,
+  payload,
+});
+
+const fetchQuestPdfFailure = payload => ({
+  type: FETCH_QUEST_PDF_FAILURE,
   payload,
 });
 
@@ -58,7 +76,7 @@ export const downloadQuestReport = ({
     token,
     cid
   } = getState().user;
-  
+  dispatch(fetchQuestPdfStart());
   return API.post('/api/quests/downloadQuestReportPDF', {
       questId,
       lang,
@@ -68,8 +86,9 @@ export const downloadQuestReport = ({
       cid,
       accessorCustomerId,
       requestedCustomerId
-
     })
+    .then(result => dispatch(fetchQuestPdfSuccess(result.data)))
+    .catch(error => dispatch(fetchQuestPdfFailure(error)));
 }; 
 
 export default {
