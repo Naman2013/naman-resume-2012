@@ -156,24 +156,25 @@ export class PhotoRoll extends Component{
                                                     {...photo}
                                                 />
                                             </div>
-                                        )}                                       
-                                                                     
-                                    
-                                    <div className="overlay-div-tab">
-                                        <h5 className="mission-obj-name">{photo.imageTitle}</h5>
+                                        )}    
+                                </div>
+                                <div className="overlay-div-tab">
+                                    <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
                                             {/* <Link to={photo.photoViewFullURL}> */}
                                                 <div className="photo-hub-details" >                                                
                                                     <h5  className="view-details" onClick={()=>browserHistory.push(photo.photoViewFullURL)}>{"View Details"}</h5>
+                                                    <i style={{color: "white"}} 
+                                                        className="white icon-download" 
+                                                        onClick={e =>this.onDownloadFile( e, photo.imageDownloadURL, photo.imageDownloadFilename )}
+                                                    />
                                                     <img className="card-options" onClick={()=>browserHistory.push(photo.photoViewFullURL)} src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                     {/* ()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token}) */}
                                                 </div>
                                             {/* </Link> */}
                                         </div>                                                                        
-                                    </div> 
-
-                                </div>
+                                </div> 
                             </div>    
                         ))}                           
                     </div>

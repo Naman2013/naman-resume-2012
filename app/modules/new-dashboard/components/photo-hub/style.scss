@@ -304,9 +304,10 @@
 }
 
 .new-dash .overlay-div-tab{    
-    height: 100%;
-    width: 100%;
+    height: fit-content;
+    width: 80%;
     display: none;
+    padding: 5px;
 }
 
 .new-dash .overlay-div-tab .mission-obj-name{
@@ -410,6 +411,7 @@
     .new-dash .overlay-div-tab{  
         display: block;
         margin-top: 5px;
+        width: 136px;
     }
     .new-dash .overlay-div{  
         display: none;
@@ -458,6 +460,7 @@
     .new-dash .overlay-div-tab{  
         display: block;
         margin-top: 5px;
+        width: 150px;
     }
 
     .new-dash .overlay-div{  
@@ -468,5 +471,24 @@
     .new-dash .photo-hub-mission-img {        
         width: 100px;
         height: 100px;
+    }
+
+    .new-dash .slider-footer-button {
+        padding: 6px;
+    }
+
+    .new-dash .mission-center-bottom-div{
+        // position: relative;
+        // align-items: center;
+        // display: flex;
+        // flex-direction: column;
+    }
+
+    .new-dash .overlay-div-tab .view-details{
+        margin-bottom: 0px;
+    }
+
+    .new-dash .photo-mission-item {
+        height: 260px;
     }
 }

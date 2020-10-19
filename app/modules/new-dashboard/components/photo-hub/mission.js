@@ -192,7 +192,20 @@ export class Mission extends Component{
                                             <h5 className="mission-obj-date">|</h5>
                                             <h5 className="mission-obj-date">{photo.missionImageCount} Images</h5>
                                         </div>                                        
-                                        
+                                        {/* {photo.fitsIsAvailable && (
+                                                <Fragment>                                                    
+                                                    <div className="photo-mission-telescope" style={{border: "1px solid white", borderWidth: "1px 0 1px 0"}}>
+                                                        <h5 className="mission-obj-date" style={{margin: "5px 0px"}}>Contains fits data</h5>                                            
+                                                        <Button
+                                                            mod="plain"
+                                                            onClickEvent={()=>this.onDownloadFitsData(photo)}
+                                                            theme={{ borderColor: '#fff', color: '#fff' }}
+                                                        >
+                                                            <i className="white icon-download" />
+                                                        </Button>                                                
+                                                    </div>
+                                                    </Fragment>
+                                        )} */}
                                         <div className="mission-center-bottom-div">
                                             <img className="photo-hub-mission-img" src={photo.imageURL}/>
                                             <div className="overlay-div-tab">

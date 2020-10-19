@@ -105,10 +105,10 @@ export class Observation extends Component{
                                                     shareText={"How would you like to share your observation?"}
                                                 />
                                             </div>
-                                        )}                                  
-                                    
-                                    <div className="overlay-div-tab">
-                                        <h5 className="mission-obj-name">{photo.imageTitle}</h5>
+                                        )}  
+                                </div>
+                                <div className="overlay-div-tab">
+                                    <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
                                             {/* <Link to={photo.photoViewFullURL}> */}
@@ -118,8 +118,7 @@ export class Observation extends Component{
                                                 </div>
                                             {/* </Link> */}
                                         </div>                                                                        
-                                    </div> 
-                                </div>
+                                </div> 
                                 <div className="slider-content-footer">
                                     <div className="slider-buttons-container">
                                         <Button
