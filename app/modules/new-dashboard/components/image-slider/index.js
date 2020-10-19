@@ -123,7 +123,7 @@ export class ImageSlider extends Component{
                     <div>
                         <div className="slider-info-container">
                             <h2 className="slider-title">{currentItem.observationTitle}</h2>
-                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u> &nbsp;
+                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u> : &nbsp;
                             <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
                             </h4>
                             <p className="slider-content">{currentItem.observationLog}</p>

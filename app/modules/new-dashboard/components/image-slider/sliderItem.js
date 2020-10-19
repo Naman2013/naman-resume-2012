@@ -32,7 +32,7 @@ export class SliderItem extends Component{
                     <div className="slider-item">
                         <div className="slider-info-container-large">
                                     <h2 className="slider-title">{imageDetails.observationTitle}</h2>
-                                    <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(imageDetails.customerUUID, true)}>{imageDetails.displayName}</u>&nbsp;
+                                    <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(imageDetails.customerUUID, true)}>{imageDetails.displayName}</u> : &nbsp;
                                     <span className="slider-updated">{imageDetails.observationTimeDisplay[0]}</span>
                                     </h4>
                                     <p className="slider-content">{imageDetails.observationLog}</p>
