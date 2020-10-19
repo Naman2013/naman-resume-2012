@@ -20,7 +20,7 @@ export class DomainGP extends Component{
         const { at, cid, token } = getUserInfo();
         getGravityByDomain({at, cid, token}).then(response=>{
             const res=response.data;
-            if(!res.apiError){
+            if(!res.apiError && res.GravityByDomainFound){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
                 console.log("community stats Duration"+duration);  

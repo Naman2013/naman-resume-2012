@@ -23,6 +23,8 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
     imageCount,
     isMobile,
     scheduledMissionId,
+    fitsIsAvailable,
+    showFitDataPopup,
   } = props;
   const getTelescopeName = () => {
     return props.image && props.image.telescopeName;
@@ -73,9 +75,11 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
               placeholder="Add tags to this mission"
               {...props}
             />
-            <Btn onClick={noop} mod="circle">
-              <i className="icon icon-download nightfall" />
-            </Btn>
+            {fitsIsAvailable && (
+              <Btn onClick={showFitDataPopup} mod="circle">
+                <i className="icon icon-download nightfall" />
+              </Btn>
+            )}            
           </div>
         </Col>
       </Row>

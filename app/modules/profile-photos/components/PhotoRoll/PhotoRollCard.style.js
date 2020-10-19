@@ -87,6 +87,7 @@ export default css`
     flex-direction: column;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.8);
+    z-index:1;
   }
 
   .photoRoll-title {

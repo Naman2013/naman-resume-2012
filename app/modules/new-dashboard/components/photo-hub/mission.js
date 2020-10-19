@@ -201,7 +201,7 @@ export class Mission extends Component{
                                                     {/* <h5 className="mission-obj-date">{photo.displayDate}</h5> */}
                                                     {/* <Link to={photo.photoViewFullURL}> */}
                                                         {/* <div className="photo-hub-details" onClick={()=>browserHistory.push(photo.missionURL)}>                                                 */}
-                                                        <div className="photo-hub-details" onClick={()=>showModal({missionId: photo.scheduledMissionId})}>                                                
+                                                        <div className="photo-hub-details" onClick={()=>showModal({missionId: photo.scheduledMissionId, fitsIsAvailable: photo.fitsIsAvailable, showFitDataPopup: ()=>this.onDownloadFitsData(photo)} )}>                                                
                                                             <h5 className="view-details">{"View Details"}</h5>
                                                             <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                         </div>
@@ -262,7 +262,7 @@ export class Mission extends Component{
                                             
                                             
                                             {/* <Link to={photo.photoViewFullURL}> */}
-                                                <div className="photo-hub-details" onClick={()=>showModal({missionId: photo.scheduledMissionId})}>
+                                                <div className="photo-hub-details" onClick={()=>showModal({missionId: photo.scheduledMissionId, fitsIsAvailable: photo.fitsIsAvailable, showFitDataPopup: ()=>this.onDownloadFitsData(photo)})}>
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            

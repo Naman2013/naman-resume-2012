@@ -42,6 +42,20 @@ class MissionDetails extends Component<TMissionDetails> {
     this.setState({ activePage });
   };
 
+  closeModal = () => {
+    this.setState(() => ({
+      showPrompt: false,
+    }));
+  };
+
+  showModal = () => {
+    this.setState(() => ({
+      showPrompt: true,
+    }));
+  };
+
+  
+
   render() {
     const {
       isFetching,
@@ -51,7 +65,7 @@ class MissionDetails extends Component<TMissionDetails> {
       imageCount,
       imageList,
       apiURL,
-      params: { missionId: scheduledMissionId },
+      params: { missionId: scheduledMissionId, fitsIsAvailable, showFitDataPopup },
       newDash
     } = this.props;
     const { activePage } = this.state;
@@ -74,6 +88,8 @@ class MissionDetails extends Component<TMissionDetails> {
               missionIconURL={missionIconURL}
               missionDateCreated={missionDateCreated}
               imageCount={imageCount}
+              fitsIsAvailable={fitsIsAvailable}
+              showFitDataPopup={showFitDataPopup}              
             />
 
             <section
@@ -113,7 +129,7 @@ class MissionDetails extends Component<TMissionDetails> {
                   )}
             </section>
           </section>
-        )}
+        )}       
       </DeviceContext.Consumer>
     );
   }
