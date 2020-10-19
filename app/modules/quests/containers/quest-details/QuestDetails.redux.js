@@ -54,6 +54,7 @@ export class ConnectedQuestDetails extends Component {
 
   componentDidMount() {
     const { actions, questId } = this.props;
+<<<<<<< HEAD
     
     actions.fetchQuestPageMeta({ questId }).then(this.handleResponse);
      
@@ -71,6 +72,18 @@ export class ConnectedQuestDetails extends Component {
     let requestedCustomerId = this.props.user.cid;
     const { actions, questId } = this.props;
     actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.onDownloadPDF);
+=======
+    let accessorCustomerId = 414670;
+    let requestedCustomerId = 49;
+    actions.fetchQuestPageMeta({ questId }).then(this.handleResponse);
+    actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.QuestReportResponse);
+  }
+
+
+  QuestReportResponse = (questReporData) =>  {
+      let questPdfUrl = questReporData.data.questPdfUrl;
+      this.setState({ questPdfUrl });
+>>>>>>> f1d83794fb342143dc79b7be87993074a2a029ad
   }
 
   handleResponse = () => {
@@ -134,7 +147,11 @@ export class ConnectedQuestDetails extends Component {
         <Spinner loading={isLoading} />
         <DeviceContext.Consumer>
           {context => (
+<<<<<<< HEAD
             <Quest {...this.props} {...context} userActions={userActions} onDownloadQuestReport = {this.downloadQuest} />
+=======
+            <Quest {...this.props} {...context} userActions={userActions} questPdfUrl={this.state.questPdfUrl} />
+>>>>>>> f1d83794fb342143dc79b7be87993074a2a029ad
           )}
         </DeviceContext.Consumer>
       </div>

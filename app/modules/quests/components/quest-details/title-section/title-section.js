@@ -105,7 +105,7 @@ const QuestDetailsTitleSection = ({
 
         { showQuestReportPDFDownloadFlag ? (
 
-          <Button style = {buttonStyle}><a onClick={onDownloadPDF}>{questReportPDFDownloadLabel}
+          <Button style = {buttonStyle}><a onClick={() => onDownloadPDF(questPdfUrl)}>{questReportPDFDownloadLabel}
           <img src="https://img.icons8.com/metro/15/000000/downloading-updates.png"/>
           </a></Button>
 
