@@ -123,7 +123,9 @@ export class ImageSlider extends Component{
                     <div>
                         <div className="slider-info-container">
                             <h2 className="slider-title">{currentItem.observationTitle}</h2>
-                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u></h4>
+                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u> &nbsp;
+                            <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
+                            </h4>
                             <p className="slider-content">{currentItem.observationLog}</p>
                             <div className="icon-container">
                                 {Object.keys(currentItem.iconFileData).map(icon=>(
@@ -177,7 +179,7 @@ export class ImageSlider extends Component{
                                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/share.svg"}
                                     /> */}
                                 </div>
-                                <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
+                                {/* <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span> */}
                             </div> 
                             {/* <input type="text" className="slider-comment-input" placeholder="Write a Comment"/>  */}
                             

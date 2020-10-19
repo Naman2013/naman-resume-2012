@@ -5,6 +5,7 @@ import { ImageSlider } from '../image-slider';
 import { getCommunityExploration } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
 import { RecentCommunityActivities } from '../recent-community-activities';
+import { SectionDivider } from '../section-divider';
 
 
 export class CommunityExploration extends Component{
@@ -61,6 +62,7 @@ export class CommunityExploration extends Component{
                             onClickItem={onClickItem}
                             scrollToRef={scrollToRef}
                         />
+                        <SectionDivider />
                         <RecentCommunityActivities
                             heading={"Recent Community Activities"}
                             activities={communityExploration.activities}
