@@ -77,8 +77,7 @@ export const QuestDetails = props => {
       <QuestTitleSection
         questData={pageMeta}
         actionButtonEvent={userActions.setupQuest}
-        questPdfUrl={props.questPdfUrl}
-        onDownloadPDF = {onDownloadPDF}
+        onDownloadPDF = {onDownloadQuestReport}
         
       />
       <CenterColumn>
