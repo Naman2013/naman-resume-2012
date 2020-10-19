@@ -6,12 +6,23 @@ import { Tooltip } from 'react-tippy';
 
 export class RecentMissionCard extends Component{
 
+    handleSeeImages = (e) => {
+        e.preventDefault();
+        if (e.target instanceof window.HTMLAnchorElement) {
+            const el = e.target.closest("a");
+            if (el && e.currentTarget.contains(el) && el.id !== "") {
+                // e.preventDefault();                
+                this.props.showModal(el.id);
+            }
+        }
+    }
     
     render() {
         const { mission, 
                 cancelReservation, 
                 cancelPiggyback, 
                 // grabPiggyback, 
+                showModal,
             } = this.props;
         
         return (
@@ -43,7 +54,7 @@ export class RecentMissionCard extends Component{
                         <h4 className="upcoming-telescope">{mission.telescopePierName}</h4> 
                         <div className="past-mission-details">
                             {mission.missionStatusText && mission.missionStatusText !== "" && (                                   
-                                <h4 className="upcoming-telescope" dangerouslySetInnerHTML={{__html: mission.missionStatusText}}/>
+                                <h4 onClick={(e)=>this.handleSeeImages(e)} className="upcoming-telescope" dangerouslySetInnerHTML={{__html: mission.missionStatusText}}/>
                             )}
                             {mission.showJoiningMission ? (   
                                 <Tooltip

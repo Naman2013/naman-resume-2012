@@ -123,22 +123,23 @@ export class ImageSlider extends Component{
                     <div>
                         <div className="slider-info-container">
                             <h2 className="slider-title">{currentItem.observationTitle}</h2>
-                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u> : &nbsp;
+                            <h4 className="slider-subtitle">by <u onClick={()=>onClickItem(currentItem.customerUUID, true)}>{currentItem.displayName}</u>
                             <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
                             </h4>
+                            <br/>
                             <p className="slider-content">{currentItem.observationLog}</p>
                             <div className="icon-container">
                                 {Object.keys(currentItem.iconFileData).map(icon=>(
                                     <div>
                                         {currentItem.iconFileData[icon].hasLink ? (
                                             <Link to={currentItem.iconFileData[icon].linkUrl} >
-                                                <img className="member-icons" src={currentItem.iconFileData[icon].iconUrl}/>
+                                                <img className="member-icons" src={currentItem.iconFileData[icon].dashboardIconUrl}/>
                                             </Link>
                                         ):(                                                
                                             <img 
                                                 onClick={ icon === "Member" ? ()=>onClickItem(currentItem.customerUUID, true) : null } 
                                                  className="member-icons" 
-                                                src={currentItem.iconFileData[icon].iconUrl}/>                                                
+                                                src={currentItem.iconFileData[icon].dashboardIconUrl}/>                                                
                                         )}
                                     </div>
                                 ))}                                        

@@ -14,6 +14,27 @@ import { getUserInfo } from 'app/modules/User';
 import { RecentMissionCard } from '../recent-mission-card';
 import { getDashboardFeaturedObjects, getDashboardMissionList } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
+import Modal from 'react-modal';
+import MissionDetails from 'app/modules/mission-details/containers/mission-details';
+
+const customModalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '300px',
+    width: '90%',
+    height: '90%',
+    maxWidth: '95%',
+    padding: '10px 20px',      
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+};
 
 export class UpcomingMissionList extends Component{
 
@@ -27,6 +48,8 @@ export class UpcomingMissionList extends Component{
         loading: true,
         dashboardFeaturedObjects: undefined,
         dashboardMissionList: undefined,
+        showModal: false,
+        modalParams:{},
     };
 
     timerId = null;
@@ -207,6 +230,8 @@ export class UpcomingMissionList extends Component{
                 dashboardMissionList,
                 dashboardFeaturedObjects, 
                 loading,  
+                showModal,
+                modalParams,
               } = this.state;             
 
           const {
@@ -215,7 +240,7 @@ export class UpcomingMissionList extends Component{
           } = selectedSlot;        
           
           const emptyMissionCard = {emptyslot: true, missionTitle: "Plan new Mission", subtitle: "Empty Slot"};
-       
+          
         return (
           <div>
             {dashboardMissionList && dashboardFeaturedObjects && (
@@ -398,6 +423,7 @@ export class UpcomingMissionList extends Component{
                               cancelPiggyback={(selectedSlot) =>
                                   this.setState({ cancelPiggybackModalVisible: true, selectedSlot, })}
                               grabPiggyback={this.grabPiggyback}
+                              showModal={(params)=>this.setState({showModal: true, modalParams: {missionId: params}})}
                             />
                         ))}
 
@@ -488,6 +514,26 @@ export class UpcomingMissionList extends Component{
                 />
             </div>
             )}
+
+            <Modal
+              isOpen={showModal}
+              contentLabel="Bio"
+              onRequestClose={()=>this.setState({showModal: false})}
+              style={customModalStyles}
+              ariaHideApp={false}
+              shouldCloseOnOverlayClick={false}
+            >
+                <i
+                  className="fa fa-close"
+                  onClick={()=>this.setState({showModal: false})}
+                  role="button"
+                  style={{float: "right", fontSize: "20px"}}
+                />
+                <MissionDetails
+                  params={modalParams}
+                  newDash
+                />
+            </Modal>   
           </div>
             
         );
