@@ -27,7 +27,7 @@ export class StarPartyCard extends Component{
                             <span className="counter-text">
                                 {props.days < 1 ? 
                                     "Starts in " + twoDigitsTimeFormatting(props.hours) + ":" + twoDigitsTimeFormatting(props.minutes) + ":" + twoDigitsTimeFormatting(props.seconds) :
-                                    "Upcoming StarParty!"
+                                    "Upcoming Star Party!"
                                 }
                                 
                             </span>                        

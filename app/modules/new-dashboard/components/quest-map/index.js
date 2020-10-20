@@ -34,6 +34,7 @@ import {getVectorContext} from 'ol/render';
 import {Group as LayerGroup} from 'ol/layer';
 import Overlay from 'ol/Overlay';
 import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
+import { defaults as defaultInteractions } from 'ol/interaction';
 
 export class QuestMap extends Component{
   state={
@@ -273,8 +274,10 @@ export class QuestMap extends Component{
             
             
             
-
+            // var controls = Control.defaults({rotate: false});
+            
             var map = new Map({
+              interactions: defaultInteractions({altShiftDragRotate:false, pinchRotate:false}),
               controls: [],
               target: 'map',
               view: view,
@@ -689,11 +692,11 @@ export class QuestMap extends Component{
         const element = document.fullscreenElement;
         const { mapExpanded } = this.state;
         if (element === null) 
-        {      
+        {                  
             // Run code on exit            
             self.setState({mapExpanded: !mapExpanded});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
-            setTimeout( ()=> { self.state.map.updateSize();}, 100);
+            setTimeout( ()=> { self.state.map.updateSize(); self.state.map.getView().setZoom(0)}, 100);
         }
       };
       if(elem.requestFullscreen){

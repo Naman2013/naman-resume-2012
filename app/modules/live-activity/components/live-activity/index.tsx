@@ -274,9 +274,12 @@ export const LiveActivity = (props: TLiveActivity) => {
       // browserHistory.push(targetLink.href);
       
       const el = e.target.closest("a");
-      if (el && e.currentTarget.contains(el) && el.id !== "") {
-        e.preventDefault();
+      if (el && e.currentTarget.contains(el) && el.id !== "") {        
         props.setPublicCardStatusAction(el.id, true);
+      } 
+      else{
+        const targetLink = e.target.closest('a');
+        browserHistory.push(targetLink.href);
       } 
 
       // if Mobile then close modal

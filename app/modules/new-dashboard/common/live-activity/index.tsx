@@ -273,6 +273,10 @@ export const LiveActivity = (props: TLiveActivity) => {
       if (el && e.currentTarget.contains(el) && el.id !== "") {
         // e.preventDefault();
         props.onClickItem(el.id, true);
+      }
+      else{
+        const targetLink = e.target.closest('a');
+        browserHistory.push(targetLink.href);
       } 
       // if Mobile then close modal
       // const isMobile = isMobileScreen() || isTabletScreen();
