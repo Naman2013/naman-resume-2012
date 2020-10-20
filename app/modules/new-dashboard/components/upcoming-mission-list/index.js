@@ -16,6 +16,8 @@ import { getDashboardFeaturedObjects, getDashboardMissionList } from '../../dash
 import { Spinner } from 'app/components/spinner/index';
 import Modal from 'react-modal';
 import MissionDetails from 'app/modules/mission-details/containers/mission-details';
+import { browserHistory } from 'react-router';
+import { Button } from '../button';
 
 const customModalStyles = {
   content: {
@@ -259,10 +261,20 @@ export class UpcomingMissionList extends Component{
                     confirmationPrompt={cancelPiggybackDialogPrompt}
                 />            
                 <div className="upcoming-main">
-                  <TitleHeaderNew
-                    heading = {dashboardMissionList.missionsSectionHeader}
-                    subHeading = {dashboardMissionList.missionsSectionSubheader}
-                  />
+                  <div className="mission-header">
+                    <TitleHeaderNew
+                      heading = {dashboardMissionList.missionsSectionHeader}
+                      subHeading = {dashboardMissionList.missionsSectionSubheader}
+                    />
+
+                    <Button
+                      type={"button"}
+                      onClickEvent={()=>browserHistory.push("/missions/bySlooh1000")} 
+                      text={"Mission Setup"}                                             
+                      style={"button-border"}
+                      icon={null}
+                    />
+                  </div>
 
                   {/* {missionsSectionHeader && (
                       <h2 className="upcoming-heading">{missionsSectionHeader}</h2>

@@ -23,6 +23,11 @@
     color: #FFFFFF;
 }
 
+.new-dash .mission-header{
+    display: flex;
+    justify-content: space-between;
+}
+
 .new-dash .upcoming-list{
     display: flex;
     flex-wrap: wrap;
