@@ -96,13 +96,16 @@ export class BookMark extends Component{
                                 </div>
                                 
                             )}                                                
-                        </div> 
-                        <Pagination
-                            pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
-                            activePage={activePage}
-                            onPageChange={this.handlePageChange}
-                            totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
-                        />                                                              
+                        </div>
+                        {totalCount > this.PHOTOS_ON_ONE_PAGE && (
+                            <Pagination
+                                pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
+                                activePage={activePage}
+                                onPageChange={this.handlePageChange}
+                                totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
+                            /> 
+                        )} 
+                                                                                     
                 </div> 
             )  
         );

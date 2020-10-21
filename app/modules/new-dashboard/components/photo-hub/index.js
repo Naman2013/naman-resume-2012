@@ -35,6 +35,7 @@ import GalleryDetails from 'app/modules/gallery-details/containers/gallery-detai
 import { getFitsDataApi } from 'app/modules/profile-photos/api';
 import { TabHeaderCount } from '../tab-header-with-count';
 import { TitleHeaderNew } from '../title-header-new';
+import { getGalleryList } from '../../dashboardApi';
 
 
 const mapTypeToRequest = {
@@ -165,6 +166,7 @@ class PhotoHub extends Component{
         //   customerUUID,
         //   publicGalleries: params.public ? 'y' : null,
         // });
+       
         switch(selectedheader.tabAction){
 
             case "photoroll":
@@ -265,6 +267,8 @@ class PhotoHub extends Component{
                 headerspaceequally, 
                 photoHub, 
                 getMyPictures,
+                getMissionImages, 
+                getGalleryList,
                 params,
                 privateProfileData,                
                 actions: {                    
@@ -304,7 +308,7 @@ class PhotoHub extends Component{
                 case "missions":
                     return <Mission 
                                 imageList={photoHub.imageList}
-                                getMyPictures={getMyPictures} 
+                                getMyPictures={getMissionImages} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
                                 showModal={(params)=>this.setState({showModal: true, modalParams: params})}
@@ -314,7 +318,7 @@ class PhotoHub extends Component{
                 case "galleries":
                     return <GalleryCard 
                                 imageList={photoHub.galleryList}
-                                getMyPictures={getMyPictures} 
+                                getMyPictures={getGalleryList} 
                                 countPerTab={photoHub.countPerTab}
                                 totalCount={photoHub.totalCount}
                                 showModal={(params)=>this.setState({showModal: true, modalParams: params})}

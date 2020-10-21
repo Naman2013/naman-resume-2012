@@ -107,6 +107,9 @@ export class NewDashboard extends PureComponent{
             case 3:
                 window.scrollTo(0, this.communityRef.current.offsetTop);
                 break;
+            case 4:
+                window.scrollTo(0, this.clubsRef.current.offsetTop);
+                break;
         }  
         // this.setState({selectedBulletingHeader: heading});
     }

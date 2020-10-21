@@ -39,11 +39,9 @@ export class Mission extends Component{
         const PREVIOUS_PAGE = activePage - 1;
         this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;
        
-        getMyPictures({
-          viewType: 'photoRoll',  
-          sharedOnly: false,
+        getMyPictures({         
           firstMissionNumber: this.startFrom,
-          firstImageNumber: this.startFrom,
+          // firstImageNumber: this.startFrom,
           maxImageCount: this.PHOTOS_ON_ONE_PAGE,
           pagingMode: "api",       
         });
@@ -174,7 +172,7 @@ export class Mission extends Component{
         const { imageList, totalCount, showModal, fitsData } = this.props; 
         const { closeModal, renderModalComponent } = this;       
         const { activePage, showPrompt, modalStyles, modalComponent } = this.state;
-        
+      
         return (
             imageList !== undefined ? ( 
                 <div>                
@@ -298,12 +296,14 @@ export class Mission extends Component{
                             </div>    
                         ))}                           
                     </div>
-                    <Pagination
-                        pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
-                        activePage={activePage}
-                        onPageChange={this.handlePageChange}
-                        totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
-                    />
+                    {totalCount > this.PHOTOS_ON_ONE_PAGE && (
+                      <Pagination
+                          pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
+                          activePage={activePage}
+                          onPageChange={this.handlePageChange}
+                          totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
+                      />
+                    )}
                 
             </div>  
             ):null)                        

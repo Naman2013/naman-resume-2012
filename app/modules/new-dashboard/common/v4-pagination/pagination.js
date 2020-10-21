@@ -51,41 +51,41 @@ class Pagination extends Component {
 
   
 
-  componentWillReceiveProps(nextProps) {
-    const { activePage, pages  } = this.state;
-    const { pagesPerPage, totalPageCount } = nextProps;
+  // componentWillReceiveProps(nextProps) {
+  //   const { activePage, pages  } = this.state;
+  //   const { pagesPerPage, totalPageCount } = nextProps;
+  //   debugger;
+  //   if (this.props.totalPageCount !== totalPageCount || this.state.activePage !== activePage) {
+  //     // let firstPageInSet = activePage;
+  //     // let lastPageInSet = totalPageCount
   
-    if (this.props.totalPageCount !== totalPageCount || this.state.activePage !== activePage) {
-      // let firstPageInSet = activePage;
-      // let lastPageInSet = totalPageCount
+  //     // if (activePage + pagesPerPage > totalPageCount) {
+  //     //   lastPageInSet = totalPageCount - firstPageInSet;
+  //     // } else {
+  //     //   lastPageInSet = firstPageInSet + pagesPerPage;
+  //     // }
   
-      // if (activePage + pagesPerPage > totalPageCount) {
-      //   lastPageInSet = totalPageCount - firstPageInSet;
-      // } else {
-      //   lastPageInSet = firstPageInSet + pagesPerPage;
-      // }
+  //     // if (firstPageInSet < 1) {
+  //     //   firstPageInSet = 1;
+  //     // }
   
-      // if (firstPageInSet < 1) {
-      //   firstPageInSet = 1;
-      // }
-  
-      // if (lastPageInSet > totalPageCount) {
-      //   lastPageInSet = totalPageCount;
-      // }
-      // this.setState(() => {
-      //   this.props.onPageChange({ activePage });
-      //   return ({
-      //     pages: createPages(firstPageInSet, (lastPageInSet - firstPageInSet),),
-      //   });
-      // });
-      this.setState(() => {
-        this.props.onPageChange({ activePage });
-        return ({
-          pages: createPages(nextProps.activePage, nextProps.pagesPerPage, nextProps.totalPageCount),
-        });
-      });
-    }
-  }
+  //     // if (lastPageInSet > totalPageCount) {
+  //     //   lastPageInSet = totalPageCount;
+  //     // }
+  //     // this.setState(() => {
+  //     //   this.props.onPageChange({ activePage });
+  //     //   return ({
+  //     //     pages: createPages(firstPageInSet, (lastPageInSet - firstPageInSet),),
+  //     //   });
+  //     // });
+  //     this.setState(() => {
+  //       this.props.onPageChange({ activePage });
+  //       return ({
+  //         pages: createPages(nextProps.activePage, nextProps.pagesPerPage, nextProps.totalPageCount),
+  //       });
+  //     });
+  //   }
+  // }
 
   handlePageSelect = ({ pageNumber }) => {
     this.setState({ activePage: pageNumber });
