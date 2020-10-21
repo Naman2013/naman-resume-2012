@@ -49,35 +49,43 @@ class Pagination extends Component {
     activePage: this.props.activePage,
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { activePage, pages  } = this.state;
-  //   const { pagesPerPage, totalPageCount } = nextProps;
-  //
-  //   if (this.props.totalPageCount !== totalPageCount) {
-  //     let firstPageInSet = activePage;
-  //     let lastPageInSet = totalPageCount
-  //
-  //     if (activePage + pagesPerPage > totalPageCount) {
-  //       lastPageInSet = totalPageCount - firstPageInSet;
-  //     } else {
-  //       lastPageInSet = firstPageInSet + pagesPerPage;
-  //     }
-  //
-  //     if (firstPageInSet < 1) {
-  //       firstPageInSet = 1;
-  //     }
-  //
-  //     if (lastPageInSet > totalPageCount) {
-  //       lastPageInSet = totalPageCount;
-  //     }
-  //     this.setState(() => {
-  //       this.props.onPageChange({ activePage });
-  //       return ({
-  //         pages: createPages(firstPageInSet, (lastPageInSet - firstPageInSet)),
-  //       });
-  //     });
-  //   }
-  // }
+  
+
+  componentWillReceiveProps(nextProps) {
+    const { activePage, pages  } = this.state;
+    const { pagesPerPage, totalPageCount } = nextProps;
+  
+    if (this.props.totalPageCount !== totalPageCount || this.state.activePage !== activePage) {
+      // let firstPageInSet = activePage;
+      // let lastPageInSet = totalPageCount
+  
+      // if (activePage + pagesPerPage > totalPageCount) {
+      //   lastPageInSet = totalPageCount - firstPageInSet;
+      // } else {
+      //   lastPageInSet = firstPageInSet + pagesPerPage;
+      // }
+  
+      // if (firstPageInSet < 1) {
+      //   firstPageInSet = 1;
+      // }
+  
+      // if (lastPageInSet > totalPageCount) {
+      //   lastPageInSet = totalPageCount;
+      // }
+      // this.setState(() => {
+      //   this.props.onPageChange({ activePage });
+      //   return ({
+      //     pages: createPages(firstPageInSet, (lastPageInSet - firstPageInSet),),
+      //   });
+      // });
+      this.setState(() => {
+        this.props.onPageChange({ activePage });
+        return ({
+          pages: createPages(nextProps.activePage, nextProps.pagesPerPage, nextProps.totalPageCount),
+        });
+      });
+    }
+  }
 
   handlePageSelect = ({ pageNumber }) => {
     this.setState({ activePage: pageNumber });
@@ -157,7 +165,7 @@ class Pagination extends Component {
     const firstPageStyle = activePage === 1 ? { cursor: 'default' } : {};
     const lastPageStyle =
       activePage === totalPageCount ? { cursor: 'default' } : {};
-
+    
     return (
       totalPageCount > 1 && (
         <div className="pagination-root">

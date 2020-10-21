@@ -72,7 +72,7 @@ export class BookMark extends Component{
     render() {
         const {heading, guideList, emptySetDisplay, totalCount } = this.props;
         const { activeHeading, activePage } = this.state;
-
+       
         return (
             guideList !== (undefined || null) && (
                 <div className="guide-list-main">

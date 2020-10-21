@@ -201,8 +201,7 @@ export class NewDashboard extends PureComponent{
                 userGravityStatus,                
               } =this.props;
 
-              const { showRightbar } = this.state;
-              
+              const { showRightbar } = this.state;            
             
         return(
             <div>
