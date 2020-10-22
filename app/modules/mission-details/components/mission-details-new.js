@@ -38,15 +38,15 @@ class MissionDetailsNew extends Component<TMissionDetails> {
   fetchData = () => {
     const { getMissionDetails, params } = this.props;
     const { activePage } = this.state;
+    const startPage = activePage === 1 ? 1 : (activePage-1) * 9 + 1;        
     getMissionDetails({ scheduledMissionId: params.missionId,
     maxImageCount: 9,
-    firstImageNumber: activePage,
+    firstImageNumber: startPage,
     sharedOnly: false, });
   };
 
-  handlePageChange = ({ activePage }) => {
-    this.fetchData();
-    this.setState({ activePage });
+  handlePageChange = ({ activePage }) => {  
+    this.setState({ activePage }, this.fetchData);
   };
 
   closeModal = () => {
