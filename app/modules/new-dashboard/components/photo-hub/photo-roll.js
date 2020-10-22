@@ -85,8 +85,7 @@ export class PhotoRoll extends Component{
     handlePageChange = ({ activePage }) => {
         const { getMyPictures } = this.props;       
         const PREVIOUS_PAGE = activePage - 1;
-        this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;
-       
+        this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;        
         getMyPictures({
           viewType: 'photoRoll',  
           sharedOnly: false,

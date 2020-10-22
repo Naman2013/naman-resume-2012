@@ -78,7 +78,7 @@ class Pagination extends Component {
       //   });
       // });
       this.setState(() => {
-        this.props.onPageChange({ activePage });
+        // this.props.onPageChange({ activePage });
         return ({
           pages: createPages(nextProps.activePage, nextProps.pagesPerPage, nextProps.totalPageCount),
         });

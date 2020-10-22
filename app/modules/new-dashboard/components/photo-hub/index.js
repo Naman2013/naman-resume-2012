@@ -109,7 +109,7 @@ class PhotoHub extends Component{
     };
 
     onTabChange=(header)=>{
-        const { getMyPictures, ref, getMissionImages, getGalleryList } = this.props;
+        const { getMyPictures, ref, getMissionImages, getGalleryList } = this.props;        
         switch(header.tabAction){
 
             case "photoroll":

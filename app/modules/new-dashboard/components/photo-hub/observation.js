@@ -23,15 +23,13 @@ export class Observation extends Component{
     handlePageChange = ({ activePage }) => {
         const { getMyPictures } = this.props;       
         const PREVIOUS_PAGE = activePage - 1;
-        this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;
-       
+        this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;       
         getMyPictures({
           viewType: 'photoRoll',  
-          sharedOnly: false,
-          firstMissionNumber: this.startFrom,
+          sharedOnly: true,          
           firstImageNumber: this.startFrom,
           maxImageCount: this.PHOTOS_ON_ONE_PAGE,
-          pagingMode: "api",       
+        //   pagingMode: "api",       
         });
         this.setState({ activePage });
       };
