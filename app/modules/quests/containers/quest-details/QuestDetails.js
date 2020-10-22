@@ -23,7 +23,7 @@ import styles from './QuestDetails.style';
 const { bool, func, number, shape, string, instanceOf } = PropTypes;
 
 export const QuestDetails = props => {
-  const { actions, modal, pageMeta, questId, userActions } = props;
+  const { actions, modal, pageMeta, questId, userActions, onDownloadQuestReport } = props;
   const resourcesProps = {
     resourcesIconUrl: resources,
     resourcesButtonText: pageMeta.resourcesButtonCaption,
@@ -32,7 +32,7 @@ export const QuestDetails = props => {
   };
 
   const onDownloadPDF = pdfUrl => {
-    downloadFile(pdfUrl, 'QuestCompletion.pdf');
+    downloadFile(pdfUrl, 'QuestCompletion.pdf', props.questPdfUrl);
   };
 
   const questSectionProps = {
@@ -77,7 +77,8 @@ export const QuestDetails = props => {
       <QuestTitleSection
         questData={pageMeta}
         actionButtonEvent={userActions.setupQuest}
-        onDownloadPDF={onDownloadPDF}
+        onDownloadPDF = {onDownloadQuestReport}
+        
       />
       <CenterColumn>
         <GuideSection

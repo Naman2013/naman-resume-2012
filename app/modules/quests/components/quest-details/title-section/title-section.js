@@ -7,6 +7,9 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import Medallion from 'app/components/common/TiaraTitleSection/Medallion';
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
+import {downloadIcon} from 'app/assets/icons/download-icon.png'
+
+
 import {
   white_tile_paper,
   golden,
@@ -20,6 +23,7 @@ const QuestDetailsTitleSection = ({
   questData,
   actionButtonEvent,
   onDownloadPDF,
+  questPdfUrl
 }) => {
   const { 
     iconURL,
@@ -29,6 +33,9 @@ const QuestDetailsTitleSection = ({
     questTitle,
     showInProgressButton,
     inProgressButtonCaption,
+    questReportPDFDownloadLabel,
+    showQuestReportPDFDownloadFlag,
+    aboutDownloadPDFURL,
     completed,
     showQuestCompletionIcons,
     questCompletionIcons = {},
@@ -51,6 +58,11 @@ const QuestDetailsTitleSection = ({
     questCompleteBadgeIconLinkUrl,
   } = questCompletionIcons;
 
+  const buttonStyle = {
+    margin:5,
+    padding:10
+
+  }
   return (
   <div className="root">
     <CenterColumn
@@ -88,7 +100,7 @@ const QuestDetailsTitleSection = ({
         ) : null}
 
         {showInProgressButton && !completed ? (
-          <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
+          <GenericButton style={buttonStyle} text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
 
         {showQuestCompletionIcons && (
@@ -96,14 +108,14 @@ const QuestDetailsTitleSection = ({
             {showQuestCompleteCheckIcon && (
               <Tooltip disabled={!showQuestCompleteCheckIconTooltip} theme="light" title={questCompleteCheckIconTooltipText} position="top">
                 <Link to={questCompleteCheckIconLinkUrl}>
-                  <CompleteCheckbox completed={showQuestCompleteCheckIcon} iconUrl={questCompleteCheckIconUrl} />
+                  <CompleteCheckbox  style = {buttonStyle}  completed={showQuestCompleteCheckIcon} iconUrl={questCompleteCheckIconUrl} />
                 </Link>
               </Tooltip>
             )}
 
             {showQuestCompleteDownloadIcon && (
               <Tooltip disabled={!showQuestCompleteDownloadIconTooltip} theme="light" title={questCompleteDownloadIconTooltipText} position="top">
-                <Button onClick={() => onDownloadPDF(questCompleteDownloadPDFUrl)} className="quest-download-pdf-btn">
+                <Button  style = {buttonStyle} onClick={() => onDownloadPDF(questCompleteDownloadPDFUrl)} className="quest-download-pdf-btn">
                   <img src={questCompleteDownloadIconUrl} alt="" />
                 </Button>
               </Tooltip>
@@ -112,7 +124,7 @@ const QuestDetailsTitleSection = ({
             {showQuestCompleteBadgeIcon && (
               <Tooltip disabled={!showQuestCompleteBadgeIconTooltip} theme="light" title={questCompleteBadgeIconTooltipText} position="top">
                 <Link to={questCompleteBadgeIconLinkUrl}>
-                  <Button onClick={() => {}} className="quest-download-pdf-btn">
+                  <Button  style = {buttonStyle} onClick={() => {}} className="quest-download-pdf-btn">
                     <img src={questCompleteBadgeIconUrl} alt="" />
                   </Button>
                 </Link>
@@ -120,6 +132,13 @@ const QuestDetailsTitleSection = ({
             )}
           </>
         )}
+
+        { showQuestReportPDFDownloadFlag ? (
+
+        <Button style = {buttonStyle}><a onClick={onDownloadPDF}>{questReportPDFDownloadLabel}
+        <img src="https://img.icons8.com/metro/15/000000/downloading-updates.png"/>
+        </a></Button>
+        ) : null }
       </div>
     </CenterColumn>
 

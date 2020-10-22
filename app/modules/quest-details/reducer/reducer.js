@@ -5,6 +5,9 @@ import {
   FETCH_QUEST_PAGE_META_START,
   FETCH_QUEST_PAGE_META_SUCCESS,
   FETCH_QUEST_PAGE_META_FAILURE,
+  FETCH_QUEST_PDF_START,
+  FETCH_QUEST_PDF_SUCCESS,
+  FETCH_QUEST_PDF_FAILURE,
 } from '../actions/pageMeta';
 
 import {
@@ -45,4 +48,7 @@ export default createReducer(initialState, {
   [FETCH_QUEST_COMPLETE_OVERVIEW_START]: completeReducer.fetchCompleteStart,
   [FETCH_QUEST_COMPLETE_OVERVIEW_SUCCESS]: completeReducer.fetchCompleteSuccess,
   [FETCH_QUEST_COMPLETE_OVERVIEW_FAILURE]: completeReducer.fetchCompleteFailure,
+  [FETCH_QUEST_PDF_START]: pageMetaReducer.fetchPdfStart,
+  [FETCH_QUEST_PDF_SUCCESS]: pageMetaReducer.fetchPdfSuccess,
+  [FETCH_QUEST_PDF_FAILURE]: pageMetaReducer.fetchPdfFailure,
 });
