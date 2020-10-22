@@ -27,7 +27,7 @@ export class CommunityExploration extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                console.log("Community Exploration Duration"+duration);
+                // console.log("Community Exploration Duration"+duration);
                 if(this.timerId !== null)
                     clearTimeout(this.timerId);                
                 this.timerId=setTimeout(this.getCommunityObservationAction,duration );

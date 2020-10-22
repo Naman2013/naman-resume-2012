@@ -98,8 +98,8 @@ export class QuestMap extends Component{
         }
         else{     
           map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-            console.log("object name: "+feature.get('name'));
-            console.log("object id: "+feature.getId());
+            // console.log("object name: "+feature.get('name'));
+            // console.log("object id: "+feature.getId());
                 popup.innerHTML = '';
                 popup.hidden = true;
                 self.setState({isloading1: true});

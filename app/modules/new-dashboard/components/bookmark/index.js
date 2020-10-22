@@ -16,7 +16,7 @@ export class BookMark extends Component{
 
     fetchList = (title, paginationStartIndex) => {
         const { getBookmarkList } = this.props;
-
+        
         switch(title){
 
             case "Objects":
@@ -72,7 +72,6 @@ export class BookMark extends Component{
     render() {
         const {heading, guideList, emptySetDisplay, totalCount } = this.props;
         const { activeHeading, activePage } = this.state;
-       
         return (
             guideList !== (undefined || null) && (
                 <div className="guide-list-main">
@@ -96,16 +95,13 @@ export class BookMark extends Component{
                                 </div>
                                 
                             )}                                                
-                        </div>
-                        {totalCount > this.PHOTOS_ON_ONE_PAGE && (
-                            <Pagination
-                                pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
-                                activePage={activePage}
-                                onPageChange={this.handlePageChange}
-                                totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
-                            /> 
-                        )} 
-                                                                                     
+                        </div>                        
+                        <Pagination
+                            pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
+                            activePage={activePage}
+                            onPageChange={this.handlePageChange}
+                            totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
+                        />
                 </div> 
             )  
         );

@@ -18,10 +18,8 @@ export class GalleryCard extends Component{
         this.startFrom = activePage === 1 ? 1 : PREVIOUS_PAGE * this.PHOTOS_ON_ONE_PAGE + 1;
        
         getMyPictures({          
-          firstMissionNumber: this.startFrom,
-          firstImageNumber: this.startFrom,
-          maxImageCount: this.PHOTOS_ON_ONE_PAGE,
-          pagingMode: "api",       
+          paginationStartIndex: this.startFrom,         
+          maxItemsPerPage: this.PHOTOS_ON_ONE_PAGE,              
         });
         this.setState({ activePage });
       };
@@ -75,14 +73,12 @@ export class GalleryCard extends Component{
                             </div>    
                         ))}                           
                     </div>
-                    {totalCount > this.PHOTOS_ON_ONE_PAGE && (
                         <Pagination
                             pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
                             activePage={activePage}
                             onPageChange={this.handlePageChange}
                             totalPageCount={Math.ceil(totalCount / this.PHOTOS_ON_ONE_PAGE)}
                         />
-                    )}
                 
             </div>  
             ):null)                        

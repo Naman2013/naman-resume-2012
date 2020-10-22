@@ -60,14 +60,12 @@ export class ClubList extends Component{
                         </div>
                         )}                            
                     </div>
-                    {totalClubsCount > this.PHOTOS_ON_ONE_PAGE && (
-                        <Pagination
-                            pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
-                            activePage={activePage}
-                            onPageChange={this.handlePageChange}                        
-                            totalPageCount={Math.ceil(totalClubsCount / this.PHOTOS_ON_ONE_PAGE)}
-                        />              
-                    )}                      
+                    <Pagination
+                        pagesPerPage={this.PHOTOS_ON_ONE_PAGE}
+                        activePage={activePage}
+                        onPageChange={this.handlePageChange}                        
+                        totalPageCount={Math.ceil(totalClubsCount / this.PHOTOS_ON_ONE_PAGE)}
+                    />                                    
             </div>   
         ):null);
     }
