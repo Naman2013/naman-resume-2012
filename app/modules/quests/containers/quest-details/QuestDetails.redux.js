@@ -19,6 +19,7 @@ import { setQuestCompleted } from 'app/modules/quests/thunks';
 import { START_QUEST } from 'app/services/quests';
 import { Spinner } from 'app/components/spinner/index';
 import Quest from './QuestDetails';
+import { downloadFile } from 'app/utils/downloadFile';
 
 const { func, number, oneOfType, shape, string } = PropTypes;
 const BADGE_ITEM_TYPE = 'badge';
@@ -44,6 +45,7 @@ export class ConnectedQuestDetails extends Component {
 
   state = {
     isLoading: false,
+    questPdfUrl: null,
   };
 
   startLoading = () => this.setState({ isLoading: true });
@@ -52,7 +54,23 @@ export class ConnectedQuestDetails extends Component {
 
   componentDidMount() {
     const { actions, questId } = this.props;
+    
     actions.fetchQuestPageMeta({ questId }).then(this.handleResponse);
+     
+  }
+
+   onDownloadPDF = () => {
+    const { pageMeta } = this.props;
+    const { questPdfUrl } = pageMeta;
+    const fileName = questPdfUrl.substring(questPdfUrl.lastIndexOf('/') + 1);
+    downloadFile(questPdfUrl, fileName);
+  };
+
+  downloadQuest = () => {
+    let accessorCustomerId = this.props.user.cid;
+    let requestedCustomerId = this.props.user.cid;
+    const { actions, questId } = this.props;
+    actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.onDownloadPDF);
   }
 
   handleResponse = () => {
@@ -116,7 +134,7 @@ export class ConnectedQuestDetails extends Component {
         <Spinner loading={isLoading} />
         <DeviceContext.Consumer>
           {context => (
-            <Quest {...this.props} {...context} userActions={userActions} />
+            <Quest {...this.props} {...context} userActions={userActions} onDownloadQuestReport = {this.downloadQuest} />
           )}
         </DeviceContext.Consumer>
       </div>
