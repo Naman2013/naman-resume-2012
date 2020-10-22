@@ -91,6 +91,7 @@ function getMissionDetailsSuccess(state, { payload }) {
     imageCount: payload.imageCount,
     maxImageCount: payload.maxImageCount,
     imageList: payload.imageList,
+    totalCount: payload.totalCount,
   };
 }
 

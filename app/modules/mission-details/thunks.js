@@ -6,7 +6,7 @@ import {
 } from 'app/modules/mission-details/api';
 import { ACTION } from './reducer';
 
-export const getMissionDetails = missionId => (dispatch, getState) => {
+export const getMissionDetails = (data) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getMissionDetails());
   const body = {
@@ -14,7 +14,7 @@ export const getMissionDetails = missionId => (dispatch, getState) => {
     token,
     cid,
     viewType: 'missions',
-    scheduledMissionId: missionId,
+    ...data
   };
   return getMissionDetailsApi(body)
     .then(result => dispatch(ACTION.getMissionDetailsSuccess(result.data)))

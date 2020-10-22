@@ -8,7 +8,7 @@ import {
   getMissionDetails,
 } from 'app/modules/mission-details/thunks';
 
-import MissionDetails from '../components/mission-details';
+import MissionDetailsNew from '../components/mission-details-new';
 import {
   makeMissionDetailsLoadingSelector,
   makeMissionDetailsTitleSelector,
@@ -47,4 +47,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(MissionDetails);
+)(MissionDetailsNew);

@@ -32,6 +32,12 @@ export const makeMissionDetailsImageCountSelector = () =>
     state => state.imageCount
   );
 
+export const makeMissionDetailsTotalImageCountSelector = () =>
+  createSelector(
+    selectMissionDetails,
+    state => state.totalCount
+  );
+
 export const makeMissionDetailsImageListSelector = () =>
   createSelector(
     selectMissionDetails,

@@ -36,6 +36,7 @@ import { getFitsDataApi } from 'app/modules/profile-photos/api';
 import { TabHeaderCount } from '../tab-header-with-count';
 import { TitleHeaderNew } from '../title-header-new';
 import { getGalleryList } from '../../dashboardApi';
+import MissionDetailsNew from 'app/modules/mission-details/containers/mission-details-new';
 
 
 const mapTypeToRequest = {
@@ -414,7 +415,7 @@ class PhotoHub extends Component{
                         )}
 
                         {selectedheader.tabAction === "missions" && (
-                            <MissionDetails
+                            <MissionDetailsNew
                                 params={modalParams}
                                 newDash
                             />
