@@ -516,7 +516,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
       />
 
-      <Route path="profile" component={ProfileMain} onEnter={validateUser}>
+      {/* <Route path="profile" component={ProfileMain} onEnter={validateUser}>
         <Route
           path=":private"
           component={PrivateProfileMain}
@@ -532,7 +532,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         >
           {getProfileRoutes({ publicProfile: true })}
         </Route>
-      </Route>
+      </Route> */}
 
       <Route
         path="leaderboard(/:tab)"
