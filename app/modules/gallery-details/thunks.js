@@ -6,14 +6,14 @@ import {
   renameGalleryApi,
 } from './api';
 
-export const getGalleryDetails = galleryId => (dispatch, getState) => {
+export const getGalleryDetails = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getGalleryDetails());
   const body = {
     at,
     token,
     cid,
-    galleryId,
+    ...data,
   };
   return getGalleryDetailsApi(body)
     .then(result => dispatch(ACTION.getGalleryDetailsSuccess(result.data)))

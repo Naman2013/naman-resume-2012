@@ -37,6 +37,7 @@ import { TabHeaderCount } from '../tab-header-with-count';
 import { TitleHeaderNew } from '../title-header-new';
 import { getGalleryList } from '../../dashboardApi';
 import MissionDetailsNew from 'app/modules/mission-details/containers/mission-details-new';
+import GalleryDetailsNew from 'app/modules/gallery-details/containers/gallery-details-new';
 
 
 const mapTypeToRequest = {
@@ -422,7 +423,7 @@ class PhotoHub extends Component{
                         )}
                         
                         {selectedheader.tabAction === "galleries" && (
-                            <GalleryDetails
+                            <GalleryDetailsNew
                                 params={modalParams}
                                 newDash
                             />
