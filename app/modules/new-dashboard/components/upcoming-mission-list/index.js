@@ -18,6 +18,7 @@ import Modal from 'react-modal';
 import MissionDetails from 'app/modules/mission-details/containers/mission-details';
 import { browserHistory } from 'react-router';
 import { Button } from '../button';
+import MissionDetailsNew from 'app/modules/mission-details/containers/mission-details-new';
 
 const customModalStyles = {
   content: {
@@ -541,7 +542,7 @@ export class UpcomingMissionList extends Component{
                   role="button"
                   style={{float: "right", fontSize: "20px"}}
                 />
-                <MissionDetails
+                <MissionDetailsNew
                   params={modalParams}
                   newDash
                 />
