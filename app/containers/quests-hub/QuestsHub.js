@@ -25,7 +25,10 @@ const DEFAULT_PAGE = 1;
 const questsHubModel = {
   name: 'QUEST_HUB_MODEL',
   model: resp => ({
-    filterOptions: resp.navigationConfig,
+    filterOptions: [...resp.navigationConfig, ...[{
+      "title": "My Quests",
+      "linkURL": "/quests/myquests"
+    }]],
     sortOptions: resp.filterOptions.options,
   }),
 };
