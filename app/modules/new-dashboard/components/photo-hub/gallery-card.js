@@ -57,18 +57,18 @@ export class GalleryCard extends Component{
                                             {/* </Link>         */}
                                         </div>                                
                                     
-                                    <div className="overlay-div-tab">
+                                    {/* <div className="overlay-div-tab">
                                         <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
-                                            {/* <Link to={photo.galleryLinkURL}> */}
+                                            
                                                 <div className="photo-hub-details" onClick={()=>showModal({galleryId: photo.galleryId})}>
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>
-                                            {/* </Link> */}
+                                           
                                         </div>                                                                        
-                                    </div> 
+                                    </div>  */}
                                 </div>
                             </div>    
                         ))}                           
