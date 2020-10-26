@@ -18,20 +18,23 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
+import {ProfileQuests} from 'app/components/profiles/private-profile/profile-quests'
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
+  const questsHubModel = {
+    name: 'QUEST_HUB_MODEL',
+    model: resp => ({
+      filterOptions: [...resp.navigationConfig, ...[{
+        "title": "My Quests",
+        "linkURL": "/quests/myquests/completed"
+      }]],
+      sortOptions: resp.filterOptions.options,
+    }),
+  };
 
-const questsHubModel = {
-  name: 'QUEST_HUB_MODEL',
-  model: resp => ({
-    filterOptions: [...resp.navigationConfig, ...[{
-      "title": "My Quests",
-      "linkURL": "/quests/myquests"
-    }]],
-    sortOptions: resp.filterOptions.options,
-  }),
-};
+
+
 @withTranslation()
 class Quests extends Component {
   static propTypes = {
@@ -92,9 +95,18 @@ class Quests extends Component {
     });
   };
 
+  getMyQuestsTiles = (params) => {
+    const profileQuestParams = { private: "private", viewType: params.viewType, 'route': 'myquests' };
+    const profileQuestTiles = <ProfileQuests params={profileQuestParams} />
+    return profileQuestTiles;
+  }
+
   render() {
-    const { user, actions, t, isFetching } = this.props;
+    const { user, actions, t, isFetching, params } = this.props;
     const { quests, questsComingSoonMessage } = this.state;
+    console.log("questsHubModel :: ",questsHubModel.model);
+    //questsHubModel['cid'] = user.cid; 
+    console.log('params', user.cid);
     return (
       <div>
         <Request
@@ -139,7 +151,7 @@ class Quests extends Component {
                       render={() => (
                         <Fragment>
                           {isFetching ? <div>{t('Hubs.loading')}</div> : null}
-                          {!isFetching && (
+                          {!isFetching && params.filterType !== 'myquests' ? (
                             <QuestTiles
                               updateReadingListInfo={
                                 this.updateReadingListInQuest
@@ -148,7 +160,7 @@ class Quests extends Component {
                               questsComingSoonMessage={questsComingSoonMessage}
                               isMobile={context.isMobile}
                             />
-                          )}
+                          ) : this.getMyQuestsTiles(params) }
                         </Fragment>
                       )}
                     />

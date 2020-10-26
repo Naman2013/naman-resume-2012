@@ -12,11 +12,11 @@ export const ProfileQuests = (props: TProfileQuests) => {
   const profileQuestTab = [
     {
       title: 'In progress',
-      linkURL: '/profile/private/quests/inprogress',
+      linkURL: params.route === 'myquests' ? `/quests/myquests/inprogress` : '/profile/private/quests/inprogress',
     },
     {
       title: 'Completed',
-      linkURL: '/profile/private/quests/completed',
+      linkURL: params.route === 'myquests' ? `/quests/myquests/completed` : '/profile/private/quests/completed',
     },
   ];
 

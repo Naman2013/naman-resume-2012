@@ -21,7 +21,7 @@ class UnderlineNav extends Component {
         linkURL: string,
       })
     ),
-    parentPath: string.isRequired,
+    parentPath: string,
     profile: bool,
   };
 
