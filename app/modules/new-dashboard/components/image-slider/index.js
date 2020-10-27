@@ -77,18 +77,13 @@ export class ImageSlider extends Component{
 
     showDiscussion=()=>{
         const { isDiscussionsOpen } = this.state;
-        const { stopTimer } = this.props;
-        this.setState({isDiscussionsOpen: !isDiscussionsOpen})
-        stopTimer();
-    }
-
-    hideDiscussions = () =>{
-        const { isDiscussionsOpen } = this.state;
-        const { scrollToRef, startTimer } = this.props;
-        this.setState({isDiscussionsOpen: !isDiscussionsOpen},()=>scrollToRef(3, ""))
-        startTimer();
-    }
-
+        const { stopTimer, startTimer } = this.props;
+        if(!isDiscussionsOpen)
+            stopTimer();
+        else
+            startTimer();
+        this.setState({isDiscussionsOpen: !isDiscussionsOpen})        
+    }  
 
     render() {      
         const slideImages = [{imageURL: "https://vega.slooh.com/assets/v4/dashboard-new/test1.PNG", title: "IC2602 (Southern Pleiades) With Chile 2", subtile: "Marjorie Robertson", content: "Messier 99 is a grand design galaxy in the constellation Coma Berenices. The galaxy is a member of the Virgo cluster and lies at a distance of 55 million LY with a diameter of 85,000 LY. It has a peculiar shape with one normal looking arm and an extended arm that is less tightly wound.", updated: "15 mins ago"},
@@ -104,7 +99,11 @@ export class ImageSlider extends Component{
             slidesToShow: 1,
             slidesToScroll: 1,
             beforeChange: (current, after) =>{
-                this.setState({ isDiscussionsOpen: false});
+                if(this.state.isDiscussionsOpen){
+                    this.showDiscussion();
+                }
+                // else
+                //     this.setState({ isDiscussionsOpen: false});
             },
             afterChange: ( after) =>{
                 const { limitedIndex, initialLoadIndex, imageDetailsList } = this.state;                
@@ -210,7 +209,7 @@ export class ImageSlider extends Component{
                                     topicId={currentItem.commentsTopicId}
                                     threadId={currentItem.commentsThreadId}
                                     canSubmitReplies={currentItem.canSubmitReplies}
-                                    toggleComment={this.hideDiscussions}
+                                    toggleComment={this.showDiscussion}
                                 />
                             )}
                     </div>    

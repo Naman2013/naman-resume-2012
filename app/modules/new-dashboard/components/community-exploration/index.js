@@ -41,11 +41,11 @@ export class CommunityExploration extends PureComponent{
             clearTimeout(this.timerId);
     }
 
-    startTimer(){
+    startTimer=()=>{
         this.getCommunityObservationAction();
     }
 
-    stopTimer(){
+    stopTimer=()=>{
         if(this.timerId !== null)
             clearTimeout(this.timerId);    
     }
