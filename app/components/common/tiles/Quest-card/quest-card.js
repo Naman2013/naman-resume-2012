@@ -79,6 +79,10 @@ QuestCard.propTypes = {
   linkUrl: PropTypes.string.isRequired,
   iconURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  questId: PropTypes.string,
+  questAuthor: PropTypes.bool,
+  linkLabel: PropTypes.string,
+  onDownloadPdf: PropTypes.func,
 };
 
 export default QuestCard;
