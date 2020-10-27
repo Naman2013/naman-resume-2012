@@ -30,7 +30,10 @@ export class LiveChat extends Component{
           activityFeedMembers, 
           allLivecastsInProgress,
           activeTab,
-          displayName, } = pubnubData;
+          displayName,
+          isChatEnabled,
+          NoHistroyMessage,
+         } = pubnubData;
         
         // const userInfo= has(resp, 'mainMenu.userInfo') ? resp.mainMenu.userInfo : {};
         
@@ -46,7 +49,7 @@ export class LiveChat extends Component{
         //     isChatEnabled = userInfoIsChatEnabled;
         //     displayName = userInfoName;
         // }
-          
+        
         return (
             <div className="">
               {docked && (
@@ -62,7 +65,7 @@ export class LiveChat extends Component{
                     // }
                     userDisplayName={displayName}
                     // userDisplayName={displayName}
-                    isChatEnabled={true}
+                    isChatEnabled={isChatEnabled}
                     onClick={null}
                     // scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
                     // subscribeToPubnubActivityFeedChannel={
@@ -74,6 +77,7 @@ export class LiveChat extends Component{
                     selectedTab={activeTab}
                     setTab={setTab}
                     onClickItem={onClickItem}
+                    NoHistroyMessage={NoHistroyMessage}
                   />
               )}
                 

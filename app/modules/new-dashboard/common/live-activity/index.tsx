@@ -129,6 +129,7 @@ type TLiveActivity = {
   selectedTab: string;
   setTab: Function;
   onClickItem: Function;
+  NoHistroyMessage: boolean;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -150,6 +151,7 @@ export const LiveActivity = (props: TLiveActivity) => {
     selectedTab,
     setTab,
     onClickItem,
+    NoHistroyMessage,
   } = props;
   
   const rnd = useRef(null);
@@ -315,8 +317,8 @@ export const LiveActivity = (props: TLiveActivity) => {
       
   }, []);
 
-  const isFetching = !(selectedTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
-  
+  const isFetching = !(selectedTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : (NoHistroyMessage ||activityFeedMessages.length > 0));
+
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen }, {'docked': docked}, {'wrapper-not-docked' : !docked})}

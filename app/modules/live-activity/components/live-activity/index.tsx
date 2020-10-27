@@ -131,7 +131,8 @@ type TLiveActivity = {
   unSubscribePubnub: Function;
   pubnubInit: Function;
   selectedTab: string;
-  setPublicCardStatusAction: Function;  
+  setPublicCardStatusAction: Function; 
+  NoHistroyMessage: boolean; 
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -152,7 +153,8 @@ export const LiveActivity = (props: TLiveActivity) => {
     setTab,
     unSubscribePubnub,
     pubnubInit, 
-    selectedTab 
+    selectedTab,
+    NoHistroyMessage, 
   } = props;
 
   const rnd = useRef(null);
@@ -319,10 +321,10 @@ export const LiveActivity = (props: TLiveActivity) => {
     }
       
   }, []);
-
+ 
   // const isFetching = !(activeTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
-  const isFetching = !(selectedTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : activityFeedMessages.length > 0);
-  
+  const isFetching = !(selectedTab === MEMBERS_TAB ? activityFeedMembers.length > 0 : (NoHistroyMessage || activityFeedMembers.length > 0));
+ 
   return (
     <div
       className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
@@ -411,7 +413,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                       />
                     </Tooltip>
                   </div>
-                  <Tooltip title="Close">
+                  <Tooltip title="dock">
                     <div className="close-window">
                       <img
                         src="https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"

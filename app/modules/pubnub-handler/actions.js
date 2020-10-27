@@ -14,6 +14,7 @@ export const TAB_CHANGED = 'TAB_CHANGED';
 export const FEED_MEMBERS_CHANGED = 'FEED_MEMBERS_CHANGED';
 export const SET_DISPLAY_NAME = 'SET_DISPLAY_NAME';
 export const UPDATE_PUBNUB_INIT = 'UPDATE_PUBNUB_INIT';
+export const NO_MESSAGE_HISTORY = 'NO_MESSAGE_HISTORY';
 
 let initialState = {
   pubnubActivityFeedChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
@@ -55,6 +56,11 @@ const feedMessageReceived = (newMessage) => ({
   newMessage
 })
 
+const setNoHistoryMessage = (flag) => ({
+  type: NO_MESSAGE_HISTORY,
+  flag
+})
+
 const changeDock = (flag) => ({
   type: DOCK_CHANGED,
   flag
@@ -65,9 +71,10 @@ const changeTab = (tabName) => ({
   tabName
 })
 
-const changeDisplayName = (name) => ({
+const changeDisplayName = (name, isChatEnabled) => ({
   type: SET_DISPLAY_NAME,
-  name
+  name,
+  isChatEnabled,
 })
 
 const updateFeedMembers = (activityFeedMembers, activityFeedMembersExpireDate) => ({
@@ -92,8 +99,13 @@ const addPubnubListener = (dispatch) => {
             stringifiedTimeToken: false,
             reverse: false,
           },
-          (status, response) => {
+          (status, response) => {            
             let historyMessages = response.messages;
+           
+            if(historyMessages.length===0)
+              dispatch(setNoHistoryMessage(true));
+            else
+              dispatch(setNoHistoryMessage(false));
             historyMessages.forEach(historyMessage => {
               
               buildFeedMessage(historyMessage.entry, true, dispatch);
@@ -274,8 +286,8 @@ export const setMemberChatState = (state) => (dispatch, getState) => {
     });
 }
 
-export const setDisplayName = (name) => (dispatch, getState) => {
-  dispatch(changeDisplayName(name));
+export const setDisplayName = (name, isChatEnabled) => (dispatch, getState) => {
+  dispatch(changeDisplayName(name, isChatEnabled));
 }
 
 

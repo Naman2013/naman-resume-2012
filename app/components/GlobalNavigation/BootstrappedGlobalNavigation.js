@@ -236,7 +236,7 @@ class GlobalNavigation extends Component {
       const { setDisplayName } = actions;
       let displayName =
         userMenu && userMenu.userInfo ? userMenu.userInfo.displayName : '';
-        setDisplayName(displayName);
+        setDisplayName(displayName, userMenu.userInfo.isChatEnabled);
     }
   }
 

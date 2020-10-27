@@ -8,6 +8,7 @@ import {
   FEED_MEMBERS_CHANGED,
   SET_DISPLAY_NAME,
   UPDATE_PUBNUB_INIT,
+  NO_MESSAGE_HISTORY,
 } from './actions';
 
 import { projectPubnubConf } from 'app/config/project-config';
@@ -28,6 +29,8 @@ const initialState = {
   activeTab: 'activeMembers',
   displayName: '',
   pubnubInitialize: false,
+  isChatEnabled: false,
+  NoHistroyMessage: false,
 };
 
 export default createReducer(initialState, {
@@ -53,7 +56,13 @@ export default createReducer(initialState, {
     return {
       ...state      
     };
-  },  
+  },
+  [NO_MESSAGE_HISTORY](state,{flag}) {     
+    state.NoHistroyMessage=flag;
+    return {
+      ...state      
+    };
+  },   
   [DOCK_CHANGED](state,{flag}) {   
     state.docked=flag;
     return {
@@ -66,8 +75,9 @@ export default createReducer(initialState, {
       ...state      
     };
   },
-  [SET_DISPLAY_NAME](state,{name}) { 
+  [SET_DISPLAY_NAME](state,{name, isChatEnabled}) { 
     state.displayName=name;
+    state.isChatEnabled=isChatEnabled
     return {
       ...state      
     };
