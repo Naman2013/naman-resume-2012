@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import './styles.scss';
 import QuestCard from 'app/components/common/tiles/Quest-card';
+import { findLastIndex } from 'lodash';
 
 export class QuestCustomer extends PureComponent {
   componentDidMount() {
-    const { getCustomerQuests, viewType } = this.props;
+    const { getCustomerQuests, viewType, } = this.props;
+    console.log('prppps',this.props);
     getCustomerQuests({ viewType });
   }
-
+  
   componentDidUpdate(prevProps) {
     const { getCustomerQuests, viewType } = this.props;
     if (viewType !== prevProps.viewType) {
@@ -18,13 +20,16 @@ export class QuestCustomer extends PureComponent {
   render() {
     const { customerQuestsData } = this.props;
     const { QuestList, emptySetDisplay } = customerQuestsData;
+    
+    
+
 
     return (
       <div>
         <div className="quest-list">
           {QuestList
             ? QuestList.map(item => (
-                <div className="quest-list-item">
+                <div className="quest-list-item questButtonStyle">
                   <QuestCard
                     linkUrl={item.LinkURL}
                     questType={item.QuestType}
@@ -32,6 +37,9 @@ export class QuestCustomer extends PureComponent {
                     questDifficulty={item.Difficulty}
                     title={item.QuestTitle}
                     linkLabel={item.LinkLabel}
+                    onDownloadPdf={this.props.downloadQuest}
+                    questId={item.QuestId}
+                    key={item.QuestId}
                   />
                 </div>
               ))

@@ -20,6 +20,9 @@ import { START_QUEST } from 'app/services/quests';
 import { Spinner } from 'app/components/spinner/index';
 import Quest from './QuestDetails';
 import { downloadFile } from 'app/utils/downloadFile';
+import { QuestCustomer } from 'app/modules/quests/components/quest-customer/index';
+import actions from 'app/modules/stories/actions';
+
 
 const { func, number, oneOfType, shape, string } = PropTypes;
 const BADGE_ITEM_TYPE = 'badge';
@@ -127,6 +130,7 @@ export class ConnectedQuestDetails extends Component {
       goToStep: this.goToStep,
     };
 
+
     const { isLoading } = this.state;
 
     return (
@@ -134,13 +138,14 @@ export class ConnectedQuestDetails extends Component {
         <Spinner loading={isLoading} />
         <DeviceContext.Consumer>
           {context => (
-            <Quest {...this.props} {...context} userActions={userActions} onDownloadQuestReport = {this.downloadQuest} />
+            <Quest {...this.props} {...context} userActions={userActions} onDownloadQuestReport={this.downloadQuest} />
           )}
         </DeviceContext.Consumer>
       </div>
     );
   }
 }
+
 
 const mapStateToProps = ({ questDetails, user }, { routeParams }) => ({
   questDetails,

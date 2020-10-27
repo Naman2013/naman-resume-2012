@@ -8,15 +8,15 @@ type TProfileQuests = {};
 
 export const ProfileQuests = (props: TProfileQuests) => {
   const { params } = props;
-
+  console.log('qqqq',props);
   const profileQuestTab = [
     {
       title: 'In progress',
-      linkURL: '/profile/private/quests/inprogress',
+      linkURL: params.route === 'myquests' ? `/quests/myquests/inprogress` : '/profile/private/quests/inprogress',
     },
     {
       title: 'Completed',
-      linkURL: '/profile/private/quests/completed',
+      linkURL: params.route === 'myquests' ? `/quests/myquests/completed` : '/profile/private/quests/completed',
     },
   ];
 
@@ -29,7 +29,7 @@ export const ProfileQuests = (props: TProfileQuests) => {
           showNavigation
           activeFilter={params.viewType}
         >
-          <QuestCustomer viewType={params.viewType} />
+          <QuestCustomer viewType={params.viewType} downloadQuest={props.onDownloadQuestReport}/>
         </ContainerWithTitle>
       </CenterColumn>
     </div>

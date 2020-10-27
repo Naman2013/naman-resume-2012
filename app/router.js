@@ -478,7 +478,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
 
       <Route
-        path="quests(/:filterType)"
+        path="quests(/:filterType)(/:viewType)"
         component={QuestsHub}
         onEnter={validateUser}
       />

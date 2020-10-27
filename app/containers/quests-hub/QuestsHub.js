@@ -17,18 +17,23 @@ import {
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
+import questReportActions from 'app/modules/quest-details/actions';
 import style from './quests-hub.style';
+import {ProfileQuests} from 'app/components/profiles/private-profile/profile-quests'
+import { downloadFile } from 'app/utils/downloadFile';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
+  const questsHubModel = {
+    name: 'QUEST_HUB_MODEL',
+    model: resp => ({
+      filterOptions: resp.navigationConfig,
+      sortOptions: resp.filterOptions.options,
+    }),
+  };
 
-const questsHubModel = {
-  name: 'QUEST_HUB_MODEL',
-  model: resp => ({
-    filterOptions: resp.navigationConfig,
-    sortOptions: resp.filterOptions.options,
-  }),
-};
+
+
 @withTranslation()
 class Quests extends Component {
   static propTypes = {
@@ -89,9 +94,31 @@ class Quests extends Component {
     });
   };
 
+  getMyQuestsTiles = (params) => {
+    const profileQuestParams = { private: "private", viewType: params.viewType, 'route': 'myquests' };
+    const profileQuestTiles = <ProfileQuests params={profileQuestParams} onDownloadQuestReport={this.downloadQuest} />
+    return profileQuestTiles;
+  }
+
+  onDownloadPDF = () => {
+    const { pageMeta } = this.props;
+    const { questPdfUrl } = pageMeta;
+    const fileName = questPdfUrl.substring(questPdfUrl.lastIndexOf('/') + 1);
+    downloadFile(questPdfUrl, fileName);
+  };
+
+  downloadQuest = (questId) => {
+    let accessorCustomerId = this.props.user.cid;
+    let requestedCustomerId = this.props.user.cid;
+    const { actions } = this.props;
+    console.log('quest hub actions', actions, questId);
+    actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.onDownloadPDF);
+  }
+
   render() {
-    const { user, actions, t, isFetching } = this.props;
+    const { user, actions, t, isFetching, params } = this.props;
     const { quests, questsComingSoonMessage } = this.state;
+
     return (
       <div>
         <Request
@@ -136,7 +163,7 @@ class Quests extends Component {
                       render={() => (
                         <Fragment>
                           {isFetching ? <div>{t('Hubs.loading')}</div> : null}
-                          {!isFetching && (
+                          {!isFetching && params.filterType !== 'myquests' ? (
                             <QuestTiles
                               updateReadingListInfo={
                                 this.updateReadingListInQuest
@@ -145,7 +172,7 @@ class Quests extends Component {
                               questsComingSoonMessage={questsComingSoonMessage}
                               isMobile={context.isMobile}
                             />
-                          )}
+                          ) : this.getMyQuestsTiles(params) }
                         </Fragment>
                       )}
                     />
@@ -161,9 +188,10 @@ class Quests extends Component {
   }
 }
 
-const mapStateToProps = ({ user, quests }) => ({
+const mapStateToProps = ({ user, quests, questDetails }) => ({
   user,
   isFetching: quests.isFetching,
+  pageMeta: questDetails.pageMeta,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -171,6 +199,7 @@ const mapDispatchToProps = dispatch => ({
     {
       validateResponseAccess,
       ...questsActions,
+      ...questReportActions
     },
     dispatch
   ),

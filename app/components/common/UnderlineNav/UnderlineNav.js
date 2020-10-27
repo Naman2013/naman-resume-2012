@@ -21,7 +21,7 @@ class UnderlineNav extends Component {
         linkURL: string,
       })
     ),
-    parentPath: string.isRequired,
+    parentPath: string,
     profile: bool,
   };
 
@@ -81,7 +81,9 @@ class UnderlineNav extends Component {
                       activeFilter ===
                         itemSplitPath[itemSplitPath.length - 1] ||
                       (!activeFilter &&
-                        !itemSplitPath[itemSplitPath.length - 1]),
+                        !itemSplitPath[itemSplitPath.length - 1]) ||
+                      (activeFilter === 'myquests' && activeFilter ===
+                      itemSplitPath[itemSplitPath.length - 2]),
                     disabled: item.disabled,
                   })}
                   key={`${item.linkURL}`}
