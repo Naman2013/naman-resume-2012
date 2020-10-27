@@ -3,6 +3,9 @@ import { browserHistory, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import './quest-card.scss';
+import { findLastIndex } from 'lodash';
+
+
 
 const QuestCard = ({
   linkUrl,
@@ -11,7 +14,9 @@ const QuestCard = ({
   iconURL,
   title,
   linkLabel,
+  onDownloadPdf,
   questAuthor,
+  questId
 }) => (
   <div>
     <div className="card-container">
@@ -47,17 +52,26 @@ const QuestCard = ({
           <div className="card-container__content-subtitle">
             {questAuthor ? `${questAuthor}` : 'Added by: The Slooh team'}
           </div>
-          <div className="card-container__content-btn">
+          <div  className="card-container__content-btn">
             <Button
               text={linkLabel}
               onClickEvent={() => browserHistory.push(linkUrl)}
             />
+            <p>&nbsp;</p>
+            <Button
+              text="Download Quest Report"
+              onClickEvent={() => onDownloadPdf(questId)}>
+               <img src="https://img.icons8.com/metro/15/000000/downloading-updates.png"/>
+              </Button>
+            
           </div>
         </div>
       </div>
     </div>
   </div>
 );
+
+
 
 QuestCard.propTypes = {
   questType: PropTypes.string.isRequired,

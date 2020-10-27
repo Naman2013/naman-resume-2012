@@ -17,18 +17,17 @@ import {
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
+import questReportActions from 'app/modules/quest-details/actions';
 import style from './quests-hub.style';
 import {ProfileQuests} from 'app/components/profiles/private-profile/profile-quests'
+import { downloadFile } from 'app/utils/downloadFile';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
   const questsHubModel = {
     name: 'QUEST_HUB_MODEL',
     model: resp => ({
-      filterOptions: [...resp.navigationConfig, ...[{
-        "title": "My Quests",
-        "linkURL": "/quests/myquests/completed"
-      }]],
+      filterOptions: resp.navigationConfig,
       sortOptions: resp.filterOptions.options,
     }),
   };
@@ -97,16 +96,29 @@ class Quests extends Component {
 
   getMyQuestsTiles = (params) => {
     const profileQuestParams = { private: "private", viewType: params.viewType, 'route': 'myquests' };
-    const profileQuestTiles = <ProfileQuests params={profileQuestParams} />
+    const profileQuestTiles = <ProfileQuests params={profileQuestParams} onDownloadQuestReport={this.downloadQuest} />
     return profileQuestTiles;
+  }
+
+  onDownloadPDF = () => {
+    const { pageMeta } = this.props;
+    const { questPdfUrl } = pageMeta;
+    const fileName = questPdfUrl.substring(questPdfUrl.lastIndexOf('/') + 1);
+    downloadFile(questPdfUrl, fileName);
+  };
+
+  downloadQuest = (questId) => {
+    let accessorCustomerId = this.props.user.cid;
+    let requestedCustomerId = this.props.user.cid;
+    const { actions } = this.props;
+    console.log('quest hub actions', actions, questId);
+    actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.onDownloadPDF);
   }
 
   render() {
     const { user, actions, t, isFetching, params } = this.props;
     const { quests, questsComingSoonMessage } = this.state;
-    console.log("questsHubModel :: ",questsHubModel.model);
-    //questsHubModel['cid'] = user.cid; 
-    console.log('params', user.cid);
+
     return (
       <div>
         <Request
@@ -176,9 +188,10 @@ class Quests extends Component {
   }
 }
 
-const mapStateToProps = ({ user, quests }) => ({
+const mapStateToProps = ({ user, quests, questDetails }) => ({
   user,
   isFetching: quests.isFetching,
+  pageMeta: questDetails.pageMeta,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -186,6 +199,7 @@ const mapDispatchToProps = dispatch => ({
     {
       validateResponseAccess,
       ...questsActions,
+      ...questReportActions
     },
     dispatch
   ),

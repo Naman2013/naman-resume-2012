@@ -8,7 +8,7 @@ type TProfileQuests = {};
 
 export const ProfileQuests = (props: TProfileQuests) => {
   const { params } = props;
-
+  console.log('qqqq',props);
   const profileQuestTab = [
     {
       title: 'In progress',
@@ -29,7 +29,7 @@ export const ProfileQuests = (props: TProfileQuests) => {
           showNavigation
           activeFilter={params.viewType}
         >
-          <QuestCustomer viewType={params.viewType} />
+          <QuestCustomer viewType={params.viewType} downloadQuest={props.onDownloadQuestReport}/>
         </ContainerWithTitle>
       </CenterColumn>
     </div>
