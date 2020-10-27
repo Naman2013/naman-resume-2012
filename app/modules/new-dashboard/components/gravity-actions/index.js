@@ -46,7 +46,7 @@ export class GravityActions extends Component{
                 {gravityList && (
                     <div className="gravity-main">
                         <h2 className="gravity-heading">{heading}</h2>                
-                            {gravityList.hasRecentGravityTransactions ? gravityList.actions?.map(gravity=>(
+                            {gravityList.foundGravityActions ? gravityList.actions?.map(gravity=>(
                                 <div className="gravityaction">
                                     <div className="gravityiconContainer">
                                         <span className="gravitypoints">{gravity.gravityPoints}</span>
