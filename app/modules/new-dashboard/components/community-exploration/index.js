@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 import React from "react";
 import './style.css';
 import { ImageSlider } from '../image-slider';
@@ -8,7 +8,7 @@ import { RecentCommunityActivities } from '../recent-community-activities';
 import { SectionDivider } from '../section-divider';
 
 
-export class CommunityExploration extends Component{
+export class CommunityExploration extends PureComponent{
 
     constructor(props){
         super(props);
@@ -27,7 +27,7 @@ export class CommunityExploration extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                // console.log("Community Exploration Duration"+duration);
+                console.log("Community Exploration Duration"+duration);
                 if(this.timerId !== null)
                     clearTimeout(this.timerId);                
                 this.timerId=setTimeout(this.getCommunityObservationAction,duration );
@@ -39,6 +39,15 @@ export class CommunityExploration extends Component{
     componentWillUnmount(){
         if(this.timerId !== null)
             clearTimeout(this.timerId);
+    }
+
+    startTimer(){
+        this.getCommunityObservationAction();
+    }
+
+    stopTimer(){
+        if(this.timerId !== null)
+            clearTimeout(this.timerId);    
     }
 
     render() {
@@ -61,6 +70,8 @@ export class CommunityExploration extends Component{
                             communityExploration={communityExploration}
                             onClickItem={onClickItem}
                             scrollToRef={scrollToRef}
+                            startTimer={this.startTimer}
+                            stopTimer={this.stopTimer}
                         />
                         <SectionDivider />
                         <RecentCommunityActivities
