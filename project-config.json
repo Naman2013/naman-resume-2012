@@ -9,7 +9,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/events.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "www.astronomyfair.com": {
@@ -41,7 +41,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/live.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "main.slooh.com": {
@@ -49,7 +49,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/main.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "www.slooh.com": {
@@ -57,7 +57,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/www.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "slooh.com": {
@@ -65,7 +65,7 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "qsogBM2LTqiuBDgkA62VRA"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "v4-prod-build.slooh.com": {
@@ -163,7 +163,7 @@
   "nova.slooh.com": {
     "loadHtmlFile": "/config/nova.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
-      "guestDashboardGoogleExperienceId": "LvLE_ZdoTe-3ZSW_3a6Fug"
+      "guestDashboardGoogleExperienceId": null
     }
   },
   "orion.slooh.com": {
