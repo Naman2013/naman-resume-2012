@@ -24,7 +24,7 @@ export class PopularObservation extends Component{
             data={customerUUID: this.props.customerUUID};
         else
             data={at, cid, token};
-        getUserPouplarObservation({ at, cid, token, data }).then(response=>{
+        getUserPouplarObservation({ at, cid, token, ...data }).then(response=>{
             const res=response.data;
             if(!res.apiError){
                 const { timestamp, expires } = res;

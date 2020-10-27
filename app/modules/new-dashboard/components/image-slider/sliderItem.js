@@ -8,6 +8,7 @@ import { Button } from '../button';
 import ObservationComments from 'app/modules/observations/containers/observation-comments';
 import LikeButton from '../button/LikeButton';
 import { Link } from 'react-router';
+import { Tooltip } from 'react-tippy';
 
 export class SliderItem extends Component{
 
@@ -36,19 +37,30 @@ export class SliderItem extends Component{
                                     <span className="slider-updated">{imageDetails.observationTimeDisplay[0]}</span>
                                     </h4>
                                     <br/>
-                                    <p className="slider-content">{imageDetails.observationLog}</p>
+                                    <p className="slider-content" dangerouslySetInnerHTML={{__html: imageDetails.observationLog}} />
                                     <div className="icon-container">
                                         {Object.keys(imageDetails.iconFileData).map(icon=>(
                                             <div>
-                                                {imageDetails.iconFileData[icon].hasLink ? (
-                                                    <Link to={imageDetails.iconFileData[icon].linkUrl} >
-                                                        <img className="member-icons" src={imageDetails.iconFileData[icon].dashboardIconUrl}/>
-                                                    </Link>
-                                                ):(                                                
-                                                <img 
-                                                    onClick={ icon === "Member" ? ()=>onClickItem(imageDetails.customerUUID, true) : null } 
-                                                    className="member-icons" 
-                                                    src={imageDetails.iconFileData[icon].dashboardIconUrl}/>                                                
+                                                {imageDetails.iconFileData[icon].hasLink ? (                                                    
+                                                        <Link to={imageDetails.iconFileData[icon].linkUrl} >
+                                                            <Tooltip
+                                                                title={imageDetails.iconFileData[icon].text}
+                                                                arrow
+                                                            >
+                                                                <img className="member-icons" src={imageDetails.iconFileData[icon].dashboardIconUrl}/>
+                                                            </Tooltip>
+                                                        </Link>
+                                                    
+                                                ):(   
+                                                    <Tooltip
+                                                        title={imageDetails.iconFileData[icon].text}
+                                                        arrow
+                                                    >                                          
+                                                        <img 
+                                                            onClick={ icon === "Member" ? ()=>onClickItem(imageDetails.customerUUID, true) : null } 
+                                                            className="member-icons" 
+                                                            src={imageDetails.iconFileData[icon].dashboardIconUrl}/>  
+                                                    </Tooltip>                                                 
                                                 )}
                                             </div>
                                         ))}

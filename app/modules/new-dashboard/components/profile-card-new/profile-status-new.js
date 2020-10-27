@@ -25,7 +25,7 @@ export class ProfileStatusNew extends Component{
             data={customerUUID: this.props.customerUUID};
         else
             data={at, cid, token};
-        getUserGravityStatus(data).then(response=>{
+        getUserGravityStatus({...data}).then(response=>{
             const res=response.data;
             if(!res.apiError){
                 const { timestamp, expires } = res;

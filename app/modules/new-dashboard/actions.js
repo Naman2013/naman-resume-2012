@@ -376,8 +376,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...selectedFilters,
       ...data
     }).then(
-      result => {        
-        dispatch(getMyPicturesSuccess(result.data));
+      result => { 
+        const res= result.data;
+        if(!res.apiError)           
+          dispatch(getMyPicturesSuccess(result.data));
       }
     );
   };
@@ -392,7 +394,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,      
     }).then(
       result => {
-        dispatch(getDashboardFeaturedObjectsSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getDashboardFeaturedObjectsSuccess(result.data));
       }
     );
   };
@@ -407,7 +411,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,     
     }).then(
       result => {
-        dispatch(getMyClubListSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getMyClubListSuccess(result.data));
       }
     );
   };
@@ -422,7 +428,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,     
     }).then(
       result => {
-        dispatch(getBookmarkListSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getBookmarkListSuccess(result.data));
       }
     );
   };
@@ -436,7 +444,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,           
     }).then(
       result => {
-        dispatch(getPrivateProfileSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getPrivateProfileSuccess(result.data));
       }
     );
   };
@@ -450,7 +460,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,           
     }).then(
       result => {
-        dispatch(getPrivateProfileMissionSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getPrivateProfileMissionSuccess(result.data));
       }
     );
   };
@@ -464,7 +476,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,           
     }).then(
       result => {
-        dispatch(getUserActiveObjectSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getUserActiveObjectSuccess(result.data));
       }
     );
   };
@@ -478,7 +492,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,           
     }).then(
       result => {
-        dispatch(getUserPopularObservationSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getUserPopularObservationSuccess(result.data));
       }
     );
   };
@@ -495,7 +511,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {
-        dispatch(getMissionImagesSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getMissionImagesSuccess(result.data));
       }
     );
   };
@@ -512,7 +530,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {
-        dispatch(getGalleryListSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getGalleryListSuccess(result.data));
       }
     );
   };
@@ -527,7 +547,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {
-        dispatch(getRecentGravityActionsSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getRecentGravityActionsSuccess(result.data));
       }
     );
   };
@@ -541,8 +563,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getWeatherSuccess(result.data));
+      result => {
+        const res= result.data;
+        if(!res.apiError)            
+          dispatch(getWeatherSuccess(result.data));
       }
     );
   };
@@ -551,7 +575,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     dispatch(getSkyConditionsStart());
     const { token, at, cid } = getState().user;
     return getSkyRating({token, at, cid, ...data}).then(result=>{
-      dispatch(getSkyConditionsSuccess(result.data));
+      const res= result.data;
+      if(!res.apiError)    
+        dispatch(getSkyConditionsSuccess(result.data));
     })    
   };
 
@@ -565,7 +591,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {        
-        dispatch(getObservatoryListSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getObservatoryListSuccess(result.data));
       }
     );
   };
@@ -596,7 +624,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {        
-        dispatch(getObjectMapControlSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getObjectMapControlSuccess(result.data));
       }
     );
   };
@@ -610,8 +640,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getNewDashObsSuccess(result.data));
+      result => {     
+        const res= result.data;
+        if(!res.apiError)       
+          dispatch(getNewDashObsSuccess(result.data));
       }
     );
   };
@@ -621,7 +653,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
         
     return getObsStatus(data).then(
       result => {        
-        dispatch(getObsStatusSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getObsStatusSuccess(result.data));
       }
     );
   };
@@ -635,8 +669,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getCommunityExplorationSuccess(result.data));
+      result => {      
+        const res= result.data;
+        if(!res.apiError)      
+          dispatch(getCommunityExplorationSuccess(result.data));
       }
     );
   };
@@ -650,8 +686,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getCommunityFameSuccess(result.data));
+      result => {      
+        const res= result.data;
+        if(!res.apiError)      
+          dispatch(getCommunityFameSuccess(result.data));
       }
     );
   };
@@ -665,8 +703,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getMyRankSuccess(result.data));
+      result => {      
+        const res= result.data;
+        if(!res.apiError)      
+          dispatch(getMyRankSuccess(result.data));
       }
     );
   };
@@ -680,8 +720,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getTopMembersSuccess(result.data));
+      result => {   
+        const res= result.data;
+        if(!res.apiError)         
+          dispatch(getTopMembersSuccess(result.data));
       }
     );
   };
@@ -695,8 +737,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getTopStudentsSuccess(result.data));
+      result => {       
+        const res= result.data;
+        if(!res.apiError)     
+          dispatch(getTopStudentsSuccess(result.data));
       }
     );
   };
@@ -711,7 +755,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {        
-        dispatch(getMostActiveClubsSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getMostActiveClubsSuccess(result.data));
       }
     );
   };
@@ -725,8 +771,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getTopSchoolClubsSuccess(result.data));
+      result => {    
+        const res= result.data;
+        if(!res.apiError)        
+          dispatch(getTopSchoolClubsSuccess(result.data));
       }
     );
   };
@@ -740,8 +788,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getGravityByDomainSuccess(result.data));
+      result => {       
+        const res= result.data;
+        if(!res.apiError)     
+          dispatch(getGravityByDomainSuccess(result.data));
       }
     );
   };
@@ -756,7 +806,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data,           
     }).then(
       result => {        
-        dispatch(getDashboardMissionListSuccess(result.data));
+        const res= result.data;
+        if(!res.apiError)    
+          dispatch(getDashboardMissionListSuccess(result.data));
       }
     );
   };
@@ -770,8 +822,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {        
-        dispatch(getPhotoHubHeadingSuccess(result.data));
+      result => {     
+        const res= result.data;
+        if(!res.apiError)       
+          dispatch(getPhotoHubHeadingSuccess(result.data));
       }
     );
   };

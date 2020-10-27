@@ -12,6 +12,7 @@ import { getImageDetails } from '../../dashboardApi';
 import LikeButton from '../button/LikeButton';
 import { Link } from 'react-router';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
+import { Tooltip } from 'react-tippy';
 
 export class ImageSlider extends Component{
 
@@ -140,19 +141,29 @@ export class ImageSlider extends Component{
                             <span className="slider-updated">{currentItem.observationTimeDisplay[0]}</span>
                             </h4>
                             <br/>
-                            <p className="slider-content">{currentItem.observationLog}</p>
+                            <p className="slider-content" dangerouslySetInnerHTML={{__html: currentItem.observationLog}} />
                             <div className="icon-container">
                                 {Object.keys(currentItem.iconFileData).map(icon=>(
                                     <div>
                                         {currentItem.iconFileData[icon].hasLink ? (
                                             <Link to={currentItem.iconFileData[icon].linkUrl} >
-                                                <img className="member-icons" src={currentItem.iconFileData[icon].dashboardIconUrl}/>
+                                                <Tooltip
+                                                    title={currentItem.iconFileData[icon].text}
+                                                    arrow
+                                                >                                                
+                                                    <img className="member-icons" src={currentItem.iconFileData[icon].dashboardIconUrl}/>                                                
+                                                </Tooltip>
                                             </Link>
-                                        ):(                                                
-                                            <img 
-                                                onClick={ icon === "Member" ? ()=>onClickItem(currentItem.customerUUID, true) : null } 
-                                                 className="member-icons" 
-                                                src={currentItem.iconFileData[icon].dashboardIconUrl}/>                                                
+                                        ):(  
+                                            <Tooltip
+                                                title={currentItem.iconFileData[icon].text}
+                                                arrow
+                                            >
+                                                <img 
+                                                    onClick={ icon === "Member" ? ()=>onClickItem(currentItem.customerUUID, true) : null } 
+                                                    className="member-icons" 
+                                                    src={currentItem.iconFileData[icon].dashboardIconUrl}/>                                                
+                                            </Tooltip>                                              
                                         )}
                                     </div>
                                 ))}                                        
