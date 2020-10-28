@@ -39,7 +39,10 @@ export const getDashboardFeaturedObjects = ({ callSource }) => (
     cid: user.cid,
     callSource,
   })
-    .then(result => dispatch(getDashboardFeaturedObjectsSuccess(result.data)))
+    .then(result => {
+      if(!result.data.apiError)
+        dispatch(getDashboardFeaturedObjectsSuccess(result.data))
+    })
     .catch(error => dispatch(fetchDashboardFailure(error)));
 };
 
