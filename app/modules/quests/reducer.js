@@ -49,7 +49,7 @@ export const ACTION = actions(TYPE);
 
 const initialState = {
   isFetching: false,
-  isQuestHubFetching: true,
+  isQuestHubFetching: false,
   stepData: {},
   questOutput: {},
   customerQuests: { QuestList: [] },
