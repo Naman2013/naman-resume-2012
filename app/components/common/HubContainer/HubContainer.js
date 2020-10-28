@@ -246,7 +246,7 @@ class HubContainer extends Component {
                 navItems={filterOptions}
                 parentPath={hubName}
               />
-              {!this.props.isCreateMode && useSort ? (
+              {!this.props.isCreateMode && useSort && filterType !== "myquests" ? (
                 <HubSort
                   defaultIndex={defaultSortIndex}
                   handleSort={this.handleSortChange}
@@ -259,7 +259,7 @@ class HubContainer extends Component {
         />
         <div>
           {render()}
-          {!this.props.isCreateMode ? (
+          {!this.props.isCreateMode && filterType !== "myquests" ? (
             <div className="pagination-container">
               {!isMobile ? (
                 <PaginateWithNetwork

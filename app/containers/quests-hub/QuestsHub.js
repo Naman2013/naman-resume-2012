@@ -172,7 +172,10 @@ class Quests extends Component {
                               questsComingSoonMessage={questsComingSoonMessage}
                               isMobile={context.isMobile}
                             />
-                          ) : this.getMyQuestsTiles(params) }
+                          ) : 
+                          !isFetching && params.filterType === 'myquests' ?
+                            this.getMyQuestsTiles(params) 
+                            :<></> }
                         </Fragment>
                       )}
                     />
@@ -190,7 +193,7 @@ class Quests extends Component {
 
 const mapStateToProps = ({ user, quests, questDetails }) => ({
   user,
-  isFetching: quests.isFetching,
+  isFetching: quests.isQuestHubFetching,
   pageMeta: questDetails.pageMeta,
 });
 

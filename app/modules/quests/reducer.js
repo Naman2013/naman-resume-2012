@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 export const TYPE = constants('quests', [
   'START_QUEST_FETCHING',
+  'START_QUEST_HUB_FETCHING',
   '~GET_QUESTS',
   '~GET_APPENDIX',
 
@@ -48,7 +49,7 @@ export const ACTION = actions(TYPE);
 
 const initialState = {
   isFetching: false,
-
+  isQuestHubFetching: true,
   stepData: {},
   questOutput: {},
   customerQuests: { QuestList: [] },
@@ -102,7 +103,7 @@ export default handleActions(
     [TYPE.START_QUEST_FETCHING]: start,
 
     // ABOUT PAGE
-    [TYPE.GET_QUESTS]: start,
+    [TYPE.GET_QUESTS]: questHubStart,
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
     [TYPE.GET_QUESTS_ERROR]: error,
 
@@ -220,6 +221,13 @@ function start(state = initialState) {
   };
 }
 
+function questHubStart(state = initialState) {
+  return {
+    ...state,    
+    isQuestHubFetching: true,
+  };
+}
+
 function end(state = initialState) {
   return {
     ...state,
@@ -231,6 +239,7 @@ function getQuestsSuccess(state = initialState) {
   return {
     ...state,
     isFetching: false,
+    isQuestHubFetching: false,
   };
 }
 
