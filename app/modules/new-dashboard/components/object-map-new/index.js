@@ -32,6 +32,7 @@ import Switch from "react-switch";
 import { Dropdown } from 'react-bootstrap';
 import { ObjectCard } from '../object-card';
 import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
+import Overlay from 'ol/Overlay';
 
 export class ObjectMap extends Component{
   state={
@@ -184,10 +185,10 @@ export class ObjectMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        // extent: [-180, -36, 22, 90],
+        extent: [-180, -90, 180, 90],
         projection: 'EPSG:4326',
-        zoom: 2,
-        
+        zoom: 0,
+        showFullExtent: true,
       });
 
             // var svgContainer = document.createElement('div');
@@ -252,7 +253,56 @@ export class ObjectMap extends Component{
           map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
           });
-          // map.on('click', this.handleMapClick.bind(this));
+          
+          let popup = document.getElementById('object_map_hover_popup');
+          let popupOverlay = new Overlay({
+            element: popup,
+            autoPan: true,
+            autoPanAnimation: {
+              duration: 250,
+            },
+            // offset: [-9,-9]
+          });
+          map.addOverlay(popupOverlay);
+
+          map.on('pointermove', function (e) {            
+            if (e.dragging) {
+              $(element).popover('dispose');
+              return;
+            }
+            var pixel = map.getEventPixel(e.originalEvent);
+            var hit = map.hasFeatureAtPixel(pixel);
+            var target = map.getTarget();
+            document.getElementById(target).style.cursor = hit ? 'pointer' : '';            
+            
+            if(hit){
+              var coordinate = e.coordinate;  
+              map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
+                // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";
+                popup.innerHTML = "<h1 class='popup-text'>" + feature.get('name') + "</h1>";
+                popup.hidden = false;
+                popupOverlay.setPosition(coordinate); 
+              });  
+                           
+            }
+            else{
+              popup.innerHTML = '';
+              popup.hidden = true;              
+            }
+            // var fs = map.queryRenderedFeatures(e.point, { layers: ['svg-layer']});
+           
+            // if (fs.length > 0) {
+              
+            //   f = fs[0];
+            //   if (f.id !== lastFeatureId) {
+            //     lastFeatureId = f.id;
+            //     // some visual effect now that the mouse is over a new layer.
+            //   }
+            // }
+            // map.getTarget().style.cursor = hit ? 'pointer' : '';
+          });
+
+
           this.setState({map: map, view: view });
           this.getObjectMapInit();
           
@@ -334,7 +384,9 @@ export class ObjectMap extends Component{
               return backgroundLayer;
     }
 
-    getVectorLayer(url, data){
+    
+
+    getVectorLayer(url, data){      
       return new VectorLayer({
         source: new VectorSource({
           // url: url,
@@ -342,8 +394,24 @@ export class ObjectMap extends Component{
           features: (new GeoJSON()).readFeatures(data)   
          
         }),
+        style: (feature) => {
+            return new Style({
+              stroke: new Stroke({
+                color: '#3399cc',
+                width: 2,
+              }),
+              fill: new Fill({
+                color: '#555555',
+              }),
+              text: new Text({
+                text: feature.get('name'),
+                fill: new Fill({color: '#FFFFFF'}),
+              }),
+            });
+          },
         visible: true,
-        title: 'vector map'
+        title: 'vector map',
+        // declutter: true,
       });
     }
 
@@ -533,6 +601,7 @@ export class ObjectMap extends Component{
               <div id="map" class="map">
               
               </div>
+              <div id="object_map_hover_popup" className="hover-popup" >test</div>
               {showObjectCard && (
                   <div className="object-card-popup">
                     <ObjectCard
