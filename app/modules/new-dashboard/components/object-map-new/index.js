@@ -31,7 +31,7 @@ import { getUserInfo } from 'app/modules/User';
 import Switch from "react-switch";
 import { Dropdown } from 'react-bootstrap';
 import { ObjectCard } from '../object-card';
-
+import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 
 export class ObjectMap extends Component{
   state={
@@ -84,31 +84,37 @@ export class ObjectMap extends Component{
       // // });
       const self = this;
       var displayFeatureInfo = function(pixel) {
+        debugger;
         const { showObjectCard } = self.state;
-        vectorLayer.getFeatures(pixel).then(function(features) {
-          var feature = features.length ? features[0] : undefined; 
-          if (features.length) {
-            // console.log("object name: "+feature.get('name'));
-            // console.log("object id: "+feature.getId());
-          }
-        });
-
         if(showObjectCard)
+        {
           self.setState({showObjectCard: false, objectCardDetails: []});
+          map.getInteractions().forEach(function(interaction) {
+            if (interaction instanceof MouseWheelZoom) {
+              interaction.setActive(true);
+            }
+          }, this);
+        }          
         else{
-          self.setState({isloading1: true});
-          const { token, at, cid } = getUserInfo();
-          getObjectCard({
-            token, 
-            at, 
-            cid,
-            objectId: 9,
-            objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
-            objectVersion: 1.1
-          }).then(response=>{
-            self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
-            
-          });         
+          map.forEachFeatureAtPixel(pixel, function(feature, layer){
+            self.setState({isloading1: true});
+            const { token, at, cid } = getUserInfo();
+            getObjectCard({
+              token, 
+              at, 
+              cid,
+              objectId: feature.getId(),
+              objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
+              objectVersion: 1.1,              
+            }).then(response=>{
+              self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
+              map.getInteractions().forEach(function(interaction) {
+                if (interaction instanceof MouseWheelZoom) {
+                  interaction.setActive(false);
+                }
+              }, this); 
+            });
+          });                   
         }
           
       };
@@ -503,6 +509,16 @@ export class ObjectMap extends Component{
       
     };
 
+    onObjectCardClose = () =>{
+      let { map } = this.state;
+      map.getInteractions().forEach(function(interaction) {
+        if (interaction instanceof MouseWheelZoom) {
+          interaction.setActive(true);
+        }
+      }, this);
+      this.setState({showObjectCard: false, map: map});
+    }
+
     render() {          
       const { showObjectCard, objectCardDetails, isloading1 } = this.state
       const { objectMapControls } = this.props;      
@@ -521,7 +537,7 @@ export class ObjectMap extends Component{
               {showObjectCard && (
                   <div className="object-card-popup">
                     <ObjectCard
-                      onHide={()=> this.setState({showObjectCard: false})}
+                      onHide={this.onObjectCardClose}
                       objectCardDetails={objectCardDetails}
                     />
                 </div> 
