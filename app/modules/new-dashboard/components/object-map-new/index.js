@@ -83,8 +83,7 @@ export class ObjectMap extends Component{
       // //   className: 'ol-zoom custom-zoom-control'
       // // });
       const self = this;
-      var displayFeatureInfo = function(pixel) {
-        debugger;
+      var displayFeatureInfo = function(pixel) {        
         const { showObjectCard } = self.state;
         if(showObjectCard)
         {
