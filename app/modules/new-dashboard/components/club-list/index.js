@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import React from "react";
 import './style.scss';
 import { ClubCard } from '../club-card';
@@ -7,13 +7,17 @@ import Pagination from '../../common/v4-pagination/pagination';
 import ProfileGroups from '../../common/profile-groups/profile-groups';
 
 
-export class ClubList extends Component{
+export class ClubList extends PureComponent{
 
     state = {
         activePage: 1,
     }  
 
     PHOTOS_ON_ONE_PAGE=9
+
+    shouldComponentUpdate(nextProps){
+        return (this.props.clubList !== nextProps.clubList)
+    }
 
     handlePageChange = ({ activePage }) => {
         const { getClubList } = this.props;       
@@ -27,10 +31,11 @@ export class ClubList extends Component{
         });
         this.setState({ activePage });
       };
-
+    
     render() {
         const { heading, showExploreClubs, clubList, totalClubsCount, data } = this.props;
         const { activePage } = this.state;
+      
         return (
             clubList !== (undefined || null) ? (
             <div className="club-list-main">

@@ -116,23 +116,20 @@ export class NewDashboard extends PureComponent{
 
     getInitialData = () => {
         const { 
-                getUserGravityDataAction,                
-                getMyPicturesDataAction, 
-                getDashboardFeaturedObjectsDataAction, 
+                getUserGravityDataAction,
                 getMyClubListDataAction, 
                 getBookmarkListDataAction, 
                 getPrivateProfileDataAction, 
                 getPrivateProfileMissionDataAction,
                 getQuestMapControlAction,
-                setDock,
-                getDashboardMissionListAction,
+                setDock,                
                 getPhotoHubHeadingAction,
             } = this.props;   
 
-        getPrivateProfileDataAction();
+        // getPrivateProfileDataAction();
         getUserGravityDataAction();
-        getPrivateProfileMissionDataAction();
-        // getDashboardFeaturedObjectsDataAction({callSource: "featuredObjectsDashboardV4New"});
+        // getPrivateProfileMissionDataAction();
+        
         getMyClubListDataAction({
             callSource: "profile",
             paginationStartIndex: 1,
@@ -143,8 +140,7 @@ export class NewDashboard extends PureComponent{
             paginationStartIndex: 1,
             maxItemsPerPage: 9
         });
-        getQuestMapControlAction();
-        // getDashboardMissionListAction();
+        getQuestMapControlAction();        
         getPhotoHubHeadingAction();
         setDock(true);
     };
@@ -157,8 +153,7 @@ export class NewDashboard extends PureComponent{
     
         const { privateProfile,                 
                 upcomingStarPartyList,                
-                photoHub, 
-                dashboardFeaturedObjects, 
+                photoHub,                 
                 myClubList, 
                 bookmarkList, 
                 isFetching,
@@ -208,8 +203,7 @@ export class NewDashboard extends PureComponent{
             
         return(
             <div>
-                <Spinner loading={isFetching} />
-                {privateProfile && (
+                <Spinner loading={isFetching} />               
                     <div className="new-dash">
                         <div className="left">
                             
@@ -353,7 +347,7 @@ export class NewDashboard extends PureComponent{
                                         clubList={myClubList.groupsList}
                                         totalClubsCount={myClubList.totalClubsCount}
                                         getClubList={getMyClubListDataAction}
-                                        data={privateProfile}
+                                        data={{groupControls: myClubList.groupControls}}
                                     />
                                 )}
                                 
@@ -591,7 +585,7 @@ export class NewDashboard extends PureComponent{
                             </div>                    
                         </div>
                     </div>
-                )} 
+               
 
               {/* {showPublicProfile && (
                     <Popup
