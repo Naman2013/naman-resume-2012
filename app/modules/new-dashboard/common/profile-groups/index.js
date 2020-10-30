@@ -78,7 +78,7 @@ class ProfileGroups extends Component {
               type={"button"}
               onClickEvent={() => this.setState({ showCreatePopup: true })} 
               text={createNewClubButtonText}                                             
-              style={"button-border"}
+              style={"button-border club-btn-mar-10"}
               icon={null}
           />
 

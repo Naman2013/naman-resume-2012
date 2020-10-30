@@ -23,6 +23,7 @@ import Button from './Button';
 import Countdown from 'react-countdown-now';
 import moment from 'moment';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
+import Clock from './Clock';
 
 
 const SEARCH_LABEL = 'SEARCH';
@@ -167,12 +168,16 @@ const TopBar = ({
                     />
                   </Button>
                 </li>
+                <li>
+                  <Clock
+                    interval={1000}
+                  />
+                </li>
               </ul>
             </div>
          
                <div className="center-menu">
-                {/* <CenterBar /> */}
-                
+                {/* <CenterBar /> */}                
                
               </div>
            
