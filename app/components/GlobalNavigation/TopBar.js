@@ -168,11 +168,13 @@ const TopBar = ({
                     />
                   </Button>
                 </li>
-                <li>
-                  <Clock
-                    interval={1000}
-                  />
-                </li>
+                {user.isAuthorized && (
+                  <li>
+                    <Clock
+                      interval={1000}
+                    />
+                  </li>
+                )}                
               </ul>
             </div>
          

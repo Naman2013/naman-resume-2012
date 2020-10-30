@@ -30,36 +30,41 @@ export default class Clock extends Component {
   
     render() {        
       return (
-        <div>          
+        <div className="clock-div">          
           <h2 className="utc-time">{this.state.date.format("HH:mm")} UTC</h2>
 
           <style jsx>
               {`
+                .clock-div{
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                }
+
                 .utc-time{
                     font-family: Roboto;
                   font-style: normal;
                   font-weight: 500;
-                  font-size: 16px;
-                  line-height: 20px;
-                  color: rgb(37, 52, 70); 
-                  margin-top: 17px; 
-                  margin-right:5px;
+                  font-size: 14px;
+                  line-height: 18px;
+                  color: rgb(37, 52, 70);  
+                  margin-left: 5px;                 
+                  margin-right: 5px;
                   text-align: center;
+                  margin-bottom: 0px;
                 }
 
                 @media ${screenMobile} {
                     .utc-time{                        
-                      font-size: 14px;
-                      line-height: 18px; 
-                      margin-top: 12px;
+                      font-size: 10px;
+                      line-height: 14px;                       
                     }
                 }
 
                 @media ${screenTablet} {
                     .utc-time{                        
                       font-size: 14px;
-                      line-height: 18px;
-                      margin-top: 12px;
+                      line-height: 18px;                      
                     }
                 }
               `}
