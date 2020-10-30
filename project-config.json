@@ -4,6 +4,11 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/gonogo.slooh.com.html"
   },
+  "questauthorpreview.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/questauthorpreview.slooh.com.html"
+  },
   "events.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
@@ -168,6 +173,9 @@
   },
   "orion.slooh.com": {
     "loadHtmlFile": "/config/orion.slooh.com.html"
+  },
+  "zeta.slooh.com": {
+    "loadHtmlFile": "/config/zeta.slooh.com.html"
   },
   "default": {
     "loadHtmlFile": "/config/default.html",
