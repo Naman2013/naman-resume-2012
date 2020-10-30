@@ -840,7 +840,7 @@ export class QuestMap extends Component{
           <div id="quest-Map">
              <Spinner
               loading={isloading1}
-              text="Please wait...loading discussions"
+              text="Please wait..."
             />
             <div className="map-container">
               <div id="map" className={mapExpanded ? "Quest-map-fullscreen":"Quest-map"}>

@@ -33,6 +33,7 @@ import { Dropdown } from 'react-bootstrap';
 import { ObjectCard } from '../object-card';
 import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 import Overlay from 'ol/Overlay';
+import classnames from 'classnames';
 
 export class ObjectMap extends Component{
   state={
@@ -47,6 +48,7 @@ export class ObjectMap extends Component{
     selectedToggleControls: [],
     explanationText: null,
     layerList: [],
+    currentZoom: 2,
   }
 
   constructor (props){
@@ -64,6 +66,7 @@ export class ObjectMap extends Component{
       selectedToggleControls: selectedToggleControls,
       explanationText: null,
       layerList: [],
+      currentZoom: 2,
     }    
   }
     componentDidMount(){     
@@ -187,7 +190,9 @@ export class ObjectMap extends Component{
         center: [0, 0],
         extent: [-180, -90, 180, 90],
         projection: 'EPSG:4326',
-        zoom: 0,
+        zoom: 2,
+        minZoom:2,
+        maxZoom: 9,
         showFullExtent: true,
       });
 
@@ -247,7 +252,13 @@ export class ObjectMap extends Component{
               ]
             });
 
-           
+            map.on('moveend', function(e) {
+              const { currentZoom } = self.state;
+              var newZoom = Math.floor(map.getView().getZoom());
+              if (currentZoom != newZoom) {
+                self.setState({currentZoom: newZoom});
+              }
+            });
             
                      
           map.on('click', function(evt) {
@@ -465,7 +476,7 @@ export class ObjectMap extends Component{
     handleExpandMap = () => {
       const { mapExpanded } = this.state;
       this.setState({mapExpanded: !mapExpanded});
-      var elem = document.getElementById('quest-Map');
+      var elem = document.getElementById('object-Map');
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
@@ -586,19 +597,38 @@ export class ObjectMap extends Component{
       this.setState({showObjectCard: false, map: map});
     }
 
+    handleZoomOut = () => {
+      let { map } = this.state;
+      let currentZoom = Math.floor(map.getView().getZoom());
+      if(currentZoom > 2){
+        currentZoom=currentZoom-1;        
+        this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
+      }      
+    }
+
+    handleZoomIn = () => {
+      let { map } = this.state;
+      let currentZoom = Math.floor(map.getView().getZoom());
+      if(currentZoom < 9) {
+        currentZoom=currentZoom+1;        
+        this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
+      }       
+    }
+
+
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1 } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom } = this.state
       const { objectMapControls } = this.props;      
       const { selectedControls, hideMap, mapExpanded, selectedToggleControls, explanationText } = this.state;
   
         return (
-          <div id="quest-Map">
+          <div id="object-Map">
              <Spinner
               loading={isloading1}
-              text="Please wait...loading discussions"
+              text="Please wait..."
             />
             <div className="map-container">
-              <div id="map" class="map">
+              <div id="map" className={mapExpanded ? "Object-map-fullscreen":"Object-map"}>
               
               </div>
               <div id="object_map_hover_popup" className="hover-popup" >test</div>
@@ -625,7 +655,7 @@ export class ObjectMap extends Component{
                           <span className="control-label">{control.list[selectedControls[i]].value}</span>
                           </Dropdown.Toggle>
 
-                          <Dropdown.Menu>
+                          <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'scroll' }}>
                             {control.list.map((item,j )=> (
                               <Dropdown.Item
                                 key={item.controlId}
@@ -710,6 +740,23 @@ export class ObjectMap extends Component{
                          onClick={()=>this.setState({hideMap: !hideMap})}
                          />
                      )}
+
+                        <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 2)})}
+                         src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
+                         onClick={this.handleZoomOut}
+                         />
+
+                        <img className="setting-icons" 
+                         src="https://vega.slooh.com/assets/v4/dashboard-new/zoom-minus-magnifier.svg"
+                        //  onClick={()=>this.setState({hideMap: !hideMap})}
+                         />
+
+                        <img className="setting-icons" 
+                          className={classnames('setting-icons', {'disabled-control': !(currentZoom < 9)})}
+                         src="https://vega.slooh.com/assets/v4/dashboard-new/plus.svg"
+                         onClick={this.handleZoomIn}
+                         />
+
                     </div>
                     )
                     
