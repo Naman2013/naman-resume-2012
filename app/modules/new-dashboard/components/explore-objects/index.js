@@ -8,7 +8,7 @@ import { ObjectMap } from '../object-map-new';
 export class ExploreObject extends Component{
 
     state={
-        activeHeading: "Object Map"
+        activeHeading: "Quest Map"
     }
 
     onTabChange = (title) =>{
