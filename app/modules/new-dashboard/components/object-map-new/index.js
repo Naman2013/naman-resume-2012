@@ -558,7 +558,7 @@ export class ObjectMap extends Component{
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
-          self.setState({map: map});
+          self.setState({map: map, explanationText: res.explanation});
         }
         
       });
