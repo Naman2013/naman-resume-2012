@@ -14,7 +14,7 @@ import VectorSource from 'ol/source/Vector';
 import {mapVector} from "./map";
 import { WKT } from 'ol/format/WKT';
 import { Point } from 'ol/geom/Point';
-import {Fill, Stroke, Style, Text} from 'ol/style';
+import {Fill, Stroke, Style, Text, Circle} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
 import Select from 'react-select';
 import ImageLayer from 'ol/layer/Image';
@@ -49,6 +49,7 @@ export class ObjectMap extends Component{
     explanationText: null,
     layerList: [],
     currentZoom: 2,
+    scrollZoomLock: false,
   }
 
   constructor (props){
@@ -67,6 +68,7 @@ export class ObjectMap extends Component{
       explanationText: null,
       layerList: [],
       currentZoom: 2,
+      scrollZoomLock: false,
     }    
   }
     componentDidMount(){     
@@ -319,6 +321,36 @@ export class ObjectMap extends Component{
           
     }
 
+    resetObjectMap(data){
+      const { token, at, cid } = getUserInfo();     
+      const self = this;
+      getObjectMap({token, cid, at, ...data}).then(response=>{       
+        const res=response.data;
+        if(!res.apiError){
+          const { layerList } = res;
+          let {map} = self.state;
+          const arrayLayers = map.getLayers().array_;
+
+          if(arrayLayers.length > 0)
+            arrayLayers.map(layer=>{
+              map.removeLayer(layer);
+            });
+            
+          layerList.map(layer=>{            
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
+          })
+          // map.addLayer(this.getVectorLayer());
+
+          // mapObject.addLayer(raster);
+
+          // map.addLayer([mapLayer]);
+          // map.getLayers().extend(layerList);
+          self.setState({map: map});
+        }
+        
+      });
+    }
+
     getObjectMapInit(){
       const { token, at, cid } = getUserInfo();     
       const self = this;
@@ -407,13 +439,18 @@ export class ObjectMap extends Component{
         }),
         style: (feature) => {
             return new Style({
-              stroke: new Stroke({
-                color: '#3399cc',
-                width: 2,
+              image: new Circle({
+                radius: 5,
+                fill: new Fill({
+                  color: '#555555',
+                }),
+                stroke: new Stroke({
+                  color: '#3399cc',
+                  width: 2,
+                }),
               }),
-              fill: new Fill({
-                color: '#555555',
-              }),
+              
+              
               text: new Text({
                 text: feature.get('name'),
                 fill: new Fill({color: '#FFFFFF'}),
@@ -525,18 +562,25 @@ export class ObjectMap extends Component{
    
     handleOptionChange = (controlIndex, selectedIndex)=>{         
       let { selectedControls } = this.state;
-      const { objectMapControls } = this.props;
-      const { controlList } = objectMapControls[0];
+      selectedControls[controlIndex]=selectedIndex;
+      this.setState({selectedControls: selectedControls}, this.handleFilterChange);
+    }
+
+    handleFilterChange = () => {
       const { token, at, cid } = getUserInfo();
       const layers = ["astroObjects", "graticule"];
       const self = this;
+      const { objectMapControls } = this.props;
+      const { controlList } = objectMapControls[0];
+      const { controlList: toggleControlList } = objectMapControls[1];
+      let {  selectedControls, selectedToggleControls } = this.state;
       let filterList=[];
-      selectedControls[controlIndex]=selectedIndex;
-      this.setState({selectedControls: selectedControls});
       controlList.map((control,i)=>{
         filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
       });
-      // console.log(filterList);
+      toggleControlList.map((toggle,i) =>{
+        filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
+      })
       getObjectMap({token, cid, at, filterList, layerList: layers}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
@@ -564,10 +608,11 @@ export class ObjectMap extends Component{
       });
     }
 
+
     handleToogleChange = (i) => {
       let { selectedToggleControls } = this.state;      
-      selectedToggleControls[i]=!selectedToggleControls[i];
-      this.setState({selectedToggleControls: selectedToggleControls});
+      selectedToggleControls[i]=!selectedToggleControls[i];      
+      this.setState({selectedToggleControls: selectedToggleControls}, this.handleFilterChange);
     }
 
     colourStyles = {
@@ -615,9 +660,35 @@ export class ObjectMap extends Component{
       }       
     }
 
+    handleGearIconChange = (menu) => { 
+      if(menu.resetFilters){
+        const { objectMapControls } = this.props;
+        const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
+        this.setState({selectedControls: selectedControls});        
+      }
+
+       switch(menu.menuAction){
+        case "reset":
+          this.resetObjectMap({layerList: menu.menuTarget});
+          break;
+        case "toggleZoomLock":
+          const { scrollZoomLock, map } = this.state;
+            map.getInteractions().forEach(function(interaction) {
+              if (interaction instanceof MouseWheelZoom) {
+                interaction.setActive(scrollZoomLock);
+              }
+            }, this); 
+            this.setState({scrollZoomLock: !scrollZoomLock});        
+          break;
+        default:      
+          break;
+      }
+        
+        
+    }
 
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1, currentZoom } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom, scrollZoomLock } = this.state
       const { objectMapControls } = this.props;      
       const { selectedControls, hideMap, mapExpanded, selectedToggleControls, explanationText } = this.state;
   
@@ -655,7 +726,7 @@ export class ObjectMap extends Component{
                           <span className="control-label">{control.list[selectedControls[i]].value}</span>
                           </Dropdown.Toggle>
 
-                          <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'scroll' }}>
+                          <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'auto' }}>
                             {control.list.map((item,j )=> (
                               <Dropdown.Item
                                 key={item.controlId}
@@ -703,10 +774,13 @@ export class ObjectMap extends Component{
                            {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
                                <Dropdown.Item
                                key={i}
-                               onClick={()=>{}}
+                               onClick={()=>{this.handleGearIconChange(menu)}}
                                className="control-menu-item"
                              >
-                               {menu.prompt}
+                               {scrollZoomLock && menu.menuAction === "toggleZoomLock" && (
+                                 <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
+                               )}
+                                {menu.prompt}
                              </Dropdown.Item>
                            ))}
                          </Dropdown.Menu>                    
@@ -903,7 +977,7 @@ export class ObjectMap extends Component{
             </div>
            )}
             
-            <button onClick={()=>this.handleFindObject()}>find</button>
+            {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
           </div>
         );
     }
