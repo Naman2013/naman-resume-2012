@@ -69,6 +69,7 @@ export class ObjectMap extends Component{
       layerList: [],
       currentZoom: 2,
       scrollZoomLock: false,
+      hideTooltipZoomLevel: 8,
     }    
   }
     componentDidMount(){     
@@ -328,14 +329,14 @@ export class ObjectMap extends Component{
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
-          let {map} = self.state;
+          let {map, view} = self.state;
           const arrayLayers = map.getLayers().array_;
-
+          view.fit(res.extent, map.getSize());
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-            
+          map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -344,8 +345,14 @@ export class ObjectMap extends Component{
           // mapObject.addLayer(raster);
 
           // map.addLayer([mapLayer]);
-          // map.getLayers().extend(layerList);
-          self.setState({map: map});
+          // map.getLayers().extend(layerList);         
+          map.getView().setZoom(res.initialZoomLevel);   
+          map.getView().setMinZoom(res.minZoomLevel);
+          // map.getView().setExtent(res.extent);
+          map.getView().setMaxZoom(res.maxZoomLevel);
+          // map.moveTo(fromLonLat([19,19]));
+          map.getView().setCenter(res.center);
+          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
       });
@@ -358,14 +365,27 @@ export class ObjectMap extends Component{
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
-          let {map} = self.state;
+          let {map, view} = self.state;
           const arrayLayers = map.getLayers().array_;
+          view.fit(res.extent, map.getSize());
 
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
+           
             
+
+            // var view = new View({
+            //   center: [0, 0],
+            //   // extent: res.extent,
+            //   projection: 'EPSG:4326',
+            //   zoom: res.initialZoomLevel,
+            //   minZoom: res.minZoomLevel,
+            //   maxZoom: res.maxZoomLevel,
+            //   showFullExtent: true,
+            // });  
+          map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -375,7 +395,13 @@ export class ObjectMap extends Component{
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
-          self.setState({map: map});
+          // map.getView().fitExtent(res.extent, map.getSize());
+          map.getView().setMinZoom(res.minZoomLevel);
+          map.getView().setZoom(res.initialZoomLevel);   
+          // map.getView().setExtent(res.extent);
+          map.getView().setMaxZoom(res.maxZoomLevel);
+          map.getView().setCenter(res.center);
+          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
       });
@@ -437,26 +463,26 @@ export class ObjectMap extends Component{
           features: (new GeoJSON()).readFeatures(data)   
          
         }),
-        style: (feature) => {
-            return new Style({
-              image: new Circle({
-                radius: 5,
-                fill: new Fill({
-                  color: '#555555',
-                }),
-                stroke: new Stroke({
-                  color: '#3399cc',
-                  width: 2,
-                }),
-              }),
+        // style: (feature) => {
+        //     return new Style({
+        //       image: new Circle({
+        //         radius: 5,
+        //         fill: new Fill({
+        //           color: '#555555',
+        //         }),
+        //         stroke: new Stroke({
+        //           color: '#3399cc',
+        //           width: 2,
+        //         }),
+        //       }),
               
               
-              text: new Text({
-                text: feature.get('name'),
-                fill: new Fill({color: '#FFFFFF'}),
-              }),
-            });
-          },
+        //       text: new Text({
+        //         text: feature.get('name'),
+        //         fill: new Fill({color: '#FFFFFF'}),
+        //       }),
+        //     });
+        //   },
         visible: true,
         title: 'vector map',
         // declutter: true,
@@ -585,14 +611,14 @@ export class ObjectMap extends Component{
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
-          let {map} = self.state;
+          let {map, view} = self.state;
           const arrayLayers = map.getLayers().array_;
-
+          view.fit(res.extent, map.getSize());
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-            
+          map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -601,8 +627,13 @@ export class ObjectMap extends Component{
           // mapObject.addLayer(raster);
 
           // map.addLayer([mapLayer]);
-          // map.getLayers().extend(layerList);
-          self.setState({map: map, explanationText: res.explanation});
+          // map.getLayers().extend(layerList);          
+          map.getView().setMinZoom(res.minZoomLevel);
+          map.getView().setZoom(res.initialZoomLevel);      
+          // map.getView().setExtent(res.extent);
+          map.getView().setMaxZoom(res.maxZoomLevel);
+          map.getView().setCenter(res.center);
+          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
       });
