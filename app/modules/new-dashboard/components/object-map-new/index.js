@@ -191,12 +191,12 @@ export class ObjectMap extends Component{
 
       var view = new View({
         center: [0, 0],
-        // extent: [-180, -90, 180, 90],
+        extent: [-180, -90, 180, 90],
         projection: 'EPSG:4326',
-        zoom: 2,
-        minZoom:2,
-        maxZoom: 9,
-        // showFullExtent: true,
+        // zoom: 2,
+        // minZoom:2,
+        // maxZoom: 9,
+        showFullExtent: true,
       });
 
             // var svgContainer = document.createElement('div');
@@ -332,20 +332,20 @@ export class ObjectMap extends Component{
           let {map} = self.state;
           const arrayLayers = map.getLayers().array_;
           // view.fit(res.extent, map.getSize());
-          var view = new View({
-            center: res.center,
-            extent: res.extent,
-            projection: 'EPSG:4326',
-            zoom: res.initialZoomLevel,
-            minZoom: res.minZoomLevel,
-            maxZoom: res.maxZoomLevel,
-            // showFullExtent: true,
-          });
+          // var view = new View({
+          //   center: res.center,
+          //   extent: res.extent,
+          //   projection: 'EPSG:4326',
+          //   zoom: res.initialZoomLevel,
+          //   minZoom: res.minZoomLevel,
+          //   maxZoom: res.maxZoomLevel,
+          //   // showFullExtent: true,
+          // });
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-          map.setView(view);
+          // map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -355,13 +355,14 @@ export class ObjectMap extends Component{
 
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);         
-          map.getView().setZoom(res.initialZoomLevel);   
-          map.getView().setMinZoom(res.minZoomLevel);
-          // map.getView().setExtent(res.extent);
-          map.getView().setMaxZoom(res.maxZoomLevel);
-          // map.moveTo(fromLonLat([19,19]));
-          map.getView().setCenter(res.center);
-          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+          // map.getView().setZoom(res.initialZoomLevel);   
+          // map.getView().setMinZoom(res.minZoomLevel);
+          // // map.getView().setExtent(res.extent);
+          // map.getView().setMaxZoom(res.maxZoomLevel);
+          // // map.moveTo(fromLonLat([19,19]));
+          // map.getView().setCenter(res.center);
+          map.getView().fit(res.extent, map.getSize());
+          self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
       });
@@ -376,17 +377,17 @@ export class ObjectMap extends Component{
           const { layerList } = res;
           let {map} = self.state;
           const arrayLayers = map.getLayers().array_;          
-          // view.fit([-100, -90, 0, 90], map.getSize());
+          // map.getView().fit([-100, -90, 0, 90], map.getSize());
 
-          var view = new View({
-            center: res.center,
-            extent: res.extent,
-            projection: 'EPSG:4326',
-            zoom: res.initialZoomLevel,
-            minZoom: res.minZoomLevel,
-            maxZoom: res.maxZoomLevel,
-            // showFullExtent: true,
-          });
+          // var view = new View({
+          //   center: res.center,
+          //   extent: res.extent,
+          //   projection: 'EPSG:4326',
+          //   zoom: res.initialZoomLevel,
+          //   minZoom: res.minZoomLevel,
+          //   maxZoom: res.maxZoomLevel,
+          //   // showFullExtent: true,
+          // });
 
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
@@ -404,7 +405,7 @@ export class ObjectMap extends Component{
             //   maxZoom: res.maxZoomLevel,
             //   showFullExtent: true,
             // });  
-          map.setView(view);
+          // map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -415,12 +416,14 @@ export class ObjectMap extends Component{
           // map.addLayer([mapLayer]);
           // map.getLayers().extend(layerList);
           // map.getView().fitExtent(res.extent, map.getSize());
-          map.getView().setMinZoom(res.minZoomLevel);
-          map.getView().setZoom(res.initialZoomLevel);   
-          // map.getView().setExtent(res.extent);
-          map.getView().setMaxZoom(res.maxZoomLevel);
+          // map.getView().setMinZoom(res.minZoomLevel);
+          // map.getView().setZoom(res.initialZoomLevel);   
+          // // map.getView().setExtent(res.extent);
+          // map.getView().setMaxZoom(res.maxZoomLevel);
+          
+          map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+          self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
       });
@@ -635,20 +638,20 @@ export class ObjectMap extends Component{
           let {map} = self.state;
           const arrayLayers = map.getLayers().array_;          
           // view.fit([-100,-90,0,90], map.getSize());  
-          var view = new View({
-            center: res.center,
-            extent: res.extent,
-            projection: 'EPSG:4326',
-            zoom: res.initialZoomLevel,
-            minZoom: res.minZoomLevel,
-            maxZoom: res.maxZoomLevel,
-            // showFullExtent: true,
-          });        
+          // var view = new View({
+          //   center: res.center,
+          //   extent: res.extent,
+          //   projection: 'EPSG:4326',
+          //   zoom: res.initialZoomLevel,
+          //   minZoom: res.minZoomLevel,
+          //   maxZoom: res.maxZoomLevel,
+          //   // showFullExtent: true,
+          // });        
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{              
               map.removeLayer(layer);
             });
-          map.setView(view);          
+          // map.setView(view);          
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
           })
@@ -663,6 +666,8 @@ export class ObjectMap extends Component{
           // // map.getView().setExtent(res.extent);
           // map.getView().setMaxZoom(res.maxZoomLevel);
           // map.getView().setCenter(res.center);
+          map.getView().fit(res.extent, map.getSize());
+          map.getView().setCenter(res.center);
           self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
         }
         
