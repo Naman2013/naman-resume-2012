@@ -623,6 +623,9 @@ export class ObjectMap extends Component{
       const { objectMapControls } = this.props;
       const { controlList } = objectMapControls[0];
       const { controlList: toggleControlList } = objectMapControls[1];
+      const { map } = this.state;
+      const extent = map.getView().calculateExtent();
+      const center = map.getView().getCenter();     
       let {  selectedControls, selectedToggleControls } = this.state;
       let filterList=[];
       controlList.map((control,i)=>{
@@ -631,7 +634,7 @@ export class ObjectMap extends Component{
       toggleControlList.map((toggle,i) =>{
         filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
       })
-      getObjectMap({token, cid, at, filterList, layerList: layers}).then(response=>{       
+      getObjectMap({token, cid, at, filterList, layerList: layers, center, extent}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
