@@ -13,6 +13,7 @@ import LikeButton from '../button/LikeButton';
 import { Link } from 'react-router';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import { Tooltip } from 'react-tippy';
+import { browserHistory } from 'react-router';
 
 export class ImageSlider extends Component{
 
@@ -188,14 +189,24 @@ export class ImageSlider extends Component{
                                         btnStyle={"slider-footer-button"}
                                     />
                                         
-                                       
+                                    <div>
+                                        <Button
+                                            type={"button"}
+                                            onClickEvent={this.showDiscussion} 
+                                            text={currentItem.commentsCount}                                             
+                                            style={"slider-footer-button"}
+                                            icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                        />
+                                    </div>                                      
+
                                     <Button
                                         type={"button"}
-                                        onClickEvent={this.showDiscussion} 
-                                        text={currentItem.commentsCount}                                             
-                                        style={"slider-footer-button"}
-                                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                        onClickEvent={()=>browserHistory.push(currentItem.photoViewFullURL)} 
+                                        text={"View Details"}                                             
+                                        style={"view-details-btn"}
+                                        icon={null}
                                     />
+
                                     {/* <Button
                                         type={"button"}
                                         onClickEvent={()=>{}} 

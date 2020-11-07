@@ -5,7 +5,7 @@
  *
  ***********************************/
 
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import take from 'lodash/take';
@@ -17,7 +17,7 @@ import DiscussionComments from './DiscussionComments';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 
-class DiscussionsBoard extends Component {
+class DiscussionsBoard extends PureComponent {
   static propTypes = {
     callSource: string,
     count: number,

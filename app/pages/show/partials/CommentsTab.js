@@ -5,7 +5,7 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
@@ -24,7 +24,7 @@ const {
   string,
 } = PropTypes;
 @withTranslation()
-class CommentsTab extends Component {
+class CommentsTab extends PureComponent {
   static propTypes = {
     content: string,
     canSubmitReplies: bool,
