@@ -533,7 +533,8 @@ export class ObjectMap extends Component{
             // style.getImage().setScale(x);
             // style.getText().setScale(x+0.5);
             const radius=1/Math.pow(resolution, 1/2);
-            console.log("radius: "+ radius);
+            const textScale= radius*0.2;
+            const textOffsetY= radius+8;
             return new Style({
               image: new Circle({
                 radius: radius,
@@ -551,10 +552,10 @@ export class ObjectMap extends Component{
                 text: feature.get('name'),
                 fill: new Fill({color: '#FFFFFF'}),
                 offsetX: 0,
-                offsetY: radius,
+                offsetY: textOffsetY,
                 textAlign: 'center',
                 textBaseline: 'top',
-                scale: radius*0.1
+                scale: textScale
               }) : null,
             });
           },
