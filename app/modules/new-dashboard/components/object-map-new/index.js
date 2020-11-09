@@ -279,7 +279,7 @@ export class ObjectMap extends Component{
           });
           map.addOverlay(popupOverlay);
 
-          map.on('pointermove', function (e) {            
+          map.on('pointermove', (e)=> {            
             if (e.dragging) {
               $(element).popover('dispose');
               return;
@@ -288,8 +288,9 @@ export class ObjectMap extends Component{
             var hit = map.hasFeatureAtPixel(pixel);
             var target = map.getTarget();
             document.getElementById(target).style.cursor = hit ? 'pointer' : '';            
-            
-            if(hit){
+            const {hideTooltipZoomLevel} = this.state;
+            const curzoom=map.getView().getZoom();            
+            if(hit && curzoom <= hideTooltipZoomLevel){
               var coordinate = e.coordinate;  
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
                 // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";
@@ -407,7 +408,7 @@ export class ObjectMap extends Component{
             // });  
           // map.setView(view);
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
           })
           // map.addLayer(this.getVectorLayer());
 
@@ -419,8 +420,7 @@ export class ObjectMap extends Component{
           // map.getView().setMinZoom(res.minZoomLevel);
           // map.getView().setZoom(res.initialZoomLevel);   
           // // map.getView().setExtent(res.extent);
-          // map.getView().setMaxZoom(res.maxZoomLevel);
-          
+          map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
           self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
@@ -477,36 +477,87 @@ export class ObjectMap extends Component{
 
     
 
-    getVectorLayer(url, data){
+    getVectorLayer(url, data, showLableZoomLevel){
+
+      let ifeatures=[];   
+      const { map } = this.state;
+      // data.map(item => { 
+      //   // if(item.badgeIconURL !== ""){ 
+      //     let feature = this.getIconFeature(item.XBadgeCoordDeg, item.YBadgeCoordDeg, item.badgeLabel );
+      //     feature.setId(item.questId);
+      //     var font = 'normal ' + item.labelFontSize + 'px ' + item.labelFontName;
+      //     let style = this.getIconSytle(item.badgeAnchorX, item.badgeAnchorY, item.badgeIconURL, item.badgeLabel, item.XLabelOffset, item.YLabelOffset, font, item.badgeScaleX, item.badgeScaleY, item.badgeLabelColor);
+      //     // feature=this.setIconSyle(feature,style);
+      //     const self = this;
+      //     feature.set('tooltip', item.badgeTooltipText);
+      //     // feature.setStyle(style);
+      //     feature.setStyle((feature,resolution)=>{
+      //       const temp=(1/Math.pow(resolution, 1.1));
+             
+
+      //       var x = Math.sin((temp * Math.PI) / 180) * 3;
+      //       // var y = Math.sin((i * Math.PI) / 180) * 4;
+      //       style.getImage().setScale(x);
+      //       // style.getText().setScale(x < 0.8 ? 0.8 : x);
+      //       style.getText().setScale(x+0.5);
+      //       return style;
+      //     });
+      //     ifeatures.push(feature);         
+        
+      // });    
+     
       
+      // const style={pointerEvents: 'none'};
+      // const vectorLayer=new VectorLayer({        
+      //   source: new VectorSource({         
+      //     features: ifeatures
+      //   })                
+        
+      // });
+      // this.setState({vectorLayer: vectorLayer});
+      // return vectorLayer;
+
       return new VectorLayer({
         source: new VectorSource({
           // url: url,
           format: new GeoJSON(),
-          features: (new GeoJSON()).readFeatures(data) ,  
+          features: (new GeoJSON()).readFeatures(data),  
           wrapX: false,
           noWrap: true
         }),
-        // style: (feature) => {
-        //     return new Style({
-        //       image: new Circle({
-        //         radius: 5,
-        //         fill: new Fill({
-        //           color: '#555555',
-        //         }),
-        //         stroke: new Stroke({
-        //           color: '#3399cc',
-        //           width: 2,
-        //         }),
-        //       }),
+        style: (feature, resolution ) => {
+            const temp=(1/Math.pow(resolution, 1.1));
+            var x = Math.sin((temp * Math.PI) / 180);
+            // if(x<0)
+            //   x=x*-1;
+            // style.getImage().setScale(x);
+            // style.getText().setScale(x+0.5);
+            const radius=1/Math.pow(resolution, 1/2);
+            console.log("radius: "+ radius);
+            return new Style({
+              image: new Circle({
+                radius: radius,
+                fill: new Fill({
+                  color: '#3399CC',
+                }),
+                stroke: new Stroke({
+                  color: '#cccccc',
+                  width: 2,
+                }),
+                // scale: x,
+              }),              
               
-              
-        //       text: new Text({
-        //         text: feature.get('name'),
-        //         fill: new Fill({color: '#FFFFFF'}),
-        //       }),
-        //     });
-        //   },
+              text: map.getView().getZoom() > showLableZoomLevel ? new Text({
+                text: feature.get('name'),
+                fill: new Fill({color: '#FFFFFF'}),
+                offsetX: 0,
+                offsetY: radius,
+                textAlign: 'center',
+                textBaseline: 'top',
+                scale: radius*0.1
+              }) : null,
+            });
+          },
         visible: true,
         title: 'vector map',
         // declutter: true,
@@ -517,17 +568,47 @@ export class ObjectMap extends Component{
       return new Graticule({
                 // the style to use for the lines, optional.
                 style,
-                showLabels: true,
-                            
+                showLabels: true,                            
               });
     }
 
-    getLayer(source, type, style, data){
+    getIconFeature(lat, lon, text){
+      return new Feature({
+        geometry: new Point([lat,lon]),
+        name: text,
+      });      
+    }
+
+    getIconSytle(alat, alon, icon, text, offsetX, offsetY, font, scalex, scaley, color){
+     return new Style({
+        image: new Icon({
+          anchor: [alat, alon],
+          src: icon,
+          crossOrigin: '',
+          scale: scalex,
+          // rotation: Math.PI / 4,
+        }),
+        text: new Text({
+          text: text,
+          scale: 0.8,
+          // rotation: Math.PI / 4,
+          textAlign: 'center',
+          textBaseline: 'top',
+          fill: new Fill({color: color}),
+          offsetX: offsetX,
+          offsetY: offsetY,
+          font: font,
+        }),
+      });
+    }
+
+
+    getLayer(source, type, style, data, showLableZoomLevel){
       switch(type){
         case "Image":
           return this.getSVGLayer(source); 
         case "Vector":
-          return this.getVectorLayer(source,data);
+          return this.getVectorLayer(source,data, showLableZoomLevel);
         case "Graticule":
           return this.getGraticleLayer(style)
         
