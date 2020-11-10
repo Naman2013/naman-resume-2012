@@ -304,7 +304,7 @@ class JoinByInviteAccountSignup extends Component {
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
       const customerDetailsMeetsRequirementsResult = API
-      .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+        .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
@@ -359,6 +359,7 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   createCustomerRecordAndNextScreen = () => {
+
     /*
      * Set up a Customer Account
      */
@@ -375,6 +376,12 @@ class JoinByInviteAccountSignup extends Component {
       inviteDetails: this.state.inviteDetails,
     };
 
+    const accountFormDetailsData = cloneDeep(createCustomerData.accountFormDetails);
+
+    accountFormDetailsData.loginEmailAddress
+      .errorText = '';
+
+
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
     API
       .post(JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL, createCustomerData)
@@ -382,10 +389,10 @@ class JoinByInviteAccountSignup extends Component {
         const res = response.data;
         if (!res.apiError) {
           const { actions } = this.props;
-
           const createCustomerResult = {
             status: res.status,
             customerId: res.customerId,
+            statusMessage: res.statusMessage
           };
 
           if (createCustomerResult.status === 'success') {
@@ -409,6 +416,8 @@ class JoinByInviteAccountSignup extends Component {
             }
           } else {
             /* process / display error to user */
+            accountFormDetailsData.loginEmailAddress.errorText = createCustomerResult.statusMessage;
+            this.setState({ accountFormDetails: accountFormDetailsData });
           }
         }
       })
@@ -533,6 +542,8 @@ class JoinByInviteAccountSignup extends Component {
     //for classroom accounts
     const selectedSchoolId = this.state.selectedSchoolId;
 
+    console.log('digi', accountFormDetails);
+
     return (
       <div>
         <Request
@@ -569,32 +580,32 @@ class JoinByInviteAccountSignup extends Component {
                           fetchingContent: fetchingGoogleClient,
                           serviceResponse: googleClientResponse,
                         }) => (
-                          <Fragment>
-                            {!fetchingGoogleClient && (
-                              <div className="google-login-button">
-                                <GoogleLogin
-                                  prompt="select_account"
-                                  responseType={
-                                    googleClientResponse.googleClientResponseType
-                                  }
-                                  fetchBasicProfile={
-                                    googleClientResponse.googleClientFetchBasicProfile
-                                  }
-                                  accessType={
-                                    googleClientResponse.googleClientAccessType
-                                  }
-                                  scope={googleClientResponse.googleClientScope}
-                                  clientId={googleClientResponse.googleClientID}
-                                  buttonText={
-                                    googleClientResponse.loginButtonText
-                                  }
-                                  onSuccess={this.processGoogleSuccessResponse}
-                                  onFailure={this.processGoogleFailureResponse}
-                                />
-                              </div>
-                            )}
-                          </Fragment>
-                        )}
+                            <Fragment>
+                              {!fetchingGoogleClient && (
+                                <div className="google-login-button">
+                                  <GoogleLogin
+                                    prompt="select_account"
+                                    responseType={
+                                      googleClientResponse.googleClientResponseType
+                                    }
+                                    fetchBasicProfile={
+                                      googleClientResponse.googleClientFetchBasicProfile
+                                    }
+                                    accessType={
+                                      googleClientResponse.googleClientAccessType
+                                    }
+                                    scope={googleClientResponse.googleClientScope}
+                                    clientId={googleClientResponse.googleClientID}
+                                    buttonText={
+                                      googleClientResponse.loginButtonText
+                                    }
+                                    onSuccess={this.processGoogleSuccessResponse}
+                                    onFailure={this.processGoogleFailureResponse}
+                                  />
+                                </div>
+                              )}
+                            </Fragment>
+                          )}
                       />
                       <form onSubmit={this.handleSubmit}>
                         <div className="form-section">
@@ -835,6 +846,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   ),
 });
+
 
 export default connect(
   mapStateToProps,

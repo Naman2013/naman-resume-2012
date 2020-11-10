@@ -31,25 +31,29 @@ class JoinByInviteCodeStep2 extends Component {
     this.state = {
       invitationCodeAlt: window.localStorage.getItem('invitationCodeAlt'),
       inviteeEmailAddress: window.localStorage.getItem('inviteeEmailAddress'),
+      clubInviteAndGiftCardDetials: window.localStorage.getItem('clubInviteAndGiftCardDetials'),
+
     };
   }
 
   render() {
+    console.log('clubInviteAndGiftCardDetials',this.state.clubInviteAndGiftCardDetials);
     const { pathname } = this.props;
-
     const joinByInviteParams = {
       callSource: 'joinByInvitationAltStep2',
       invitationCodeAlt: this.state.invitationCodeAlt,
       inviteeEmailAddress: this.state.inviteeEmailAddress,
     };
-
-    return (
-      <JoinByInviteAccountSignup
-        pathname={pathname}
-        navTabs={JOIN_BY_INVITE_TABS}
-        joinByInviteParams={joinByInviteParams}
-      />
-    );
+      return (
+        <JoinByInviteAccountSignup
+          pathname={pathname}
+          navTabs={JOIN_BY_INVITE_TABS}
+          joinByInviteParams={joinByInviteParams}
+          clubInviteAndGiftCardDetials = {this.state.clubInviteAndGiftCardDetials}
+        />
+      );
+    
+    
   }
 }
 

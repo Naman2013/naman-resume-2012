@@ -128,6 +128,7 @@ module.exports = {
     hints: false,
   },
   // devtool: 'cheap-module-eval-source-map',
+  
   devServer: {
     contentBase: sourcePath, // assets
     hot: false,
@@ -139,37 +140,37 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://nova.slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        target: 'https://slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sselog/**': {
-        target: 'https://slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/util/**': {
-        target: 'https://slooh.com',
+        target: 'https://orion.slooh.com',
         changeOrigin: true,
         secure: true,
       },

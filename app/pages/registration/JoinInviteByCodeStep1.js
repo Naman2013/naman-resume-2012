@@ -19,11 +19,13 @@ import Request from 'app/components/common/network/Request';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
+  JOIN_VALIDATE_INVITATION_GIFT_CARD_ENDPOINT_URL
 } from 'app/services/registration/registration.js';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep2.style';
+import { logGoogleUserIn } from 'app/modules/login/actions';
 
 const { string, func } = PropTypes;
 @withTranslation()
@@ -54,6 +56,13 @@ class JoinByInviteCodeStep1 extends Component {
           label: '',
           visible: true,
           value: '',
+          hintText: '',
+          errorText: '',
+        },
+        clubInviteAndGiftCard: {
+          label: '',
+          visible: true,
+          value: 'clubInvite',
           hintText: '',
           errorText: '',
         },
@@ -121,9 +130,12 @@ class JoinByInviteCodeStep1 extends Component {
       );
       formIsComplete = false;
     }
+    
 
     if (formIsComplete === true) {
       /* Validate the Invitation Email Address and Code */
+
+      if(accountFormDetailsData.clubInviteAndGiftCard.value === "giftCard"){
 
       const validInvitationCodeResult = API.post(
         JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
@@ -135,6 +147,62 @@ class JoinByInviteCodeStep1 extends Component {
       )
         .then(response => {
           const res = response.data;
+          
+          if (res.apiError == false) {
+            const invitationResult = {
+              isInvitationValid: res.isInvitationValid,
+              invitationNotValidMessage: res.invitationNotValidMessage,
+            };
+            console.log('invitationResult',invitationResult);
+            
+            /* need to force evaulation of "true"/"false" vs. true/false. */
+            if (invitationResult.isInvitationValid === 'true') {
+              formIsComplete = true;
+
+              /* set the email address and the invitation code */
+              window.localStorage.setItem(
+                'inviteeEmailAddress',
+                this.state.accountFormDetails.loginEmailAddress.value
+              );
+              window.localStorage.setItem(
+                'invitationCodeAlt',
+                this.state.accountFormDetails.invitationCode.value
+              );
+              window.localStorage.setItem(
+                'clubInviteAndGiftCardDetials',
+                accountFormDetailsData.clubInviteAndGiftCard.value
+              );
+
+              browserHistory.push('/join/inviteByCodeStep2');
+            } else {
+              /* Invitation Validation failed */
+              accountFormDetailsData.clubInviteAndGiftCard.errorText =
+                "not valid Gift Card";
+
+              /* make sure to persist any changes to the account signup form (error messages) */
+              this.setState({ accountFormDetails: accountFormDetailsData });
+
+              formIsComplete = false;
+            }
+          }
+        })
+        .catch(err => {
+          throw ('Error: ', err);
+        });
+
+      }else{
+
+      const validInvitationCodeResult = API.post(
+        JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
+        {
+          invitationCode: this.state.accountFormDetails.invitationCode.value,
+          loginEmailAddress: this.state.accountFormDetails.loginEmailAddress
+            .value,
+        }
+      )
+        .then(response => {
+          const res = response.data;
+          
           if (res.apiError == false) {
             const invitationResult = {
               isInvitationValid: res.isInvitationValid,
@@ -171,6 +239,9 @@ class JoinByInviteCodeStep1 extends Component {
         .catch(err => {
           throw ('Error: ', err);
         });
+        
+      }
+
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
@@ -180,6 +251,21 @@ class JoinByInviteCodeStep1 extends Component {
   render() {
     const { pathname, t } = this.props;
     const { accountFormDetails } = this.state;
+    console.log('test', accountFormDetails);
+
+    let checked;
+    let callSourceValue;
+    if (accountFormDetails.clubInviteAndGiftCard.value == "clubInvite") {
+
+      callSourceValue = {
+        callSource: 'joinByInvitationAltStep2ClubInvite'
+      };
+      checked = true;
+    } else {
+      callSourceValue = {
+        callSource: 'joinByInvitationAltStep2GiftCard'
+      };
+    }
 
     return (
       <div>
@@ -270,6 +356,57 @@ class JoinByInviteCodeStep1 extends Component {
                             }}
                           />
                         </div>
+
+                        <fieldset>
+
+                          <span
+                            className="form-error"
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                accountFormDetails.clubInviteAndGiftCard
+                                  .errorText,
+                            }}
+                          />
+                          <div>
+                            <label>
+                              <Field
+                                name="Invitation"
+                                label="clubInvite"
+                                component="input"
+                                type="radio"
+                                checked={checked}
+                                value="clubInvite"
+                                onClick={event => {
+                                  this.handleFieldChange({
+                                    field: 'clubInviteAndGiftCard',
+                                    value: event.target.value,
+                                  });
+                                }}
+                              />{' '}
+                              {t('Club Invite')}
+                            </label>
+
+                            <span style={{ paddingLeft: '15px' }}>
+                              <label>
+                                <Field
+                                  name="Invitation"
+                                  label="giftInvite"
+                                  component="input"
+                                  type="radio"
+                                  value="giftCard"
+                                  onClick={event => {
+                                    this.handleFieldChange({
+                                      field: 'clubInviteAndGiftCard',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                />
+                                {'\u00A0'}
+                                {t('Gift Card')}
+                              </label>
+                            </span>
+                          </div>
+                        </fieldset>
                         <div className="button-container">
                           <Button
                             type="button"
