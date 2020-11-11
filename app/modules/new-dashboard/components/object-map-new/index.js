@@ -36,40 +36,43 @@ import Overlay from 'ol/Overlay';
 import classnames from 'classnames';
 
 export class ObjectMap extends Component{
-  state={
-    map: null,
-    view: null,
-    showObjectCard: false,
-    objectCardDetails: [],
-    isloading1: false,
-    selectedControls: [],
-    mapExpanded: false,
-    hideMap: false,
-    selectedToggleControls: [],
-    explanationText: null,
-    layerList: [],
-    currentZoom: 2,
-    scrollZoomLock: false,
-  }
+  // state={
+  //   map: null,
+  //   view: null,
+  //   showObjectCard: false,
+  //   objectCardDetails: [],
+  //   isloading1: false,
+  //   selectedControls: [],
+  //   mapExpanded: false,
+  //   hideMap: false,
+  //   selectedToggleControls: [],
+  //   explanationText: null,
+  //   layerList: [],
+  //   currentZoom: 2,
+  //   scrollZoomLock: false,
+  //   objectMapControls: [],
+  // }
 
   constructor (props){
     super(props);
     const { objectMapControls } = this.props;
-    const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);      
-    const selectedToggleControls = objectMapControls[1].controlList.map(control=>{return false});      
+    // const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);      
+    // const selectedToggleControls = objectMapControls[1].controlList.map(control=>{return false});
+    
     this.state={
       map: null,
       view: null,
       showObjectCard: false,
       objectCardDetails: [],
       isloading1: false,
-      selectedControls:selectedControls,
-      selectedToggleControls: selectedToggleControls,
+      // selectedControls:selectedControls,
+      // selectedToggleControls: selectedToggleControls,
       explanationText: null,
       layerList: [],
       currentZoom: 2,
       scrollZoomLock: false,
       hideTooltipZoomLevel: 8,
+      objectMapControls: objectMapControls,
     }    
   }
     componentDidMount(){     
@@ -623,6 +626,31 @@ export class ObjectMap extends Component{
       this.state.view.animate({center:[ 81.5505, -67.5 ], zoom: 25, duration: 2000});
     }
 
+    handleLeftButtonClick = () => {
+
+    }
+
+    handleRightButtonClick = () => {
+      
+    }
+
+    handleUpButtonClick = () => {
+      const { map } = this.state;
+      const center= map.getView().getCenter();
+      const zoom = map.getView().getZoom();
+      console.log("center: "+center);
+      console.log("zoom: "+zoom);
+      center[1] = center[1] + (zoom *0.5)
+      console.log("pan coordinates: "+center);
+      map.getView().setCenter(center);
+      this.setState({map: map});
+    }
+
+    handleDownButtonClick = () => {
+      
+    }
+
+
     handleMapClick(event) {
 
       // create WKT writer
@@ -692,30 +720,40 @@ export class ObjectMap extends Component{
       }      
     }
    
-    handleOptionChange = (controlIndex, selectedIndex)=>{         
-      let { selectedControls } = this.state;
-      selectedControls[controlIndex]=selectedIndex;
-      this.setState({selectedControls: selectedControls}, this.handleFilterChange);
+    handleOptionChange = (controlType, controlIndex, selectedIndex)=>{     
+      let {objectMapControls} = this.state;
+      objectMapControls.map((control, i) => {
+        if(control.controlType === controlType){
+           objectMapControls[i].controlList[controlIndex].selectedIndex = selectedIndex;
+            this.setState({objectMapControls}, this.handleFilterChange);
+            return;
+        }    
+      });    
+      // let { selectedControls } = this.state;
+      // selectedControls[controlIndex]=selectedIndex;
+      // this.setState({selectedControls: selectedControls}, this.handleFilterChange);
     }
 
     handleFilterChange = () => {
       const { token, at, cid } = getUserInfo();
       const layers = ["astroObjects", "graticule"];
       const self = this;
-      const { objectMapControls } = this.props;
-      const { controlList } = objectMapControls[0];
-      const { controlList: toggleControlList } = objectMapControls[1];
+      const { objectMapControls } = this.state;
+      // const { controlList } = objectMapControls[0];
+      // const { controlList: toggleControlList } = objectMapControls[1];
       const { map } = this.state;
       const extent = map.getView().calculateExtent();
       const center = map.getView().getCenter();     
       let {  selectedControls, selectedToggleControls } = this.state;
       let filterList=[];
-      controlList.map((control,i)=>{
-        filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
+      objectMapControls.slice(0,2).map(menucontrol=>{
+          menucontrol.controlList.map((control,i)=>{
+          filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+        })
       });
-      toggleControlList.map((toggle,i) =>{
-        filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
-      })
+      // toggleControlList.map((toggle,i) =>{
+      //   filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
+      // })
       getObjectMap({token, cid, at, filterList, layerList: layers, center, extent}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
@@ -811,25 +849,41 @@ export class ObjectMap extends Component{
       }       
     }
 
-    handleGearIconChange = (menu) => { 
-      if(menu.resetFilters){
-        const { objectMapControls } = this.props;
-        const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
-        this.setState({selectedControls: selectedControls});        
+    handleGearIconChange = (controlIndex, selectedMenu) => { 
+      let toggle=false;
+      if(selectedMenu.resetFilters){
+        const { objectMapControls } = this.state;
+        this.setState({objectMapControls});
+        // const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
+        // this.setState({selectedControls: selectedControls});        
       }
 
-       switch(menu.menuAction){
+      if(selectedMenu.type === "toggle"){
+        const { objectMapControls } = this.state;
+          objectMapControls[2].controlList.map((control, i) =>{
+            if(control.controlId === "gear"){
+              control.target.menuItems.map((menu, index) =>{
+                if(menu.menuAction === selectedMenu.menuAction){
+                  toggle=objectMapControls[2].controlList[i].target.menuItems[index].default;
+                  objectMapControls[2].controlList[i].target.menuItems[index].default=!toggle;                 
+                  this.setState({objectMapControls});
+                }                  
+              })
+            }
+          });
+      }
+
+       switch(selectedMenu.menuAction){
         case "reset":
-          this.resetObjectMap({layerList: menu.menuTarget});
+          this.resetObjectMap({layerList: selectedMenu.menuTarget});
           break;
         case "toggleZoomLock":
-          const { scrollZoomLock, map } = this.state;
-            map.getInteractions().forEach(function(interaction) {
-              if (interaction instanceof MouseWheelZoom) {
-                interaction.setActive(scrollZoomLock);
-              }
-            }, this); 
-            this.setState({scrollZoomLock: !scrollZoomLock});        
+          const { map } = this.state;
+          map.getInteractions().forEach(function(interaction) {
+            if (interaction instanceof MouseWheelZoom) {
+              interaction.setActive(toggle);
+            }
+          }, this);                   
           break;
         default:      
           break;
@@ -839,10 +893,9 @@ export class ObjectMap extends Component{
     }
 
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1, currentZoom, scrollZoomLock } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom } = this.state
       const { objectMapControls } = this.props;      
-      const { selectedControls, hideMap, mapExpanded, selectedToggleControls, explanationText } = this.state;
-  
+      const { hideMap, mapExpanded, explanationText } = this.state;      
         return (
           <div id="object-Map">
              <Spinner
@@ -874,15 +927,15 @@ export class ObjectMap extends Component{
                         <span className="select-label">{control.prompt} </span>
                         <Dropdown className="settings-dropdown">
                           <Dropdown.Toggle  id="dropdown-basic">
-                          <span className="control-label">{control.list[selectedControls[i]].value}</span>
+                          <span className="control-label">{control.list[control.selectedIndex].value}</span>
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'auto' }}>
                             {control.list.map((item,j )=> (
                               <Dropdown.Item
                                 key={item.controlId}
-                                onClick={()=>this.handleOptionChange(i,j)}
-                                className={selectedControls[i] === j ? "control-menu-item-selected" : "control-menu-item"}                                
+                                onClick={()=>this.handleOptionChange(controlArray.controlType, i, j)}
+                                className={control.selectedIndex === j ? "control-menu-item-selected" : "control-menu-item"}                                
                               >
                                 <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
                               </Dropdown.Item>
@@ -895,10 +948,10 @@ export class ObjectMap extends Component{
                   controlArray.controlType === "iconToggle" ? (
                     controlArray.controlList.map((control,i)=>(
                       <div className="controls">
-                        <span className={selectedToggleControls[i] ? "select-label-disabled" : "select-label"}>{control.list[0].value} </span>
+                        <span className={control.selectedIndex ? "select-label-disabled" : "select-label"}>{control.list[0].value} </span>
                         <Switch 
-                          onChange={()=>this.handleToogleChange(i)} 
-                          checked={selectedToggleControls[i]} 
+                          onChange={(checked)=>this.handleOptionChange(controlArray.controlType, i, checked ? 1 : 0)} 
+                          checked={control.selectedIndex} 
                           width={20}
                           height={10}
                           className={"toggle"}
@@ -907,7 +960,7 @@ export class ObjectMap extends Component{
                           uncheckedIcon={false}
                           checkedIcon={false}
                           />
-                        <span className={selectedToggleControls[i] ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
+                        <span className={control.selectedIndex ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
                       </div>
                   )))
                   :
@@ -925,10 +978,10 @@ export class ObjectMap extends Component{
                            {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
                                <Dropdown.Item
                                key={i}
-                               onClick={()=>{this.handleGearIconChange(menu)}}
+                               onClick={()=>{this.handleGearIconChange(i, menu)}}
                                className="control-menu-item"
                              >
-                               {scrollZoomLock && menu.menuAction === "toggleZoomLock" && (
+                               {menu.default && menu.type === "toggle" && (
                                  <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
                                )}
                                 {menu.prompt}
@@ -1129,6 +1182,12 @@ export class ObjectMap extends Component{
            )}
             
             {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
+
+            {/* <button onClick={()=>this.handleFindObject()}>left</button>
+            <button onClick={()=>this.handleFindObject()}>right</button> */}
+            {/* <button onClick={this.handleUpButtonClick}>up</button> */}
+            {/* <button onClick={()=>this.handleFindObject()}>down</button> */}
+
           </div>
         );
     }
