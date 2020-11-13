@@ -7,6 +7,9 @@ export const GOOGLE_SSO_LINKACCT_ENDPOINT_URL = '/api/registration/linkGoogleAcc
 
 export const VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL = '/api/registration/validateNewPendingCustomerDetails';
 
+export const CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION = '/api/registration/activateGiftCardSubscription';
+
+
 export const JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL = '/api/registration/createPendingCustomer';
 export const JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL = '/api/registration/activatePendingCustomer';
 
@@ -16,6 +19,7 @@ export const CANCEL_CUSTOMER_ENDPOINT_URL = '/api/registration/cancelCustomer';
 export const JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL = '/api/registration/validateCustomerLinkInvitationAlt';
 export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL = '/api/registration/activateInvitedCustomer';
 export const JOIN_VALIDATE_INVITATION_GIFT_CARD_ENDPOINT_URL = '/api/registration/verifyGiftCardSignupDetails';
+
 
 
 export const CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL = '/api/registration/createCustomerLinkInvitation';

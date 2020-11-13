@@ -32,6 +32,7 @@ import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+  CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION
 } from 'app/services/registration/registration.js';
 import styles from '../JoinStep2.style';
 
@@ -171,17 +172,21 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.astronomyClubName.hintText =
       result.formFieldLabels.astronomyClubName.hintText;
 
-    newAccountFormData.givenName.value = result.invitee.firstName;
-    this.props.change('givenName', result.invitee.firstName);
+    const { clubInviteAndGiftCardDetials } = this.props;
+    if (!clubInviteAndGiftCardDetials === 'GiftCard') {
+      newAccountFormData.givenName.value = result.invitee.firstName;
+      this.props.change('givenName', result.invitee.firstName);
 
-    newAccountFormData.familyName.value = result.invitee.lastName;
-    this.props.change('familyName', result.invitee.lastName);
+      newAccountFormData.familyName.value = result.invitee.lastName;
+      this.props.change('familyName', result.invitee.lastName);
 
-    newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+      newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
 
-    newInviteDetails.parentCustomerId = result.invitedBy.customerId;
-    newInviteDetails.parentCustomerRole = result.invitedBy.role;
-    newInviteDetails.childCustomerRole = result.invitee.role;
+      newInviteDetails.parentCustomerId = result.invitedBy.customerId;
+      newInviteDetails.parentCustomerRole = result.invitedBy.role;
+      newInviteDetails.childCustomerRole = result.invitee.role;
+    }
+
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
@@ -217,8 +222,8 @@ class JoinByInviteAccountSignup extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
-    //console.log(this.state.accountFormDetails);
 
+    const { clubInviteAndGiftCardDetials, joinByInviteParams } = this.props;
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -233,6 +238,8 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
 
+
+    console.log('wwwwwwwwww', accountFormDetailsData);
     if (accountCreationType === 'userpass') {
       /* Verify that the user has provided:
             Firstname
@@ -296,62 +303,124 @@ class JoinByInviteAccountSignup extends Component {
         formIsComplete = false;
       }
     }
-
     if (formIsComplete === true) {
       /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
+      if (clubInviteAndGiftCardDetials === 'GiftCard') {
+        const { actions } = this.props;
+        const customerDetailsMeetsRequirementsResult = API
+          .post(CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION, {
+            loginEmailAddress: this.state.accountFormDetails
+              .loginEmailAddress.value,
+            loginPassword: this.state.accountFormDetails.password.value,
+            giftCardCode: joinByInviteParams.invitationCodeAlt,
+            accountType: 'Confluence',
+            type: 'GiftCard',
+            selectedPlanId: 14
 
-      const customerDetailsMeetsRequirementsResult = API
-        .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value,
-          userEnteredLoginEmailAddress: this.state.accountFormDetails
-            .loginEmailAddress.value,
-          selectedPlanId: window.localStorage.selectedPlanId,
-        })
-        .then(response => {
-          const res = response.data;
-          if (res.apiError == false) {
-            const validationResults = {
-              passwordAcceptable: res.passwordAcceptable,
-              passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              emailAddressAcceptable: res.emailAddressAcceptable,
-              emailAddressNotAcceptedMessage:
-                res.emailAddressNotAcceptedMessage,
-            };
+          })
+          .then(response => {
+            const res = response.data;
+            formIsComplete === true;
+            if (res.apiError == false) {
+              const validationResults = {
+                status: res.status,
+                statusMessage: res.statusMessage
 
-            if (validationResults.passwordAcceptable === false) {
-              /* Password did not meet Slooh requirements, provide the error messaging */
-              accountFormDetailsData.password.errorText =
-                validationResults.passwordNotAcceptedMessage;
+              };
+              if (validationResults.status === 'failed') {
+                /* Email address is already taken or some other validation error occurred. */
+                accountFormDetailsData.loginEmailAddress.errorText =
+                  validationResults.statusMessage;
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+                formIsComplete = false;
+              }
+              
+              if (formIsComplete === true) {
+                
+                const loginDataPayload = {
+                  username: this.state.accountFormDetails.loginEmailAddress.value,
+                  pwd: this.state.accountFormDetails.password.value,
+                };
 
-              /* make sure to persist any changes to the account signup form (error messages) */
-              this.setState({ accountFormDetails: accountFormDetailsData });
+                //actions.logUserIn(loginDataPayload);
+               setTimeout(
+                  () => actions.logUserIn(loginDataPayload),
+                  5000
+                );
+                /* Log the user in */
+                
+                /* create the customer result */
 
-              formIsComplete = false;
+                setTimeout(
+                  () => browserHistory.push('/join/purchaseConfirmation/join'),
+                  5000
+                );
+               
+              }
             }
+          })
+          .catch(err => {
+            throw ('Error: ', err);
+          });
 
-            if (validationResults.emailAddressAcceptable === false) {
-              /* Email address is already taken or some other validation error occurred. */
-              accountFormDetailsData.loginEmailAddress.errorText =
-                validationResults.emailAddressNotAcceptedMessage;
+      } else {
 
-              /* make sure to persist any changes to the account signup form (error messages) */
-              this.setState({ accountFormDetails: accountFormDetailsData });
+        const customerDetailsMeetsRequirementsResult = API
+          .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+            userEnteredPassword: this.state.accountFormDetails.password.value,
+            userEnteredLoginEmailAddress: this.state.accountFormDetails
+              .loginEmailAddress.value,
+            selectedPlanId: window.localStorage.selectedPlanId,
+          })
+          .then(response => {
+            const res = response.data;
+            if (res.apiError == false) {
+              const validationResults = {
+                passwordAcceptable: res.passwordAcceptable,
+                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+                emailAddressAcceptable: res.emailAddressAcceptable,
+                emailAddressNotAcceptedMessage:
+                  res.emailAddressNotAcceptedMessage,
+              };
 
-              formIsComplete = false;
+              if (validationResults.passwordAcceptable === false) {
+                /* Password did not meet Slooh requirements, provide the error messaging */
+                accountFormDetailsData.password.errorText =
+                  validationResults.passwordNotAcceptedMessage;
+
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+
+                formIsComplete = false;
+              }
+
+              if (validationResults.emailAddressAcceptable === false) {
+                /* Email address is already taken or some other validation error occurred. */
+                accountFormDetailsData.loginEmailAddress.errorText =
+                  validationResults.emailAddressNotAcceptedMessage;
+
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+
+                formIsComplete = false;
+              }
+
+              if (formIsComplete === true) {
+                /* create the customer result */
+                this.createCustomerRecordAndNextScreen();
+              }
             }
+          })
+          .catch(err => {
+            throw ('Error: ', err);
+          });
 
-            if (formIsComplete === true) {
-              /* create the customer result */
-              this.createCustomerRecordAndNextScreen();
-            }
-          }
-        })
-        .catch(err => {
-          throw ('Error: ', err);
-        });
+      }
+
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
@@ -403,16 +472,18 @@ class JoinByInviteAccountSignup extends Component {
               };
 
               /* Log the user in */
+
               actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
+
             } else if (this.state.accountCreationType === 'googleaccount') {
               const loginDataPayload = {
                 googleProfileId: window.localStorage.googleProfileId,
                 googleProfileEmail: window.localStorage.username,
               };
-
               actions.logGoogleUserIn(loginDataPayload);
               browserHistory.push('/');
+
             }
           } else {
             /* process / display error to user */
@@ -428,7 +499,7 @@ class JoinByInviteAccountSignup extends Component {
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = googleTokenData => {
-    // console.log("Processing Google Signin: " + googleTokenData);
+
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
     API
@@ -523,11 +594,11 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    // console.log(googleMessageData);
+
   };
 
   render() {
-    const { pathname, navTabs } = this.props;
+    const { pathname, navTabs, joinByInviteParams, clubInviteAndGiftCardDetials } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -535,14 +606,18 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-    const joinByInviteParams = this.props.joinByInviteParams;
-    //console.log ('joinByInviteParams : ' + joinByInviteParams.callSource);
+
+    console.log('accountFormDetailsaa', accountFormDetails);
+    accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress;
+
+    /*  this.setState({
+       accountFormDetails:accountFormDetails
+     }) */
+
     const selectedPlanId = this.state.selectedPlanId;
 
     //for classroom accounts
     const selectedSchoolId = this.state.selectedSchoolId;
-
-    console.log('digi', accountFormDetails);
 
     return (
       <div>
@@ -608,22 +683,25 @@ class JoinByInviteAccountSignup extends Component {
                           )}
                       />
                       <form onSubmit={this.handleSubmit}>
-                        <div className="form-section">
-                          <div className="form-field-container invited-by">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: joinPageRes.invitedBy.heading,
-                              }}
-                            />
-                            <span
-                              className="form-label inviter"
-                              dangerouslySetInnerHTML={{
-                                __html: joinPageRes.invitedBy.displayName,
-                              }}
-                            />
+                        {!clubInviteAndGiftCardDetials === 'GiftCard' ?
+                          <div className="form-section">
+                            <div className="form-field-container invited-by">
+                              {<span
+                                className="form-label"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinPageRes.invitedBy.heading,
+                                }}
+                              />}
+                              <span
+                                className="form-label inviter"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinPageRes.invitedBy.displayName,
+                                }}
+                              />
+                            </div>
                           </div>
-                        </div>
+                          : null
+                        }
                         <div className="form-section split">
                           <div className="form-field-container form-field-half">
                             <span
