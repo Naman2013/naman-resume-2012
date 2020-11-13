@@ -355,6 +355,7 @@ class JoinByInviteAccountSignup extends Component {
                 
                 /* create the customer result */
 
+                
                 setTimeout(
                   () => browserHistory.push('/join/purchaseConfirmation/join'),
                   5000
