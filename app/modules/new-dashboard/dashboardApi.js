@@ -156,4 +156,8 @@ export function getPhotoHubHeadings(data) {
   return API.post('/api/images/newDashboardPhotoHubSection',data);
 }
 
+export function setObjectMap(data) {
+  return API.post('/api/images/setObjectMap',data);
+}
+
 

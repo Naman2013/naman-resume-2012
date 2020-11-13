@@ -25,7 +25,7 @@ import {getCenter} from 'ol/extent';
 import {composeCssTransform} from 'ol/transform';
 import Layer from 'ol/layer/Layer';
 import { QuestCard } from '../quest-card';
-import { getObjectCard, getObjectMap } from '../../dashboardApi';
+import { getObjectCard, getObjectMap, setObjectMap } from '../../dashboardApi';
 import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import Switch from "react-switch";
@@ -65,6 +65,8 @@ export class ObjectMap extends Component{
       showObjectCard: false,
       objectCardDetails: [],
       isloading1: false,
+      mapExpanded: false,
+      hideMap: false,
       // selectedControls:selectedControls,
       // selectedToggleControls: selectedToggleControls,
       explanationText: null,
@@ -624,30 +626,49 @@ export class ObjectMap extends Component{
     handleFindObject(){
       // var position = fromLonLat();
       this.state.view.animate({center:[ 81.5505, -67.5 ], zoom: 25, duration: 2000});
-    }
+    }   
 
-    handleLeftButtonClick = () => {
+    handleNavigationClick = (direction) => {
+      const { map } = this.state;      
+      let newCenterInPx;
+      let center = map.getView().getCenter();
+      let centerInPx = map.getPixelFromCoordinate(center);
+      switch (direction) {
+        case 'left': newCenterInPx = [centerInPx[0] - 100, centerInPx[1]]; break;
+        case 'right': newCenterInPx = [centerInPx[0] + 100, centerInPx[1]]; break;
+        case 'top': newCenterInPx = [centerInPx[0], centerInPx[1] - 100]; break;
+        case 'bottom': newCenterInPx = [centerInPx[0], centerInPx[1] + 100]; break;
+      }
+      var newCenter = map.getCoordinateFromPixel(newCenterInPx);
+      map.getView().setCenter(newCenter);
+    }   
 
-    }
+    handleSetObjectMap = (data) => {
+      const {at, cid, token} = getUserInfo();
+      const { objectMapControls } = this.state;
+      const { map, mapExpanded } = this.state;
+      const extent = map.getView().calculateExtent();
+      const center = map.getView().getCenter();       
+      let filterList=[];
+      debugger;
+      objectMapControls.map(menucontrol=>{
+          menucontrol.controlList.map((control,i)=>{
+          if(control.controlType === ("dropdownList" || "iconToggle"))
+            filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+          if(control.controlId === "gear"){
+            control.target.menuItems.map(menu=>{
+              if(menu.type === "toggle")
+                filterList.push({"controlId": menu.controlId, "key": menu.default });
+            })
+          }
+        })
+      });
+      setObjectMap({at, cid, token, extent, center, fullScreen: mapExpanded, filterList, ...data}).then(response=>{
+        const res=response.data;
+        if(!res.apiError){
 
-    handleRightButtonClick = () => {
-      
-    }
-
-    handleUpButtonClick = () => {
-      const { map } = this.state;
-      const center= map.getView().getCenter();
-      const zoom = map.getView().getZoom();
-      console.log("center: "+center);
-      console.log("zoom: "+zoom);
-      center[1] = center[1] + (zoom *0.5)
-      console.log("pan coordinates: "+center);
-      map.getView().setCenter(center);
-      this.setState({map: map});
-    }
-
-    handleDownButtonClick = () => {
-      
+        }
+      })
     }
 
 
@@ -865,12 +886,12 @@ export class ObjectMap extends Component{
               control.target.menuItems.map((menu, index) =>{
                 if(menu.menuAction === selectedMenu.menuAction){
                   toggle=objectMapControls[2].controlList[i].target.menuItems[index].default;
-                  objectMapControls[2].controlList[i].target.menuItems[index].default=!toggle;                 
-                  this.setState({objectMapControls});
+                  objectMapControls[2].controlList[i].target.menuItems[index].default=!toggle;
                 }                  
               })
             }
           });
+        this.handleSetObjectMap();
       }
 
        switch(selectedMenu.menuAction){
@@ -883,7 +904,13 @@ export class ObjectMap extends Component{
             if (interaction instanceof MouseWheelZoom) {
               interaction.setActive(toggle);
             }
-          }, this);                   
+          }, this);
+          this.setState({objectMapControls});                   
+          break;
+        case "toggleLayers":
+        case "setCurrentMapViewAsDefault":
+        case "setTonightMapViewAsDefault":
+          this.setState({objectMapControls});   
           break;
         default:      
           break;
@@ -1183,10 +1210,10 @@ export class ObjectMap extends Component{
             
             {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
 
-            {/* <button onClick={()=>this.handleFindObject()}>left</button>
-            <button onClick={()=>this.handleFindObject()}>right</button> */}
-            {/* <button onClick={this.handleUpButtonClick}>up</button> */}
-            {/* <button onClick={()=>this.handleFindObject()}>down</button> */}
+            <button onClick={()=>this.handleNavigationClick('left')}>left</button>
+            <button onClick={()=>this.handleNavigationClick('right')}>right</button>
+            <button onClick={()=>this.handleNavigationClick('top')}>up</button>
+            <button onClick={()=>this.handleNavigationClick('bottom')}>down</button>
 
           </div>
         );
