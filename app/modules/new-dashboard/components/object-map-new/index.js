@@ -653,8 +653,8 @@ export class ObjectMap extends Component{
       let filterList=[];           
       objectMapControls.map(menucontrol=>{
           menucontrol.controlList.map((control,i)=>{
-          // if(control.controlType === ("dropdownList" || "iconToggle"))
-          //   filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+          if(control.controlType === ("dropdownList" || "iconToggle"))
+            filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
           if(control.controlId === "gear"){
             control.target.menuItems.map(menu=>{
               if(menu.type === "toggle")
@@ -784,20 +784,30 @@ export class ObjectMap extends Component{
       const { objectMapControls } = this.state;
       // const { controlList } = objectMapControls[0];
       // const { controlList: toggleControlList } = objectMapControls[1];
-      const { map } = this.state;
+      const { map, mapExpanded } = this.state;
       const extent = map.getView().calculateExtent();
-      const center = map.getView().getCenter();     
+      const center = map.getView().getCenter();
+      const mapIsFullscreen= mapExpanded ? 1 : 0;        
       let {  selectedControls, selectedToggleControls } = this.state;
       let filterList=[];
-      objectMapControls.slice(0,2).map(menucontrol=>{
+      objectMapControls.map(menucontrol=>{
           menucontrol.controlList.map((control,i)=>{
-          filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+          if(control.controlType === "dropdownList" || control.controlType === "iconToggle")
+            filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+          if(control.controlId === "gear"){
+            control.target.menuItems.map(menu=>{
+              if(menu.type === "toggle")
+                filterList.push({"controlId": menu.controlId, "key": menu.default });
+              else                 
+                filterList.push({"controlId": menu.controlId, "key": 0 })
+            })
+          }
         })
       });
       // toggleControlList.map((toggle,i) =>{
       //   filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
       // })
-      getObjectMap({token, cid, at, filterList, layerList: layers, center, extent}).then(response=>{       
+      getObjectMap({token, cid, at, mapIsFullscreen, filterList, layerList: layers, center, extent}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
