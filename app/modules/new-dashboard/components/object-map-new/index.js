@@ -649,21 +649,21 @@ export class ObjectMap extends Component{
       const { map, mapExpanded } = this.state;
       const extent = map.getView().calculateExtent();
       const center = map.getView().getCenter();       
-      let filterList=[];
-      debugger;
-      objectMapControls.map(menucontrol=>{
-          menucontrol.controlList.map((control,i)=>{
-          if(control.controlType === ("dropdownList" || "iconToggle"))
-            filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
-          if(control.controlId === "gear"){
-            control.target.menuItems.map(menu=>{
-              if(menu.type === "toggle")
-                filterList.push({"controlId": menu.controlId, "key": menu.default });
-            })
-          }
-        })
-      });
-      setObjectMap({at, cid, token, extent, center, fullScreen: mapExpanded, filterList, ...data}).then(response=>{
+      const mapIsFullscreen= mapExpanded ? 1 : 0;
+      // let filterList=[];      
+      // objectMapControls.map(menucontrol=>{
+      //     menucontrol.controlList.map((control,i)=>{
+      //     if(control.controlType === ("dropdownList" || "iconToggle"))
+      //       filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
+      //     if(control.controlId === "gear"){
+      //       control.target.menuItems.map(menu=>{
+      //         if(menu.type === "toggle")
+      //           filterList.push({"controlId": menu.controlId, "key": menu.default });
+      //       })
+      //     }
+      //   })
+      // });
+      setObjectMap({at, cid, token, extent, center, mapIsFullscreen, ...data}).then(response=>{
         const res=response.data;
         if(!res.apiError){
 
@@ -872,15 +872,18 @@ export class ObjectMap extends Component{
 
     handleGearIconChange = (controlIndex, selectedMenu) => { 
       let toggle=false;
+      let { objectMapControls } = this.state;
+      const controlId = selectedMenu.controlId;
+      const controlState = (!selectedMenu.default) ? 1 : 0;
       if(selectedMenu.resetFilters){
-        const { objectMapControls } = this.state;
+      
         this.setState({objectMapControls});
         // const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
         // this.setState({selectedControls: selectedControls});        
       }
 
       if(selectedMenu.type === "toggle"){
-        const { objectMapControls } = this.state;
+       
           objectMapControls[2].controlList.map((control, i) =>{
             if(control.controlId === "gear"){
               control.target.menuItems.map((menu, index) =>{
@@ -890,13 +893,13 @@ export class ObjectMap extends Component{
                 }                  
               })
             }
-          });
-        this.handleSetObjectMap();
+          });        
       }
 
        switch(selectedMenu.menuAction){
         case "reset":
-          this.resetObjectMap({layerList: selectedMenu.menuTarget});
+          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState}));
+          this.resetObjectMap({layerList: selectedMenu.menuTarget});           
           break;
         case "toggleZoomLock":
           const { map } = this.state;
@@ -905,12 +908,12 @@ export class ObjectMap extends Component{
               interaction.setActive(toggle);
             }
           }, this);
-          this.setState({objectMapControls});                   
+          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState}));                   
           break;
         case "toggleLayers":
         case "setCurrentMapViewAsDefault":
-        case "setTonightMapViewAsDefault":
-          this.setState({objectMapControls});   
+        case "setTonightMapViewAsDefault":          
+          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState}));   
           break;
         default:      
           break;
