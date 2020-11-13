@@ -285,10 +285,10 @@ export class ObjectMap extends Component{
           map.addOverlay(popupOverlay);
 
           map.on('pointermove', (e)=> {            
-            if (e.dragging) {
-              $(element).popover('dispose');
-              return;
-            }
+            // if (e.dragging) {
+            //   $(element).popover('dispose');
+            //   return;
+            // }
             var pixel = map.getEventPixel(e.originalEvent);
             var hit = map.hasFeatureAtPixel(pixel);
             var target = map.getTarget();
@@ -382,49 +382,14 @@ export class ObjectMap extends Component{
         if(!res.apiError){
           const { layerList } = res;
           let {map} = self.state;
-          const arrayLayers = map.getLayers().array_;          
-          // map.getView().fit([-100, -90, 0, 90], map.getSize());
-
-          // var view = new View({
-          //   center: res.center,
-          //   extent: res.extent,
-          //   projection: 'EPSG:4326',
-          //   zoom: res.initialZoomLevel,
-          //   minZoom: res.minZoomLevel,
-          //   maxZoom: res.maxZoomLevel,
-          //   // showFullExtent: true,
-          // });
-
+          const arrayLayers = map.getLayers().array_;
           if(arrayLayers.length > 0)
             arrayLayers.map(layer=>{
               map.removeLayer(layer);
             });
-           
-            
-
-            // var view = new View({
-            //   center: [0, 0],
-            //   // extent: res.extent,
-            //   projection: 'EPSG:4326',
-            //   zoom: res.initialZoomLevel,
-            //   minZoom: res.minZoomLevel,
-            //   maxZoom: res.maxZoomLevel,
-            //   showFullExtent: true,
-            // });  
-          // map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
-          })
-          // map.addLayer(this.getVectorLayer());
-
-          // mapObject.addLayer(raster);
-
-          // map.addLayer([mapLayer]);
-          // map.getLayers().extend(layerList);
-          // map.getView().fitExtent(res.extent, map.getSize());
-          // map.getView().setMinZoom(res.minZoomLevel);
-          // map.getView().setZoom(res.initialZoomLevel);   
-          // // map.getView().setExtent(res.extent);
+          })          
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
@@ -668,7 +633,7 @@ export class ObjectMap extends Component{
           }
         })
       });
-      getObjectMap({at, cid, token, extent, center, mapIsFullscreen, filterList}).then(response=>{
+      getObjectMap({at, cid, token, extent, center, mapIsFullscreen, filterList, ...data}).then(response=>{
         const res=response.data;
         if(!res.apiError){
           if(handleResponse){               
@@ -680,7 +645,6 @@ export class ObjectMap extends Component{
               arrayLayers.map(layer=>{
                 map.removeLayer(layer);
               });
-            
             layerList.map(layer=>{            
               map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
             })            
@@ -811,40 +775,20 @@ export class ObjectMap extends Component{
         const res=response.data;
         if(!res.apiError){
           const { layerList } = res;
-          let {map} = self.state;
-          const arrayLayers = map.getLayers().array_;          
-          // view.fit([-100,-90,0,90], map.getSize());  
-          // var view = new View({
-          //   center: res.center,
-          //   extent: res.extent,
-          //   projection: 'EPSG:4326',
-          //   zoom: res.initialZoomLevel,
-          //   minZoom: res.minZoomLevel,
-          //   maxZoom: res.maxZoomLevel,
-          //   // showFullExtent: true,
-          // });        
-          if(arrayLayers.length > 0)
-            arrayLayers.map(layer=>{              
-              map.removeLayer(layer);
-            });
-          // map.setView(view);          
-          layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
-          })
-          // map.addLayer(this.getVectorLayer());
-
-          // mapObject.addLayer(raster);
-
-          // map.addLayer([mapLayer]);
-          // map.getLayers().extend(layerList);          
-          // map.getView().setMinZoom(res.minZoomLevel);
-          // map.getView().setZoom(res.initialZoomLevel);      
-          // // map.getView().setExtent(res.extent);
-          // map.getView().setMaxZoom(res.maxZoomLevel);
-          // map.getView().setCenter(res.center);
-          map.getView().fit(res.extent, map.getSize());
-          map.getView().setCenter(res.center);
-          self.setState({map: map, view: view, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+            let {map} = self.state;
+            const arrayLayers = map.getLayers().array_;          
+           
+            if(arrayLayers.length > 0)
+              arrayLayers.map(layer=>{
+                map.removeLayer(layer);
+              });
+            layerList.map(layer=>{            
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
+            })            
+            map.getView().setMaxZoom(res.maxZoomLevel);          
+            map.getView().fit(res.extent, map.getSize());
+            map.getView().setCenter(res.center);
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});   
         }
         
       });
@@ -930,7 +874,7 @@ export class ObjectMap extends Component{
 
        switch(selectedMenu.menuAction){
         case "reset":
-          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState, default: true,}, true));
+          this.setState({objectMapControls}, this.handleSetObjectMap({default: true,}, true));
           // this.resetObjectMap({layerList: selectedMenu.menuTarget});           
           break;
         case "toggleZoomLock":
@@ -940,14 +884,14 @@ export class ObjectMap extends Component{
               interaction.setActive(toggle);
             }
           }, this);
-          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState},false));                   
+          this.setState({objectMapControls}, this.handleSetObjectMap({},false));                   
           break;
         case "toggleLayers":
-          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState}, true));   
+          this.setState({objectMapControls}, this.handleSetObjectMap({}, true));   
           break;
         case "setCurrentMapViewAsDefault":
         case "setTonightMapViewAsDefault":          
-          this.setState({objectMapControls}, this.handleSetObjectMap({controlId, controlState}, false));   
+          this.setState({objectMapControls}, this.handleSetObjectMap({}, false));   
           break;
         default:      
           break;
