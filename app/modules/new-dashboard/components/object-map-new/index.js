@@ -74,7 +74,7 @@ export class ObjectMap extends Component{
       currentZoom: 2,
       scrollZoomLock: false,
       hideTooltipZoomLevel: 8,
-      objectMapControls: objectMapControls,
+      objectMapControls: undefined,
     }    
   }
     componentDidMount(){     
@@ -331,6 +331,7 @@ export class ObjectMap extends Component{
     resetObjectMap(data){
       const { token, at, cid } = getUserInfo();     
       const self = this;
+      this.setState({isloading1: true});
       getObjectMap({token, cid, at, default: true, ...data}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
@@ -368,7 +369,7 @@ export class ObjectMap extends Component{
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
-          self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
         }
         
       });
@@ -377,6 +378,7 @@ export class ObjectMap extends Component{
     getObjectMapInit(){
       const { token, at, cid } = getUserInfo();     
       const self = this;
+      this.setState({isloading1: true});
       getObjectMap({token, cid, at,default: true}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
@@ -393,7 +395,7 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
         }
         
       });
@@ -635,6 +637,7 @@ export class ObjectMap extends Component{
       });
       getObjectMap({at, cid, token, extent, center, mapIsFullscreen, filterList, ...data}).then(response=>{
         const res=response.data;
+        const self=this;
         if(!res.apiError){
           if(handleResponse){               
             const { layerList } = res;
@@ -651,7 +654,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
           }
         }
       })
@@ -788,7 +791,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel});   
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});   
         }
         
       });
@@ -902,8 +905,8 @@ export class ObjectMap extends Component{
 
     render() {          
       const { showObjectCard, objectCardDetails, isloading1, currentZoom } = this.state
-      const { objectMapControls } = this.props;      
-      const { hideMap, mapExpanded, explanationText } = this.state;      
+      // const { objectMapControls } = this.props;      
+      const { hideMap, mapExpanded, explanationText, objectMapControls } = this.state; 
         return (
           <div id="object-Map">
              <Spinner

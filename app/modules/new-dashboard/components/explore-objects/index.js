@@ -17,9 +17,9 @@ export class ExploreObject extends Component{
             case "Quest Map":
                 getQuestMapControl();
                 break;
-            case "Object Map":
-                getObjectMapControl();
-                break;
+            // case "Object Map":
+            //     getObjectMapControl();
+            //     break;
         }
 
         this.setState({activeHeading: title});
@@ -47,9 +47,9 @@ export class ExploreObject extends Component{
                 )}
 
                 {/* {activeHeading === "Object Map" && objectMapControls && ( */}
-                {activeHeading === "Object Map" && objectMapControls && (
+                {activeHeading === "Object Map" && (
                     <ObjectMap
-                        objectMapControls={objectMapControls.mapControls}
+                        // objectMapControls={objectMapControls.mapControls}
                     /> 
                     // <h2 className="comming-soon">Coming Soon...</h2>
                 )}
