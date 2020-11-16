@@ -620,7 +620,7 @@ export class ObjectMap extends Component{
       let filterList=[];           
       objectMapControls.map(menucontrol=>{
           menucontrol.controlList.map((control,i)=>{
-          if(control.controlType === ("dropdownList" || "iconToggle"))
+          if(control.controlType === "dropdownList" || control.controlType === "iconToggle")
             filterList.push({"controlId": control.controlId, "key": control.list[control.selectedIndex].key});
           if(control.controlId === "gear"){
             control.target.menuItems.map(menu=>{
@@ -877,7 +877,7 @@ export class ObjectMap extends Component{
 
        switch(selectedMenu.menuAction){
         case "reset":
-          this.setState({objectMapControls}, this.handleSetObjectMap({default: true,}, true));
+          this.setState({objectMapControls}, this.resetObjectMap({}));
           // this.resetObjectMap({layerList: selectedMenu.menuTarget});           
           break;
         case "toggleZoomLock":
