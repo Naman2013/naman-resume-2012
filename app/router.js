@@ -136,7 +136,7 @@ history.listen(location => {
   const { pathname } = location;
 
   // Fire a Google Analytics pageview event as the route / path changed.
-  fireSloohGAPageview({ pagePath: pathname });	
+  fireSloohGAPageview({ pagePath: pathname });
 });
 
 const getProfileRoutes = ({ publicProfile }) => (
@@ -617,7 +617,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
     <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
 
-    <Redirect from="/scouts" to="/about/memberships" />    
+    <Redirect from="/scouts" to="/about/memberships" />
     <Redirect from="*" to="/" />
   </Router>
 );

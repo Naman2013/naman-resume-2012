@@ -58,6 +58,7 @@ class JoinByInviteCodeStep1 extends Component {
           value: '',
           hintText: '',
           errorText: '',
+          applyGiftCode: ''
         },
         clubInviteAndGiftCard: {
           label: '',
@@ -104,7 +105,7 @@ class JoinByInviteCodeStep1 extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
-    
+
 
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
@@ -155,16 +156,22 @@ class JoinByInviteCodeStep1 extends Component {
               const giftCodeResult = {
                 invitationNotValidMessage: res.invitationNotValidMessage,
                 checkGiftCodeValid: res.isGiftCodeValid,
-                giftCodeMessage: res.giftCodeNotValidMessage
+                giftCodeMessage: res.giftCodeNotValidMessage,
+                apiStatus: res.status,
+                apiStatusMessage: res.statusMessage
               };
 
+              if (giftCodeResult.apiStatus === 'failed') {
+                accountFormDetailsData.loginEmailAddress.errorText = giftCodeResult.apiStatusMessage;
+                this.setState({ accountFormDetails: accountFormDetailsData });
+                formIsComplete = false;
+              }
               if (!giftCodeResult.checkGiftCodeValid) {
                 /* Invitation Validation failed */
                 accountFormDetailsData.invitationCode.errorText = giftCodeResult.giftCodeMessage;
                 this.setState({ accountFormDetails: accountFormDetailsData });
                 formIsComplete = false;
               }
-
               /* need to force evaulation of "true"/"false" vs. true/false. */
               else {
 
@@ -184,16 +191,14 @@ class JoinByInviteCodeStep1 extends Component {
                   accountFormDetailsData.clubInviteAndGiftCard.value
                 );
 
-                accountFormDetailsData.invitationCode.errorText = giftCodeResult.giftCodeMessage;
+                /* Gift Code Apply */
+                accountFormDetailsData.invitationCode.applyGiftCode = giftCodeResult.giftCodeMessage;
                 this.setState({ accountFormDetails: accountFormDetailsData });
 
-                /* setTimeout(
+                setTimeout(
                   () => browserHistory.push('/join/inviteByCodeStep2'),
                   5000
-                ); */
-
-                browserHistory.push('/join/inviteByCodeStep2');
-
+                ); 
               }
             }
           })
@@ -267,11 +272,6 @@ class JoinByInviteCodeStep1 extends Component {
   render() {
     const { pathname, t } = this.props;
     const { accountFormDetails } = this.state;
-  
-    let checked;
-    if (accountFormDetails.clubInviteAndGiftCard.value == "clubInvite") {
-      checked = true;
-    }
     return (
       <div>
         <Request
@@ -346,6 +346,13 @@ class JoinByInviteCodeStep1 extends Component {
                                   accountFormDetails.invitationCode.errorText,
                               }}
                             />
+                            <span
+                              className="form-success"
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  accountFormDetails.invitationCode.applyGiftCode,
+                              }}
+                            />
                           </div>
                           <Field
                             name="invitationCode"
@@ -369,7 +376,7 @@ class JoinByInviteCodeStep1 extends Component {
                                   label="clubInvite"
                                   component="input"
                                   type="radio"
-                                  checked={checked}
+                                  checked= {accountFormDetails.clubInviteAndGiftCard.value == "clubInvite"}
                                   value="clubInvite"
                                   onClick={event => {
                                     this.handleFieldChange({

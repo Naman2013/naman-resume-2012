@@ -238,8 +238,6 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
 
-
-    console.log('wwwwwwwwww', accountFormDetailsData);
     if (accountCreationType === 'userpass') {
       /* Verify that the user has provided:
             Firstname
@@ -318,7 +316,10 @@ class JoinByInviteAccountSignup extends Component {
             giftCardCode: joinByInviteParams.invitationCodeAlt,
             accountType: 'Confluence',
             type: 'GiftCard',
-            selectedPlanId: 14
+            selectedPlanId: 14,
+            givenName: this.state.accountFormDetails.givenName.value,
+            familyName: this.state.accountFormDetails.familyName.value,
+            displayName: this.state.accountFormDetails.displayName.value,
 
           })
           .then(response => {
@@ -338,29 +339,27 @@ class JoinByInviteAccountSignup extends Component {
                 this.setState({ accountFormDetails: accountFormDetailsData });
                 formIsComplete = false;
               }
-              
+
               if (formIsComplete === true) {
-                
+
                 const loginDataPayload = {
                   username: this.state.accountFormDetails.loginEmailAddress.value,
                   pwd: this.state.accountFormDetails.password.value,
                 };
 
-                //actions.logUserIn(loginDataPayload);
-               setTimeout(
+                 setTimeout(
                   () => actions.logUserIn(loginDataPayload),
-                  5000
-                );
+                  10000
+                ); 
+               // actions.logUserIn(loginDataPayload);
+               // browserHistory.push('/join/purchaseConfirmation/join');
                 /* Log the user in */
-                
                 /* create the customer result */
-
-                
                 setTimeout(
                   () => browserHistory.push('/join/purchaseConfirmation/join'),
-                  5000
+                  10000
                 );
-               
+
               }
             }
           })
@@ -607,8 +606,6 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-
-    console.log('accountFormDetailsaa', accountFormDetails);
     accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress;
 
     /*  this.setState({

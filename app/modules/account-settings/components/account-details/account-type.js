@@ -16,7 +16,6 @@ const AccountType = props => {
     showInfoButton,
   } = props;
 
-  console.log('currentSubscriptionPlan', currentSubscriptionPlan);
   const [isModalOpen, setModalOpen] = useState(false);
 
   if (!currentSubscriptionPlan) return null;
