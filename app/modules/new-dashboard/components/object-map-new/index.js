@@ -540,8 +540,44 @@ export class ObjectMap extends Component{
     getGraticleLayer(style){
       return new Graticule({
                 // the style to use for the lines, optional.
-                style,
-                showLabels: true,                            
+                // style,
+                showLabels: true, 
+                lonLabelStyle: new Text({                 
+                  font: '12px Calibri,sans-serif',
+                  textAlign: 'start',
+                  textBaseline: 'bottom',
+                  fill: new Fill({
+                      color: 'rgba(255,255,255,1)',
+                  }), 
+                }), 
+                latLabelStyle: new Text({
+                  font: '12px Calibri,sans-serif',
+                  textAlign: 'end',
+                  fill: new Fill({
+                    color: 'rgba(255,255,255,1)'
+                  }),
+                  // stroke: Stroke({
+                  //   color: 'rgba(255,255,255,1)',
+                  //   width: 3
+                  // })
+                }),
+                lonLabelFormatter: (longitude)=>{                  
+                    const degree = 180 + longitude;
+                    const hours = Math.floor(degree / 15);
+                    const mins = Math.floor(degree % 15);
+                    return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
+                },
+                latLabelFormatter: (latitude)=>{       
+                  const degree=this.ConvertDDToDMS(latitude)                  
+                  if(degree.deg === 0 && degree.min === 0)
+                    return degree.deg + '°';
+                  else
+                    return degree.deg + '° ' + degree.min + "' " + degree.dir;         
+                  // const degree = 180 + longitude;
+                  // const hours = Math.floor(degree / 15);
+                  // const mins = Math.floor(degree % 15);
+                  // return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
+                }
               });
     }
 
@@ -550,6 +586,16 @@ export class ObjectMap extends Component{
         geometry: new Point([lat,lon]),
         name: text,
       });      
+    }
+
+    ConvertDDToDMS(D){
+      const M=0|(D%1)*60e7;  
+      return {
+          dir : D<0?'S':'N',
+          deg : 0|(D<0?D=-D:D),
+          min : 0|M/1e7,
+          sec : (0|M/1e6%1*6e4)/100
+      };
     }
 
     getIconSytle(alat, alon, icon, text, offsetX, offsetY, font, scalex, scaley, color){
