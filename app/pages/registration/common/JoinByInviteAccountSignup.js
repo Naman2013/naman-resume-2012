@@ -36,6 +36,8 @@ import {
 } from 'app/services/registration/registration.js';
 import styles from '../JoinStep2.style';
 
+
+
 const { string, func } = PropTypes;
 
 class JoinByInviteAccountSignup extends Component {
@@ -85,6 +87,24 @@ class JoinByInviteAccountSignup extends Component {
         childCustomerRole: '',
       },
       accountFormDetails: {
+        AgeGroup: {
+          label: '',
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        ParentEmail: {
+          label: '',
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        legalGuardianCheckbox: {
+          label: '',
+          value: false,
+          hintText: '',
+          errorText: '',
+        },
         givenName: {
           label: '',
           value: '',
@@ -172,8 +192,17 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.astronomyClubName.hintText =
       result.formFieldLabels.astronomyClubName.hintText;
 
+    newAccountFormData.AgeGroup.label = 
+      result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
+
+    newAccountFormData.legalGuardianCheckbox.label = 
+     result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
+
+    newAccountFormData.ParentEmail.label = 
+       result.formFieldLabels.AgeGroupParentEmailLabel.label;
+
     const { clubInviteAndGiftCardDetials } = this.props;
-    if (!clubInviteAndGiftCardDetials === 'GiftCard') {
+    if (!clubInviteAndGiftCardDetials === 'SloohCard') {
       newAccountFormData.givenName.value = result.invitee.firstName;
       this.props.change('givenName', result.invitee.firstName);
 
@@ -212,7 +241,29 @@ class JoinByInviteAccountSignup extends Component {
   handleFieldChange = ({ field, value }) => {
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    newAccountFormData[field].value = value;
+    if (field === 'legalGuardianCheckbox') {
+      newAccountFormData[field].value = !newAccountFormData[field].value;
+    } else {
+      newAccountFormData[field].value = value;
+    }
+
+    if (newAccountFormData.AgeGroup.value === 'Under13') {
+      newAccountFormData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+      // newAccountFormData.legalGurdianCheckbox.value = true;
+      newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+    }
+    if (newAccountFormData.AgeGroup.value === "13andOlder") {
+      newAccountFormData.legalGuardianCheckbox.errorText = "";
+      newAccountFormData.ParentEmail.errorText = "";
+    }
+    if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.AgeGroup.value === 'Under13') {
+      newAccountFormData.legalGuardianCheckbox.errorText = "";
+      newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+    }
+    if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.ParentEmail.value) {
+      newAccountFormData.legalGuardianCheckbox.errorText = "";
+      newAccountFormData.ParentEmail.errorText = "";
+    }
 
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -223,7 +274,7 @@ class JoinByInviteAccountSignup extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
 
-    const { clubInviteAndGiftCardDetials, joinByInviteParams } = this.props;
+    const { clubInviteAndGiftCardDetials, joinByInviteParams,AccountType } = this.props;
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -281,6 +332,27 @@ class JoinByInviteAccountSignup extends Component {
           formIsComplete = false;
         }
       }
+      //AgeGroup Validation
+      if (clubInviteAndGiftCardDetials === 'SloohCard') {
+        if (accountFormDetailsData.AgeGroup.value === '') {
+          accountFormDetailsData.AgeGroup.errorText =
+            'You must certify that you are 13 years or older.';
+          formIsComplete = false;
+        }
+
+        if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
+          accountFormDetailsData.legalGuardianCheckbox.errorText =
+            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+          accountFormDetailsData.ParentEmail.errorText =
+            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+          formIsComplete = false;
+        }
+        if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value === '') {
+          accountFormDetailsData.ParentEmail.errorText =
+            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+          formIsComplete = false;
+        }
+      }
 
       /* need to verify that the password meets the Slooh requirements */
     } else if (accountCreationType === 'googleaccount') {
@@ -306,66 +378,62 @@ class JoinByInviteAccountSignup extends Component {
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
-      if (clubInviteAndGiftCardDetials === 'GiftCard') {
-        const { actions } = this.props;
-        const customerDetailsMeetsRequirementsResult = API
-          .post(CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION, {
-            loginEmailAddress: this.state.accountFormDetails
-              .loginEmailAddress.value,
-            loginPassword: this.state.accountFormDetails.password.value,
-            giftCardCode: joinByInviteParams.invitationCodeAlt,
-            accountType: 'Confluence',
-            type: 'GiftCard',
-            selectedPlanId: 14,
-            givenName: this.state.accountFormDetails.givenName.value,
-            familyName: this.state.accountFormDetails.familyName.value,
-            displayName: this.state.accountFormDetails.displayName.value,
+      if (clubInviteAndGiftCardDetials === 'SloohCard') {
 
-          })
-          .then(response => {
-            const res = response.data;
-            formIsComplete === true;
-            if (res.apiError == false) {
-              const validationResults = {
-                status: res.status,
-                statusMessage: res.statusMessage
+        if (formIsComplete) {
 
-              };
-              if (validationResults.status === 'failed') {
-                /* Email address is already taken or some other validation error occurred. */
-                accountFormDetailsData.loginEmailAddress.errorText =
-                  validationResults.statusMessage;
-                /* make sure to persist any changes to the account signup form (error messages) */
-                this.setState({ accountFormDetails: accountFormDetailsData });
-                formIsComplete = false;
-              }
+          const { actions } = this.props;
+          const customerDetailsMeetsRequirementsResult = API
+            .post(CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION, {
+              loginEmailAddress: this.state.accountFormDetails
+                .loginEmailAddress.value,
+              loginPassword: this.state.accountFormDetails.password.value,
+              giftCardCode: joinByInviteParams.invitationCodeAlt,
+              accountType: 'Confluence',
+              type: clubInviteAndGiftCardDetials,
+              selectedPlanId: 14,
+              givenName: this.state.accountFormDetails.givenName.value,
+              familyName: this.state.accountFormDetails.familyName.value,
+              displayName: this.state.accountFormDetails.displayName.value,
+              '2018AccountType':AccountType,
+              
+            })
+            .then(response => {
+              const res = response.data;
+              formIsComplete === true;
+              if (res.apiError == false) {
+                const validationResults = {
+                  status: res.status,
+                  statusMessage: res.statusMessage
 
-              if (formIsComplete === true) {
-
-                const loginDataPayload = {
-                  username: this.state.accountFormDetails.loginEmailAddress.value,
-                  pwd: this.state.accountFormDetails.password.value,
                 };
+                if (validationResults.status === 'failed') {
+                  /* Email address is already taken or some other validation error occurred. */
+                  accountFormDetailsData.loginEmailAddress.errorText =
+                    validationResults.statusMessage;
+                  /* make sure to persist any changes to the account signup form (error messages) */
+                  this.setState({ accountFormDetails: accountFormDetailsData });
+                  formIsComplete = false;
+                }
 
-                 setTimeout(
-                  () => actions.logUserIn(loginDataPayload),
-                  10000
-                ); 
-               // actions.logUserIn(loginDataPayload);
-               // browserHistory.push('/join/purchaseConfirmation/join');
-                /* Log the user in */
-                /* create the customer result */
-                setTimeout(
-                  () => browserHistory.push('/join/purchaseConfirmation/join'),
-                  10000
-                );
+                if (formIsComplete === true) {
 
+                  const loginDataPayload = {
+                    username: this.state.accountFormDetails.loginEmailAddress.value,
+                    pwd: this.state.accountFormDetails.password.value,
+                  };
+                  actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                }
               }
-            }
-          })
-          .catch(err => {
-            throw ('Error: ', err);
-          });
+            })
+            .catch(err => {
+              throw ('Error: ', err);
+            });
+        } else {
+
+          this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+        }
+
 
       } else {
 
@@ -681,7 +749,134 @@ class JoinByInviteAccountSignup extends Component {
                           )}
                       />
                       <form onSubmit={this.handleSubmit}>
-                        {!clubInviteAndGiftCardDetials === 'GiftCard' ?
+                        {clubInviteAndGiftCardDetials === 'SloohCard' ?
+                          <fieldset>
+                            <>
+                              <div className="">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.AgeGroup.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.AgeGroup.errorText,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                              <br />
+                              <label>
+                                <Field
+                                  name="Age"
+                                  component="input"
+                                  type="radio"
+                                  // checked={accountFormDetails.clubInviteAndGiftCard.value == "clubInvite"}
+                                  value="13andOlder"
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'AgeGroup',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                />
+                                {'\u00A0'}
+                                Yes
+                              </label>
+                              <span style={{ paddingLeft: '15px' }}>
+                                <label>
+                                  <Field
+                                    name="Age"
+                                    component="input"
+                                    type="radio"
+                                    value="Under13"
+                                    onChange={event => {
+                                      this.handleFieldChange({
+                                        field: 'AgeGroup',
+                                        value: event.target.value,
+                                      });
+                                    }}
+                                  />
+                                  {'\u00A0'}
+                                  No
+                                </label>
+                              </span>
+                              <br />
+                              <div className="">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.legalGuardianCheckbox.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.legalGuardianCheckbox.errorText,
+                                    }}
+                                  />
+
+                                </div>
+                                <Field
+                                  name="legalGuardianCheckbox"
+                                  component="input"
+                                  type="Checkbox"
+                                  checked={accountFormDetails.legalGuardianCheckbox.value}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'legalGuardianCheckbox',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                />
+                              </div>
+
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.ParentEmail.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.ParentEmail.errorText,
+                                    }}
+                                  />
+
+                                </div>
+                                <Field
+                                  name="displayName"
+                                  type="name"
+                                  className="form-field"
+                                  label={accountFormDetails.ParentEmail.hintText}
+                                  component={InputField}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'ParentEmail',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                />
+                              </div>
+                            </>
+                          </fieldset>
+
+
+                          : null
+                        }
+
+
+                        {!clubInviteAndGiftCardDetials === 'SloohCard' ?
                           <div className="form-section">
                             <div className="form-field-container invited-by">
                               {<span

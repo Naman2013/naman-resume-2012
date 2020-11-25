@@ -19,7 +19,7 @@ export const CANCEL_CUSTOMER_ENDPOINT_URL = '/api/registration/cancelCustomer';
 export const JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL = '/api/registration/validateCustomerLinkInvitationAlt';
 export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL = '/api/registration/activateInvitedCustomer';
 export const JOIN_VALIDATE_INVITATION_GIFT_CARD_ENDPOINT_URL = '/api/registration/verifyGiftCardSignupDetails';
-
+export const JOIN_VALIDATE_INVITATION_CODE_DETAILS_URL = '/api/registration/invitationCodeDetails';
 
 
 export const CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL = '/api/registration/createCustomerLinkInvitation';

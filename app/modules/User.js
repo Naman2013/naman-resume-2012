@@ -136,6 +136,7 @@ export function store({
   avatarURL,
   subscriptionPlanName,
   googleProfileId,
+  redirectUrl
 }) {
   window.document.cookie = cookie.serialize('cid', cid, {
     domain: cookieD,
@@ -194,6 +195,9 @@ export function store({
       path: COOKIE_PATH,
     }
   );
+  if (redirectUrl) {
+    browserHistory.push(redirectUrl);
+  }
   if (reload) {
     window.location.reload();
   }

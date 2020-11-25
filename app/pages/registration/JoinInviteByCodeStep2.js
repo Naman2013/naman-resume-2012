@@ -32,15 +32,17 @@ class JoinByInviteCodeStep2 extends Component {
       invitationCodeAlt: window.localStorage.getItem('invitationCodeAlt'),
       inviteeEmailAddress: window.localStorage.getItem('inviteeEmailAddress'),
       clubInviteAndGiftCardDetials: window.localStorage.getItem('clubInviteAndGiftCardDetials'),
+      AccountType:window.localStorage.getItem('AccountType'),
 
     };
   }
 
   render() {
     let clubInviteAndGiftCard = this.state.clubInviteAndGiftCardDetials;
+    let AccountType =  this.state.AccountType;
     const { pathname } = this.props;
     const joinByInviteParams = {
-      callSource: clubInviteAndGiftCard == 'GiftCard' ? 'joinByInvitationAltStep2GiftCard' : 'joinByInvitationAltStep2',
+      callSource: clubInviteAndGiftCard == 'SloohCard' ? 'joinByInvitationAltStep2GiftCard' : 'joinByInvitationAltStep2',
       invitationCodeAlt: this.state.invitationCodeAlt,
       inviteeEmailAddress: this.state.inviteeEmailAddress,
     };
@@ -50,6 +52,7 @@ class JoinByInviteCodeStep2 extends Component {
         navTabs={JOIN_BY_INVITE_TABS}
         joinByInviteParams={joinByInviteParams}
         clubInviteAndGiftCardDetials={clubInviteAndGiftCard}
+        AccountType={AccountType}
       />
     );
 
