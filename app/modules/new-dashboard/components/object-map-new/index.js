@@ -542,6 +542,9 @@ export class ObjectMap extends Component{
                 // the style to use for the lines, optional.
                 // style,
                 showLabels: true, 
+                wrapX: false,
+                // intervals: [30, 15],
+                extent: [-180, -90, 180, 90],                
                 lonLabelStyle: new Text({                 
                   font: '12px Calibri,sans-serif',
                   textAlign: 'start',
@@ -572,7 +575,7 @@ export class ObjectMap extends Component{
                   if(degree.deg === 0 && degree.min === 0)
                     return degree.deg + '°';
                   else
-                    return degree.deg + '° ' + degree.min + "' " + degree.dir;         
+                    return degree.deg + '° ' + degree.min + "' ";         
                   // const degree = 180 + longitude;
                   // const hours = Math.floor(degree / 15);
                   // const mins = Math.floor(degree % 15);
