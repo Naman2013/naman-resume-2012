@@ -543,7 +543,7 @@ export class ObjectMap extends Component{
                 // style,
                 showLabels: true, 
                 wrapX: false,
-                // intervals: [30, 15],
+                // intervals: [15],
                 extent: [-180, -90, 180, 90],                
                 lonLabelStyle: new Text({                 
                   font: '12px Calibri,sans-serif',
@@ -823,17 +823,17 @@ export class ObjectMap extends Component{
       // toggleControlList.map((toggle,i) =>{
       //   filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
       // })
+      debugger;
       getObjectMap({token, cid, at, mapIsFullscreen, filterList, layerList: layers, center, extent}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
+          debugger;
           const { layerList } = res;
             let {map} = self.state;
-            const arrayLayers = map.getLayers().array_;          
+            const arrayLayers = [...map.getLayers().getArray()];          
            
             if(arrayLayers.length > 0)
-              arrayLayers.map(layer=>{
-                map.removeLayer(layer);
-              });
+              arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
               map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
             })            
