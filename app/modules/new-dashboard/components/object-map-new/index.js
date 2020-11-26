@@ -337,21 +337,10 @@ export class ObjectMap extends Component{
         if(!res.apiError){
           const { layerList } = res;
           let {map} = self.state;
-          const arrayLayers = map.getLayers().array_;
-          // view.fit(res.extent, map.getSize());
-          // var view = new View({
-          //   center: res.center,
-          //   extent: res.extent,
-          //   projection: 'EPSG:4326',
-          //   zoom: res.initialZoomLevel,
-          //   minZoom: res.minZoomLevel,
-          //   maxZoom: res.maxZoomLevel,
-          //   // showFullExtent: true,
-          // });
-          if(arrayLayers.length > 0)
-            arrayLayers.map(layer=>{
-              map.removeLayer(layer);
-            });
+          const arrayLayers = [...map.getLayers().getArray()];          
+           
+            if(arrayLayers.length > 0)
+              arrayLayers.forEach((layer)=> map.removeLayer(layer));
           // map.setView(view);
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
@@ -384,11 +373,10 @@ export class ObjectMap extends Component{
         if(!res.apiError){
           const { layerList } = res;
           let {map} = self.state;
-          const arrayLayers = map.getLayers().array_;
-          if(arrayLayers.length > 0)
-            arrayLayers.map(layer=>{
-              map.removeLayer(layer);
-            });
+          const arrayLayers = [...map.getLayers().getArray()];          
+           
+            if(arrayLayers.length > 0)
+              arrayLayers.forEach((layer)=> map.removeLayer(layer));
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
           })          
@@ -691,12 +679,10 @@ export class ObjectMap extends Component{
           if(handleResponse){               
             const { layerList } = res;
             let {map} = self.state;
-            const arrayLayers = map.getLayers().array_;          
+            const arrayLayers = [...map.getLayers().getArray()];          
            
             if(arrayLayers.length > 0)
-              arrayLayers.map(layer=>{
-                map.removeLayer(layer);
-              });
+              arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
               map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
             })            
@@ -823,11 +809,9 @@ export class ObjectMap extends Component{
       // toggleControlList.map((toggle,i) =>{
       //   filterList.push({"controlId": toggle.controlId, "key": selectedToggleControls[i] ? toggle.list[1].key : toggle.list[0].key})
       // })
-      debugger;
       getObjectMap({token, cid, at, mapIsFullscreen, filterList, layerList: layers, center, extent}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
-          debugger;
           const { layerList } = res;
             let {map} = self.state;
             const arrayLayers = [...map.getLayers().getArray()];          
