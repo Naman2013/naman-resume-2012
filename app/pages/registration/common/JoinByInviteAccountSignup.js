@@ -164,6 +164,7 @@ class JoinByInviteAccountSignup extends Component {
   handleJoinPageServiceResponse = result => {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    const { clubInviteAndGiftCardDetials } = this.props;
 
     newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
     newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
@@ -192,16 +193,19 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.astronomyClubName.hintText =
       result.formFieldLabels.astronomyClubName.hintText;
 
-    newAccountFormData.AgeGroup.label = 
-      result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
+    if (clubInviteAndGiftCardDetials === 'SloohCard') {
+      newAccountFormData.AgeGroup.label =
+        result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
 
-    newAccountFormData.legalGuardianCheckbox.label = 
-     result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
+      newAccountFormData.legalGuardianCheckbox.label =
+        result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
 
-    newAccountFormData.ParentEmail.label = 
-       result.formFieldLabels.AgeGroupParentEmailLabel.label;
+      newAccountFormData.ParentEmail.label =
+        result.formFieldLabels.AgeGroupParentEmailLabel.label;
+    }
 
-    const { clubInviteAndGiftCardDetials } = this.props;
+
+
     if (!clubInviteAndGiftCardDetials === 'SloohCard') {
       newAccountFormData.givenName.value = result.invitee.firstName;
       this.props.change('givenName', result.invitee.firstName);
@@ -274,7 +278,7 @@ class JoinByInviteAccountSignup extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
 
-    const { clubInviteAndGiftCardDetials, joinByInviteParams,AccountType } = this.props;
+    const { clubInviteAndGiftCardDetials, joinByInviteParams, AccountType } = this.props;
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -395,8 +399,11 @@ class JoinByInviteAccountSignup extends Component {
               givenName: this.state.accountFormDetails.givenName.value,
               familyName: this.state.accountFormDetails.familyName.value,
               displayName: this.state.accountFormDetails.displayName.value,
-              '2018AccountType':AccountType,
-              
+              '2018AccountType': AccountType,
+              ageGroup: this.state.accountFormDetails.AgeGroup.value,
+              parentEmail: this.state.accountFormDetails.ParentEmail.value,
+
+
             })
             .then(response => {
               const res = response.data;
@@ -806,68 +813,75 @@ class JoinByInviteAccountSignup extends Component {
                                 </label>
                               </span>
                               <br />
-                              <div className="">
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.legalGuardianCheckbox.label,
-                                    }}
-                                  />
+
+                              {accountFormDetails.AgeGroup.value === "Under13" ?
+                                <>
+                                  <div className="">
+                                    <div className="form-field-container">
+                                      <span
+                                        className="form-label"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.legalGuardianCheckbox.label,
+                                        }}
+                                      />
                                   :
                                   <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.legalGuardianCheckbox.errorText,
-                                    }}
-                                  />
+                                        className="form-error"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.legalGuardianCheckbox.errorText,
+                                        }}
+                                      />
 
-                                </div>
-                                <Field
-                                  name="legalGuardianCheckbox"
-                                  component="input"
-                                  type="Checkbox"
-                                  checked={accountFormDetails.legalGuardianCheckbox.value}
-                                  onChange={event => {
-                                    this.handleFieldChange({
-                                      field: 'legalGuardianCheckbox',
-                                      value: event.target.value,
-                                    });
-                                  }}
-                                />
-                              </div>
-
-                              <div className="form-section">
-                                <div className="form-field-container">
-                                  <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.ParentEmail.label,
-                                    }}
-                                  />
+                                    </div>
+                                    <Field
+                                      name="legalGuardianCheckbox"
+                                      component="input"
+                                      type="Checkbox"
+                                      checked={accountFormDetails.legalGuardianCheckbox.value}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'legalGuardianCheckbox',
+                                          value: event.target.value,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="form-section">
+                                    <div className="form-field-container">
+                                      <span
+                                        className="form-label"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.ParentEmail.label,
+                                        }}
+                                      />
                                   :
                                   <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.ParentEmail.errorText,
-                                    }}
-                                  />
+                                        className="form-error"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.ParentEmail.errorText,
+                                        }}
+                                      />
 
-                                </div>
-                                <Field
-                                  name="displayName"
-                                  type="name"
-                                  className="form-field"
-                                  label={accountFormDetails.ParentEmail.hintText}
-                                  component={InputField}
-                                  onChange={event => {
-                                    this.handleFieldChange({
-                                      field: 'ParentEmail',
-                                      value: event.target.value,
-                                    });
-                                  }}
-                                />
-                              </div>
+                                    </div>
+                                    <Field
+                                      name="displayName"
+                                      type="name"
+                                      className="form-field"
+                                      label={accountFormDetails.ParentEmail.hintText}
+                                      component={InputField}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'ParentEmail',
+                                          value: event.target.value,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                </>
+
+                                : null
+
+                              }
                             </>
                           </fieldset>
 

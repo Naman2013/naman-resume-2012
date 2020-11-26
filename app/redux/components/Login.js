@@ -318,45 +318,45 @@ class Login extends Component {
                 fetchingContent,
                 modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
               }) => (
-                <Fragment>
-                  {!fetchingContent && (
-                    <Fragment>
-                      <div className="google-container">
-                        <GoogleLogin
-                          className="google-button"
-                          prompt="select_account"
-                          buttonText="Google"
-                          responseType={
-                            GOOGLE_CLIENT_ID_MODEL.googleClientResponseType
-                          }
-                          fetchBasicProfile={
-                            GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile
-                          }
-                          accessType={
-                            GOOGLE_CLIENT_ID_MODEL.googleClientAccessType
-                          }
-                          scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
-                          clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
-                          buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
-                          onSuccess={this.processGoogleSuccessResponse}
-                          onFailure={this.processGoogleFailureResponse}
-                          style={{
-                            background: 'rgb(209, 72, 54)',
-                            color: '#ffffff',
-                            width: '190px',
-                            padding: '10px 0',
-                            borderRadius: '2px',
-                            border: '1px solid transparent',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            fontFamily: 'Roboto',
-                          }}
-                        />
-                      </div>
-                    </Fragment>
-                  )}
-                </Fragment>
-              )}
+                  <Fragment>
+                    {!fetchingContent && (
+                      <Fragment>
+                        <div className="google-container">
+                          <GoogleLogin
+                            className="google-button"
+                            prompt="select_account"
+                            buttonText="Google"
+                            responseType={
+                              GOOGLE_CLIENT_ID_MODEL.googleClientResponseType
+                            }
+                            fetchBasicProfile={
+                              GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile
+                            }
+                            accessType={
+                              GOOGLE_CLIENT_ID_MODEL.googleClientAccessType
+                            }
+                            scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
+                            clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
+                            buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                            onSuccess={this.processGoogleSuccessResponse}
+                            onFailure={this.processGoogleFailureResponse}
+                            style={{
+                              background: 'rgb(209, 72, 54)',
+                              color: '#ffffff',
+                              width: '190px',
+                              padding: '10px 0',
+                              borderRadius: '2px',
+                              border: '1px solid transparent',
+                              fontSize: '16px',
+                              fontWeight: 'bold',
+                              fontFamily: 'Roboto',
+                            }}
+                          />
+                        </div>
+                      </Fragment>
+                    )}
+                  </Fragment>
+                )}
             />
 
             <div className="register-container">
@@ -393,7 +393,17 @@ class Login extends Component {
                 />
               </Link>
             </div>
+            <div style={{ textAlign: 'center', paddingBottom:50 }}>
+              <a href="https://www.amazon.com/s?k=Slooh&ref=bl_dp_s_web_0" target="_blank">
+              <img src="https://vega.slooh.com/assets/v4/giftcard/give_gift_of_slooh.png" alt=""
+               height={96}
+               width={200}
+              ></img>
+              </a>
+              
+            </div>
           </form>
+
         )}
         <style jsx>{styles}</style>
       </div>
