@@ -949,8 +949,20 @@ export class ObjectMap extends Component{
             />
             <div className="map-container">
               <div id="map" className={mapExpanded ? "Object-map-fullscreen":"Object-map"}>
-              
+              <div className="map-navigation-div">
+                <MapNavigation
+                    onLeftButtonClick={()=>this.handleNavigationClick('left')}
+                    onRightButtonClick={()=>this.handleNavigationClick('right')}
+                    onUpButtonClick={()=>this.handleNavigationClick('top')}
+                    onDownButtonClick={()=>this.handleNavigationClick('bottom')}
+                    onZoomInButtonClick={this.handleZoomIn}
+                    onZoomOutButtonClick={this.handleZoomOut}
+                    zoomInDisabled={!(currentZoom < 10)}
+                    zoomOutDisabled={!(currentZoom > 1)}
+                  />
               </div>
+              </div>
+              
               <div id="object_map_hover_popup" className="hover-popup" >test</div>
               {showObjectCard && (
                   <div className="object-card-popup">
@@ -1070,7 +1082,7 @@ export class ObjectMap extends Component{
                        />
                    )}
 
-                      <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 2)})}
+                      <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
                        onClick={this.handleZoomOut}
                        />
@@ -1081,7 +1093,7 @@ export class ObjectMap extends Component{
                        />
 
                       <img className="setting-icons" 
-                        className={classnames('setting-icons', {'disabled-control': !(currentZoom < 9)})}
+                        className={classnames('setting-icons', {'disabled-control': !(currentZoom < 10)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/plus.svg"
                        onClick={this.handleZoomIn}
                        />
@@ -1240,15 +1252,15 @@ export class ObjectMap extends Component{
             <button onClick={()=>this.handleNavigationClick('right')}>right</button>
             <button onClick={()=>this.handleNavigationClick('top')}>up</button>
             <button onClick={()=>this.handleNavigationClick('bottom')}>down</button> */}
-            <br/>
-            <MapNavigation
+            {/* <br/> */}
+            {/* <MapNavigation
               onLeftButtonClick={()=>this.handleNavigationClick('left')}
               onRightButtonClick={()=>this.handleNavigationClick('right')}
               onUpButtonClick={()=>this.handleNavigationClick('top')}
               onDownButtonClick={()=>this.handleNavigationClick('bottom')}
               onZoomInButtonClick={this.handleZoomIn}
               onZoomOutButtonClick={this.handleZoomOut}
-            />
+            /> */}
           </div>
         );
     }

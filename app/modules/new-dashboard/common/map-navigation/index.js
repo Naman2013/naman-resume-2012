@@ -5,7 +5,7 @@ import './style.scss';
 export default class MapNavigation extends PureComponent{
 
     render(){
-        const { onLeftButtonClick, onRightButtonClick, onUpButtonClick, onDownButtonClick, onZoomInButtonClick, onZoomOutButtonClick } =this.props;
+        const { onLeftButtonClick, onRightButtonClick, onUpButtonClick, onDownButtonClick, onZoomInButtonClick, onZoomOutButtonClick, zoomInDisabled, zoomOutDisabled } =this.props;
         return(
             <div>
                 <div className="circle-div">
@@ -14,7 +14,7 @@ export default class MapNavigation extends PureComponent{
                         onClickEvent={onUpButtonClick} 
                         text={""}
                         style={"up-btn"}
-                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
+                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"}
                     />
                     <div className="center-div">
                         <Button
@@ -26,6 +26,7 @@ export default class MapNavigation extends PureComponent{
                         />
                         <div className="zoom-div">
                             <Button
+                                disabled={zoomInDisabled}
                                 type={"button"}
                                 onClickEvent={onZoomInButtonClick} 
                                 text={""}
@@ -34,6 +35,7 @@ export default class MapNavigation extends PureComponent{
                             />
                             
                             <Button
+                                disabled={zoomOutDisabled}
                                 type={"button"}
                                 onClickEvent={onZoomOutButtonClick} 
                                 text={""}
@@ -54,7 +56,7 @@ export default class MapNavigation extends PureComponent{
                         onClickEvent={onDownButtonClick} 
                         text={""}
                         style={"down-btn"}
-                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"}
+                        icon={"https://vega.slooh.com/assets/v4/dashboard-new/down_arrow_white.svg"}
                     />
                 </div>
                 {/* <div class="circle-container">

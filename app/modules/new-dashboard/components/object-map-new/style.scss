@@ -81,6 +81,12 @@
     padding-left: 5px
 }
 
+.new-dash .map-navigation-div{
+    position: absolute;
+    z-index: 3;
+    right: 0;
+}
+
 .new-dash .select-label-disabled{
     font-family: $primary-font;
     font-style: normal;
