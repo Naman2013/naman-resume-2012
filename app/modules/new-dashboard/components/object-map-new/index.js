@@ -1082,7 +1082,7 @@ export class ObjectMap extends Component{
                        />
                    )}
 
-                      <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
+                      {/* <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
                        onClick={this.handleZoomOut}
                        />
@@ -1096,7 +1096,7 @@ export class ObjectMap extends Component{
                         className={classnames('setting-icons', {'disabled-control': !(currentZoom < 10)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/plus.svg"
                        onClick={this.handleZoomIn}
-                       />
+                       /> */}
 
                       {explanationText && (
                         <span className="control-label">{explanationText}</span>
