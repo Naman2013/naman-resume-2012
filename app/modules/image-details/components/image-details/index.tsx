@@ -39,7 +39,7 @@ export class ImageDetails extends Component<TProfileActivityProps, TProfileActiv
 
   constructor(props: TProfileActivityProps){
     super(props);
-    if(props.location.state !== undefined)
+    if(props.location !== undefined && props.location.state !== undefined)
       this.state={option: props.location.state.option};
     
   }
