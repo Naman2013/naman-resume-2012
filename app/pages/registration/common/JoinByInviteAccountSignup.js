@@ -251,23 +251,23 @@ class JoinByInviteAccountSignup extends Component {
       newAccountFormData[field].value = value;
     }
 
-    if (newAccountFormData.AgeGroup.value === 'Under13') {
-      newAccountFormData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
-      // newAccountFormData.legalGurdianCheckbox.value = true;
-      newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
-    }
-    if (newAccountFormData.AgeGroup.value === "13andOlder") {
-      newAccountFormData.legalGuardianCheckbox.errorText = "";
-      newAccountFormData.ParentEmail.errorText = "";
-    }
-    if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.AgeGroup.value === 'Under13') {
-      newAccountFormData.legalGuardianCheckbox.errorText = "";
-      newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
-    }
-    if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.ParentEmail.value) {
-      newAccountFormData.legalGuardianCheckbox.errorText = "";
-      newAccountFormData.ParentEmail.errorText = "";
-    }
+    /*   if (newAccountFormData.AgeGroup.value === 'Under13') {
+        newAccountFormData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+        // newAccountFormData.legalGurdianCheckbox.value = true;
+        newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+      }
+      if (newAccountFormData.AgeGroup.value === "13andOlder") {
+        newAccountFormData.legalGuardianCheckbox.errorText = "";
+        newAccountFormData.ParentEmail.errorText = "";
+      }
+      if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.AgeGroup.value === 'Under13') {
+        newAccountFormData.legalGuardianCheckbox.errorText = "";
+        newAccountFormData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+      }
+      if (newAccountFormData.legalGuardianCheckbox.value === true && newAccountFormData.ParentEmail.value) {
+        newAccountFormData.legalGuardianCheckbox.errorText = "";
+        newAccountFormData.ParentEmail.errorText = "";
+      } */
 
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -336,26 +336,48 @@ class JoinByInviteAccountSignup extends Component {
           formIsComplete = false;
         }
       }
+      console.log('accountFormDetailsData', accountFormDetailsData);
       //AgeGroup Validation
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
         if (accountFormDetailsData.AgeGroup.value === '') {
           accountFormDetailsData.AgeGroup.errorText =
             'You must certify that you are 13 years or older.';
           formIsComplete = false;
+        } else {
+          accountFormDetailsData.AgeGroup.errorText = '';
+          formIsComplete = true;
+        }
+        if (accountFormDetailsData.AgeGroup.value === 'Under13') {
+
+          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
+            accountFormDetailsData.legalGuardianCheckbox.errorText =
+              'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+            accountFormDetailsData.ParentEmail.errorText =
+              'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+            formIsComplete = false;
+          }
+  
+          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+            accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+            formIsComplete = false;
+          }
+
+          if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+            accountFormDetailsData.ParentEmail.errorText = "";
+            formIsComplete = false;
+          }
+
+          if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+            accountFormDetailsData.ParentEmail.errorText = "";
+            formIsComplete = true;
+          }
+
         }
 
-        if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
-          accountFormDetailsData.legalGuardianCheckbox.errorText =
-            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
-          accountFormDetailsData.ParentEmail.errorText =
-            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
-          formIsComplete = false;
-        }
-        if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value === '') {
-          accountFormDetailsData.ParentEmail.errorText =
-            'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
-          formIsComplete = false;
-        }
+
       }
 
       /* need to verify that the password meets the Slooh requirements */
