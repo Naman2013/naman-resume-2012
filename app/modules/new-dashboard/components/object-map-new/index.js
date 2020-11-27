@@ -34,6 +34,7 @@ import { ObjectCard } from '../object-card';
 import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 import Overlay from 'ol/Overlay';
 import classnames from 'classnames';
+import MapNavigation from '../../common/map-navigation';
 
 export class ObjectMap extends Component{
   // state={
@@ -867,7 +868,7 @@ export class ObjectMap extends Component{
     handleZoomOut = () => {
       let { map } = this.state;
       let currentZoom = Math.floor(map.getView().getZoom());
-      if(currentZoom > 2){
+      if(currentZoom > 0){
         currentZoom=currentZoom-1;        
         this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
       }      
@@ -876,7 +877,7 @@ export class ObjectMap extends Component{
     handleZoomIn = () => {
       let { map } = this.state;
       let currentZoom = Math.floor(map.getView().getZoom());
-      if(currentZoom < 9) {
+      if(currentZoom < 10) {
         currentZoom=currentZoom+1;        
         this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
       }       
@@ -964,125 +965,135 @@ export class ObjectMap extends Component{
             </div>
            {objectMapControls && (
               <div className="control-div">
-              {objectMapControls.map(controlArray=>(
-                  controlArray.controlType === "dropdownList" ? (
-                    controlArray.controlList.map((control,i)=>(
-                      <div className="controls">
-                        <span className="select-label">{control.prompt} </span>
-                        <Dropdown className="settings-dropdown">
-                          <Dropdown.Toggle  id="dropdown-basic">
-                          <span className="control-label">{control.list[control.selectedIndex].value}</span>
-                          </Dropdown.Toggle>
+                <div className="dropdown-control-div col-md-offset-1">
+                  {objectMapControls.slice(0,2).map(controlArray=>(
+                      controlArray.controlType === "dropdownList" ? (
+                        controlArray.controlList.map((control,i)=>(
+                          <div className="controls">
+                            <span className="select-label">{control.prompt} </span>
+                            <Dropdown className="settings-dropdown">
+                              <Dropdown.Toggle  id="dropdown-basic">
+                              <span className="control-label">{control.list[control.selectedIndex].value}</span>
+                              </Dropdown.Toggle>
 
-                          <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'auto' }}>
-                            {control.list.map((item,j )=> (
-                              <Dropdown.Item
-                                key={item.controlId}
-                                onClick={()=>this.handleOptionChange(controlArray.controlType, i, j)}
-                                className={control.selectedIndex === j ? "control-menu-item-selected" : "control-menu-item"}                                
-                              >
-                                <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
-                              </Dropdown.Item>
-                            ))}
-                          </Dropdown.Menu>
-                        </Dropdown>                       
-                      </div>
-                    ))                      
-                  ) :
-                  controlArray.controlType === "iconToggle" ? (
-                    controlArray.controlList.map((control,i)=>(
-                      <div className="controls">
-                        <span className={control.selectedIndex ? "select-label-disabled" : "select-label"}>{control.list[0].value} </span>
-                        <Switch 
-                          onChange={(checked)=>this.handleOptionChange(controlArray.controlType, i, checked ? 1 : 0)} 
-                          checked={control.selectedIndex} 
-                          width={20}
-                          height={10}
-                          className={"toggle"}
-                          onColor="#888"
-                          offColor="#888"
-                          uncheckedIcon={false}
-                          checkedIcon={false}
-                          />
-                        <span className={control.selectedIndex ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
-                      </div>
-                  )))
-                  :
-                  controlArray.controlType === "iconList" ? (                   
-                    <div className="settings"> 
-                      {controlArray.controlList[0].show && (
-                        <Dropdown className="settings-dropdown">
-                         <Dropdown.Toggle  id="dropdown-basic" block>
-                           <img className="setting-icons" 
-                           src={controlArray.controlList[0].iconURL}
-                           onClick={()=>{}}
-                         />
-                         </Dropdown.Toggle>
-                         <Dropdown.Menu>
-                           {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
-                               <Dropdown.Item
-                               key={i}
-                               onClick={()=>{this.handleGearIconChange(i, menu)}}
-                               className="control-menu-item"
-                             >
-                               {menu.default && menu.type === "toggle" && (
-                                 <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
-                               )}
-                                {menu.prompt}
-                             </Dropdown.Item>
-                           ))}
-                         </Dropdown.Menu>                    
-                       </Dropdown>
-                     )}
-     
-                     {controlArray.controlList[1].show && !mapExpanded && (
-                       <img className="setting-icons" 
-                         src={controlArray.controlList[1].iconURL}
-                         onClick={this.handleExpandMap}
+                              <Dropdown.Menu style={{maxHeight: '300px', overflowY: 'auto' }}>
+                                {control.list.map((item,j )=> (
+                                  <Dropdown.Item
+                                    key={item.controlId}
+                                    onClick={()=>this.handleOptionChange(controlArray.controlType, i, j)}
+                                    className={control.selectedIndex === j ? "control-menu-item-selected" : "control-menu-item"}                                
+                                  >
+                                    <span style={{fontWeight: item.bold ? "bold" : "normal", marginLeft: item.indent? "10px" : "unset" }}>{item.value}</span>
+                                  </Dropdown.Item>
+                                ))}
+                              </Dropdown.Menu>
+                            </Dropdown>                       
+                          </div>
+                        ))                      
+                      ) :
+                      controlArray.controlType === "iconToggle" ? (
+                        controlArray.controlList.map((control,i)=>(
+                          <div className="controls">
+                            <span className={control.selectedIndex ? "select-label-disabled" : "select-label"}>{control.list[0].value} </span>
+                            <Switch 
+                              onChange={(checked)=>this.handleOptionChange(controlArray.controlType, i, checked ? 1 : 0)} 
+                              checked={control.selectedIndex} 
+                              width={20}
+                              height={10}
+                              className={"toggle"}
+                              onColor="#888"
+                              offColor="#888"
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              />
+                            <span className={control.selectedIndex ? "select-label" : "select-label-disabled"}>{control.list[1].value} </span>
+                          </div>
+                      )))
+                      :null
+                      
+                  ))}
+                </div>
+
+              {objectMapControls.slice(-1).map(controlArray=>(
+                controlArray.controlType === "iconList" ? (                   
+                  <div className="settings-controls"> 
+                    {controlArray.controlList[0].show && (
+                      <Dropdown className="settings-dropdown">
+                       <Dropdown.Toggle  id="dropdown-basic" block>
+                         <img className="setting-icons" 
+                         src={controlArray.controlList[0].iconURL}
+                         onClick={()=>{}}
                        />
-                     )}
-     
-                     {controlArray.controlList[2] && mapExpanded &&(
-                       <img className="setting-icons" 
-                         src={controlArray.controlList[2].iconURL}
-                         onClick={this.handleContractMap}
-                         />
-                     )}
-     
-                     {controlArray.controlList[3].show && !hideMap &&(
-                       <img className="setting-icons" 
-                         src={controlArray.controlList[3].iconURL}
-                         onClick={()=>this.setState({hideMap: !hideMap})}
+                       </Dropdown.Toggle>
+                       <Dropdown.Menu>
+                         {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
+                             <Dropdown.Item
+                             key={i}
+                             onClick={()=>{this.handleGearIconChange(i, menu)}}
+                             className="control-menu-item"
+                           >
+                             {menu.default && menu.type === "toggle" && (
+                               <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
+                             )}
+                              {menu.prompt}
+                           </Dropdown.Item>
+                         ))}
+                       </Dropdown.Menu>                    
+                     </Dropdown>
+                   )}
+   
+                   {controlArray.controlList[1].show && !mapExpanded && (
+                     <img className="setting-icons" 
+                       src={controlArray.controlList[1].iconURL}
+                       onClick={this.handleExpandMap}
+                     />
+                   )}
+   
+                   {controlArray.controlList[2] && mapExpanded &&(
+                     <img className="setting-icons" 
+                       src={controlArray.controlList[2].iconURL}
+                       onClick={this.handleContractMap}
                        />
-                     )}
-     
-                     {controlArray.controlList[4] && hideMap &&(
-                       <img className="setting-icons" 
-                         src={controlArray.controlList[4].iconURL}
-                         onClick={()=>this.setState({hideMap: !hideMap})}
-                         />
-                     )}
+                   )}
+   
+                   {controlArray.controlList[3].show && !hideMap &&(
+                     <img className="setting-icons" 
+                       src={controlArray.controlList[3].iconURL}
+                       onClick={()=>this.setState({hideMap: !hideMap})}
+                     />
+                   )}
+   
+                   {controlArray.controlList[4] && hideMap &&(
+                     <img className="setting-icons" 
+                       src={controlArray.controlList[4].iconURL}
+                       onClick={()=>this.setState({hideMap: !hideMap})}
+                       />
+                   )}
 
-                        <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 2)})}
-                         src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
-                         onClick={this.handleZoomOut}
-                         />
+                      <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 2)})}
+                       src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
+                       onClick={this.handleZoomOut}
+                       />
 
-                        <img className="setting-icons" 
-                         src="https://vega.slooh.com/assets/v4/dashboard-new/zoom-minus-magnifier.svg"
-                        //  onClick={()=>this.setState({hideMap: !hideMap})}
-                         />
+                      <img className="setting-icons" 
+                       src="https://vega.slooh.com/assets/v4/dashboard-new/zoom-minus-magnifier.svg"
+                      //  onClick={()=>this.setState({hideMap: !hideMap})}
+                       />
 
-                        <img className="setting-icons" 
-                          className={classnames('setting-icons', {'disabled-control': !(currentZoom < 9)})}
-                         src="https://vega.slooh.com/assets/v4/dashboard-new/plus.svg"
-                         onClick={this.handleZoomIn}
-                         />
+                      <img className="setting-icons" 
+                        className={classnames('setting-icons', {'disabled-control': !(currentZoom < 9)})}
+                       src="https://vega.slooh.com/assets/v4/dashboard-new/plus.svg"
+                       onClick={this.handleZoomIn}
+                       />
 
-                    </div>
-                    )
-                    
-                  : null
+                      {explanationText && (
+                        <span className="control-label">{explanationText}</span>
+                      )}
+
+                  </div>
+                  )
+                  
+                : null
               ))}
 
 
@@ -1219,19 +1230,25 @@ export class ObjectMap extends Component{
                 <img className="setting-icons" src="https://vega.slooh.com/assets/v4/dashboard-new/maximize_icon.svg"/>
                 <img className="setting-icons"src="https://vega.slooh.com/assets/v4/dashboard-new/map_icon.svg"/> */}
             {/* </div> */}
-            {explanationText && (
-                      <span className="control-label">{explanationText}</span>
-                    )}
+            
             </div>
            )}
             
             {/* <button onClick={()=>this.handleFindObject()}>find</button> */}
 
-            <button onClick={()=>this.handleNavigationClick('left')}>left</button>
+            {/* <button onClick={()=>this.handleNavigationClick('left')}>left</button>
             <button onClick={()=>this.handleNavigationClick('right')}>right</button>
             <button onClick={()=>this.handleNavigationClick('top')}>up</button>
-            <button onClick={()=>this.handleNavigationClick('bottom')}>down</button>
-
+            <button onClick={()=>this.handleNavigationClick('bottom')}>down</button> */}
+            <br/>
+            <MapNavigation
+              onLeftButtonClick={()=>this.handleNavigationClick('left')}
+              onRightButtonClick={()=>this.handleNavigationClick('right')}
+              onUpButtonClick={()=>this.handleNavigationClick('top')}
+              onDownButtonClick={()=>this.handleNavigationClick('bottom')}
+              onZoomInButtonClick={this.handleZoomIn}
+              onZoomOutButtonClick={this.handleZoomOut}
+            />
           </div>
         );
     }
