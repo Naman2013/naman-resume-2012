@@ -1,0 +1,29 @@
+@import "../new-dashboard/breakpoints.scss";
+@import "../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash{
+    padding: 0 10%;
+}
+
+.new-guest-dash .free-trial-btn{
+    background: #253446;
+    border-radius: 4px;
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 10px 26px;
+    border: none;
+    display:block;       
+    margin:0 auto;
+}
+
+.new-guest-dash .dashboard-screen{
+    border-radius: 4px;
+    width: 100%;
+}

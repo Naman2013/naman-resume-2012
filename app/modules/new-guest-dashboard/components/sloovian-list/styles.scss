@@ -1,0 +1,9 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .sloovian-list-main{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 16px;
+    margin-bottom: 32px;
+}

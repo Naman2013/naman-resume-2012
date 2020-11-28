@@ -123,6 +123,7 @@ import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 import newDashboard from './modules/new-dashboard/new-dashboard';
+import newGuestDashboard from './modules/new-guest-dashboard/new-guest-dashboard';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -202,6 +203,13 @@ const AppRouter = ({ setPreviousInstrument }) => (
         exact
         path="NewDashboard"
         component={newDashboard}
+        onEnter={validateUser}
+      />
+
+      <Route
+        exact
+        path="NewGuestDashboard"
+        component={newGuestDashboard}
         onEnter={validateUser}
       />
 
