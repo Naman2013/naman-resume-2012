@@ -185,8 +185,6 @@ class JoinByInviteCodeStep1 extends Component {
       }).then(() => {
 
         if (formIsComplete) {
-
-          console.log('clubInviteAndGiftCard', accountFormDetailsData.clubInviteAndGiftCard.value);
           /* Validate the Invitation Email Address and Code */
           if (accountFormDetailsData.clubInviteAndGiftCard.value === "SloohCard") {
             const validInvitationCodeResult = API.post(
@@ -326,7 +324,6 @@ class JoinByInviteCodeStep1 extends Component {
   render() {
     const { pathname, t } = this.props;
     const { accountFormDetails } = this.state;
-    console.log('accountFormDetails:::', this.state);
     return (
       <div>
         <Request
