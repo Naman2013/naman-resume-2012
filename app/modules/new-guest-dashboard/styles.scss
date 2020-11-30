@@ -21,9 +21,23 @@
     border: none;
     display:block;       
     margin:0 auto;
+    letter-spacing: 1px;
 }
 
 .new-guest-dash .dashboard-screen{
     border-radius: 4px;
     width: 100%;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+
+    .new-guest-dash{
+        padding: 0 5%;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-guest-dash{
+        padding: 0 5%;
+    }
 }

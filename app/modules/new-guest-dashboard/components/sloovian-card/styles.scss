@@ -41,9 +41,30 @@
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-guest-dash .sloohvian-card-main{        
+        padding: 24px 35px;
+    }
 
+    .new-guest-dash .sloohvian-img{
+        margin-bottom: 16px;        
+    }
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
-
+    .new-guest-dash .sloohvian-card-main{        
+        padding: 24px 30px;
+    }
+    .new-guest-dash .sloohvian-card-title{        
+        font-size: 17px;
+        line-height: 110%;
+    }
+    
+    .new-guest-dash .sloohvian-card-desc{
+        font-size: 14px;
+        line-height: 100%;
+    }
+    .new-guest-dash .sloohvian-img{
+        margin-bottom: 16px;
+        height: 100px;
+    }
 }
