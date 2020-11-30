@@ -347,7 +347,7 @@ class JoinByInviteCodeStep1 extends Component {
                       </div>
                       <Spinner
                         loading={accountFormDetails.isFetching}
-                        text="Please wait...loading discussions"
+                        text="Please wait..."
                       />
                       <form onSubmit={this.handleSubmit}>
                         <div className="form-section">
