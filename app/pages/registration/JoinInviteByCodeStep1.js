@@ -24,7 +24,7 @@ import {
 } from 'app/services/registration/registration.js';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
-
+import { Spinner } from 'app/components/spinner/index';
 import styles from './JoinStep2.style';
 import { logGoogleUserIn } from 'app/modules/login/actions';
 
@@ -110,11 +110,11 @@ class JoinByInviteCodeStep1 extends Component {
 
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
+
     const { accountFormDetails } = this.state;
     const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
-
     /* reset the error conditions */
     accountFormDetailsData.loginEmailAddress.errorText = '';
     accountFormDetailsData.invitationCode.errorText = '';
@@ -134,7 +134,7 @@ class JoinByInviteCodeStep1 extends Component {
     }
 
     if (formIsComplete === true) {
-
+      accountFormDetailsData.isFetching = true;
       const checkGiftCardType = API.post(
         JOIN_VALIDATE_INVITATION_CODE_DETAILS_URL,
         {
@@ -165,20 +165,22 @@ class JoinByInviteCodeStep1 extends Component {
             formIsComplete = false;
           }
           /* need to force evaulation of "true"/"false" vs. true/false. */
-          else {
-            if (formIsComplete) {
-              /* Gift Code Apply */
-              
-              accountFormDetailsData.invitationCode.applyGiftCode = giftCardTypeResult.giftCodeMessage;
-              accountFormDetailsData.clubInviteAndGiftCard.value = giftCardTypeResult.invitationCodeType
-              window.localStorage.setItem(
-                'AccountType',
-                giftCardTypeResult.AccountType
-              );
-              this.setState({ accountFormDetails: accountFormDetailsData });
+          if (formIsComplete) {
+            /* Gift Code Apply */
+            accountFormDetailsData.invitationCode.applyGiftCode = giftCardTypeResult.giftCodeMessage;
+            accountFormDetailsData.clubInviteAndGiftCard.value = giftCardTypeResult.invitationCodeType
+            window.localStorage.setItem(
+              'AccountType',
+              giftCardTypeResult.AccountType
+            );
+            this.setState({ accountFormDetails: accountFormDetailsData });
 
-            }
+          } else {
+            accountFormDetailsData.isFetching = false;
+            this.setState({ accountFormDetails: accountFormDetailsData });
+
           }
+
         }
       }).then(() => {
 
@@ -242,10 +244,8 @@ class JoinByInviteCodeStep1 extends Component {
                       accountFormDetailsData.invitationCode.applyGiftCode = giftCodeResult.giftCodeMessage;
                       this.setState({ accountFormDetails: accountFormDetailsData });
 
-                      setTimeout(
-                        () => browserHistory.push('/join/inviteByCodeStep2'),
-                        3000
-                      );
+                      browserHistory.push('/join/inviteByCodeStep2')
+
 
                     }
                   }
@@ -318,6 +318,7 @@ class JoinByInviteCodeStep1 extends Component {
         });
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
+
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
     }
   };
@@ -325,6 +326,7 @@ class JoinByInviteCodeStep1 extends Component {
   render() {
     const { pathname, t } = this.props;
     const { accountFormDetails } = this.state;
+    console.log('accountFormDetails:::', this.state);
     return (
       <div>
         <Request
@@ -346,6 +348,10 @@ class JoinByInviteCodeStep1 extends Component {
                       <div className="section-heading">
                         {joinPageRes.sectionHeading}
                       </div>
+                      <Spinner
+                        loading={accountFormDetails.isFetching}
+                        text="Please wait...loading discussions"
+                      />
                       <form onSubmit={this.handleSubmit}>
                         <div className="form-section">
                           <div className="form-field-container">

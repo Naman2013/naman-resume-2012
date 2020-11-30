@@ -211,6 +211,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
       />
 
+
       <Route
         path="at/:marketingTrackingId"
         component={Dashboard}

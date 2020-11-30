@@ -105,6 +105,7 @@ import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcomin
 
 import { NewDashboard } from './index';
 
+
 const mapStateToProps = createStructuredSelector({
     upcomingStarPartyList: makeStarPartyListSelector(),
     userGravityStatus: makeUserGravityStatusSelector(),
