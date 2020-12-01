@@ -309,25 +309,7 @@
       background-color: rgba(37,52,70, 0.4) !important;
       opacity: 0.4 !important;
     }
-
-    .new-guest-dash .slick-next:before {   
-      width: 17px;
-      height: 14px;
-      top: 35%;
-      left: 36%;  
-      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
-        0 0 no-repeat;      
-    }
-
-    .new-guest-dash .slick-prev:before {
-      width: 17px;
-      height: 14px;
-      top: 30%;
-      left: 20%;     
-      background: url('https://vega.slooh.com/assets/v4/dashboard-new/slider_arrow_right_white.svg')
-        0 0 no-repeat;      
-    }
-
+    
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
