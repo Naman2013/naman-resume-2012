@@ -1,7 +1,6 @@
 import { Button } from "app/modules/new-dashboard/components/button";
 import React, { PureComponent } from "react";
-import { ImageSlider } from "../../common/image-slider";
-import TestimonialCard from "../testimonial-card";
+import { TestimonialSlider } from "../../common/testimonial-slider";
 import "./styles.scss";
 
 export default class TestimonialList extends PureComponent{
@@ -25,7 +24,7 @@ export default class TestimonialList extends PureComponent{
                         />
                     ))}
                 </div> */}
-                <ImageSlider
+                <TestimonialSlider
                     cardList={cardList}
                 />
                 <div className="testimonial-nav-div">

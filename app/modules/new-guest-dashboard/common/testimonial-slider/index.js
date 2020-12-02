@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import TestimonialCard from '../../components/testimonial-card';
 import { isMobileScreen, isTabletScreen } from 'app/services';
 
-export class ImageSlider extends Component{  
+export class TestimonialSlider extends Component{  
 
     constructor(props){
         super(props);

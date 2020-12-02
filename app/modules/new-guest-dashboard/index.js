@@ -53,6 +53,10 @@ export class NewGuestDashboard extends PureComponent{
                     subHeading={"Learn how students are benefitting from Slooh"}
                 />
                 <PartnerList />
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         )
     }
