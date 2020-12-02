@@ -97,6 +97,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
+import personalInfoRegistration from 'app/pages/registration/checkoutPersonalInfo';
 // import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -124,6 +125,7 @@ import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 import newDashboard from './modules/new-dashboard/new-dashboard';
 import newGuestDashboard from './modules/new-guest-dashboard/new-guest-dashboard';
+
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -254,10 +256,14 @@ const AppRouter = ({ setPreviousInstrument }) => (
           path="enablePlan/:subscriptionPlanHashCode"
           component={EnableHiddenPlan}
         />
-
+  
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
-          component={JoinByLandingPage}
+          component={Join }
+        />
+        <Route
+          path="checkoutPersonalInfo"
+          component={personalInfoRegistration }
         />
         <Route
           path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch"
