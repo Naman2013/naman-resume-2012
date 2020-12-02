@@ -328,7 +328,7 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
-                            <Link
+                            {/* <Link
                               className="button text"
                               to="/about/about-slooh-education"
                             >
@@ -337,18 +337,18 @@ const TopBar = ({
                                   <span>Slooh Education</span>
                                 </div>
                               </button>
-                            </Link>
+                            </Link> */}
                             {/*<div style={{ marginRight: '10px' }} />*/}
-                            <Link className="button text" to="/join/step1">
+                            {/* <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
                                   <span>Join Today!</span>
-                                  {/* <span>Trial</span> */}
+                                  <span>Trial</span>
                                 </div>
                               </button>
-                            </Link>
+                            </Link> */}
 
-                            <div className="buttons-separator" />
+                            {/* <div className="buttons-separator" /> */}
 
                             <span className="text">
                               {t('Navigation.SignIn')}
