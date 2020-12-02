@@ -112,7 +112,7 @@ export class PurchaseConfirmation extends React.PureComponent<
           <Container>
             <p dangerouslySetInnerHTML={{ __html: explainationText }} />
           </Container>
-
+          
           {gettingStartedBtn && (
             <div className="centerBtn">             
               <Button onClickEvent={closeModal ? ()=>closeModal() : ()=>{browserHistory.push(gettingStartedBtn.linkUrl);}} text={gettingStartedBtn.linkLabel}/>

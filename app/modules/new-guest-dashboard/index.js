@@ -9,7 +9,13 @@ import PartnerList from "./components/partner-list";
 
 export class NewGuestDashboard extends PureComponent{
 
+    constructor(props){
+        super(props);
+        props.fetchLandingPageAction();
+    }
+
     render(){
+        const { landingPageDetails } = this.props;
         return(
             <div className="new-guest-dash">
                 <TitleHeader
@@ -42,17 +48,17 @@ export class NewGuestDashboard extends PureComponent{
                 <br/>
                 <br/>
                 <TitleHeader
+                    heading={"School & Planetarium Partners"}
+                    subHeading={"Learn how students are benefitting from Slooh"}
+                />
+                <PartnerList />                
+                <br/>
+                <br/>
+                <TitleHeader
                     heading={"Testimonials"}
                     subHeading={"What Sloohvians say About Us"}
                 />
                 <TestimonialList  />
-                <br/>
-                <br/>
-                <TitleHeader
-                    heading={"School & Planetarium Partners"}
-                    subHeading={"Learn how students are benefitting from Slooh"}
-                />
-                <PartnerList />
                 <br/>
                 <br/>
                 <br/>

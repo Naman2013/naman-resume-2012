@@ -31,6 +31,8 @@
 .new-guest-dash .testimonial-member-img{    
     width: 65px;
     height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .new-guest-dash .testimonial-member-details{
