@@ -13,8 +13,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {mapVector} from "./map";
 import { WKT } from 'ol/format/WKT';
-import { Point } from 'ol/geom/Point';
-import {Fill, Stroke, Style, Text, Circle} from 'ol/style';
+import {Fill, Stroke, Style, Text, Circle, Icon} from 'ol/style';
 import {Zoom} from 'ol/control/Zoom';
 import Select from 'react-select';
 import ImageLayer from 'ol/layer/Image';
@@ -35,6 +34,8 @@ import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 import Overlay from 'ol/Overlay';
 import classnames from 'classnames';
 import MapNavigation from '../../common/map-navigation';
+import Feature from 'ol/Feature';
+import  Point from 'ol/geom/Point';
 
 export class ObjectMap extends Component{
   // state={
@@ -379,7 +380,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
           })          
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
@@ -526,6 +527,102 @@ export class ObjectMap extends Component{
       });
     }
 
+    getIconVectorLayer(data, layer){      
+      let ifeatures=[];
+      // let feature = this.getIconFeature(0, -10, "test" );
+      // let style = this.getIconSytle(0.5, 0.9, "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png", "test" );
+      // feature = this.setIconSyle(feature,style);
+      // features.push(feature);
+      data.map(item => { 
+        if(item.iconURL !== ""){ 
+          let feature = this.getIconFeature(item.XCoordDeg, item.YCoordDeg, item.labelText );
+          feature.setId(item.questId);
+          var font = 'normal ' + item.labelFontSize + 'px ' + item.labelFontName;
+          let style = this.getIconSytle(item.anchorX, item.anchorY, item.iconURL, item.labelText, item.XLabelOffset, item.YLabelOffset, font, item.ScaleX, item.ScaleY, item.labelColor);
+          // feature=this.setIconSyle(feature,style);
+          const self = this;
+          feature.set('tooltip', item.tooltipText);
+          // feature.setStyle(style);
+          feature.setStyle((feature,resolution)=>{
+            const temp=(1/Math.pow(resolution, 1.1));
+            // const {map} = self.state;
+            // const zoom=map.getView().getZoom();
+            // let i =0.4;
+            // if(zoom>0)
+            //   i=i+(Math.floor(zoom)/10)
+            // switch(Math.floor(zoom)){
+            //   case 0:
+            //     i=0.4;
+            //     break;
+            //   case 1:
+            //     i=0.5;
+            //     break;
+            //   case 2:
+            //     i=0.6;
+            //     break;
+            //   case 3:
+            //     i=0.7;
+            //     break;
+            //   case 4:
+            //     i=0.8;
+            //     break;
+            //   case 5:
+            //     i= 0.9;
+            //     break;
+            //   case 6:
+            //     i=1;
+            //     break;
+            // }
+            // let i = ((0.1-resolution))+0.5;       
+
+            var x = Math.sin((temp * Math.PI) / 180) * 3;
+            // var y = Math.sin((i * Math.PI) / 180) * 4;
+            style.getImage().setScale(x);
+            // style.getText().setScale(x < 0.8 ? 0.8 : x);
+            style.getText().setScale(x+0.5);
+            return style;
+          });
+          ifeatures.push(feature);
+          // layer.on('postrender', (event) => {         
+          //   let i = 0;
+          //   let j = 45;
+          //   var vectorContext = getVectorContext(event);
+          //   var x = Math.cos((i * Math.PI) / 180) * 3;
+          //   var y = Math.cos((j * Math.PI) / 180) * 4;
+          //   style.getImage().setScale([x, y]);
+          //   style.getText().setScale([x, y]);
+          //   vectorContext.drawFeature(feature, style);
+          // });
+        }
+        
+      });    
+     
+      // layer.on('postrender', (event) => {
+      //   let i = 0;
+      //   let j = 45;
+      //   var vectorContext = getVectorContext(event);
+      //   var x = Math.cos((i * Math.PI) / 180) * 3;
+      //   var y = Math.cos((j * Math.PI) / 180) * 4;
+      //   iconStyle.getImage().setScale([x, y]);
+      //   iconStyle.getText().setScale([x, y]);
+      //   vectorContext.drawFeature(feature, style);
+      // });
+      const style={pointerEvents: 'none'};
+      const vectorLayer=new VectorLayer({        
+        source: new VectorSource({
+          // format: new GeoJSON({dataProjection: 'EPSG:4326'}),
+          // features: (new GeoJSON()).readFeatures(mapVector)   
+          // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
+          features: ifeatures
+        })        
+        // zIndex: 1
+        
+      });      
+      return vectorLayer;
+    }
+
+
+
     getGraticleLayer(style){
       return new Graticule({
                 // the style to use for the lines, optional.
@@ -614,12 +711,17 @@ export class ObjectMap extends Component{
     }
 
 
-    getLayer(source, type, style, data, showLableZoomLevel){
+    getLayer(source, type, style, data, showLableZoomLevel, dataType){
       switch(type){
         case "Image":
           return this.getSVGLayer(source); 
         case "Vector":
-          return this.getVectorLayer(source,data, showLableZoomLevel);
+          switch(dataType){
+            case "Icons":
+              return this.getIconVectorLayer(data, null);
+            case "GeoJson":
+              return this.getVectorLayer(source,data, showLableZoomLevel);
+          }          
         case "Graticule":
           return this.getGraticleLayer(style)
         
