@@ -35,7 +35,11 @@ export class PurchaseConfirmation extends React.PureComponent<
       pageHeading1,
       pageHeading2,
       gettingStartedBtn,
-      explainationText,     
+      explainationText,
+      purchaseThankYouText,
+      firstExplanationText,
+      secondExplanationText,     
+      welcomeVideoStreamURL,
     } = purchaseConfirmationData;
     if (isLoading) return <Spinner loading={isLoading} />;
     return (
@@ -56,7 +60,7 @@ export class PurchaseConfirmation extends React.PureComponent<
         {purchaseConfirmationData &&
           purchaseConfirmationData.accountTypeSection && (
             <div>
-              <h3 className="thank-text">Thank you for your purchase!</h3>
+              <h3 className="thank-text">{purchaseThankYouText}</h3>
               <AccountType
                 currentSubscriptionPlan={
                   purchaseConfirmationData.accountTypeSection
@@ -74,12 +78,12 @@ export class PurchaseConfirmation extends React.PureComponent<
                 showInfoButton={false}
               />
               <h3 className="thank-text">
-                Scroll down to learn more about how to best use  Slooh or                                          
+                {firstExplanationText}                                          
               </h3>
               <NewButton
                   type={"button"}
-                  onClickEvent={()=>browserHistory.push("/NewDashboard")} 
-                  text={"Go to My Dashboard"}                                             
+                  onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
+                  text={gettingStartedBtn.linkLabel}                                             
                   style={"go-to-dashboard-btn"}
                   icon={null}
                 />    
@@ -87,17 +91,17 @@ export class PurchaseConfirmation extends React.PureComponent<
                 className="video-frame"
                 width="400" 
                 height="250" 
-                src="https://www.youtube.com/embed/ArOYe0WFKiA" 
+                src={welcomeVideoStreamURL}
                 // frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 // allowfullscreen
                 >
               </iframe> 
-              <h5 className="watch-text">Watch this short quick-start video for maximum escape velocity into space with slooh </h5>
+              <h5 className="watch-text">{secondExplanationText}</h5>
               <NewButton
                   type={"button"}
-                  onClickEvent={()=>browserHistory.push("/NewDashboard")} 
-                  text={"Go to My Dashboard"}                                             
+                  onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
+                  text={gettingStartedBtn.linkLabel}                                             
                   style={"go-to-dashboard-btn"}
                   icon={null}
                 />   
@@ -112,7 +116,7 @@ export class PurchaseConfirmation extends React.PureComponent<
           <Container>
             <p dangerouslySetInnerHTML={{ __html: explainationText }} />
           </Container>
-
+          
           {gettingStartedBtn && (
             <div className="centerBtn">             
               <Button onClickEvent={closeModal ? ()=>closeModal() : ()=>{browserHistory.push(gettingStartedBtn.linkUrl);}} text={gettingStartedBtn.linkLabel}/>
