@@ -7,19 +7,12 @@ import { PartnerSlider } from "../partner-slider";
 export default class PartnerList extends PureComponent{
 
     render(){
-        // const { cardList } = this.props;
-        const cardList=[
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Professor Vanessa Holden", partnerPlace: "University of New Hampshire", partnerJoined: "Member Since: 2019", partnerType: "University" },
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Kristin Watson, Principal", partnerPlace: "West Shore Middle School", partnerJoined: "Member Since: 2019", partnerType: "Middle School" },
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Devon Lane, Director", partnerPlace: "Jordan Planetarium", partnerJoined: "Member Since: 2019", partnerType: "Planetarium" },
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Professor Vanessa Holden", partnerPlace: "University of New Hampshire", partnerJoined: "Member Since: 2019", partnerType: "University" },
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Kristin Watson, Principal", partnerPlace: "West Shore Middle School", partnerJoined: "Member Since: 2019", partnerType: "Middle School" },
-            {title: "“Slooh and I will never depart”", desc: "It's like the sky; it will never leave your side. When it's a Slooh night, it's a good night. The moments spent with Slooh never get old.", partnerImage: "https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/partner-icon.svg", partnerName: "Devon Lane, Director", partnerPlace: "Jordan Planetarium", partnerJoined: "Member Since: 2019", partnerType: "Planetarium" }
-        ];
+        const { list } = this.props;
+        
         return(
             <div>
                 <PartnerSlider
-                    cardList={cardList}
+                    cardList={list}
                 />
                 {/* <div className="partner-list-main">
                     {cardList && cardList.map(card=>(
