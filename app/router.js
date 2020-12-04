@@ -97,7 +97,9 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-import personalInfoRegistration from 'app/pages/registration/checkoutPersonalInfo';
+import checkoutStudentPlan from 'app/pages/checkout-student-plan/checkoutStudentPlan'
+
+
 // import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -256,15 +258,18 @@ const AppRouter = ({ setPreviousInstrument }) => (
           path="enablePlan/:subscriptionPlanHashCode"
           component={EnableHiddenPlan}
         />
-  
+
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
-          component={Join }
+          component={Join}
         />
+
         <Route
-          path="checkoutPersonalInfo"
-          component={personalInfoRegistration }
+          path="checkoutStudentPlan"
+          component={checkoutStudentPlan}
         />
+
+
         <Route
           path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch"
           component={JoinInviteByEmailStep1}

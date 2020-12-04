@@ -1,0 +1,29 @@
+.appPlan.card{background:#253446; width: 300px; margin-bottom: 10px; height: 300px; padding: 40px;}
+.appPlan .card-title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+.appPlan .card-subtitle{color: #fff;}
+.appPlan .card-text{color:#fff; padding: 5px 0;}
+.view-plan{position: relative;}
+.view-plan button{background: none; color: #000; font-size: 16px; border: none;}
+.totalCost {
+  border-top: 1px solid #253446;
+  padding: 10px 0;
+}
+
+.totalCost span {
+  float: right;
+  font-weight: bold;
+}
+.payment-info{background-color: #F8F9FA;}
+.payment-instruct {
+    padding: 10px 0;
+}
+.payment-instruct ul li {
+    color: #253446;
+
+}
+.payment-dateSec span{float: right;}
+.payment-instruct p{color: #253446;font-family: sans-serif;}

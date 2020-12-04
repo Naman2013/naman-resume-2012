@@ -54,22 +54,22 @@ class Featured extends Component {
 
   generateImages(list) {
     return list.map((image, index) =>
-        <div key={index} className="featured-in-logo">
-          <img
-            src={image.imageUrl}
-            width={image.width}
-            height={image.height} />
-        </div>);
+      <div key={index} className="featured-in-logo">
+        <img
+          src={image.imageUrl}
+          width={image.width}
+          height={image.height} />
+      </div>);
   }
 
   render() {
-    return(
+    return (
       <SloohExtrasTile title={this.props.title}>
         <div className="clearfix featured-in-logos row">
           <div className="col-sm-6">
             {this.generateImages(LEFT_COLUMN)}
           </div>
-<div className="col-sm-6">
+          <div className="col-sm-6">
             {this.generateImages(RIGHT_COLUMN)}
           </div>
         </div>
