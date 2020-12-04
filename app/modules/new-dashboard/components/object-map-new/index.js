@@ -345,7 +345,7 @@ export class ObjectMap extends Component{
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           // map.setView(view);
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
           })
           // map.addLayer(this.getVectorLayer());
 
@@ -527,12 +527,13 @@ export class ObjectMap extends Component{
       });
     }
 
-    getIconVectorLayer(data, layer){      
+    getIconVectorLayer(data, showLableZoomLevel){      
       let ifeatures=[];
+      const { map } = this.state;
       // let feature = this.getIconFeature(0, -10, "test" );
       // let style = this.getIconSytle(0.5, 0.9, "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png", "test" );
       // feature = this.setIconSyle(feature,style);
-      // features.push(feature);
+      // features.push(feature);      
       data.map(item => { 
         if(item.iconURL !== ""){ 
           let feature = this.getIconFeature(item.XCoordDeg, item.YCoordDeg, item.labelText );
@@ -544,6 +545,7 @@ export class ObjectMap extends Component{
           feature.set('tooltip', item.tooltipText);
           // feature.setStyle(style);
           feature.setStyle((feature,resolution)=>{
+            const currentZoom = self.state.map.getView().getZoom();
             const temp=(1/Math.pow(resolution, 1.1));
             // const {map} = self.state;
             // const zoom=map.getView().getZoom();
@@ -579,7 +581,11 @@ export class ObjectMap extends Component{
             // var y = Math.sin((i * Math.PI) / 180) * 4;
             style.getImage().setScale(x);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
-            style.getText().setScale(x+0.5);
+            // if (currentZoom < showLableZoomLevel)            {             
+              style.getText().setScale(x+0.5);
+            // }              
+            // else
+            //   style.setText("");
             return style;
           });
           ifeatures.push(feature);
@@ -688,6 +694,7 @@ export class ObjectMap extends Component{
     }
 
     getIconSytle(alat, alon, icon, text, offsetX, offsetY, font, scalex, scaley, color){
+      
      return new Style({
         image: new Icon({
           anchor: [alat, alon],
@@ -718,7 +725,7 @@ export class ObjectMap extends Component{
         case "Vector":
           switch(dataType){
             case "Icons":
-              return this.getIconVectorLayer(data, null);
+              return this.getIconVectorLayer(data, showLableZoomLevel);
             case "GeoJson":
               return this.getVectorLayer(source,data, showLableZoomLevel);
           }          
@@ -787,7 +794,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
@@ -922,7 +929,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.style, layer.data, res.hideTooltipZoomLevel));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
