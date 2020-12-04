@@ -478,7 +478,6 @@ export class ObjectMap extends Component{
       // });
       // this.setState({vectorLayer: vectorLayer});
       // return vectorLayer;
-
       return new VectorLayer({
         source: new VectorSource({
           // url: url,
@@ -527,7 +526,57 @@ export class ObjectMap extends Component{
       });
     }
 
-    getIconVectorLayer(data, showLableZoomLevel){      
+    getStandardVectorLayer(data){
+      const { map } = this.state; 
+      return new VectorLayer({
+        source: new VectorSource({
+          // url: url,
+          format: new GeoJSON(),
+          features: (new GeoJSON()).readFeatures(data),  
+          wrapX: false,
+          noWrap: true
+        }),
+        // style: (feature, resolution ) => {
+        //     const temp=(1/Math.pow(resolution, 1.1));
+        //     var x = Math.sin((temp * Math.PI) / 180);
+        //     // if(x<0)
+        //     //   x=x*-1;
+        //     // style.getImage().setScale(x);
+        //     // style.getText().setScale(x+0.5);
+        //     const radius=1/Math.pow(resolution, 1/2);
+        //     const textScale= radius*0.3;
+        //     const textOffsetY= radius+8;
+        //     return new Style({
+        //       image: new Circle({
+        //         radius: radius,
+        //         fill: new Fill({
+        //           color: '#3399CC',
+        //         }),
+        //         stroke: new Stroke({
+        //           color: '#cccccc',
+        //           width: 2,
+        //         }),
+        //         // scale: x,
+        //       }),              
+              
+        //       text: map.getView().getZoom() > showLableZoomLevel ? new Text({
+        //         text: feature.get('name'),
+        //         fill: new Fill({color: '#FFFFFF'}),
+        //         offsetX: 0,
+        //         offsetY: textOffsetY,
+        //         textAlign: 'center',
+        //         textBaseline: 'top',
+        //         scale: textScale
+        //       }) : null,
+        //     });
+        //   },
+        visible: true,
+        title: 'vector map',
+        // declutter: true,
+      });
+    }
+
+    getIconVectorLayer(data, showLabelZoomLevel){      
       let ifeatures=[];
       const { map } = this.state;
       // let feature = this.getIconFeature(0, -10, "test" );
@@ -543,6 +592,9 @@ export class ObjectMap extends Component{
           // feature=this.setIconSyle(feature,style);
           const self = this;
           feature.set('tooltip', item.tooltipText);
+          feature.set('color', item.labelColor);
+          feature.set('offsetX', item.XLabelOffset);
+          feature.set('offsetY', item.YLabelOffset)
           // feature.setStyle(style);
           feature.setStyle((feature,resolution)=>{
             const currentZoom = self.state.map.getView().getZoom();
@@ -576,16 +628,28 @@ export class ObjectMap extends Component{
             //     break;
             // }
             // let i = ((0.1-resolution))+0.5;       
-
+            
             var x = Math.sin((temp * Math.PI) / 180) * 3;
             // var y = Math.sin((i * Math.PI) / 180) * 4;
             style.getImage().setScale(x);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
-            // if (currentZoom < showLableZoomLevel)            {             
+            console.log(feature.get("name"));
+            if (currentZoom < showLabelZoomLevel){              
+              style.setText(new Text({
+                text: feature.get('name'),
+                scale: 0.8,
+                // rotation: Math.PI / 4,
+                textAlign: 'center',
+                textBaseline: 'top',
+                fill: new Fill({color: feature.get('color')}),
+                offsetX: feature.get('offsetX'),
+                offsetY: feature.get('offsetY'),
+                font: font,
+              }));
               style.getText().setScale(x+0.5);
-            // }              
-            // else
-            //   style.setText("");
+            }              
+            else
+              style.setText("");
             return style;
           });
           ifeatures.push(feature);
@@ -726,8 +790,10 @@ export class ObjectMap extends Component{
           switch(dataType){
             case "Icons":
               return this.getIconVectorLayer(data, showLableZoomLevel);
-            case "GeoJson":
+            case "CircleGeoJson":
               return this.getVectorLayer(source,data, showLableZoomLevel);
+            case "StandardGeoJson":
+              return this.getStandardVectorLayer(data);
           }          
         case "Graticule":
           return this.getGraticleLayer(style)
