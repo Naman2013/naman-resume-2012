@@ -5,11 +5,7 @@ import React, { Component, cloneElement, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import './checkoutPlan.scss';
-import { Container, Row, Col } from 'reactstrap';
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'react-bootstrap';
 
 
 const { string, func } = PropTypes;
@@ -25,20 +21,21 @@ class checkoutPlan extends Component {
                 <h2 className="">Your Plan</h2>
 
                 <Card className="appPlan">
-                    <CardBody>
-                        <CardTitle tag="h5" className="text-left mb-4">Apprentice Plan</CardTitle>
-                        <CardSubtitle tag="h6" className="mt-4 mb-2 text-left">$ 100/Year</CardSubtitle>
-                        <CardText><i class="fa fa-check" aria-hidden="true"></i>7 day free trial</CardText>
-                        <CardText><i class="fa fa-check" aria-hidden="true"></i>Cancel online payment</CardText>
-                        <CardText><i class="fa fa-check" aria-hidden="true"></i>Billed annually after trial ends</CardText>
-                        <CardText><i class="fa fa-check" aria-hidden="true"></i>Add free enviourment</CardText>
+                    <Card.Body>
+                        <Card.Title tag="h5" className="text-left mb-4">Apprentice Plan</Card.Title>
+                        <Card.Subtitle tag="h6" className="mt-4 mb-2 text-left">$ 100/Year</Card.Subtitle>
+                        <Card.Text><i class="fa fa-check" aria-hidden="true"></i>7 day free trial</Card.Text>
+                        <Card.Text><i class="fa fa-check" aria-hidden="true"></i> Cancel online payment</Card.Text>
+                        <Card.Text><i class="fa fa-check" aria-hidden="true"></i>Billed annually after trial ends</Card.Text>
+                        <Card.Text><i class="fa fa-check" aria-hidden="true"></i>Add free enviourment</Card.Text>
 
-                    </CardBody>
+                    </Card.Body>
                 </Card>
 
-                <div className="view-plan">
-                    <p className="text-dark">View Student Plan <span><Button> > </Button></span> </p>
+                <div className="view-plan mt-4">
+                    <p className="text-dark">View Student Plan <span className='ml-4'> > </span> </p>
                 </div>
+                <hr className="seperatorDesign"></hr>
                 <div className="totalCost">
                     <h3 className="text-bold text-dark">Total</h3>
                     <span>$ 0</span>

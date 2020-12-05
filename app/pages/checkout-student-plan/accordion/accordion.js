@@ -5,7 +5,8 @@ import React, { Component, cloneElement, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 import './accordion.scss';
-import PersonalInfoRegistration from '../personalInfoRegistration'
+import PersonalInfoRegistration from '../personalInfoRegistration';
+import PaymentDetails from '../paymentDetails';
 
 const h1Styles = {
     display: 'flex',
@@ -36,7 +37,7 @@ class accordion extends Component {
         return (
             <div>
                 <Accordion style={h1Styles}>
-                    <Card>
+                    <Card className="PersonalInfo">
                         <Accordion.Toggle
                             as={Card.Header}
                             onClick={event => {
@@ -46,13 +47,14 @@ class accordion extends Component {
                             }}
                             eventKey="0"
                         >
-                            Click me!
+                            Personal Information
                                 <img
                                 style={ActivecollapseID == 'collapse1' ? imgRotate : null}
-                                className=""
-                                src="https://img.icons8.com/material-outlined/15/000000/forward.png"
-                                alt=""
+                                className="chervonicon"
+                                src="../assets/images/icons/chevron.webp"
+                                alt="chervonicon"
                             ></img>
+                            
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
@@ -60,7 +62,7 @@ class accordion extends Component {
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
-                    <Card>
+                    <Card className="PersonalInfo">
                         <Accordion.Toggle
                             as={Card.Header}
                             onClick={event => {
@@ -70,16 +72,19 @@ class accordion extends Component {
                             }}
                             eventKey="1"
                         >
-                            Click me!
+                            Payment Details
                             <img
                                 style={ActivecollapseID == 'collapse2' ? imgRotate : null}
-                                className=""
-                                src="https://img.icons8.com/material-outlined/15/000000/forward.png"
+                                className="chervonicon"
+                                src="../assets/images/icons/chevron.webp"
                                 alt=""
                             ></img>
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
-                            <Card.Body>Hello! I'm another body</Card.Body>
+                            <Card.Body>
+                            <PaymentDetails></PaymentDetails>
+
+                            </Card.Body>
                         </Accordion.Collapse>
                     </Card>
                 </Accordion>
