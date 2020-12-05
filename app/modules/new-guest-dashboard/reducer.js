@@ -12,14 +12,13 @@ export default createReducer(initialState, {
     [FETCH_LANDING_PAGE_DETAILS_SUCCESS](state, { payload }) {               
         return {
           ...state,
-          landingPageDetails: payload,
-          isFetching: false,
+          landingPageDetails: {isFetching: false, ...payload},          
         };
       },
       [FETCH_LANDING_PAGE_DETAILS_START](state) {
         return {
           ...state,
-          isFetching: true,
+          landingPageDetails: initialState,
         };
       },
 });
