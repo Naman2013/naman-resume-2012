@@ -2,13 +2,7 @@
   background: #fff;
   padding: 0 2em;
 }
-.appPlan.card {
-  background: #253446;
-  width: 300px;
-  margin-bottom: 10px;
-  height: 300px;
-  padding: 40px;
-}
+
 
 .appPlan .card-title {
   color: #fff;
@@ -31,7 +25,6 @@
   font-size: 16px;
   border: none;
 }
-
 
 button.submit-button {
   background: none;
@@ -96,7 +89,18 @@ button.btn.btn-dark img {
   width: 30px;
 }
 
+.form-label {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
 
+.form-error {
+  display: inline-block;
+  color: red;
+  font-weight: bold;
+}
 .btn.btn-dark.btn-black {
   background: #000000;
   border: none;

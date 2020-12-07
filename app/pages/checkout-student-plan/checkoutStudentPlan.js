@@ -1,10 +1,9 @@
 import React, { Component, } from 'react';
 import './checkoutStudentPlan.scss';
 import CheckoutPlan from './common/checkoutPlan';
-import Accordion from './accordion/accordion'
-import {
-    Container, Row, Col
-} from 'reactstrap';
+import Accordion from './accordion/accordion';
+import { Container, Row, Col, CardSubtitle, CardText, Button } from 'react-bootstrap';
+
 
 class checkoutStudentPlan extends Component {
     static defaultProps = {};

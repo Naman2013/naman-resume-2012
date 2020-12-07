@@ -25,6 +25,7 @@ import {
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 
+
 import styles from './JoinStep2.style';
 import { logGoogleUserIn } from 'app/modules/login/actions';
 
@@ -184,7 +185,6 @@ class JoinByInviteCodeStep1 extends Component {
 
         if (formIsComplete) {
 
-          console.log('clubInviteAndGiftCard', accountFormDetailsData.clubInviteAndGiftCard.value);
           /* Validate the Invitation Email Address and Code */
           if (accountFormDetailsData.clubInviteAndGiftCard.value === "SloohCard") {
             const validInvitationCodeResult = API.post(
