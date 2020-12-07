@@ -336,7 +336,6 @@ class JoinByInviteAccountSignup extends Component {
           formIsComplete = false;
         }
       }
-      console.log('accountFormDetailsData', accountFormDetailsData);
       //AgeGroup Validation
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
         if (accountFormDetailsData.AgeGroup.value === '') {
@@ -886,7 +885,7 @@ class JoinByInviteAccountSignup extends Component {
 
                                     </div>
                                     <Field
-                                      name="displayName"
+                                      name="displayEmail"
                                       type="name"
                                       className="form-field"
                                       label={accountFormDetails.ParentEmail.hintText}

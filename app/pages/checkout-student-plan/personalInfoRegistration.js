@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
+import { GOOGLE_CLIENT_ID_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import Request from 'app/components/common/network/Request';
+import { GoogleLogin } from 'react-google-login';
+import { API } from 'app/api';
+
+
+
 
 
 
@@ -18,9 +25,28 @@ class personalInfoRegistration extends Component {
         super(props);
 
         this.state = {
-
-            checkoutFormDetails: {
+            accountCreationType: 'userpass',
+            googleProfileData: {
+                googleProfileId: '',
+                googleProfileEmail: '',
+                googleProfileGivenName: '',
+                googleProfileFamilyName: '',
+                googleProfilePictureURL: '',
+            },
+            accountFormDetails: {
                 AgeGroup: {
+                    label: '',
+                    value: '',
+                    hintText: '',
+                    errorText: '',
+                },
+                legalGuardianCheckbox: {
+                    label: '',
+                    value: false,
+                    hintText: '',
+                    errorText: '',
+                },
+                ParentEmail: {
                     label: '',
                     value: '',
                     hintText: '',
@@ -32,13 +58,13 @@ class personalInfoRegistration extends Component {
                     hintText: '',
                     errorText: '',
                 },
-                firstName: {
+                givenName: {
                     label: '',
                     value: '',
                     hintText: '',
                     errorText: '',
                 },
-                lastName: {
+                familyName: {
                     label: '',
                     value: '',
                     hintText: '',
@@ -50,7 +76,7 @@ class personalInfoRegistration extends Component {
                     hintText: '',
                     errorText: '',
                 },
-                emailAddress: {
+                loginEmailAddress: {
                     label: '',
                     editable: true,
                     value: '',
@@ -73,35 +99,292 @@ class personalInfoRegistration extends Component {
     /* This function handles a field change in the form and sets the state accordingly */
     handleFieldChange = ({ field, value }) => {
         /* Get the existing state of the signup form, modify it and re-set the state */
-        const newAccountFormData = cloneDeep(this.state.checkoutFormDetails);
+        const newAccountFormData = cloneDeep(this.state.accountFormDetails);
         if (field === 'legalGuardianCheckbox') {
             newAccountFormData[field].value = !newAccountFormData[field].value;
         } else {
             newAccountFormData[field].value = value;
         }
         this.setState(() => ({
-            checkoutFormDetails: newAccountFormData,
+            accountFormDetails: newAccountFormData,
         }));
     };
 
     handleSubmit = formValues => {
-        alert('ff');
+        formValues.preventDefault();
+
+        //assume the form is ready to submit unless validation issues occur.
+        let formIsComplete = true;
+        const { accountFormDetails, accountCreationType } = this.state;
+
+        const accountFormDetailsData = cloneDeep(accountFormDetails);
+
+        /* reset the error conditions */
+        accountFormDetailsData.AgeGroup.errorText = '';
+        accountFormDetailsData.givenName.errorText = '';
+        accountFormDetailsData.familyName.errorText = '';
+        accountFormDetailsData.displayName.errorText = '';
+        accountFormDetailsData.legalGuardianCheckbox.errorText = '';
+        accountFormDetailsData.loginEmailAddress.errorText = '';
+        accountFormDetailsData.school.errorText
+        accountFormDetailsData.password.errorText = '';
+
+        if (accountCreationType === 'userpass') {
+
+            if (accountFormDetailsData.givenName.value === '') {
+                accountFormDetailsData.givenName.errorText =
+                    'Please enter in your first name.';
+                formIsComplete = false;
+            }
+
+            if (accountFormDetailsData.familyName.value === '') {
+                accountFormDetailsData.familyName.errorText =
+                    'Please enter in your last name.';
+                formIsComplete = false;
+            }
+
+            if (accountFormDetailsData.loginEmailAddress.value === '') {
+                accountFormDetailsData.loginEmailAddress.errorText =
+                    'Please enter in your email address.';
+                formIsComplete = false;
+            }
+            if (accountFormDetailsData.school.value === '') {
+                accountFormDetailsData.school.errorText =
+                    'Please enter in your  school name';
+                formIsComplete = false;
+            }
+
+            if (accountFormDetailsData.password.value === '') {
+                accountFormDetailsData.password.errorText =
+                    'Please enter in a password.';
+                formIsComplete = false;
+            }
+
+            if (accountFormDetailsData.AgeGroup.value === '') {
+                accountFormDetailsData.AgeGroup.errorText =
+                    'You must certify that you are 13 years or older.';
+                formIsComplete = false;
+            } else {
+                accountFormDetailsData.AgeGroup.errorText = '';
+                formIsComplete = true;
+            }
+
+            if (accountFormDetailsData.AgeGroup.value === 'Under13') {
+
+                if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
+                    accountFormDetailsData.legalGuardianCheckbox.errorText =
+                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+                    accountFormDetailsData.ParentEmail.errorText =
+                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+                    formIsComplete = false;
+                }
+
+                if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
+                    accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+                    accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+                    formIsComplete = false;
+                }
+
+                if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
+                    accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+                    accountFormDetailsData.ParentEmail.errorText = "";
+                    formIsComplete = false;
+                }
+
+                if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value) {
+                    accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+                    accountFormDetailsData.ParentEmail.errorText = "";
+                    formIsComplete = true;
+                }
+
+            }
+
+        } else if (accountCreationType === 'googleaccount') {
+            /* Verify that the user has provided:
+              Firstname
+              Lastname
+            */
+
+            if (accountFormDetailsData.givenName.value === '') {
+                accountFormDetailsData.givenName.errorText =
+                    'Please enter in your first name.';
+                formIsComplete = false;
+            }
+
+            if (accountFormDetailsData.familyName.value === '') {
+                accountFormDetailsData.familyName.errorText =
+                    'Please enter in your last name.';
+                formIsComplete = false;
+            }
+        }
+
+        if (formIsComplete === true) {
+
+            const customerDetailsMeetsRequirementsResult = API
+                .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+                    userEnteredPassword: this.state.accountFormDetails.password.value,
+                    userEnteredLoginEmailAddress: this.state.accountFormDetails
+                        .loginEmailAddress.value,
+                    selectedPlanId: window.localStorage.selectedPlanId,
+                })
+                .then(response => {
+
+                })
+
+        } else {
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+        }
 
     }
 
+    /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
+    processGoogleSuccessResponse = googleTokenData => {
+
+
+        /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
+        API
+            .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+                authenticationCode: googleTokenData.code,
+            })
+            .then(response => {
+                const res = response.data;
+                if (!res.apiError) {
+                    const googleProfileResult = {
+                        googleProfileId: res.googleProfileId,
+                        googleProfileEmail: res.googleProfileInfo.email,
+                        googleProfileGivenName: res.googleProfileInfo.givenName,
+                        googleProfileFamilyName: res.googleProfileInfo.familyName,
+                        googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
+                    };
+
+                    /* Needed to capture the Google Profile information in our system as the refresh_token is only given one time.
+                     * MUST validate that the Google Account Email Address matches the invitation */
+
+                    if (
+                        googleProfileResult.googleProfileEmail !=
+                        this.state.accountFormDetails.loginEmailAddress.value
+                    ) {
+                        const accountFormDetailsData = cloneDeep(
+                            this.state.accountFormDetails
+                        );
+                        accountFormDetailsData.loginEmailAddress.errorText =
+                            'Your Google Account Email Address does not match your Invitation to Join Slooh.  If the email address needs to be updated, please contact the person who created the invitation.';
+
+                        this.setState(() => ({
+                            accountFormDetails: accountFormDetailsData,
+                        }));
+                    } else {
+                        /* Capture the Google Profile Data and store it in state */
+                        this.setState(() => ({ googleProfileData: googleProfileResult }));
+
+                        /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+                        const accountFormDetailsData = cloneDeep(
+                            this.state.accountFormDetails
+                        );
+                        /* Google Authentication does not require the customer to create a password/hide the form field */
+                        accountFormDetailsData.password.visible = false;
+                        accountFormDetailsData.passwordVerification.visible = false;
+
+                        /* Set the customer's information that we got from google as a starting place for the user */
+                        accountFormDetailsData.givenName.value =
+                            googleProfileResult.googleProfileGivenName;
+                        this.props.change(
+                            'givenName',
+                            googleProfileResult.googleProfileGivenName
+                        );
+
+                        accountFormDetailsData.familyName.value =
+                            googleProfileResult.googleProfileFamilyName;
+                        this.props.change(
+                            'familyName',
+                            googleProfileResult.googleProfileFamilyName
+                        );
+
+                        /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+                        accountFormDetailsData.loginEmailAddress.editable = false;
+                        accountFormDetailsData.loginEmailAddress.value =
+                            googleProfileResult.googleProfileEmail;
+                        this.props.change(
+                            'loginEmailAddress',
+                            googleProfileResult.googleProfileEmail
+                        );
+
+                        this.setState(() => ({
+                            accountFormDetails: accountFormDetailsData,
+                            /* Set the account creation type as Google */
+                            accountCreationType: 'googleaccount',
+                        }));
+
+                        /* Set the account creation type as Google and the Google Profile Id in browser storage */
+                        window.localStorage.setItem('accountCreationType', 'googleaccount');
+                        window.localStorage.setItem(
+                            'googleProfileId',
+                            googleProfileResult.googleProfileId
+                        );
+                        window.localStorage.setItem(
+                            'googleProfileEmail',
+                            googleProfileResult.googleProfileEmail
+                        );
+                    }
+                }
+            })
+            .catch(err => {
+                throw ('Error: ', err);
+            });
+    };
+
+    processGoogleFailureResponse = googleMessageData => {
+
+    };
+
+
+
     render() {
         const {
-            checkoutFormDetails
+            accountFormDetails
 
         } = this.state;
-
+        console.log('accountFormDetails', accountFormDetails);
         return (
 
             <div>
-                <Button variant="primary" size="lg" style={{ color: "white", background: "#518EF8" }} active>
-                    SIGN UP WIDTH GOOGLE
-            </Button>
-                {'\u00A0'}
+                <Request
+                    serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
+                    requestBody={{
+                        callSource: 'join',
+                    }}
+                    render={({
+                        fetchingContent: fetchingGoogleClient,
+                        serviceResponse: googleClientResponse,
+                    }) => (
+                            <Fragment>
+                                {!fetchingGoogleClient && (
+                                    <div className="google-login-button">
+                                        <GoogleLogin
+                                            prompt="select_account"
+                                            responseType={
+                                                googleClientResponse.googleClientResponseType
+                                            }
+                                            fetchBasicProfile={
+                                                googleClientResponse.googleClientFetchBasicProfile
+                                            }
+                                            accessType={
+                                                googleClientResponse.googleClientAccessType
+                                            }
+                                            scope={googleClientResponse.googleClientScope}
+                                            clientId={googleClientResponse.googleClientID}
+                                            buttonText={
+                                                googleClientResponse.loginButtonText
+                                            }
+                                            onSuccess={this.processGoogleSuccessResponse}
+                                            onFailure={this.processGoogleFailureResponse}
+                                        />
+                                    </div>
+                                )}
+                            </Fragment>
+                        )}
+                />
                 <form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <>
@@ -117,7 +400,8 @@ class personalInfoRegistration extends Component {
                                   <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                            __html: '',
+                                            __html: accountFormDetails.AgeGroup.errorText,
+
                                         }}
                                     />
                                 </div>
@@ -157,6 +441,78 @@ class personalInfoRegistration extends Component {
                                   No
                                 </label>
                             </span>
+                            <br />
+
+                            {accountFormDetails.AgeGroup.value === "Under13" ?
+                                <>
+                                    <div className="">
+                                        <div className="form-field-container">
+                                            <span
+                                                className="form-label"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: 'certify That my legal guardian has signed me up for this service.',
+                                                }}
+                                            />
+                                  :
+                                  <span
+                                                className="form-error"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: accountFormDetails.legalGuardianCheckbox.errorText,
+
+                                                }}
+                                            />
+
+                                        </div>
+                                        <Field
+                                            name="legalGuardianCheckbox"
+                                            component="input"
+                                            type="Checkbox"
+                                            checked={accountFormDetails.legalGuardianCheckbox.value}
+                                            onChange={event => {
+                                                this.handleFieldChange({
+                                                    field: 'legalGuardianCheckbox',
+                                                    value: event.target.value,
+                                                });
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-section">
+                                        <div className="form-field-container">
+                                            <span
+                                                className="form-label"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: '*Legal Guardian`s Email Address:',
+                                                }}
+                                            />
+                                  :
+                                  <span
+                                                className="form-error"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: accountFormDetails.ParentEmail.errorText,
+
+                                                }}
+                                            />
+
+                                        </div>
+                                        <Field
+                                            name="displayEmail"
+                                            type="name"
+                                            className="form-field"
+                                            //  label={accountFormDetails.ParentEmail.hintText}
+                                            component={InputField}
+                                            onChange={event => {
+                                                this.handleFieldChange({
+                                                    field: 'ParentEmail',
+                                                    value: event.target.value,
+                                                });
+                                            }}
+                                        />
+                                    </div>
+                                </>
+
+                                : null
+
+                            }
                         </>
                     </fieldset>
 
@@ -172,12 +528,13 @@ class personalInfoRegistration extends Component {
                               <span
                                 className="form-error"
                                 dangerouslySetInnerHTML={{
-                                    __html: '',
+                                    __html: accountFormDetails.school.errorText,
+
                                 }}
                             />
                         </div>
                         <Field
-                            name="School"
+                            name="SchoolName"
                             type="name"
                             className="form-field"
                             //label={accountFormDetails.password.hintText}
@@ -208,7 +565,8 @@ class personalInfoRegistration extends Component {
                               <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                            __html: '',
+                                            __html: accountFormDetails.givenName.errorText,
+
                                         }}
                                     />
                                 </div>
@@ -220,11 +578,11 @@ class personalInfoRegistration extends Component {
                                     component={InputField}
                                     onChange={event => {
                                         this.handleFieldChange({
-                                            field: 'firstName',
+                                            field: 'givenName',
                                             value: event.target.value,
                                         });
                                     }}
-                                //value={accountFormDetails.givenName.value}
+                                    value={accountFormDetails.givenName.value}
                                 />
                             </div>
 
@@ -240,7 +598,8 @@ class personalInfoRegistration extends Component {
                               <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                            __html: '',
+                                            __html: accountFormDetails.familyName.errorText,
+
                                         }}
                                     />
                                 </div>
@@ -252,11 +611,11 @@ class personalInfoRegistration extends Component {
                                     component={InputField}
                                     onChange={event => {
                                         this.handleFieldChange({
-                                            field: 'lastName',
+                                            field: 'familyName',
                                             value: event.target.value,
                                         });
                                     }}
-                                //value={accountFormDetails.familyName.value}
+                                    value={accountFormDetails.familyName.value}
                                 />
                             </div>
                         </div>
@@ -274,7 +633,8 @@ class personalInfoRegistration extends Component {
                               <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                        __html: '',
+                                        __html: '' /* accountFormDetails.displayName.label */,
+
                                     }}
                                 />
                             </div>
@@ -283,7 +643,7 @@ class personalInfoRegistration extends Component {
                                 name="displayName"
                                 type="name"
                                 className="form-field"
-                                //label={accountFormDetails.displayName.hintText}
+                                label={accountFormDetails.displayName.hintText}
                                 component={InputField}
                                 onChange={event => {
                                     this.handleFieldChange({
@@ -306,20 +666,21 @@ class personalInfoRegistration extends Component {
                               <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                        __html: '',
+                                        __html: accountFormDetails.loginEmailAddress.errorText,
+
                                     }}
                                 />
                             </div>
 
                             <Field
-                                name="emailAddress"
+                                name="loginEmailAddress"
                                 type="name"
                                 className="form-field"
-                                //label={accountFormDetails.displayName.hintText}
+                                label={accountFormDetails.displayName.hintText}
                                 component={InputField}
                                 onChange={event => {
                                     this.handleFieldChange({
-                                        field: 'emailAddress',
+                                        field: 'loginEmailAddress',
                                         value: event.target.value,
                                     });
                                 }}
@@ -341,7 +702,8 @@ class personalInfoRegistration extends Component {
                               <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                        __html: '',
+                                        __html: accountFormDetails.password.errorText,
+
                                     }}
                                 />
                             </div>
@@ -350,7 +712,7 @@ class personalInfoRegistration extends Component {
                                 name="password"
                                 type="password"
                                 className="form-field"
-                                //label={accountFormDetails.password.hintText}
+                                label={accountFormDetails.password.hintText}
                                 component={InputField}
                                 onChange={event => {
                                     this.handleFieldChange({

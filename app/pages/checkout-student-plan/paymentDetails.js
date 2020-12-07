@@ -19,7 +19,7 @@ class paymentDetails extends Component {
 
         this.state = {
 
-            paymentFormDetails: {
+            accountFormDetails: {
                 cardNumber: {
                     label: '',
                     value: '',
@@ -62,23 +62,79 @@ class paymentDetails extends Component {
     /* This function handles a field change in the form and sets the state accordingly */
     handleFieldChange = ({ field, value }) => {
         /* Get the existing state of the signup form, modify it and re-set the state */
-        const newAccountFormData = cloneDeep(this.state.paymentFormDetails);
+        const newAccountFormData = cloneDeep(this.state.accountFormDetails);
         if (field === 'legalGuardianCheckbox') {
             newAccountFormData[field].value = !newAccountFormData[field].value;
         } else {
             newAccountFormData[field].value = value;
         }
         this.setState(() => ({
-            paymentFormDetails: newAccountFormData,
+            accountFormDetails: newAccountFormData,
         }));
     };
 
     handleSubmit = formValues => {
-        alert('ff');
+        formValues.preventDefault();
+
+        const { } = this.props;
+        //assume the form is ready to submit unless validation issues occur.
+        let formIsComplete = true;
+        const { accountFormDetails, accountCreationType } = this.state;
+
+        const accountFormDetailsData = cloneDeep(accountFormDetails);
+
+        /* reset the error conditions */
+        accountFormDetailsData.cardNumber.errorText = '';
+        accountFormDetailsData.expiryDate.errorText = '';
+        accountFormDetailsData.cvvCode.errorText = '';
+        accountFormDetailsData.nameOnCard.errorText = '';
+        accountFormDetailsData.email.errorText = '';
+
+
+        if (accountFormDetailsData.cardNumber.value === '') {
+            accountFormDetailsData.cardNumber.errorText =
+                'Please enter  your card number.';
+            formIsComplete = false;
+        }
+
+        if (accountFormDetailsData.expiryDate.value === '') {
+            accountFormDetailsData.expiryDate.errorText =
+                'Please enter expiry date';
+            formIsComplete = false;
+        }
+
+        if (accountFormDetailsData.cvvCode.value === '') {
+            accountFormDetailsData.cvvCode.errorText =
+                'Please enter  your cvv code';
+            formIsComplete = false;
+        }
+        if (accountFormDetailsData.nameOnCard.value === '') {
+            accountFormDetailsData.nameOnCard.errorText =
+                'Please enter your card holder name';
+            formIsComplete = false;
+        }
+        if (accountFormDetailsData.email.value === '') {
+            accountFormDetailsData.email.errorText =
+                'Please enter  your  email ';
+            formIsComplete = false;
+        }
+        if (formIsComplete) {
+
+        } else {
+
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+
+        }
+
 
     }
 
     render() {
+        const {
+            accountFormDetails
+
+        } = this.state;
 
         return (
 
@@ -124,7 +180,8 @@ class paymentDetails extends Component {
                               <span
                                 className="form-error"
                                 dangerouslySetInnerHTML={{
-                                    __html: '',
+                                    __html: accountFormDetails.cardNumber.errorText,
+
                                 }}
                             />
                         </div>
@@ -136,8 +193,8 @@ class paymentDetails extends Component {
                             component={InputField}
                             onChange={event => {
                                 this.handleFieldChange({
-                                      field: 'cardNumber',
-                                      value: event.target.value,
+                                    field: 'cardNumber',
+                                    value: event.target.value,
                                 });
                             }}
                         />
@@ -160,7 +217,8 @@ class paymentDetails extends Component {
                               <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                            __html: '',
+                                            __html: accountFormDetails.expiryDate.errorText,
+
                                         }}
                                     />
                                 </div>
@@ -192,7 +250,8 @@ class paymentDetails extends Component {
                               <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                            __html: '',
+                                            __html: accountFormDetails.cvvCode.errorText,
+
                                         }}
                                     />
                                 </div>
@@ -226,7 +285,8 @@ class paymentDetails extends Component {
                               <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                        __html: '',
+                                        __html: accountFormDetails.nameOnCard.errorText,
+
                                     }}
                                 />
                             </div>
@@ -258,7 +318,8 @@ class paymentDetails extends Component {
                               <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                        __html: '',
+                                        __html: accountFormDetails.email.errorText,
+
                                     }}
                                 />
                             </div>
