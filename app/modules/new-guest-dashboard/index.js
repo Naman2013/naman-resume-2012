@@ -7,6 +7,7 @@ import SubTitleHeader from "./components/sub-title-header";
 import TestimonialList from "./components/testimonial-list";
 import PartnerList from "./components/partner-list";
 import { Spinner } from 'app/components/spinner/index';
+import { browserHistory } from 'react-router';
 
 export class NewGuestDashboard extends PureComponent{
 
@@ -35,8 +36,8 @@ export class NewGuestDashboard extends PureComponent{
                         />
                         <Button
                             type={"button"}
-                            onClickEvent={null} 
-                            text={"Start 7-Day Free Trial"}
+                            onClickEvent={()=>browserHistory.push(landingPageDetails.Button.link)} 
+                            text={landingPageDetails.Button.Text}
                             style={"free-trial-btn"}
                             icon={null}
                         />

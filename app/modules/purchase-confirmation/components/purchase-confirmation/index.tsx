@@ -8,6 +8,7 @@ import { Container } from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import { Button as NewButton } from "app/modules/new-dashboard/components/button";
 import Button from 'app/components/common/style/buttons/Button';
+import './styles.scss';
 
 type TPurchaseConfirmationProps = {
   getPurchaseConfirmation: Function;
@@ -56,11 +57,25 @@ export class PurchaseConfirmation extends React.PureComponent<
           title={pageHeading1}
         />
         )}
+         {purchaseConfirmationData &&
+          purchaseConfirmationData.accountTypeSection && (
+            <div>
+              <div className="desktop-graphics">
+                <img className="graphic-image" src={purchaseConfirmationData.accountTypeSection.currentSubscriptionPlan.imageUrl} alt="" />
+                <h3 className="thank-text">{purchaseThankYouText}</h3> 
+              </div>
+              <div className="mobile-graphics">
+                <h3 className="thank-text">{purchaseThankYouText}</h3> 
+                <img className="graphic-image" src={purchaseConfirmationData.accountTypeSection.currentSubscriptionPlan.imageUrl} alt="" />
+              </div>
+            </div>
+          )}   
+        
         <div className="confirm-dialog">
         {purchaseConfirmationData &&
           purchaseConfirmationData.accountTypeSection && (
             <div>
-              <h3 className="thank-text">{purchaseThankYouText}</h3>
+              {/* <h3 className="thank-text">{purchaseThankYouText}</h3> */}
               <AccountType
                 currentSubscriptionPlan={
                   purchaseConfirmationData.accountTypeSection
@@ -76,8 +91,9 @@ export class PurchaseConfirmation extends React.PureComponent<
                   purchaseConfirmationData.accountTypeSection.accountStatus
                 }
                 showInfoButton={false}
+                purchaseThankYouText={purchaseThankYouText}
               />
-              <h3 className="thank-text">
+              <h3 className="scroll-down-text">
                 {firstExplanationText}                                          
               </h3>
               <NewButton
@@ -89,8 +105,8 @@ export class PurchaseConfirmation extends React.PureComponent<
                 />    
               <iframe 
                 className="video-frame"
-                width="400" 
-                height="250" 
+                // width="400" 
+                // height="250" 
                 src={welcomeVideoStreamURL}
                 // frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -123,7 +139,7 @@ export class PurchaseConfirmation extends React.PureComponent<
             </div>
           )}
         </div>
-        <style>{`
+        {/* <style>{`
           .confirm-dialog {
             background-color: #FFF;
             padding: 20px; 
@@ -169,7 +185,7 @@ export class PurchaseConfirmation extends React.PureComponent<
           }
 
           `}
-          </style>
+          </style> */}
         </div>
       </>
     );
