@@ -5,7 +5,6 @@ export default class TestimonialCard extends PureComponent{
 
     render(){
         const { card } = this.props;
-
         return(
             <div className="testimonial-card-main">                
                 <h4 className="testimonial-card-title">{card.SubTitleText}</h4>
@@ -26,16 +25,16 @@ export default class TestimonialCard extends PureComponent{
                     </div>
                 </div>
                 <h6 className="testimonial-achievement-label">{card.imageTextData2.AchivedBadges}</h6>
-                {/* <div className="testimonial-badges-list">
-                    {card.badgeList.slice(0,11).map((badge)=>(
-                        <img className="testinomial-badge-icon" src={"https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/testimonial-badge-icon.svg"}/>
+                <div className="testimonial-badges-list">
+                    {card.imageTextData2.imageUrliconList.slice(0,11).map((badge)=>(
+                        <img className="testinomial-badge-icon" src={badge.icon}/>
                     ))}
-                    {card.badgeList.length > 11 ? (
+                    {card.totalImageCount && (
                         <div className="testimonial-add-badges-div">
-                            <h6 className="testimonial-add-badges-text">+{card.badgeList.length-11}</h6>
+                            <h6 className="testimonial-add-badges-text">+{card.totalImageCount.totalImage}</h6>
                         </div>
-                    ):null}
-                </div> */}
+                    )}
+                </div>
             </div>
         )
     }
