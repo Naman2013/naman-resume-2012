@@ -62,7 +62,7 @@ class accordion extends Component {
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
-                    <Card className="PersonalInfo">
+                    <Card className="PersonalInfo mb-4">
                         <Accordion.Toggle
                             as={Card.Header}
                             onClick={event => {

@@ -5,6 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import Request from 'app/components/common/network/Request';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+
+
 
 
 
@@ -16,7 +22,7 @@ class paymentDetails extends Component {
 
     constructor(props) {
         super(props);
-
+        window.localStorage.setItem('selectedPlanId', 6);
         this.state = {
 
             accountFormDetails: {
@@ -130,221 +136,86 @@ class paymentDetails extends Component {
 
     }
 
+
+
     render() {
         const {
             accountFormDetails
 
         } = this.state;
 
+
         return (
 
             <div>
-                <div className="payment-instruct">
-                    <ul>
-                        <li> Total due during 7 day free trial $0 .00 </li>
-                        <li > No charge until 27 / 11 / 20 </li>
-                    </ul>
-                </div>
+                <Request
 
-                <div className="payment-dateSec">
-                    <p className="text-dark">Total after Novermber 27, 2020 <span className="text-dark font-weight-bold">$100 /
-                    <br />billed annually </span>
-                    </p>
-                </div>
+                    serviceURL={JOIN_PAGE_ENDPOINT_URL}
+                    requestBody={{
+                        callSource: 'providePaymentDetails',
+                        selectedPlanId: 6,
 
-                <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5>
-                <div className="payment-way mt-4">
-                    <Button variant="dark btn-black" >
-                        <img alt="Apay" src="../assets/images/icons/aPay.png"></img>
-                    </Button>
-                    <Button variant="dark btn-black" >
-                        <img alt="Apay" src="../assets/images/icons/gpay.png"></img>
-                    </Button>
-                    <Button variant="dark btn-ppal" >
-                        <img alt="Apay" src="../assets/images/icons/paypal.png"></img>
-                    </Button>
+                        cid: window.localStorage.getItem('pending_cid'),
+                        enableHiddenPlanHashCode: window.localStorage.getItem(
+                            'enableHiddenPlanHashCode'
+                        ),
 
-                </div>
+                    }}
+                    serviceResponseHandler={this.handleJoinPageServiceResponse}
+                    render={({ fetchingContent, serviceResponse: joinPageRes }) => (
 
-                <div><h5 className="text-dark mt-4 mb-4"> Set up payment with credit card </h5></div>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-section">
-                        <div className="form-field-container">
-                            <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                    __html: 'Card Number',
-                                }}
-                            />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                    __html: accountFormDetails.cardNumber.errorText,
+                        <Fragment>
+                            <DeviceContext.Consumer>
+                                {({ isMobile, isDesktop, isTablet }) => (
+                                    <Fragment>
+                                        <div className="payment-instruct">
+                                            <ul>
+                                                <li> Total due during 7 day free trial $0 .00 </li>
+                                                <li > No charge until 27 / 11 / 20 </li>
+                                            </ul>
+                                        </div>
+                                        <div className="payment-dateSec">
+                                            <p className="text-dark">Total after Novermber 27, 2020 <span className="text-dark font-weight-bold">$100 /
+                                             <br />billed annually </span>
+                                            </p>
+                                        </div>
+                                        <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5>
+                                        <div className="payment-way mt-4">
+                                            {/* <Button variant="dark btn-black" >
+                                                <img alt="Apay" src="../assets/images/icons/aPay.png"></img>
+                                            </Button> */}
+                                            <Button variant="dark btn-black" >
+                                                <img alt="Apay" src="../assets/images/icons/gpay.png"></img>
+                                            </Button>
+                                           {/*  <Button variant="dark btn-ppal" >
+                                                <img alt="Apay" src="../assets/images/icons/paypal.png"></img>
+                                            </Button> */}
 
-                                }}
-                            />
-                        </div>
-                        <Field
-                            name="CardNumber"
-                            type="name"
-                            className="form-field"
-                            //label={accountFormDetails.password.hintText}
-                            component={InputField}
-                            onChange={event => {
-                                this.handleFieldChange({
-                                    field: 'cardNumber',
-                                    value: event.target.value,
-                                });
-                            }}
-                        />
-                    </div>
+                                        </div>
+                                        <div><h5 className="text-dark mt-4 mb-4"> Set up payment with credit card </h5></div>
+                                        <div className="inner-container">
+                                            <DisplayAtBreakpoint
+                                                screenMedium
+                                                screenLarge
+                                                screenXLarge
+                                                screenSmall
+                                            >
+                                                <iframe
+                                                    id="embeddedHostedPaymentForm"
+                                                    title="PaymentFormLarge"
+                                                    frameBorder="0"
+                                                    style={{ width: '100%', height: '100vh' }}
+                                                    src={joinPageRes.hostedPaymentFormURL}
+                                                />
+                                            </DisplayAtBreakpoint>
+                                        </div>
+                                    </Fragment>
+                                )}
+                            </DeviceContext.Consumer>
+                        </Fragment>
+                    )}
 
-
-                    <div className="form-section split">
-                        <div className='formSectionName'>
-
-                            <div className="form-field-container form-field-half">
-
-                                <div className="form-field-container">
-                                    <span
-                                        className="form-label"
-                                        dangerouslySetInnerHTML={{
-                                            __html: 'Expiry Date',
-                                        }}
-                                    />
-                              :
-                              <span
-                                        className="form-error"
-                                        dangerouslySetInnerHTML={{
-                                            __html: accountFormDetails.expiryDate.errorText,
-
-                                        }}
-                                    />
-                                </div>
-                                <Field
-                                    name="expiryDate"
-                                    type="name"
-                                    className="form-field"
-                                    // label={accountFormDetails.givenName.hintText}
-                                    component={InputField}
-                                    onChange={event => {
-                                        this.handleFieldChange({
-                                            field: 'expiryDate',
-                                            value: event.target.value,
-                                        });
-                                    }}
-                                //value={accountFormDetails.givenName.value}
-                                />
-                            </div>
-
-                            <div className="form-field-container form-field-half">
-                                <div className="form-field-container">
-                                    <span
-                                        className="form-label"
-                                        dangerouslySetInnerHTML={{
-                                            __html: 'CCV Code',
-                                        }}
-                                    />
-                              :
-                              <span
-                                        className="form-error"
-                                        dangerouslySetInnerHTML={{
-                                            __html: accountFormDetails.cvvCode.errorText,
-
-                                        }}
-                                    />
-                                </div>
-                                <Field
-                                    name="cvvCode"
-                                    type="name"
-                                    className="form-field"
-                                    //label={accountFormDetails.familyName.hintText}
-                                    component={InputField}
-                                    onChange={event => {
-                                        this.handleFieldChange({
-                                            field: 'cvvCode',
-                                            value: event.target.value,
-                                        });
-                                    }}
-                                //value={accountFormDetails.familyName.value}
-                                />
-                            </div>
-                        </div>
-
-
-                        <div className="form-section">
-                            <div className="form-field-container">
-                                <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                        __html: 'Name on the Card',
-                                    }}
-                                />
-                              :
-                              <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                        __html: accountFormDetails.nameOnCard.errorText,
-
-                                    }}
-                                />
-                            </div>
-
-                            <Field
-                                name="nameOnThecard"
-                                type="name"
-                                className="form-field"
-                                //label={accountFormDetails.displayName.hintText}
-                                component={InputField}
-                                onChange={event => {
-                                    this.handleFieldChange({
-                                        field: 'nameOnCard',
-                                        value: event.target.value,
-                                    });
-                                }}
-                            />
-                        </div>
-
-                        <div className="form-section">
-                            <div className="form-field-container">
-                                <span
-                                    className="form-label"
-                                    dangerouslySetInnerHTML={{
-                                        __html: 'Email',
-                                    }}
-                                />
-                              :
-                              <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                        __html: accountFormDetails.email.errorText,
-
-                                    }}
-                                />
-                            </div>
-
-                            <Field
-                                name="Email"
-                                type="name"
-                                className="form-field"
-                                //label={accountFormDetails.displayName.hintText}
-                                component={InputField}
-                                onChange={event => {
-                                    this.handleFieldChange({
-                                        field: 'email',
-                                        value: event.target.value,
-                                    });
-                                }}
-                            />
-                        </div>
-                        <button className="submit-button" type="submit">
-                            START FREE TRIAL NOW
-                          </button>
-
-                    </div>
-
-                </form>
+                />
             </div>
 
         );

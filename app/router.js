@@ -265,7 +265,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
 
         <Route
-          path="checkoutStudentPlan"
+          path="byGuestLandingPage"
           component={checkoutStudentPlan}
         />
 
