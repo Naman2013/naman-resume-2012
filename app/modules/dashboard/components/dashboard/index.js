@@ -6,12 +6,12 @@ import {
 import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
 import GuestDashboard from '../guest-dashboard';
 import {fireSloohMarketingTrackingStartEvent} from 'app/utils/slooh-marketing-wrapper';
+import { guestDashboardUrl } from 'app/config/project-config';
 
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
     const { embed, router, user, params } = this.props;
-
     // Redirect user to /profile/dashboard from / if user is authenticated
     if (!embed && user.isAuthorized) {
       // router.push('/profile/private');
@@ -25,12 +25,15 @@ export class Dashboard extends Component {
 	fireSloohMarketingTrackingStartEvent(params.marketingTrackingId);
 
 	//send the user to the guest dashboard
-        router.push(`/guestDashboard`);
+        // router.push(`/guestDashboard`);
+        router.push(guestDashboardUrl);
       }
       if (params.abTestCallSource) {
-        router.push(`/guestDashboard/${params.abTestCallSource}`);
+        // router.push(`/guestDashboard/${params.abTestCallSource}`);
+        router.push(`${guestDashboardUrl}/${params.abTestCallSource}`);
       } else {
-        router.push(`/guestDashboard`);
+        // router.push(`/guestDashboard`);
+        router.push(guestDashboardUrl);
       }
     }
   }

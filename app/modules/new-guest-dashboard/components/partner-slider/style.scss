@@ -13,7 +13,7 @@
     border-radius: 50%;
     z-index: 9;
     background: #415671;
-    top: 110%;
+    top: 50%;
   }
 
   .new-guest-dash .slick-prev:hover,.new-guest-dash .slick-prev:focus,.new-guest-dash .slick-next:hover,.new-guest-dash .slick-next:focus{
@@ -43,11 +43,11 @@
   // }
 
   .new-guest-dash .slick-prev{
-    left: 0px
+    left: -10px
   }
 
   .new-guest-dash .slick-next{
-    right: 0px
+    right: -10px
   }
 
   .new-guest-dash .slick-next:before {
@@ -63,6 +63,9 @@
     /* transform: rotate(180deg); */
   }
 
+  .new-guest-dash .slick-list{
+    margin-left: 35px;
+  }
 
   .new-guest-dash .slick-slide > div,
   .new-guest-dash .slick-slide > div > div {
