@@ -76,19 +76,20 @@ const AccountType = props => {
             // style={context.isTablet ? styleBg : null}
           >
             <Container>
-              {context.isTablet || context.isMobile ? (
-                <img className="graphic-image" src={imageUrl} alt="" />
-              ) : null}
-              <Row noGutters>
-                {context.isDesktop ? (
-                  <Col md={4} className="account-general__image">
+              {/* {context.isTablet || context.isMobile ? ( */}
+                {/* <img className="graphic-image" src={imageUrl} alt="" /> */}
+              {/* ) : null} */}
+              <Row noGutters className="center-contents">
+                {/* {context.isDesktop ? (
+                  <Col md={12} className="account-general__image">
                     <div className="i-image">
                       <img src={imageUrl} alt="" />
                     </div>
                   </Col>
-                ) : null}
+                ) : null} */}
 
-                <Col md={context.isDesktop ? 8 : 12} className="flex-col">
+                {/* <Col md={context.isDesktop ? 8 : 12} className="flex-col"> */}
+                <Col md={8}>
                   <div className="account-general__info">
                     <div className="i-box i-box-white pad-40 no-bottom-pad">
                       <h4 className="h-4 pad-bot-20 font-weight-normal">
