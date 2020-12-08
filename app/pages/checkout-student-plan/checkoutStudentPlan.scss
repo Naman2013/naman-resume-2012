@@ -3,27 +3,18 @@
   padding: 0 2em;
 }
 
+.disabled {
+  background-color: gray !important;
+}
 
-.appPlan .card-title {
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
+.form-section label {
+  margin-left: 0px !important;
 }
-.appPlan .card-subtitle {
-  color: #fff;
+
+@media (max-width: 767px){
+.payment-dateSec span {
+float: none;
 }
-.appPlan .card-text {
-  color: #fff;
-  padding: 5px 0;
-}
-.view-plan {
-  position: relative;
-}
-.view-plan button {
-  background: none;
-  color: #000;
-  font-size: 16px;
-  border: none;
 }
 
 button.submit-button {
