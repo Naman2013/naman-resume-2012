@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
-import { GOOGLE_CLIENT_ID_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { GOOGLE_CLIENT_ID_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import { API } from 'app/api';
@@ -15,13 +15,6 @@ import { getUserInfo } from 'app/modules/User';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 
 
-
-
-
-
-
-
-import { Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
 
 
@@ -273,15 +266,17 @@ class personalInfoRegistration extends Component {
 
         } else {
             /* make sure to persist any changes to the account signup form (error messages) */
-            this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+            //this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
         }
 
     }
 
     createPendingCustomerRecordAndNextScreen = () => {
+        const { accountFormDetails, } = this.state;
+
 
         const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
-
+        const accountFormDetailsData = cloneDeep(accountFormDetails);
 
         let createPendingCustomerData = {
             accountCreationType: this.state.accountCreationType,
@@ -304,6 +299,7 @@ class personalInfoRegistration extends Component {
                     const pendingCustomerResult = {
                         status: res.status,
                         customerId: res.customerId,
+                        message: res.message,
                     };
 
                     if (pendingCustomerResult.status === 'success') {
@@ -320,9 +316,13 @@ class personalInfoRegistration extends Component {
                             this.state.accountFormDetails.password.value
                         );
                         // console.log('Proceeding to create the customers pending account');
-                       // browserHistory.push('/join/step3');
+                        // browserHistory.push('/join/step3');
                     } else {
-                        /* process / display error to user */
+                        accountFormDetailsData.loginEmailAddress.errorText =
+                            pendingCustomerResult.message;
+
+                        this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+
                     }
                 }
             })
