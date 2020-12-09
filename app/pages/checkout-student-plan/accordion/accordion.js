@@ -13,77 +13,80 @@ const h1Styles = {
     flexDirection: 'column',
 };
 const imgRotate = {
-    transform: 'rotate(90deg)',
+    transform: 'rotate(180deg)',
 };
 @withTranslation()
 class accordion extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
+            accoridianActiveKey: "0",
             collapseID: '',
         };
     }
 
-    toggleCollapse = collapseText => {
-        console.log('collapseID::', collapseText);
-        this.setState(() => ({
-            collapseID: collapseText,
-        }));
-    };
+    handleStepOneComplete = stepId => {
+        this.setState({
+            accoridianActiveKey: stepId
+        })
+    }
 
     render() {
-        const { collapseID } = this.state;
-        let ActivecollapseID = collapseID.collapseID;
+        const { collapseID, accoridianActiveKey } = this.state;
+        //let ActivecollapseID = collapseID.collapseID;
+        console.log('accoridianActiveKey', accoridianActiveKey);
         return (
             <div>
-                <Accordion style={h1Styles}>
+                <Accordion style={h1Styles} defaultActiveKey="0" activeKey={accoridianActiveKey} >
                     <Card className="PersonalInfo">
                         <Accordion.Toggle
                             as={Card.Header}
-                            onClick={event => {
+                            /* onClick={event => {
                                 this.toggleCollapse({
                                     collapseID: 'collapse1',
                                 });
-                            }}
+                            }} */
                             eventKey="0"
                         >
-                            Personal Information
-                                <img
-                                style={ActivecollapseID == 'collapse1' ? imgRotate : null}
+                            <p>Personal Information {accoridianActiveKey=='1'? <i className="fa fa-check" aria-hidden="true"></i>: null}</p>
+                            <img
+                                style={accoridianActiveKey == '1' ? imgRotate : null}
                                 className="chervonicon"
-                                src="../assets/images/icons/chevron.webp"
+                                src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
                                 alt="chervonicon"
                             ></img>
-                            
+
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <PersonalInfoRegistration></PersonalInfoRegistration>
+                                <PersonalInfoRegistration onStepOneComplete={this.handleStepOneComplete} ></PersonalInfoRegistration>
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
                     <Card className="PersonalInfo mb-4">
                         <Accordion.Toggle
                             as={Card.Header}
-                            onClick={event => {
+                            /* onClick={event => {
                                 this.toggleCollapse({
                                     collapseID: 'collapse2',
                                 });
-                            }}
+                            }} */
                             eventKey="1"
                         >
                             Payment Details
                             <img
-                                style={ActivecollapseID == 'collapse2' ? imgRotate : null}
+                                style={accoridianActiveKey == '0' ? imgRotate : null}
                                 className="chervonicon"
-                                src="../assets/images/icons/chevron.webp"
+                                //src="../assets/images/icons/icon.png"
+                                src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
                                 alt=""
                             ></img>
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
                             <Card.Body>
-                            <PaymentDetails></PaymentDetails>
-
+                                { accoridianActiveKey=='1'? <PaymentDetails></PaymentDetails>:null
+                                }
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>

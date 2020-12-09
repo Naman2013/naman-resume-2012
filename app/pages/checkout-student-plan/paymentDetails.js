@@ -6,9 +6,16 @@ import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { JOIN_PAGE_ENDPOINT_URL,JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
+import { API } from 'app/api';
+import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
+
+
+
+
 
 
 
@@ -19,6 +26,7 @@ import { Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
 
 class paymentDetails extends Component {
+
 
     constructor(props) {
         super(props);
@@ -64,6 +72,148 @@ class paymentDetails extends Component {
 
         }
     }
+
+    componentDidMount() {
+        //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
+        window.addEventListener('message', this.handleIframeTask);
+    }
+
+    componentWillUnmount() {
+
+        window.removeEventListener('message', this.handleIframeTask);
+    }
+
+    handleIframeTask = e => {
+
+        /* Verify there is data in this event) */
+        if (e.data) {
+            const paymentMessageData = `${e.data}`;
+
+            //determine if there is a slooh session token or slooh marketing tracking id
+            const { _sloohsstkn, _sloohatid } = getUserInfo();
+
+            let paymentMethod = 'creditcard';
+            let paymentNonceTokenData = null;
+            //console.log(paymentMessageData);
+            let paymentDataString = paymentMessageData.split(
+                '!952bccf9afe8e4c04306f70f7bed6610'
+            );
+
+            //console.log(paymentDataString);
+            /* make sure the data message we received is an ECommerce Payment Token */
+            if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+                //Check to see if the payment token is a credit card payment token or a paypal payment token
+                if (
+                    paymentDataString[0].startsWith(
+                        '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
+                    )
+                ) {
+                    paymentNonceTokenData = String.prototype.replace.call(
+                        paymentDataString[0],
+                        '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
+                        ''
+                    );
+                    paymentMethod = 'creditcard';
+                } else if (
+                    paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
+                ) {
+                    paymentNonceTokenData = String.prototype.replace.call(
+                        paymentDataString[0],
+                        '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
+                        ''
+                    );
+
+                    paymentMethod = 'paypal';
+                }
+
+                //console.log(`Payment Token:${paymentNonceTokenData}`);
+                //console.log('Payment Token!! ' + paymentNonceTokenData);
+
+                /* Process the Customer's Activation and Sign the User into the website */
+                const activatePendingCustomerData = {
+                    paymentMethod,
+                    paymentToken: paymentNonceTokenData,
+                    customerId: window.localStorage.getItem('pending_cid'),
+                    selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+                    isAstronomyClub:
+                        window.localStorage.getItem('isAstronomyClub') === 'true',
+                    clubCodeA: window.localStorage.getItem('clubCodeA'),
+                    clubCodeB: window.localStorage.getItem('clubCodeB'),
+                    billingAddressString: paymentDataString[3],
+                    // sloohSiteSessionToken: _sloohsstkn,
+                    sloohMarketingTrackingId: _sloohatid,
+                };
+
+                API.post(
+                    JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
+                    activatePendingCustomerData
+                )
+                    .then(response => {
+                        const res = response.data;
+                        if (!res.apiError) {
+                            if (res.status === 'success') {
+                                const { actions } = this.props;
+
+                                //fire off the Purchase Facebook Event
+                                const myCID = window.localStorage.getItem('pending_cid');
+                                fireSloohFBPurchaseEvent({
+                                    cid: myCID,
+                                    planName: res.PlanName,
+                                    planCostInUSD: res.PlanCostInUSD,
+                                });
+
+                                //Cleanup local localStorage
+                                //cleanup any hidden plan that was accessed now that a plan was redeemed.
+                                window.localStorage.removeItem('enableHiddenPlanHashCode');
+
+                                //cleanup other localstorage elements
+                                window.localStorage.removeItem('pending_cid');
+                                window.localStorage.removeItem('selectedPlanId');
+                                window.localStorage.removeItem('isAstronomyClub');
+                                window.localStorage.removeItem('clubCodeA');
+                                window.localStorage.removeItem('clubCodeB');
+                                // log the user in (userpass or googleaccount logins supported)
+                                const { accountCreationType } = window.localStorage;
+                                if (accountCreationType === 'userpass') {
+                                    const loginDataPayload = {
+                                        username: window.localStorage.username,
+                                        pwd: window.localStorage.password,
+                                    };
+
+                                    /* cleanup local storage */
+                                    window.localStorage.removeItem('accountCreationType');
+                                    window.localStorage.removeItem('username');
+                                    window.localStorage.removeItem('password');
+
+
+                                    actions.logUserIn(loginDataPayload, { reload: false }).then(() => {
+                                        browserHistory.push('/join/purchaseConfirmation/join');
+                                    });
+                                } else if (accountCreationType === 'googleaccount') {
+                                    const loginDataPayload = {
+                                        googleProfileId: window.localStorage.googleProfileId,
+                                        googleProfileEmail: window.localStorage.username,
+                                    };
+
+                                    window.localStorage.removeItem('accountCreationType');
+                                    actions.logGoogleUserIn(loginDataPayload, { reload: false }).then(() => {
+                                        browserHistory.push('/join/purchaseConfirmation/join');
+                                    });
+                                }
+                            } else {
+                                /* process / display error to user */
+                                document
+                                    .getElementById('embeddedHostedPaymentForm')
+                                    .contentWindow.captureActivationError(res);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        throw ('Error: ', err);
+                    });
+            }
+        }
+    };
 
     /* This function handles a field change in the form and sets the state accordingly */
     handleFieldChange = ({ field, value }) => {
@@ -137,7 +287,6 @@ class paymentDetails extends Component {
     }
 
 
-
     render() {
         const {
             accountFormDetails
@@ -153,8 +302,7 @@ class paymentDetails extends Component {
                     serviceURL={JOIN_PAGE_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'providePaymentDetails',
-                        selectedPlanId: 6,
-
+                        selectedPlanId: window.localStorage.selectedPlanId,
                         cid: window.localStorage.getItem('pending_cid'),
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
@@ -179,15 +327,15 @@ class paymentDetails extends Component {
                                              <br />billed annually </span>
                                             </p>
                                         </div>
-                                        <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5>
+                                        {/* <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5> */}
                                         <div className="payment-way mt-4">
                                             {/* <Button variant="dark btn-black" >
                                                 <img alt="Apay" src="../assets/images/icons/aPay.png"></img>
                                             </Button> */}
-                                            <Button variant="dark btn-black" >
+                                            {/*  <Button variant="dark btn-black" >
                                                 <img alt="Apay" src="../assets/images/icons/gpay.png"></img>
-                                            </Button>
-                                           {/*  <Button variant="dark btn-ppal" >
+                                            </Button> */}
+                                            {/*  <Button variant="dark btn-ppal" >
                                                 <img alt="Apay" src="../assets/images/icons/paypal.png"></img>
                                             </Button> */}
 

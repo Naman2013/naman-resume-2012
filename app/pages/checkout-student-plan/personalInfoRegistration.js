@@ -22,7 +22,7 @@ class personalInfoRegistration extends Component {
 
     constructor(props) {
         super(props);
-        window.localStorage.setItem('selectedPlanId', 6);
+        window.localStorage.setItem('selectedPlanId', 7);
 
         this.state = {
             accountCreationType: 'userpass',
@@ -97,6 +97,10 @@ class personalInfoRegistration extends Component {
 
         }
     }
+    handleLanguage = (langValue) => {
+
+        this.setState({ language: langValue });
+    }
 
     handleCaptchaCode = (token) => {
         const { _sloohsstkn } = getUserInfo();
@@ -141,6 +145,7 @@ class personalInfoRegistration extends Component {
         formValues.preventDefault();
 
         const { accountFormDetails, accountCreationType, captchaVerified } = this.state;
+        // console.log('accountCreationType', accountCreationType);
 
         if (!captchaVerified) {
             return;
@@ -180,11 +185,11 @@ class personalInfoRegistration extends Component {
                     'Please enter in your email address.';
                 formIsComplete = false;
             }
-            if (accountFormDetailsData.school.value === '') {
+            /* if (accountFormDetailsData.school.value === '') {
                 accountFormDetailsData.school.errorText =
                     'Please enter in your  school name';
                 formIsComplete = false;
-            }
+            } */
 
             if (accountFormDetailsData.password.value === '') {
                 accountFormDetailsData.password.errorText =
@@ -196,9 +201,6 @@ class personalInfoRegistration extends Component {
                 accountFormDetailsData.AgeGroup.errorText =
                     'You must certify that you are 13 years or older.';
                 formIsComplete = false;
-            } else {
-                accountFormDetailsData.AgeGroup.errorText = '';
-                formIsComplete = true;
             }
 
             if (accountFormDetailsData.AgeGroup.value === 'Under13') {
@@ -251,22 +253,69 @@ class personalInfoRegistration extends Component {
         }
 
         if (formIsComplete === true) {
-            this.createPendingCustomerRecordAndNextScreen();
 
-            /* const customerDetailsMeetsRequirementsResult = API
-                .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+            const customerDetailsMeetsRequirementsResult = API.post(
+                VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+                {
                     userEnteredPassword: this.state.accountFormDetails.password.value,
                     userEnteredLoginEmailAddress: this.state.accountFormDetails
                         .loginEmailAddress.value,
+                    //clubCodeA: this.state.accountFormDetails.codeA.value,
+                    //clubCodeB: this.state.accountFormDetails.codeB.value,
                     selectedPlanId: window.localStorage.selectedPlanId,
-                })
+                }
+            )
                 .then(response => {
+                    const res = response.data;
+                    if (res.apiError == false) {
+                        const validationResults = {
+                            passwordAcceptable: res.passwordAcceptable,
+                            passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+                            emailAddressAcceptable: res.emailAddressAcceptable,
+                            emailAddressNotAcceptedMessage:
+                                res.emailAddressNotAcceptedMessage,
+                        };
 
-                }) */
+                        if (validationResults.passwordAcceptable === false) {
+                            /* Password did not meet Slooh requirements, provide the error messaging */
+                            accountFormDetailsData.password.errorText =
+                                validationResults.passwordNotAcceptedMessage;
+
+                            /* make sure to persist any changes to the account signup form (error messages) */
+                            this.setState({ accountFormDetails: accountFormDetailsData });
+
+                            formIsComplete = false;
+                        }
+
+                        if (validationResults.emailAddressAcceptable === false) {
+                            /* Email address is already taken or some other validation error occurred. */
+                            accountFormDetailsData.loginEmailAddress.errorText =
+                                validationResults.emailAddressNotAcceptedMessage;
+
+                            /* make sure to persist any changes to the account signup form (error messages) */
+                            this.setState({ accountFormDetails: accountFormDetailsData });
+                            formIsComplete = false;
+                        } else {
+                            accountFormDetailsData.loginEmailAddress.errorText =
+                                validationResults.emailAddressNotAcceptedMessage;
+                            this.setState({ accountFormDetails: accountFormDetailsData });
+                            formIsComplete = true;
+
+                        }
+
+                        if (formIsComplete === true) {
+                            /* create the pending customer result */
+                            this.createPendingCustomerRecordAndNextScreen();
+                        }
+                    }
+                })
+                .catch(err => {
+                    throw ('Error: ', err);
+                });
 
         } else {
             /* make sure to persist any changes to the account signup form (error messages) */
-            //this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+            this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
         }
 
     }
@@ -315,6 +364,14 @@ class personalInfoRegistration extends Component {
                             'password',
                             this.state.accountFormDetails.password.value
                         );
+
+                        /*  this.setState( () =>({
+                             accoridianActiveKey:"1"
+                         })) */
+
+                        const { onStepOneComplete } = this.props;
+                        console.log('onStepOneComplete', onStepOneComplete);
+                        onStepOneComplete("1");
                         // console.log('Proceeding to create the customers pending account');
                         // browserHistory.push('/join/step3');
                     } else {
@@ -433,18 +490,22 @@ class personalInfoRegistration extends Component {
     };
 
     handleJoinPageServiceResponse = result => {
-        console.log('result', result)
+        // console.log('result', result)
         const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-        /*   newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-          newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
-          newAccountFormData.displayName.label =
-              result.formFieldLabels.displayname.label;
-          newAccountFormData.loginEmailAddress.label =
-              result.formFieldLabels.loginemailaddress.label;
-          newAccountFormData.loginEmailAddressVerification.label =
-              result.formFieldLabels.loginemailaddressverification.label;
-          newAccountFormData.password.label = result.formFieldLabels.password.label; */
+        newAccountFormData.AgeGroup.label = result.formFieldLabels.is13YearsAndOlder.label;
+        newAccountFormData.legalGuardianCheckbox.label = result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
+        newAccountFormData.ParentEmail.label = result.formFieldLabels.parentEmailAddress.label;
+
+        newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
+        newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+        newAccountFormData.displayName.label =
+            result.formFieldLabels.displayname.label;
+        newAccountFormData.loginEmailAddress.label =
+            result.formFieldLabels.loginemailaddress.label;
+        /* newAccountFormData.loginEmailAddressVerification.label =
+            result.formFieldLabels.loginemailaddressverification.label; */
+        newAccountFormData.password.label = result.formFieldLabels.password.label;
 
 
         this.setState(() => ({
@@ -528,7 +589,8 @@ class personalInfoRegistration extends Component {
                                                                 <span
                                                                     className="form-label"
                                                                     dangerouslySetInnerHTML={{
-                                                                        __html: 'I Certify That I am 13 Years of Age Or Older:',
+                                                                        __html: accountFormDetails.AgeGroup.label,
+
                                                                     }}
                                                                 />
                                                                  :
@@ -585,7 +647,8 @@ class personalInfoRegistration extends Component {
                                                                         <span
                                                                             className="form-label"
                                                                             dangerouslySetInnerHTML={{
-                                                                                __html: 'certify That my legal guardian has signed me up for this service.',
+                                                                                __html: accountFormDetails.legalGuardianCheckbox.label,
+
                                                                             }}
                                                                         />
                                                                        :
@@ -616,7 +679,8 @@ class personalInfoRegistration extends Component {
                                                                         <span
                                                                             className="form-label"
                                                                             dangerouslySetInnerHTML={{
-                                                                                __html: '*Legal Guardian`s Email Address:',
+                                                                                __html: accountFormDetails.ParentEmail.label,
+
                                                                             }}
                                                                         />
                                                                          :
@@ -693,7 +757,7 @@ class personalInfoRegistration extends Component {
                                                                 <span
                                                                     className="form-label"
                                                                     dangerouslySetInnerHTML={{
-                                                                        __html: 'First Name',
+                                                                        __html: accountFormDetails.givenName.label,
                                                                     }}
                                                                 />
                                                                  :
@@ -726,7 +790,7 @@ class personalInfoRegistration extends Component {
                                                                 <span
                                                                     className="form-label"
                                                                     dangerouslySetInnerHTML={{
-                                                                        __html: ' Last Name',
+                                                                        __html: accountFormDetails.familyName.label,
                                                                     }}
                                                                 />
                                                                 :
@@ -761,7 +825,8 @@ class personalInfoRegistration extends Component {
                                                             <span
                                                                 className="form-label"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: 'Display Name(Optional)',
+                                                                    __html: accountFormDetails.displayName.label,
+
                                                                 }}
                                                             />
                                                             :
@@ -794,7 +859,8 @@ class personalInfoRegistration extends Component {
                                                             <span
                                                                 className="form-label"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: 'Email',
+                                                                    __html: accountFormDetails.loginEmailAddress.label,
+
                                                                 }}
                                                             />
                                                             :
@@ -830,7 +896,8 @@ class personalInfoRegistration extends Component {
                                                             <span
                                                                 className="form-label"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: 'Password',
+                                                                    __html: accountFormDetails.password.label,
+
                                                                 }}
                                                             />
                                                             :
