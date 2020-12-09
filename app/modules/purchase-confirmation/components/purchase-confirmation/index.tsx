@@ -96,13 +96,16 @@ export class PurchaseConfirmation extends React.PureComponent<
               <h3 className="scroll-down-text">
                 {firstExplanationText}                                          
               </h3>
-              <NewButton
+              <Button 
+                onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
+                text={gettingStartedBtn.linkLabel}/>
+              {/* <NewButton
                   type={"button"}
                   onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
                   text={gettingStartedBtn.linkLabel}                                             
                   style={"go-to-dashboard-btn"}
                   icon={null}
-                />    
+                />     */}
               <iframe 
                 className="video-frame"
                 // width="400" 
@@ -114,13 +117,16 @@ export class PurchaseConfirmation extends React.PureComponent<
                 >
               </iframe> 
               <h5 className="watch-text">{secondExplanationText}</h5>
-              <NewButton
+              <Button 
+                onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
+                text={gettingStartedBtn.linkLabel}/>
+              {/* <NewButton
                   type={"button"}
                   onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
                   text={gettingStartedBtn.linkLabel}                                             
                   style={"go-to-dashboard-btn"}
                   icon={null}
-                />   
+                />    */}
             </div>
           )}
 

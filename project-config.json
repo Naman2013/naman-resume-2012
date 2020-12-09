@@ -167,8 +167,7 @@
   },
   "localhost": {
     "COOKIE_DOMAIN": null,
-    "loadHtmlFile": "/config/localhost.html",
-    "guestHomepageURL": "/guestDashboard"
+    "loadHtmlFile": "/config/localhost.html"
   },
   "eris.slooh.com": {
     "loadHtmlFile": "/config/eris.slooh.com.html",

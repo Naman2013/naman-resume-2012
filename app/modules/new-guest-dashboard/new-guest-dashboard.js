@@ -4,9 +4,11 @@ import { createStructuredSelector } from 'reselect';
 import { NewGuestDashboard } from './index.js';
 import { makeLandingPageDetailsSelector } from './selector.js';
 import { fetchLandingPageAction } from './actions';
+import { makeUserSelector } from 'app/modules/user/selectors';
 
 const mapStateToProps = createStructuredSelector({
   landingPageDetails: makeLandingPageDetailsSelector(),
+  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {
