@@ -345,7 +345,7 @@ export class ObjectMap extends Component{
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           // map.setView(view);
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
           })
           // map.addLayer(this.getVectorLayer());
 
@@ -865,7 +865,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
@@ -1000,7 +1000,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
