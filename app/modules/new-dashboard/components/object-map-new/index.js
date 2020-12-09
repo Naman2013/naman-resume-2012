@@ -699,7 +699,9 @@ export class ObjectMap extends Component{
                 // style,
                 showLabels: true, 
                 wrapX: false,
-                // intervals: [15],
+                visible:true, 
+                targetSize: 75,               
+                intervals:  [15],
                 extent: [-180, -90, 180, 90],                
                 lonLabelStyle: new Text({                 
                   font: '12px Calibri,sans-serif',
