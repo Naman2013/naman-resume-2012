@@ -64,9 +64,13 @@ export class NewGuestDashboard extends PureComponent{
                             heading={landingPageDetails.SloohExplorationDashboard.Title}
                             subHeading={landingPageDetails.SloohExplorationDashboard.SubTitle}
                         />
-                        <center>
-                            <img className="dashboard-screen" src={landingPageDetails.SloohExplorationDashboard.imageUrl}/>
-                        </center>
+                        <div className="dashboard-screenshot">
+                            <center>
+                                <img className="desktop-dashboard-screen" src={landingPageDetails.memberDashboardImages.desktop}/>
+                                <img className="tablet-dashboard-screen" src={landingPageDetails.memberDashboardImages.tablet}/>
+                                <img className="mobile-dashboard-screen" src={landingPageDetails.memberDashboardImages.mobile}/>
+                            </center>
+                        </div>                        
                         <br/>
                         <br/>
                         <TitleHeader
