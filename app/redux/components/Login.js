@@ -363,7 +363,7 @@ class Login extends Component {
               <span className="title-link">
                 {t('Dashboard.DontHaveAccount')}
               </span>
-              <Link to="/join/step1">
+              {/* <Link to="/join/step1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
                   theme={{
@@ -373,6 +373,18 @@ class Login extends Component {
                     width: '100%',
                   }}
                   text={t('Dashboard.JoinSloohToday')}
+                />
+              </Link> */}
+              <Link to="/join/byGuestLandingPage">
+                <LargeButtonWithRightIcon
+                  icon={horizontalArrowRightWhite}
+                  theme={{
+                    backgroundColor: nightfall,
+                    color: romance,
+                    border: 0,
+                    width: '100%',
+                  }}
+                  text="Start 7-Day FREE TRIAL"
                 />
               </Link>
             </div>

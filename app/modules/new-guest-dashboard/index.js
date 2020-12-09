@@ -11,7 +11,7 @@ import { browserHistory } from 'react-router';
 import {fireSloohMarketingTrackingStartEvent} from 'app/utils/slooh-marketing-wrapper';
 import { guestDashboardUrl } from 'app/config/project-config';
 
-export class NewGuestDashboard extends PureComponent{
+export class NewGuestDashboard extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -33,9 +33,9 @@ export class NewGuestDashboard extends PureComponent{
         props.fetchLandingPageAction();
       }
 
-    render(){
+    render() {
         const { landingPageDetails } = this.props;
-        return(
+        return (
             <div className="new-guest-dash">
                 {landingPageDetails && !landingPageDetails.isFetching ? (
                     <div>
@@ -53,13 +53,14 @@ export class NewGuestDashboard extends PureComponent{
                         />
                         <Button
                             type={"button"}
-                            onClickEvent={()=>browserHistory.push(landingPageDetails.Button.link)} 
+                            //onClickEvent={()=>browserHistory.push(landingPageDetails.Button.link)} 
+                            onClickEvent={() => browserHistory.push('/join/byGuestLandingPage')}
                             text={landingPageDetails.Button.Text}
                             style={"free-trial-btn"}
                             icon={null}
                         />
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <SubTitleHeader
                             heading={landingPageDetails.SloohExplorationDashboard.Title}
                             subHeading={landingPageDetails.SloohExplorationDashboard.SubTitle}
@@ -77,32 +78,32 @@ export class NewGuestDashboard extends PureComponent{
                             heading={landingPageDetails.Partners.Title}
                             subHeading={landingPageDetails.Partners.SubTitle}
                         />
-                        <PartnerList 
+                        <PartnerList
                             list={landingPageDetails.Partners.List}
-                        />                
-                        <br/>
-                        <br/>
+                        />
+                        <br />
+                        <br />
                         <TitleHeader
                             heading={landingPageDetails.Testimonial.Title}
                             subHeading={landingPageDetails.Testimonial.SubTitle}
                         />
-                        <TestimonialList  
+                        <TestimonialList
                             list={landingPageDetails.Testimonial.List}
                         />
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
-                ):(
+                ) : (
 
-                    <div>
-                        {landingPageDetails && (
-                            <Spinner loading={landingPageDetails.isFetching} />
-                        )}                        
-                    </div>
-                )}
-                
+                        <div>
+                            {landingPageDetails && (
+                                <Spinner loading={landingPageDetails.isFetching} />
+                            )}
+                        </div>
+                    )}
+
             </div>
         )
     }
