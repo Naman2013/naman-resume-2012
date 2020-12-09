@@ -22,7 +22,7 @@ class personalInfoRegistration extends Component {
 
     constructor(props) {
         super(props);
-        window.localStorage.setItem('selectedPlanId', 7);
+        window.localStorage.setItem('selectedPlanId', 171);
 
         this.state = {
             accountCreationType: 'userpass',
@@ -207,20 +207,20 @@ class personalInfoRegistration extends Component {
 
                 if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
                     accountFormDetailsData.legalGuardianCheckbox.errorText =
-                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
                     accountFormDetailsData.ParentEmail.errorText =
-                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.';
+                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
                     formIsComplete = false;
                 }
 
                 if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
                     accountFormDetailsData.legalGuardianCheckbox.errorText = "";
-                    accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+                    accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
                     formIsComplete = false;
                 }
 
                 if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
-                    accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this serviece.";
+                    accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
                     accountFormDetailsData.ParentEmail.errorText = "";
                     formIsComplete = false;
                 }

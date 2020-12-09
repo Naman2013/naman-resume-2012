@@ -17,6 +17,7 @@ const { string, func } = PropTypes;
 @withTranslation()
 class checkoutPlan extends Component {
     constructor(props) {
+        window.localStorage.setItem('selectedPlanId', 171);
         super(props);
         this.state = {
             activePlan: null,
@@ -37,12 +38,15 @@ class checkoutPlan extends Component {
     }
 
     switchPlan = () => {
+        
         const alternatePlan = this.state.alternatePlan;
         const activePlan = this.state.activePlan;
         this.setState({
           activePlan: alternatePlan,
           alternatePlan: activePlan  
         })
+        window.localStorage.setItem('selectedPlanId', activePlan.planID);
+
     }
 
     render() {
@@ -74,8 +78,8 @@ class checkoutPlan extends Component {
                                             <div className="appPlan">
                                                 <div className="craddesign">
                                                     <p className="planHeading">{this.state.activePlan && this.state.activePlan.planName}</p>
-                                                    {/* <p className="palnSubHeading">{subHeading}</p>
-                                                    <p><i className="fa fa-check" aria-hidden="true"></i>{paragraph1}</p>
+                                                    <p className="palnSubHeading">{this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}</p>
+                                                   {/*  <p><i className="fa fa-check" aria-hidden="true"></i>{paragraph1}</p>
                                                     <p><i className="fa fa-check" aria-hidden="true"></i>{paragraph2}</p> */}
                                                 </div>
 

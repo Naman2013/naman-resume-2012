@@ -30,7 +30,7 @@ class paymentDetails extends Component {
 
     constructor(props) {
         super(props);
-        window.localStorage.setItem('selectedPlanId', 6);
+        window.localStorage.setItem('selectedPlanId', 171);
         this.state = {
 
             accountFormDetails: {
@@ -168,7 +168,7 @@ class paymentDetails extends Component {
 
                                 //cleanup other localstorage elements
                                 window.localStorage.removeItem('pending_cid');
-                                window.localStorage.removeItem('selectedPlanId');
+                               // window.localStorage.removeItem('selectedPlanId');
                                 window.localStorage.removeItem('isAstronomyClub');
                                 window.localStorage.removeItem('clubCodeA');
                                 window.localStorage.removeItem('clubCodeB');
