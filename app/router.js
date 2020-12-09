@@ -212,7 +212,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route
         exact
-        path="NewGuestDashboard"
+        path="landingPage"
         component={newGuestDashboard}
         onEnter={validateUser}
       />

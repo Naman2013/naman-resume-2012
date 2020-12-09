@@ -8,13 +8,30 @@ import TestimonialList from "./components/testimonial-list";
 import PartnerList from "./components/partner-list";
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
+import {fireSloohMarketingTrackingStartEvent} from 'app/utils/slooh-marketing-wrapper';
+import { guestDashboardUrl } from 'app/config/project-config';
 
 export class NewGuestDashboard extends PureComponent {
 
     constructor(props) {
         super(props);
+        const { router, user, params } = this.props;
+        if (user.isAuthorized) {          
+          router.push('/NewDashboard');
+        }
+        if (!user.isAuthorized) {
+          if (params.marketingTrackingId) {
+            fireSloohMarketingTrackingStartEvent(params.marketingTrackingId);    
+            router.push(guestDashboardUrl);
+          }
+          if (params.abTestCallSource) {           
+            router.push(`${guestDashboardUrl}/${params.abTestCallSource}`);
+          } else {            
+            router.push(guestDashboardUrl);
+          }
+        }
         props.fetchLandingPageAction();
-    }
+      }
 
     render() {
         const { landingPageDetails } = this.props;

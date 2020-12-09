@@ -24,7 +24,7 @@ import Countdown from 'react-countdown-now';
 import moment from 'moment';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import Clock from './Clock';
-
+import { guestDashboardUrl } from 'app/config/project-config';
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -115,7 +115,7 @@ const TopBar = ({
                         // browserHistory.push('/');
                         browserHistory.push('/NewDashboard');
                       } else {
-                        browserHistory.push('/guestDashboard');
+                        browserHistory.push(guestDashboardUrl);
                       }
                     }}
                     mod="no-border"
