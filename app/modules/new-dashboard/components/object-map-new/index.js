@@ -380,7 +380,7 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
           })          
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
@@ -693,7 +693,7 @@ export class ObjectMap extends Component{
 
 
 
-    getGraticleLayer(style){
+    getGraticleLayer(style, offset){
       return new Graticule({
                 // the style to use for the lines, optional.
                 // style,
@@ -722,8 +722,11 @@ export class ObjectMap extends Component{
                   //   width: 3
                   // })
                 }),
-                lonLabelFormatter: (longitude)=>{                  
-                    const degree = 180 + longitude;
+                lonLabelFormatter: (longitude)=>{  
+                    let degree = 180 + longitude;
+                    degree=degree+offset;
+                    if(degree >= 360)
+                      degree=degree-360;
                     const hours = Math.floor(degree / 15);
                     const mins = Math.floor(degree % 15);
                     return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
@@ -784,7 +787,7 @@ export class ObjectMap extends Component{
     }
 
 
-    getLayer(source, type, style, data, showLableZoomLevel, dataType){
+    getLayer(source, type, style, data, showLableZoomLevel, dataType, offset){
       switch(type){
         case "Image":
           return this.getSVGLayer(source); 
@@ -798,7 +801,7 @@ export class ObjectMap extends Component{
               return this.getStandardVectorLayer(data);
           }          
         case "Graticule":
-          return this.getGraticleLayer(style)
+          return this.getGraticleLayer(style,offset)
         
           // return this.getVectorLayer();         
       }
