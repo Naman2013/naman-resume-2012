@@ -23,7 +23,7 @@ class accordion extends Component {
         super(props);
 
         this.state = {
-            accoridianActiveKey: "1",
+            accoridianActiveKey: "0",
             collapseID: '',
         };
     }
@@ -43,7 +43,7 @@ class accordion extends Component {
         console.log('accoridianActiveKey', accoridianActiveKey);
         return (
             <div>
-                <Accordion style={h1Styles} defaultActiveKey="1" activeKey={accoridianActiveKey} >
+                <Accordion style={h1Styles} defaultActiveKey="0" activeKey={accoridianActiveKey} >
                     <Card className={`PersonalInfo ${accoridianActiveKey == "1" ? 'extraclass': null}`}>
                         <Accordion.Toggle
                             as={Card.Header}
