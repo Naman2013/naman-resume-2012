@@ -12,8 +12,8 @@ const propTypes = {
   logoURL: PropTypes.string.isRequired,
 };
 
-const Telescope = ({ text, anchor, isOnline, logoURL }) => (
-  <Link to={anchor}>
+const Telescope = ({ text, anchor, isOnline, logoURL, user }) => (
+  <Link to={anchor} onClick={(e)=> !user.isAuthorized ? e.preventDefault() : null}>
     <div className="telescope root">
       <div className="telescope-link">
         <div className="action" to={anchor}>

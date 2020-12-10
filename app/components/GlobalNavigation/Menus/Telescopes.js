@@ -76,7 +76,7 @@ const Telescopes = (props) => {
             </div>
           </MenuTitleBar>
           {observatoryList && (
-            <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
+            <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY, props.user)} />
           )}
 
           <style jsx>
@@ -120,7 +120,8 @@ const Telescopes = (props) => {
 Telescopes.propTypes = {};
 
 const mapStateToProps=(state)=>({
-  observatoryList: state.observatoryList.obsList  
+  observatoryList: state.observatoryList.obsList,
+  user: state.user  
 })
 
 export default compose(connect(mapStateToProps, null)) (Telescopes);
