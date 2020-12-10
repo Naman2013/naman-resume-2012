@@ -6,7 +6,7 @@ import { romance } from 'app/styles/variables/colors_tiles_v4';
 import { userAstronaut } from 'app/styles/variables/iconURLs';
 import MenuTitleBar from './MenuTitleBar';
 
-const LogIn = ({ avatarURL }) => {
+const LogIn = ({ avatarURL, loginMenuLinks }) => {
   const { t } = useTranslation();
   return (
     <div className="root">
@@ -14,7 +14,9 @@ const LogIn = ({ avatarURL }) => {
         title={t('Dashboard.SignIn')}
         iconURL={avatarURL || userAstronaut}
       />
-      <Login />
+      <Login 
+        loginMenuLinks={loginMenuLinks}
+      />
       <style jsx>
         {`
           .root {

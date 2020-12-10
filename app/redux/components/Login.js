@@ -223,8 +223,8 @@ class Login extends Component {
       loginFormDetails,
     } = this.state;
 
-    const { handleSubmit } = this.props;
-
+    const { handleSubmit, loginMenuLinks } = this.props;
+    
     return (
       <div className="root">
         {inForgotPasswordMode === true && (
@@ -375,18 +375,21 @@ class Login extends Component {
                   text={t('Dashboard.JoinSloohToday')}
                 />
               </Link> */}
-              <Link to="/join/byGuestLandingPage">
-                <LargeButtonWithRightIcon
-                  icon={horizontalArrowRightWhite}
-                  theme={{
-                    backgroundColor: nightfall,
-                    color: romance,
-                    border: 0,
-                    width: '100%',
-                  }}
-                  text="Start 7-Day FREE TRIAL"
-                />
-              </Link>
+              {loginMenuLinks.showJoinButton && (
+                  <Link to={loginMenuLinks.joinButtonLinkURL}>
+                    <LargeButtonWithRightIcon
+                      icon={horizontalArrowRightWhite}
+                      theme={{
+                        backgroundColor: nightfall,
+                        color: romance,
+                        border: 0,
+                        width: '100%',
+                      }}
+                      text={loginMenuLinks.joinButtonText}
+                    />
+                  </Link>
+              )}
+              
             </div>
             <div className="register-container">
               <span className="title-link">
