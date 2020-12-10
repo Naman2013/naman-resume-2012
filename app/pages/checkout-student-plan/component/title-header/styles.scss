@@ -1,0 +1,75 @@
+@import "../../../checkout-student-plan/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.check-out-stu .title-main{
+    padding: 40px 0px;
+}
+
+.check-out-stu .title-heading{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 42px;
+    text-align: center;
+    color: #000000;
+}
+
+.check-out-stu .title-subHeading{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    text-align: center;
+    color: #000000;
+}
+
+@media (min-width: $screenXLarge) {
+
+    .check-out-stu .title-main{
+        padding: 40px 0px;
+    }
+
+    .check-out-stu .title-heading{
+        font-size: 35px;
+        line-height: 42px;
+    }
+
+    .check-out-stu .title-subHeading{       
+        font-size: 18px;
+        line-height: 120%;        
+    }
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .check-out-stu .title-main{
+        padding: 30px 0px;
+    }
+
+    .check-out-stu .title-heading{
+        font-size: 26px;
+        line-height: 30px;
+    }
+
+    .check-out-stu .title-subHeading{       
+        font-size: 16px;
+        line-height: 110%;        
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .check-out-stu .title-main{
+        padding: 20px 0px;
+    }
+
+    .check-out-stu .title-heading{
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .check-out-stu .title-subHeading{       
+        font-size: 14px;
+        line-height: 100%;        
+    }
+}

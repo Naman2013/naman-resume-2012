@@ -1,4 +1,4 @@
-.main-info {
+.check-out-stu {
   background: #fff;
   padding: 0 2em;
 }
@@ -11,17 +11,16 @@
   margin-left: 0px !important;
 }
 
-@media (max-width: 767px){
-.payment-dateSec span {
-float: none;
-}
-}
-
-.google-login-button button{
-  background: #518EF8 !important;
-  border-radius:30px!important;
+@media (max-width: 767px) {
+  .payment-dateSec span {
+    float: none;
+  }
 }
 
+.google-login-button button {
+  background: #518ef8 !important;
+  border-radius: 30px !important;
+}
 
 button.submit-button {
   background: none;
@@ -71,15 +70,8 @@ button.submit-button:focus {
 }
 
 .payment-instruct {
-  padding: 10px 0;
-}
-
-.payment-instruct ul {
-  padding-inline-start: 1em;
-}
-
-.payment-instruct ul li {
   color: #253446;
+  padding: 10px 0;
 }
 
 button.btn.btn-dark img {
@@ -110,12 +102,23 @@ button.btn.btn-dark img {
   width: 150px;
   height: 40px;
 }
-.payment-instruct p {
+/* .payment-instruct p {
   color: #253446;
   font-family: sans-serif;
-}
+} */
+
 .payment-dateSec span {
   float: right;
+}
+.payment-dateSec {
+  margin-left: 25px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.payment-setup-card {
+  margin-left: 27px;
 }
 
 .btn.btn-dark.btn-black {

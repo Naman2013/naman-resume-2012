@@ -2,15 +2,25 @@
     background-color: #415671!important;
     border-radius: 4px 4px 0px 0px;
     color: #FFFFFF!important;
-    padding: 1em;
-    
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; 
 }
+ .extraclass .card-header{
+    background-color: #E9EBED!important;
+    border-radius: 4px 4px 0px 0px;
+    color: #253446!important;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; 
+}
+
 .PersonalInfo.card .card-header img {
     float: right;
 }
 .chervonicon{
-    width: 20px;
-}
+   margin-top: 7px;
+} 
 
 .PersonalInfo.card {
     background-color: #F8F9FA;

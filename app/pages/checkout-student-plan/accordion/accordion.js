@@ -15,13 +15,15 @@ const h1Styles = {
 const imgRotate = {
     transform: 'rotate(180deg)',
 };
+
+
 @withTranslation()
 class accordion extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            accoridianActiveKey: "0",
+            accoridianActiveKey: "1",
             collapseID: '',
         };
     }
@@ -34,28 +36,31 @@ class accordion extends Component {
 
     render() {
         const { collapseID, accoridianActiveKey } = this.state;
+        /* if(accoridianActiveKey=="1"){
+
+        } */
         //let ActivecollapseID = collapseID.collapseID;
         console.log('accoridianActiveKey', accoridianActiveKey);
         return (
             <div>
-                <Accordion style={h1Styles} defaultActiveKey="0" activeKey={accoridianActiveKey} >
-                    <Card className="PersonalInfo">
+                <Accordion style={h1Styles} defaultActiveKey="1" activeKey={accoridianActiveKey} >
+                    <Card className={`PersonalInfo ${accoridianActiveKey == "1" ? 'extraclass': null}`}>
                         <Accordion.Toggle
                             as={Card.Header}
-                            /* onClick={event => {
-                                this.toggleCollapse({
-                                    collapseID: 'collapse1',
-                                });
-                            }} */
                             eventKey="0"
                         >
-                            <p>Personal Information {accoridianActiveKey=='1'? <i className="fa fa-check" aria-hidden="true"></i>: null}</p>
-                            <img
-                                style={accoridianActiveKey == '1' ? imgRotate : null}
-                                className="chervonicon"
-                                src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
-                                alt="chervonicon"
-                            ></img>
+                            <div>
+                                <p>Personal Information {accoridianActiveKey == '1' ? <i className="fa fa-check" aria-hidden="true"></i> : null}</p>
+                            </div>
+                            <div>
+                                <img
+                                    style={accoridianActiveKey == '1' ? imgRotate : null}
+                                    className="chervonicon"
+                                    src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
+                                    alt="chervonicon"
+                                ></img>
+                            </div>
+                            
 
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
@@ -78,14 +83,13 @@ class accordion extends Component {
                             <img
                                 style={accoridianActiveKey == '0' ? imgRotate : null}
                                 className="chervonicon"
-                                //src="../assets/images/icons/icon.png"
                                 src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
                                 alt=""
                             ></img>
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
                             <Card.Body>
-                                { accoridianActiveKey=='1'? <PaymentDetails></PaymentDetails>:null
+                                {accoridianActiveKey == '1' ? <PaymentDetails></PaymentDetails> : null
                                 }
                             </Card.Body>
                         </Accordion.Collapse>
