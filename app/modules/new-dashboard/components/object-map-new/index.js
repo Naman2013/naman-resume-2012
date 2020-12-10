@@ -694,13 +694,14 @@ export class ObjectMap extends Component{
 
 
     getGraticleLayer(style, offset){
+      var width=document.getElementById("map");
       return new Graticule({
                 // the style to use for the lines, optional.
                 // style,
                 showLabels: true, 
                 wrapX: false,
                 visible:true, 
-                targetSize: 75,               
+                targetSize: width/30,               
                 intervals:  [15],
                 extent: [-180, -90, 180, 90],                
                 lonLabelStyle: new Text({                 
