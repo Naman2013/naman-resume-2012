@@ -15,22 +15,11 @@ import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 
 
 
-
-
-
-
-
-
-import { Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
-
-
-
 class paymentDetails extends Component {
 
 
     constructor(props) {
         super(props);
-        window.localStorage.setItem('selectedPlanId', 171);
         this.state = {
 
             accountFormDetails: {
@@ -168,7 +157,7 @@ class paymentDetails extends Component {
 
                                 //cleanup other localstorage elements
                                 window.localStorage.removeItem('pending_cid');
-                               // window.localStorage.removeItem('selectedPlanId');
+                                window.localStorage.removeItem('selectedPlanId');
                                 window.localStorage.removeItem('isAstronomyClub');
                                 window.localStorage.removeItem('clubCodeA');
                                 window.localStorage.removeItem('clubCodeB');
@@ -302,6 +291,7 @@ class paymentDetails extends Component {
                     serviceURL={JOIN_PAGE_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'providePaymentDetails',
+                        conditionType: 'joinbyguestlanding',
                         selectedPlanId: window.localStorage.selectedPlanId,
                         cid: window.localStorage.getItem('pending_cid'),
                         enableHiddenPlanHashCode: window.localStorage.getItem(
@@ -316,6 +306,7 @@ class paymentDetails extends Component {
                             <DeviceContext.Consumer>
                                 {({ isMobile, isDesktop, isTablet }) => (
                                     <Fragment>
+
                                         <div className="payment-instruct">
                                             <ul>
                                                 <li> Total due during 7 day free trial $0 .00 </li>
@@ -323,9 +314,10 @@ class paymentDetails extends Component {
                                             </ul>
                                         </div>
                                         <div className="payment-dateSec">
-                                            <p className="text-dark">Total after Novermber 27, 2020 <span className="text-dark font-weight-bold">$100 /
-                                             <br />billed annually </span>
-                                            </p>
+                                            <div  className="text-dark">Total after Novermber 27, 2020</div>
+                                            <div>$100 
+                                             <br />/billed annually</div>
+                                        
                                         </div>
                                         {/* <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5> */}
                                         <div className="payment-way mt-4">
@@ -340,7 +332,7 @@ class paymentDetails extends Component {
                                             </Button> */}
 
                                         </div>
-                                        <div><h5 className="text-dark mt-4 mb-4"> Set up payment with credit card </h5></div>
+                                        <div><h5 className="payment-setup-card"> Set up payment with credit card </h5></div>
                                         <div className="inner-container">
                                             <DisplayAtBreakpoint
                                                 screenMedium

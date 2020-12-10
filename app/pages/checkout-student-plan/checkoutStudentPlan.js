@@ -3,7 +3,7 @@ import './checkoutStudentPlan.scss';
 import CheckoutPlan from './common/checkoutPlan';
 import Accordion from './accordion/accordion';
 import { Container, Row, Col, CardSubtitle, CardText, Button } from 'react-bootstrap';
-
+import TitleHeader from './component/title-header';
 
 class checkoutStudentPlan extends Component {
     static defaultProps = {};
@@ -14,13 +14,12 @@ class checkoutStudentPlan extends Component {
 
         return (
             <>
-                <div className="main-info">
+                <div className="check-out-stu">
                     <Container>
-                        <div className="mt-4 pt-4 mb-4">
-                            <h1 className="text-center text-dark">Join The Slooh Universe</h1>
-                            <p className="text-center text-dark">Complete Your Order</p>
-                        </div>
-
+                        <TitleHeader
+                            heading="Join The Slooh Universe"
+                            subHeading="Complete Your Order"
+                        />
                         <Row>
                             <Col md="4">
                                 <CheckoutPlan />

@@ -22,7 +22,7 @@ class personalInfoRegistration extends Component {
 
     constructor(props) {
         super(props);
-        window.localStorage.setItem('selectedPlanId', 171);
+       
 
         this.state = {
             accountCreationType: 'userpass',
@@ -532,6 +532,7 @@ class personalInfoRegistration extends Component {
                         callSource: 'setupCredentials',
                         selectedPlanId,
                         sloohMarketingTrackingId: _sloohatid,
+                        conditionType: 'joinbyguestlanding',
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),
