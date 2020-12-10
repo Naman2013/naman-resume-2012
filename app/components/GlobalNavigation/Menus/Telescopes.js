@@ -25,7 +25,7 @@ import { flatten } from 'lodash';
 const Telescopes = (props) => {
   const { token, at, cid } = getUserInfo();
   const { t } = useTranslation();
-  const { observatoryList } = props;
+  const { observatoryList, user } = props;
   let obs_List;
   let TELESCOPES_ONLY;
   if(observatoryList!==undefined){
@@ -59,8 +59,9 @@ const Telescopes = (props) => {
                   textAlign: 'center',
                   marginRight: '15px',
                   width: '47%',
+                  cursor: !user.isAuthorized ? 'unset' : 'pointer'
                 }}
-                onClickEvent={() => browserHistory.push('/missions')}
+                onClickEvent={!user.isAuthorized ? null : () => browserHistory.push('/missions')}
               />
               <Button
                 text={t('Telescopes.myPhotos')}
@@ -68,15 +69,16 @@ const Telescopes = (props) => {
                   display: 'inline-block',
                   textAlign: 'center',
                   width: '47%',
+                  cursor: !user.isAuthorized ? 'unset' : 'pointer'
                 }}
-                onClickEvent={() =>
+                onClickEvent={!user.isAuthorized ? null : () =>
                   browserHistory.push('/NewDashboard#photos')
                 }
               />
             </div>
           </MenuTitleBar>
           {observatoryList && (
-            <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY, props.user)} />
+            <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY, user)} />
           )}
 
           <style jsx>
