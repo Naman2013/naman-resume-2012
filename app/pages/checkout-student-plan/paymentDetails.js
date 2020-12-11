@@ -12,14 +12,25 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 import { API } from 'app/api';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'app/modules/login/actions';
+import PropTypes from 'prop-types';
 
 
+const propTypes = {
+    actions: PropTypes.shape({
+        logUserIn: PropTypes.func.isRequired,
+        resetLogIn: PropTypes.func.isRequired,
+        logGoogleUserIn: PropTypes.func.isRequired,
+    }).isRequired,
+};
 
 class paymentDetails extends Component {
 
+    static propTypes = propTypes;
 
     constructor(props) {
         super(props);
+        window.localStorage.setItem('accountCreationType', 'userpass');
         this.state = {
 
             accountFormDetails: {
@@ -131,6 +142,7 @@ class paymentDetails extends Component {
                     billingAddressString: paymentDataString[3],
                     // sloohSiteSessionToken: _sloohsstkn,
                     sloohMarketingTrackingId: _sloohatid,
+                    conditionType: 'joinbyguestlanding'
                 };
 
                 API.post(
@@ -315,7 +327,7 @@ class paymentDetails extends Component {
                                         </div>
                                         <div className="payment-dateSec">
                                             <div className="text-dark">{joinPageRes.totalDueAfterFreeTrialText}</div>
-                                            <div>{ joinPageRes.planCostDescriptiveText}</div>
+                                            <div>{joinPageRes.planCostDescriptiveText}</div>
 
                                         </div>
                                         {/* <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5> */}
@@ -371,9 +383,9 @@ const mapStateToProps = ({ joinAccountForm }) => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(
         {
-            //resetLogIn,
-            // logUserIn,
-            //logGoogleUserIn,
+            resetLogIn,
+            logUserIn,
+            logGoogleUserIn,
         },
         dispatch
     ),
