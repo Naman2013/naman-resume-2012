@@ -372,7 +372,7 @@ class personalInfoRegistration extends Component {
                          })) */
 
                         const { onStepOneComplete } = this.props;
-                        console.log('onStepOneComplete', onStepOneComplete);
+                       
                         onStepOneComplete("1");
                         // console.log('Proceeding to create the customers pending account');
                         // browserHistory.push('/join/step3');
@@ -525,7 +525,7 @@ class personalInfoRegistration extends Component {
         } = this.state;
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
-        console.log('accountFormDetails', this.state);
+        
         return (
             <div>
                 <Request
