@@ -189,7 +189,7 @@ class paymentDetails extends Component {
 
 
                                     actions.logUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/join');
+                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
                                     });
                                 } else if (accountCreationType === 'googleaccount') {
                                     const loginDataPayload = {
@@ -199,7 +199,7 @@ class paymentDetails extends Component {
 
                                     window.localStorage.removeItem('accountCreationType');
                                     actions.logGoogleUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/join');
+                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
                                     });
                                 }
                             } else {
