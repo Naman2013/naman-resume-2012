@@ -42,7 +42,7 @@ class checkoutPlan extends Component {
     }
 
     switchPlan = () => {
-        
+
 
         const { alternatePlan, activePlan } = this.state;
         this.setState({
@@ -95,6 +95,21 @@ class checkoutPlan extends Component {
                                                         </div>
                                                     </div>
                                                     <div className="state_active">
+                                                        {this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                        </div>}
+                                                    </div>
+                                                    {/* <div className="state_active">
+
+                                                        <div className="ml-1">
+                                                            <PlanCard
+                                                                heading={null}
+                                                                subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                                </div>}
+                                                                description={null}
+                                                            />
+                                                        </div>
+                                                    </div> */}
+                                                    <div className="state_active">
 
                                                         <div className="ml-1">
                                                             <PlanCard
@@ -107,9 +122,10 @@ class checkoutPlan extends Component {
 
 
 
+
                                                     {this.state.activePlan && this.state.activePlan.planTextBlockDetails.map((planTextBlockData) => {
 
-                                                        
+
                                                         return (<div className="state_active">
                                                             <div>
                                                                 <i className="fa fa-check" aria-hidden="true">

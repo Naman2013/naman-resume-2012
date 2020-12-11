@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import { JOIN_PAGE_ENDPOINT_URL,JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { JOIN_PAGE_ENDPOINT_URL, JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { getUserInfo, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
@@ -309,15 +309,14 @@ class paymentDetails extends Component {
 
                                         <div className="payment-instruct">
                                             <ul>
-                                                <li> Total due during 7 day free trial $0 .00 </li>
-                                                <li > No charge until 27 / 11 / 20 </li>
+                                                <li> {joinPageRes.bulletText1} </li>
+                                                <li > {joinPageRes.bulletText2} </li>
                                             </ul>
                                         </div>
                                         <div className="payment-dateSec">
-                                            <div  className="text-dark">Total after Novermber 27, 2020</div>
-                                            <div>$100 
-                                             <br />/billed annually</div>
-                                        
+                                            <div className="text-dark">{joinPageRes.totalDueAfterFreeTrialText}</div>
+                                            <div>{ joinPageRes.planCostDescriptiveText}</div>
+
                                         </div>
                                         {/* <h5 className="text-dark mt-4 mb-4 "> Set up payment in the easy way wish </h5> */}
                                         <div className="payment-way mt-4">
