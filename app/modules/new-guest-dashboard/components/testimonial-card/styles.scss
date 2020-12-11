@@ -1,0 +1,158 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .testimonial-card-main{
+    background: #F2F4F7;
+    border-radius: 8px;
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.new-guest-dash .testimonial-card-title{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 120%;    
+    color: #000000;
+}
+
+.new-guest-dash .testimonial-card-desc{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.new-guest-dash .testimonial-member-img{    
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.new-guest-dash .testimonial-member-details{
+    flex: 3;
+    margin-left: 16px;
+}
+
+.new-guest-dash .testimonial-member-div{
+    display: flex;
+    margin-top: 24px;
+}
+
+.new-guest-dash .testimonial-member-name{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 120%;
+    color: #415671;
+}
+
+.new-guest-dash .testimonial-member-place{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 133%;
+    color: #415671;
+}
+
+.new-guest-dash .testimonial-member-joined{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 133%;    
+    color: #111111;
+}
+
+.new-guest-dash .testimonial-level-div{
+    display: flex;
+    margin: 16px 0px;
+}
+
+.new-guest-dash .testimonial-member-level-img{
+    width: 35px;
+    height: 35px;
+    flex: 1;
+}
+
+.new-guest-dash .testimonial-level-details{
+    flex: 5;
+    margin-left: 8px;
+}
+
+.new-guest-dash .testimonial-level-label{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 133%;
+    color: #253446;
+    margin-bottom: 0px;
+}
+
+.new-guest-dash .testimonial-level{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 133%;
+    color: #253446;
+}
+
+.new-guest-dash .testimonial-achievement-label{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 133%;
+    color: #000000;
+}
+
+.new-guest-dash .testimonial-badges-list{
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10%;
+    grid-column-gap: 16px;
+    grid-row-gap: 8px;
+}
+
+.new-guest-dash .testinomial-badge-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.new-guest-dash .testimonial-add-badges-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-guest-dash .testimonial-add-badges-text{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 140%;    
+    text-align: center;
+    color: #C2A068;
+    margin-bottom: 0px;
+}
+
+@media (min-width: $screenXLarge) {
+
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+}

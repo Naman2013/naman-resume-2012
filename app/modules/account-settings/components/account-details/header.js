@@ -15,7 +15,7 @@ const AccountDetailsHeader = props => {
                 context.isMobile ? 'flex-row justify-content-center' : headerClass ? 'flex-row justify-content-center' :null
               }
             >
-              <h2 className={ headerClass || "h-2 h-2-primary h-2-bold"}>{title}</h2>
+              <h2 className={ headerClass || "h-2 h-2-primary h-2-bold"} dangerouslySetInnerHTML={{__html: title}} />
             </Col>
             {showhr && (<hr className={hrclass || "hr margin-top-10 pad-bot-15 left-right-15" }/>)}
             

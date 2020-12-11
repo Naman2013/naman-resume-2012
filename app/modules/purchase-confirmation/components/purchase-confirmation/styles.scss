@@ -1,0 +1,121 @@
+@import '../../../../styles/variables/colors.scss';
+@import '../../../../styles/variables/fonts.scss';
+@import '../../../../styles/variables/media-queries.scss';
+
+.confirm-dialog {
+  background-color: #FFF;
+  padding: 20px 15%;
+
+}
+
+.centerBtn{
+  display:flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.thank-text{
+  color: #FFF;
+  text-align: center;
+  margin-top: 5px;
+  font-weight: 500;
+  font-family: $primary-font;
+  margin-left: 20px;
+}
+
+.scroll-down-text{
+  color: #000;
+  text-align: center;
+  margin: 5px 15%;
+  font-weight: 700;
+  font-family: $primary-font;  
+  color: #415671;
+}
+
+.go-to-dashboard-btn{
+  color: #41566f;
+  border-radius: 15px;
+  border: 1px dashed #41566f;
+  font-family: $secondary-font;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #FFF;
+  padding: 2px 15px;
+  margin: 10px auto 0px auto !important;
+  display: block !important;
+}
+
+.video-frame{
+  display: block;
+  margin: 0px auto;
+  width: 400px;
+  height: 250px;
+}
+
+.watch-text{
+  color: #000;
+  text-align: center;
+  margin-top: 5px;           
+  font-family: $primary-font;
+}
+
+.desktop-graphics{
+  background-color: #41566f;
+  display: flex;  
+  padding-left: 100px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  align-items: center;
+}
+
+.mobile-graphics{
+  display: none;
+}
+
+@media (max-width: $screen-sm-min) {
+  .video-frame{    
+    width: 300px;
+    height: 200px;
+  }
+  .confirm-dialog {    
+    padding: 20px 5%;  
+  }
+  .scroll-down-text{
+    margin: 5px 0px;
+  }
+}
+
+@media (max-width: $screen-md-min) {
+  .desktop-graphics{
+    display: none;
+  }
+  .mobile-graphics{
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+  }
+  .thank-text{
+    color: #000;
+    margin-left: 0;
+    padding: 30px;
+  }
+  .graphic-image{
+    margin: 0px auto;
+  }
+  .confirm-dialog {    
+    padding: 20px 5%;  
+  }
+  .video-frame{    
+    width: 300px;
+    height: 200px;
+  }
+  .scroll-down-text{
+    margin: 5px 0px;
+  }
+}
+
+@media (min-width: $screen-xl-min) {
+  .confirm-dialog {    
+    padding: 20px 20%;  
+  }
+}

@@ -12,9 +12,9 @@ const propTypes = {
   logoURL: PropTypes.string.isRequired,
 };
 
-const Telescope = ({ text, anchor, isOnline, logoURL }) => (
-  <Link to={anchor}>
-    <div className="telescope root">
+const Telescope = ({ text, anchor, isOnline, logoURL, user }) => (
+  <Link to={anchor} style={{ cursor: !user.isAuthorized ? "default": "pointer" }} onClick={(e)=> !user.isAuthorized ? e.preventDefault() : null}>
+    <div className={"telescope root"}>
       <div className="telescope-link">
         <div className="action" to={anchor}>
           {text}
@@ -47,7 +47,7 @@ const Telescope = ({ text, anchor, isOnline, logoURL }) => (
     </div>
 
     <style jsx>
-      {`
+      {`     
       .root.telescope {
         font-family: ${primaryFont};
         display: flex;
@@ -114,6 +114,7 @@ const Telescope = ({ text, anchor, isOnline, logoURL }) => (
         flex-direction: row;
         align-items: center;
       }
+      
     `}
     </style>
   </Link>

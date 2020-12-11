@@ -2,7 +2,8 @@
   "gonogo.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/gonogo.slooh.com.html"
+    "loadHtmlFile": "/config/gonogo.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "questauthorpreview.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -15,7 +16,8 @@
     "loadHtmlFile": "/config/events.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "www.astronomyfair.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -47,7 +49,8 @@
     "loadHtmlFile": "/config/live.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -55,7 +58,8 @@
     "loadHtmlFile": "/config/main.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "www.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -63,7 +67,8 @@
     "loadHtmlFile": "/config/www.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -71,12 +76,14 @@
     "loadHtmlFile": "/config/slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "v4-prod-build.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/v4-prod-build.slooh.com.html"
+    "loadHtmlFile": "/config/v4-prod-build.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "southafrica.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -160,22 +167,27 @@
   },
   "localhost": {
     "COOKIE_DOMAIN": null,
-    "loadHtmlFile": "/config/localhost.html"
+    "loadHtmlFile": "/config/localhost.html",
+    "guestHomepageURL": "/landingPage"
   },
   "eris.slooh.com": {
-    "loadHtmlFile": "/config/eris.slooh.com.html"
+    "loadHtmlFile": "/config/eris.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "nova.slooh.com": {
     "loadHtmlFile": "/config/nova.slooh.com.html",
     "GOOGLE_OPTIMIZE_EXPERIMENT_IDS": {
       "guestDashboardGoogleExperienceId": null
-    }
+    },
+    "guestHomepageURL": "/landingPage"
   },
   "orion.slooh.com": {
-    "loadHtmlFile": "/config/orion.slooh.com.html"
+    "loadHtmlFile": "/config/orion.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "zeta.slooh.com": {
-    "loadHtmlFile": "/config/zeta.slooh.com.html"
+    "loadHtmlFile": "/config/zeta.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "default": {
     "loadHtmlFile": "/config/default.html",
@@ -191,7 +203,8 @@
       "guestDashboardGoogleExperienceId": null
     },
     "GOOGLE_API_RECAPTCHA_V3_KEY": "6LdZ_7cZAAAAAPWifcjQvVILe-_hvxqzWzZ3vDOu",
-    "GOOGLE_API_RECAPTCHA_V2_KEY": "6Le6mLgZAAAAAMGRhhRUCZgPgcqQxSnV2DDZPhqy"
+    "GOOGLE_API_RECAPTCHA_V2_KEY": "6Le6mLgZAAAAAMGRhhRUCZgPgcqQxSnV2DDZPhqy",
+    "guestHomepageURL": "/guestDashboard"
   }
 }
 

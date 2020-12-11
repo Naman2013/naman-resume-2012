@@ -4,7 +4,7 @@ import Login from './partials/LogIn';
 import LoggedIn from './partials/LoggedIn';
 import PROFILE_CONFIGURATION from './profileConfiguration';
 
-const Profile = ({ user, userMenu }) => {
+const Profile = ({ user, userMenu, mainMenu }) => {
   return (
     <div>
       {user.isAuthorized && (
@@ -15,7 +15,7 @@ const Profile = ({ user, userMenu }) => {
         />
       )}
 
-      {!user.isAuthorized && <Login avatarURL={user.avatarURL} />}
+      {!user.isAuthorized && mainMenu && <Login loginMenuLinks={mainMenu.loginMenuLinks} avatarURL={user.avatarURL} />}
     </div>
   );
 };

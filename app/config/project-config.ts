@@ -13,6 +13,7 @@ export type ProjectConf = {
   GOOGLE_OPTIMIZE_EXPERIMENT_IDS?: { [key: string]: string };
   GOOGLE_API_RECAPTCHA_V3_KEY?: string;
   GOOGLE_API_RECAPTCHA_V2_KEY?: string;
+  guestHomepageURL?: string;
 };
 export type ProjectsConf = {
   [key: string]: any;
@@ -58,3 +59,5 @@ export const googleRecaptchaConfig = {
     CAPTCHA_KEY_V3: projectConf.GOOGLE_API_RECAPTCHA_V3_KEY,
     CAPTCHA_KEY_V2: projectConf.GOOGLE_API_RECAPTCHA_V2_KEY,
 }
+
+export const guestDashboardUrl = projectConf.guestHomepageURL;

@@ -1,0 +1,26 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .sloovian-list-main{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 16px;
+    margin-bottom: 32px;
+    grid-row-gap: 16px;    
+}
+
+@media (min-width: $screenXLarge) {
+
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-guest-dash .sloovian-list-main{
+        grid-template-columns: auto auto;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-guest-dash .sloovian-list-main{
+        grid-template-columns: auto;
+    }
+}

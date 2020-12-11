@@ -1,0 +1,102 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .partner-card-main{
+    background: #F2F4F7;
+    border-radius: 8px;
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-guest-dash .partner-card-title{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 120%;    
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.new-guest-dash .partner-card-desc{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.new-guest-dash .partner-img{    
+    width: 65px;
+    height: 65px;
+}
+
+.new-guest-dash .partner-details{
+    flex: 3;
+    margin-left: 16px;
+}
+
+.new-guest-dash .partner-div{
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.new-guest-dash .partner-name{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 120%;
+    color: #415671;    
+}
+
+.new-guest-dash .partner-title{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 120%;
+    color: #415671;    
+}
+
+.new-guest-dash .partner-place{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 133%;
+    color: #415671;
+}
+
+.new-guest-dash .partner-joined{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 133%;    
+    color: #111111;
+}
+
+.new-guest-dash .partner-type{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    color: #415671;
+    text-align: center;
+}
+
+@media (min-width: $screenXLarge) {
+
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+
+}
