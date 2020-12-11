@@ -14,6 +14,7 @@ import { API } from 'app/api';
 import { fireSloohFBPurchaseEvent } from 'app/utils/fb-wrapper';
 import { resetLogIn, logUserIn, logGoogleUserIn } from 'app/modules/login/actions';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 
 
 const propTypes = {
