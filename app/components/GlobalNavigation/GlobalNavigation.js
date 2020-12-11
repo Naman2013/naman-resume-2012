@@ -27,6 +27,9 @@ const mainMenuModel = {
     secondaryLinks: has(resp, 'mainMenu.secondaryLinks')
       ? resp.mainMenu.secondaryLinks
       : [],
+    loginMenuLinks: has(resp, 'mainMenu.loginMenuLinks')
+      ? resp.mainMenu.loginMenuLinks
+      : [],
   }),
 };
 

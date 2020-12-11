@@ -14,7 +14,7 @@ export const modelTelescopesFromObsList = {
   },
 };
 
-export default (telescopes = []) => ({
+export default (telescopes = [], user) => ({
   render: props => <Telescope {...props} />,
   content: telescopes.map(_telescope => ({
     _ID: uniqueId(),
@@ -22,5 +22,6 @@ export default (telescopes = []) => ({
     anchor: _telescope.teleDetailsURL,
     isOnline: _telescope.teleOnlineStatus === 'online',
     logoURL: _telescope.teleLogoURL,
-  })),
+    user: user,
+  })),  
 });
