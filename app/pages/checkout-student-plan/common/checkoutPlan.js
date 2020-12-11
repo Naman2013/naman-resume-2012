@@ -19,7 +19,7 @@ const { string, func } = PropTypes;
 @withTranslation()
 class checkoutPlan extends Component {
     constructor(props) {
-        window.localStorage.setItem('selectedPlanId', 171);
+
         super(props);
         this.state = {
             activePlan: null,
@@ -35,18 +35,21 @@ class checkoutPlan extends Component {
         this.setState({
             activePlan: planApprentice.length ? planApprentice[0] : null,
             alternatePlan: planStudent.length ? planStudent[0] : null,
+
         })
+        window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
 
     }
 
     switchPlan = () => {
+
 
         const { alternatePlan, activePlan } = this.state;
         this.setState({
             activePlan: alternatePlan,
             alternatePlan: activePlan
         })
-        window.localStorage.setItem('selectedPlanId', activePlan.planID);
+        window.localStorage.setItem('selectedPlanId', alternatePlan.planID);
 
     }
 
@@ -92,6 +95,21 @@ class checkoutPlan extends Component {
                                                         </div>
                                                     </div>
                                                     <div className="state_active">
+                                                        {this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                        </div>}
+                                                    </div>
+                                                    {/* <div className="state_active">
+
+                                                        <div className="ml-1">
+                                                            <PlanCard
+                                                                heading={null}
+                                                                subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                                </div>}
+                                                                description={null}
+                                                            />
+                                                        </div>
+                                                    </div> */}
+                                                    <div className="state_active">
 
                                                         <div className="ml-1">
                                                             <PlanCard
@@ -104,9 +122,10 @@ class checkoutPlan extends Component {
 
 
 
+
                                                     {this.state.activePlan && this.state.activePlan.planTextBlockDetails.map((planTextBlockData) => {
 
-                                                        console.log(planTextBlockData);
+
                                                         return (<div className="state_active">
                                                             <div>
                                                                 <i className="fa fa-check" aria-hidden="true">
@@ -132,15 +151,15 @@ class checkoutPlan extends Component {
 
 
 
-                                            <div className="state_active" onClick={this.switchPlan}>
+                                            <div className="state_active cursor-point" onClick={this.switchPlan}>
                                                 <div>
-                                                    <PlanCard
+                                                    <PlanHeader
                                                         heading={null}
-                                                        subHeading={null}
-                                                        description={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
+                                                        subHeading={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
+                                                        description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4">
+                                                <div className="ml-4 pt-2 mt-1">
                                                     <i className="fa fa-chevron-right" aria-hidden="true"></i>
                                                 </div>
                                             </div>
@@ -155,19 +174,19 @@ class checkoutPlan extends Component {
                                                         description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4 pt-2">
+                                                <div className="ml-4">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="$ 0"
                                                         description={null}
                                                     />
-                                                    
+
                                                 </div>
                                             </div>
 
                                             <div className="state_active">
                                                 <div>
-                                                    <PlanCard
+                                                    <PlanHeader
                                                         heading={null}
                                                         subHeading={null}
                                                         description="Due during free trial period"
@@ -175,12 +194,8 @@ class checkoutPlan extends Component {
                                                 </div>
                                             </div>
 
-                                            <div className="jumbotron mt-4 billJumB text-dark">
-                                                <PlanCard
-                                                    heading={null}
-                                                    subHeading={null}
-                                                    description={this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}
-                                                />
+                                            <div className="jumbotron mt-4 billJumB">
+                                                <p> {this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}</p>
                                             </div>
 
                                             <style jsx>{styles}</style>

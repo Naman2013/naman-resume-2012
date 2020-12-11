@@ -44,13 +44,13 @@ class accordion extends Component {
         return (
             <div>
                 <Accordion style={h1Styles} defaultActiveKey="0" activeKey={accoridianActiveKey} >
-                    <Card className={`PersonalInfo ${accoridianActiveKey == "1" ? 'extraclass': null}`}>
+                    <Card className={`PersonalInfo ${accoridianActiveKey == "1" ? 'extraclass' : null}`}>
                         <Accordion.Toggle
                             as={Card.Header}
                             eventKey="0"
                         >
                             <div>
-                                <p>Personal Information {accoridianActiveKey == '1' ? <i className="fa fa-check" aria-hidden="true"></i> : null}</p>
+                                <p className="acc-header">Personal Information {accoridianActiveKey == '1' ? <i className="fa fa-check" aria-hidden="true"></i> : null}</p>
                             </div>
                             <div>
                                 <img
@@ -60,7 +60,7 @@ class accordion extends Component {
                                     alt="chervonicon"
                                 ></img>
                             </div>
-                            
+
 
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
@@ -79,13 +79,18 @@ class accordion extends Component {
                             }} */
                             eventKey="1"
                         >
-                            Payment Details
-                            <img
-                                style={accoridianActiveKey == '0' ? imgRotate : null}
-                                className="chervonicon"
-                                src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
-                                alt=""
-                            ></img>
+
+                            <div>
+                                <p className="acc-header"> Payment Details</p>
+                            </div>
+                            <div>
+                                <img
+                                    style={accoridianActiveKey == '0' ? imgRotate : null}
+                                    className="chervonicon"
+                                    src="https://vega.slooh.com/assets/v4/dashboard-new/up_arrow_white.svg"
+                                    alt="chervonicon"
+                                ></img>
+                            </div>
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
                             <Card.Body>

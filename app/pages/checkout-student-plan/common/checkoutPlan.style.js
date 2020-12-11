@@ -33,6 +33,16 @@ export default css`
 .billJumB{
   padding: 2rem !important;
 }
+.jumbotron{
+  background: #7BA3D6;
+  color:#415671;
+  font-size: 17px;
+}
+
+.cursor-point .head-subHeading:hover {
+  cursor: pointer;
+}
+
 `;
 
 

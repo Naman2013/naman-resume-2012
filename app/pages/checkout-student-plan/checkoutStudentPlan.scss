@@ -1,3 +1,6 @@
+
+@import "../../../app/styles/variables/fonts.scss";
+
 .check-out-stu {
   background: #fff;
   padding: 0 2em;
@@ -41,7 +44,7 @@ button.submit-button {
   text-transform: uppercase;
   font-size: 11px;
   font-weight: bold;
-  font-family: Brandon Grotesque;
+  font-family: $primary-font;
 }
 
 button.submit-button:focus {
@@ -80,8 +83,8 @@ button.btn.btn-dark img {
 
 .form-label {
   display: inline-block;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
+  font-family: $primary-font;
+  font-size: 16px;
   font-weight: bold;
 }
 

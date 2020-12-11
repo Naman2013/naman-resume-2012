@@ -4,16 +4,20 @@ import "./styles.scss";
 
 
 export function PlanHeader(props) {
-    const { heading, subHeading,  } = props;
+    const { heading, subHeading,description } = props;
     return (
         <div className="">
             <h2 className="title-heading">{heading}</h2>
             {subHeading && (
-                <h4 className="title-subHeading">{subHeading}</h4>
+                <b className="head-subHeading">{subHeading}</b>
             )}
-            </div>
-        )
-    }
+            {description && (
+                <b className="head-description">{description}</b>
+            )}
+
+        </div>
+    )
+}
 
 
 export function PlanCard(props) {
@@ -24,7 +28,7 @@ export function PlanCard(props) {
                 <h2 className="plan-title-heading">{heading}</h2>
             )}
             {subHeading && (
-                <b className="">{subHeading}</b>
+                <b className="plan-title-subHeading">{subHeading}</b>
             )}
             {description && (
                 <p className="title-description">{description}</p>
