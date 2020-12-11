@@ -4,7 +4,8 @@
 
 .confirm-dialog {
   background-color: #FFF;
-  padding: 20px; 
+  padding: 20px 15%;
+
 }
 
 .centerBtn{
@@ -25,9 +26,10 @@
 .scroll-down-text{
   color: #000;
   text-align: center;
-  margin-top: 5px;
+  margin: 5px 15%;
   font-weight: 700;
-  font-family: $secondary-font;  
+  font-family: $primary-font;  
+  color: #415671;
 }
 
 .go-to-dashboard-btn{
@@ -39,13 +41,13 @@
   font-size: 16px;
   background-color: #FFF;
   padding: 2px 15px;
-  margin: 10px auto 0px auto;
-  display: block;
+  margin: 10px auto 0px auto !important;
+  display: block !important;
 }
 
 .video-frame{
   display: block;
-  margin: 20px auto;
+  margin: 0px auto;
   width: 400px;
   height: 250px;
 }
@@ -75,6 +77,12 @@
     width: 300px;
     height: 200px;
   }
+  .confirm-dialog {    
+    padding: 20px 5%;  
+  }
+  .scroll-down-text{
+    margin: 5px 0px;
+  }
 }
 
 @media (max-width: $screen-md-min) {
@@ -93,5 +101,21 @@
   }
   .graphic-image{
     margin: 0px auto;
+  }
+  .confirm-dialog {    
+    padding: 20px 5%;  
+  }
+  .video-frame{    
+    width: 300px;
+    height: 200px;
+  }
+  .scroll-down-text{
+    margin: 5px 0px;
+  }
+}
+
+@media (min-width: $screen-xl-min) {
+  .confirm-dialog {    
+    padding: 20px 20%;  
   }
 }

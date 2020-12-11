@@ -89,7 +89,7 @@ const AccountType = props => {
                 ) : null} */}
 
                 {/* <Col md={context.isDesktop ? 8 : 12} className="flex-col"> */}
-                <Col md={8}>
+                <Col md={context.isScreenXLarge ? 10 : 12}>
                   <div className="account-general__info">
                     <div className="i-box i-box-white pad-40 no-bottom-pad">
                       <h4 className="h-4 pad-bot-20 font-weight-normal">

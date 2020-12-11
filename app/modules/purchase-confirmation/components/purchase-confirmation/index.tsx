@@ -93,12 +93,12 @@ export class PurchaseConfirmation extends React.PureComponent<
                 showInfoButton={false}
                 purchaseThankYouText={purchaseThankYouText}
               />
-              <h3 className="scroll-down-text">
+              <h4 className="scroll-down-text">
                 {firstExplanationText}                                          
-              </h3>
-              <Button 
+              </h4>
+              {/* <Button 
                 onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
-                text={gettingStartedBtn.linkLabel}/>
+                text={gettingStartedBtn.linkLabel}/> */}
               {/* <NewButton
                   type={"button"}
                   onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
@@ -106,6 +106,8 @@ export class PurchaseConfirmation extends React.PureComponent<
                   style={"go-to-dashboard-btn"}
                   icon={null}
                 />     */}
+                <br/>
+                <br/>
               <iframe 
                 className="video-frame"
                 // width="400" 
@@ -116,8 +118,12 @@ export class PurchaseConfirmation extends React.PureComponent<
                 // allowfullscreen
                 >
               </iframe> 
-              <h5 className="watch-text">{secondExplanationText}</h5>
+              <br/>
+              <br/> 
+              <h4 className="scroll-down-text">{secondExplanationText}</h4>
+              <br/>
               <Button 
+                mod={"go-to-dashboard-btn"}
                 onClickEvent={()=>browserHistory.push(gettingStartedBtn.linkUrl)} 
                 text={gettingStartedBtn.linkLabel}/>
               {/* <NewButton
@@ -134,7 +140,7 @@ export class PurchaseConfirmation extends React.PureComponent<
         <br/>
 
         <div className="top-bot-10 left-right-20">
-          <AccountDetailsHeader title={pageHeading2} showhr={true}/>
+          <AccountDetailsHeader title={pageHeading2} showhr={true} headerClass/>
           <Container>
             <p dangerouslySetInnerHTML={{ __html: explainationText }} />
           </Container>
