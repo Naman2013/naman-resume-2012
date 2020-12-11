@@ -17,8 +17,8 @@ class checkoutStudentPlan extends Component {
                 <div className="check-out-stu">
                     <Container>
                         <TitleHeader
-                            heading="Join The Slooh Universe"
-                            subHeading="Complete Your Order"
+                            heading="Join the Slooh Universe"
+                            subHeading="Complete your order"
                         />
                         <Row>
                             <Col md="4">

@@ -109,7 +109,7 @@ class checkoutPlan extends Component {
 
                                                     {this.state.activePlan && this.state.activePlan.planTextBlockDetails.map((planTextBlockData) => {
 
-                                                        console.log(planTextBlockData);
+                                                        
                                                         return (<div className="state_active">
                                                             <div>
                                                                 <i className="fa fa-check" aria-hidden="true">
@@ -135,15 +135,15 @@ class checkoutPlan extends Component {
 
 
 
-                                            <div className="state_active" onClick={this.switchPlan}>
+                                            <div className="state_active cursor-point" onClick={this.switchPlan}>
                                                 <div>
-                                                    <PlanCard
+                                                    <PlanHeader
                                                         heading={null}
-                                                        subHeading={null}
-                                                        description={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
+                                                        subHeading={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
+                                                        description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4">
+                                                <div className="ml-4 pt-2 mt-1">
                                                     <i className="fa fa-chevron-right" aria-hidden="true"></i>
                                                 </div>
                                             </div>
@@ -158,7 +158,7 @@ class checkoutPlan extends Component {
                                                         description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4 pt-2">
+                                                <div className="ml-4">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="$ 0"
@@ -170,7 +170,7 @@ class checkoutPlan extends Component {
 
                                             <div className="state_active">
                                                 <div>
-                                                    <PlanCard
+                                                    <PlanHeader
                                                         heading={null}
                                                         subHeading={null}
                                                         description="Due during free trial period"
@@ -178,12 +178,8 @@ class checkoutPlan extends Component {
                                                 </div>
                                             </div>
 
-                                            <div className="jumbotron mt-4 billJumB text-dark">
-                                                <PlanCard
-                                                    heading={null}
-                                                    subHeading={null}
-                                                    description={this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}
-                                                />
+                                            <div className="jumbotron mt-4 billJumB">
+                                                <p> {this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}</p>
                                             </div>
 
                                             <style jsx>{styles}</style>

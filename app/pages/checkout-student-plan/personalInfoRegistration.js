@@ -22,7 +22,7 @@ class personalInfoRegistration extends Component {
 
     constructor(props) {
         super(props);
-       
+
 
         this.state = {
             accountCreationType: 'userpass',
@@ -578,6 +578,7 @@ class personalInfoRegistration extends Component {
                                                                         onSuccess={this.processGoogleSuccessResponse}
                                                                         onFailure={this.processGoogleFailureResponse}
                                                                     />
+
                                                                 </div>
                                                             )}
                                                         </Fragment>
