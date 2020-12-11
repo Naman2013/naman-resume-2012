@@ -13,7 +13,7 @@ export default class PartnerCard extends PureComponent{
                     <div className="partner-details">
                         <h4 className="partner-name">{card.imageTextData.imageTitle}</h4>
                         <h5 className="partner-place">{card.imageTextData.imageSubTitle}</h5>
-                        <h6 className="partner-joined">{card.imageTextData.imageContent}</h6>
+                        <h6 className="partner-joined">{card.imageTextData.memberSince}</h6>
                     </div>
                 </div>
                 <h4 className="partner-card-title">{card.SubTitleText}</h4>
