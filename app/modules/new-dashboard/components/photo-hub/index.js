@@ -279,6 +279,7 @@ class PhotoHub extends Component{
                     // setTag,
                     // deleteTag,
                   },
+                canUploadPhotos,
                  } = this.props;
                  const tagActions = {
                     getTags: this.getTagsAction,
@@ -343,7 +344,7 @@ class PhotoHub extends Component{
                             theme={"dark"}
                             onTabChange={this.onTabChange}
                         /> 
-                        {photoHub && (
+                        {photoHub && canUploadPhotos &&(
                             <UploadPhoto 
                             onHide={()=>this.onTabChange(selectedheader)}
                             newButton={true} />

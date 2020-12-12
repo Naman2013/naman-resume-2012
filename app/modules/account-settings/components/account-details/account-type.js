@@ -52,12 +52,11 @@ const AccountType = props => {
             <Btn mod="circle" onClick={goToPlanInfoUrl}>
               <Icon i="info" />
             </Btn>
-
-            {!isUpgradeAvailable === true ?
-              <Button onClick={() => setModalOpen(true)}>
-                {upgradeButtonLabel}
-              </Button>
-              : null
+            {isUpgradeAvailable === true ? 
+             <Button onClick={() => setModalOpen(true)}>
+             {upgradeButtonLabel}
+           </Button>
+           :null
             }
           </Fragment>
         )}

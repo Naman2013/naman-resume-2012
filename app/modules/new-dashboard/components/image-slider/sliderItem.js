@@ -9,6 +9,7 @@ import ObservationComments from 'app/modules/observations/containers/observation
 import LikeButton from '../button/LikeButton';
 import { Link } from 'react-router';
 import { Tooltip } from 'react-tippy';
+import { browserHistory } from 'react-router';
 
 export class SliderItem extends Component{
 
@@ -84,12 +85,23 @@ export class SliderItem extends Component{
                                                 showLikePrompt={imageDetails.showLikePrompt}
                                                 btnStyle={"slider-footer-button"}
                                             />
+
+                                            <div>
+                                                <Button
+                                                    type={"button"}
+                                                    onClickEvent={onCommentButtonClick} 
+                                                    text={imageDetails.commentsCount}                                             
+                                                    style={"slider-footer-button"}
+                                                    icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                                />
+                                            </div>                                            
+
                                             <Button
                                                 type={"button"}
-                                                onClickEvent={onCommentButtonClick} 
-                                                text={imageDetails.commentsCount}                                             
-                                                style={"slider-footer-button"}
-                                                icon={"https://vega.slooh.com/assets/v4/dashboard-new/comment.svg"}
+                                                onClickEvent={()=>browserHistory.push(imageDetails.photoViewFullURL)} 
+                                                text={"View Details"}                                             
+                                                style={"view-details-btn"}
+                                                icon={null}
                                             />
                                             {/* <Button
                                                 type={"button"}
