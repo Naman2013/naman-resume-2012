@@ -295,6 +295,7 @@ export class NewDashboard extends PureComponent{
                                         getMyPictures={getMyPicturesDataAction}                                    
                                         getMissionImages={getMissionImagesDataAction}
                                         getGalleryList={getGalleryListDataAction}                                                                       
+                                        canUploadPhotos={photoHubHeadings.canUploadPhotos}
                                     />
                                 )}
                                 
