@@ -12,6 +12,7 @@ export default class PartnerCard extends PureComponent{
                     <img className="partner-img" src={card.imageUrl}/>
                     <div className="partner-details">
                         <h4 className="partner-name">{card.imageTextData.imageTitle}</h4>
+                        <h4 className="partner-title">{card.imageTextData.userTitle}</h4>
                         <h5 className="partner-place">{card.imageTextData.imageSubTitle}</h5>
                         <h6 className="partner-joined">{card.imageTextData.memberSince}</h6>
                     </div>

@@ -83,12 +83,12 @@ export class Observation extends Component{
                                         <div className="overlay-div">
                                             <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
-                                            {/* <Link to={photo.photoViewFullURL}> */}
-                                                <div className="photo-hub-details" onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})}>
+                                            <Link to={photo.photoViewFullURL}>
+                                                <div className="photo-hub-details" >
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>                            
-                                            {/* </Link>         */}
+                                            </Link>        
                                         </div>  
                                         { selectedShareItem === i && shareInformation && (
                                             <div className="overlay-social-div">
@@ -109,12 +109,12 @@ export class Observation extends Component{
                                     <h5 className="mission-obj-name">{photo.imageTitle}</h5>
                                         <div>
                                             <h5 className="mission-obj-date">{photo.displayDate}</h5>
-                                            {/* <Link to={photo.photoViewFullURL}> */}
-                                                <div className="photo-hub-details" onClick={()=>showModal({customerImageId: photo.customerImageId, shareToken: getUserInfo().token})}>                                                
+                                            <Link to={photo.photoViewFullURL}>
+                                                <div className="photo-hub-details" >                                                
                                                     <h5 className="view-details">{"View Details"}</h5>
                                                     <img className="card-options" src="https://vega.slooh.com/assets/v4/dashboard-new/right_arrow_white.svg"/>
                                                 </div>
-                                            {/* </Link> */}
+                                            </Link>
                                         </div>                                                                        
                                 </div> 
                                 <div className="slider-content-footer">
