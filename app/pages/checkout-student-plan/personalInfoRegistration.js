@@ -13,10 +13,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { googleRecaptchaConfig } from 'app/config/project-config';
 import { getUserInfo } from 'app/modules/User';
 import { DeviceContext } from 'app/providers/DeviceProvider';
+import { withTranslation } from 'react-i18next';
 
 
 
-
+@withTranslation()
 
 class personalInfoRegistration extends Component {
 
@@ -36,20 +37,26 @@ class personalInfoRegistration extends Component {
                 googleProfilePictureURL: '',
             },
             accountFormDetails: {
-                AgeGroup: {
+
+
+                is13YearsAndOlder: {
                     label: '',
-                    value: '',
+                    visible: true,
+                    value: null,
                     hintText: '',
                     errorText: '',
                 },
-                legalGuardianCheckbox: {
+                not13YearsOldLegalGuardianOk: {
                     label: '',
+                    visible: true,
                     value: false,
                     hintText: '',
                     errorText: '',
                 },
-                ParentEmail: {
+
+                parentEmailAddress: {
                     label: '',
+                    visible: true,
                     value: '',
                     hintText: '',
                     errorText: '',
@@ -129,13 +136,12 @@ class personalInfoRegistration extends Component {
 
     /* This function handles a field change in the form and sets the state accordingly */
     handleFieldChange = ({ field, value }) => {
+
         /* Get the existing state of the signup form, modify it and re-set the state */
         const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-        if (field === 'legalGuardianCheckbox') {
-            newAccountFormData[field].value = !newAccountFormData[field].value;
-        } else {
-            newAccountFormData[field].value = value;
-        }
+
+        newAccountFormData[field].value = value;
+
         this.setState(() => ({
             accountFormDetails: newAccountFormData,
         }));
@@ -145,6 +151,7 @@ class personalInfoRegistration extends Component {
         formValues.preventDefault();
 
         const { accountFormDetails, accountCreationType, captchaVerified } = this.state;
+        const { t } = this.props;
         // console.log('accountCreationType', accountCreationType);
 
         if (!captchaVerified) {
@@ -157,33 +164,51 @@ class personalInfoRegistration extends Component {
         const accountFormDetailsData = cloneDeep(accountFormDetails);
 
         /* reset the error conditions */
-        accountFormDetailsData.AgeGroup.errorText = '';
+
         accountFormDetailsData.givenName.errorText = '';
         accountFormDetailsData.familyName.errorText = '';
         accountFormDetailsData.displayName.errorText = '';
-        accountFormDetailsData.legalGuardianCheckbox.errorText = '';
         accountFormDetailsData.loginEmailAddress.errorText = '';
         accountFormDetailsData.school.errorText
         accountFormDetailsData.password.errorText = '';
 
+        accountFormDetailsData.is13YearsAndOlder.errorText = '';
+        accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
+        accountFormDetailsData.parentEmailAddress.errorText = '';
+
         if (accountCreationType === 'userpass') {
 
             if (accountFormDetailsData.givenName.value === '') {
-                accountFormDetailsData.givenName.errorText =
-                    'Please enter in your first name.';
+                accountFormDetailsData.givenName.errorText = t(
+                    'Ecommerce.FirstNameRequierMessage'
+                );
                 formIsComplete = false;
             }
 
             if (accountFormDetailsData.familyName.value === '') {
-                accountFormDetailsData.familyName.errorText =
-                    'Please enter in your last name.';
+                accountFormDetailsData.familyName.errorText = t(
+                    'Ecommerce.LastNameRequierMessage'
+                );
                 formIsComplete = false;
             }
 
             if (accountFormDetailsData.loginEmailAddress.value === '') {
-                accountFormDetailsData.loginEmailAddress.errorText =
-                    'Please enter in your email address.';
+                accountFormDetailsData.loginEmailAddress.errorText = t(
+                    'Ecommerce.EmailRequierMessage'
+                );
                 formIsComplete = false;
+            } else {
+                /* verify the email address and the verification email address fields match */
+                /*  accountFormDetailsData.loginEmailAddress.errorText = '';
+                 if (
+                     accountFormDetailsData.loginEmailAddress.value !==
+                     accountFormDetailsData.loginEmailAddressVerification.value
+                 ) {
+                     accountFormDetailsData.loginEmailAddressVerification.errorText = t(
+                         'Ecommerce.EmailsDontMatchMessage'
+                     );
+                     formIsComplete = false;
+                 } */
             }
             /* if (accountFormDetailsData.school.value === '') {
                 accountFormDetailsData.school.errorText =
@@ -197,60 +222,80 @@ class personalInfoRegistration extends Component {
                 formIsComplete = false;
             }
 
-            if (accountFormDetailsData.AgeGroup.value === '') {
-                accountFormDetailsData.AgeGroup.errorText =
-                    'You must certify that you are 13 years or older.';
-                formIsComplete = false;
-            }
-
-            if (accountFormDetailsData.AgeGroup.value === 'Under13') {
-
-                if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
-                    accountFormDetailsData.legalGuardianCheckbox.errorText =
-                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
-                    accountFormDetailsData.ParentEmail.errorText =
-                        'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
-                    formIsComplete = false;
-                }
-
-                if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
-                    accountFormDetailsData.legalGuardianCheckbox.errorText = "";
-                    accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
-                    formIsComplete = false;
-                }
-
-                if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
-                    accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
-                    accountFormDetailsData.ParentEmail.errorText = "";
-                    formIsComplete = false;
-                }
-
-                if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value) {
-                    accountFormDetailsData.legalGuardianCheckbox.errorText = "";
-                    accountFormDetailsData.ParentEmail.errorText = "";
-                    formIsComplete = true;
-                }
-
-            }
-
-        } else if (accountCreationType === 'googleaccount') {
+        }
+        else if (accountCreationType === 'googleaccount') {
             /* Verify that the user has provided:
               Firstname
               Lastname
             */
 
             if (accountFormDetailsData.givenName.value === '') {
-                accountFormDetailsData.givenName.errorText =
-                    'Please enter in your first name.';
+                accountFormDetailsData.givenName.errorText = t(
+                    'Ecommerce.FirstNameRequireMessage'
+                );
                 formIsComplete = false;
             }
 
             if (accountFormDetailsData.familyName.value === '') {
-                accountFormDetailsData.familyName.errorText =
-                    'Please enter in your last name.';
+                accountFormDetailsData.familyName.errorText = t(
+                    'Ecommerce.LastNameRequireMessage'
+                );
                 formIsComplete = false;
             }
         }
+
+
+
+        if (this.state.isAgeRestricted === true) {
+            /* Make sure that the 13/Older indicator is selected with a value */
+            if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+                accountFormDetailsData.is13YearsAndOlder.errorText = t(
+                    'Ecommerce.AgeRequierMessage'
+                );
+                formIsComplete = false;
+            } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+                //make sure the user has certified that they have their Legal Guardian's permission to sign up.
+                if (
+                    accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
+                ) {
+                    accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
+                        'Ecommerce.MinAgeErrorMessage'
+                    );
+                    formIsComplete = false;
+                }
+
+                //make sure the parent email address field is filled in.
+                if (accountFormDetailsData.parentEmailAddress.value === '') {
+                    accountFormDetailsData.parentEmailAddress.errorText = t(
+                        'Ecommerce.ParentEmailRequierMessage'
+                    );
+                    formIsComplete = false;
+                }
+            }
+        }
+
+
+        /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
+        if (accountFormDetailsData.password.value === '') {
+            accountFormDetailsData.password.errorText = t(
+                'Ecommerce.PasswordRequierMessage'
+            );
+            formIsComplete = false;
+        } else {
+            /* verify the password and the verification password fields match */
+            /* accountFormDetailsData.password.errorText = '';
+            if (
+                accountFormDetailsData.password.value !==
+                accountFormDetailsData.passwordVerification.value
+            ) {
+                accountFormDetailsData.passwordVerification.errorText = t(
+                    'Ecommerce.PasswordsDontMatchMessage'
+                );
+                formIsComplete = false;
+            } */
+        }
+
+        this.setState(() => ({ formIsComplete: formIsComplete }));
 
         if (formIsComplete === true) {
 
@@ -372,7 +417,7 @@ class personalInfoRegistration extends Component {
                          })) */
 
                         const { onStepOneComplete } = this.props;
-                       
+
                         onStepOneComplete("1");
                         // console.log('Proceeding to create the customers pending account');
                         // browserHistory.push('/join/step3');
@@ -495,9 +540,6 @@ class personalInfoRegistration extends Component {
         // console.log('result', result)
         const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-        newAccountFormData.AgeGroup.label = result.formFieldLabels.is13YearsAndOlder.label;
-        newAccountFormData.legalGuardianCheckbox.label = result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
-        newAccountFormData.ParentEmail.label = result.formFieldLabels.parentEmailAddress.label;
 
         newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
         newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
@@ -505,9 +547,45 @@ class personalInfoRegistration extends Component {
             result.formFieldLabels.displayname.label;
         newAccountFormData.loginEmailAddress.label =
             result.formFieldLabels.loginemailaddress.label;
-        /* newAccountFormData.loginEmailAddressVerification.label =
-            result.formFieldLabels.loginemailaddressverification.label; */
+        /*  newAccountFormData.loginEmailAddressVerification.label =
+             result.formFieldLabels.loginemailaddressverification.label; */
         newAccountFormData.password.label = result.formFieldLabels.password.label;
+        /*  newAccountFormData.passwordVerification.label =
+             result.formFieldLabels.passwordverification.label; */
+        /*  newAccountFormData.discussionGroupCode.label =
+             result.formFieldLabels.discussionGroupCode.label; */
+        newAccountFormData.is13YearsAndOlder.label =
+            result.formFieldLabels.is13YearsAndOlder.label;
+        newAccountFormData.not13YearsOldLegalGuardianOk.label =
+            result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
+        newAccountFormData.parentEmailAddress.label =
+            result.formFieldLabels.parentEmailAddress.label;
+
+
+
+
+        newAccountFormData.givenName.hintText =
+            result.formFieldLabels.firstname.hintText;
+        newAccountFormData.familyName.hintText =
+            result.formFieldLabels.lastname.hintText;
+        newAccountFormData.displayName.hintText =
+            result.formFieldLabels.displayname.hintText;
+        newAccountFormData.loginEmailAddress.hintText =
+            result.formFieldLabels.loginemailaddress.hintText;
+        /*         newAccountFormData.loginEmailAddressVerification.hintText =
+                    result.formFieldLabels.loginemailaddressverification.hintText; */
+        newAccountFormData.password.hintText =
+            result.formFieldLabels.password.hintText;
+        /* newAccountFormData.passwordVerification.hintText =
+            result.formFieldLabels.passwordverification.hintText; */
+        /* newAccountFormData.discussionGroupCode.hintText =
+            result.formFieldLabels.discussionGroupCode.hintText; */
+        newAccountFormData.is13YearsAndOlder.hintText =
+            result.formFieldLabels.is13YearsAndOlder.hintText;
+        newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
+            result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
+        newAccountFormData.parentEmailAddress.hintText =
+            result.formFieldLabels.parentEmailAddress.hintText;
 
 
         this.setState(() => ({
@@ -518,14 +596,17 @@ class personalInfoRegistration extends Component {
 
 
     render() {
+        const { pathname, t } = this.props;
+
         const {
             accountFormDetails,
             captchaVerified
 
         } = this.state;
+
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
-        
+
         return (
             <div>
                 <Request
@@ -586,138 +667,156 @@ class personalInfoRegistration extends Component {
                                             />
 
                                             <form onSubmit={this.handleSubmit}>
-                                                <fieldset>
-                                                    <>
-                                                        <div className="mt-4">
-                                                            <div className="form-field-container">
-                                                                <span
-                                                                    className="form-label"
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: accountFormDetails.AgeGroup.label,
 
-                                                                    }}
-                                                                />
-                                                                 :
-                                                                <span
-                                                                    className="form-error"
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: accountFormDetails.AgeGroup.errorText,
-
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <br />
-                                                        <label>
-                                                            <Field
-                                                                name="Age"
-                                                                component="input"
-                                                                type="radio"
-                                                                value="13andOlder"
-                                                                onChange={event => {
-                                                                    this.handleFieldChange({
-                                                                        field: 'AgeGroup',
-                                                                        value: event.target.value,
-                                                                    });
+                                                {this.state.isAgeRestricted && (
+                                                    <div className="form-section mt-3">
+                                                        <div>
+                                                            <span
+                                                                className="form-label"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        accountFormDetails.is13YearsAndOlder
+                                                                            .label,
                                                                 }}
                                                             />
-                                                            {'\u00A0'}
-                                                                Yes
-                                                        </label>
-                                                        <span style={{ paddingLeft: '15px' }}>
-                                                            <label>
-                                                                <Field
-                                                                    name="Age"
-                                                                    component="input"
-                                                                    type="radio"
-                                                                    value="Under13"
-                                                                    onChange={event => {
-                                                                        this.handleFieldChange({
-                                                                            field: 'AgeGroup',
-                                                                            value: event.target.value,
-                                                                        });
-                                                                    }}
-                                                                />
-                                                                {'\u00A0'}
-                                                              No
-                                                        </label>
-                                                        </span>
-                                                        <br />
-
-                                                        {accountFormDetails.AgeGroup.value === "Under13" ?
-                                                            <>
-                                                                <div className="">
-                                                                    <div className="form-field-container">
-                                                                        <span
-                                                                            className="form-label"
-                                                                            dangerouslySetInnerHTML={{
-                                                                                __html: accountFormDetails.legalGuardianCheckbox.label,
-
-                                                                            }}
-                                                                        />
-                                                                       :
-                                                                        <span
-                                                                            className="form-error"
-                                                                            dangerouslySetInnerHTML={{
-                                                                                __html: accountFormDetails.legalGuardianCheckbox.errorText,
-
-                                                                            }}
-                                                                        />
-
-                                                                    </div>
+                                                            :
+                                                            <span
+                                                                className="form-error"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        accountFormDetails.is13YearsAndOlder
+                                                                            .errorText,
+                                                                }}
+                                                            />
+                                                            <br />
+                                                            <br />
+                                                            <fieldset>
+                                                                <label>
                                                                     <Field
-                                                                        name="legalGuardianCheckbox"
+                                                                        name="13andOlder"
+                                                                        label="Yes"
                                                                         component="input"
-                                                                        type="Checkbox"
-                                                                        checked={accountFormDetails.legalGuardianCheckbox.value}
-                                                                        onChange={event => {
+                                                                        type="radio"
+                                                                        value="13andolder"
+                                                                        onClick={event => {
                                                                             this.handleFieldChange({
-                                                                                field: 'legalGuardianCheckbox',
-                                                                                value: event.target.value,
+                                                                                field: 'is13YearsAndOlder',
+                                                                                value: true,
                                                                             });
                                                                         }}
-                                                                    />
-                                                                </div>
-                                                                <div className="form-section">
+                                                                    />{' '}
+                                                                    {t('Ecommerce.Yes')}
+                                                                </label>
+                                                                <span style={{ paddingLeft: '15px' }}>
+                                                                    <label>
+                                                                        <Field
+                                                                            name="13andOlder"
+                                                                            label="No"
+                                                                            component="input"
+                                                                            type="radio"
+                                                                            value="under13"
+                                                                            onClick={event => {
+                                                                                this.handleFieldChange({
+                                                                                    field: 'is13YearsAndOlder',
+                                                                                    value: false,
+                                                                                });
+                                                                            }}
+                                                                        />
+                                                                        {t('Ecommerce.No')}
+                                                                    </label>
+                                                                </span>
+                                                            </fieldset>
+                                                        </div>
+                                                        <br />
+                                                        {accountFormDetails.is13YearsAndOlder.value ===
+                                                            false && (
+                                                                <div>
                                                                     <div className="form-field-container">
                                                                         <span
                                                                             className="form-label"
                                                                             dangerouslySetInnerHTML={{
-                                                                                __html: accountFormDetails.ParentEmail.label,
-
+                                                                                __html:
+                                                                                    accountFormDetails
+                                                                                        .not13YearsOldLegalGuardianOk
+                                                                                        .label,
                                                                             }}
                                                                         />
                                                                          :
-                                                                        <span
+                                                                         <span
                                                                             className="form-error"
                                                                             dangerouslySetInnerHTML={{
-                                                                                __html: accountFormDetails.ParentEmail.errorText,
-
+                                                                                __html:
+                                                                                    accountFormDetails
+                                                                                        .not13YearsOldLegalGuardianOk
+                                                                                        .errorText,
                                                                             }}
                                                                         />
-
                                                                     </div>
                                                                     <Field
-                                                                        name="displayEmail"
-                                                                        type="name"
+                                                                        name="not13YearsOldLegalGuardianOk"
+                                                                        type="checkbox"
                                                                         className="form-field"
-                                                                        //  label={accountFormDetails.ParentEmail.hintText}
-                                                                        component={InputField}
-                                                                        onChange={event => {
+                                                                        label={
+                                                                            accountFormDetails
+                                                                                .not13YearsOldLegalGuardianOk.hintText
+                                                                        }
+                                                                        component="input"
+                                                                        value={
+                                                                            accountFormDetails
+                                                                                .not13YearsOldLegalGuardianOk.value
+                                                                        }
+                                                                        onClick={event => {
                                                                             this.handleFieldChange({
-                                                                                field: 'ParentEmail',
-                                                                                value: event.target.value,
+                                                                                field: 'not13YearsOldLegalGuardianOk',
+                                                                                value: !accountFormDetails
+                                                                                    .not13YearsOldLegalGuardianOk.value,
                                                                             });
                                                                         }}
                                                                     />
+                                                                    <br />
+                                                                    <br />
+                                                                    <span
+                                                                        className="form-label"
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html:
+                                                                                accountFormDetails.parentEmailAddress
+                                                                                    .label,
+                                                                        }}
+                                                                    />
+                                                                     :
+                                                                    <span
+                                                                        className="form-error"
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html:
+                                                                                accountFormDetails.parentEmailAddress
+                                                                                    .errorText,
+                                                                        }}
+                                                                    />
+                                                                    <Field
+                                                                        name="parentEmailAddress"
+                                                                        type="name"
+                                                                        className="form-field"
+                                                                        label={
+                                                                            accountFormDetails.parentEmailAddress
+                                                                                .hintText
+                                                                        }
+                                                                        component={InputField}
+                                                                        onChange={event => {
+                                                                            this.handleFieldChange({
+                                                                                field: 'parentEmailAddress',
+                                                                                value: event.target.value,
+                                                                            });
+                                                                        }}
+                                                                        value={
+                                                                            accountFormDetails.parentEmailAddress
+                                                                                .value
+                                                                        }
+                                                                    />
+                                                                    <br />
                                                                 </div>
-                                                            </>
-
-                                                            : null
-
-                                                        }
-                                                    </>
-                                                </fieldset>
+                                                            )}
+                                                    </div>
+                                                )}
 
                                                 {/*  <div className="form-section">
                                                     <div className="form-field-container">
@@ -777,7 +876,7 @@ class personalInfoRegistration extends Component {
                                                                 name="givenName"
                                                                 type="name"
                                                                 className="form-field"
-                                                                // label={accountFormDetails.givenName.hintText}
+                                                                label={accountFormDetails.givenName.hintText}
                                                                 component={InputField}
                                                                 onChange={event => {
                                                                     this.handleFieldChange({
@@ -810,7 +909,7 @@ class personalInfoRegistration extends Component {
                                                                 name="familyName"
                                                                 type="name"
                                                                 className="form-field"
-                                                                //label={accountFormDetails.familyName.hintText}
+                                                                label={accountFormDetails.familyName.hintText}
                                                                 component={InputField}
                                                                 onChange={event => {
                                                                     this.handleFieldChange({
@@ -837,7 +936,7 @@ class personalInfoRegistration extends Component {
                                                             <span
                                                                 className="form-error"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: '' /* accountFormDetails.displayName.label */,
+                                                                    __html: accountFormDetails.displayName.errorText,
 
                                                                 }}
                                                             />
