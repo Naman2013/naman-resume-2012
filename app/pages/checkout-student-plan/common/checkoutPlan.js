@@ -78,8 +78,9 @@ class checkoutPlan extends Component {
                                     <Fragment>
                                         <div className="left-plan-list">
                                             <PlanHeader
+                                                cardHeading="Your Plan"
                                                 heading={null}
-                                                subHeading="Your Plan"
+                                                subHeading={null}
                                                 description={null}
                                             />
                                             <div className="appPlan mt-4">

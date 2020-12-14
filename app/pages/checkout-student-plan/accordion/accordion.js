@@ -39,8 +39,6 @@ class accordion extends Component {
         /* if(accoridianActiveKey=="1"){
 
         } */
-        //let ActivecollapseID = collapseID.collapseID;
-        console.log('accoridianActiveKey', accoridianActiveKey);
         return (
             <div>
                 <Accordion style={h1Styles} defaultActiveKey="0" activeKey={accoridianActiveKey} >
