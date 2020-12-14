@@ -75,20 +75,20 @@ export class NewGuestDashboard extends PureComponent {
                         <br/>
                         <br/>
                         <TitleHeader
-                            heading={landingPageDetails.Partners.Title}
-                            subHeading={landingPageDetails.Partners.SubTitle}
-                        />
-                        <PartnerList
-                            list={landingPageDetails.Partners.List}
-                        />
-                        <br />
-                        <br />
-                        <TitleHeader
                             heading={landingPageDetails.Testimonial.Title}
                             subHeading={landingPageDetails.Testimonial.SubTitle}
                         />
                         <TestimonialList
                             list={landingPageDetails.Testimonial.List}
+                        />                        
+                        <br />
+                        <br />
+                        <TitleHeader
+                            heading={landingPageDetails.Partners.Title}
+                            subHeading={landingPageDetails.Partners.SubTitle}
+                        />
+                        <PartnerList
+                            list={landingPageDetails.Partners.List}
                         />
                         <br />
                         <br />

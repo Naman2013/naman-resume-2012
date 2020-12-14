@@ -31,7 +31,7 @@ export default class TestimonialCard extends PureComponent{
                     ))}
                     {card.totalImageCount && (
                         <div className="testimonial-add-badges-div">
-                            <h6 className="testimonial-add-badges-text">+{card.totalImageCount.totalImage}</h6>
+                            <h6 className="testimonial-add-badges-text">{card.totalImageCount.totalImage}</h6>
                         </div>
                     )}
                 </div>
