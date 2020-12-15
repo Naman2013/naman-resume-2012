@@ -176,14 +176,14 @@ class checkoutPlan extends Component {
                                             <hr className="seperatorDesign"></hr>
 
                                             <div className="state_total">
-                                                <div>
+                                                <div className="totalcost">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="Total"
                                                         description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4">
+                                                <div className="ml-4 totalcost">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="$ 0"
