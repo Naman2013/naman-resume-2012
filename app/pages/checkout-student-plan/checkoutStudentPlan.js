@@ -2,10 +2,10 @@ import React, { Component, } from 'react';
 import './checkoutStudentPlan.scss';
 import CheckoutPlan from './common/checkoutPlan';
 import Accordion from './accordion/accordion';
-import { Container, Row, Col, CardSubtitle, CardText, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import TitleHeader from './component/title-header';
 import { Spinner } from 'app/components/spinner/index';
-import { SUBSCRIPTION_PLANS_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { SUBSCRIPTION_PLANS_ENDPOINT_URL,  } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 
 class checkoutStudentPlan extends Component {

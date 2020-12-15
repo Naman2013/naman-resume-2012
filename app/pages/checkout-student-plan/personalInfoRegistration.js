@@ -980,7 +980,7 @@ class personalInfoRegistration extends Component {
                                                             name="loginEmailAddress"
                                                             type="name"
                                                             className="form-field"
-                                                            label={accountFormDetails.displayName.hintText}
+                                                            label={accountFormDetails.loginEmailAddress.hintText}
                                                             component={InputField}
                                                             onChange={event => {
                                                                 this.handleFieldChange({
