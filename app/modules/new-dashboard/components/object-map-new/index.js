@@ -382,6 +382,13 @@ export class ObjectMap extends Component{
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
           })          
+          map.getView().on('change:resolution', (event) => {
+            
+            console.log(event);
+            const graticuleLayer=[...map.getLayers().getArray()][1]; 
+            // graticuleLayer.setTargetSize(100);
+            
+          });
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
