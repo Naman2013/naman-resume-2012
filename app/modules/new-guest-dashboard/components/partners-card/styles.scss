@@ -4,7 +4,7 @@
 .new-guest-dash .partner-card-main{
     background: #F2F4F7;
     border-radius: 8px;
-    padding: 24px 40px;
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -40,7 +40,8 @@
 
 .new-guest-dash .partner-div{
     display: flex;
-    margin-bottom: 32px;
+    height: 120px;
+    // margin-bottom: 32px;
 }
 
 .new-guest-dash .partner-name{
