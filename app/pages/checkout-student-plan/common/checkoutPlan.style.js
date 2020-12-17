@@ -39,9 +39,15 @@ export default css`
   font-size: 17px;
 }
 
+.jumbotron p{
+  font-size:14px;
+}
+
 .cursor-point .head-subHeading:hover {
   cursor: pointer;
 }
+
+
 
 `;
 

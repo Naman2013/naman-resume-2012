@@ -419,7 +419,7 @@ class personalInfoRegistration extends Component {
                         const { onStepOneComplete } = this.props;
 
                         onStepOneComplete("1");
-                        // console.log('Proceeding to create the customers pending account');
+                        //  .log('Proceeding to create the customers pending account');
                         // browserHistory.push('/join/step3');
                     } else {
                         accountFormDetailsData.loginEmailAddress.errorText =
@@ -691,7 +691,7 @@ class personalInfoRegistration extends Component {
                                                             <br />
                                                             <br />
                                                             <fieldset>
-                                                                <label>
+                                                                <label className="ageGroupStyle">
                                                                     <Field
                                                                         name="13andOlder"
                                                                         label="Yes"
@@ -708,7 +708,7 @@ class personalInfoRegistration extends Component {
                                                                     {t('Ecommerce.Yes')}
                                                                 </label>
                                                                 <span style={{ paddingLeft: '15px' }}>
-                                                                    <label>
+                                                                    <label  className="ageGroupStyle">
                                                                         <Field
                                                                             name="13andOlder"
                                                                             label="No"
@@ -980,7 +980,7 @@ class personalInfoRegistration extends Component {
                                                             name="loginEmailAddress"
                                                             type="name"
                                                             className="form-field"
-                                                            label={accountFormDetails.displayName.hintText}
+                                                            label={accountFormDetails.loginEmailAddress.hintText}
                                                             component={InputField}
                                                             onChange={event => {
                                                                 this.handleFieldChange({

@@ -51,6 +51,8 @@ export class NewGuestDashboard extends PureComponent {
                             // ]}
                             cardList={landingPageDetails.SloohMetaverseUniverse.List}
                         />
+                         <br />
+                         <br/>
                         <Button
                             type={"button"}
                             //onClickEvent={()=>browserHistory.push(landingPageDetails.Button.link)} 
@@ -59,7 +61,7 @@ export class NewGuestDashboard extends PureComponent {
                             style={"free-trial-btn"}
                             icon={null}
                         />
-                        <br />
+                       
                         <br />
                         <SubTitleHeader
                             heading={landingPageDetails.SloohExplorationDashboard.Title}
@@ -75,20 +77,20 @@ export class NewGuestDashboard extends PureComponent {
                         <br/>
                         <br/>
                         <TitleHeader
-                            heading={landingPageDetails.Partners.Title}
-                            subHeading={landingPageDetails.Partners.SubTitle}
-                        />
-                        <PartnerList
-                            list={landingPageDetails.Partners.List}
-                        />
-                        <br />
-                        <br />
-                        <TitleHeader
                             heading={landingPageDetails.Testimonial.Title}
                             subHeading={landingPageDetails.Testimonial.SubTitle}
                         />
                         <TestimonialList
                             list={landingPageDetails.Testimonial.List}
+                        />                        
+                        <br />
+                        <br />
+                        <TitleHeader
+                            heading={landingPageDetails.Partners.Title}
+                            subHeading={landingPageDetails.Partners.SubTitle}
+                        />
+                        <PartnerList
+                            list={landingPageDetails.Partners.List}
                         />
                         <br />
                         <br />

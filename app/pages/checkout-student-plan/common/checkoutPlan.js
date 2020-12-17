@@ -10,7 +10,7 @@ import { SUBSCRIPTION_PLANS_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'app/ser
 import Request from 'app/components/common/network/Request';
 import { PlanHeader, PlanCard } from './plan-header'
 import styles from './checkoutPlan.style';
-
+import { Spinner } from 'app/components/spinner/index';
 
 
 
@@ -25,6 +25,7 @@ class checkoutPlan extends Component {
             activePlan: null,
             alternatePlan: null,
         }
+        this.handleJoinPageServiceResponse(props.supscriptionResponse);
     }
 
     handleJoinPageServiceResponse = result => {
@@ -32,11 +33,17 @@ class checkoutPlan extends Component {
         const planApprentice = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'apprentice');
         const planStudent = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'student');
 
-        this.setState({
+        // this.setState({
+        //     activePlan: planApprentice.length ? planApprentice[0] : null,
+        //     alternatePlan: planStudent.length ? planStudent[0] : null,
+
+        // })
+        // window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
+        this.state={
             activePlan: planApprentice.length ? planApprentice[0] : null,
             alternatePlan: planStudent.length ? planStudent[0] : null,
 
-        })
+        }
         window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
 
     }
@@ -57,11 +64,11 @@ class checkoutPlan extends Component {
         //  const { pathname, t } = this.props;
         const { mainHeading, subHeading, planName, paragraph1, paragraph2 } = this.state;
         const { t } = this.props;
-
+        
         return (
 
             <div>
-                <Request
+                {/* <Request
                     serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'joinByGuestLanding',
@@ -70,9 +77,10 @@ class checkoutPlan extends Component {
                         ),
                     }}
                     serviceResponseHandler={this.handleJoinPageServiceResponse}
-                    render={({ fetchingContent, serviceResponse: joinPageRes }) => (
-
+                    render={({ fetchingContent, serviceResponse: joinPageRes }) => ( */}
+                        
                         <Fragment>
+                           
                             <DeviceContext.Consumer>
                                 {({ isMobile, isDesktop, isTablet }) => (
                                     <Fragment>
@@ -168,14 +176,14 @@ class checkoutPlan extends Component {
                                             <hr className="seperatorDesign"></hr>
 
                                             <div className="state_total">
-                                                <div>
+                                                <div className="totalcost">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="Total"
                                                         description={null}
                                                     />
                                                 </div>
-                                                <div className="ml-4">
+                                                <div className="ml-4 totalcost">
                                                     <PlanHeader
                                                         heading={null}
                                                         subHeading="$ 0"
@@ -206,11 +214,11 @@ class checkoutPlan extends Component {
                             </DeviceContext.Consumer>
                         </Fragment>
 
-                    )}
+                    {/* )}
 
 
 
-                />
+                /> */}
 
             </div>
 
