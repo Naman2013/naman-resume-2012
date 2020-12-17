@@ -8,7 +8,8 @@
   "questauthorpreview.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "loadHtmlFile": "/config/questauthorpreview.slooh.com.html"
+    "loadHtmlFile": "/config/questauthorpreview.slooh.com.html",
+    "guestHomepageURL": "/landingPage"
   },
   "events.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
