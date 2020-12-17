@@ -1,3 +1,5 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
 
 // .new-dash .circle-container {
 //     position:relative;
@@ -262,6 +264,15 @@
 .new-dash .left-btn:hover,
 .new-dash .up-btn:hover{
     background-color: #32465e;    
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+
+    .new-dash .circle-div{ 
+        width: 75px;
+        height: 75px;
+    }
+
 }
   
   
