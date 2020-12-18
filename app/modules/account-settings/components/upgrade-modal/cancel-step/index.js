@@ -19,13 +19,8 @@ import { destroySession, removeUser,logout } from 'app/modules/User';
 export const cancelStepClose = (props, cancellationRequiresLogout) => {
   //Force the user back to the account settings page, they have opted to cancel their plan
   if (cancellationRequiresLogout === true) {
-    destroySession();
-    removeUser();
     logout();
     props.onHide();
-    browserHistory.push('/');
-    window.location.reload();
-
   } else {
     props.onHide();
     browserHistory.push('/account-settings/account-details');
