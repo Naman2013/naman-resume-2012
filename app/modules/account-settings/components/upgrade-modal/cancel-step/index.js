@@ -13,12 +13,25 @@ import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import '../../../styles.scss';
+import { destroySession, removeUser } from 'app/modules/User';
 
-export const cancelStepClose = props => {
+
+export const cancelStepClose = (props, cancellationRequiresLogout) => {
   //Force the user back to the account settings page, they have opted to cancel their plan
-  props.onHide();
-  browserHistory.push('/account-settings/account-details');
-  window.location.reload();
+  if (cancellationRequiresLogout === true) {
+    destroySession();
+    removeUser();
+    props.onHide();
+    browserHistory.push('/');
+    window.location.reload();
+
+  } else {
+    props.onHide();
+    browserHistory.push('/account-settings/account-details');
+    window.location.reload();
+
+  }
+
 };
 
 export const CancelStep = props => {
@@ -50,7 +63,7 @@ export const CancelStep = props => {
                       <br />
                       <Btn
                         className="white-button"
-                        onClick={() => cancelStepClose(props)}
+                        onClick={() => cancelStepClose(props, cancelPageRes.cancellationRequiresLogout)}
                       >
                         Close
                       </Btn>
