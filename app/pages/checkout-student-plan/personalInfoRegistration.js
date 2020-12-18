@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
-import { GOOGLE_CLIENT_ID_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
+
+import { GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } 
+
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import { API } from 'app/api';
@@ -637,33 +639,33 @@ class personalInfoRegistration extends Component {
                                                     fetchingContent: fetchingGoogleClient,
                                                     serviceResponse: googleClientResponse,
                                                 }) => (
-                                                        <Fragment>
-                                                            {!fetchingGoogleClient && (
-                                                                <div className="google-login-button">
-                                                                    <GoogleLogin
-                                                                        prompt="select_account"
-                                                                        responseType={
-                                                                            googleClientResponse.googleClientResponseType
-                                                                        }
-                                                                        fetchBasicProfile={
-                                                                            googleClientResponse.googleClientFetchBasicProfile
-                                                                        }
-                                                                        accessType={
-                                                                            googleClientResponse.googleClientAccessType
-                                                                        }
-                                                                        scope={googleClientResponse.googleClientScope}
-                                                                        clientId={googleClientResponse.googleClientID}
-                                                                        buttonText={
-                                                                            googleClientResponse.loginButtonText
-                                                                        }
-                                                                        onSuccess={this.processGoogleSuccessResponse}
-                                                                        onFailure={this.processGoogleFailureResponse}
-                                                                    />
+                                                    <Fragment>
+                                                        {!fetchingGoogleClient && (
+                                                            <div className="google-login-button">
+                                                                <GoogleLogin
+                                                                    prompt="select_account"
+                                                                    responseType={
+                                                                        googleClientResponse.googleClientResponseType
+                                                                    }
+                                                                    fetchBasicProfile={
+                                                                        googleClientResponse.googleClientFetchBasicProfile
+                                                                    }
+                                                                    accessType={
+                                                                        googleClientResponse.googleClientAccessType
+                                                                    }
+                                                                    scope={googleClientResponse.googleClientScope}
+                                                                    clientId={googleClientResponse.googleClientID}
+                                                                    buttonText={
+                                                                        googleClientResponse.loginButtonText
+                                                                    }
+                                                                    onSuccess={this.processGoogleSuccessResponse}
+                                                                    onFailure={this.processGoogleFailureResponse}
+                                                                />
 
-                                                                </div>
-                                                            )}
-                                                        </Fragment>
-                                                    )}
+                                                            </div>
+                                                        )}
+                                                    </Fragment>
+                                                )}
                                             />
 
                                             <form onSubmit={this.handleSubmit}>
@@ -708,7 +710,7 @@ class personalInfoRegistration extends Component {
                                                                     {t('Ecommerce.Yes')}
                                                                 </label>
                                                                 <span style={{ paddingLeft: '15px' }}>
-                                                                    <label  className="ageGroupStyle">
+                                                                    <label className="ageGroupStyle">
                                                                         <Field
                                                                             name="13andOlder"
                                                                             label="No"
