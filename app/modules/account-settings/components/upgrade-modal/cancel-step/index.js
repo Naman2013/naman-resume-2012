@@ -13,7 +13,7 @@ import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import '../../../styles.scss';
-import { destroySession, removeUser } from 'app/modules/User';
+import { destroySession, removeUser,logout } from 'app/modules/User';
 
 
 export const cancelStepClose = (props, cancellationRequiresLogout) => {
@@ -21,6 +21,7 @@ export const cancelStepClose = (props, cancellationRequiresLogout) => {
   if (cancellationRequiresLogout === true) {
     destroySession();
     removeUser();
+    logout();
     props.onHide();
     browserHistory.push('/');
     window.location.reload();
