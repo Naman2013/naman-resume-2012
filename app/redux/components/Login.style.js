@@ -48,6 +48,9 @@ export default css`
     padding: 15px;
     margin: 15px;
   }
+  .slooh-gift-card{
+    text-align:center;
+  }
 
   .or-container {
     position: relative;
