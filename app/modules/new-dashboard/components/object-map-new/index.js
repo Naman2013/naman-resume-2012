@@ -113,24 +113,27 @@ export class ObjectMap extends Component{
         }          
         else{
           map.forEachFeatureAtPixel(pixel, function(feature, layer){
-            self.setState({isloading1: true});
-            const { token, at, cid } = getUserInfo();
-            getObjectCard({
-              token, 
-              at, 
-              cid,
-              callSource: "objectMap",
-              objectId: feature.getId(),
-              objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
-              objectVersion: 1.1,              
-            }).then(response=>{
-              self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
-              map.getInteractions().forEach(function(interaction) {
-                if (interaction instanceof MouseWheelZoom) {
-                  interaction.setActive(false);
-                }
-              }, this); 
-            });
+            if(layer.get('title') !== "elliptic Line" && feature.get('name') !== undefined){
+              self.setState({isloading1: true});
+              const { token, at, cid } = getUserInfo();
+              getObjectCard({
+                token, 
+                at, 
+                cid,
+                callSource: "objectMap",
+                objectId: feature.getId(),
+                objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
+                objectVersion: 1.1,              
+              }).then(response=>{
+                self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
+                map.getInteractions().forEach(function(interaction) {
+                  if (interaction instanceof MouseWheelZoom) {
+                    interaction.setActive(false);
+                  }
+                }, this); 
+              });
+              }
+            
           });                   
         }
           
