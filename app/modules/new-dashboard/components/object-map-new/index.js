@@ -73,10 +73,13 @@ export class ObjectMap extends Component{
       // selectedToggleControls: selectedToggleControls,
       explanationText: null,
       layerList: [],
-      currentZoom: 2,
+      currentZoom: 0,
       scrollZoomLock: false,
       hideTooltipZoomLevel: 8,
       objectMapControls: undefined,
+      zoomIncrement: 1,
+      panMovement: 100,
+      maxZoomLevel: 10,
     }    
   }
     componentDidMount(){     
@@ -116,6 +119,7 @@ export class ObjectMap extends Component{
               token, 
               at, 
               cid,
+              callSource: "objectMap",
               objectId: feature.getId(),
               objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
               objectVersion: 1.1,              
@@ -264,7 +268,7 @@ export class ObjectMap extends Component{
 
             map.on('moveend', function(e) {
               const { currentZoom } = self.state;
-              var newZoom = Math.floor(map.getView().getZoom());
+              var newZoom =map.getView().getZoom();
               if (currentZoom != newZoom) {
                 self.setState({currentZoom: newZoom});
               }
@@ -300,10 +304,12 @@ export class ObjectMap extends Component{
             if(hit && curzoom <= hideTooltipZoomLevel){
               var coordinate = e.coordinate;  
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
-                // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";
-                popup.innerHTML = "<h1 class='popup-text'>" + feature.get('name') + "</h1>";
-                popup.hidden = false;
-                popupOverlay.setPosition(coordinate); 
+                // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";                
+                if(layer.get('title') !== "elliptic Line" && feature.get('name') !== undefined){
+                  popup.innerHTML = "<h1 class='popup-text'>" + feature.get('name') + "</h1>";
+                  popup.hidden = false;
+                  popupOverlay.setPosition(coordinate); 
+                }                
               });  
                            
             }
@@ -356,11 +362,11 @@ export class ObjectMap extends Component{
           // map.getView().setZoom(res.initialZoomLevel);   
           // map.getView().setMinZoom(res.minZoomLevel);
           // // map.getView().setExtent(res.extent);
-          // map.getView().setMaxZoom(res.maxZoomLevel);
+          map.getView().setMaxZoom(res.maxZoomLevel);
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
         }
         
       });
@@ -384,7 +390,7 @@ export class ObjectMap extends Component{
           })          
           map.getView().on('change:resolution', (event) => {
             
-            console.log(event);
+            // console.log(event);
             const graticuleLayer=[...map.getLayers().getArray()][1]; 
             // graticuleLayer.setTargetSize(100);
             
@@ -392,7 +398,7 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
         }
         
       });
@@ -541,7 +547,8 @@ export class ObjectMap extends Component{
           format: new GeoJSON(),
           features: (new GeoJSON()).readFeatures(data),  
           wrapX: false,
-          noWrap: true
+          noWrap: true,
+          showLabels: true, 
         }),
         // style: (feature, resolution ) => {
         //     const temp=(1/Math.pow(resolution, 1.1));
@@ -578,7 +585,7 @@ export class ObjectMap extends Component{
         //     });
         //   },
         visible: true,
-        title: 'vector map',
+        title: 'elliptic Line',
         // declutter: true,
       });
     }
@@ -640,7 +647,7 @@ export class ObjectMap extends Component{
             // var y = Math.sin((i * Math.PI) / 180) * 4;
             style.getImage().setScale(x);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
-            console.log(feature.get("name"));
+            // console.log(feature.get("name"));
             if (currentZoom < showLabelZoomLevel){              
               style.setText(new Text({
                 text: feature.get('name'),
@@ -790,6 +797,7 @@ export class ObjectMap extends Component{
           offsetX: offsetX,
           offsetY: offsetY,
           font: font,
+          placement: 'line',
         }),
       });
     }
@@ -822,15 +830,15 @@ export class ObjectMap extends Component{
     }   
 
     handleNavigationClick = (direction) => {
-      const { map } = this.state;      
+      const { map, panMovement } = this.state;      
       let newCenterInPx;
       let center = map.getView().getCenter();
       let centerInPx = map.getPixelFromCoordinate(center);
       switch (direction) {
-        case 'left': newCenterInPx = [centerInPx[0] - 100, centerInPx[1]]; break;
-        case 'right': newCenterInPx = [centerInPx[0] + 100, centerInPx[1]]; break;
-        case 'top': newCenterInPx = [centerInPx[0], centerInPx[1] - 100]; break;
-        case 'bottom': newCenterInPx = [centerInPx[0], centerInPx[1] + 100]; break;
+        case 'left': newCenterInPx = [centerInPx[0] - panMovement, centerInPx[1]]; break;
+        case 'right': newCenterInPx = [centerInPx[0] + panMovement, centerInPx[1]]; break;
+        case 'top': newCenterInPx = [centerInPx[0], centerInPx[1] - panMovement]; break;
+        case 'bottom': newCenterInPx = [centerInPx[0], centerInPx[1] + panMovement]; break;
       }
       var newCenter = map.getCoordinateFromPixel(newCenterInPx);
       map.getView().setCenter(newCenter);
@@ -878,7 +886,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
           }
         }
       })
@@ -1013,7 +1021,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls});   
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});   
         }
         
       });
@@ -1054,19 +1062,19 @@ export class ObjectMap extends Component{
     }
 
     handleZoomOut = () => {
-      let { map } = this.state;
-      let currentZoom = Math.floor(map.getView().getZoom());
+      let { map, zoomIncrement } = this.state;
+      let currentZoom = map.getView().getZoom();
       if(currentZoom > 0){
-        currentZoom=currentZoom-1;        
+        currentZoom=(currentZoom-zoomIncrement) < 0 ? 0 : (currentZoom-zoomIncrement);        
         this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
       }      
     }
 
     handleZoomIn = () => {
-      let { map } = this.state;
-      let currentZoom = Math.floor(map.getView().getZoom());
-      if(currentZoom < 10) {
-        currentZoom=currentZoom+1;        
+      let { map, zoomIncrement, maxZoomLevel } = this.state;
+      let currentZoom = map.getView().getZoom();
+      if(currentZoom < maxZoomLevel) {
+        currentZoom=(currentZoom+zoomIncrement) > maxZoomLevel ? maxZoomLevel : (currentZoom+zoomIncrement);        
         this.setState({currentZoom}, ()=>map.getView().setZoom(currentZoom));
       }       
     }
@@ -1126,9 +1134,9 @@ export class ObjectMap extends Component{
     }
 
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1, currentZoom } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel } = this.state
       // const { objectMapControls } = this.props;      
-      const { hideMap, mapExpanded, explanationText, objectMapControls } = this.state; 
+      const { hideMap, mapExpanded, explanationText, objectMapControls } = this.state;
         return (
           <div id="object-Map">
              <Spinner
@@ -1145,7 +1153,7 @@ export class ObjectMap extends Component{
                     onDownButtonClick={()=>this.handleNavigationClick('bottom')}
                     onZoomInButtonClick={this.handleZoomIn}
                     onZoomOutButtonClick={this.handleZoomOut}
-                    zoomInDisabled={!(currentZoom < 10)}
+                    zoomInDisabled={!(currentZoom < maxZoomLevel)}
                     zoomOutDisabled={!(currentZoom > 1)}
                   />
               </div>

@@ -254,6 +254,10 @@
 }
 
 .new-dash .zoom-btn:disabled{
+    background-color: #999;
+}
+
+.new-dash .zoom-btn:disabled{
     opacity:0.5;
     cursor: not-allowed;
 }
