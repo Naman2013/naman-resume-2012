@@ -464,7 +464,7 @@ class personalInfoRegistration extends Component {
                     );
                     /* Google Authentication technically does not require a password, but we want the user to use a backup password */
                     accountFormDetailsData.password.visible = true;
-                    accountFormDetailsData.passwordVerification.visible = true;
+                  //  accountFormDetailsData.passwordVerification.visible = true;
 
                     /* Set the customer's information that we got from google as a starting place for the user */
                     accountFormDetailsData.givenName.value =
