@@ -438,13 +438,12 @@ class personalInfoRegistration extends Component {
 
     /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
     processGoogleSuccessResponse = googleTokenData => {
-
+        // console.log("Processing Google Signin: " + googleTokenData);
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-        API
-            .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-                authenticationCode: googleTokenData.code,
-            })
+        API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+            authenticationCode: googleTokenData.code,
+        })
             .then(response => {
                 const res = response.data;
                 if (!res.apiError) {
@@ -456,75 +455,62 @@ class personalInfoRegistration extends Component {
                         googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
                     };
 
-                    /* Needed to capture the Google Profile information in our system as the refresh_token is only given one time.
-                     * MUST validate that the Google Account Email Address matches the invitation */
+                    /* Capture the Google Profile Data and store it in state */
+                    this.setState(() => ({ googleProfileData: googleProfileResult }));
 
-                    if (
-                        googleProfileResult.googleProfileEmail !=
-                        this.state.accountFormDetails.loginEmailAddress.value
-                    ) {
-                        const accountFormDetailsData = cloneDeep(
-                            this.state.accountFormDetails
-                        );
-                        accountFormDetailsData.loginEmailAddress.errorText =
-                            'Your Google Account Email Address does not match your Invitation to Join Slooh.  If the email address needs to be updated, please contact the person who created the invitation.';
+                    /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+                    const accountFormDetailsData = cloneDeep(
+                        this.state.accountFormDetails
+                    );
+                    /* Google Authentication technically does not require a password, but we want the user to use a backup password */
+                    accountFormDetailsData.password.visible = true;
+                    accountFormDetailsData.passwordVerification.visible = true;
 
-                        this.setState(() => ({
-                            accountFormDetails: accountFormDetailsData,
-                        }));
-                    } else {
-                        /* Capture the Google Profile Data and store it in state */
-                        this.setState(() => ({ googleProfileData: googleProfileResult }));
+                    /* Set the customer's information that we got from google as a starting place for the user */
+                    accountFormDetailsData.givenName.value =
+                        googleProfileResult.googleProfileGivenName;
+                    this.props.change(
+                        'givenName',
+                        googleProfileResult.googleProfileGivenName
+                    );
 
-                        /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-                        const accountFormDetailsData = cloneDeep(
-                            this.state.accountFormDetails
-                        );
-                        /* Google Authentication does not require the customer to create a password/hide the form field */
-                        accountFormDetailsData.password.visible = false;
-                        accountFormDetailsData.passwordVerification.visible = false;
+                    accountFormDetailsData.familyName.value =
+                        googleProfileResult.googleProfileFamilyName;
+                    this.props.change(
+                        'familyName',
+                        googleProfileResult.googleProfileFamilyName
+                    );
 
-                        /* Set the customer's information that we got from google as a starting place for the user */
-                        accountFormDetailsData.givenName.value =
-                            googleProfileResult.googleProfileGivenName;
-                        this.props.change(
-                            'givenName',
-                            googleProfileResult.googleProfileGivenName
-                        );
+                    /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+                    accountFormDetailsData.loginEmailAddress.errorText =
+                        ''; /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
+                    accountFormDetailsData.loginEmailAddress.editable = false;
+                    accountFormDetailsData.loginEmailAddress.value =
+                        googleProfileResult.googleProfileEmail;
+                    this.props.change(
+                        'loginEmailAddress',
+                        googleProfileResult.googleProfileEmail
+                    );
 
-                        accountFormDetailsData.familyName.value =
-                            googleProfileResult.googleProfileFamilyName;
-                        this.props.change(
-                            'familyName',
-                            googleProfileResult.googleProfileFamilyName
-                        );
+                    /* No need to verify the email address as its Google and it was already provided */
+                    accountFormDetailsData.loginEmailAddressVerification.visible = false;
 
-                        /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-                        accountFormDetailsData.loginEmailAddress.editable = false;
-                        accountFormDetailsData.loginEmailAddress.value =
-                            googleProfileResult.googleProfileEmail;
-                        this.props.change(
-                            'loginEmailAddress',
-                            googleProfileResult.googleProfileEmail
-                        );
+                    this.setState(() => ({
+                        accountFormDetails: accountFormDetailsData,
+                        /* Set the account creation type as Google */
+                        accountCreationType: 'googleaccount',
+                    }));
 
-                        this.setState(() => ({
-                            accountFormDetails: accountFormDetailsData,
-                            /* Set the account creation type as Google */
-                            accountCreationType: 'googleaccount',
-                        }));
-
-                        /* Set the account creation type as Google and the Google Profile Id in browser storage */
-                        window.localStorage.setItem('accountCreationType', 'googleaccount');
-                        window.localStorage.setItem(
-                            'googleProfileId',
-                            googleProfileResult.googleProfileId
-                        );
-                        window.localStorage.setItem(
-                            'googleProfileEmail',
-                            googleProfileResult.googleProfileEmail
-                        );
-                    }
+                    /* Set the account creation type as Google and the Google Profile Id in browser storage */
+                    window.localStorage.setItem('accountCreationType', 'googleaccount');
+                    window.localStorage.setItem(
+                        'googleProfileId',
+                        googleProfileResult.googleProfileId
+                    );
+                    window.localStorage.setItem(
+                        'googleProfileEmail',
+                        googleProfileResult.googleProfileEmail
+                    );
                 }
             })
             .catch(err => {
@@ -656,8 +642,10 @@ class personalInfoRegistration extends Component {
                                                                     buttonText={
                                                                         googleClientResponse.loginButtonText
                                                                     }
-                                                                    onSuccess={this.processGoogleSuccessResponse}
-                                                                    onFailure={this.processGoogleFailureResponse}
+                                                                    onSuccess={this.processGoogleSuccessResponse
+                                                                    }
+                                                                    onFailure={this.processGoogleFailureResponse
+                                                                    }
                                                                 />
 
                                                             </div>
