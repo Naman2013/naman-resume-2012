@@ -40,7 +40,7 @@ export class ObjectCard extends Component{
                 {objectCardDetails.imageArray.showImageInfoText && (
                         <h2 className="obj-info-img-text">{objectCardDetails.imageArray.imageInfoText}</h2>
                     )}  
-                <hr/>          
+                <hr className="horizontalline" />          
                 <div className="object-details-container">
                     <h2 className="object-title">{objectCardDetails.title.text}</h2>
                     <h6 className="object-subtitle">{objectCardDetails.subtitle.text}</h6>
@@ -57,7 +57,7 @@ export class ObjectCard extends Component{
                     
                     
                 </div>
-                <hr/>
+                <hr className="horizontalline"/>
                 <div className="object-button-controls">
                     {objectCardDetails.showPlanMissionButton && (
                         <Button

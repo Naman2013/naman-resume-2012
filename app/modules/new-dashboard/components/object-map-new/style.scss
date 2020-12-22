@@ -205,14 +205,15 @@
 
 .new-dash .object-card-popup{
     position: absolute;
-    width: 60%;
+    width: 85%;
     top: 0;
     border: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-    height: 75%;
+    height: 100%;
+    z-index: 9;
 }
 
 .new-dash .Object-map-fullscreen{
@@ -258,6 +259,10 @@
         width: 25%;
         margin: 10px 0px;
     }
+    .new-dash .object-card-popup{
+        width: 60%;
+        height: 100%;
+    }
 
 }
 
@@ -288,6 +293,11 @@
         width: 40%;
         margin: 0px;
     }
+
+    .new-dash .object-card-popup{
+        width: 95%;
+        height: 95%;
+    }
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
@@ -299,4 +309,10 @@
     .new-dash .settings-controls{
         width: 60%;        
     }
+
+    .new-dash .object-card-popup{
+        width: 95%;
+        height: 95%;
+    }
+    
 }

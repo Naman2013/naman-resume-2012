@@ -13,7 +13,7 @@
 }
 
 .new-dash .object-header-container{
-    height: 200px;
+    height: 150px;
     width: 100%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;   
@@ -67,7 +67,7 @@
 
 .new-dash .object-details-container{
     padding: 10px 20px;
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: scroll;
 }
 
@@ -123,6 +123,11 @@
     padding: 8px 24px;
     border: none;
     color: #FFFFFF;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
 }
 
 .new-dash .view-btn{
@@ -131,6 +136,11 @@
     padding: 8px 24px;
     border: none;
     color: #FFFFFF;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
 }
 
 .new-dash .more-btn{
@@ -139,6 +149,11 @@
     padding: 8px 24px;
     border: none;
     color: #FFFFFF;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
 }
 
 .new-dash .object-features{
@@ -325,6 +340,92 @@
    
 }
 
-@media (min-width: $screenTab) and (max-width: $screenMedium){
+@media (min-width: $screenXLarge) {
+    .new-dash .object-header-container {
+        height: 200px;
+    }
+    .new-dash .object-details-container{
+        max-height: 300px;
+    }
     
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .object-header-container {
+        height: 100px;
+    }
+
+    .new-dash .header-image-text {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .new-dash .horizontalline {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }    
+
+    .new-dash .object-title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .new-dash .object-subtitle {
+        font-size: 11px;
+        line-height: 11px;
+    }
+
+    .new-dash .object-subtitle img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .new-dash .more-btn, .new-dash .plan-btn, .new-dash .view-btn {       
+        padding: 6px 12px;        
+        font-size: 11px;
+        line-height: 150%;
+    }
+    
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){    
+
+    .new-dash .object-header-container {
+        height: 60px;
+    }
+
+    .new-dash .header-image-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .new-dash .object-details-container {
+        max-height: 160px;
+        padding: 0px 10px;
+    }
+
+    .new-dash .horizontalline {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .new-dash .object-title {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .new-dash .object-subtitle {
+        font-size: 11px;
+        line-height: 11px;
+    }
+
+    .new-dash .object-subtitle img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .new-dash .more-btn, .new-dash .plan-btn, .new-dash .view-btn {       
+        padding: 6px 12px;        
+        font-size: 10px;
+        line-height: 150%;
+    }
 }
