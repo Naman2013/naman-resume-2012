@@ -135,7 +135,7 @@ class Observations extends Component {
 
   handlePageChange = ({ activePage }) => {
     this.getObservations(activePage);
-    this.observationContainer.scrollIntoView();
+    //this.observationContainer.scrollIntoView();
   };
 
   render() {
