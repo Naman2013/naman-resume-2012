@@ -50,6 +50,16 @@ export default css`
   }
   .slooh-gift-card{
     text-align:center;
+    margin-bottom: 140px;
+  }
+  .slooh-gift-card-heading{
+    font-size:20px;
+    padding:5px;
+  }
+  .slooh-gift-card-sub-heading{
+    font-size:16px;
+    padding:5px;
+
   }
 
   .or-container {

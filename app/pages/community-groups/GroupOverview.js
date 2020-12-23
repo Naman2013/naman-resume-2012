@@ -190,7 +190,7 @@ class CommunityGroupOverview extends Component {
                   updatePrompt={this.updatePrompt}
                   {...context}
                   {...communityGroupOverview}
-                  {...pageMeta}
+                  {...pageMeta} 
                 />
                 }
                 <FullInformationOverview
