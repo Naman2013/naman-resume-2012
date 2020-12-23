@@ -29,7 +29,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { getUserInfo } from 'app/modules/User';
 import Switch from "react-switch";
 import { Dropdown } from 'react-bootstrap';
-import { ObjectCard } from '../object-card';
+import ObjectCard from '../object-card';
 import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 import Overlay from 'ol/Overlay';
 import classnames from 'classnames';
@@ -309,7 +309,8 @@ export class ObjectMap extends Component{
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
                 // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";                
                 if(layer.get('title') !== "elliptic Line" && feature.get('name') !== undefined){
-                  popup.innerHTML = "<h1 class='popup-text'>" + feature.get('name') + "</h1>";
+                  var name=feature.get('name').replace(/\n/g,'<br>')
+                  popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
                   popup.hidden = false;
                   popupOverlay.setPosition(coordinate); 
                 }                
@@ -1138,7 +1139,7 @@ export class ObjectMap extends Component{
 
     render() {          
       const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel } = this.state
-      // const { objectMapControls } = this.props;      
+      const { scrollToRef, refreshPhotoHub } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls } = this.state;
         return (
           <div id="object-Map">
@@ -1168,6 +1169,8 @@ export class ObjectMap extends Component{
                     <ObjectCard
                       onHide={this.onObjectCardClose}
                       objectCardDetails={objectCardDetails}
+                      scrollToRef={scrollToRef}
+                      refreshPhotoHub={refreshPhotoHub}
                     />
                 </div> 
               )}

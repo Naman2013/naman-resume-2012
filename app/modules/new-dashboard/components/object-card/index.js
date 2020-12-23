@@ -3,18 +3,27 @@ import React from "react";
 import './style.scss';
 import { browserHistory } from 'react-router';
 import { Button } from '../button';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setFilters } from 'app/modules/my-pictures-filters/actions';
 
-export class ObjectCard extends Component{
+class ObjectCard extends Component{
     
     state={
         seeMore: false
     }
 
+    handleViewImageClick = () => {
+        const { actions, objectCardDetails, scrollToRef, refreshPhotoHub } = this.props;
+        actions.setFilters({astroObjectName: objectCardDetails.title.text, astroObjectIds: objectCardDetails.viewImagesObjectList});
+        scrollToRef(2);
+        refreshPhotoHub();
+    }
+
     render() {
                
         const { onHide, objectCardDetails } = this.props;
-        const { seeMore } = this.state;
-        
+        const { seeMore } = this.state;        
         return (
             <div id="object-card" className="object-card-main" style={{background: objectCardDetails.cardBackgroundColor}}>
                 <img className="object-close-icon" onClick={onHide} src={objectCardDetails.imageArray.showImage ? "https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg" : "https://vega.slooh.com/assets/v4/dashboard-new/close_white.svg"} />
@@ -48,7 +57,7 @@ export class ObjectCard extends Component{
                     <br/>
                     <p className="object-tagline">{objectCardDetails.tagline.text}</p>
                     <br/>
-                    <p className="object-description">{objectCardDetails.description.text}</p>
+                    <p className="object-description" dangerouslySetInnerHTML={{__html: objectCardDetails.description.text}}/>
                     <br/>
 
                     {objectCardDetails.featuresArray.map(feature =>(
@@ -70,7 +79,7 @@ export class ObjectCard extends Component{
                     {objectCardDetails.showViewImagesButton && (
                         <Button
                             type={"button"}
-                            onClickEvent={()=>{browserHistory.push(objectCardDetails.viewImagesUrl)}} 
+                            onClickEvent={this.handleViewImageClick} 
                             text={objectCardDetails.viewImagesButtonCaption}                                             
                             style={"view-btn"}
                         />
@@ -156,3 +165,20 @@ export class ObjectCard extends Component{
     }
 
 }
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(
+      {   
+        setFilters,
+      },
+      dispatch
+    ),
+  });
+  
+   
+  
+  export default connect(
+    null,
+    mapDispatchToProps
+  )(ObjectCard)
+

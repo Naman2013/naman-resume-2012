@@ -52,6 +52,8 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       missionSystemTags: [],
       missionUserTags: [],
       pictureUserTags: [],
+      astroObjectIds: [],
+      astroObjectName: null,
     });
   };
 

@@ -56,6 +56,7 @@ export const SelectedFilters = (props: TSelectedFilters) => {
     missionSystemTags = [],
     missionUserTags = [],
     pictureUserTags = [],
+    astroObjectName,
   } = selectedFilters;
 
   const removeFilter = (filterNames: string[]) => {
@@ -89,6 +90,12 @@ export const SelectedFilters = (props: TSelectedFilters) => {
         <SelectedFilterItem
           label={getObjectTypeLabel(objectTypeList, filterType)}
           onClick={() => removeFilter(['filterType'])}
+        />
+      )}
+      {astroObjectName && (
+        <SelectedFilterItem
+          label={astroObjectName}
+          onClick={() => removeFilter(['astroObjectName', 'astroObjectIds'])}
         />
       )}
       {observatoryId && pierNumber && (

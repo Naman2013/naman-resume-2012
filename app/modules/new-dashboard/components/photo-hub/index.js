@@ -83,7 +83,8 @@ class PhotoHub extends Component{
     }
 
 
-    componentDidMount() {        
+    componentDidMount() {   
+        this.props.onRef(this);     
         this.fetchFilters();
         this.onTabChange(this.state.selectedheader);
     }

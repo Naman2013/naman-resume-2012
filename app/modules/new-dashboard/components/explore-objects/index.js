@@ -27,7 +27,7 @@ export class ExploreObject extends Component{
 
 
     render() {
-        const { questMapControls, objectMapControls } = this.props;
+        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub } = this.props;
         const { activeHeading } = this.state;
 
         return (
@@ -37,7 +37,7 @@ export class ExploreObject extends Component{
                     activeHeading={activeHeading}
                     spaceequally={false}
                     theme={"dark"}
-                    onTabChange={this.onTabChange}
+                    onTabChange={this.onTabChange}                    
                 />
 
                 {activeHeading === "Quest Map" && questMapControls && (
@@ -49,6 +49,8 @@ export class ExploreObject extends Component{
                 {/* {activeHeading === "Object Map" && objectMapControls && ( */}
                 {activeHeading === "Object Map" && (
                     <ObjectMap
+                        scrollToRef={scrollToRef}
+                        refreshPhotoHub={refreshPhotoHub}
                         // objectMapControls={objectMapControls.mapControls}
                     /> 
                     // <h2 className="comming-soon">Coming Soon...</h2>

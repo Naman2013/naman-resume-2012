@@ -51,6 +51,7 @@ export class NewDashboard extends PureComponent{
         this.photoRef = React.createRef();  
         this.communityRef = React.createRef();  
         this.clubsRef = React.createRef(); 
+        this.photoHubRef = React.createRef();
     }
 
     componentDidMount() {
@@ -112,6 +113,10 @@ export class NewDashboard extends PureComponent{
                 break;
         }  
         // this.setState({selectedBulletingHeader: heading});
+    }
+
+    refreshPhotoHub = () =>{
+        this.photoHubRef.handleApplyFilter();
     }
 
     getInitialData = () => {
@@ -238,6 +243,8 @@ export class NewDashboard extends PureComponent{
                                     objectMapControls={objectMapControls}
                                     getObjectMapControl={getObjectMapControlAction}
                                     getQuestMapControl={getQuestMapControlAction}
+                                    scrollToRef={this.scrollToRef}
+                                    refreshPhotoHub={this.refreshPhotoHub}
                                 />                          
                                 
                                
@@ -286,6 +293,7 @@ export class NewDashboard extends PureComponent{
                                 <div ref={this.photoRef}/>
                                 {photoHubHeadings && (
                                     <PhotoHub
+                                        onRef={ref => (this.photoHubRef = ref)}                                        
                                         heading={photoHubHeadings.sectionHeading}       
                                         sectionHeadingLabel={photoHubHeadings.sectionHeadingLabel} 
                                         headerlist={photoHubHeadings.tabOptions} 
