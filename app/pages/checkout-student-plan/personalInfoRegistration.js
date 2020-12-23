@@ -24,6 +24,7 @@ class personalInfoRegistration extends Component {
     constructor(props) {
         super(props);
 
+        window.localStorage.setItem('accountCreationType', 'userpass');
 
         this.state = {
             accountCreationType: 'userpass',
@@ -464,7 +465,7 @@ class personalInfoRegistration extends Component {
                     );
                     /* Google Authentication technically does not require a password, but we want the user to use a backup password */
                     accountFormDetailsData.password.visible = true;
-                  //  accountFormDetailsData.passwordVerification.visible = true;
+                    //  accountFormDetailsData.passwordVerification.visible = true;
 
                     /* Set the customer's information that we got from google as a starting place for the user */
                     accountFormDetailsData.givenName.value =
@@ -586,13 +587,14 @@ class personalInfoRegistration extends Component {
 
         const {
             accountFormDetails,
-            captchaVerified
+            captchaVerified,
+            accountCreationType
 
         } = this.state;
-
+        console.log('accountFormDetails',accountFormDetails);
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
-
+        
         return (
             <div>
                 <Request
@@ -944,42 +946,75 @@ class personalInfoRegistration extends Component {
                                                             }}
                                                         />
                                                     </div>
-
-                                                    <div className="form-section">
-                                                        <div className="form-field-container">
-                                                            <span
-                                                                className="form-label"
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: accountFormDetails.loginEmailAddress.label,
-
+                                                    {accountCreationType === 'userpass' ? (
+                                                        <div className="form-section">
+                                                            <div className="form-field-container">
+                                                                <span
+                                                                    className="form-label"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .label,
+                                                                    }}
+                                                                />
+                                                                   :
+                                                                  <span
+                                                                    className="form-error"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .errorText,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <Field
+                                                                name="loginEmailAddress"
+                                                                type="email"
+                                                                className="form-field"
+                                                                label={
+                                                                    accountFormDetails.loginEmailAddress
+                                                                        .hintText
+                                                                }
+                                                                component={InputField}
+                                                                onChange={event => {
+                                                                    this.handleFieldChange({
+                                                                        field: 'loginEmailAddress',
+                                                                        value: event.target.value,
+                                                                    });
                                                                 }}
-                                                            />
-                                                            :
-                                                            <span
-                                                                className="form-error"
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: accountFormDetails.loginEmailAddress.errorText,
-
-                                                                }}
+                                                                value={
+                                                                    accountFormDetails.loginEmailAddress.value
+                                                                }
                                                             />
                                                         </div>
+                                                    ) : null}
 
-                                                        <Field
-                                                            name="loginEmailAddress"
-                                                            type="name"
-                                                            className="form-field"
-                                                            label={accountFormDetails.loginEmailAddress.hintText}
-                                                            component={InputField}
-                                                            onChange={event => {
-                                                                this.handleFieldChange({
-                                                                    field: 'loginEmailAddress',
-                                                                    value: event.target.value,
-                                                                });
-                                                            }}
-                                                        />
-                                                    </div>
-
-
+                                                    {accountCreationType === 'googleaccount' ? (
+                                                        <div className="form-section">
+                                                            <div className="form-field-container">
+                                                                <span
+                                                                    className="form-label"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .label,
+                                                                    }}
+                                                                />
+                                                                    :
+                                                                    <span
+                                                                    className="form-error"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .errorText,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <span className="google-field">
+                                                                {accountFormDetails.loginEmailAddress.value}
+                                                            </span>
+                                                        </div>
+                                                    ) : null}
 
 
                                                     <div className="form-section">
