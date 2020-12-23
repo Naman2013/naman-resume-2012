@@ -128,7 +128,6 @@ module.exports = {
     hints: false,
   },
   // devtool: 'cheap-module-eval-source-map',
-
   devServer: {
     contentBase: sourcePath, // assets
     hot: false,
@@ -140,65 +139,37 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-<<<<<<< HEAD
         target: 'https://zeta.slooh.com',
-=======
-     //   target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
->>>>>>> v4-develop
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-<<<<<<< HEAD
         target: 'https://zeta.slooh.com',
-=======
-        // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
->>>>>>> v4-develop
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-<<<<<<< HEAD
         target: 'https://zeta.slooh.com',
-=======
-        // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
-
->>>>>>> v4-develop
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-<<<<<<< HEAD
         target: 'https://zeta.slooh.com',
-=======
-        // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
-
->>>>>>> v4-develop
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        //   target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
-
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sselog/**': {
-        //  target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
-
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/util/**': {
-        // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
-
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },
