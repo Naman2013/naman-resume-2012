@@ -31,7 +31,7 @@ class DashboardNav extends Component {
 
   render() {
     const { t, readOnly } = this.props;
-
+    
     return (
       <div className="root">
         <div className="dash-nav-item">

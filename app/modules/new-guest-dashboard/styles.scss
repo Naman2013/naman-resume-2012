@@ -1,0 +1,84 @@
+@import "../new-dashboard/breakpoints.scss";
+@import "../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash{
+    padding: 0 10%;
+}
+
+.new-guest-dash .free-trial-btn{
+    background: #253446;
+    border-radius: 4px;
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 10px 26px;
+    border: none;
+    display:block;       
+    margin:0 auto;
+    letter-spacing: 1px;
+}
+
+.new-guest-dash .desktop-dashboard-screen{
+    border-radius: 4px;
+    width: 98%;
+    display: block;
+}
+
+.new-guest-dash .tablet-dashboard-screen{
+    border-radius: 4px;
+    width: 98%;
+    display: none;
+}
+
+.new-guest-dash .mobile-dashboard-screen{
+    border-radius: 4px;
+    width: 98%;
+    display: none;
+}
+
+.new-guest-dash .dashboard-screenshot{
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+
+    .new-guest-dash{
+        padding: 0 5%;
+    }
+
+    .new-guest-dash .desktop-dashboard-screen{        
+        display: none;
+    }
+    
+    .new-guest-dash .tablet-dashboard-screen{        
+        display: block;
+    }
+    
+    .new-guest-dash .mobile-dashboard-screen{
+        display: none;
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-guest-dash{
+        padding: 0 5%;
+    }
+    .new-guest-dash .desktop-dashboard-screen{        
+        display: none;
+    }
+    
+    .new-guest-dash .tablet-dashboard-screen{        
+        display: none;
+    }
+    
+    .new-guest-dash .mobile-dashboard-screen{
+        display: block;
+    }
+}

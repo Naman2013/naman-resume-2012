@@ -1,0 +1,32 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .testimonial-list-main{
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-column-gap: 16px;
+    margin-bottom: 32px;
+}
+
+.new-guest-dash .testimonial-nav-div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-guest-dash .testimonial-left-button,
+.new-guest-dash .testimonial-right-button{
+    background: #415671;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+}
+
+
+
+.new-guest-dash .testimonial-left-button:disabled,
+.new-guest-dash .testimonial-right-button:disabled{
+    background: #E9EBED;
+    cursor: not-allowed;
+}

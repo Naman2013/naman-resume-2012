@@ -24,7 +24,7 @@ import Countdown from 'react-countdown-now';
 import moment from 'moment';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import Clock from './Clock';
-
+import { guestDashboardUrl } from 'app/config/project-config';
 
 const SEARCH_LABEL = 'SEARCH';
 
@@ -115,7 +115,7 @@ const TopBar = ({
                         // browserHistory.push('/');
                         browserHistory.push('/NewDashboard');
                       } else {
-                        browserHistory.push('/guestDashboard');
+                        browserHistory.push(guestDashboardUrl);
                       }
                     }}
                     mod="no-border"
@@ -168,11 +168,13 @@ const TopBar = ({
                     />
                   </Button>
                 </li>
-                <li>
-                  <Clock
-                    interval={1000}
-                  />
-                </li>
+                {user.isAuthorized && (
+                  <li>
+                    <Clock
+                      interval={1000}
+                    />
+                  </li>
+                )}                
               </ul>
             </div>
          
@@ -326,7 +328,7 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center align-items-center">
-                            <Link
+                            {/* <Link
                               className="button text"
                               to="/about/about-slooh-education"
                             >
@@ -335,18 +337,18 @@ const TopBar = ({
                                   <span>Slooh Education</span>
                                 </div>
                               </button>
-                            </Link>
+                            </Link> */}
                             {/*<div style={{ marginRight: '10px' }} />*/}
-                            <Link className="button text" to="/join/step1">
+                            {/* <Link className="button text" to="/join/step1">
                               <button className="btn btn-submit free-trial-button">
                                 <div>
                                   <span>Join Today!</span>
-                                  {/* <span>Trial</span> */}
+                                  <span>Trial</span>
                                 </div>
                               </button>
-                            </Link>
+                            </Link> */}
 
-                            <div className="buttons-separator" />
+                            {/* <div className="buttons-separator" /> */}
 
                             <span className="text">
                               {t('Navigation.SignIn')}

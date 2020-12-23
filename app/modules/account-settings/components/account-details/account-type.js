@@ -15,6 +15,7 @@ const AccountType = props => {
     accountStatus,
     showInfoButton,
   } = props;
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   if (!currentSubscriptionPlan) return null;
@@ -51,14 +52,12 @@ const AccountType = props => {
             <Btn mod="circle" onClick={goToPlanInfoUrl}>
               <Icon i="info" />
             </Btn>
-            {isUpgradeAvailable === true && (
-              <Button onClick={() => setModalOpen(true)}>
-                {upgradeButtonLabel}
-              </Button>
-            )}
-            {isUpgradeAvailable === false && (
-              <Button>{upgradeButtonLabel}</Button>
-            )}
+            {isUpgradeAvailable === true ? 
+             <Button onClick={() => setModalOpen(true)}>
+             {upgradeButtonLabel}
+           </Button>
+           :null
+            }
           </Fragment>
         )}
         {showInfoButton === false && (
@@ -140,8 +139,8 @@ const AccountType = props => {
           subscriptionPlansCallSource="upgrade"
           show={isModalOpen}
           onHide={() => setModalOpen(false)}
-          returnLinkType = {"closeandrefresh"}
-          returnLinkLabel = {"CANCEL"}
+          returnLinkType={"closeandrefresh"}
+          returnLinkLabel={"CANCEL"}
         />
       )}
     </>

@@ -97,6 +97,9 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
+import checkoutStudentPlan from 'app/pages/checkout-student-plan/checkoutStudentPlan'
+
+
 // import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -123,6 +126,8 @@ import TakeATour from './modules/account-settings/containers/take-a-tour';
 import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 import newDashboard from './modules/new-dashboard/new-dashboard';
+import newGuestDashboard from './modules/new-guest-dashboard/new-guest-dashboard';
+
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -136,7 +141,7 @@ history.listen(location => {
   const { pathname } = location;
 
   // Fire a Google Analytics pageview event as the route / path changed.
-  fireSloohGAPageview({ pagePath: pathname });	
+  fireSloohGAPageview({ pagePath: pathname });
 });
 
 const getProfileRoutes = ({ publicProfile }) => (
@@ -206,10 +211,18 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
 
       <Route
+        exact
+        path="landingPage"
+        component={newGuestDashboard}
+        onEnter={validateUser}
+      />
+
+      <Route
         path="guestDashboard/:abTestCallSource"
         component={Dashboard}
         onEnter={validateUser}
       />
+
 
       <Route
         path="at/:marketingTrackingId"
@@ -249,8 +262,15 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
-          component={JoinByLandingPage}
+          component={Join}
         />
+
+        <Route
+          path="byGuestLandingPage"
+          component={checkoutStudentPlan}
+        />
+
+
         <Route
           path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch"
           component={JoinInviteByEmailStep1}
@@ -617,7 +637,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
     <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
 
-    <Redirect from="/scouts" to="/about/memberships" />    
+    <Redirect from="/scouts" to="/about/memberships" />
     <Redirect from="*" to="/" />
   </Router>
 );

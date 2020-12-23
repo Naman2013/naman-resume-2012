@@ -77,7 +77,6 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             accountStatus={accountStatus}
             showInfoButton
           />
-
           <Container>
             <div className="top-bot-40 left-right-minus-20">
               <Row noGutters>

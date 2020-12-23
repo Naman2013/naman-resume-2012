@@ -32,8 +32,11 @@ import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+  CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION
 } from 'app/services/registration/registration.js';
 import styles from '../JoinStep2.style';
+
+
 
 const { string, func } = PropTypes;
 
@@ -84,6 +87,24 @@ class JoinByInviteAccountSignup extends Component {
         childCustomerRole: '',
       },
       accountFormDetails: {
+        AgeGroup: {
+          label: '',
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        ParentEmail: {
+          label: '',
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        legalGuardianCheckbox: {
+          label: '',
+          value: false,
+          hintText: '',
+          errorText: '',
+        },
         givenName: {
           label: '',
           value: '',
@@ -143,6 +164,7 @@ class JoinByInviteAccountSignup extends Component {
   handleJoinPageServiceResponse = result => {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    const { clubInviteAndGiftCardDetials } = this.props;
 
     newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
     newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
@@ -171,17 +193,33 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.astronomyClubName.hintText =
       result.formFieldLabels.astronomyClubName.hintText;
 
-    newAccountFormData.givenName.value = result.invitee.firstName;
-    this.props.change('givenName', result.invitee.firstName);
+    if (clubInviteAndGiftCardDetials === 'SloohCard') {
+      newAccountFormData.AgeGroup.label =
+        result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
 
-    newAccountFormData.familyName.value = result.invitee.lastName;
-    this.props.change('familyName', result.invitee.lastName);
+      newAccountFormData.legalGuardianCheckbox.label =
+        result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
 
-    newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+      newAccountFormData.ParentEmail.label =
+        result.formFieldLabels.AgeGroupParentEmailLabel.label;
+    }
 
-    newInviteDetails.parentCustomerId = result.invitedBy.customerId;
-    newInviteDetails.parentCustomerRole = result.invitedBy.role;
-    newInviteDetails.childCustomerRole = result.invitee.role;
+
+
+    if (!clubInviteAndGiftCardDetials === 'SloohCard') {
+      newAccountFormData.givenName.value = result.invitee.firstName;
+      this.props.change('givenName', result.invitee.firstName);
+
+      newAccountFormData.familyName.value = result.invitee.lastName;
+      this.props.change('familyName', result.invitee.lastName);
+
+      newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+
+      newInviteDetails.parentCustomerId = result.invitedBy.customerId;
+      newInviteDetails.parentCustomerRole = result.invitedBy.role;
+      newInviteDetails.childCustomerRole = result.invitee.role;
+    }
+
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
@@ -207,7 +245,11 @@ class JoinByInviteAccountSignup extends Component {
   handleFieldChange = ({ field, value }) => {
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    newAccountFormData[field].value = value;
+    if (field === 'legalGuardianCheckbox') {
+      newAccountFormData[field].value = !newAccountFormData[field].value;
+    } else {
+      newAccountFormData[field].value = value;
+    }
 
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -217,8 +259,8 @@ class JoinByInviteAccountSignup extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
-    //console.log(this.state.accountFormDetails);
 
+    const { clubInviteAndGiftCardDetials, joinByInviteParams, AccountType } = this.props;
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -276,6 +318,48 @@ class JoinByInviteAccountSignup extends Component {
           formIsComplete = false;
         }
       }
+      //AgeGroup Validation
+      if (clubInviteAndGiftCardDetials === 'SloohCard') {
+        if (accountFormDetailsData.AgeGroup.value === '') {
+          accountFormDetailsData.AgeGroup.errorText =
+            'You must certify that you are 13 years or older.';
+          formIsComplete = false;
+        } else {
+          accountFormDetailsData.AgeGroup.errorText = '';
+          formIsComplete = true;
+        }
+        if (accountFormDetailsData.AgeGroup.value === 'Under13') {
+
+          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
+            accountFormDetailsData.legalGuardianCheckbox.errorText =
+              'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
+            accountFormDetailsData.ParentEmail.errorText =
+              'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
+            formIsComplete = false;
+          }
+  
+          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+            accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
+            formIsComplete = false;
+          }
+
+          if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
+            accountFormDetailsData.ParentEmail.errorText = "";
+            formIsComplete = false;
+          }
+
+          if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value) {
+            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
+            accountFormDetailsData.ParentEmail.errorText = "";
+            formIsComplete = true;
+          }
+
+        }
+
+
+      }
 
       /* need to verify that the password meets the Slooh requirements */
     } else if (accountCreationType === 'googleaccount') {
@@ -296,62 +380,125 @@ class JoinByInviteAccountSignup extends Component {
         formIsComplete = false;
       }
     }
-
     if (formIsComplete === true) {
       /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
+      if (clubInviteAndGiftCardDetials === 'SloohCard') {
 
-      const customerDetailsMeetsRequirementsResult = API
-      .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value,
-          userEnteredLoginEmailAddress: this.state.accountFormDetails
-            .loginEmailAddress.value,
-          selectedPlanId: window.localStorage.selectedPlanId,
-        })
-        .then(response => {
-          const res = response.data;
-          if (res.apiError == false) {
-            const validationResults = {
-              passwordAcceptable: res.passwordAcceptable,
-              passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              emailAddressAcceptable: res.emailAddressAcceptable,
-              emailAddressNotAcceptedMessage:
-                res.emailAddressNotAcceptedMessage,
-            };
+        if (formIsComplete) {
 
-            if (validationResults.passwordAcceptable === false) {
-              /* Password did not meet Slooh requirements, provide the error messaging */
-              accountFormDetailsData.password.errorText =
-                validationResults.passwordNotAcceptedMessage;
+          const { actions } = this.props;
+          const customerDetailsMeetsRequirementsResult = API
+            .post(CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION, {
+              loginEmailAddress: this.state.accountFormDetails
+                .loginEmailAddress.value,
+              loginPassword: this.state.accountFormDetails.password.value,
+              giftCardCode: joinByInviteParams.invitationCodeAlt,
+              accountType: 'Confluence',
+              type: clubInviteAndGiftCardDetials,
+              selectedPlanId: 14,
+              givenName: this.state.accountFormDetails.givenName.value,
+              familyName: this.state.accountFormDetails.familyName.value,
+              displayName: this.state.accountFormDetails.displayName.value,
+              '2018AccountType': AccountType,
+              ageGroup: this.state.accountFormDetails.AgeGroup.value,
+              parentEmail: this.state.accountFormDetails.ParentEmail.value,
 
-              /* make sure to persist any changes to the account signup form (error messages) */
-              this.setState({ accountFormDetails: accountFormDetailsData });
 
-              formIsComplete = false;
+            })
+            .then(response => {
+              const res = response.data;
+              formIsComplete === true;
+              if (res.apiError == false) {
+                const validationResults = {
+                  status: res.status,
+                  statusMessage: res.statusMessage
+
+                };
+                if (validationResults.status === 'failed') {
+                  /* Email address is already taken or some other validation error occurred. */
+                  accountFormDetailsData.loginEmailAddress.errorText =
+                    validationResults.statusMessage;
+                  /* make sure to persist any changes to the account signup form (error messages) */
+                  this.setState({ accountFormDetails: accountFormDetailsData });
+                  formIsComplete = false;
+                }
+
+                if (formIsComplete === true) {
+
+                  const loginDataPayload = {
+                    username: this.state.accountFormDetails.loginEmailAddress.value,
+                    pwd: this.state.accountFormDetails.password.value,
+                  };
+                  actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                }
+              }
+            })
+            .catch(err => {
+              throw ('Error: ', err);
+            });
+        } else {
+
+          this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+        }
+
+
+      } else {
+
+        const customerDetailsMeetsRequirementsResult = API
+          .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+            userEnteredPassword: this.state.accountFormDetails.password.value,
+            userEnteredLoginEmailAddress: this.state.accountFormDetails
+              .loginEmailAddress.value,
+            selectedPlanId: window.localStorage.selectedPlanId,
+          })
+          .then(response => {
+            const res = response.data;
+            if (res.apiError == false) {
+              const validationResults = {
+                passwordAcceptable: res.passwordAcceptable,
+                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+                emailAddressAcceptable: res.emailAddressAcceptable,
+                emailAddressNotAcceptedMessage:
+                  res.emailAddressNotAcceptedMessage,
+              };
+
+              if (validationResults.passwordAcceptable === false) {
+                /* Password did not meet Slooh requirements, provide the error messaging */
+                accountFormDetailsData.password.errorText =
+                  validationResults.passwordNotAcceptedMessage;
+
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+
+                formIsComplete = false;
+              }
+
+              if (validationResults.emailAddressAcceptable === false) {
+                /* Email address is already taken or some other validation error occurred. */
+                accountFormDetailsData.loginEmailAddress.errorText =
+                  validationResults.emailAddressNotAcceptedMessage;
+
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+
+                formIsComplete = false;
+              }
+
+              if (formIsComplete === true) {
+                /* create the customer result */
+                this.createCustomerRecordAndNextScreen();
+              }
             }
+          })
+          .catch(err => {
+            throw ('Error: ', err);
+          });
 
-            if (validationResults.emailAddressAcceptable === false) {
-              /* Email address is already taken or some other validation error occurred. */
-              accountFormDetailsData.loginEmailAddress.errorText =
-                validationResults.emailAddressNotAcceptedMessage;
+      }
 
-              /* make sure to persist any changes to the account signup form (error messages) */
-              this.setState({ accountFormDetails: accountFormDetailsData });
-
-              formIsComplete = false;
-            }
-
-            if (formIsComplete === true) {
-              /* create the customer result */
-              this.createCustomerRecordAndNextScreen();
-            }
-          }
-        })
-        .catch(err => {
-          throw ('Error: ', err);
-        });
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
@@ -359,6 +506,7 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   createCustomerRecordAndNextScreen = () => {
+
     /*
      * Set up a Customer Account
      */
@@ -375,6 +523,12 @@ class JoinByInviteAccountSignup extends Component {
       inviteDetails: this.state.inviteDetails,
     };
 
+    const accountFormDetailsData = cloneDeep(createCustomerData.accountFormDetails);
+
+    accountFormDetailsData.loginEmailAddress
+      .errorText = '';
+
+
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
     API
       .post(JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL, createCustomerData)
@@ -382,10 +536,10 @@ class JoinByInviteAccountSignup extends Component {
         const res = response.data;
         if (!res.apiError) {
           const { actions } = this.props;
-
           const createCustomerResult = {
             status: res.status,
             customerId: res.customerId,
+            statusMessage: res.statusMessage
           };
 
           if (createCustomerResult.status === 'success') {
@@ -396,19 +550,23 @@ class JoinByInviteAccountSignup extends Component {
               };
 
               /* Log the user in */
+
               actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
+
             } else if (this.state.accountCreationType === 'googleaccount') {
               const loginDataPayload = {
                 googleProfileId: window.localStorage.googleProfileId,
                 googleProfileEmail: window.localStorage.username,
               };
-
               actions.logGoogleUserIn(loginDataPayload);
               browserHistory.push('/');
+
             }
           } else {
             /* process / display error to user */
+            accountFormDetailsData.loginEmailAddress.errorText = createCustomerResult.statusMessage;
+            this.setState({ accountFormDetails: accountFormDetailsData });
           }
         }
       })
@@ -419,7 +577,7 @@ class JoinByInviteAccountSignup extends Component {
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = googleTokenData => {
-    // console.log("Processing Google Signin: " + googleTokenData);
+
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
     API
@@ -514,11 +672,11 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    // console.log(googleMessageData);
+
   };
 
   render() {
-    const { pathname, navTabs } = this.props;
+    const { pathname, navTabs, joinByInviteParams, clubInviteAndGiftCardDetials } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -526,8 +684,12 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-    const joinByInviteParams = this.props.joinByInviteParams;
-    //console.log ('joinByInviteParams : ' + joinByInviteParams.callSource);
+    accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress;
+
+    /*  this.setState({
+       accountFormDetails:accountFormDetails
+     }) */
+
     const selectedPlanId = this.state.selectedPlanId;
 
     //for classroom accounts
@@ -569,50 +731,187 @@ class JoinByInviteAccountSignup extends Component {
                           fetchingContent: fetchingGoogleClient,
                           serviceResponse: googleClientResponse,
                         }) => (
-                          <Fragment>
-                            {!fetchingGoogleClient && (
-                              <div className="google-login-button">
-                                <GoogleLogin
-                                  prompt="select_account"
-                                  responseType={
-                                    googleClientResponse.googleClientResponseType
-                                  }
-                                  fetchBasicProfile={
-                                    googleClientResponse.googleClientFetchBasicProfile
-                                  }
-                                  accessType={
-                                    googleClientResponse.googleClientAccessType
-                                  }
-                                  scope={googleClientResponse.googleClientScope}
-                                  clientId={googleClientResponse.googleClientID}
-                                  buttonText={
-                                    googleClientResponse.loginButtonText
-                                  }
-                                  onSuccess={this.processGoogleSuccessResponse}
-                                  onFailure={this.processGoogleFailureResponse}
-                                />
-                              </div>
-                            )}
-                          </Fragment>
-                        )}
+                            <Fragment>
+                              {!fetchingGoogleClient && (
+                                <div className="google-login-button">
+                                  <GoogleLogin
+                                    prompt="select_account"
+                                    responseType={
+                                      googleClientResponse.googleClientResponseType
+                                    }
+                                    fetchBasicProfile={
+                                      googleClientResponse.googleClientFetchBasicProfile
+                                    }
+                                    accessType={
+                                      googleClientResponse.googleClientAccessType
+                                    }
+                                    scope={googleClientResponse.googleClientScope}
+                                    clientId={googleClientResponse.googleClientID}
+                                    buttonText={
+                                      googleClientResponse.loginButtonText
+                                    }
+                                    onSuccess={this.processGoogleSuccessResponse}
+                                    onFailure={this.processGoogleFailureResponse}
+                                  />
+                                </div>
+                              )}
+                            </Fragment>
+                          )}
                       />
                       <form onSubmit={this.handleSubmit}>
-                        <div className="form-section">
-                          <div className="form-field-container invited-by">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: joinPageRes.invitedBy.heading,
-                              }}
-                            />
-                            <span
-                              className="form-label inviter"
-                              dangerouslySetInnerHTML={{
-                                __html: joinPageRes.invitedBy.displayName,
-                              }}
-                            />
+                        {clubInviteAndGiftCardDetials === 'SloohCard' ?
+                          <fieldset>
+                            <>
+                              <div className="">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.AgeGroup.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.AgeGroup.errorText,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                              <br />
+                              <label>
+                                <Field
+                                  name="Age"
+                                  component="input"
+                                  type="radio"
+                                  // checked={accountFormDetails.clubInviteAndGiftCard.value == "clubInvite"}
+                                  value="13andOlder"
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'AgeGroup',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                />
+                                {'\u00A0'}
+                                Yes
+                              </label>
+                              <span style={{ paddingLeft: '15px' }}>
+                                <label>
+                                  <Field
+                                    name="Age"
+                                    component="input"
+                                    type="radio"
+                                    value="Under13"
+                                    onChange={event => {
+                                      this.handleFieldChange({
+                                        field: 'AgeGroup',
+                                        value: event.target.value,
+                                      });
+                                    }}
+                                  />
+                                  {'\u00A0'}
+                                  No
+                                </label>
+                              </span>
+                              <br />
+
+                              {accountFormDetails.AgeGroup.value === "Under13" ?
+                                <>
+                                  <div className="">
+                                    <div className="form-field-container">
+                                      <span
+                                        className="form-label"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.legalGuardianCheckbox.label,
+                                        }}
+                                      />
+                                  :
+                                  <span
+                                        className="form-error"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.legalGuardianCheckbox.errorText,
+                                        }}
+                                      />
+
+                                    </div>
+                                    <Field
+                                      name="legalGuardianCheckbox"
+                                      component="input"
+                                      type="Checkbox"
+                                      checked={accountFormDetails.legalGuardianCheckbox.value}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'legalGuardianCheckbox',
+                                          value: event.target.value,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="form-section">
+                                    <div className="form-field-container">
+                                      <span
+                                        className="form-label"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.ParentEmail.label,
+                                        }}
+                                      />
+                                  :
+                                  <span
+                                        className="form-error"
+                                        dangerouslySetInnerHTML={{
+                                          __html: accountFormDetails.ParentEmail.errorText,
+                                        }}
+                                      />
+
+                                    </div>
+                                    <Field
+                                      name="displayEmail"
+                                      type="name"
+                                      className="form-field"
+                                      label={accountFormDetails.ParentEmail.hintText}
+                                      component={InputField}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'ParentEmail',
+                                          value: event.target.value,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                </>
+
+                                : null
+
+                              }
+                            </>
+                          </fieldset>
+
+
+                          : null
+                        }
+
+
+                        {!clubInviteAndGiftCardDetials === 'SloohCard' ?
+                          <div className="form-section">
+                            <div className="form-field-container invited-by">
+                              {<span
+                                className="form-label"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinPageRes.invitedBy.heading,
+                                }}
+                              />}
+                              <span
+                                className="form-label inviter"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinPageRes.invitedBy.displayName,
+                                }}
+                              />
+                            </div>
                           </div>
-                        </div>
+                          : null
+                        }
                         <div className="form-section split">
                           <div className="form-field-container form-field-half">
                             <span
@@ -835,6 +1134,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   ),
 });
+
 
 export default connect(
   mapStateToProps,

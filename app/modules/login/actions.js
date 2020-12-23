@@ -57,6 +57,7 @@ export const logUserIn = (loginForm, reloadOpts = {}) => dispatch => {
       const { apiError } = result.data;
 
       if (apiError) {
+        console.error('Error!', apiError);
         dispatch(logUserInFail(result.data));
       } else {
         dispatch(closeAllMenus());

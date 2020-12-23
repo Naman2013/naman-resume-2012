@@ -1,0 +1,70 @@
+@import "../../../new-dashboard/breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-guest-dash .sloohvian-card-main{
+    background: #FFFFFF;
+    border: 1px solid rgba(141, 150, 159, 0.4);
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-guest-dash .sloohvian-img{
+    margin-bottom: 10px;
+    height: 120px;
+}
+
+.new-guest-dash .sloohvian-card-title{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    text-align: center;
+    color: #000000;
+}
+
+.new-guest-dash .sloohvian-card-desc{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    color: #000000;
+}
+
+@media (min-width: $screenXLarge) {
+
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-guest-dash .sloohvian-card-main{        
+        padding: 24px 35px;
+    }
+
+    .new-guest-dash .sloohvian-img{
+        margin-bottom: 16px;        
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-guest-dash .sloohvian-card-main{        
+        padding: 24px 30px;
+    }
+    .new-guest-dash .sloohvian-card-title{        
+        font-size: 17px;
+        line-height: 110%;
+    }
+    
+    .new-guest-dash .sloohvian-card-desc{
+        font-size: 14px;
+        line-height: 100%;
+    }
+    .new-guest-dash .sloohvian-img{
+        margin-bottom: 16px;
+        height: 100px;
+    }
+}

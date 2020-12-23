@@ -1,0 +1,66 @@
+@import '~app/styles/variables/index';
+
+.account-general {
+  padding: 40px 20px;
+
+  .center-contents{
+    justify-content: center;
+  }
+
+  &__image {
+
+    .i-image {
+      img {
+        height: 255px;
+      }
+    }
+  }
+
+  &__info {
+    .list-with-params {
+      flex-wrap: wrap;
+    }
+
+    &__actions {
+      padding-bottom: 15px;
+
+    }
+  }
+
+  .graphic-image{
+    display: block;
+    margin: 0px auto 30px auto;    
+  }
+}
+
+@include xsm {
+  .account-general {
+    .list-with-params {
+      border: none;
+      li {
+        padding: 15px 0;
+        border-left: none;
+        border-bottom: 1px solid #d5d8dd;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 768px) {
+  .account-general {
+    .list-with-params {
+      li {
+        &:first-child {
+          padding-left: 15px;
+        }
+
+        &:last-child {
+          flex: 1 1 100%;
+          border-left: none;
+          border-top: 1px solid $hr-silver;
+        }
+      }
+    }
+  }
+}

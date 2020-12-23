@@ -42,4 +42,8 @@ export interface IPurchaseConfirmationResponse {
     };
   };
   gravityEarnedInThisRequest: boolean;
+  purchaseThankYouText: string;
+  firstExplanationText: string;
+  secondExplanationText: string;
+  welcomeVideoStreamURL: string;
 }

@@ -82,6 +82,11 @@ export default css`
     color: red;
     font-weight: bold;
   }
+  .form-success {
+    display: inline-block;
+    color: green;
+    font-weight: bold;
+  }
 
   .form-field {
   }
