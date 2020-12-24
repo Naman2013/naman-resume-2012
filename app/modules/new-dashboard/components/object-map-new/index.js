@@ -80,6 +80,8 @@ export class ObjectMap extends Component{
       zoomIncrement: 1,
       panMovement: 100,
       maxZoomLevel: 10,
+      mapTitle: "", 
+      mapSubtitle: "",
     }    
   }
     componentDidMount(){     
@@ -376,7 +378,7 @@ export class ObjectMap extends Component{
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
         }
         
       });
@@ -408,7 +410,7 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
         }
         
       });
@@ -896,7 +898,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
           }
         }
       })
@@ -1031,7 +1033,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel});   
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});   
         }
         
       });
@@ -1146,7 +1148,7 @@ export class ObjectMap extends Component{
     render() {          
       const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel } = this.state
       const { scrollToRef, refreshPhotoHub } = this.props;      
-      const { hideMap, mapExpanded, explanationText, objectMapControls } = this.state;
+      const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
         return (
           <div id="object-Map">
              <Spinner
@@ -1166,6 +1168,10 @@ export class ObjectMap extends Component{
                     zoomInDisabled={!(currentZoom < maxZoomLevel)}
                     zoomOutDisabled={!(currentZoom > 1)}
                   />
+              </div>
+              <div className="title-div">
+                  <h2 className="object-map-title">{mapTitle}</h2>
+                  <h5 className="object-map-subtitle">{mapSubtitle}</h5>
               </div>
               </div>
               

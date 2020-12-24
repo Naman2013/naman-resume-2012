@@ -84,9 +84,35 @@
 .new-dash .map-navigation-div{
     position: absolute;
     z-index: 3;
-    right: 5px;
-    top: 5px;
+    right: 10px;
+    top: 10px;
 }
+.new-dash .title-div{
+    position: absolute;
+    z-index: 3;
+    width: 100%; 
+    top: 10px;    
+}
+.new-dash .object-map-title{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;    
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.new-dash .object-map-subtitle{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;    
+    color: #FFFFFF;
+    text-align: center;
+}
+
 
 .new-dash .select-label-disabled{
     font-family: $primary-font;
@@ -298,6 +324,14 @@
         width: 95%;
         height: 95%;
     }
+    .new-dash .object-map-title{
+        font-size: 18px;
+        line-height: 22px;  
+    }
+    .new-dash .object-map-subtitle{        
+        font-size: 12px;
+        line-height: 16px; 
+    }
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
@@ -313,6 +347,15 @@
     .new-dash .object-card-popup{
         width: 95%;
         height: 95%;
+    }
+
+    .new-dash .object-map-title{
+        font-size: 16px;
+        line-height: 20px;  
+    }
+    .new-dash .object-map-subtitle{        
+        font-size: 10px;
+        line-height: 14px; 
     }
     
 }
