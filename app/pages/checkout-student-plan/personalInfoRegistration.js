@@ -494,7 +494,7 @@ class personalInfoRegistration extends Component {
                     );
 
                     /* No need to verify the email address as its Google and it was already provided */
-                    accountFormDetailsData.loginEmailAddressVerification.visible = false;
+                   // accountFormDetailsData.loginEmailAddressVerification.visible = false;
 
                     this.setState(() => ({
                         accountFormDetails: accountFormDetailsData,
