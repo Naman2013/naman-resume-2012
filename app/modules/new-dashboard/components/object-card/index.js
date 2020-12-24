@@ -14,10 +14,12 @@ class ObjectCard extends Component{
     }
 
     handleViewImageClick = () => {
-        const { actions, objectCardDetails, scrollToRef, refreshPhotoHub } = this.props;
+        const { actions, objectCardDetails, scrollToRef, refreshPhotoHub,onHide } = this.props;
         actions.setFilters({astroObjectName: objectCardDetails.title.text, astroObjectIds: objectCardDetails.viewImagesObjectList});
+        onHide();
         scrollToRef(2);
         refreshPhotoHub();
+        
     }
 
     render() {

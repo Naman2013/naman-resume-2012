@@ -304,11 +304,17 @@ export class ObjectMap extends Component{
             document.getElementById(target).style.cursor = hit ? 'pointer' : '';            
             const {hideTooltipZoomLevel} = this.state;
             const curzoom=map.getView().getZoom();            
-            if(hit && curzoom <= hideTooltipZoomLevel){
+            if(hit){
               var coordinate = e.coordinate;  
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
-                // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";                
-                if(layer.get('title') !== "elliptic Line" && feature.get('name') !== undefined){
+                // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";  
+                if(layer.get('title') === "Sun-Moon-Layer" && feature.get('name') !== undefined && curzoom >= hideTooltipZoomLevel){
+                  var name=feature.get('name').replace(/\n/g,'<br>')
+                  popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
+                  popup.hidden = false;
+                  popupOverlay.setPosition(coordinate); 
+                }
+                else if(layer.get('title') === "vector map" && feature.get('name') !== undefined && curzoom <= hideTooltipZoomLevel){
                   var name=feature.get('name').replace(/\n/g,'<br>')
                   popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
                   popup.hidden = false;
@@ -702,9 +708,9 @@ export class ObjectMap extends Component{
           // features: (new GeoJSON()).readFeatures(mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
           features: ifeatures
-        })        
-        // zIndex: 1
-        
+        }),        
+        // zIndex: 1        
+        title: "Sun-Moon-Layer"
       });      
       return vectorLayer;
     }
