@@ -57,9 +57,9 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     });
   };
 
-  const open = () => setOpen(true);
+  const open = () => { onChange({astroObjectIds: [], astroObjectName: null,}); setOpen(true)};
   const close = () => {
-    resetFilters();
+    // resetFilters();
     setOpen(false);
   };
 
@@ -79,6 +79,41 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     onApply();
     close();
   };
+
+  const getResetButtonStatus = () => {
+    const { pierNumber, 
+      observatoryId, 
+      filterType, 
+      timeFilter, 
+      dateFilter,
+      missionSystemTags,
+      missionUserTags,
+      pictureUserTags,
+      astroObjectIds,
+      astroObjectName,} = selectedFilters
+    
+    if(checkEmpty(pierNumber) && 
+      checkEmpty(observatoryId) && 
+      checkEmpty(filterType) &&  
+      checkEmpty(timeFilter) &&
+      checkEmpty(dateFilter) &&
+      checkEmpty(astroObjectName) &&
+      checkEmptyList(missionSystemTags) &&
+      checkEmptyList(pictureUserTags) &&
+      checkEmptyList(missionUserTags) &&
+      checkEmptyList(astroObjectIds))
+      return false;
+    else
+      return true;
+  }
+
+  const checkEmpty = (item) => {
+    return (item === null || item === "");
+  }
+
+  const checkEmptyList = (item) => {
+    return (item.length === 0)
+  }
 
   return (
     <div className={"filter-dropdown-wrapper" + newButton ? "right-align" : "" }>
@@ -206,9 +241,12 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
           </div>
 
           <div className="filter-dropdown-footer text-center">
-            <Button className="mr-3" onClick={handleReset}>
-              reset
-            </Button>
+            {getResetButtonStatus() && (
+              <Button className="mr-3" onClick={handleReset}>
+                reset
+              </Button>
+            )}
+            
             <Button
               onClick={() => {
                 onApply();

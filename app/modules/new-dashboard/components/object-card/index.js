@@ -15,7 +15,16 @@ class ObjectCard extends Component{
 
     handleViewImageClick = () => {
         const { actions, objectCardDetails, scrollToRef, refreshPhotoHub,onHide } = this.props;
-        actions.setFilters({astroObjectName: objectCardDetails.title.text, astroObjectIds: objectCardDetails.viewImagesObjectList});
+        actions.setFilters({pierNumber: null,
+            observatoryId: null,
+            filterType: null,
+            timeFilter: null,
+            dateFilter: null,
+            missionSystemTags: [],
+            missionUserTags: [],
+            pictureUserTags: [], 
+            astroObjectName: objectCardDetails.title.text, 
+            astroObjectIds: objectCardDetails.viewImagesObjectList});
         onHide();
         scrollToRef(2);
         refreshPhotoHub();
