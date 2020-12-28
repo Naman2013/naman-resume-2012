@@ -112,7 +112,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
   }
 
   const checkEmptyList = (item) => {
-    return (item.length === 0)
+    return (item !== null && item.length === 0)
   }
 
   return (
