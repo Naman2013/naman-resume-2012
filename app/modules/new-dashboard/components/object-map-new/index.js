@@ -1169,10 +1169,10 @@ export class ObjectMap extends Component{
                     zoomOutDisabled={!(currentZoom > 1)}
                   />
               </div>
-              <div className="title-div">
-                  <h2 className="object-map-title">{mapTitle}</h2>
-                  <h5 className="object-map-subtitle">{mapSubtitle}</h5>
-              </div>
+                <div className="title-div">
+                    <h2 className="object-map-title">{mapTitle}</h2>
+                    <h5 className="object-map-subtitle">{mapSubtitle}</h5>
+                </div>              
               </div>
               
               <div id="object_map_hover_popup" className="hover-popup" >test</div>

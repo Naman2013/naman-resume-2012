@@ -89,9 +89,15 @@
 }
 .new-dash .title-div{
     position: absolute;
-    z-index: 3;
-    width: 100%; 
-    top: 10px;    
+    z-index: 1;    
+    top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #253446;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;    
 }
 .new-dash .object-map-title{
     font-family: $secondary-font;

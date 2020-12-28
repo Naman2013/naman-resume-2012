@@ -79,6 +79,7 @@ class PhotoHub extends Component{
                         data: {},},
             showModal: false,
             modalParams:{},
+            tempFilters: props.selectedFilters,
         }
     }
 
@@ -150,7 +151,9 @@ class PhotoHub extends Component{
         this.setState({selectedheader: header});
     };        
 
-    setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
+    setFilterOpen = isFilterOpen => {
+        this.setState({tempFilters: this.props.selectedFilters, isFilterOpen });
+    }
 
     handleFilterChange = filter => {
         this.props.actions.setFilters({ ...filter });
@@ -287,7 +290,7 @@ class PhotoHub extends Component{
                     setTag: this.setTagsAction,
                     deleteTag: this.deleteTagsAction,
                   };
-        const { selectedheader, isFilterOpen, tagsData, showModal, modalParams, fitsData, } = this.state;
+        const { selectedheader, isFilterOpen, tagsData, showModal, modalParams, fitsData, tempFilters } = this.state;
         
         const getTabContent = header => {                        
             switch (header.tabAction) {
@@ -372,6 +375,7 @@ class PhotoHub extends Component{
                         setSelectedTagsTabIndex={setSelectedTagsTabIndex}
                         myPicturesFilters={myPicturesFilters}
                         newButton={true}
+                        tempFilters={tempFilters}
                     />                         
                     {/* <h5 className="sort-filter">{"Sort & Filter"}</h5>  */}
                     {isFilterOpen && (

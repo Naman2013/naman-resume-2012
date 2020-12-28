@@ -34,6 +34,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     setSelectedTagsTabIndex,
     myPicturesFilters,
     newButton,
+    tempFilters,
   } = props;
 
   const {
@@ -57,7 +58,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     });
   };
 
-  const open = () => { onChange({astroObjectIds: [], astroObjectName: null,}); setOpen(true)};
+  const open = () => { setOpen(true)};
   const close = () => {
     // resetFilters();
     setOpen(false);
@@ -107,6 +108,12 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       return true;
   }
 
+  const modalClose = () => {
+    if(tempFilters!== undefined )
+      onChange(tempFilters);
+    close();
+  }
+
   const checkEmpty = (item) => {
     return (item === null || item === "");
   }
@@ -133,7 +140,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       
       <Modal
         show={isOpen}
-        onHide={close}
+        onHide={modalClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         dialogClassName="filter-modal"
@@ -144,7 +151,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             <Tooltip title="Close">
               <span
                 className="icon-close close-btn"
-                onClick={close}
+                onClick={modalClose}
                 role="presentation"
               />
             </Tooltip>
@@ -249,6 +256,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             
             <Button
               onClick={() => {
+                onChange({astroObjectIds: [], astroObjectName: null,});
                 onApply();
                 setOpen(false);
               }}
