@@ -41,9 +41,9 @@ export class Dashboard extends Component {
   componentDidMount() {
     const { user } = this.props;
 
-    if (user.isAuthorized) {
-      this.getDashboardFeaturedObjects();
-    }
+    // if (user.isAuthorized) {
+    //   this.getDashboardFeaturedObjects();
+    // }
   }
 
   componentWillUnmount() {

@@ -4,7 +4,7 @@ import './style.scss';
 import Popup from 'react-modal';
 import { customModalStylesSloohBlueOverlay, customModalStylesBlackOverlayBadge } from 'app/styles/mixins/utilities';
 import { getObjectCard } from '../../dashboardApi';
-import { ObjectCard } from '../object-card';
+import ObjectCard from '../object-card';
 import { getUserInfo } from 'app/modules/User';
 import { Spinner } from 'app/components/spinner/index';
 
