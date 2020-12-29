@@ -1,17 +1,19 @@
 import React, { PureComponent } from "react";
 import "./styles.scss";
 
-export default class SloovianCard extends PureComponent{
+export default class SloovianCard extends PureComponent {
 
-    render(){
+    render() {
         const { card } = this.props;
 
-        return(
+        return (
             <div className="sloohvian-card-main">
-                <img className="sloohvian-img" src={card.imageUrl}/>
-                <h4 className="sloohvian-card-title">{card.SubTitleText}</h4>
-                <h5 className="sloohvian-card-desc">{card.Content}</h5>
+                <img className="sloohvian-img" src={card.imageUrl} />
+                {<h4 className="sloohvian-card-title" dangerouslySetInnerHTML={{ __html: card.SubTitleText }}></h4>}
+                {<h5 className="sloohvian-card-desc" dangerouslySetInnerHTML={{ __html: card.Content }}></h5>}
             </div>
         )
     }
 }
+
+

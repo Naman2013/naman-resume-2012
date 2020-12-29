@@ -6,6 +6,7 @@ import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
 import SocialMenu from './partials/SocialMenu';
+import SloohGiftCard from './SloohGiftCard/SloohGiftCard'
 import {
   PRIMARY_CONFIGURATION,
   SECONDARY_CONFIGURATION,
@@ -21,6 +22,7 @@ const Main = ({ mainMenu }) => {
       />
       <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
       <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
+      <SloohGiftCard></SloohGiftCard>
     </Fragment>
   );
 };

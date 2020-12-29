@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
-import { GOOGLE_CLIENT_ID_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import { API } from 'app/api';
@@ -24,6 +24,7 @@ class personalInfoRegistration extends Component {
     constructor(props) {
         super(props);
 
+        window.localStorage.setItem('accountCreationType', 'userpass');
 
         this.state = {
             accountCreationType: 'userpass',
@@ -438,13 +439,12 @@ class personalInfoRegistration extends Component {
 
     /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
     processGoogleSuccessResponse = googleTokenData => {
-
+        // console.log("Processing Google Signin: " + googleTokenData);
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-        API
-            .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-                authenticationCode: googleTokenData.code,
-            })
+        API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+            authenticationCode: googleTokenData.code,
+        })
             .then(response => {
                 const res = response.data;
                 if (!res.apiError) {
@@ -456,75 +456,62 @@ class personalInfoRegistration extends Component {
                         googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
                     };
 
-                    /* Needed to capture the Google Profile information in our system as the refresh_token is only given one time.
-                     * MUST validate that the Google Account Email Address matches the invitation */
+                    /* Capture the Google Profile Data and store it in state */
+                    this.setState(() => ({ googleProfileData: googleProfileResult }));
 
-                    if (
-                        googleProfileResult.googleProfileEmail !=
-                        this.state.accountFormDetails.loginEmailAddress.value
-                    ) {
-                        const accountFormDetailsData = cloneDeep(
-                            this.state.accountFormDetails
-                        );
-                        accountFormDetailsData.loginEmailAddress.errorText =
-                            'Your Google Account Email Address does not match your Invitation to Join Slooh.  If the email address needs to be updated, please contact the person who created the invitation.';
+                    /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+                    const accountFormDetailsData = cloneDeep(
+                        this.state.accountFormDetails
+                    );
+                    /* Google Authentication technically does not require a password, but we want the user to use a backup password */
+                    accountFormDetailsData.password.visible = true;
+                    //  accountFormDetailsData.passwordVerification.visible = true;
 
-                        this.setState(() => ({
-                            accountFormDetails: accountFormDetailsData,
-                        }));
-                    } else {
-                        /* Capture the Google Profile Data and store it in state */
-                        this.setState(() => ({ googleProfileData: googleProfileResult }));
+                    /* Set the customer's information that we got from google as a starting place for the user */
+                    accountFormDetailsData.givenName.value =
+                        googleProfileResult.googleProfileGivenName;
+                    this.props.change(
+                        'givenName',
+                        googleProfileResult.googleProfileGivenName
+                    );
 
-                        /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-                        const accountFormDetailsData = cloneDeep(
-                            this.state.accountFormDetails
-                        );
-                        /* Google Authentication does not require the customer to create a password/hide the form field */
-                        accountFormDetailsData.password.visible = false;
-                        accountFormDetailsData.passwordVerification.visible = false;
+                    accountFormDetailsData.familyName.value =
+                        googleProfileResult.googleProfileFamilyName;
+                    this.props.change(
+                        'familyName',
+                        googleProfileResult.googleProfileFamilyName
+                    );
 
-                        /* Set the customer's information that we got from google as a starting place for the user */
-                        accountFormDetailsData.givenName.value =
-                            googleProfileResult.googleProfileGivenName;
-                        this.props.change(
-                            'givenName',
-                            googleProfileResult.googleProfileGivenName
-                        );
+                    /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+                    accountFormDetailsData.loginEmailAddress.errorText =
+                        ''; /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
+                    accountFormDetailsData.loginEmailAddress.editable = false;
+                    accountFormDetailsData.loginEmailAddress.value =
+                        googleProfileResult.googleProfileEmail;
+                    this.props.change(
+                        'loginEmailAddress',
+                        googleProfileResult.googleProfileEmail
+                    );
 
-                        accountFormDetailsData.familyName.value =
-                            googleProfileResult.googleProfileFamilyName;
-                        this.props.change(
-                            'familyName',
-                            googleProfileResult.googleProfileFamilyName
-                        );
+                    /* No need to verify the email address as its Google and it was already provided */
+                   // accountFormDetailsData.loginEmailAddressVerification.visible = false;
 
-                        /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-                        accountFormDetailsData.loginEmailAddress.editable = false;
-                        accountFormDetailsData.loginEmailAddress.value =
-                            googleProfileResult.googleProfileEmail;
-                        this.props.change(
-                            'loginEmailAddress',
-                            googleProfileResult.googleProfileEmail
-                        );
+                    this.setState(() => ({
+                        accountFormDetails: accountFormDetailsData,
+                        /* Set the account creation type as Google */
+                        accountCreationType: 'googleaccount',
+                    }));
 
-                        this.setState(() => ({
-                            accountFormDetails: accountFormDetailsData,
-                            /* Set the account creation type as Google */
-                            accountCreationType: 'googleaccount',
-                        }));
-
-                        /* Set the account creation type as Google and the Google Profile Id in browser storage */
-                        window.localStorage.setItem('accountCreationType', 'googleaccount');
-                        window.localStorage.setItem(
-                            'googleProfileId',
-                            googleProfileResult.googleProfileId
-                        );
-                        window.localStorage.setItem(
-                            'googleProfileEmail',
-                            googleProfileResult.googleProfileEmail
-                        );
-                    }
+                    /* Set the account creation type as Google and the Google Profile Id in browser storage */
+                    window.localStorage.setItem('accountCreationType', 'googleaccount');
+                    window.localStorage.setItem(
+                        'googleProfileId',
+                        googleProfileResult.googleProfileId
+                    );
+                    window.localStorage.setItem(
+                        'googleProfileEmail',
+                        googleProfileResult.googleProfileEmail
+                    );
                 }
             })
             .catch(err => {
@@ -600,13 +587,14 @@ class personalInfoRegistration extends Component {
 
         const {
             accountFormDetails,
-            captchaVerified
+            captchaVerified,
+            accountCreationType
 
         } = this.state;
-
+        console.log('accountFormDetails',accountFormDetails);
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
-
+        
         return (
             <div>
                 <Request
@@ -637,33 +625,35 @@ class personalInfoRegistration extends Component {
                                                     fetchingContent: fetchingGoogleClient,
                                                     serviceResponse: googleClientResponse,
                                                 }) => (
-                                                        <Fragment>
-                                                            {!fetchingGoogleClient && (
-                                                                <div className="google-login-button">
-                                                                    <GoogleLogin
-                                                                        prompt="select_account"
-                                                                        responseType={
-                                                                            googleClientResponse.googleClientResponseType
-                                                                        }
-                                                                        fetchBasicProfile={
-                                                                            googleClientResponse.googleClientFetchBasicProfile
-                                                                        }
-                                                                        accessType={
-                                                                            googleClientResponse.googleClientAccessType
-                                                                        }
-                                                                        scope={googleClientResponse.googleClientScope}
-                                                                        clientId={googleClientResponse.googleClientID}
-                                                                        buttonText={
-                                                                            googleClientResponse.loginButtonText
-                                                                        }
-                                                                        onSuccess={this.processGoogleSuccessResponse}
-                                                                        onFailure={this.processGoogleFailureResponse}
-                                                                    />
+                                                    <Fragment>
+                                                        {!fetchingGoogleClient && (
+                                                            <div className="google-login-button">
+                                                                <GoogleLogin
+                                                                    prompt="select_account"
+                                                                    responseType={
+                                                                        googleClientResponse.googleClientResponseType
+                                                                    }
+                                                                    fetchBasicProfile={
+                                                                        googleClientResponse.googleClientFetchBasicProfile
+                                                                    }
+                                                                    accessType={
+                                                                        googleClientResponse.googleClientAccessType
+                                                                    }
+                                                                    scope={googleClientResponse.googleClientScope}
+                                                                    clientId={googleClientResponse.googleClientID}
+                                                                    buttonText={
+                                                                        googleClientResponse.loginButtonText
+                                                                    }
+                                                                    onSuccess={this.processGoogleSuccessResponse
+                                                                    }
+                                                                    onFailure={this.processGoogleFailureResponse
+                                                                    }
+                                                                />
 
-                                                                </div>
-                                                            )}
-                                                        </Fragment>
-                                                    )}
+                                                            </div>
+                                                        )}
+                                                    </Fragment>
+                                                )}
                                             />
 
                                             <form onSubmit={this.handleSubmit}>
@@ -708,7 +698,7 @@ class personalInfoRegistration extends Component {
                                                                     {t('Ecommerce.Yes')}
                                                                 </label>
                                                                 <span style={{ paddingLeft: '15px' }}>
-                                                                    <label  className="ageGroupStyle">
+                                                                    <label className="ageGroupStyle">
                                                                         <Field
                                                                             name="13andOlder"
                                                                             label="No"
@@ -956,42 +946,75 @@ class personalInfoRegistration extends Component {
                                                             }}
                                                         />
                                                     </div>
-
-                                                    <div className="form-section">
-                                                        <div className="form-field-container">
-                                                            <span
-                                                                className="form-label"
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: accountFormDetails.loginEmailAddress.label,
-
+                                                    {accountCreationType === 'userpass' ? (
+                                                        <div className="form-section">
+                                                            <div className="form-field-container">
+                                                                <span
+                                                                    className="form-label"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .label,
+                                                                    }}
+                                                                />
+                                                                   :
+                                                                  <span
+                                                                    className="form-error"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .errorText,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <Field
+                                                                name="loginEmailAddress"
+                                                                type="email"
+                                                                className="form-field"
+                                                                label={
+                                                                    accountFormDetails.loginEmailAddress
+                                                                        .hintText
+                                                                }
+                                                                component={InputField}
+                                                                onChange={event => {
+                                                                    this.handleFieldChange({
+                                                                        field: 'loginEmailAddress',
+                                                                        value: event.target.value,
+                                                                    });
                                                                 }}
-                                                            />
-                                                            :
-                                                            <span
-                                                                className="form-error"
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: accountFormDetails.loginEmailAddress.errorText,
-
-                                                                }}
+                                                                value={
+                                                                    accountFormDetails.loginEmailAddress.value
+                                                                }
                                                             />
                                                         </div>
+                                                    ) : null}
 
-                                                        <Field
-                                                            name="loginEmailAddress"
-                                                            type="name"
-                                                            className="form-field"
-                                                            label={accountFormDetails.loginEmailAddress.hintText}
-                                                            component={InputField}
-                                                            onChange={event => {
-                                                                this.handleFieldChange({
-                                                                    field: 'loginEmailAddress',
-                                                                    value: event.target.value,
-                                                                });
-                                                            }}
-                                                        />
-                                                    </div>
-
-
+                                                    {accountCreationType === 'googleaccount' ? (
+                                                        <div className="form-section">
+                                                            <div className="form-field-container">
+                                                                <span
+                                                                    className="form-label"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .label,
+                                                                    }}
+                                                                />
+                                                                    :
+                                                                    <span
+                                                                    className="form-error"
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html:
+                                                                            accountFormDetails.loginEmailAddress
+                                                                                .errorText,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <span className="google-field">
+                                                                {accountFormDetails.loginEmailAddress.value}
+                                                            </span>
+                                                        </div>
+                                                    ) : null}
 
 
                                                     <div className="form-section">

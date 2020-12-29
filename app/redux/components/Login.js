@@ -224,7 +224,7 @@ class Login extends Component {
     } = this.state;
 
     const { handleSubmit, loginMenuLinks } = this.props;
-    
+
     return (
       <div className="root">
         {inForgotPasswordMode === true && (
@@ -318,45 +318,45 @@ class Login extends Component {
                 fetchingContent,
                 modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
               }) => (
-                  <Fragment>
-                    {!fetchingContent && (
-                      <Fragment>
-                        <div className="google-container">
-                          <GoogleLogin
-                            className="google-button"
-                            prompt="select_account"
-                            buttonText="Google"
-                            responseType={
-                              GOOGLE_CLIENT_ID_MODEL.googleClientResponseType
-                            }
-                            fetchBasicProfile={
-                              GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile
-                            }
-                            accessType={
-                              GOOGLE_CLIENT_ID_MODEL.googleClientAccessType
-                            }
-                            scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
-                            clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
-                            buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
-                            onSuccess={this.processGoogleSuccessResponse}
-                            onFailure={this.processGoogleFailureResponse}
-                            style={{
-                              background: 'rgb(209, 72, 54)',
-                              color: '#ffffff',
-                              width: '190px',
-                              padding: '10px 0',
-                              borderRadius: '2px',
-                              border: '1px solid transparent',
-                              fontSize: '16px',
-                              fontWeight: 'bold',
-                              fontFamily: 'Roboto',
-                            }}
-                          />
-                        </div>
-                      </Fragment>
-                    )}
-                  </Fragment>
-                )}
+                <Fragment>
+                  {!fetchingContent && (
+                    <Fragment>
+                      <div className="google-container">
+                        <GoogleLogin
+                          className="google-button"
+                          prompt="select_account"
+                          buttonText="Google"
+                          responseType={
+                            GOOGLE_CLIENT_ID_MODEL.googleClientResponseType
+                          }
+                          fetchBasicProfile={
+                            GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile
+                          }
+                          accessType={
+                            GOOGLE_CLIENT_ID_MODEL.googleClientAccessType
+                          }
+                          scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
+                          clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
+                          buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                          onSuccess={this.processGoogleSuccessResponse}
+                          onFailure={this.processGoogleFailureResponse}
+                          style={{
+                            background: 'rgb(209, 72, 54)',
+                            color: '#ffffff',
+                            width: '190px',
+                            padding: '10px 0',
+                            borderRadius: '2px',
+                            border: '1px solid transparent',
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            fontFamily: 'Roboto',
+                          }}
+                        />
+                      </div>
+                    </Fragment>
+                  )}
+                </Fragment>
+              )}
             />
 
             <div className="register-container">
@@ -376,20 +376,20 @@ class Login extends Component {
                 />
               </Link> */}
               {loginMenuLinks.showJoinButton && (
-                  <Link to={loginMenuLinks.joinButtonLinkURL}>
-                    <LargeButtonWithRightIcon
-                      icon={horizontalArrowRightWhite}
-                      theme={{
-                        backgroundColor: nightfall,
-                        color: romance,
-                        border: 0,
-                        width: '100%',
-                      }}
-                      text={loginMenuLinks.joinButtonText}
-                    />
-                  </Link>
+                <Link to={loginMenuLinks.joinButtonLinkURL}>
+                  <LargeButtonWithRightIcon
+                    icon={horizontalArrowRightWhite}
+                    theme={{
+                      backgroundColor: nightfall,
+                      color: romance,
+                      border: 0,
+                      width: '100%',
+                    }}
+                    text={loginMenuLinks.joinButtonText}
+                  />
+                </Link>
               )}
-              
+
             </div>
             <div className="register-container">
               <span className="title-link">
@@ -408,11 +408,12 @@ class Login extends Component {
                 />
               </Link>
             </div>
-            <div className="register-container">
+            <div className="register-container slooh-gift-card">
+              <div className="slooh-gift-card-heading">Holiday shopping?<br></br>Get your Slooh gift cards here!</div>
+              <div className="slooh-gift-card-sub-heading">Click the link below</div>
               <a href="https://www.amazon.com/Slooh-Apprentice-Membership/dp/B01MDNJXIR/ref=sr_1_1?dchild=1&keywords=slooh+apprentice+membership&qid=1606755292&sr=8-1" target="_blank">
-                <img src="https://vega.slooh.com/assets/v4/giftcard/give_gift_of_slooh.png" alt=""/>
+                <img src="https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/gift-of-the-universe.jpg" alt="" />
               </a>
-              
             </div>
           </form>
 

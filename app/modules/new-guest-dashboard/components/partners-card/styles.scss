@@ -40,7 +40,8 @@
 
 .new-guest-dash .partner-div{
     display: flex;
-    height: 120px;
+    height: 175px;
+   
     // margin-bottom: 32px;
 }
 
@@ -92,12 +93,23 @@
 
 @media (min-width: $screenXLarge) {
 
+
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-guest-dash .partner-div{
+        display: flex;
+       height: 28%;
+        
+    }
 
 }
 
 @media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-guest-dash .partner-div{
+        display: flex;
+       height: 28%;
+       
+    }
 
 }
