@@ -416,19 +416,30 @@ export class ObjectMap extends Component{
       });
     }
 
-    getSVGLayer(source){
+    getSVGLayer(source, data){
       var svgContainer = document.createElement('div');
-            var xhr = new XMLHttpRequest();            
-            xhr.open('GET', source ,true);
-            // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
-            xhr.setRequestHeader('Content-Type','application/xml');
-            xhr.addEventListener('load', function () {
-              var svg = xhr.responseXML.documentElement;
-              svgContainer.ownerDocument.importNode(svg);
-              svgContainer.appendChild(svg);
-            });
-            xhr.send();
+            // var xhr = new XMLHttpRequest();            
+            // xhr.open('GET', source ,true);
+            // // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
+            // xhr.setRequestHeader('Content-Type','application/xml');
+            // xhr.addEventListener('load', function () {
+            //   debugger;
+            //   var svg = xhr.responseXML.documentElement;
+            //   svgContainer.ownerDocument.importNode(svg);
+            //   svgContainer.appendChild(svg);
+            // });
+            // xhr.send();
 
+            // var width = 2560;
+            // var height = 1280;
+            // var svgResolution = 360 / width;
+            // svgContainer.style.width = width + 'px';
+            // svgContainer.style.height = height + 'px';
+            // svgContainer.style.transformOrigin = 'top left';
+            // svgContainer.className = 'svg-layer';
+
+            svgContainer.innerHTML=data;
+            svgContainer.style.position="absolute";
             var width = 2560;
             var height = 1280;
             var svgResolution = 360 / width;
@@ -436,7 +447,6 @@ export class ObjectMap extends Component{
             svgContainer.style.height = height + 'px';
             svgContainer.style.transformOrigin = 'top left';
             svgContainer.className = 'svg-layer';
-
            
 
             var backgroundLayer=
@@ -818,7 +828,7 @@ export class ObjectMap extends Component{
     getLayer(source, type, style, data, showLableZoomLevel, dataType, offset){
       switch(type){
         case "Image":
-          return this.getSVGLayer(source); 
+          return this.getSVGLayer(source, data); 
         case "Vector":
           switch(dataType){
             case "Icons":
