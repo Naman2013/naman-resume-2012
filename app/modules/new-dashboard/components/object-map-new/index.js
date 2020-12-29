@@ -82,6 +82,8 @@ export class ObjectMap extends Component{
       maxZoomLevel: 10,
       mapTitle: "", 
       mapSubtitle: "",
+      titleBackgoundColor: "#35485B",
+      navigationBackgroundColor: "#35485B",      
     }    
   }
     componentDidMount(){     
@@ -378,7 +380,7 @@ export class ObjectMap extends Component{
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
         }
         
       });
@@ -410,7 +412,7 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
         }
         
       });
@@ -422,8 +424,7 @@ export class ObjectMap extends Component{
             // xhr.open('GET', source ,true);
             // // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
             // xhr.setRequestHeader('Content-Type','application/xml');
-            // xhr.addEventListener('load', function () {
-            //   debugger;
+            // xhr.addEventListener('load', function () {            
             //   var svg = xhr.responseXML.documentElement;
             //   svgContainer.ownerDocument.importNode(svg);
             //   svgContainer.appendChild(svg);
@@ -730,10 +731,11 @@ export class ObjectMap extends Component{
 
 
     getGraticleLayer(style, offset){
-      var width=document.getElementById("map");
+      var width=document.getElementById("map");      
       return new Graticule({
                 // the style to use for the lines, optional.
                 // style,
+                strokeStyle: new Stroke(style.strokeStyle),
                 showLabels: true, 
                 wrapX: false,
                 visible:true, 
@@ -908,7 +910,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
           }
         }
       })
@@ -1043,7 +1045,7 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle});   
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});   
         }
         
       });
@@ -1156,7 +1158,7 @@ export class ObjectMap extends Component{
     }
 
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor } = this.state
       const { scrollToRef, refreshPhotoHub } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
         return (
@@ -1177,9 +1179,10 @@ export class ObjectMap extends Component{
                     onZoomOutButtonClick={this.handleZoomOut}
                     zoomInDisabled={!(currentZoom < maxZoomLevel)}
                     zoomOutDisabled={!(currentZoom > 1)}
+                    navigationBackgroundColor={navigationBackgroundColor}
                   />
               </div>
-                <div className="title-div">
+                <div className="title-div" style={{backgroundColor: titleBackgoundColor}}>
                     <h2 className="object-map-title">{mapTitle}</h2>
                     <h5 className="object-map-subtitle">{mapSubtitle}</h5>
                 </div>              

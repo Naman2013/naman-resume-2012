@@ -5,10 +5,10 @@ import './style.scss';
 export default class MapNavigation extends PureComponent{
 
     render(){
-        const { onLeftButtonClick, onRightButtonClick, onUpButtonClick, onDownButtonClick, onZoomInButtonClick, onZoomOutButtonClick, zoomInDisabled, zoomOutDisabled } =this.props;
+        const { onLeftButtonClick, onRightButtonClick, onUpButtonClick, onDownButtonClick, onZoomInButtonClick, onZoomOutButtonClick, zoomInDisabled, zoomOutDisabled, navigationBackgroundColor } =this.props;
         return(
             <div>
-                <div className="circle-div">
+                <div className="circle-div" style={{backgroundColor: navigationBackgroundColor}}>
                     <Button
                         type={"button"}
                         onClickEvent={onUpButtonClick} 
