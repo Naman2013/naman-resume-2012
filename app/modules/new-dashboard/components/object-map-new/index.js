@@ -623,11 +623,11 @@ export class ObjectMap extends Component{
       data.map(item => { 
         if(item.iconURL !== ""){ 
           let feature = this.getIconFeature(item.XCoordDeg, item.YCoordDeg, item.labelText );
-          feature.setId(item.questId);
+          feature.setId(item.objectId);
           var font = 'normal ' + item.labelFontSize + 'px ' + item.labelFontName;
           let style = this.getIconSytle(item.anchorX, item.anchorY, item.iconURL, item.labelText, item.XLabelOffset, item.YLabelOffset, font, item.ScaleX, item.ScaleY, item.labelColor);
           // feature=this.setIconSyle(feature,style);
-          const self = this;
+          const self = this;          
           feature.set('tooltip', item.tooltipText);
           feature.set('color', item.labelColor);
           feature.set('offsetX', item.XLabelOffset);
@@ -720,10 +720,13 @@ export class ObjectMap extends Component{
           // format: new GeoJSON({dataProjection: 'EPSG:4326'}),
           // features: (new GeoJSON()).readFeatures(mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
-          features: ifeatures
+          features: ifeatures,
+          wrapX: false,
+          noWrap: true,
         }),        
         // zIndex: 1        
-        title: "Sun-Moon-Layer"
+        title: "Sun-Moon-Layer",
+        
       });      
       return vectorLayer;
     }
@@ -775,7 +778,7 @@ export class ObjectMap extends Component{
                   if(degree.deg === 0 && degree.min === 0)
                     return degree.deg + '°';
                   else
-                    return (degree.dir === "S" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
+                    return (degree.dir === "N" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
                   // const degree = 180 + longitude;
                   // const hours = Math.floor(degree / 15);
                   // const mins = Math.floor(degree % 15);
@@ -949,6 +952,7 @@ export class ObjectMap extends Component{
             // Run code on exit            
             self.setState({mapExpanded: !mapExpanded});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
+            setTimeout( ()=> { self.state.map.updateSize(); self.state.map.getView().setZoom(0)}, 100);
         }
       };
       if(elem.requestFullscreen){

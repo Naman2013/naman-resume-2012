@@ -29,7 +29,8 @@ export class BadgeList extends Component{
                     cid,
                     objectId: item.objectId,
                     objectUUID: item.objectUUID,
-                    objectVersion: 1.1
+                    objectVersion: 1.1,
+                    callSource: "mvpBadge",
                   }).then(response=>{
                       const res=response.data;
                       if(!res.apiError)
