@@ -775,7 +775,7 @@ export class ObjectMap extends Component{
                   if(degree.deg === 0 && degree.min === 0)
                     return degree.deg + '°';
                   else
-                    return degree.deg + '° ' + degree.min + "' ";         
+                    return (degree.dir === "S" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
                   // const degree = 180 + longitude;
                   // const hours = Math.floor(degree / 15);
                   // const mins = Math.floor(degree % 15);
