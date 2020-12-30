@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env webpack-dev-server --expose-gc --max_old_space_size=8192",
+    "start": "cross-env webpack-dev-server --expose-gc --max_old_space_size=8192 --watch --watch-poll",
     "start:dev": "cross-env webpack-dev-server --hot --progress --color --open  --expose-gc --max_old_space_size=8192 --config webpack.config.js",
     "start:dev:virt": "cross-env webpack-dev-server --hot --progress --color --open --config webpack.config.js --host 0.0.0.0",
     "start:prod": "npm run build:nova && npx servor dist index.html 8080",
@@ -76,6 +76,7 @@
     "axios": "^0.15.3",
     "base-64": "^0.1.0",
     "bootstrap": "^4.3.1",
+    "canvas": "^2.6.1",
     "classnames": "^2.2.6",
     "cookie": "^0.3.1",
     "draft-convert": "^2.1.8",
