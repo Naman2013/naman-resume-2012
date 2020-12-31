@@ -573,40 +573,46 @@ export class ObjectMap extends Component{
           noWrap: true,
           showLabels: true, 
         }),
-        // style: (feature, resolution ) => {
-        //     const temp=(1/Math.pow(resolution, 1.1));
-        //     var x = Math.sin((temp * Math.PI) / 180);
-        //     // if(x<0)
-        //     //   x=x*-1;
-        //     // style.getImage().setScale(x);
-        //     // style.getText().setScale(x+0.5);
-        //     const radius=1/Math.pow(resolution, 1/2);
-        //     const textScale= radius*0.3;
-        //     const textOffsetY= radius+8;
-        //     return new Style({
-        //       image: new Circle({
-        //         radius: radius,
-        //         fill: new Fill({
-        //           color: '#3399CC',
-        //         }),
-        //         stroke: new Stroke({
-        //           color: '#cccccc',
-        //           width: 2,
-        //         }),
-        //         // scale: x,
-        //       }),              
-              
-        //       text: map.getView().getZoom() > showLableZoomLevel ? new Text({
-        //         text: feature.get('name'),
-        //         fill: new Fill({color: '#FFFFFF'}),
-        //         offsetX: 0,
-        //         offsetY: textOffsetY,
-        //         textAlign: 'center',
-        //         textBaseline: 'top',
-        //         scale: textScale
-        //       }) : null,
-        //     });
-        //   },
+        style: (feature, resolution ) => {
+            const temp=(1/Math.pow(resolution, 1.1));
+            var x = Math.sin((temp * Math.PI) / 180);
+            // if(x<0)
+            //   x=x*-1;
+            // style.getImage().setScale(x);
+            // style.getText().setScale(x+0.5);
+            const radius=1/Math.pow(resolution, 1/2);
+            const textScale= radius*0.3;
+            const textOffsetY= radius+8;
+            return new Style({
+              // image: new Circle({
+              //   radius: radius,
+              //   fill: new Fill({
+              //     color: '#3399CC',
+              //   }),
+              //   stroke: new Stroke({
+              //     color: '#cccccc',
+              //     width: 2,
+              //   }),
+              //   // scale: x,
+              // }),              
+              stroke: new Stroke({
+                color: "#3790bd",
+                width: 2,                              
+              }),
+
+
+              text:new Text({
+                text: feature.get('name'),
+                fill: new Fill({color: '#FFFFFF'}),
+                // offsetX: 0,
+                // offsetY: textOffsetY,
+                // textAlign: 'center',
+                textBaseline: 'top',
+                // scale: textScale
+                placement: 'line',
+              }) ,
+            });
+          },
         visible: true,
         title: 'elliptic Line',
         // declutter: true,
