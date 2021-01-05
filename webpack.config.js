@@ -140,48 +140,61 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-     //   target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+        //   target: 'https://nova.slooh.com',
+        //   target: 'https://orion.slooh.com',
+        target: 'https://www.slooh.com/',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
         // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+       // target: 'https://orion.slooh.com',
+       target: 'https://www.slooh.com/',
+
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
         // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+       // target: 'https://orion.slooh.com',
+       target: 'https://www.slooh.com/',
+
 
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
         // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+        //target: 'https://orion.slooh.com',
+        target: 'https://www.slooh.com/',
+
 
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
         //   target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+       // target: 'https://orion.slooh.com',
+       target: 'https://www.slooh.com/',
+
 
         changeOrigin: true,
         secure: true,
       },
       '/sselog/**': {
         //  target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+       // target: 'https://orion.slooh.com',
+       target: 'https://www.slooh.com/',
+
 
         changeOrigin: true,
         secure: true,
       },
       '/util/**': {
         // target: 'https://nova.slooh.com',
-        target: 'https://orion.slooh.com',
+        //target: 'https://orion.slooh.com',
+        target: 'https://www.slooh.com/',
+
 
         changeOrigin: true,
         secure: true,

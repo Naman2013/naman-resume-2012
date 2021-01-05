@@ -64,6 +64,10 @@ const DEFAULT_PAGE = 1;
 )
 @withTranslation()
 class Observations extends Component {
+  constructor(props) {
+    super(props)
+    this.node = React.createRef();
+  }
   state = {
     selectedIndex: 1,
     page: DEFAULT_PAGE,
@@ -87,8 +91,8 @@ class Observations extends Component {
       'observationsV4Filters.options'
     )
       ? this.props.objectData.observationsV4Filters.options[
-          this.state.selectedIndex
-        ]
+      this.state.selectedIndex
+      ]
       : {};
     return currentFilterObj.value;
   }
@@ -135,7 +139,7 @@ class Observations extends Component {
 
   handlePageChange = ({ activePage }) => {
     this.getObservations(activePage);
-    //this.observationContainer.scrollIntoView();
+    this.node.current.scrollIntoView();
   };
 
   render() {
@@ -152,11 +156,15 @@ class Observations extends Component {
       params: { groupId },
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
-    const { pages, imageCount, imageList } = sharedMemberPhotos; 
+    const { pages, imageCount, imageList } = sharedMemberPhotos;
     return (
       <Fragment>
         <Spinner loading={isFetching} />
+        <div
+          className="nav-actions"
+          ref={this.node}
 
+        ></div>
         {!hideTitleSection && (
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
@@ -164,9 +172,8 @@ class Observations extends Component {
             renderNav={() => (
               <div
                 className="nav-actions"
-                ref={node => {
-                  this.observationContainer = node;
-                }}
+                ref={this.node}
+
               >
                 <GenericButton
                   disabled={!this.props.objectData.canShareObservations}
