@@ -563,7 +563,7 @@ export class ObjectMap extends Component{
       });
     }
 
-    getStandardVectorLayer(data){
+    getStandardVectorLayer(data, style){
       const { map } = this.state; 
       return new VectorLayer({
         source: new VectorSource({
@@ -596,10 +596,7 @@ export class ObjectMap extends Component{
               //   }),
               //   // scale: x,
               // }),              
-              stroke: new Stroke({
-                color: "#3790bd",
-                width: 2,                              
-              }),
+              stroke: new Stroke(style.strokeStyle),
 
 
               text:new Text({
@@ -857,7 +854,7 @@ export class ObjectMap extends Component{
             case "CircleGeoJson":
               return this.getVectorLayer(source,data, showLableZoomLevel);
             case "StandardGeoJson":
-              return this.getStandardVectorLayer(data);
+              return this.getStandardVectorLayer(data, style);
           }          
         case "Graticule":
           return this.getGraticleLayer(style,offset)
