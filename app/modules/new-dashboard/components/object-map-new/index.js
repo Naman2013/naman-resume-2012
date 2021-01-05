@@ -582,7 +582,7 @@ export class ObjectMap extends Component{
             // style.getImage().setScale(x);
             // style.getText().setScale(x+0.5);
             const radius=1/Math.pow(resolution, 1/2);
-            const textScale= radius*1;
+            const textScale= radius*style.textScale;
             const textOffsetY= radius+8;
             return new Style({
               // image: new Circle({
@@ -601,7 +601,7 @@ export class ObjectMap extends Component{
 
               text:new Text({
                 text: feature.get('name'),
-                fill: new Fill({color: "#3790bd"}),
+                fill: new Fill({color: style.labelColor}),
                 // offsetX: 0,
                 // offsetY: textOffsetY,
                 // textAlign: 'center',
@@ -770,14 +770,18 @@ export class ObjectMap extends Component{
                   // })
                 }),
                 lonLabelFormatter: (longitude)=>{  
-                    let degree = 180 + longitude;
+                    // let degree = 180 + longitude;
+                    // degree=degree+offset;
+                    // if(degree >= 360)
+                    //   degree=degree-360;
+                    // const temp = degree - offset;
+                    // degree= offset-temp;
+                    // if(degree < 0)
+                    //   degree=degree*(-1)
+                    let degree=longitude < 0 ? (longitude * -1) + 180 : longitude;
                     degree=degree+offset;
                     if(degree >= 360)
                       degree=degree-360;
-                    const temp = degree - offset;
-                    degree= offset-temp;
-                    if(degree < 0)
-                      degree=degree*(-1)
                     const hours = Math.floor(degree / 15);
                     const mins = Math.floor(degree % 15);
                     return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
