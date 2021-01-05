@@ -778,7 +778,7 @@ export class ObjectMap extends Component{
                     // degree= offset-temp;
                     // if(degree < 0)
                     //   degree=degree*(-1)
-                    let degree=longitude < 0 ? (longitude * -1) + 180 : longitude;
+                    let degree=longitude < 0 ? (longitude * -1) + 180 : 180-longitude;
                     degree=degree+offset;
                     if(degree >= 360)
                       degree=degree-360;
@@ -791,7 +791,7 @@ export class ObjectMap extends Component{
                   if(degree.deg === 0 && degree.min === 0)
                     return degree.deg + '°';
                   else
-                    return degree.deg + '°';         
+                    return  (degree.dir === "N" ? "" : "- ") + degree.deg + '°';         
                     // return (degree.dir === "N" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
                   // const degree = 180 + longitude;
                   // const hours = Math.floor(degree / 15);
