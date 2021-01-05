@@ -276,6 +276,7 @@ export class ObjectMap extends Component{
             map.on('moveend', function(e) {
               const { currentZoom } = self.state;
               var newZoom =map.getView().getZoom();
+              console.log("min zoom: " + map.getView().getMinZoom() + "currentZoom: "+ newZoom);
               if (currentZoom != newZoom) {
                 self.setState({currentZoom: newZoom});
               }
@@ -740,11 +741,12 @@ export class ObjectMap extends Component{
 
 
     getGraticleLayer(style, offset){
-      var width=document.getElementById("map");      
-      return new Graticule({
+      var width=document.getElementById("map");     
+      var graticuleLayer = 
+      new Graticule({
                 // the style to use for the lines, optional.
                 // style,
-                strokeStyle: new Stroke(style.strokeStyle),
+                strokeStyle:  new Stroke(style.strokeStyle),  
                 showLabels: true, 
                 wrapX: false,
                 visible:true, 
@@ -775,6 +777,10 @@ export class ObjectMap extends Component{
                     degree=degree+offset;
                     if(degree >= 360)
                       degree=degree-360;
+                    const temp = degree - offset;
+                    degree= offset-temp;
+                    if(degree < 0)
+                      degree=degree*(-1)
                     const hours = Math.floor(degree / 15);
                     const mins = Math.floor(degree % 15);
                     return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
@@ -784,13 +790,17 @@ export class ObjectMap extends Component{
                   if(degree.deg === 0 && degree.min === 0)
                     return degree.deg + '°';
                   else
-                    return (degree.dir === "N" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
+                    return degree.deg + '°';         
+                    // return (degree.dir === "N" ? "" : "- ") + degree.deg + '° ' + degree.min + "' ";         
                   // const degree = 180 + longitude;
                   // const hours = Math.floor(degree / 15);
                   // const mins = Math.floor(degree % 15);
                   // return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
                 }
               });
+              
+              graticuleLayer.setStyle();
+              return graticuleLayer;
     }
 
     getIconFeature(lat, lon, text){
@@ -872,8 +882,9 @@ export class ObjectMap extends Component{
         case 'right': newCenterInPx = [centerInPx[0] + panMovement, centerInPx[1]]; break;
         case 'top': newCenterInPx = [centerInPx[0], centerInPx[1] - panMovement]; break;
         case 'bottom': newCenterInPx = [centerInPx[0], centerInPx[1] + panMovement]; break;
-      }
+      }      
       var newCenter = map.getCoordinateFromPixel(newCenterInPx);
+      console.log("changing center to: "+ newCenter);
       map.getView().setCenter(newCenter);
     }   
 
@@ -1167,6 +1178,18 @@ export class ObjectMap extends Component{
         
     }
 
+    getMinZoom = () => {
+      var viewport = document.getElementById('map');
+      if(viewport!==null){
+        var width = viewport.clientWidth;
+        console.log("calc of min zoom"+(Math.LOG2E * Math.log(width / 256)));
+        return Math.ceil(Math.LOG2E * Math.log(width / 256));
+      }
+      else
+        return 0;
+      
+    }
+
     render() {          
       const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor } = this.state
       const { scrollToRef, refreshPhotoHub } = this.props;      
@@ -1187,8 +1210,8 @@ export class ObjectMap extends Component{
                     onDownButtonClick={()=>this.handleNavigationClick('bottom')}
                     onZoomInButtonClick={this.handleZoomIn}
                     onZoomOutButtonClick={this.handleZoomOut}
-                    zoomInDisabled={!(currentZoom < maxZoomLevel)}
-                    zoomOutDisabled={!(currentZoom > 1)}
+                    zoomInDisabled={(currentZoom > maxZoomLevel)}
+                    zoomOutDisabled={(currentZoom <= 1)}
                     navigationBackgroundColor={navigationBackgroundColor}
                   />
               </div>
