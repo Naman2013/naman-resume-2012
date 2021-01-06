@@ -30,7 +30,7 @@ export class BadgeList extends Component{
                     objectId: item.objectId,
                     objectUUID: item.objectUUID,
                     objectVersion: 1.1,
-                    callSource: "mvpBadge",
+                    callSource: this.props.callSource,
                   }).then(response=>{
                       const res=response.data;
                       if(!res.apiError)
@@ -53,7 +53,7 @@ export class BadgeList extends Component{
     
     render() {
 
-        const { badgeLists, totalBadgeCount, currentBadgeCount } = this.props;
+        const { badgeLists, totalBadgeCount, currentBadgeCount, scrollToRef, refreshPhotoHub } = this.props;
         const { showBadge, currentBadge, objectBadge, loading } = this.state;
         // const heading = "Badges(" +badgeLists.length + "/"+ totalBadgeCount + ")";        
         const heading = "Badges";
@@ -86,7 +86,8 @@ export class BadgeList extends Component{
                                 <ObjectCard
                                     onHide={this.closePopup}
                                     objectCardDetails={objectBadge}
-                                    
+                                    scrollToRef={scrollToRef} 
+                                    refreshPhotoHub={refreshPhotoHub}
                                 />
                             </div>   
                         </Popup>                      

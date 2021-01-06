@@ -393,6 +393,8 @@ export class NewDashboard extends PureComponent{
                                         showLeftBuuton={true}
                                         userGravityStatus={userGravityStatus}
                                         changeStatus={()=>this.setState({showRightbar: !showRightbar})}
+                                        scrollToRef={this.scrollToRef}
+                                        refreshPhotoHub={this.refreshPhotoHub}
                                     />
                                 )}                                
                                  

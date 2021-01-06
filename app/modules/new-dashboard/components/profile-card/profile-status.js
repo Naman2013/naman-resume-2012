@@ -48,7 +48,7 @@ export class ProfileStatus extends Component{
     
     render() {
         // const { userGravityStatus } = this.state;
-        const { userGravityStatus, changeStatus, showRightButton, showLeftBuuton } = this.props;
+        const { userGravityStatus, changeStatus, showRightButton, showLeftBuuton, scrollToRef, refreshPhotoHub } = this.props;
 
         return (
             <div>
@@ -64,6 +64,9 @@ export class ProfileStatus extends Component{
                             badgeLists={userGravityStatus.userBadgeList}
                             totalBadgeCount={userGravityStatus.totalBadgeCount}
                             currentBadgeCount={userGravityStatus.currentBadgeCount}
+                            scrollToRef={scrollToRef}
+                            refreshPhotoHub={refreshPhotoHub}
+                            callSource={"mvpBadge"}
                         />                                                           
                     </div>   
                 )}
