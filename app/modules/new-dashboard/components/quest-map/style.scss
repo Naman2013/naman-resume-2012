@@ -39,7 +39,7 @@
 
 .new-dash .Quest-map-fullscreen{
     width: 100%;
-    height: calc(95vh);
+    height: calc(90vh);
     border-radius: 8px;
 }
 
@@ -229,6 +229,10 @@
     .new-dash .settings-controls{
         width: 25%;
         margin: 10px 0px;
+    }
+
+    .new-dash .Quest-map-fullscreen{       
+        height: calc(95vh);        
     }
 
     // .new-dash .popup{

@@ -5,11 +5,25 @@ import './style.scss';
 export default class MapNavigation extends PureComponent{
 
     render(){
-        const { onLeftButtonClick, onRightButtonClick, onUpButtonClick, onDownButtonClick, onZoomInButtonClick, onZoomOutButtonClick, zoomInDisabled, zoomOutDisabled, navigationBackgroundColor } =this.props;
+        const { onLeftButtonClick, 
+            onRightButtonClick, 
+            onUpButtonClick, 
+            onDownButtonClick, 
+            onZoomInButtonClick, 
+            onZoomOutButtonClick, 
+            zoomInDisabled, 
+            zoomOutDisabled,
+            panUpDisabled,
+            panLeftDisabled, 
+            panRightDisabled,
+            panDownDisabled,
+            navigationBackgroundColor } =this.props;
+            
         return(
             <div>
                 <div className="circle-div" style={{backgroundColor: navigationBackgroundColor}}>
                     <Button
+                        disabled={panUpDisabled}
                         type={"button"}
                         onClickEvent={onUpButtonClick} 
                         text={""}
@@ -18,6 +32,7 @@ export default class MapNavigation extends PureComponent{
                     />
                     <div className="center-div">
                         <Button
+                            disabled={panLeftDisabled}
                             type={"button"}
                             onClickEvent={onLeftButtonClick} 
                             text={""}
@@ -44,6 +59,7 @@ export default class MapNavigation extends PureComponent{
                             />
                         </div>
                         <Button
+                            disabled={panRightDisabled}
                             type={"button"}
                             onClickEvent={onRightButtonClick} 
                             text={""}
@@ -52,6 +68,7 @@ export default class MapNavigation extends PureComponent{
                         />
                     </div>
                     <Button
+                        disabled={panDownDisabled}
                         type={"button"}
                         onClickEvent={onDownButtonClick} 
                         text={""}

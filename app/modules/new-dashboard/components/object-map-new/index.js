@@ -83,7 +83,13 @@ export class ObjectMap extends Component{
       mapTitle: "", 
       mapSubtitle: "",
       titleBackgoundColor: "#35485B",
-      navigationBackgroundColor: "#35485B",      
+      navigationBackgroundColor: "#35485B",
+      showLeftPan: true,
+      showRightPan: true,
+      showUpPan: true,
+      showDownPan: true,
+      showZoomIn: true,
+      showZoomOut: true,   
     }    
   }
     componentDidMount(){     
@@ -94,15 +100,7 @@ export class ObjectMap extends Component{
           features: (new GeoJSON()).readFeatures(mapVector)   
           // url: "https://vega.slooh.com/assets/v4/dashboard-new/objectmap/test.js"
         })
-      });
-
-      
-     
-      // // var zoomControl = new Zoom({
-      // //   zoomInTipLabel: 'Zoom closer in',
-      // //   zoomOutTipLabel: 'Zoom further out',
-      // //   className: 'ol-zoom custom-zoom-control'
-      // // });
+      });      
       const self = this;
       var displayFeatureInfo = function(pixel) {        
         const { showObjectCard } = self.state;
@@ -142,60 +140,6 @@ export class ObjectMap extends Component{
         }
           
       };
-      
-      
-      // var extent = [0, 0, 1204, 1125];
-      // var projection = new Projection({
-      //   code: 'xkcd-image',
-      //   units: 'pixels',
-      //   extent: extent,
-      // });
-
-      // var imageLayer=new ImageLayer({
-      //   source: new Static({
-      //     attributions: '© <a href="http://xkcd.com/license.html">xkcd</a>',
-      //     url: 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',
-      //     projection: projection,
-      //     imageExtent: extent,
-      //   }),
-      // }) ;
-
-      // var view =new View({
-      //   projection: projection,
-      //   center: getCenter(extent),
-      //   zoom: 3,
-      //   maxZoom: 6,
-      //   minZoom: 3,
-      //   constrainOnlyCenter: true,
-      //   extent: extent,
-      // })
-      //   var map = new Map({
-      //     controls: [],
-      //       layers: [              
-      //         imageLayer,
-      //         // vectorLayer,                       
-      //         // new Graticule({
-      //         //   // the style to use for the lines, optional.
-      //         //   strokeStyle: new Stroke({
-      //         //     color: 'rgba(65,86,111,0.9)',
-      //         //     width: 2,
-      //         //     lineDash: [0.5, 4]
-      //         //   }),
-      //         //   showLabels: true,
-      //         //   wrapX: false
-      //         // })
-      //       ],
-      //       target: 'map',
-      //     view: view
-      //     });
-      //     // map.on('pointermove', function(evt) {
-      //     //   if (evt.dragging) {
-      //     //     return;
-      //     //   }
-      //     //   var pixel = map.getEventPixel(evt.originalEvent);
-      //     //   displayFeatureInfo(pixel);
-      //     // });
-
       var highlightStyle = new Style({
         fill: new Fill({
           color: 'rgba(255,255,255,0.7)',
@@ -217,51 +161,6 @@ export class ObjectMap extends Component{
         showFullExtent: true,
       });
 
-            // var svgContainer = document.createElement('div');
-            // var xhr = new XMLHttpRequest();            
-            // xhr.open('GET', 'https://vega.slooh.com/assets/v4/dashboard-new/objectmap/working_copy.svg',true);
-            // // xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://vega.slooh.com'); 
-            // xhr.setRequestHeader('Content-Type','application/xml');
-            // xhr.addEventListener('load', function () {
-            //   var svg = xhr.responseXML.documentElement;
-            //   svgContainer.ownerDocument.importNode(svg);
-            //   svgContainer.appendChild(svg);
-            // });
-            // xhr.send();
-
-            // var width = 2560;
-            // var height = 1280;
-            // var svgResolution = 360 / width;
-            // svgContainer.style.width = width + 'px';
-            // svgContainer.style.height = height + 'px';
-            // svgContainer.style.transformOrigin = 'top left';
-            // svgContainer.className = 'svg-layer';
-
-           
-
-            // var backgroundLayer=
-            //   new Layer({
-            //     render: function (frameState) {
-            //       var scale = svgResolution / frameState.viewState.resolution;
-            //       var center = frameState.viewState.center;
-            //       var size = frameState.size;
-            //       var cssTransform = composeCssTransform(
-            //         size[0] / 2,
-            //         size[1] / 2,
-            //         scale,
-            //         scale,
-            //         frameState.viewState.rotation,
-            //         -center[0] / svgResolution - width / 2,
-            //         center[1] / svgResolution - height / 2
-            //       );
-            //       svgContainer.style.transform = cssTransform;
-            //       svgContainer.style.opacity = 1;
-            //       return svgContainer;
-            //     },
-            //   })
-            
-            
-
 
             var map = new Map({
               controls: [],
@@ -273,13 +172,20 @@ export class ObjectMap extends Component{
               ]
             });
 
-            map.on('moveend', function(e) {
-              const { currentZoom } = self.state;
-              var newZoom =map.getView().getZoom();
-              console.log("min zoom: " + map.getView().getMinZoom() + "currentZoom: "+ newZoom);
-              if (currentZoom != newZoom) {
-                self.setState({currentZoom: newZoom});
-              }
+            map.on('moveend', function(e) {              
+              var view=map.getView();                           
+              var newZoom =view.getZoom();
+              const extent = view.calculateExtent(map.getSize())              
+              self.setState({
+                showLeftPan: extent[0] > -180,
+                showDownPan: extent[1] > -90,
+                showRightPan: extent[2] < 180,
+                showUpPan: extent[3] < 90,
+                currentZoom: newZoom,
+              })
+              // if (currentZoom != newZoom) {
+              //   self.setState({currentZoom: newZoom});
+              // }
             });
             
                      
@@ -402,14 +308,7 @@ export class ObjectMap extends Component{
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           layerList.map(layer=>{            
             map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
-          })          
-          map.getView().on('change:resolution', (event) => {
-            
-            // console.log(event);
-            const graticuleLayer=[...map.getLayers().getArray()][1]; 
-            // graticuleLayer.setTargetSize(100);
-            
-          });
+          })  
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
@@ -674,7 +573,6 @@ export class ObjectMap extends Component{
             // var y = Math.sin((i * Math.PI) / 180) * 4;
             style.getImage().setScale(x);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
-            // console.log(feature.get("name"));
             if (currentZoom < showLabelZoomLevel){              
               style.setText(new Text({
                 text: feature.get('name'),
@@ -739,8 +637,7 @@ export class ObjectMap extends Component{
 
     getGraticleLayer(style, offset){
       var width=document.getElementById("map");     
-      var graticuleLayer = 
-      new Graticule({
+      return new Graticule({
                 // the style to use for the lines, optional.
                 // style,
                 strokeStyle:  new Stroke(style.strokeStyle),  
@@ -798,10 +695,7 @@ export class ObjectMap extends Component{
                   // const mins = Math.floor(degree % 15);
                   // return hours + 'h' + (mins > 0 ?  ' ' + mins + 'm' : '' );  
                 }
-              });
-              
-              graticuleLayer.setStyle();
-              return graticuleLayer;
+              }); 
     }
 
     getIconFeature(lat, lon, text){
@@ -885,7 +779,6 @@ export class ObjectMap extends Component{
         case 'bottom': newCenterInPx = [centerInPx[0], centerInPx[1] + panMovement]; break;
       }      
       var newCenter = map.getCoordinateFromPixel(newCenterInPx);
-      console.log("changing center to: "+ newCenter);
       map.getView().setCenter(newCenter);
     }   
 
@@ -1174,25 +1067,11 @@ export class ObjectMap extends Component{
           break;
         default:      
           break;
-      }
-        
-        
+      } 
     }
-
-    getMinZoom = () => {
-      var viewport = document.getElementById('map');
-      if(viewport!==null){
-        var width = viewport.clientWidth;
-        console.log("calc of min zoom"+(Math.LOG2E * Math.log(width / 256)));
-        return Math.ceil(Math.LOG2E * Math.log(width / 256));
-      }
-      else
-        return 0;
-      
-    }
-
+    
     render() {          
-      const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor } = this.state
+      const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor, showDownPan, showLeftPan, showRightPan, showUpPan } = this.state
       const { scrollToRef, refreshPhotoHub } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
         return (
@@ -1211,9 +1090,13 @@ export class ObjectMap extends Component{
                     onDownButtonClick={()=>this.handleNavigationClick('bottom')}
                     onZoomInButtonClick={this.handleZoomIn}
                     onZoomOutButtonClick={this.handleZoomOut}
-                    zoomInDisabled={(currentZoom > maxZoomLevel)}
-                    zoomOutDisabled={(currentZoom <= 1)}
+                    zoomInDisabled={(currentZoom >= maxZoomLevel)}
+                    zoomOutDisabled={!(showUpPan || showLeftPan || showRightPan || showDownPan)}
                     navigationBackgroundColor={navigationBackgroundColor}
+                    panUpDisabled={!showUpPan}
+                    panLeftDisabled={!showLeftPan} 
+                    panRightDisabled={!showRightPan}
+                    panDownDisabled={!showDownPan}
                   />
               </div>
                 <div className="title-div" style={{backgroundColor: titleBackgoundColor}}>

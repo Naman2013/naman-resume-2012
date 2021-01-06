@@ -250,7 +250,7 @@
 
 .new-dash .Object-map-fullscreen{
     width: 100%;
-    height: calc(95vh);
+    height: calc(90vh);
     border-radius: 8px;
 }
 
@@ -294,6 +294,9 @@
     .new-dash .object-card-popup{
         width: 60%;
         height: 100%;
+    }
+    .new-dash .Object-map-fullscreen{       
+        height: calc(95vh);        
     }
 
 }
