@@ -175,12 +175,12 @@ export class ObjectMap extends Component{
             map.on('moveend', function(e) {              
               var view=map.getView();                           
               var newZoom =view.getZoom();
-              const extent = view.calculateExtent(map.getSize())              
+              const extent = view.calculateExtent(map.getSize());   
               self.setState({
-                showLeftPan: extent[0] > -180,
-                showDownPan: extent[1] > -90,
-                showRightPan: extent[2] < 180,
-                showUpPan: extent[3] < 90,
+                showLeftPan: Math.floor(extent[0]) > -180,
+                showDownPan: Math.floor(extent[1]) > -90,
+                showRightPan: Math.ceil(extent[2]) < 180,
+                showUpPan: Math.ceil(extent[3]) < 90,
                 currentZoom: newZoom,
               })
               // if (currentZoom != newZoom) {
