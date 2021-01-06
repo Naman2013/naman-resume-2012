@@ -23,6 +23,7 @@ import {
   fetchSharedMemberPhotosAction,
 } from 'app/modules/object-details/actions';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
+/* import { SetScrollRefs } from 'app/components/object-details/ObjectDetailsSectionTitle/ObjectDetailsSectionTitle'; */
 import CenterColumn from 'app/components/common/CenterColumn';
 import { ObservationCard } from 'app/modules/observations/components/observation-card';
 import { IMAGE_DETAILS } from 'app/services/image-details';
@@ -157,100 +158,107 @@ class Observations extends Component {
     } = this.props;
     const { writeObservationModalShow, page, selectedIndex } = this.state;
     const { pages, imageCount, imageList } = sharedMemberPhotos;
+
     return (
       <Fragment>
-        <Spinner loading={isFetching} />
-        <div
-          className="nav-actions"
-          ref={this.node}
+        <>
+          <Spinner loading={isFetching} />
+          {/* <SetScrollRefs refs={this.node} /> */}
 
-        ></div>
-        {!hideTitleSection && (
-          <ObjectDetailsSectionTitle
-            title={`${objectDetails.objectTitle}'s`}
-            subTitle={t('Objects.Observations')}
-            renderNav={() => (
-              <div
-                className="nav-actions"
-                ref={this.node}
+          {!hideTitleSection && (
+            <ObjectDetailsSectionTitle
+              title={`${objectDetails.objectTitle}'s`}
+              subTitle={t('Objects.Observations')}
+              renderNav={() => (
+                <div
+                  className="nav-actions"
+                  ref={this.node}
 
-              >
-                <GenericButton
-                  disabled={!this.props.objectData.canShareObservations}
-                  onClickEvent={this.showWriteObservationModal}
-                  text="Add observation"
-                  icon={plus}
-                  theme={{ marginRight: '10px' }}
-                />
-                <DropDown
-                  options={this.dropdownOptions}
-                  selectedIndex={selectedIndex}
-                  handleSelect={this.handleSelect}
-                />
-              </div>
-            )}
-          />
-        )}
-
-        {imageCount && !isFetching ? (
-          <CenterColumn
-            widths={['645px', '965px', '965px']}
-            customClass={customClass}
-          >
-            <div className="root">
-              {imageList.map(image => (
-                <Request
-                  method="POST"
-                  authorizationRedirect
-                  serviceURL={IMAGE_DETAILS}
-                  serviceExpiresFieldName="expires"
-                  requestBody={{
-                    customerImageId: image.customerImageId,
-                    useShareToken: 'n',
-                    callSource: 'sharedPictures',
-                    discussionGroupId: groupId,
-                  }}
-                  render={({ serviceResponse: imageDetails }) =>
-                    !isEmpty(imageDetails) && (
-                      <ObservationCard
-                        observationData={imageDetails}
-                        handleLike={fetchLikeAction}
-                      />
-                    )
-                  }
-                />
-              ))}
-
-              {pages > 1 ? (
-                <div className="observations-pagination">
-                  <Pagination
-                    pagesPerPage={4}
-                    activePage={page}
-                    onPageChange={this.handlePageChange}
-                    totalPageCount={pages}
+                >
+                  <GenericButton
+                    disabled={!this.props.objectData.canShareObservations}
+                    onClickEvent={this.showWriteObservationModal}
+                    text="Add observation"
+                    icon={plus}
+                    theme={{ marginRight: '10px' }}
+                  />
+                  <DropDown
+                    options={this.dropdownOptions}
+                    selectedIndex={selectedIndex}
+                    handleSelect={this.handleSelect}
                   />
                 </div>
-              ) : null}
-            </div>
-          </CenterColumn>
-        ) : null}
+              )}
+            />
+          )}
 
-        {!imageCount && !isFetching && (
-          <p>
-            {t('Objects.NoObservations', {
-              objectTitle: objectDetails.objectTitle,
-            })}
-          </p>
-        )}
+          {imageCount && !isFetching ? (
+            <CenterColumn
+              widths={['645px', '965px', '965px']}
+              customClass={customClass}
+            >
+              {hideTitleSection ?  <div
+                className="sroll-action"
+                ref={this.node}
+              ></div>:null }
+             
+              <div className="root">
+                {imageList.map(image => (
+                  <Request
+                    method="POST"
+                    authorizationRedirect
+                    serviceURL={IMAGE_DETAILS}
+                    serviceExpiresFieldName="expires"
+                    requestBody={{
+                      customerImageId: image.customerImageId,
+                      useShareToken: 'n',
+                      callSource: 'sharedPictures',
+                      discussionGroupId: groupId,
+                    }}
+                    render={({ serviceResponse: imageDetails }) =>
+                      !isEmpty(imageDetails) && (
+                        <>
+                          <ObservationCard
+                            observationData={imageDetails}
+                            handleLike={fetchLikeAction}
+                          />
+                        </>
+                      )
+                    }
+                  />
+                ))}
 
-        {writeObservationModalShow && (
-          <ObjectObservationModal
-            show
-            onHide={this.closeWriteObservationModal}
-          />
-        )}
+                {pages > 1 ? (
+                  <div className="observations-pagination">
+                    <Pagination
+                      pagesPerPage={4}
+                      activePage={page}
+                      onPageChange={this.handlePageChange}
+                      totalPageCount={pages}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            </CenterColumn>
+          ) : null}
 
-        <style jsx>{styles}</style>
+          {!imageCount && !isFetching && (
+            <p>
+              {t('Objects.NoObservations', {
+                objectTitle: objectDetails.objectTitle,
+              })}
+            </p>
+          )}
+
+          {writeObservationModalShow && (
+            <ObjectObservationModal
+              show
+              onHide={this.closeWriteObservationModal}
+            />
+          )}
+
+          <style jsx>{styles}</style>
+        </>
       </Fragment>
     );
   }

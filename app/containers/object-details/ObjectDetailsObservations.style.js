@@ -10,6 +10,9 @@ export default css`
     justify-content: center;
     margin: 25px auto;
   }
+  .sroll-action{
+    height:75px;
+  }
 
   .nav-actions :global(.slooh-select__single-value) {
     color: ${lightHeadedAstronaut};
