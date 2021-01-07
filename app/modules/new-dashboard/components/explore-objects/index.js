@@ -4,6 +4,7 @@ import './style.scss';
 import { TabHeader } from '../tab-header';
 import { QuestMap } from '../quest-map';
 import { ObjectMap } from '../object-map-new';
+import { TabHeaderWithNewLabel } from '../tab-header/header-with-new-label';
 
 export class ExploreObject extends Component{
 
@@ -32,8 +33,8 @@ export class ExploreObject extends Component{
 
         return (
             <div className="title-main">
-                 <TabHeader
-                    headings={["Quest Map", "Object Map"]}
+                 <TabHeaderWithNewLabel
+                    headings={[{ label: "Quest Map", showNewLabel: false}, {label: "Object Map", showNewLabel: true}]}
                     activeHeading={activeHeading}
                     spaceequally={false}
                     theme={"dark"}
