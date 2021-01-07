@@ -605,7 +605,7 @@ class personalInfoRegistration extends Component {
                         callSource: 'setupCredentials',
                         selectedPlanId,
                         sloohMarketingTrackingId: _sloohatid,
-                        conditionType: 'joinbyguestlanding',
+                        conditionType: _sloohatid ? 'join' : 'joinByGuestLanding',
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),
