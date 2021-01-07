@@ -310,6 +310,7 @@ class personalInfoRegistration extends Component {
                     //clubCodeB: this.state.accountFormDetails.codeB.value,
                     conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
                     selectedPlanId: window.localStorage.selectedPlanId,
+                    sloohMarketingTrackingId: getUserInfo()._sloohatid,
                 }
             )
                 .then(response => {
@@ -382,6 +383,7 @@ class personalInfoRegistration extends Component {
             selectedSchoolId,
             conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
             isAgeRestricted: this.state.isAgeRestricted,
+            sloohMarketingTrackingId: getUserInfo()._sloohatid,
         };
 
 

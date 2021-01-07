@@ -23,6 +23,7 @@ class checkoutStudentPlan extends Component {
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),
+                        sloohMarketingTrackingId: getUserInfo()._sloohatid,
                     }}
                     // serviceResponseHandler={this.handleJoinPageServiceResponse}
                     render={({ fetchingContent, serviceResponse: joinPageRes }) => (
