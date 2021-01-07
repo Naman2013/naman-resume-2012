@@ -143,7 +143,7 @@ class paymentDetails extends Component {
                     billingAddressString: paymentDataString[3],
                     // sloohSiteSessionToken: _sloohsstkn,
                     sloohMarketingTrackingId: _sloohatid,
-                    conditionType: 'joinbyguestlanding'
+                    conditionType: _sloohatid ? 'join' : 'joinByGuestLanding',
                 };
 
                 API.post(
