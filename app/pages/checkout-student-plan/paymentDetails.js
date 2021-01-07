@@ -304,7 +304,7 @@ class paymentDetails extends Component {
                     serviceURL={JOIN_PAGE_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'providePaymentDetails',
-                        conditionType: 'joinbyguestlanding',
+                        conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
                         selectedPlanId: window.localStorage.selectedPlanId,
                         cid: window.localStorage.getItem('pending_cid'),
                         enableHiddenPlanHashCode: window.localStorage.getItem(
