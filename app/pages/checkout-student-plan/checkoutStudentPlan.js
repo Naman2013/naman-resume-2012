@@ -7,20 +7,19 @@ import TitleHeader from './component/title-header';
 import { Spinner } from 'app/components/spinner/index';
 import { SUBSCRIPTION_PLANS_ENDPOINT_URL,  } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
+import { getUserInfo } from 'app/modules/User';
 
 class checkoutStudentPlan extends Component {
     static defaultProps = {};
 
-    state = {};
-
-    render() {
-
+    state = {};    
+    render() {        
         return (
             <>
                 <Request
                     serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
                     requestBody={{
-                        callSource: 'joinByGuestLanding',
+                        callSource: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),
@@ -38,7 +37,8 @@ class checkoutStudentPlan extends Component {
                                     <Row>
                                         <Col md="4">
                                             <CheckoutPlan 
-                                                supscriptionResponse={joinPageRes}
+                                                subscriptionPlans={joinPageRes.subscriptionPlans}
+                                                subscriptionPlansCount={joinPageRes.subscriptionPlansCount}
                                             />
                                         </Col>
                                         <Col md="8">

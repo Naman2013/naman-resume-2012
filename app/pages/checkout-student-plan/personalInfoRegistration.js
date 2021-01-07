@@ -308,7 +308,7 @@ class personalInfoRegistration extends Component {
                         .loginEmailAddress.value,
                     //clubCodeA: this.state.accountFormDetails.codeA.value,
                     //clubCodeB: this.state.accountFormDetails.codeB.value,
-                    conditionType: 'joinbyguestlanding',
+                    conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
                     selectedPlanId: window.localStorage.selectedPlanId,
                 }
             )
@@ -380,7 +380,7 @@ class personalInfoRegistration extends Component {
             googleProfileId: this.state.googleProfileData.googleProfileId,
             accountFormDetails: this.state.accountFormDetails,
             selectedSchoolId,
-            conditionType: 'joinbyguestlanding',
+            conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
             isAgeRestricted: this.state.isAgeRestricted,
         };
 

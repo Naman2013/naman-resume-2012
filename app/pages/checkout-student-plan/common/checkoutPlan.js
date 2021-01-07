@@ -21,50 +21,65 @@ class checkoutPlan extends Component {
     constructor(props) {
 
         super(props);
-        this.state = {
-            activePlan: null,
-            alternatePlan: null,
-        }
-        this.handleJoinPageServiceResponse(props.supscriptionResponse);
-    }
+        // this.state = {
+        //     activePlan: null,
+        //     alternatePlan: null,
+        // }
+        // this.handleJoinPageServiceResponse(props.supscriptionResponse);
 
-    handleJoinPageServiceResponse = result => {
-        const subscriptionPlans = Array.isArray(result.subscriptionPlans) ? result.subscriptionPlans : [];
-        const planApprentice = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'apprentice');
-        const planStudent = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'student');
-
-        // this.setState({
-        //     activePlan: planApprentice.length ? planApprentice[0] : null,
-        //     alternatePlan: planStudent.length ? planStudent[0] : null,
-
-        // })
-        // window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
+        window.localStorage.setItem('selectedPlanId', props.subscriptionPlans[0].planID);
         this.state={
-            activePlan: planApprentice.length ? planApprentice[0] : null,
-            alternatePlan: planStudent.length ? planStudent[0] : null,
-
+            subscriptionPlans: props.subscriptionPlans,
+            subscriptionPlansCount: props.subscriptionPlansCount
         }
-        window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
-
+        
     }
 
-    switchPlan = () => {
+    // handleJoinPageServiceResponse = result => {
+    //     const subscriptionPlans = Array.isArray(result.subscriptionPlans) ? result.subscriptionPlans : [];
+    //     const planApprentice = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'apprentice');
+    //     const planStudent = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'student');
 
+    //     // this.setState({
+    //     //     activePlan: planApprentice.length ? planApprentice[0] : null,
+    //     //     alternatePlan: planStudent.length ? planStudent[0] : null,
 
-        const { alternatePlan, activePlan } = this.state;
-        this.setState({
-            activePlan: alternatePlan,
-            alternatePlan: activePlan
-        })
-        window.localStorage.setItem('selectedPlanId', alternatePlan.planID);
+    //     // })
+    //     // window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
+    //     this.state={
+    //         activePlan: planApprentice.length ? planApprentice[0] : null,
+    //         alternatePlan: planStudent.length ? planStudent[0] : null,
 
+    //     }
+    //     window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
+
+    // }
+
+    // switchPlan = () => {
+    //     const { alternatePlan, activePlan } = this.state;
+    //     this.setState({
+    //         activePlan: alternatePlan,
+    //         alternatePlan: activePlan
+    //     })
+    //     window.localStorage.setItem('selectedPlanId', alternatePlan.planID);
+
+    // }
+
+    switchPlan = (plans, fromPlanIndex, toPlanIndex) => {
+        window.localStorage.setItem('selectedPlanId', plans[fromPlanIndex].planID);
+        var element = plans[fromPlanIndex];
+        plans.splice(fromPlanIndex, 1);
+        plans.splice(toPlanIndex, 0, element);        
+        this.setState({subscriptionPlans: plans});
     }
 
     render() {
         //  const { pathname, t } = this.props;
-        const { mainHeading, subHeading, planName, paragraph1, paragraph2 } = this.state;
-        const { t } = this.props;
-        
+        // const { mainHeading, subHeading, planName, paragraph1, paragraph2 } = this.state;
+        // const { t } = this.props;
+        const { subscriptionPlans } = this.state;
+
+
         return (
 
             <div>
@@ -79,11 +94,11 @@ class checkoutPlan extends Component {
                     serviceResponseHandler={this.handleJoinPageServiceResponse}
                     render={({ fetchingContent, serviceResponse: joinPageRes }) => ( */}
                         
-                        <Fragment>
+                        {/* <Fragment>
                            
                             <DeviceContext.Consumer>
-                                {({ isMobile, isDesktop, isTablet }) => (
-                                    <Fragment>
+                                {({ isMobile, isDesktop, isTablet }) => ( */}
+                                    {/* <Fragment> */}
                                         <div className="left-plan-list">
                                             <PlanHeader
                                                 cardHeading="Your Plan"
@@ -91,87 +106,89 @@ class checkoutPlan extends Component {
                                                 subHeading={null}
                                                 description={null}
                                             />
-                                            <div className="appPlan mt-4">
-                                                <div className="craddesign">
-                                                    <div className="state_active">
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={`${this.state.activePlan && this.state.activePlan.planName}
-                                                                 Plan`}
-                                                                subHeading={null}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="state_active">
-                                                        {this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
-                                                        </div>}
-                                                    </div>
-                                                    {/* <div className="state_active">
-
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={null}
-                                                                subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
-                                                                </div>}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div> */}
-                                                    <div className="state_active">
-
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={null}
-                                                                subHeading={this.state.activePlan && this.state.activePlan.planCostDescription}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                    {this.state.activePlan && this.state.activePlan.planTextBlockDetails.map((planTextBlockData) => {
-
-
-                                                        return (<div className="state_active">
-                                                            <div>
-                                                                <i className="fa fa-check" aria-hidden="true">
-                                                                </i>
+                                            
+                                            {subscriptionPlans.map((plan, index)=>(
+                                                index === 0 ? (
+                                                    <div className="appPlan mt-4">
+                                                        <div className="craddesign">
+                                                            <div className="state_active">
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={plan.planName}
+                                                                        subHeading={null}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
                                                             </div>
-                                                            <div className="ml-1">
-                                                                <PlanCard
-                                                                    heading={null}
-                                                                    subHeading={null}
-                                                                    description={planTextBlockData}
-                                                                />
+                                                            <div className="state_active">
+                                                                <div className="ml-1" dangerouslySetInnerHTML={{__html: plan.planCostDescriptionPrefix}} />                                                                      
                                                             </div>
-                                                        </div>)
-
-                                                    })
-
-                                                    }
-
-
+                                                            {/* <div className="state_active">
+        
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={null}
+                                                                        subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                                        </div>}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
+                                                            </div> */}
+                                                            <div className="state_active">
+        
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={null}
+                                                                        subHeading={plan.planCostDescription}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
+                                                            </div>
+        
+        
+        
+        
+                                                            {plan.planTextBlockDetails.map((planTextBlockData) => {
+        
+        
+                                                                return (<div className="state_active">
+                                                                    <div>
+                                                                        <i className="fa fa-check" aria-hidden="true">
+                                                                        </i>
+                                                                    </div>
+                                                                    <div className="ml-1">
+                                                                        <PlanCard
+                                                                            heading={null}
+                                                                            subHeading={null}
+                                                                            description={planTextBlockData}
+                                                                        />
+                                                                    </div>
+                                                                </div>)
+        
+                                                            })
+        
+                                                            }
+        
+        
+                                                        </div>
+        
+                                                    </div>
+                                                ):(
+                                                    <div className="state_active cursor-point" onClick={()=>this.switchPlan(subscriptionPlans, index, 0)}>
+                                                    <div>
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={"View "+ plan.planName + " Plan"}
+                                                            description={null}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-4 pt-2 mt-1">
+                                                        <i className="fa fa-chevron-right" aria-hidden="true"></i>
+                                                    </div>
                                                 </div>
+                                                )
 
-                                            </div>
-
-
-
-                                            <div className="state_active cursor-point" onClick={this.switchPlan}>
-                                                <div>
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
-                                                        description={null}
-                                                    />
-                                                </div>
-                                                <div className="ml-4 pt-2 mt-1">
-                                                    <i className="fa fa-chevron-right" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
+                                            ))}
 
                                             <hr className="seperatorDesign"></hr>
 
@@ -204,15 +221,15 @@ class checkoutPlan extends Component {
                                             </div>
 
                                             <div className="jumbotron mt-4 billJumB">
-                                                <p> {this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}</p>
+                                                <p> {subscriptionPlans[0].freeTrialDescriptiveText}</p>
                                             </div>
 
                                             <style jsx>{styles}</style>
                                         </div>
-                                    </Fragment>
-                                )}
+                                    {/* </Fragment> */}
+                                {/* )}
                             </DeviceContext.Consumer>
-                        </Fragment>
+                        </Fragment> */}
 
                     {/* )}
 
