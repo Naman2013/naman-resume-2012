@@ -143,7 +143,7 @@ class paymentDetails extends Component {
                     billingAddressString: paymentDataString[3],
                     // sloohSiteSessionToken: _sloohsstkn,
                     sloohMarketingTrackingId: _sloohatid,
-                    conditionType: _sloohatid ? 'join' : 'joinByGuestLanding',
+                    conditionType: _sloohatid ? 'join' : 'joinbyguestlanding',
                 };
 
                 API.post(
@@ -306,7 +306,7 @@ class paymentDetails extends Component {
                     serviceURL={JOIN_PAGE_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'providePaymentDetails',
-                        conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
+                        conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                         selectedPlanId: window.localStorage.selectedPlanId,
                         cid: window.localStorage.getItem('pending_cid'),
                         enableHiddenPlanHashCode: window.localStorage.getItem(

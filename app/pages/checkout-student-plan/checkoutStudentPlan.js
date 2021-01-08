@@ -19,7 +19,7 @@ class checkoutStudentPlan extends Component {
                 <Request
                     serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
                     requestBody={{
-                        callSource: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
+                        callSource: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),

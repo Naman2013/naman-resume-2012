@@ -355,7 +355,7 @@ class personalInfoRegistration extends Component {
                         .loginEmailAddress.value,
                     //clubCodeA: this.state.accountFormDetails.codeA.value,
                     //clubCodeB: this.state.accountFormDetails.codeB.value,
-                    conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
+                    conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                     selectedPlanId: window.localStorage.selectedPlanId,
                     sloohMarketingTrackingId: getUserInfo()._sloohatid,
                 }
@@ -428,7 +428,7 @@ class personalInfoRegistration extends Component {
             googleProfileId: this.state.googleProfileData.googleProfileId,
             accountFormDetails: this.state.accountFormDetails,
             selectedSchoolId,
-            conditionType: getUserInfo()._sloohatid ? 'join' : 'joinByGuestLanding',
+            conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
             isAgeRestricted: this.state.isAgeRestricted,
             sloohMarketingTrackingId: getUserInfo()._sloohatid,
         };
@@ -655,7 +655,7 @@ class personalInfoRegistration extends Component {
                         callSource: 'setupCredentials',
                         selectedPlanId,
                         sloohMarketingTrackingId: _sloohatid,
-                        conditionType: _sloohatid ? 'join' : 'joinByGuestLanding',
+                        conditionType: _sloohatid ? 'join' : 'joinbyguestlanding',
                         enableHiddenPlanHashCode: window.localStorage.getItem(
                             'enableHiddenPlanHashCode'
                         ),
