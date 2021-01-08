@@ -36,6 +36,7 @@ import classnames from 'classnames';
 import MapNavigation from '../../common/map-navigation';
 import Feature from 'ol/Feature';
 import  Point from 'ol/geom/Point';
+import { Tooltip } from 'react-tippy';
 
 export class ObjectMap extends Component{
   // state={
@@ -1174,12 +1175,14 @@ export class ObjectMap extends Component{
                   <div className="settings-controls"> 
                     {controlArray.controlList[0].show && (
                       <Dropdown className="settings-dropdown">
-                       <Dropdown.Toggle  id="dropdown-basic" block>
-                         <img className="setting-icons" 
-                         src={controlArray.controlList[0].iconURL}
-                         onClick={()=>{}}
-                       />
-                       </Dropdown.Toggle>
+                        <Tooltip title={controlArray.controlList[0].showTooltip ? controlArray.controlList[0].tooltipText : ""}> 
+                          <Dropdown.Toggle  id="dropdown-basic" block>
+                            <img className="setting-icons" 
+                            src={controlArray.controlList[0].iconURL}                         
+                          />
+                          </Dropdown.Toggle>
+                          </Tooltip>
+                       
                        <Dropdown.Menu>
                          {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
                             <Dropdown.Item
@@ -1199,31 +1202,39 @@ export class ObjectMap extends Component{
                    )}
    
                    {controlArray.controlList[1].show && !mapExpanded && (
-                     <img className="setting-icons" 
-                       src={controlArray.controlList[1].iconURL}
-                       onClick={this.handleExpandMap}
-                     />
+                     <Tooltip title={controlArray.controlList[1].showTooltip ? controlArray.controlList[1].tooltipText : ""}>
+                      <img className="setting-icons" 
+                        src={controlArray.controlList[1].iconURL}
+                        onClick={this.handleExpandMap}
+                      />
+                     </Tooltip>
                    )}
    
                    {controlArray.controlList[2] && mapExpanded &&(
-                     <img className="setting-icons" 
-                       src={controlArray.controlList[2].iconURL}
-                       onClick={this.handleContractMap}
-                       />
+                     <Tooltip title={controlArray.controlList[2].showTooltip ? controlArray.controlList[2].tooltipText : ""}>
+                      <img className="setting-icons" 
+                        src={controlArray.controlList[2].iconURL}
+                        onClick={this.handleContractMap}
+                        />
+                      </Tooltip>
                    )}
    
                    {controlArray.controlList[3].show && !hideMap &&(
-                     <img className="setting-icons" 
-                       src={controlArray.controlList[3].iconURL}
-                       onClick={()=>this.setState({hideMap: !hideMap})}
-                     />
+                     <Tooltip title={controlArray.controlList[3].showTooltip ? controlArray.controlList[3].tooltipText : ""}>
+                      <img className="setting-icons" 
+                        src={controlArray.controlList[3].iconURL}
+                        onClick={()=>this.setState({hideMap: !hideMap})}
+                      />
+                     </Tooltip>
                    )}
    
                    {controlArray.controlList[4] && hideMap &&(
-                     <img className="setting-icons" 
-                       src={controlArray.controlList[4].iconURL}
-                       onClick={()=>this.setState({hideMap: !hideMap})}
-                       />
+                     <Tooltip title={controlArray.controlList[4].showTooltip ? controlArray.controlList[4].tooltipText : ""}>
+                      <img className="setting-icons" 
+                        src={controlArray.controlList[4].iconURL}
+                        onClick={()=>this.setState({hideMap: !hideMap})}
+                        />
+                     </Tooltip>
                    )}
 
                       {/* <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
