@@ -1184,7 +1184,7 @@ export class ObjectMap extends Component{
                          {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
                             <Dropdown.Item
                              key={i}
-                             onClick={()=>{this.handleGearIconChange(i, menu)}}
+                             onClick={menu.enabled ? ()=>{this.handleGearIconChange(i, menu)} : null}
                              className={menu.enabled ? "control-menu-item" : "control-menu-item-disabled"}
                              
                             >
