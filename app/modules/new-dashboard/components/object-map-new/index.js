@@ -800,9 +800,9 @@ export class ObjectMap extends Component{
                 filterList.push({"controlId": menu.controlId, "key": menu.default });
               else 
                 if(data.controlId === menu.controlId && menu.type !== "toggle")
-                  filterList.push({"controlId": menu.controlId, "key": 1 });
+                  filterList.push({"controlId": menu.controlId, "key": true });
                 else
-                  filterList.push({"controlId": menu.controlId, "key": 0 })
+                  filterList.push({"controlId": menu.controlId, "key": false })
             })
           }
         })
@@ -1045,7 +1045,7 @@ export class ObjectMap extends Component{
       }
        switch(selectedMenu.controlId){
         case "resetMap":
-          this.setState({objectMapControls}, this.resetObjectMap({}));
+          this.setState({objectMapControls}, this.handleSetObjectMap(selectedMenu,true));
           // this.resetObjectMap({layerList: selectedMenu.menuTarget});           
           break;
         case "lockZoomWhenScrolling":
@@ -1055,14 +1055,14 @@ export class ObjectMap extends Component{
               interaction.setActive(toggle);
             }
           }, this);
-          this.setState({objectMapControls}, this.handleSetObjectMap({},false));                   
+          this.setState({objectMapControls}, this.handleSetObjectMap(selectedMenu,true));                   
           break;
         case "alwaysShowSunAndMoon":
-          this.setState({objectMapControls}, this.handleSetObjectMap({}, true));   
+          this.setState({objectMapControls}, this.handleSetObjectMap(selectedMenu, true));   
           break;
         case "setCurrentMapViewAsDefault":
         case "setTonightMapViewAsDefault":          
-          this.setState({objectMapControls}, this.handleSetObjectMap({}, false));   
+          this.setState({objectMapControls}, this.handleSetObjectMap(selectedMenu, true));   
           break;
         default:      
           break;
@@ -1182,19 +1182,17 @@ export class ObjectMap extends Component{
                        </Dropdown.Toggle>
                        <Dropdown.Menu>
                          {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
-                           menu.enabled && (
                             <Dropdown.Item
                              key={i}
                              onClick={()=>{this.handleGearIconChange(i, menu)}}
-                             className="control-menu-item"
+                             className={menu.enabled ? "control-menu-item" : "control-menu-item-disabled"}
+                             
                             >
                               {menu.default && menu.type === "toggle" && (
                                 <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
                               )}
                               {menu.prompt}
                             </Dropdown.Item>
-                           )
-                             
                          ))}
                        </Dropdown.Menu>                    
                      </Dropdown>
