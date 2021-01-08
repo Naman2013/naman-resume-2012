@@ -242,6 +242,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       </Route>
 
       <Route path="join" component={Join}>
+        <IndexRoute component={checkoutStudentPlan} />
         <Route
           path="purchaseConfirmation(/:tab)"
           component={PurchaseConfirmationMain}
