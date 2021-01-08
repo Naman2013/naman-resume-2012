@@ -807,7 +807,7 @@ export class ObjectMap extends Component{
           }
         })
       });
-      getObjectMap({at, cid, token, extent, center, mapIsFullscreen, filterList, ...data}).then(response=>{
+      getObjectMap({at, cid, token, extent, center, mapIsFullscreen, filterList,}).then(response=>{
         const res=response.data;
         const self=this;
         if(!res.apiError){
