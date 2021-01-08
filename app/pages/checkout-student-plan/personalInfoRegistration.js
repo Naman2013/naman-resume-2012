@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
 import cloneDeep from 'lodash/cloneDeep';
-import { GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, VERIFY_CLUB_CODE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import { API } from 'app/api';
@@ -100,6 +100,20 @@ class personalInfoRegistration extends Component {
                     hintText: '',
                     errorText: '',
                 },
+                codeA: {
+                    label: '',
+                    visible: true,
+                    value: '',
+                    hintText: '',
+                    errorText: '',
+                  },
+                  codeB: {
+                    label: '',
+                    visible: true,
+                    value: '',
+                    hintText: '',
+                    errorText: '',
+                  },    
 
             }
 
@@ -147,6 +161,39 @@ class personalInfoRegistration extends Component {
             accountFormDetails: newAccountFormData,
         }));
     };
+
+    handleClubCode = formValues => {   
+        formValues.preventDefault();    
+        const{accountFormDetails, captchaVerified} = this.state;
+        const{codeA, codeB} = accountFormDetails;        
+        
+        if(codeA.value !== "" || codeB.value !== "" ){
+          API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
+          {
+            clubCodeA: codeA.value,
+            clubCodeB: codeB.value,
+            selectedPlanId: window.localStorage.selectedPlanId,
+          }
+        ).then(response => {
+            const res = response.data;
+            if (!res.apiError && res.status !== "failed") {
+              window.localStorage.setItem('clubCodeA', codeA.value);
+              window.localStorage.setItem('clubCodeB', codeB.value);              
+            }
+            this.handleSubmit(formValues);
+            // else{
+            //   accountFormDetails.discussionGroupCode.errorText='';
+            //   const accountFormDetailsData = cloneDeep(accountFormDetails);
+            //   accountFormDetailsData.discussionGroupCode.errorText = res.statusMessage;
+            //   this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+            // }
+          });
+        }
+        else{
+          this.handleSubmit(formValues);      
+        }
+        
+      }
 
     handleSubmit = formValues => {
         formValues.preventDefault();
@@ -575,7 +622,10 @@ class personalInfoRegistration extends Component {
             result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
         newAccountFormData.parentEmailAddress.hintText =
             result.formFieldLabels.parentEmailAddress.hintText;
-
+        newAccountFormData.codeA.value =
+            result.formFieldLabels.discussionGroupCodeA.currentValue;
+        newAccountFormData.codeB.value =
+            result.formFieldLabels.discussionGroupCodeB.currentValue;
 
         this.setState(() => ({
             accountFormDetails: newAccountFormData,
@@ -658,7 +708,7 @@ class personalInfoRegistration extends Component {
                                                 )}
                                             />
 
-                                            <form onSubmit={this.handleSubmit}>
+                                            <form onSubmit={this.handleClubCode}>
 
                                                 {this.state.isAgeRestricted && (
                                                     <div className="form-section mt-3">
