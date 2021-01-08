@@ -189,7 +189,8 @@ class paymentDetails extends Component {
 
 
                                     actions.logUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
+                                        const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
+                                        browserHistory.push(welcomepage);
                                     });
                                 } else if (accountCreationType === 'googleaccount') {
                                     const loginDataPayload = {
@@ -199,7 +200,8 @@ class paymentDetails extends Component {
 
                                     window.localStorage.removeItem('accountCreationType');
                                     actions.logGoogleUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
+                                        const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
+                                        browserHistory.push(welcomepage);
                                     });
                                 }
                             } else {
