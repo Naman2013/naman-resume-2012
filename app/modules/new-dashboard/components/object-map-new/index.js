@@ -1043,13 +1043,12 @@ export class ObjectMap extends Component{
             }
           });        
       }
-
-       switch(selectedMenu.menuAction){
-        case "reset":
+       switch(selectedMenu.controlId){
+        case "resetMap":
           this.setState({objectMapControls}, this.resetObjectMap({}));
           // this.resetObjectMap({layerList: selectedMenu.menuTarget});           
           break;
-        case "toggleZoomLock":
+        case "lockZoomWhenScrolling":
           const { map } = this.state;
           map.getInteractions().forEach(function(interaction) {
             if (interaction instanceof MouseWheelZoom) {
@@ -1058,7 +1057,7 @@ export class ObjectMap extends Component{
           }, this);
           this.setState({objectMapControls}, this.handleSetObjectMap({},false));                   
           break;
-        case "toggleLayers":
+        case "alwaysShowSunAndMoon":
           this.setState({objectMapControls}, this.handleSetObjectMap({}, true));   
           break;
         case "setCurrentMapViewAsDefault":
@@ -1183,16 +1182,19 @@ export class ObjectMap extends Component{
                        </Dropdown.Toggle>
                        <Dropdown.Menu>
                          {controlArray.controlList[0].target.menuItems.map((menu,i)=>(
-                             <Dropdown.Item
+                           menu.enabled && (
+                            <Dropdown.Item
                              key={i}
                              onClick={()=>{this.handleGearIconChange(i, menu)}}
                              className="control-menu-item"
-                           >
-                             {menu.default && menu.type === "toggle" && (
-                               <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
-                             )}
+                            >
+                              {menu.default && menu.type === "toggle" && (
+                                <i class="fa fa-check" style={{marginRight: '5px'}} aria-hidden="true"></i>
+                              )}
                               {menu.prompt}
-                           </Dropdown.Item>
+                            </Dropdown.Item>
+                           )
+                             
                          ))}
                        </Dropdown.Menu>                    
                      </Dropdown>
