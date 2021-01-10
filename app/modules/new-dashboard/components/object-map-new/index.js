@@ -116,7 +116,7 @@ export class ObjectMap extends Component{
         }          
         else{
           map.forEachFeatureAtPixel(pixel, function(feature, layer){
-            if(layer.get('title') !== "elliptic Line" && feature.get('name') !== undefined){
+            if(layer.get('title') !== "ecliptic" && layer.get('title') !== "celestial equator" && feature.get('name') !== undefined){
               self.setState({isloading1: true});
               const { token, at, cid } = getUserInfo();
               getObjectCard({
@@ -126,7 +126,8 @@ export class ObjectMap extends Component{
                 callSource: "objectMap",
                 objectId: feature.getId(),
                 objectUUID: '2b7fc283-9539-11ea-a953-062dce25bfa1',
-                objectVersion: 1.1,              
+                objectVersion: 1.1,
+                layerId: layer.get('title'),              
               }).then(response=>{
                 self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
                 map.getInteractions().forEach(function(interaction) {
@@ -220,13 +221,13 @@ export class ObjectMap extends Component{
               var coordinate = e.coordinate;  
               map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
                 // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";  
-                if(layer.get('title') === "Sun-Moon-Layer" && feature.get('name') !== undefined && curzoom >= hideTooltipZoomLevel){
+                if(layer.get('title') === "sunandmoon" && feature.get('name') !== undefined && curzoom >= hideTooltipZoomLevel){
                   var name=feature.get('name').replace(/\n/g,'<br>')
                   popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
                   popup.hidden = false;
                   popupOverlay.setPosition(coordinate); 
                 }
-                else if(layer.get('title') === "vector map" && feature.get('name') !== undefined && curzoom <= hideTooltipZoomLevel){
+                else if(layer.get('title') === "astroObjects" && feature.get('name') !== undefined && curzoom <= hideTooltipZoomLevel){
                   var name=feature.get('name').replace(/\n/g,'<br>')
                   popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
                   popup.hidden = false;
@@ -273,7 +274,7 @@ export class ObjectMap extends Component{
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           // map.setView(view);
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset,layer.layerId));
           })
           // map.addLayer(this.getVectorLayer());
 
@@ -288,6 +289,11 @@ export class ObjectMap extends Component{
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
+          map.getInteractions().forEach(function(interaction) {
+            if (interaction instanceof MouseWheelZoom) {
+              interaction.setActive(!res.mapControls[2].controlList[0].target.menuItems[1].default);
+            }
+          }, this);
           self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
             if(res.mapIsFullscreen!==mapExpanded)
             {
@@ -295,7 +301,7 @@ export class ObjectMap extends Component{
                 this.handleExpandMap();                
               else 
                 this.handleContractMap();
-            }
+            }            
           });
         }
         
@@ -304,7 +310,7 @@ export class ObjectMap extends Component{
 
     getObjectMapInit(){
       const { token, at, cid } = getUserInfo();  
-      const { mapExpanded } = this.state;
+      const { mapExpanded, objectMapControls } = this.state;
       const self = this;
       this.setState({isloading1: true});
       getObjectMap({token, cid, at,default: true}).then(response=>{       
@@ -317,12 +323,17 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
           layerList.map(layer=>{            
-            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
+            map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset,layer.layerId));
           })  
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>setTimeout(()=>{
+          map.getInteractions().forEach(function(interaction) {
+            if (interaction instanceof MouseWheelZoom) {
+              interaction.setActive(!res.mapControls[2].controlList[0].target.menuItems[1].default);
+            }
+          }, this);
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{           
             
             if(res.mapIsFullscreen!==mapExpanded)
             {
@@ -330,8 +341,10 @@ export class ObjectMap extends Component{
                 this.handleExpandMap();                
               else 
                 this.handleContractMap();
-            }
-          }, 500));
+            }           
+            
+           
+          });
         }
         
       });
@@ -394,7 +407,7 @@ export class ObjectMap extends Component{
 
     
 
-    getVectorLayer(url, data, showLableZoomLevel){
+    getVectorLayer(url, data, showLableZoomLevel, layerId){
 
       let ifeatures=[];   
       const { map } = this.state;
@@ -476,12 +489,12 @@ export class ObjectMap extends Component{
             });
           },
         visible: true,
-        title: 'vector map',
+        title: layerId,
         // declutter: true,
       });
     }
 
-    getStandardVectorLayer(data, style){
+    getStandardVectorLayer(data, style, layerId){
       const { map } = this.state; 
       return new VectorLayer({
         source: new VectorSource({
@@ -530,12 +543,12 @@ export class ObjectMap extends Component{
             });
           },
         visible: true,
-        title: 'elliptic Line',
+        title: layerId,
         // declutter: true,
       });
     }
 
-    getIconVectorLayer(data, showLabelZoomLevel){      
+    getIconVectorLayer(data, showLabelZoomLevel, layerId){      
       let ifeatures=[];
       const { map } = this.state;
       // let feature = this.getIconFeature(0, -10, "test" );
@@ -590,6 +603,7 @@ export class ObjectMap extends Component{
             
             var x = Math.sin((temp * Math.PI) / 180) * 3;
             // var y = Math.sin((i * Math.PI) / 180) * 4;
+            const radius=1/Math.pow(resolution, 1/4);
             style.getImage().setScale(x);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
             if (currentZoom < showLabelZoomLevel){              
@@ -646,7 +660,7 @@ export class ObjectMap extends Component{
           noWrap: true,
         }),        
         // zIndex: 1        
-        title: "Sun-Moon-Layer",
+        title: layerId,
         
       });      
       return vectorLayer;
@@ -760,21 +774,21 @@ export class ObjectMap extends Component{
     }
 
 
-    getLayer(source, type, style, data, showLableZoomLevel, dataType, offset){
+    getLayer(source, type, style, data, showLableZoomLevel, dataType, offset, layerId){
       switch(type){
         case "Image":
-          return this.getSVGLayer(source, data); 
+          return this.getSVGLayer(source, data, layerId); 
         case "Vector":
           switch(dataType){
             case "Icons":
-              return this.getIconVectorLayer(data, showLableZoomLevel);
+              return this.getIconVectorLayer(data, showLableZoomLevel, layerId);
             case "CircleGeoJson":
-              return this.getVectorLayer(source,data, showLableZoomLevel);
+              return this.getVectorLayer(source,data, showLableZoomLevel, layerId);
             case "StandardGeoJson":
-              return this.getStandardVectorLayer(data, style);
+              return this.getStandardVectorLayer(data, style, layerId);
           }          
         case "Graticule":
-          return this.getGraticleLayer(style,offset)
+          return this.getGraticleLayer(style,offset, layerId)
         
           // return this.getVectorLayer();         
       }
@@ -838,11 +852,16 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset,layer.layerId));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
+            map.getInteractions().forEach(function(interaction) {
+              if (interaction instanceof MouseWheelZoom) {
+                interaction.setActive(!res.mapControls[2].controlList[0].target.menuItems[1].default);
+              }
+            }, this);
             self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
               if(res.mapIsFullscreen!==mapExpanded)
               {
@@ -850,7 +869,7 @@ export class ObjectMap extends Component{
                   this.handleExpandMap();                
                 else 
                   this.handleContractMap();
-              }
+              }   
             });
           }
         }
@@ -878,9 +897,8 @@ export class ObjectMap extends Component{
     } 
 
     handleExpandMap = () => {
-      const { mapExpanded } = this.state;
-      this.setState({mapExpanded: !mapExpanded});
-      var elem = document.getElementById('object-Map');
+      const { mapExpanded, map } = this.state;      
+      var elem = document.getElementById('object-Map');      
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
@@ -893,39 +911,59 @@ export class ObjectMap extends Component{
             setTimeout( ()=> { self.state.map.updateSize(); self.state.map.getView().setZoom(0)}, 100);
         }
       };
-      if(elem.requestFullscreen){
-        elem.requestFullscreen();
-        document.addEventListener("fullscreenchange",exitHandlerFun ,false);
-      }
-      else if(elem.mozRequestFullScreen){
-          elem.mozRequestFullScreen();
-          document.addEventListener("mozfullscreenchange", ()=>this.exitHandler(self),false);
-      }
-      else if(elem.webkitRequestFullscreen){
-          elem.webkitRequestFullscreen();
-          document.addEventListener("webkitfullscreenchange", ()=>this.exitHandler(self),false);
-      }
-      else if(elem.msRequestFullscreen){
-          elem.msRequestFullscreen();
-          document.addEventListener("msfullscreenchange", ()=>this.exitHandler(self),false);
-      }
-      
+      document.removeEventListener("fullscreenchange", exitHandlerFun);
+        if(elem.requestFullscreen){
+         elem.requestFullscreen().catch(err=>{
+          self.setState({mapExpanded: false});    
+          document.removeEventListener("fullscreenchange", exitHandlerFun);             
+         });                 
+          document.addEventListener("fullscreenchange",exitHandlerFun ,false);
+        }
+        else if(elem.mozRequestFullScreen){
+            elem.mozRequestFullScreen().catch(err=>{
+              self.setState({mapExpanded: false});    
+              document.removeEventListener("fullscreenchange", exitHandlerFun);
+             });             
+            document.addEventListener("mozfullscreenchange", exitHandlerFun,false);
+        }
+        else if(elem.webkitRequestFullscreen){
+            elem.webkitRequestFullscreen().catch(err=>{
+              self.setState({mapExpanded: false});    
+              document.removeEventListener("fullscreenchange", exitHandlerFun);
+             });             
+            document.addEventListener("webkitfullscreenchange", exitHandlerFun,false);
+        }
+        else if(elem.msRequestFullscreen){
+            elem.msRequestFullscreen().catch(err=>{
+              self.setState({mapExpanded: false});    
+              document.removeEventListener("fullscreenchange", exitHandlerFun); 
+             });             
+            document.addEventListener("msfullscreenchange", exitHandlerFun,false);
+        }      
+        this.setState({mapExpanded: !mapExpanded});
       
     }
 
-    handleContractMap = () => {            
-      if(document.exitFullscreen){
-        document.exitFullscreen();
+    handleContractMap = () => {  
+      const { mapExpanded, map } = this.state;
+      if(this.fullScreenMode = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen){
+        if(document.exitFullscreen){
+          document.exitFullscreen();
+        }
+        else if(document.mozCancelFullScreen){
+            document.mozCancelFullScreen();
+        }
+        else if(document.webkitExitFullscreen){
+            document.webkitExitFullscreen();
+        }
+        else if(document.msExitFullscreen){
+            document.msExitFullscreen();
+        }   
       }
-      else if(document.mozCancelFullScreen){
-          document.mozCancelFullScreen();
-      }
-      else if(document.webkitExitFullscreen){
-          document.webkitExitFullscreen();
-      }
-      else if(document.msExitFullscreen){
-          document.msExitFullscreen();
-      }      
+      else{
+        this.setState({mapExpanded: !mapExpanded});
+      }          
+         
     }
    
     handleOptionChange = (controlType, controlIndex, selectedIndex)=>{     
@@ -982,12 +1020,16 @@ export class ObjectMap extends Component{
             if(arrayLayers.length > 0)
               arrayLayers.forEach((layer)=> map.removeLayer(layer));
             layerList.map(layer=>{            
-              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset));
+              map.addLayer(this.getLayer(layer.source, layer.type, layer.styles, layer.data, res.hideTooltipZoomLevel, layer.dataType, layer.startingOffset,layer.layerId));
             })            
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-
+            map.getInteractions().forEach(function(interaction) {
+              if (interaction instanceof MouseWheelZoom) {
+                interaction.setActive(!res.mapControls[2].controlList[0].target.menuItems[1].default);
+              }
+            }, this);
             self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
               if(res.mapIsFullscreen!==mapExpanded)
               {
@@ -995,7 +1037,7 @@ export class ObjectMap extends Component{
                   this.handleExpandMap();                
                 else 
                   this.handleContractMap();
-              }
+              }              
             });   
         }
         
@@ -1059,12 +1101,12 @@ export class ObjectMap extends Component{
       let { objectMapControls } = this.state;
       const controlId = selectedMenu.controlId;
       const controlState = (!selectedMenu.default) ? 1 : 0;
-      if(selectedMenu.resetFilters){
+      // if(selectedMenu.resetFilters){
       
-        this.setState({objectMapControls});
-        // const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
-        // this.setState({selectedControls: selectedControls});        
-      }
+      //   this.setState({objectMapControls});
+      //   // const selectedControls = objectMapControls[0].controlList.map(control=>control.selectedIndex);     
+      //   // this.setState({selectedControls: selectedControls});        
+      // }
 
       if(selectedMenu.type === "toggle"){
        
@@ -1110,7 +1152,7 @@ export class ObjectMap extends Component{
       const { scrollToRef, refreshPhotoHub } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
         return (
-          <div id="object-Map">
+          <div id="object-Map" allowfullscreen>
              <Spinner
               loading={isloading1}
               text="Please wait..."
