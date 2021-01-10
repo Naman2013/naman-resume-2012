@@ -218,22 +218,33 @@ export class ObjectMap extends Component{
             const {hideTooltipZoomLevel} = this.state;
             const curzoom=map.getView().getZoom();            
             if(hit){
-              var coordinate = e.coordinate;  
-              map.forEachFeatureAtPixel(pixel, function(feature, layer) {                
+              var coordinate = e.coordinate; 
+              var features= [];
+              var layers= [];
+              var sunmoonlayer= false;
+              map.forEachFeatureAtPixel(pixel, function(feature, layer) {  
+                features.push(feature);
+                layers.push(layer)              ;;
                 // popup.innerHTML = "<h2 class='popup-text'>" + feature.get('tooltip') + "</h2>";  
-                if(layer.get('title') === "sunandmoon" && feature.get('name') !== undefined && curzoom >= hideTooltipZoomLevel){
-                  var name=feature.get('name').replace(/\n/g,'<br>')
-                  popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
-                  popup.hidden = false;
-                  popupOverlay.setPosition(coordinate); 
+                if(layer.get('title') === "sunandmoon" && feature.get('name') !== undefined){
+                  sunmoonlayer=true;
+                  if(curzoom >= hideTooltipZoomLevel){
+                    var name=feature.get('name').replace(/\n/g,'<br>')
+                    popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
+                    popup.hidden = false;
+                    popupOverlay.setPosition(coordinate); 
+                  }
                 }
-                else if(layer.get('title') === "astroObjects" && feature.get('name') !== undefined && curzoom <= hideTooltipZoomLevel){
-                  var name=feature.get('name').replace(/\n/g,'<br>')
-                  popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
-                  popup.hidden = false;
-                  popupOverlay.setPosition(coordinate); 
-                }                
               });  
+              if(!sunmoonlayer)
+                for(var i=0; i<features.length; i++){                
+                  if(layers[i].get('title') === "astroObjects" && features[i].get('name') !== undefined && curzoom <= hideTooltipZoomLevel){
+                    var name=features[i].get('name').replace(/\n/g,'<br>')
+                    popup.innerHTML = "<h1 class='popup-text'>" + name + "</h1>";
+                    popup.hidden = false;
+                    popupOverlay.setPosition(coordinate); 
+                  }        
+                }
                            
             }
             else{
