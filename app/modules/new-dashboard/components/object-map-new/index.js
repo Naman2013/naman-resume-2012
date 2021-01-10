@@ -603,8 +603,9 @@ export class ObjectMap extends Component{
             
             var x = Math.sin((temp * Math.PI) / 180) * 3;
             // var y = Math.sin((i * Math.PI) / 180) * 4;
-            const radius=1/Math.pow(resolution, 1/4);
-            style.getImage().setScale(x);
+            const radius=(0.2/Math.pow(resolution, 1/2));
+            
+            style.getImage().setScale(radius);
             // style.getText().setScale(x < 0.8 ? 0.8 : x);
             if (currentZoom < showLabelZoomLevel){              
               style.setText(new Text({
