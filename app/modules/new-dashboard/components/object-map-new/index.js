@@ -303,7 +303,8 @@ export class ObjectMap extends Component{
     }
 
     getObjectMapInit(){
-      const { token, at, cid } = getUserInfo();     
+      const { token, at, cid } = getUserInfo();  
+      const { mapExpanded } = this.state;
       const self = this;
       this.setState({isloading1: true});
       getObjectMap({token, cid, at,default: true}).then(response=>{       
@@ -321,7 +322,8 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>setTimeout(()=>{
+            
             if(res.mapIsFullscreen!==mapExpanded)
             {
               if(res.mapIsFullscreen) 
@@ -329,7 +331,7 @@ export class ObjectMap extends Component{
               else 
                 this.handleContractMap();
             }
-          });
+          }, 500));
         }
         
       });
