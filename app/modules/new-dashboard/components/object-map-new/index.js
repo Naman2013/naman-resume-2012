@@ -288,7 +288,15 @@ export class ObjectMap extends Component{
           // // map.moveTo(fromLonLat([19,19]));
           // map.getView().setCenter(res.center);
           map.getView().fit(res.extent, map.getSize());
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
+            if(res.mapIsFullscreen!==mapExpanded)
+            {
+              if(res.mapIsFullscreen) 
+                this.handleExpandMap();                
+              else 
+                this.handleContractMap();
+            }
+          });
         }
         
       });
@@ -313,7 +321,15 @@ export class ObjectMap extends Component{
           map.getView().setMaxZoom(res.maxZoomLevel);          
           map.getView().fit(res.extent, map.getSize());
           map.getView().setCenter(res.center);
-          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
+          self.setState({isloading1: false, map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
+            if(res.mapIsFullscreen!==mapExpanded)
+            {
+              if(res.mapIsFullscreen) 
+                this.handleExpandMap();                
+              else 
+                this.handleContractMap();
+            }
+          });
         }
         
       });
@@ -789,7 +805,7 @@ export class ObjectMap extends Component{
       const { map, mapExpanded } = this.state;
       const extent = map.getView().calculateExtent();
       const center = map.getView().getCenter();       
-      const mapIsFullscreen= mapExpanded ? 1 : 0;      
+      const mapIsFullscreen= mapExpanded;      
       let filterList=[];           
       objectMapControls.map(menucontrol=>{
           menucontrol.controlList.map((control,i)=>{
@@ -825,7 +841,15 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
+              if(res.mapIsFullscreen!==mapExpanded)
+              {
+                if(res.mapIsFullscreen) 
+                  this.handleExpandMap();                
+                else 
+                  this.handleContractMap();
+              }
+            });
           }
         }
       })
@@ -926,7 +950,7 @@ export class ObjectMap extends Component{
       const { map, mapExpanded } = this.state;
       const extent = map.getView().calculateExtent();
       const center = map.getView().getCenter();
-      const mapIsFullscreen= mapExpanded ? 1 : 0;        
+      const mapIsFullscreen= mapExpanded;        
       let {  selectedControls, selectedToggleControls } = this.state;
       let filterList=[];
       objectMapControls.map(menucontrol=>{
@@ -961,7 +985,16 @@ export class ObjectMap extends Component{
             map.getView().setMaxZoom(res.maxZoomLevel);          
             map.getView().fit(res.extent, map.getSize());
             map.getView().setCenter(res.center);
-            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor});   
+
+            self.setState({map: map, explanationText: res.explanation, hideTooltipZoomLevel: res.hideTooltipZoomLevel, objectMapControls: res.mapControls, zoomIncrement: res.zoomIncrement, panMovement: res.panMovement, maxZoomLevel: res.maxZoomLevel ,mapTitle: res.mapTitle, mapSubtitle: res.mapSubtitle, navigationBackgroundColor: res.navigationBackgroundColor, titleBackgoundColor: res.titleBackgoundColor},()=>{
+              if(res.mapIsFullscreen!==mapExpanded)
+              {
+                if(res.mapIsFullscreen) 
+                  this.handleExpandMap();                
+                else 
+                  this.handleContractMap();
+              }
+            });   
         }
         
       });
