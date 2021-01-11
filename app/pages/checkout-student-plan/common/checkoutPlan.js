@@ -191,24 +191,26 @@ class checkoutPlan extends Component {
                                             ))}
 
                                             <hr className="seperatorDesign"></hr>
+                                            {subscriptionPlans[0].showPlanDueToday && (
+                                                <div className="state_total">
+                                                    <div className="totalcost">
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={subscriptionPlans[0].planTotalDueTodayDesc }
+                                                            description={null}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-4 totalcost">
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={subscriptionPlans[0].planTotalDueToday  }
+                                                            description={null}
+                                                        />
 
-                                            <div className="state_total">
-                                                <div className="totalcost">
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading="Total"
-                                                        description={null}
-                                                    />
+                                                    </div>
                                                 </div>
-                                                <div className="ml-4 totalcost">
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading="$ 0"
-                                                        description={null}
-                                                    />
-
-                                                </div>
-                                            </div>
+                                            )}
+                                            
                                             {subscriptionPlans[0].hasTrialPeriod && (
                                                 <div className="state_active">
                                                     <div>
