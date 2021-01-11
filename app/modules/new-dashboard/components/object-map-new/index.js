@@ -681,7 +681,7 @@ export class ObjectMap extends Component{
 
 
     getGraticleLayer(style, offset){
-      var width=document.getElementById("map");     
+      var width=document.getElementById("map").clientWidth;
       return new Graticule({
                 // the style to use for the lines, optional.
                 // style,
@@ -693,7 +693,7 @@ export class ObjectMap extends Component{
                 intervals:  [15],
                 extent: [-180, -90, 180, 90],                
                 lonLabelStyle: new Text({                 
-                  font: '12px Calibri,sans-serif',
+                  font: (window.innerWidth < 769 ? '8px' : window.innerWidth < 1024 ? '10px' : '12px') + ' Calibri,sans-serif',
                   textAlign: 'start',
                   textBaseline: 'bottom',
                   fill: new Fill({
@@ -701,7 +701,7 @@ export class ObjectMap extends Component{
                   }), 
                 }), 
                 latLabelStyle: new Text({
-                  font: '12px Calibri,sans-serif',
+                  font: (window.innerWidth < 769 ? '10px' : '12px') + ' Calibri,sans-serif',
                   textAlign: 'end',
                   fill: new Fill({
                     color: 'rgba(255,255,255,1)'
