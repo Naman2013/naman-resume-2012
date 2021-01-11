@@ -219,11 +219,11 @@ class checkoutPlan extends Component {
                                                     />
                                                 </div>
                                             </div>
-
-                                            <div className="jumbotron mt-4 billJumB">
-                                                <p> {subscriptionPlans[0].freeTrialDescriptiveText}</p>
-                                            </div>
-
+                                            {subscriptionPlans[0].hasTrialPeriod && (
+                                                <div className="jumbotron mt-4 billJumB">
+                                                    <p> {subscriptionPlans[0].freeTrialDescriptiveText}</p>
+                                                </div>
+                                            )}
                                             <style jsx>{styles}</style>
                                         </div>
                                     {/* </Fragment> */}
