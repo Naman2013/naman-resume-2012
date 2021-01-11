@@ -209,16 +209,17 @@ class checkoutPlan extends Component {
 
                                                 </div>
                                             </div>
-
-                                            <div className="state_active">
-                                                <div>
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading={null}
-                                                        description="Due during free trial period"
-                                                    />
+                                            {subscriptionPlans[0].hasTrialPeriod && (
+                                                <div className="state_active">
+                                                    <div>
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={null}
+                                                            description="Due during free trial period"
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}                                            
                                             {subscriptionPlans[0].hasTrialPeriod && (
                                                 <div className="jumbotron mt-4 billJumB">
                                                     <p> {subscriptionPlans[0].freeTrialDescriptiveText}</p>
