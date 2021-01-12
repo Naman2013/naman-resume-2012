@@ -1113,7 +1113,7 @@ class personalInfoRegistration extends Component {
                                                         </div>
                                                     </div>
                                                     <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
-                                                        CONTINUE
+                                                        {joinPageRes.continueBtnTxt}
                                                      </button>
                                                 </div>
 

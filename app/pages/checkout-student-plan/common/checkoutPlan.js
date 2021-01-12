@@ -1,7 +1,7 @@
 /** **********************************************************************************
  * V4 Join with an Invitation Code - Enter Email Address/Invitation Code
  *************************************************************************************/
-import React, { Component, cloneElement, Fragment } from 'react';
+import React, { Component, cloneElement, Fragment, PureComponent } from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 //import './checkoutPlan.scss';
@@ -19,51 +19,9 @@ const { string, func } = PropTypes;
 @withTranslation()
 class checkoutPlan extends Component {
     constructor(props) {
-
-        super(props);
-        // this.state = {
-        //     activePlan: null,
-        //     alternatePlan: null,
-        // }
-        // this.handleJoinPageServiceResponse(props.supscriptionResponse);
-
-        window.localStorage.setItem('selectedPlanId', props.subscriptionPlans[0].planID);
-        this.state={
-            subscriptionPlans: props.subscriptionPlans,
-            subscriptionPlansCount: props.subscriptionPlansCount
-        }
-        
-    }
-
-    // handleJoinPageServiceResponse = result => {
-    //     const subscriptionPlans = Array.isArray(result.subscriptionPlans) ? result.subscriptionPlans : [];
-    //     const planApprentice = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'apprentice');
-    //     const planStudent = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'student');
-
-    //     // this.setState({
-    //     //     activePlan: planApprentice.length ? planApprentice[0] : null,
-    //     //     alternatePlan: planStudent.length ? planStudent[0] : null,
-
-    //     // })
-    //     // window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
-    //     this.state={
-    //         activePlan: planApprentice.length ? planApprentice[0] : null,
-    //         alternatePlan: planStudent.length ? planStudent[0] : null,
-
-    //     }
-    //     window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
-
-    // }
-
-    // switchPlan = () => {
-    //     const { alternatePlan, activePlan } = this.state;
-    //     this.setState({
-    //         activePlan: alternatePlan,
-    //         alternatePlan: activePlan
-    //     })
-    //     window.localStorage.setItem('selectedPlanId', alternatePlan.planID);
-
-    // }
+        super(props);        
+        window.localStorage.setItem('selectedPlanId', props.subscriptionPlans[0].planID);        
+    } 
 
     switchPlan = (plans, fromPlanIndex, toPlanIndex) => {
         window.localStorage.setItem('selectedPlanId', plans[fromPlanIndex].planID);
@@ -73,34 +31,13 @@ class checkoutPlan extends Component {
         this.setState({subscriptionPlans: plans});
     }
 
-    render() {
-        //  const { pathname, t } = this.props;
-        // const { mainHeading, subHeading, planName, paragraph1, paragraph2 } = this.state;
-        // const { t } = this.props;
-        const { subscriptionPlans } = this.state;
-
-
+    render() {        
+        const { subscriptionPlans, onPlanChange } = this.props;
         return (
 
             <div>
-                {/* <Request
-                    serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                    requestBody={{
-                        callSource: 'joinbyguestlanding',
-                        enableHiddenPlanHashCode: window.localStorage.getItem(
-                            'enableHiddenPlanHashCode'
-                        ),
-                    }}
-                    serviceResponseHandler={this.handleJoinPageServiceResponse}
-                    render={({ fetchingContent, serviceResponse: joinPageRes }) => ( */}
-                        
-                        {/* <Fragment>
-                           
-                            <DeviceContext.Consumer>
-                                {({ isMobile, isDesktop, isTablet }) => ( */}
-                                    {/* <Fragment> */}
-                                        <div className="left-plan-list">
-                                            <PlanHeader
+                <div className="left-plan-list">
+                    <PlanHeader
                                                 cardHeading="Your Plan"
                                                 heading={null}
                                                 subHeading={null}
@@ -174,7 +111,7 @@ class checkoutPlan extends Component {
         
                                                     </div>
                                                 ):(
-                                                    <div className="state_active cursor-point" onClick={()=>this.switchPlan(subscriptionPlans, index, 0)}>
+                                                    <div className="state_active cursor-point" onClick={()=>onPlanChange(subscriptionPlans, index, 0)}>
                                                     <div>
                                                         <PlanHeader
                                                             heading={null}

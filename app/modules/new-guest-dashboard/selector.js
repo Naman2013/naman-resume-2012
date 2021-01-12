@@ -7,3 +7,9 @@ export const makeLandingPageDetailsSelector = () =>
     state,
     state => state.landingPageDetails
   );
+
+export const makeFetchSubscriptionPlanSelector = () =>
+  createSelector(
+    state,
+    state => state.subscriptionPlans
+  );
