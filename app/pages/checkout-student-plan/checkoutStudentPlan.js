@@ -21,7 +21,9 @@ class checkoutStudentPlan extends PureComponent {
         this.state={
             subscriptionPlans: props.subscriptionPlans
         }    
-        props.fetchSubscriptionPlan();
+        props.fetchSubscriptionPlan({callSource: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
+                                enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+                                sloohMarketingTrackingId: getUserInfo()._sloohatid});
     }
     
     componentDidUpdate(oldProps){
