@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { getUserInfo } from 'app/modules/User';
 import { ErrorPopup } from 'app/modules/new-dashboard/common/errorPopup';
 import { Spinner } from 'app/components/spinner/index';
+import { browserHistory } from 'react-router';
 
 const h1Styles = {
     display: 'flex',
@@ -119,13 +120,13 @@ class accordion extends Component {
                                 });
                             }
                         } else {
-                            this.setState({errorInfo: res})
+                            this.setState({errorInfo: res, isFetching: false});                            
                             /* process / display error to user */
                             // document
                             //     .getElementById('embeddedHostedPaymentForm')
                             //     .contentWindow.captureActivationError(res);
                         }
-                        this.setState({isFetching: false});
+                        
                     }
                 })
                 .catch(err => {
