@@ -220,11 +220,10 @@ class personalInfoRegistrationNew extends Component {
 
     handleApiValidation = () => {
         let { formFields } = this.state;
-        let formData = this.handleFormatdataConversion(formFields);
-        debugger;
+        let formData = this.handleFormatdataConversion(formFields);        
         API.post( VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
             {
-                accountFormFields: formFields,   
+                accountFormFields: formData,   
                 conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                 selectedPlanId: window.localStorage.selectedPlanId,
                 sloohMarketingTrackingId: getUserInfo()._sloohatid,
@@ -237,9 +236,63 @@ class personalInfoRegistrationNew extends Component {
                 }
                 else{
                     //create pending customer
+                    this.handleCreatePendingCustomer(formData);
                 }
             }
         })
+    }
+
+    handleCreatePendingCustomer = (formData) => {
+        const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
+        let createPendingCustomerData = {
+            accountCreationType: this.state.accountCreationType,
+            selectedPlanId: window.localStorage.selectedPlanId,
+            googleProfileId: this.state.googleProfileData.googleProfileId,
+            accountFormDetails: formData,
+            selectedSchoolId,
+            conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
+            // isAgeRestricted: this.state.isAgeRestricted,
+            sloohMarketingTrackingId: getUserInfo()._sloohatid,
+        };
+
+        API.post( JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, createPendingCustomerData).then(response => {
+            const res = response.data;
+            if (!res.apiError) {
+                const pendingCustomerResult = {
+                    status: res.status,
+                    customerId: res.customerId,
+                    message: res.message,
+                };
+
+                if (pendingCustomerResult.status === 'success') {
+                    window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
+                    window.localStorage.setItem('username',  formData.loginemailaddress.currentValue );
+                    window.localStorage.setItem('password', formData.password.currentValue );
+
+                        /*  this.setState( () =>({
+                             accoridianActiveKey:"1"
+                         })) */
+
+                        const { onStepOneComplete } = this.props;
+
+                        onStepOneComplete("1");
+                        //  .log('Proceeding to create the customers pending account');
+                        // browserHistory.push('/join/step3');
+                    } else {
+                        // accountFormDetailsData.loginEmailAddress.errorText =
+                        //     pendingCustomerResult.message;
+
+                        // this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+
+                        //show custom error dialog
+
+                    }
+                }
+            })
+            .catch(err => {
+                throw ('Error: ', err);
+            });
+
     }
 
 
