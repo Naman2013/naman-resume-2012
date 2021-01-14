@@ -409,7 +409,7 @@ class Login extends Component {
               </Link>
             </div>
             <div className="register-container slooh-gift-card">
-              <div className="slooh-gift-card-heading">Holiday shopping?<br></br>Get your Slooh gift cards here!</div>
+              <div className="slooh-gift-card-heading">Get your Slooh gift cards here!</div>
               <div className="slooh-gift-card-sub-heading">Click the link below</div>
               <a href="https://www.amazon.com/Slooh-Apprentice-Membership/dp/B01MDNJXIR/ref=sr_1_1?dchild=1&keywords=slooh+apprentice+membership&qid=1606755292&sr=8-1" target="_blank">
                 <img src="https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/gift-of-the-universe.jpg" alt="" />
