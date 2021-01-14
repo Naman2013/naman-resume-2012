@@ -17,6 +17,7 @@ import { getUserInfo } from 'app/modules/User';
 import { ErrorPopup } from 'app/modules/new-dashboard/common/errorPopup';
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
+import PersonalInfoRegistrationNew from '../personalInfoRegistration-new';
 
 const h1Styles = {
     display: 'flex',
@@ -165,7 +166,7 @@ class accordion extends Component {
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <PersonalInfoRegistration onStepOneComplete={this.handleStepOneComplete} ></PersonalInfoRegistration>
+                                <PersonalInfoRegistrationNew onStepOneComplete={this.handleStepOneComplete} ></PersonalInfoRegistrationNew>
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
