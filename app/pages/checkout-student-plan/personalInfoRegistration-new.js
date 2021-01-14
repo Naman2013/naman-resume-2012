@@ -194,6 +194,7 @@ class personalInfoRegistrationNew extends Component {
     handleValidation = formValues => {
         formValues.preventDefault();        
         let { formFields } = this.state;
+        this.formValidationSuccess=true;
         const validatedData = this.checkFormValues(formFields); 
         if(this.formValidationSuccess){
             this.handleApiValidation();
@@ -202,8 +203,25 @@ class personalInfoRegistrationNew extends Component {
             this.setState({formFields: validatedData});
     }
 
+    handleFormatdataConversion = (array) => {
+        let formData = {};
+        array.forEach((element, index)=>{
+            formData[element.key] = {"currentValue" : element.currentValue, "required" : element.required};
+            if(element.fieldOptions){
+                element.fieldOptions.forEach((innerElement, innerIndex)=>{
+                    if(innerElement.nestedFields && innerElement.key === array[index].currentValue){
+                        formData={...formData, ...this.handleFormatdataConversion(innerElement.nestedFields)}                                              
+                    }
+                })
+            }
+        });
+        return formData;
+    }
+
     handleApiValidation = () => {
         let { formFields } = this.state;
+        let formData = this.handleFormatdataConversion(formFields);
+        debugger;
         API.post( VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
             {
                 accountFormFields: formFields,   
@@ -214,6 +232,12 @@ class personalInfoRegistrationNew extends Component {
         ).then(response => {
             const res = response.data;
             if (res.apiError == false) {
+                if(res.accountFormHasErrors){
+                    this.setState({formFields: res.accountFormFields});
+                }
+                else{
+                    //create pending customer
+                }
             }
         })
     }
