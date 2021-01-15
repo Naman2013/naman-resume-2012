@@ -20,9 +20,10 @@ class checkoutStudentPlan extends PureComponent {
         super(props);    
         this.state={
             subscriptionPlans: props.subscriptionPlans
-        }    
+        } 
         props.fetchSubscriptionPlan({callSource: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                                 selectedPlanId: window.localStorage.getItem('selectedPlanId'),
+                                signupPageURI: window.location.pathname,
                                 enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
                                 sloohMarketingTrackingId: getUserInfo()._sloohatid});
     }
