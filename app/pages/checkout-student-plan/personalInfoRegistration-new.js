@@ -651,10 +651,11 @@ class personalInfoRegistrationNew extends Component {
         // console.log("Processing Google Signin: " + googleTokenData);
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
+        debugger;
         API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
             authenticationCode: googleTokenData.code,
         })
-            .then(response => {
+            .then(response => {                
                 const res = response.data;
                 if (!res.apiError) {
                     debugger;
@@ -742,7 +743,9 @@ class personalInfoRegistrationNew extends Component {
                 }
             })
             .catch(err => {
+                debugger;
                 throw ('Error: ', err);
+                
             });
     };
 
