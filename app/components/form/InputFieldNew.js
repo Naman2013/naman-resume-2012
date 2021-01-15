@@ -31,7 +31,7 @@ const renderField = ({
     {touched && error && <span className="error-text">{error}</span>}
     <style jsx>{`
       .root {
-        margin: 15px;
+        margin-right: 15px;
         display: block;
       }
 

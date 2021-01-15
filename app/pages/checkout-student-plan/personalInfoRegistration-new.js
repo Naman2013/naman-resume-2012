@@ -651,14 +651,13 @@ class personalInfoRegistrationNew extends Component {
         // console.log("Processing Google Signin: " + googleTokenData);
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-        debugger;
+        
         API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
             authenticationCode: googleTokenData.code,
         })
             .then(response => {                
                 const res = response.data;
                 if (!res.apiError) {
-                    debugger;
                     const googleProfileResult = {
                         googleProfileId: res.googleProfileId,
                         googleProfileEmail: res.googleProfileInfo.email,
@@ -743,7 +742,6 @@ class personalInfoRegistrationNew extends Component {
                 }
             })
             .catch(err => {
-                debugger;
                 throw ('Error: ', err);
                 
             });
@@ -823,7 +821,6 @@ class personalInfoRegistrationNew extends Component {
 
 
     getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize, editable) => {
-        debugger;
         switch(fieldType){
             case "select":
                 return (<div className={"form-section "+ fieldSize}>
@@ -853,13 +850,12 @@ class personalInfoRegistrationNew extends Component {
                         dangerouslySetInnerHTML={{ __html: label }} />
                     
                     <span className="form-error"
-                        dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
-                    <br />
+                        dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />                    
                     <br />
                     <fieldset className="row">                        
                         {fieldOptions.map(item=>(
                             <div>
-                                <label className="ageGroupStyle" style={{ paddingLeft: '15px' }}>
+                                <label className="ageGroupStyle" style={{ paddingLeft: '25px' }}>
                                     <Field
                                         name={item.key}
                                         label={item.label}
@@ -869,11 +865,12 @@ class personalInfoRegistrationNew extends Component {
                                         checked={value===item.key}
                                         onClick={event => { onChange({ field: keyName, value: item.key }); }}                                       
                                     />
-                                    {item.label}
+                                    {" "+item.label}
                                 </label>
+                                <br/>
                                 {value===item.key && item.nestedFields && (
                                     item.nestedFields.map(nestItem => (
-                                        <fieldset >
+                                        <fieldset style={{paddingLeft: '25px' }}>
                                             {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
                                         </fieldset>
                                         
@@ -882,17 +879,12 @@ class personalInfoRegistrationNew extends Component {
                             </div>
                         ))}
                     </fieldset>
+                    {/* <br/> */}
                 </div>);
                
             case "checkbox":
-                return (<div className={"form-section "+ fieldSize}>
-                            <div className="form-field-container">
-                                <span className="form-label" 
-                                    dangerouslySetInnerHTML={{ __html: label }} />
-                                
-                                <span className="form-error"
-                                    dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
-                            </div>
+                return (<div>
+                        <div className={"form-section "+ fieldSize}>
                             <Field
                                 name={keyName}
                                 type="checkbox"
@@ -901,14 +893,23 @@ class personalInfoRegistrationNew extends Component {
                                 component="input"
                                 value={value}
                                 onClick={event => { onChange({ field: keyName, value: !value }); }} />
-                        </div>)
+                            <div className="form-field-container inline">
+                                <span className="form-label" 
+                                    dangerouslySetInnerHTML={{ __html: label }} />
+                                
+                                <span className="form-error"
+                                    dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                            </div> 
+                        </div>                         
+                        <br/>
+                    </div>)
                 
             case "hidden":
                 return (
                     <Field
                         value={value}
                         className="form-field"
-                        component={InputField}
+                        component={InputFieldNew}
                         name={keyName}
                         type="hidden"                        
                     />
@@ -1013,7 +1014,7 @@ class personalInfoRegistrationNew extends Component {
                                                         </Fragment>
                                                     )}
                                                 />
-
+                                                <br/>
                                                 <form className="row ml-0 mr-0" onSubmit={this.handleValidation}>
 
                                                     {this.state.formFields.map(field=>(
