@@ -670,7 +670,7 @@ class personalInfoRegistrationNew extends Component {
                     let { formFields } = this.state;
                     formFields.forEach((element, index)=>{
                         if(res.googleProfileInfo[element.key]){
-                            Object.assign(formFields[index], {editable: false, currentValue: res.googleProfileInfo[element.key]});                            
+                            Object.assign(formFields[index], {editable: true, currentValue: res.googleProfileInfo[element.key]});                            
                         }                        
                         if(element.fieldOptions){
                             element.fieldOptions.forEach((innerElement, innerIndex)=>{
@@ -823,7 +823,7 @@ class personalInfoRegistrationNew extends Component {
 
 
     getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize, editable) => {
-
+        debugger;
         switch(fieldType){
             case "select":
                 return (<div className={"form-section "+ fieldSize}>
