@@ -676,7 +676,7 @@ class personalInfoRegistrationNew extends Component {
                                 if(innerElement.nestedFields && innerElement.key === formFields[index].currentValue){
                                     innerElement.forEach((nestedElement, nestedIndex)=>{
                                         if(res.googleProfileInfo[nestedElement.key])
-                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], {editable: false, currentValue: res.googleProfileInfo[nestedElement.key]});                                             
+                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], {editable: true, currentValue: res.googleProfileInfo[nestedElement.key]});                                             
                                     })                                                                            
                                 }
                             })

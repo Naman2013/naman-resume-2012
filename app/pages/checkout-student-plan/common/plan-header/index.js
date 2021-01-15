@@ -8,9 +8,9 @@ export function PlanHeader(props) {
     return (
         <div className="">
             {cardHeading && (
-                <b className="card-heading">{cardHeading}</b>
+                <b className="card-heading" dangerouslySetInnerHTML={{__html: cardHeading}} />
             )}
-            <h2 className="title-heading" >{heading}</h2>
+            <h2 className="title-heading" dangerouslySetInnerHTML={{__html: heading}} />
             {subHeading && (
                 <b className="head-subHeading" dangerouslySetInnerHTML={{__html: subHeading}} />
             )}
@@ -29,13 +29,13 @@ export function PlanCard(props) {
     return (
         <>
             {heading && (
-                <h2 className="plan-title-heading">{heading}</h2>
+                <h2 className="plan-title-heading" dangerouslySetInnerHTML={{__html: heading}} />
             )}
             {subHeading && (
-                <b className="plan-title-subHeading">{subHeading}</b>
+                <b className="plan-title-subHeading" dangerouslySetInnerHTML={{__html: subHeading}} />
             )}
             {description && (
-                <p className="title-description">{description}</p>
+                <p className="title-description" dangerouslySetInnerHTML={{__html: description}} />
             )}
         </>
     )
