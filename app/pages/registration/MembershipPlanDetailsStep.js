@@ -61,7 +61,7 @@ class MembershipPlanDetailsStep extends Component {
   continueToJoinFlow = formValues => {
     formValues.preventDefault();
 
-    browserHistory.push('/join/step2');
+    browserHistory.push('/join');
   };
 
   changeActiveTab = activeTab => {

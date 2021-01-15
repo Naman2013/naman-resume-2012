@@ -61,7 +61,7 @@ class JoinByLandingPage extends Component {
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
 
     /* move to step 2 in the join flow */
-    browserHistory.push('/join/step2');
+    browserHistory.push('/join');
   }
 
   render() {
