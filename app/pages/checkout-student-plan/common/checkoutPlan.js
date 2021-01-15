@@ -1,7 +1,7 @@
 /** **********************************************************************************
  * V4 Join with an Invitation Code - Enter Email Address/Invitation Code
  *************************************************************************************/
-import React, { Component, cloneElement, Fragment } from 'react';
+import React, { Component, cloneElement, Fragment, PureComponent } from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 //import './checkoutPlan.scss';
@@ -19,200 +19,157 @@ const { string, func } = PropTypes;
 @withTranslation()
 class checkoutPlan extends Component {
     constructor(props) {
+        super(props);        
+        window.localStorage.setItem('selectedPlanId', props.subscriptionPlans[0].planID);        
+    } 
 
-        super(props);
-        this.state = {
-            activePlan: null,
-            alternatePlan: null,
-        }
-        this.handleJoinPageServiceResponse(props.supscriptionResponse);
+    switchPlan = (plans, fromPlanIndex, toPlanIndex) => {
+        window.localStorage.setItem('selectedPlanId', plans[fromPlanIndex].planID);
+        var element = plans[fromPlanIndex];
+        plans.splice(fromPlanIndex, 1);
+        plans.splice(toPlanIndex, 0, element);        
+        this.setState({subscriptionPlans: plans});
     }
 
-    handleJoinPageServiceResponse = result => {
-        const subscriptionPlans = Array.isArray(result.subscriptionPlans) ? result.subscriptionPlans : [];
-        const planApprentice = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'apprentice');
-        const planStudent = subscriptionPlans.filter((plan) => plan.planName.toLowerCase() === 'student');
-
-        // this.setState({
-        //     activePlan: planApprentice.length ? planApprentice[0] : null,
-        //     alternatePlan: planStudent.length ? planStudent[0] : null,
-
-        // })
-        // window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
-        this.state={
-            activePlan: planApprentice.length ? planApprentice[0] : null,
-            alternatePlan: planStudent.length ? planStudent[0] : null,
-
-        }
-        window.localStorage.setItem('selectedPlanId', this.state.activePlan.planID);
-
-    }
-
-    switchPlan = () => {
-
-
-        const { alternatePlan, activePlan } = this.state;
-        this.setState({
-            activePlan: alternatePlan,
-            alternatePlan: activePlan
-        })
-        window.localStorage.setItem('selectedPlanId', alternatePlan.planID);
-
-    }
-
-    render() {
-        //  const { pathname, t } = this.props;
-        const { mainHeading, subHeading, planName, paragraph1, paragraph2 } = this.state;
-        const { t } = this.props;
-        
+    render() {        
+        const { subscriptionPlans, onPlanChange } = this.props;
         return (
 
             <div>
-                {/* <Request
-                    serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                    requestBody={{
-                        callSource: 'joinByGuestLanding',
-                        enableHiddenPlanHashCode: window.localStorage.getItem(
-                            'enableHiddenPlanHashCode'
-                        ),
-                    }}
-                    serviceResponseHandler={this.handleJoinPageServiceResponse}
-                    render={({ fetchingContent, serviceResponse: joinPageRes }) => ( */}
-                        
-                        <Fragment>
-                           
-                            <DeviceContext.Consumer>
-                                {({ isMobile, isDesktop, isTablet }) => (
-                                    <Fragment>
-                                        <div className="left-plan-list">
-                                            <PlanHeader
+                <div className="left-plan-list">
+                    <PlanHeader
                                                 cardHeading="Your Plan"
                                                 heading={null}
                                                 subHeading={null}
                                                 description={null}
                                             />
-                                            <div className="appPlan mt-4">
-                                                <div className="craddesign">
-                                                    <div className="state_active">
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={`${this.state.activePlan && this.state.activePlan.planName}
-                                                                 Plan`}
-                                                                subHeading={null}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="state_active">
-                                                        {this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
-                                                        </div>}
-                                                    </div>
-                                                    {/* <div className="state_active">
-
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={null}
-                                                                subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
-                                                                </div>}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div> */}
-                                                    <div className="state_active">
-
-                                                        <div className="ml-1">
-                                                            <PlanCard
-                                                                heading={null}
-                                                                subHeading={this.state.activePlan && this.state.activePlan.planCostDescription}
-                                                                description={null}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                    {this.state.activePlan && this.state.activePlan.planTextBlockDetails.map((planTextBlockData) => {
-
-
-                                                        return (<div className="state_active">
-                                                            <div>
-                                                                <i className="fa fa-check" aria-hidden="true">
-                                                                </i>
+                                            
+                                            {subscriptionPlans.map((plan, index)=>(
+                                                index === 0 ? (
+                                                    <div className="appPlan mt-4">
+                                                        <div className="craddesign">
+                                                            <div className="state_active">
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={plan.planName}
+                                                                        subHeading={null}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
                                                             </div>
-                                                            <div className="ml-1">
-                                                                <PlanCard
-                                                                    heading={null}
-                                                                    subHeading={null}
-                                                                    description={planTextBlockData}
-                                                                />
+                                                            <div className="state_active">
+                                                                <div className="ml-1" dangerouslySetInnerHTML={{__html: plan.planCostDescriptionPrefix}} />                                                                      
                                                             </div>
-                                                        </div>)
-
-                                                    })
-
-                                                    }
-
-
+                                                            {/* <div className="state_active">
+        
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={null}
+                                                                        subHeading={this.state.activePlan && <div className="ml-1" dangerouslySetInnerHTML={{__html: this.state.activePlan.planCostDescriptionPrefix}}>      
+                                                                        </div>}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
+                                                            </div> */}
+                                                            <div className="state_active">
+        
+                                                                <div className="ml-1">
+                                                                    <PlanCard
+                                                                        heading={null}
+                                                                        subHeading={plan.planCostDescription}
+                                                                        description={null}
+                                                                    />
+                                                                </div>
+                                                            </div>
+        
+        
+        
+        
+                                                            {plan.planTextBlockDetails.map((planTextBlockData) => {
+        
+        
+                                                                return (<div className="state_active">
+                                                                    <div>
+                                                                        <i className="fa fa-check" aria-hidden="true">
+                                                                        </i>
+                                                                    </div>
+                                                                    <div className="ml-1">
+                                                                        <PlanCard
+                                                                            heading={null}
+                                                                            subHeading={null}
+                                                                            description={planTextBlockData}
+                                                                        />
+                                                                    </div>
+                                                                </div>)
+        
+                                                            })
+        
+                                                            }
+        
+        
+                                                        </div>
+        
+                                                    </div>
+                                                ):(
+                                                    <div className="state_active cursor-point" onClick={()=>onPlanChange(subscriptionPlans, index, 0)}>
+                                                    <div>
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={"View "+ plan.planName + " Plan"}
+                                                            description={null}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-4 pt-2 mt-1">
+                                                        <i className="fa fa-chevron-right" aria-hidden="true"></i>
+                                                    </div>
                                                 </div>
+                                                )
 
-                                            </div>
-
-
-
-                                            <div className="state_active cursor-point" onClick={this.switchPlan}>
-                                                <div>
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading={` View  ${this.state.alternatePlan && this.state.alternatePlan.planName}  Plan`}
-                                                        description={null}
-                                                    />
-                                                </div>
-                                                <div className="ml-4 pt-2 mt-1">
-                                                    <i className="fa fa-chevron-right" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
+                                            ))}
 
                                             <hr className="seperatorDesign"></hr>
+                                            {subscriptionPlans[0].showPlanDueToday && (
+                                                <div className="state_total">
+                                                    <div className="totalcost">
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={subscriptionPlans[0].planTotalDueTodayDesc }
+                                                            description={null}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-4 totalcost">
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={subscriptionPlans[0].planTotalDueToday  }
+                                                            description={null}
+                                                        />
 
-                                            <div className="state_total">
-                                                <div className="totalcost">
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading="Total"
-                                                        description={null}
-                                                    />
+                                                    </div>
                                                 </div>
-                                                <div className="ml-4 totalcost">
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading="$ 0"
-                                                        description={null}
-                                                    />
-
+                                            )}
+                                            
+                                            {subscriptionPlans[0].hasTrialPeriod && (
+                                                <div className="state_active">
+                                                    <div>
+                                                        <PlanHeader
+                                                            heading={null}
+                                                            subHeading={null}
+                                                            description="Due during free trial period"
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <div className="state_active">
-                                                <div>
-                                                    <PlanHeader
-                                                        heading={null}
-                                                        subHeading={null}
-                                                        description="Due during free trial period"
-                                                    />
+                                            )}                                            
+                                            {subscriptionPlans[0].hasTrialPeriod && (
+                                                <div className="jumbotron mt-4 billJumB">
+                                                    <p> {subscriptionPlans[0].freeTrialDescriptiveText}</p>
                                                 </div>
-                                            </div>
-
-                                            <div className="jumbotron mt-4 billJumB">
-                                                <p> {this.state.activePlan && this.state.activePlan.freeTrialDescriptiveText}</p>
-                                            </div>
-
+                                            )}
                                             <style jsx>{styles}</style>
                                         </div>
-                                    </Fragment>
-                                )}
+                                    {/* </Fragment> */}
+                                {/* )}
                             </DeviceContext.Consumer>
-                        </Fragment>
+                        </Fragment> */}
 
                     {/* )}
 

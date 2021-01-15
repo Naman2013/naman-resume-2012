@@ -56,7 +56,7 @@ export class NewGuestDashboard extends PureComponent {
                         <Button
                             type={"button"}
                             //onClickEvent={()=>browserHistory.push(landingPageDetails.Button.link)} 
-                            onClickEvent={() => browserHistory.push('/join/byGuestLandingPage')}
+                            onClickEvent={() => { window.localStorage.removeItem('selectedPlanId'); browserHistory.push('/join/byGuestLandingPage')}}
                             text={landingPageDetails.Button.Text}
                             style={"free-trial-btn"}
                             icon={null}

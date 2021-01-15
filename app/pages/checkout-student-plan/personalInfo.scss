@@ -1,0 +1,30 @@
+@import "../../../app/styles/variables/fonts.scss";
+
+.field-input {
+    display: block;
+    width: 98%;
+    padding: 10px;
+    font-size: 14px;
+    font-family: $secondary-font;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #415671;
+    background-color: #FFF;
+    background-clip: padding-box;
+    border: 1px solid #ced2d8;
+    border-radius: 0.25rem;
+    margin-bottom: 15px;
+}
+
+.form-section {
+    width: 100%;
+}
+
+.form-field-half{
+    width: 50%;
+}
+
+.inline{
+    display: inline;
+    margin-left: 5px;
+}

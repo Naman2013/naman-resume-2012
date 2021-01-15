@@ -143,7 +143,7 @@ class paymentDetails extends Component {
                     billingAddressString: paymentDataString[3],
                     // sloohSiteSessionToken: _sloohsstkn,
                     sloohMarketingTrackingId: _sloohatid,
-                    conditionType: 'joinbyguestlanding'
+                    conditionType: _sloohatid ? 'join' : 'joinbyguestlanding',
                 };
 
                 API.post(
@@ -189,7 +189,8 @@ class paymentDetails extends Component {
 
 
                                     actions.logUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
+                                        const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
+                                        browserHistory.push(welcomepage);
                                     });
                                 } else if (accountCreationType === 'googleaccount') {
                                     const loginDataPayload = {
@@ -199,7 +200,8 @@ class paymentDetails extends Component {
 
                                     window.localStorage.removeItem('accountCreationType');
                                     actions.logGoogleUserIn(loginDataPayload, { reload: false }).then(() => {
-                                        browserHistory.push('/join/purchaseConfirmation/joinbyguestlanding');
+                                        const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
+                                        browserHistory.push(welcomepage);
                                     });
                                 }
                             } else {
@@ -304,7 +306,7 @@ class paymentDetails extends Component {
                     serviceURL={JOIN_PAGE_ENDPOINT_URL}
                     requestBody={{
                         callSource: 'providePaymentDetails',
-                        conditionType: 'joinbyguestlanding',
+                        conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                         selectedPlanId: window.localStorage.selectedPlanId,
                         cid: window.localStorage.getItem('pending_cid'),
                         enableHiddenPlanHashCode: window.localStorage.getItem(

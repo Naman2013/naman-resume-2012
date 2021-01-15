@@ -39,7 +39,7 @@ export default class MembershipPlansList extends Component {
       this.setUpgradeModalOpen(selectedPlan);
     } else {
       /* move to step 2 in the join flow */
-      browserHistory.push('/join/step2');
+      browserHistory.push('/join');
     }
   }
 

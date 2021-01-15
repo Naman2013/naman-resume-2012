@@ -208,7 +208,7 @@ export declare interface ISubscriptionPlan {
   planSelectedBackgroundImageUrl_Desktop: string;
   planSelectedBackgroundImageUrl_Tablet: string;
   planSelectedBackgroundImageUrl_Mobile: string;
-  hasTrialPeriod: string;
+  hasTrialPeriod: boolean;
   '2018AccountType': string;
 }
 
