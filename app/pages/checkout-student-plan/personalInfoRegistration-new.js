@@ -656,6 +656,7 @@ class personalInfoRegistrationNew extends Component {
             .then(response => {
                 const res = response.data;
                 if (!res.apiError) {
+                    debugger;
                     const googleProfileResult = {
                         googleProfileId: res.googleProfileId,
                         googleProfileEmail: res.googleProfileInfo.email,
@@ -664,38 +665,55 @@ class personalInfoRegistrationNew extends Component {
                         googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
                     };
 
+                    let { formFields } = this.state;
+                    formFields.forEach((element, index)=>{
+                        if(res.googleProfileInfo[element.key]){
+                            formFields[index].currentValue=res.googleProfileInfo[element.key];
+                        }                        
+                        if(element.fieldOptions){
+                            element.fieldOptions.forEach((innerElement, innerIndex)=>{
+                                if(innerElement.nestedFields && innerElement.key === array[index].currentValue){
+                                    innerElement.forEach((nestedElement, nestedIndex)=>{
+                                        if(res.googleProfileInfo[nestedElement.key])
+                                            formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex].currentValue=res.googleProfileInfo[element.key];
+                                    })                                                                            
+                                }
+                            })
+                        }
+                    });
                     /* Capture the Google Profile Data and store it in state */
-                    this.setState(() => ({ googleProfileData: googleProfileResult }));
+                    this.setState(() => ({ googleProfileData: googleProfileResult, formFields: formFields, accountCreationType: 'googleaccount', }));
+
 
                     /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-                    const accountFormDetailsData = cloneDeep(
-                        this.state.accountFormDetails
-                    );
+                    // const accountFormDetailsData = cloneDeep(
+                    //     this.state.accountFormDetails
+                    // );
                     /* Google Authentication technically does not require a password, but we want the user to use a backup password */
-                    accountFormDetailsData.password.visible = true;
+                    // accountFormDetailsData.password.visible = true;
                     //  accountFormDetailsData.passwordVerification.visible = true;
 
                     /* Set the customer's information that we got from google as a starting place for the user */
-                    accountFormDetailsData.givenName.value =
-                        googleProfileResult.googleProfileGivenName;
+                    // accountFormDetailsData.givenName.value =
+                    //     googleProfileResult.googleProfileGivenName;
                     this.props.change(
                         'givenName',
                         googleProfileResult.googleProfileGivenName
                     );
 
-                    accountFormDetailsData.familyName.value =
-                        googleProfileResult.googleProfileFamilyName;
+                    // accountFormDetailsData.familyName.value =
+                    //     googleProfileResult.googleProfileFamilyName;
                     this.props.change(
                         'familyName',
                         googleProfileResult.googleProfileFamilyName
                     );
 
                     /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-                    accountFormDetailsData.loginEmailAddress.errorText =
-                        ''; /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
-                    accountFormDetailsData.loginEmailAddress.editable = false;
-                    accountFormDetailsData.loginEmailAddress.value =
-                        googleProfileResult.googleProfileEmail;
+                    // accountFormDetailsData.loginEmailAddress.errorText =''; 
+                        /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
+                    // accountFormDetailsData.loginEmailAddress.editable = false;
+                    // accountFormDetailsData.loginEmailAddress.value =
+                    //     googleProfileResult.googleProfileEmail;
                     this.props.change(
                         'loginEmailAddress',
                         googleProfileResult.googleProfileEmail
@@ -704,11 +722,11 @@ class personalInfoRegistrationNew extends Component {
                     /* No need to verify the email address as its Google and it was already provided */
                    // accountFormDetailsData.loginEmailAddressVerification.visible = false;
 
-                    this.setState(() => ({
-                        accountFormDetails: accountFormDetailsData,
-                        /* Set the account creation type as Google */
-                        accountCreationType: 'googleaccount',
-                    }));
+                    // this.setState(() => ({
+                    //     accountFormDetails: accountFormDetailsData,
+                    //     /* Set the account creation type as Google */
+                    //     accountCreationType: 'googleaccount',
+                    // }));
 
                     /* Set the account creation type as Google and the Google Profile Id in browser storage */
                     window.localStorage.setItem('accountCreationType', 'googleaccount');
