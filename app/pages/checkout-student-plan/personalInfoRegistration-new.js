@@ -157,6 +157,18 @@ class personalInfoRegistrationNew extends Component {
                 formFields[index].currentValue=value;
                 return;
             }
+            if(element.fieldOptions){
+                element.fieldOptions.forEach((innerElement, innerIndex)=>{                    
+                    if(innerElement.nestedFields && innerElement.key === formFields[index].currentValue){
+                        innerElement.nestedFields.forEach((nestedelement, nestedindex)=>{
+                            if(nestedelement.key === field){
+                                formFields[index].fieldOptions[innerIndex].nestedFields[nestedindex].currentValue=value;
+                                return;
+                            }
+                        })
+                    }
+                })
+            }
         });
         this.setState({formFields})
         /* Get the existing state of the signup form, modify it and re-set the state */
@@ -218,6 +230,28 @@ class personalInfoRegistrationNew extends Component {
         return formData;
     }
 
+    handleErrorFormatdata = (array, errorArray) => {        
+        array.forEach((element, index)=>{
+            console.log(errorArray[element.key]);
+            if(errorArray[element.key]){
+                Object.assign(array[index], {showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
+            }
+            if(element.fieldOptions){
+                element.fieldOptions.forEach((innerElement, innerIndex)=>{
+                    if(innerElement.nestedFields && innerElement.key === array[index].currentValue){
+                        innerElement.nestedFields.forEach((nestedElement, nestedIndex)=>{
+                            if(errorArray[nestedElement.key]){
+                                Object.assign(array[index].formFields[innerIndex].nestedFields[nestedIndex], {showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
+                            }
+                        })
+                    }
+                    
+                })
+            }            
+        });
+        return array;
+    }
+
     handleApiValidation = () => {
         let { formFields } = this.state;
         let formData = this.handleFormatdataConversion(formFields);        
@@ -232,7 +266,8 @@ class personalInfoRegistrationNew extends Component {
             const res = response.data;
             if (res.apiError == false) {
                 if(res.accountFormHasErrors){
-                    this.setState({formFields: res.accountFormFields});
+                    const errorFormData = this.handleErrorFormatdata(formFields, res.accountFormFields);                    
+                    this.setState({formFields: errorFormData});
                 }
                 else{
                     //create pending customer
@@ -765,11 +800,11 @@ class personalInfoRegistrationNew extends Component {
     }
 
 
-    getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError) => {
+    getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize) => {
 
         switch(fieldType){
             case "select":
-                return (<div className="form-section">
+                return (<div className={"form-section "+ fieldSize}>
                 <div className="form-field-container">
                     <span className="form-label"
                         dangerouslySetInnerHTML={{ __html: label}} />
@@ -791,7 +826,7 @@ class personalInfoRegistrationNew extends Component {
             </div>);  
                 break;
             case "radio":
-                return (<div>
+                return (<div className={"form-section "+ fieldSize}>
                     <span className="form-label"
                         dangerouslySetInnerHTML={{ __html: label }} />
                     
@@ -817,7 +852,7 @@ class personalInfoRegistrationNew extends Component {
                                 {value===item.key && item.nestedFields && (
                                     item.nestedFields.map(nestItem => (
                                         <fieldset >
-                                            {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, (key, value)=>onChange({ field: key, value: value }), nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError)}
+                                            {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize)}
                                         </fieldset>
                                         
                                     ))
@@ -828,7 +863,7 @@ class personalInfoRegistrationNew extends Component {
                 </div>);
                
             case "checkbox":
-                return (<div>
+                return (<div className={"form-section "+ fieldSize}>
                             <div className="form-field-container">
                                 <span className="form-label" 
                                     dangerouslySetInnerHTML={{ __html: label }} />
@@ -861,7 +896,7 @@ class personalInfoRegistrationNew extends Component {
             case "email":
             case "number":
             case "text":
-                return (<div className="form-section">
+                return (<div className={"form-section "+ fieldSize}>
                             <div className="form-field-container">
                                 <span className="form-label"
                                     dangerouslySetInnerHTML={{ __html: label}} />
@@ -955,10 +990,10 @@ class personalInfoRegistrationNew extends Component {
                                                     )}
                                                 />
 
-                                                <form onSubmit={this.handleValidation}>
+                                                <form className="row ml-0 mr-0" onSubmit={this.handleValidation}>
 
                                                     {this.state.formFields.map(field=>(
-                                                        this.getFormField(field.fieldType, field.label, field.hintText, field.key, this.handleFieldChange, field.errorText, field.fieldOptions, field.currentValue, field.showError)
+                                                        this.getFormField(field.fieldType, field.label, field.hintText, field.key, this.handleFieldChange, field.errorText, field.fieldOptions, field.currentValue, field.showError, field.required, field.fieldSize)
                                                     ))}
 
 
