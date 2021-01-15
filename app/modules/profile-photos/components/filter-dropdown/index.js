@@ -34,6 +34,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     setSelectedTagsTabIndex,
     myPicturesFilters,
     newButton,
+    tempFilters,
   } = props;
 
   const {
@@ -52,12 +53,14 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       missionSystemTags: [],
       missionUserTags: [],
       pictureUserTags: [],
+      astroObjectIds: [],
+      astroObjectName: null,
     });
   };
 
-  const open = () => setOpen(true);
+  const open = () => { setOpen(true)};
   const close = () => {
-    resetFilters();
+    // resetFilters();
     setOpen(false);
   };
 
@@ -78,6 +81,47 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     close();
   };
 
+  const getResetButtonStatus = () => {
+    const { pierNumber, 
+      observatoryId, 
+      filterType, 
+      timeFilter, 
+      dateFilter,
+      missionSystemTags,
+      missionUserTags,
+      pictureUserTags,
+      astroObjectIds,
+      astroObjectName,} = selectedFilters
+    
+    if(checkEmpty(pierNumber) && 
+      checkEmpty(observatoryId) && 
+      checkEmpty(filterType) &&  
+      checkEmpty(timeFilter) &&
+      checkEmpty(dateFilter) &&
+      checkEmpty(astroObjectName) &&
+      checkEmptyList(missionSystemTags) &&
+      checkEmptyList(pictureUserTags) &&
+      checkEmptyList(missionUserTags) &&
+      checkEmptyList(astroObjectIds))
+      return false;
+    else
+      return true;
+  }
+
+  const modalClose = () => {
+    if(tempFilters!== undefined )
+      onChange(tempFilters);
+    close();
+  }
+
+  const checkEmpty = (item) => {
+    return (item === null || item === "");
+  }
+
+  const checkEmptyList = (item) => {
+    return (item !== null && item.length === 0)
+  }
+
   return (
     <div className={"filter-dropdown-wrapper" + newButton ? "right-align" : "" }>
       {newButton ? 
@@ -96,7 +140,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       
       <Modal
         show={isOpen}
-        onHide={close}
+        onHide={modalClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         dialogClassName="filter-modal"
@@ -107,7 +151,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             <Tooltip title="Close">
               <span
                 className="icon-close close-btn"
-                onClick={close}
+                onClick={modalClose}
                 role="presentation"
               />
             </Tooltip>
@@ -204,11 +248,15 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
           </div>
 
           <div className="filter-dropdown-footer text-center">
-            <Button className="mr-3" onClick={handleReset}>
-              reset
-            </Button>
+            {getResetButtonStatus() && (
+              <Button className="mr-3" onClick={handleReset}>
+                reset
+              </Button>
+            )}
+            
             <Button
               onClick={() => {
+                onChange({astroObjectIds: [], astroObjectName: null,});
                 onApply();
                 setOpen(false);
               }}

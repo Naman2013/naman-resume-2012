@@ -1,22 +1,36 @@
 @import "../../breakpoints.scss";
 @import "../../../../../app/styles/variables/fonts.scss";
 
-.new-dash .map {
+.new-dash .Object-map {
     width: 100%;
-    height:800px;
+    height: calc(31vw);
     // background: url('https://vega.slooh.com/assets/v4/dashboard-new/objectmap/slooh-quest-map-1.png');
-    background-color: #111;
+    // background-color: #111;
+    // background: linear-gradient(90deg, #494949 0%, #494949 18.15%, #111D30 28.45%, #111D30 48.47%, rgba(73, 73, 73, 0.8) 56.03%, rgba(73, 73, 73, 0.4) 100%);
     border-radius: 8px;
   }
 
 .new-dash .control-div{
+    // background-color: #111111;
+    // border-radius: 8px;
+    // width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    // flex-direction: row;
+    // margin: 12px 0px;
+    // padding: 6px 24px;    
+}
+
+.new-dash .dropdown-control-div{
     background-color: #111111;
     border-radius: 8px;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    margin: 12px 0px;
-    padding: 6px 24px;
+    flex-direction: row;   
+    padding: 10px 15px;   
+    margin: 10px 0px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .new-dash .control-menu-item-selected, 
@@ -25,6 +39,20 @@
     background-color: #253446;
     color: #FFFFFF;
 }
+
+.new-dash .control-menu-item-disabled{
+    color: #999;
+    background: #ddd;
+}
+
+.new-dash .control-menu-item-disabled:hover{
+    color: #999;
+    background: #ddd;
+}
+// .new-dash .control-menu-item:disabled:hover{
+//     background-color: #253446;
+//     color: #999;
+// }
 
 .new-dash .select-label{
     font-family: $primary-font;
@@ -67,6 +95,45 @@
     padding-left: 5px
 }
 
+.new-dash .map-navigation-div{
+    position: absolute;
+    z-index: 3;
+    right: 30px;
+    top: 10px;
+}
+.new-dash .title-div{
+    position: absolute;
+    z-index: 1;    
+    top: 10px;
+    padding: .5rem 10px 0px 10px;
+    border-radius: 5px;
+    background-color: #34485C;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;    
+}
+.new-dash .object-map-title{
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;    
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.new-dash .object-map-subtitle{
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;    
+    color: #FFFFFF;
+    text-align: center;
+}
+
+
 .new-dash .select-label-disabled{
     font-family: $primary-font;
     font-style: normal;
@@ -91,7 +158,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;    
-    flex: 0.22;
+    flex: none;
     margin-right: 24px;
 }
 
@@ -112,13 +179,17 @@
     margin: 5px 5px;
 }
 
-.new-dash .settings{
+.new-dash .settings-controls{
     display: flex;
     flex-direction: row;
     align-items: center;    
-    flex: 0.2;
+    width: 30%;
+    // flex: 0.2;
     justify-content: space-around;   
-    padding: 7px 0px;
+    padding: 10px 15px;
+    background-color: #111111;
+    border-radius: 8px;
+    margin: 0px;
 }
 
 .new-dash .title-main{
@@ -180,14 +251,26 @@
 
 .new-dash .object-card-popup{
     position: absolute;
-    width: 60%;
+    width: 85%;
     top: 0;
     border: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-    height: 75%;
+    height: 100%;
+    z-index: 9;
+}
+
+.new-dash .Object-map-fullscreen{
+    width: 100%;
+    height: calc(90vh);
+    border-radius: 8px;
+}
+
+.new-dash .disabled-control{
+    opacity:0.6;
+    cursor: not-allowed;
 }
 
 @media (min-width: $screenXLarge) {
@@ -208,6 +291,28 @@
         line-height: 23px;      
         color: #BDBDBD;         
     }
+
+    .new-dash .Object-map  {
+        height: calc(35vw);  
+    }
+
+    .new-dash .dropdown-control-div{
+        width: 72%;
+        margin-right: 10px;
+    }
+
+    .new-dash .settings-controls{
+        width: 25%;
+        margin: 10px 0px;
+    }
+    .new-dash .object-card-popup{
+        width: 60%;
+        height: 100%;
+    }
+    .new-dash .Object-map-fullscreen{       
+        height: calc(95vh);        
+    }
+
 }
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
@@ -228,4 +333,52 @@
         line-height: 20px;      
         color: #BDBDBD;         
     }
+
+    .new-dash .Object-map  {
+        height: calc(28vw) ;  
+    }
+
+    .new-dash .settings-controls{
+        width: 40%;
+        margin: 0px;
+    }
+
+    .new-dash .object-card-popup{
+        width: 95%;
+        height: 95%;
+    }
+    .new-dash .object-map-title{
+        font-size: 18px;
+        line-height: 22px;  
+    }
+    .new-dash .object-map-subtitle{        
+        font-size: 12px;
+        line-height: 16px; 
+    }
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    
+    .new-dash .Object-map  {
+        height: calc(46vw) ;  
+    }  
+
+    .new-dash .settings-controls{
+        width: 60%;        
+    }
+
+    .new-dash .object-card-popup{
+        width: 95%;
+        height: 95%;
+    }
+
+    .new-dash .object-map-title{
+        font-size: 16px;
+        line-height: 20px;  
+    }
+    .new-dash .object-map-subtitle{        
+        font-size: 10px;
+        line-height: 14px; 
+    }
+    
 }

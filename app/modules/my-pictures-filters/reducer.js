@@ -45,6 +45,8 @@ const initialState = {
     pictureUserTags: [],
     missionUserTags: [],
     missionSystemTags: [],
+    astroObjectIds: [],
+    astroObjectName: '',
   },
 };
 

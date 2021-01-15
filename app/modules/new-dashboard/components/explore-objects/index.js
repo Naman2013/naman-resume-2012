@@ -4,6 +4,7 @@ import './style.scss';
 import { TabHeader } from '../tab-header';
 import { QuestMap } from '../quest-map';
 import { ObjectMap } from '../object-map-new';
+import { TabHeaderWithNewLabel } from '../tab-header/header-with-new-label';
 
 export class ExploreObject extends Component{
 
@@ -17,9 +18,9 @@ export class ExploreObject extends Component{
             case "Quest Map":
                 getQuestMapControl();
                 break;
-            case "Object Map":
-                // getObjectMapControl();
-                break;
+            // case "Object Map":
+            //     getObjectMapControl();
+            //     break;
         }
 
         this.setState({activeHeading: title});
@@ -27,17 +28,17 @@ export class ExploreObject extends Component{
 
 
     render() {
-        const { questMapControls, objectMapControls } = this.props;
+        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub } = this.props;
         const { activeHeading } = this.state;
 
         return (
             <div className="title-main">
-                 <TabHeader
-                    headings={["Quest Map", "Object Map"]}
+                 <TabHeaderWithNewLabel
+                    headings={[{ label: "Quest Map", showNewLabel: false}, {label: "Object Map", showNewLabel: true}]}
                     activeHeading={activeHeading}
                     spaceequally={false}
                     theme={"dark"}
-                    onTabChange={this.onTabChange}
+                    onTabChange={this.onTabChange}                    
                 />
 
                 {activeHeading === "Quest Map" && questMapControls && (
@@ -48,10 +49,12 @@ export class ExploreObject extends Component{
 
                 {/* {activeHeading === "Object Map" && objectMapControls && ( */}
                 {activeHeading === "Object Map" && (
-                    // <ObjectMap
-                    //     objectMapControls={objectMapControls.mapControls}
-                    // /> 
-                    <h2 className="comming-soon">Coming Soon...</h2>
+                    <ObjectMap
+                        scrollToRef={scrollToRef}
+                        refreshPhotoHub={refreshPhotoHub}
+                        // objectMapControls={objectMapControls.mapControls}
+                    /> 
+                    // <h2 className="comming-soon">Coming Soon...</h2>
                 )}
             </div>   
         );

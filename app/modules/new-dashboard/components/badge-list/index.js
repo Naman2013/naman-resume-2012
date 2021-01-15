@@ -4,7 +4,7 @@ import './style.scss';
 import Popup from 'react-modal';
 import { customModalStylesSloohBlueOverlay, customModalStylesBlackOverlayBadge } from 'app/styles/mixins/utilities';
 import { getObjectCard } from '../../dashboardApi';
-import { ObjectCard } from '../object-card';
+import ObjectCard from '../object-card';
 import { getUserInfo } from 'app/modules/User';
 import { Spinner } from 'app/components/spinner/index';
 
@@ -29,7 +29,8 @@ export class BadgeList extends Component{
                     cid,
                     objectId: item.objectId,
                     objectUUID: item.objectUUID,
-                    objectVersion: 1.1
+                    objectVersion: 1.1,
+                    callSource: this.props.callSource,
                   }).then(response=>{
                       const res=response.data;
                       if(!res.apiError)
@@ -52,7 +53,7 @@ export class BadgeList extends Component{
     
     render() {
 
-        const { badgeLists, totalBadgeCount, currentBadgeCount } = this.props;
+        const { badgeLists, totalBadgeCount, currentBadgeCount, scrollToRef, refreshPhotoHub } = this.props;
         const { showBadge, currentBadge, objectBadge, loading } = this.state;
         // const heading = "Badges(" +badgeLists.length + "/"+ totalBadgeCount + ")";        
         const heading = "Badges";
@@ -85,7 +86,8 @@ export class BadgeList extends Component{
                                 <ObjectCard
                                     onHide={this.closePopup}
                                     objectCardDetails={objectBadge}
-                                    
+                                    scrollToRef={scrollToRef} 
+                                    refreshPhotoHub={refreshPhotoHub}
                                 />
                             </div>   
                         </Popup>                      
