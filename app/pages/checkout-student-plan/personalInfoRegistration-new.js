@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from 'app/components/form/InputField';
+import InputFieldNew from 'app/components/form/InputFieldNew';
 import cloneDeep from 'lodash/cloneDeep';
 import { GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, VERIFY_CAPTCHA_CODE_URL, JOIN_PAGE_ENDPOINT_URL, JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, VERIFY_CLUB_CODE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import Request from 'app/components/common/network/Request';
@@ -668,14 +669,14 @@ class personalInfoRegistrationNew extends Component {
                     let { formFields } = this.state;
                     formFields.forEach((element, index)=>{
                         if(res.googleProfileInfo[element.key]){
-                            formFields[index].currentValue=res.googleProfileInfo[element.key];
+                            Object.assign(formFields[index], {editable: false, currentValue: res.googleProfileInfo[element.key]});                            
                         }                        
                         if(element.fieldOptions){
                             element.fieldOptions.forEach((innerElement, innerIndex)=>{
                                 if(innerElement.nestedFields && innerElement.key === formFields[index].currentValue){
                                     innerElement.forEach((nestedElement, nestedIndex)=>{
                                         if(res.googleProfileInfo[nestedElement.key])
-                                            formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex].currentValue=res.googleProfileInfo[element.key];
+                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], {editable: false, currentValue: res.googleProfileInfo[nestedElement.key]});                                             
                                     })                                                                            
                                 }
                             })
@@ -818,7 +819,7 @@ class personalInfoRegistrationNew extends Component {
     }
 
 
-    getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize) => {
+    getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize, editable) => {
 
         switch(fieldType){
             case "select":
@@ -870,7 +871,7 @@ class personalInfoRegistrationNew extends Component {
                                 {value===item.key && item.nestedFields && (
                                     item.nestedFields.map(nestItem => (
                                         <fieldset >
-                                            {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize)}
+                                            {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
                                         </fieldset>
                                         
                                     ))
@@ -923,11 +924,13 @@ class personalInfoRegistrationNew extends Component {
                                     dangerouslySetInnerHTML={{ __html: showError ? errorText : ''}} />
                             </div>
                             <Field
+                                editable={editable}
                                 name={keyName}
+                                currentValue={value}
                                 type={fieldType}
                                 className="form-field"
                                 label={hintText}
-                                component={InputField}
+                                component={InputFieldNew}                                
                                 onChange={event => { onChange({ field: keyName, value: event.target.value }); }} />
                         </div>);            
         }
@@ -1011,7 +1014,7 @@ class personalInfoRegistrationNew extends Component {
                                                 <form className="row ml-0 mr-0" onSubmit={this.handleValidation}>
 
                                                     {this.state.formFields.map(field=>(
-                                                        this.getFormField(field.fieldType, field.label, field.hintText, field.key, this.handleFieldChange, field.errorText, field.fieldOptions, field.currentValue, field.showError, field.required, field.fieldSize)
+                                                        this.getFormField(field.fieldType, field.label, field.hintText, field.key, this.handleFieldChange, field.errorText, field.fieldOptions, field.currentValue, field.showError, field.required, field.fieldSize, field.editable)
                                                     ))}
 
 
