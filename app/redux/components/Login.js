@@ -376,7 +376,7 @@ class Login extends Component {
                 />
               </Link> */}
               {loginMenuLinks.showJoinButton && (
-                <Link to={loginMenuLinks.joinButtonLinkURL}>
+                <Link to={loginMenuLinks.joinButtonLinkURL} onClick={()=>window.localStorage.removeItem('selectedPlanId')}>
                   <LargeButtonWithRightIcon
                     icon={horizontalArrowRightWhite}
                     theme={{
