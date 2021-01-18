@@ -186,7 +186,7 @@ class personalInfoRegistrationNew extends Component {
 
     checkFormValues = (arrayOfFields) => {
         arrayOfFields.forEach((element, index)=>{
-            if(element.required && (element.currentValue.trim() === "" || element.currentValue === false)){
+            if(element.required && ( element.currentValue === false || (typeof element.currentValue === 'string' && element.currentValue.trim() === ""))){
                 Object.assign(arrayOfFields[index], {showError: true});
                 this.formValidationSuccess=false;
             }
