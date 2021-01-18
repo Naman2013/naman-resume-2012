@@ -47,7 +47,7 @@ class checkoutStudentPlan extends PureComponent {
         const { selectedPlan } = this.state;
         return (
             <>                
-                        <div className="check-out-stu">                            
+                        <div className="new-guest-dash check-out-stu">                            
                             <Spinner loading={subscriptionPlans.isFetching} />
                             {!subscriptionPlans.isFetching && (
                                 <Container>

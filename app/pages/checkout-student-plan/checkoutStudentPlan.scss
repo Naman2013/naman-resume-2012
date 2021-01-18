@@ -1,172 +1,175 @@
 
 @import "../../../app/styles/variables/fonts.scss";
 
-.check-out-stu {
-  background: #fff;
-  padding: 0 2em;
-}
-
-.disabled {
-  background-color: gray !important;
-}
-
-.form-section label {
-  margin-left: 0px !important;
-  color: #111111;
-}
-.form-section .field-input::placeholder {
-  font-size: 16px;
-  //color: #111111;
+.new-guest-dash{
+  .check-out-stu {
+    background: #fff;
+    padding: 0 2em;
+  }
   
-}
-.form-section .field-input {
-  background: #fff !important;
-  font-size: 16px!important;
-}
-
-
-.form-field-container .field-input {
-  background: #fff;
-}
-
-
-@media (max-width: 767px) {
+  .disabled {
+    background-color: gray !important;
+  }
+  
+  .form-section label {
+    margin-left: 0px !important;
+    color: #111111;
+  }
+  .form-section .field-input::placeholder {
+    font-size: 16px;
+    //color: #111111;
+    
+  }
+  .form-section .field-input {
+    background: #fff !important;
+    font-size: 16px!important;
+  }
+  
+  
+  .form-field-container .field-input {
+    background: #fff;
+  }
+  
+  
+  @media (max-width: 767px) {
+    .payment-dateSec span {
+      float: none;
+    }
+  }
+  
+  .google-login-button button {
+    background: #518ef8 !important;
+    border-radius: 30px !important;
+    font-size: 11px !important;
+    font-family: $primary-font;
+  }
+  
+  button.submit-button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.25s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 100px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #415671;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: $primary-font;
+  }
+  
+  button.submit-button:focus {
+    outline: none;
+  }
+  
+  .payment-way {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .totalCost span {
+    float: right;
+    font-weight: bold;
+  }
+  
+  .formSectionName {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .form-error {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+  }
+  
+  .payment-instruct {
+    color: #253446;
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  
+  button.btn.btn-dark img {
+    width: 30px;
+  }
+  
+  .form-label {
+    display: inline-block;
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: bold;
+    color: #111111;
+  }
+  
+  .ageGroupStyle{
+    color: #111111;
+    font-size: 16px;
+  }
+  
+  .form-error {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+  }
+  .btn.btn-dark.btn-black {
+    background: #000000;
+    border: none;
+    width: 150px;
+    height: 50px;
+  }
+  .btn.btn-dark.btn-ppal {
+    background: #0091d5;
+    border: none;
+    width: 150px;
+    height: 40px;
+  }
+  /* .payment-instruct p {
+    color: #253446;
+    font-family: sans-serif;
+  } */
+  
   .payment-dateSec span {
-    float: none;
+    float: right;
+  }
+  .payment-dateSec {
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+    font-family: $secondary-font;
+  }
+  .payment-setup-card {
+    margin-left: 27px;
+    font-family: $primary-font;
+    font-size: 14px;
+  }
+  
+  .btn.btn-dark.btn-black {
+    background: #000000;
+    border: none;
+    width: 150px;
+    height: 50px;
+  }
+  
+  .btn.btn-dark.btn-ppal {
+    background: #0091d5;
+    border: none;
+    width: 150px;
+    height: 50px;
+  }
+  
+  
+  .totalcost b.head-subHeading {
+    font-size: 22px !important;
   }
 }
 
-.google-login-button button {
-  background: #518ef8 !important;
-  border-radius: 30px !important;
-  font-size: 11px !important;
-  font-family: $primary-font;
-}
-
-button.submit-button {
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.25s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 100px;
-  padding: 10px 20px;
-  color: white;
-  background-color: #415671;
-  text-align: left;
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: bold;
-  font-family: $primary-font;
-}
-
-button.submit-button:focus {
-  outline: none;
-}
-
-.payment-way {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.totalCost span {
-  float: right;
-  font-weight: bold;
-}
-
-.formSectionName {
-  display: flex;
-  flex-direction: row;
-}
-
-.form-error {
-  display: inline-block;
-  color: red;
-  font-weight: bold;
-}
-
-.payment-instruct {
-  color: #253446;
-  padding: 10px 0;
-  font-size: 16px;
-}
-
-button.btn.btn-dark img {
-  width: 30px;
-}
-
-.form-label {
-  display: inline-block;
-  font-family: $primary-font;
-  font-size: 16px;
-  font-weight: bold;
-  color: #111111;
-}
-
-.ageGroupStyle{
-  color: #111111;
-  font-size: 16px;
-}
-
-.form-error {
-  display: inline-block;
-  color: red;
-  font-weight: bold;
-}
-.btn.btn-dark.btn-black {
-  background: #000000;
-  border: none;
-  width: 150px;
-  height: 50px;
-}
-.btn.btn-dark.btn-ppal {
-  background: #0091d5;
-  border: none;
-  width: 150px;
-  height: 40px;
-}
-/* .payment-instruct p {
-  color: #253446;
-  font-family: sans-serif;
-} */
-
-.payment-dateSec span {
-  float: right;
-}
-.payment-dateSec {
-  margin-left: 25px;
-  font-weight: 600;
-  font-size: 22px;
-  display: flex;
-  justify-content: space-between;
-  font-family: $secondary-font;
-}
-.payment-setup-card {
-  margin-left: 27px;
-  font-family: $primary-font;
-  font-size: 14px;
-}
-
-.btn.btn-dark.btn-black {
-  background: #000000;
-  border: none;
-  width: 150px;
-  height: 50px;
-}
-
-.btn.btn-dark.btn-ppal {
-  background: #0091d5;
-  border: none;
-  width: 150px;
-  height: 50px;
-}
-
-
-.totalcost b.head-subHeading {
-  font-size: 22px !important;
-}
