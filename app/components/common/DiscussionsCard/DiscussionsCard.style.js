@@ -24,6 +24,8 @@ export default css`
     border-bottom: 1px solid ${shadows};
   }
 
+  
+
   .root:first-child {
     border-top: 0;
   }

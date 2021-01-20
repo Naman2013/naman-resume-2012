@@ -36,7 +36,11 @@ class DiscussionsCard extends PureComponent {
   componentDidMount() {
     const { jumpToThreadId, threadId } = this.props;
     if (jumpToThreadId == threadId) {
-      setTimeout(() => this.discussionTile.scrollIntoView(), 1000);
+      let cardOffSet = document.getElementById(`card-${threadId}`);
+      let cardOffsetValue = cardOffSet.offsetTop;
+      
+      document.documentElement.scrollTop = cardOffsetValue;
+      //setTimeout(() => this.discussionTile.scrollIntoView(), 1000);
     }
   }
  
