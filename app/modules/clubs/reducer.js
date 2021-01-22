@@ -13,7 +13,7 @@ export const ACTION = actions(TYPE);
 
 const initialState = {
   isFetching: false,
-  topThreadsList: [],
+  topThreadsList: undefined,
   serverError: null,
   groupDeleteInvitation: {},
   deleteInvitationData: null,
