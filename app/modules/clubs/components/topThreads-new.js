@@ -16,7 +16,7 @@ import { Spinner } from 'app/modules/new-dashboard/common/spinner';
 
   const { topThreadsList, isLoading, isDesktop, discussionGroupId, setPublicCardStatusAction } = props;
 
-  const [currentTab, setCurrentTab] = useState(topThreadsList?.tabDefault);
+  const [currentTab, setCurrentTab] = useState(undefined);
 
   const [shouldReload, setShouldReload] = useState(false);
   useEffect(() => {
