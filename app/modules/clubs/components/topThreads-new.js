@@ -58,8 +58,6 @@ import { ClubTabHeader } from 'app/modules/new-dashboard/components/tab-header-f
         render={() => (
           topThreadsList && (
           <div className="members-list">
-            <div className="new-dash">
-              
               <ClubTabHeader
                 headings={topThreadsList?.tabOptions}
                 activeHeading={currentTab}
@@ -67,7 +65,6 @@ import { ClubTabHeader } from 'app/modules/new-dashboard/components/tab-header-f
                 theme={"light"}
                 onTabChange={onTabChange}
               />
-            </div>
             {topThreadsList?.threads?.map(x => (
               <div                
                 className="navigation-link"               

@@ -1,127 +1,130 @@
 @import "../../breakpoints.scss";
 @import "../../../../../app/styles/variables/fonts.scss";
 
-.new-dash .tab-header-txt{   
-    position: static;
-    display: flex;
-    flex-direction: row;
-    /* width: 84px;
-    height: 14px;
-    left: 24px;
-    top: 12px; */
-    padding: 12px 24px;
-    border: 1px solid #253446;
-    border-radius: 8px;
-    font-family: $primary-font;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 20px;
-    /* identical to box height */
-    margin-right: 10px;
-    
-    color: #253446;
-    
-    
-    /* Inside Auto Layout */
-    
-    flex: none;
-    order: 0;
-    align-self: center;    
-    /* margin-right: 24px; */
-    list-style-type: none;
-    display: inline-block; 
-    cursor: pointer;   
-}
-
-.new-dash .tab-header-txt-active{
-    display: flex;
-    flex-direction: row;
-    padding: 12px 24px;
-
-    position: static;
-    /* width: 129px;
-    height: 38px;
-    left: 0px;
-    top: 0px; */
-    
-    font-family: $primary-font;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 20px;
-    /* background: #253446; */
-    border-radius: 8px;
-    /* color: #FFFFFF;    */
-
-    flex: none;
-    order: 0;
-    align-self: center;    
-    list-style-type: none;
-    display: inline-block; 
-    cursor: pointer;   
-}
-
-.new-dash .tab-header-main{    
-     padding: 0px 0px 0px 0px;  
-     display: flex;   
-     width: 95%;
-     margin-top: 10px;
-     margin-bottom: 0px;
-}
-
-.new-dash .space-equally{
-    width: 50%;
-    text-align: center;
-    // margin-right: 0px;
-}
-
-.new-dash .light-active{
-    background: rgb(50,70,94);
-    color: #FFFFFF;   
-    border-radius: 8px;
-}
-
-.new-dash .light{
-    /* background: #253446; */
-    color: #253446; 
-    border: 1px solid rgb(50,70,94);  
-}
-
-.new-dash .dark{   
-    color: #FFFFFF;   
-}
-
-.new-dash .dark-active{
-    background: #253446;
-    color: #FFFFFF;   
-    border-radius: 8px;
-}
-
-@media (min-width: $screenXLarge){
-    .new-dash .tab-header-txt{          
+.club-tabs{
+    .tab-header-txt{   
+        position: static;
+        display: flex;
+        flex-direction: row;
+        /* width: 84px;
+        height: 14px;
+        left: 24px;
+        top: 12px; */
+        padding: 12px 24px;
+        border: 1px solid #253446;
+        border-radius: 8px;
+        font-family: $primary-font;
+        font-style: normal;
+        font-weight: bold;
         font-size: 14px;
         line-height: 20px;
-    }
-    .new-dash .tab-header-txt-active{
-        font-size: 14px;
-        line-height: 20px;        
-    }    
-}
-
-@media (min-width: $screenTab) and (max-width: $screenMedium){     
-    .new-dash .tab-header-txt, .new-dash .tab-header-txt-active{  
-        font-size: 12px;
-        line-height: 17px;
-        padding: 8px 16px;
-    }
-}
-
-@media (min-width: $screenMobile) and (max-width: $screenTab){
-    .new-dash .tab-header-txt-active, .new-dash .tab-header-txt{       
-        padding: 6px 8px;
-        font-size: 12px;
-        line-height: 16px;
+        /* identical to box height */
+        margin-right: 10px;
+        
+        color: #253446;
+        
+        
+        /* Inside Auto Layout */
+        
+        flex: none;
+        order: 0;
+        align-self: center;    
+        /* margin-right: 24px; */
+        list-style-type: none;
+        display: inline-block; 
+        cursor: pointer;   
     }
     
+    .tab-header-txt-active{
+        display: flex;
+        flex-direction: row;
+        padding: 12px 24px;
+    
+        position: static;
+        /* width: 129px;
+        height: 38px;
+        left: 0px;
+        top: 0px; */
+        
+        font-family: $primary-font;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        /* background: #253446; */
+        border-radius: 8px;
+        /* color: #FFFFFF;    */
+    
+        flex: none;
+        order: 0;
+        align-self: center;    
+        list-style-type: none;
+        display: inline-block; 
+        cursor: pointer;   
+    }
+    
+    .tab-header-main{    
+         padding: 0px 0px 0px 0px;  
+         display: flex;   
+         width: 95%;
+         margin-top: 10px;
+         margin-bottom: 0px;
+    }
+    
+    .space-equally{
+        width: 50%;
+        text-align: center;
+        // margin-right: 0px;
+    }
+    
+    .light-active{
+        background: rgb(50,70,94);
+        color: #FFFFFF;   
+        border-radius: 8px;
+    }
+    
+    .light{
+        /* background: #253446; */
+        color: #253446; 
+        border: 1px solid rgb(50,70,94);  
+    }
+    
+    .dark{   
+        color: #FFFFFF;   
+    }
+    
+    .dark-active{
+        background: #253446;
+        color: #FFFFFF;   
+        border-radius: 8px;
+    }
+    
+    @media (min-width: $screenXLarge){
+        .tab-header-txt{          
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .tab-header-txt-active{
+            font-size: 14px;
+            line-height: 20px;        
+        }    
+    }
+    
+    @media (min-width: $screenTab) and (max-width: $screenMedium){     
+        .tab-header-txt, .tab-header-txt-active{  
+            font-size: 12px;
+            line-height: 17px;
+            padding: 8px 16px;
+        }
+    }
+    
+    @media (min-width: $screenMobile) and (max-width: $screenTab){
+        .tab-header-txt-active, .tab-header-txt{       
+            padding: 6px 8px;
+            font-size: 12px;
+            line-height: 16px;
+        }
+        
+    }
 }
+
