@@ -272,6 +272,8 @@ class personalInfoRegistrationNew extends Component {
                 }
                 else{
                     //create pending customer
+                    window.localStorage.setItem('clubCodeA', formData.discussionGroupCodeA.currentValue);
+                    window.localStorage.setItem('clubCodeB', formData.discussionGroupCodeB.currentValue);
                     this.handleCreatePendingCustomer(formData);
                 }
             }
