@@ -9,11 +9,12 @@ import BlueLineDrop from '../../../components/common/BlueLineDrop';
 import './topThreads.scss';
 import { browserHistory } from 'react-router';
 import { ClubTabHeader } from 'app/modules/new-dashboard/components/tab-header-for-clubs';
+import { Spinner } from 'app/modules/new-dashboard/common/spinner';
 
 
  export const TopThreadsNew = memo(function TopThreads(props) {
 
-  const { topThreadsList, isDesktop, discussionGroupId, setPublicCardStatusAction } = props;
+  const { topThreadsList, isLoading, isDesktop, discussionGroupId, setPublicCardStatusAction } = props;
 
   const [currentTab, setCurrentTab] = useState(topThreadsList?.tabDefault);
 
@@ -46,9 +47,6 @@ import { ClubTabHeader } from 'app/modules/new-dashboard/components/tab-header-f
 
   //eslint-disable-line react-hooks/exhaustive-deps
 
-  
-  
-
   return (
     <div className="top-discussions-wr">
       <BlueLineDrop
@@ -56,43 +54,50 @@ import { ClubTabHeader } from 'app/modules/new-dashboard/components/tab-header-f
         isDesktop={isDesktop}
         isDefaultOpen
         render={() => (
-          topThreadsList && (
-          <div className="members-list">
-              <ClubTabHeader
-                headings={topThreadsList?.tabOptions}
-                activeHeading={currentTab}
-                spaceequally={true}
-                theme={"light"}
-                onTabChange={onTabChange}
-              />
-            {topThreadsList?.threads?.map(x => (
-              <div                
-                className="navigation-link"               
-              >
-                <div className="members-list-card">                                  
-                    <div
-                      onClick={()=>browserHistory.push(`/community-groups/${discussionGroupId}/discussions/${x.threadId}`)}
-                      className="header __html-blob-content-container__"
-                      dangerouslySetInnerHTML={{
-                        __html: x.title,
-                      }}
-                    />                                   
-                  <div className="bottom">
-                    <span className="user-info">
-                      <img className="avatar" src={x.avatarURL} alt="avatar" />
-                      {/* <Link to={x?.authorInfo?.linkUrl}> */}
-                        <div className="profile-name" onClick={()=>setPublicCardStatusAction(x.authorInfo.customerUUID, true)}>
-                        {x.displayName}
+          <div>
+            <Spinner             
+                loading={isLoading}
+                text="Loading..."
+              /> 
+              {topThreadsList && (
+                <div className="members-list">
+                    <ClubTabHeader
+                      headings={topThreadsList?.tabOptions}
+                      activeHeading={currentTab}
+                      spaceequally={true}
+                      theme={"light"}
+                      onTabChange={onTabChange}
+                    />              
+                  {topThreadsList?.threads?.map(x => (
+                    <div                
+                      className="navigation-link"               
+                    >
+                      <div className="members-list-card">                                  
+                          <div
+                            onClick={()=>browserHistory.push(`/community-groups/${discussionGroupId}/discussions/${x.threadId}`)}
+                            className="header __html-blob-content-container__"
+                            dangerouslySetInnerHTML={{
+                              __html: x.title,
+                            }}
+                          />                                   
+                        <div className="bottom">
+                          <span className="user-info">
+                            <img className="avatar" src={x.avatarURL} alt="avatar" />
+                            {/* <Link to={x?.authorInfo?.linkUrl}> */}
+                              <div className="profile-name" onClick={()=>setPublicCardStatusAction(x.authorInfo.customerUUID, true)}>
+                              {x.displayName}
+                              </div>
+                              {/* </Link> */}
+                          </span>
+                          <div className="date-container">{x.totalLikes} likes</div>
                         </div>
-                        {/* </Link> */}
-                    </span>
-                    <div className="date-container">{x.totalLikes} likes</div>
-                  </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
+              )}
           </div>
-        ))}
+          )}
       />
     </div>
   );
