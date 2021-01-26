@@ -910,7 +910,8 @@ export class ObjectMap extends Component{
 
     handleExpandMap = () => {
       const { mapExpanded, map } = this.state;      
-      var elem = document.getElementById('object-Map');      
+      var elem = document.getElementById('object-Map');  
+      debugger;    
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
