@@ -1311,7 +1311,7 @@ export class ObjectMap extends Component{
                       </Tooltip>
                    )}
    
-                   {controlArray.controlList[3].show && !hideMap &&(
+                   {/* {controlArray.controlList[3].show && !hideMap &&(
                      <Tooltip title={controlArray.controlList[3].showTooltip ? controlArray.controlList[3].tooltipText : ""}>
                       <img className="setting-icons" 
                         src={controlArray.controlList[3].iconURL}
@@ -1327,7 +1327,7 @@ export class ObjectMap extends Component{
                         onClick={()=>this.setState({hideMap: !hideMap})}
                         />
                      </Tooltip>
-                   )}
+                   )} */}
 
                       {/* <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"
