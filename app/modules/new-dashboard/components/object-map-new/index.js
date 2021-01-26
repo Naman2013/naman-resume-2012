@@ -952,7 +952,8 @@ export class ObjectMap extends Component{
              });             
             document.addEventListener("msfullscreenchange", exitHandlerFun,false);
         }      
-        this.setState({mapExpanded: !mapExpanded});
+        
+        this.setState({mapExpanded: !mapExpanded}, ()=>setTimeout(()=>self.state.map.updateSize(),400));
       
     }
 
