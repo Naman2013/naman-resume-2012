@@ -14,7 +14,10 @@ class ObjectCard extends Component{
     }
 
     handleViewImageClick = () => {
-        const { actions, objectCardDetails, scrollToRef, refreshPhotoHub,onHide } = this.props;
+        const { actions, objectCardDetails, scrollToRef, refreshPhotoHub,onHide, fullScreenMode, exixFullScreenMode } = this.props;
+        if(fullScreenMode){
+            exixFullScreenMode();
+        }
         actions.setFilters({pierNumber: null,
             observatoryId: null,
             filterType: null,

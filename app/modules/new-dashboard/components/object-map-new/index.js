@@ -1203,6 +1203,8 @@ export class ObjectMap extends Component{
                       objectCardDetails={objectCardDetails}
                       scrollToRef={scrollToRef}
                       refreshPhotoHub={refreshPhotoHub}
+                      fullScreenMode={mapExpanded}
+                      exixFullScreenMode={this.handleContractMap}
                     />
                 </div> 
               )}
