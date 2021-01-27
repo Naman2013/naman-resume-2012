@@ -189,6 +189,7 @@ class paymentDetails extends Component {
 
 
                                     actions.logUserIn(loginDataPayload, { reload: false }).then(() => {
+                                        deleteSessionToken();
                                         deleteMarketingTrackingId();
                                         const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
                                         browserHistory.push(welcomepage);
@@ -201,6 +202,7 @@ class paymentDetails extends Component {
 
                                     window.localStorage.removeItem('accountCreationType');
                                     actions.logGoogleUserIn(loginDataPayload, { reload: false }).then(() => {
+                                        deleteSessionToken();
                                         deleteMarketingTrackingId();
                                         const welcomepage = getUserInfo()._sloohatid ? "/join/purchaseConfirmation/join" : "/join/purchaseConfirmation/joinbyguestlanding";
                                         browserHistory.push(welcomepage);
