@@ -24,18 +24,18 @@ export const makeGroupsListSelector = () =>
 export const makeTopThreadsDataSelector = () =>
   createSelector(
     makeTopThreadsSelector(),
-    state =>
-      state.map(x => {
-        return {
-          avatarUrl: x.avatarURL,
-          displayName: x.displayName,
-          freshness: x.freshness,
-          threadId: x.threadId,
-          title: x.title,
-          totalLikes: x.totalLikes,
-          authorInfo: x.authorInfo,
-        };
-      })
+    state => state
+      // state.map(x => {
+      //   return {
+      //     avatarUrl: x.avatarURL,
+      //     displayName: x.displayName,
+      //     freshness: x.freshness,
+      //     threadId: x.threadId,
+      //     title: x.title,
+      //     totalLikes: x.totalLikes,
+      //     authorInfo: x.authorInfo,
+      //   };
+      // })
   );
 
 export const makeGroupDeleteInvitation = () =>

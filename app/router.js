@@ -241,7 +241,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path=":aboutSloohSectionId" onEnter={validateUser} />
       </Route>
 
-      <Route path="join" component={Join}>
+      <Route path="join" component={Join} onEnter={validateUser}>
         <IndexRoute component={checkoutStudentPlan} />
         <Route
           path="purchaseConfirmation(/:tab)"
