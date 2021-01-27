@@ -1,6 +1,6 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import { API } from 'app/api';
-import { store as storeUser, storeUserNewAT, set } from 'app/modules/User';
+import { store as storeUser, storeUserNewAT, set, deleteSessionToken, deleteMarketingTrackingId } from 'app/modules/User';
 
 export const LOGIN_USER_START = 'LOGIN_USER_START';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
@@ -61,6 +61,8 @@ export const logUserIn = (loginForm, reloadOpts = {}) => dispatch => {
         dispatch(logUserInFail(result.data));
       } else {
         dispatch(closeAllMenus());
+        deleteSessionToken();
+        deleteMarketingTrackingId();
         dispatch(resetLogIn());
         dispatch(
           storeUser(Object.assign({ reload: true, ...reloadOpts }, result.data))
@@ -90,6 +92,8 @@ export const logGoogleUserIn = (
       if (apiError) {
         dispatch(logGoogleUserInFail(result.data));
       } else {
+        deleteSessionToken();
+        deleteMarketingTrackingId();
         dispatch(resetLogIn());
         dispatch(
           storeUser(Object.assign({ reload: true, ...reloadOpts }, result.data))
