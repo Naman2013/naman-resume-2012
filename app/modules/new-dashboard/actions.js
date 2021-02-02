@@ -1,3 +1,5 @@
+import { validateResponseAccess } from "../authorization/actions";
+import { logout } from "../User";
 import {fetchStartPartyList, getUserGravityStatus, 
         getMyPictures, getDashboardFeaturedObjects, getMyClubList, getBookmarksList, getPrivateProfile, getPrivateProfileMission, getUserActiveObject, getUserPouplarObservation, getMissionImages, getGalleryList, getRecentGravityActions, getWeatherActions, getSkyRating, getObservatoryList, getQuestMapControls, getNewDahObs, getObsStatus, getObjectMapControls, getCommunityExploration, getCommunityFame, getMyRank, getTopMembers, getTopSchoolClubs, getMostActiveClubs, getGravityByDomain, getTopStudents, getDashboardMissionList, getPhotoHubHeadings} from "./dashboardApi";
 
@@ -341,7 +343,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
         dispatch(fetchStartPartyListSuccess(result.data));
       }
     );
-  };
+  }
 
   export const getUserGravityDataAction = () => (dispatch, getState) => {
     dispatch(getUserGravityStatusStart());
@@ -353,7 +355,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => { 
         const res= result.data;
-        if(!res.apiError)         {
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else{
           const duration = (res.expires - res.timestamp) * 1000;
           if(profileTimer !== null)
             clearTimeout(profileTimer);
@@ -362,8 +366,8 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
           dispatch(getUserGravityStatusSuccess(result.data));
         }        
       }
-    );
-  };
+    )
+  }
 
   export const getMyPicturesDataAction = (data) => (dispatch, getState) => {
     dispatch(getMyPicturesStart());
@@ -378,11 +382,13 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => { 
         const res= result.data;
-        if(!res.apiError)           
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getMyPicturesSuccess(result.data));
       }
-    );
-  };
+    )
+  }
 
   export const getDashboardFeaturedObjectsDataAction = (data) => (dispatch, getState) => {
     dispatch(getDashboardFeaturedObjectsStart());
@@ -395,10 +401,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getDashboardFeaturedObjectsSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getMyClubListDataAction = (data) => (dispatch, getState) => {
@@ -412,10 +420,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getMyClubListSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getBookmarkListDataAction = (data) => (dispatch, getState) => {
@@ -429,10 +439,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getBookmarkListSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getPrivateProfileDataAction = () => (dispatch, getState) => {
@@ -445,10 +457,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getPrivateProfileSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getPrivateProfileMissionDataAction = () => (dispatch, getState) => {
@@ -461,10 +475,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getPrivateProfileMissionSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getUserActiveObjectDataAction = () => (dispatch, getState) => {
@@ -477,10 +493,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getUserActiveObjectSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getUserPopularObservationDataAction = () => (dispatch, getState) => {
@@ -493,10 +511,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getUserPopularObservationSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getMissionImagesDataAction = (data) => (dispatch, getState) => {
@@ -512,10 +532,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getMissionImagesSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getGalleryListDataAction = (data) => (dispatch, getState) => {
@@ -531,10 +553,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getGalleryListSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getRecentGravityDataAction = (data) => (dispatch, getState) => {
@@ -548,10 +572,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getRecentGravityActionsSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getWeatherDataAction = (data) => (dispatch, getState) => {
@@ -565,10 +591,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {
         const res= result.data;
-        if(!res.apiError)            
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getWeatherSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getSkyAction = (data) => (dispatch, getState) => {    
@@ -576,7 +604,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     const { token, at, cid } = getState().user;
     return getSkyRating({token, at, cid, ...data}).then(result=>{
       const res= result.data;
-      if(!res.apiError)    
+      if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
         dispatch(getSkyConditionsSuccess(result.data));
     })    
   };
@@ -592,10 +622,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getObservatoryListSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getQuestMapControlAction = (data) => (dispatch, getState) => {
@@ -607,11 +639,14 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       cid,
       ...data,           
     }).then(
-      result => {    
-        if(!result.data.apiError)    
+      result => {  
+        const res= result.data;
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else      
           dispatch(getQuestMapControlSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getObjectMapControlAction = (data) => (dispatch, getState) => {
@@ -625,10 +660,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getObjectMapControlSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getNewDashObsAction = (data) => (dispatch, getState) => {
@@ -642,10 +679,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {     
         const res= result.data;
-        if(!res.apiError)       
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getNewDashObsSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getObsStatusAction = (data) => (dispatch, getState) => {
@@ -654,10 +693,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     return getObsStatus(data).then(
       result => {        
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getObsStatusSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getCommunityExplorationAction = (data) => (dispatch, getState) => {
@@ -671,10 +712,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {      
         const res= result.data;
-        if(!res.apiError)      
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getCommunityExplorationSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getCommunityFameAction = (data) => (dispatch, getState) => {
@@ -688,10 +731,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {      
         const res= result.data;
-        if(!res.apiError)      
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getCommunityFameSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getMyRankAction = (data) => (dispatch, getState) => {
@@ -705,10 +750,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {      
         const res= result.data;
-        if(!res.apiError)      
-          dispatch(getMyRankSuccess(result.data));
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
+          dispatch(getMyRankSuccess(result.data));        
       }
-    );
+    )
   };
 
   export const getTopMembersAction = (data) => (dispatch, getState) => {
@@ -722,10 +769,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {   
         const res= result.data;
-        if(!res.apiError)         
-          dispatch(getTopMembersSuccess(result.data));
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
+          dispatch(getTopMembersSuccess(result.data));        
       }
-    );
+    )
   };
 
   export const getTopStudentsAction = (data) => (dispatch, getState) => {
@@ -739,10 +788,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {       
         const res= result.data;
-        if(!res.apiError)     
-          dispatch(getTopStudentsSuccess(result.data));
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
+          dispatch(getTopStudentsSuccess(result.data));        
       }
-    );
+    )
   };
 
   export const getMostActiveClubsAction = (data) => (dispatch, getState) => {
@@ -756,10 +807,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         const res= result.data;
-        if(!res.apiError)    
-          dispatch(getMostActiveClubsSuccess(result.data));
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
+          dispatch(getMostActiveClubsSuccess(result.data));        
       }
-    );
+    )
   };
 
   export const getTopSchoolClubsAction = (data) => (dispatch, getState) => {
@@ -773,10 +826,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {    
         const res= result.data;
-        if(!res.apiError)        
-          dispatch(getTopSchoolClubsSuccess(result.data));
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
+          dispatch(getTopSchoolClubsSuccess(result.data));        
       }
-    );
+    )
   };
 
   export const getGravityByDomainAction = (data) => (dispatch, getState) => {
@@ -790,10 +845,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {       
         const res= result.data;
-        if(!res.apiError)     
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else  
           dispatch(getGravityByDomainSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getDashboardMissionListAction = (data) => (dispatch, getState) => {
@@ -807,10 +864,12 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {        
         const res= result.data;
-        if(!res.apiError)    
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else        
           dispatch(getDashboardMissionListSuccess(result.data));
       }
-    );
+    )
   };
 
   export const getPhotoHubHeadingAction = (data) => (dispatch, getState) => {
@@ -824,8 +883,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     }).then(
       result => {     
         const res= result.data;
-        if(!res.apiError)       
+        if(res.apiError)
+          dispatch(validateResponseAccess(res));
+        else         
           dispatch(getPhotoHubHeadingSuccess(result.data));
       }
-    );
+    )
   };

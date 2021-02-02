@@ -844,6 +844,17 @@ class personalInfoRegistrationNew extends Component {
                             <option value={field.key} selected={field.key === value}>{field.label}</option>
                         ))}                        
                 </Field>
+                <br/>
+                {fieldOptions.map(field=>(
+                    field.key === value && field.nestedFields && (
+                        field.nestedFields.map(nestItem => (
+                            <fieldset style={{paddingLeft: '25px' }}>
+                                {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
+                            </fieldset>
+                        )
+                    )
+                )))} 
+                 
             </div>);  
                 break;
             case "radio":

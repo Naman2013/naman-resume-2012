@@ -14,7 +14,6 @@ class Join extends Component {
   constructor(props){
     super(props);
     const { router, user } = props;
-    debugger;
     if (user.isAuthorized) {
       // router.push('/profile/private');
       router.push('/NewDashboard');

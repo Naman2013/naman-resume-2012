@@ -143,7 +143,7 @@ export const fetchErrors = () => (dispatch, getState) => {
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
   const user = getUserInfo();
-
+  debugger;
 
   /*****************************************
    * POSSIBLE HTTP RESPONSE CODES....
