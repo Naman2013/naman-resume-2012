@@ -21,6 +21,8 @@ export class BadgeList extends Component{
         const self=this;
         switch(item.itemType){
             case "object":
+                if(this.props.publicProfile)
+                    return;
                 this.setState({loading: true});
                 const { token, at, cid } = getUserInfo();
                 getObjectCard({
