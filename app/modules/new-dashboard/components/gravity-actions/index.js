@@ -29,6 +29,8 @@ export class GravityActions extends Component{
                 this.timerId=setTimeout(this.getRecentGravityAction,duration );
                 this.setState({gravityList: res});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

@@ -381,7 +381,8 @@ export class QuestMap extends Component{
           map.getView().setZoom(0);
           self.setState({map: map, explanationText: res.explanation});
         }
-        
+        else
+          self.props.validateResponseAccess(res);
       });
     }
 
@@ -432,6 +433,8 @@ export class QuestMap extends Component{
           }, 500);
           
         }
+        else
+         self.props.validateResponseAccess(res)
         
       });
     }
@@ -798,7 +801,8 @@ export class QuestMap extends Component{
           // map.getLayers().extend(layerList);
           self.setState({map: map, explanationText: res.explanation});
         }
-        
+        else
+          self.props.validateResponseAccess(res)
       });
     }
 

@@ -28,7 +28,7 @@ export class ExploreObject extends Component{
 
 
     render() {
-        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub } = this.props;
+        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub, validateResponseAccess } = this.props;
         const { activeHeading } = this.state;
 
         return (
@@ -44,6 +44,7 @@ export class ExploreObject extends Component{
                 {activeHeading === "Quest Map" && questMapControls && (
                     <QuestMap
                         questMapControls={questMapControls.mapControls}
+                        validateResponseAccess={validateResponseAccess}
                     /> 
                 )}
 
@@ -52,6 +53,7 @@ export class ExploreObject extends Component{
                     <ObjectMap
                         scrollToRef={scrollToRef}
                         refreshPhotoHub={refreshPhotoHub}
+                        validateResponseAccess={validateResponseAccess}
                         // objectMapControls={objectMapControls.mapControls}
                     /> 
                     // <h2 className="comming-soon">Coming Soon...</h2>

@@ -35,6 +35,8 @@ export class TopMembers extends Component{
                 this.timerId=setTimeout(()=>this.getTopMemberAction(data),duration );
                 this.setState({topMembers: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

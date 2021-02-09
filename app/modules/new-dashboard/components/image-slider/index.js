@@ -74,6 +74,8 @@ export class ImageSlider extends Component{
                 else
                     self.setState({imageDetailsList: imageDetailsList}) 
             }
+            else
+                self.props.validateResponseAccess(res);
         })
     }
 

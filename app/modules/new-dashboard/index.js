@@ -201,7 +201,8 @@ export class NewDashboard extends PureComponent{
                 setMemberChatState,               
                 setPublicCardStatusAction,
                 photoHubHeadings,
-                userGravityStatus,                
+                userGravityStatus,      
+                validateResponseAccess,          
               } =this.props;
 
               const { showRightbar } = this.state;            
@@ -245,6 +246,7 @@ export class NewDashboard extends PureComponent{
                                     getQuestMapControl={getQuestMapControlAction}
                                     scrollToRef={this.scrollToRef}
                                     refreshPhotoHub={this.refreshPhotoHub}
+                                    validateResponseAccess={validateResponseAccess}
                                 />                          
                                 
                                
@@ -262,6 +264,7 @@ export class NewDashboard extends PureComponent{
                                         obsWidgetData={obsWidgetData}
                                         getObsStatus={getObsStatusAction}
                                         obsStatus={obsStatus}
+                                        validateResponseAccess={validateResponseAccess}
                                     />
                                 )}
                                 
@@ -282,7 +285,8 @@ export class NewDashboard extends PureComponent{
                                             reserveCommunityMission={reserveCommunityMission}                                            
                                             reservedCommunityMissionData={reservedCommunityMissionData } 
                                             reservedCommunityMission={reservedCommunityMission}
-                                            user={user}                                                                                    
+                                            user={user}      
+                                            validateResponseAccess={validateResponseAccess}                                                                              
                                         />                                        
                                     </div>
                                
@@ -304,6 +308,7 @@ export class NewDashboard extends PureComponent{
                                         getMissionImages={getMissionImagesDataAction}
                                         getGalleryList={getGalleryListDataAction}                                                                       
                                         canUploadPhotos={photoHubHeadings.canUploadPhotos}
+                                        validateResponseAccess={validateResponseAccess}
                                     />
                                 )}
                                 
@@ -321,6 +326,7 @@ export class NewDashboard extends PureComponent{
                                     <CommunityExploration
                                         scrollToRef={this.scrollToRef}
                                         onClickItem={setPublicCardStatusAction}
+                                        validateResponseAccess={validateResponseAccess}
                                         // communityExploration={communityExploration}
                                     />
                                 {/* )}                                     */}
@@ -357,6 +363,7 @@ export class NewDashboard extends PureComponent{
                                         totalClubsCount={myClubList.totalClubsCount}
                                         getClubList={getMyClubListDataAction}
                                         data={{groupControls: myClubList.groupControls}}
+
                                     />
                                 )}
                                 
@@ -433,11 +440,14 @@ export class NewDashboard extends PureComponent{
                                 
                                 {/* {recentGravityAction && ( */}
                                     <GravityActions
+                                        validateResponseAccess={validateResponseAccess}
                                         // gravityList={recentGravityAction.actions}
                                     />
                                 {/* )} */}
                                 
-                                <ActiveObject />
+                                <ActiveObject 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
                                 {/* {userActiveObject && (
                                     <ObjectList
                                         heading={"Most Active Objects"}
@@ -448,7 +458,9 @@ export class NewDashboard extends PureComponent{
                                         objectList={userActiveObject.activeObjects}
                                     />
                                 )} */}
-                                <PopularObservation />
+                                <PopularObservation 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
                                 {/* {userPopularObservation && (
                                     <ObjectList
                                         heading={"Most Popular Observations"}
@@ -461,11 +473,14 @@ export class NewDashboard extends PureComponent{
                                 )} */}
                                 
                                 {/* {gravityByDomain &&( */}
-                                    <DomainGP />
+                                    <DomainGP 
+                                        validateResponseAccess={validateResponseAccess}
+                                    />
                                 {/* )} */}
                                 
                                 <MyRank 
                                     onClickItem={setPublicCardStatusAction}
+                                    validateResponseAccess={validateResponseAccess}
                                 />
 
                                 {/* {myRank && (
@@ -484,11 +499,17 @@ export class NewDashboard extends PureComponent{
                                     />
                                 )}
                                  */}
-                                <CommunityFame />
+                                <CommunityFame 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
 
-                                <TopCommunityObjects />
+                                <TopCommunityObjects 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
 
-                                <TopCommunityObservations />
+                                <TopCommunityObservations 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
 
                                 {/* <ObjectList
                                     heading={"Community Top Object"}
@@ -517,6 +538,7 @@ export class NewDashboard extends PureComponent{
 
                                 <TopMembers 
                                     onClickItem={setPublicCardStatusAction}
+                                    validateResponseAccess={validateResponseAccess}
                                 />
 
                                 {/* {topMembers && (
@@ -544,7 +566,9 @@ export class NewDashboard extends PureComponent{
                                         getRankData={getTopMembersAction}
                                     />
                                 )} */}
-                                <ActiveClub />
+                                <ActiveClub 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
                                 {/* {mostActiveClubs && (
                                     <CommunityClubList
                                         heading={mostActiveClubs.sectionHeading}                                        
@@ -556,6 +580,7 @@ export class NewDashboard extends PureComponent{
                                 )} */}
                                 <TopStudents 
                                     onClickItem={setPublicCardStatusAction}
+                                    validateResponseAccess={validateResponseAccess}
                                 />
                                 {/* {topStudents && (
                                     <RankCard
@@ -582,7 +607,9 @@ export class NewDashboard extends PureComponent{
                                         tabOptions={myRank.tabOptions}
                                     />
                                 )} */}
-                                <SchoolClub />
+                                <SchoolClub 
+                                    validateResponseAccess={validateResponseAccess}
+                                />
                                 {/* {topSchoolClubs && (
                                     <CommunityClubList
                                         heading={topSchoolClubs.sectionHeading}                                        

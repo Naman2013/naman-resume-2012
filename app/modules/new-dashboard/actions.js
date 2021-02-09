@@ -338,10 +338,10 @@ const getPhotoHubHeadingSuccess = (payload) => ({
 
 var error = false;
 
-const errorHandling = (data) => {
+const errorHandling = (data,dispatch) => {
   if(!error){
     error=true;
-    validateResponseAccess(data);
+    dispatch(validateResponseAccess(data));
   }
 }
 
@@ -365,7 +365,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => { 
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else{
           const duration = (res.expires - res.timestamp) * 1000;
           if(profileTimer !== null)
@@ -392,7 +392,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => { 
         const res= result.data;        
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getMyPicturesSuccess(result.data));
       }
@@ -411,7 +411,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getDashboardFeaturedObjectsSuccess(result.data));
       }
@@ -430,7 +430,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getMyClubListSuccess(result.data));
       }
@@ -449,7 +449,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getBookmarkListSuccess(result.data));
       }
@@ -467,7 +467,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getPrivateProfileSuccess(result.data));
       }
@@ -485,7 +485,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getPrivateProfileMissionSuccess(result.data));
       }
@@ -503,7 +503,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getUserActiveObjectSuccess(result.data));
       }
@@ -521,7 +521,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getUserPopularObservationSuccess(result.data));
       }
@@ -542,7 +542,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getMissionImagesSuccess(result.data));
       }
@@ -563,7 +563,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getGalleryListSuccess(result.data));
       }
@@ -582,7 +582,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getRecentGravityActionsSuccess(result.data));
       }
@@ -601,7 +601,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getWeatherSuccess(result.data));
       }
@@ -614,7 +614,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     return getSkyRating({token, at, cid, ...data}).then(result=>{
       const res= result.data;
       if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
         dispatch(getSkyConditionsSuccess(result.data));
     })    
@@ -632,7 +632,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getObservatoryListSuccess(result.data));
       }
@@ -651,7 +651,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {  
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else      
           dispatch(getQuestMapControlSuccess(result.data));
       }
@@ -670,7 +670,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getObjectMapControlSuccess(result.data));
       }
@@ -689,7 +689,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {     
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getNewDashObsSuccess(result.data));
       }
@@ -703,7 +703,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getObsStatusSuccess(result.data));
       }
@@ -722,7 +722,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getCommunityExplorationSuccess(result.data));
       }
@@ -741,7 +741,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getCommunityFameSuccess(result.data));
       }
@@ -760,7 +760,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getMyRankSuccess(result.data));        
       }
@@ -779,7 +779,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {   
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getTopMembersSuccess(result.data));        
       }
@@ -798,7 +798,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {       
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getTopStudentsSuccess(result.data));        
       }
@@ -817,7 +817,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getMostActiveClubsSuccess(result.data));        
       }
@@ -836,7 +836,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {    
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getTopSchoolClubsSuccess(result.data));        
       }
@@ -855,7 +855,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {       
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else  
           dispatch(getGravityByDomainSuccess(result.data));
       }
@@ -874,7 +874,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else        
           dispatch(getDashboardMissionListSuccess(result.data));
       }
@@ -893,7 +893,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {     
         const res= result.data;
         if(res.apiError)
-          dispatch(errorHandling(res));
+          dispatch(errorHandling(res, dispatch));
         else         
           dispatch(getPhotoHubHeadingSuccess(result.data));
       }
