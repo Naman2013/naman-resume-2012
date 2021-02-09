@@ -221,6 +221,24 @@ class JoinByInviteAccountSignup extends Component {
     }
 
 
+    if (result.invitee.firstName) {
+      newAccountFormData.givenName.value = result.invitee.firstName;
+      newAccountFormData.givenName.hintText = result.invitee.firstName;
+  
+    }
+    if (result.invitee.lastName) {
+      newAccountFormData.familyName.value = result.invitee.lastName;
+      newAccountFormData.familyName.hintText = result.invitee.lastName;
+  
+  
+  
+    }
+    if (result.invitee.emailAddress) {
+      newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+  
+    }
+
+
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -684,7 +702,7 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-    accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress;
+  /*   accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress; */
 
     /*  this.setState({
        accountFormDetails:accountFormDetails
