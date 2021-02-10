@@ -193,6 +193,7 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.astronomyClubName.hintText =
       result.formFieldLabels.astronomyClubName.hintText;
 
+
     if (clubInviteAndGiftCardDetials === 'SloohCard') {
       newAccountFormData.AgeGroup.label =
         result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
@@ -206,37 +207,19 @@ class JoinByInviteAccountSignup extends Component {
 
 
 
-    if (!clubInviteAndGiftCardDetials === 'SloohCard') {
-      newAccountFormData.givenName.value = result.invitee.firstName;
-      this.props.change('givenName', result.invitee.firstName);
 
-      newAccountFormData.familyName.value = result.invitee.lastName;
-      this.props.change('familyName', result.invitee.lastName);
+    newAccountFormData.givenName.value = result.invitee.firstName;
+    this.props.change('givenName', result.invitee.firstName);
 
-      newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+    newAccountFormData.familyName.value = result.invitee.lastName;
+    this.props.change('familyName', result.invitee.lastName);
 
-      newInviteDetails.parentCustomerId = result.invitedBy.customerId;
-      newInviteDetails.parentCustomerRole = result.invitedBy.role;
-      newInviteDetails.childCustomerRole = result.invitee.role;
-    }
+    newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
 
+    newInviteDetails.parentCustomerId = result.invitedBy.customerId;
+    newInviteDetails.parentCustomerRole = result.invitedBy.role;
+    newInviteDetails.childCustomerRole = result.invitee.role;
 
-    if (result.invitee.firstName) {
-      newAccountFormData.givenName.value = result.invitee.firstName;
-      newAccountFormData.givenName.hintText = result.invitee.firstName;
-  
-    }
-    if (result.invitee.lastName) {
-      newAccountFormData.familyName.value = result.invitee.lastName;
-      newAccountFormData.familyName.hintText = result.invitee.lastName;
-  
-  
-  
-    }
-    if (result.invitee.emailAddress) {
-      newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
-  
-    }
 
 
     /* update the account form details state so the correct hinText will show on each form field */
@@ -355,7 +338,7 @@ class JoinByInviteAccountSignup extends Component {
               'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
             formIsComplete = false;
           }
-  
+
           if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
             accountFormDetailsData.legalGuardianCheckbox.errorText = "";
             accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
@@ -702,7 +685,10 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-  /*   accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress; */
+
+
+    //console.log('accountFormDetails',accountFormDetails);
+    /*   accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress; */
 
     /*  this.setState({
        accountFormDetails:accountFormDetails
@@ -749,32 +735,32 @@ class JoinByInviteAccountSignup extends Component {
                           fetchingContent: fetchingGoogleClient,
                           serviceResponse: googleClientResponse,
                         }) => (
-                            <Fragment>
-                              {!fetchingGoogleClient && (
-                                <div className="google-login-button">
-                                  <GoogleLogin
-                                    prompt="select_account"
-                                    responseType={
-                                      googleClientResponse.googleClientResponseType
-                                    }
-                                    fetchBasicProfile={
-                                      googleClientResponse.googleClientFetchBasicProfile
-                                    }
-                                    accessType={
-                                      googleClientResponse.googleClientAccessType
-                                    }
-                                    scope={googleClientResponse.googleClientScope}
-                                    clientId={googleClientResponse.googleClientID}
-                                    buttonText={
-                                      googleClientResponse.loginButtonText
-                                    }
-                                    onSuccess={this.processGoogleSuccessResponse}
-                                    onFailure={this.processGoogleFailureResponse}
-                                  />
-                                </div>
-                              )}
-                            </Fragment>
-                          )}
+                          <Fragment>
+                            {!fetchingGoogleClient && (
+                              <div className="google-login-button">
+                                <GoogleLogin
+                                  prompt="select_account"
+                                  responseType={
+                                    googleClientResponse.googleClientResponseType
+                                  }
+                                  fetchBasicProfile={
+                                    googleClientResponse.googleClientFetchBasicProfile
+                                  }
+                                  accessType={
+                                    googleClientResponse.googleClientAccessType
+                                  }
+                                  scope={googleClientResponse.googleClientScope}
+                                  clientId={googleClientResponse.googleClientID}
+                                  buttonText={
+                                    googleClientResponse.loginButtonText
+                                  }
+                                  onSuccess={this.processGoogleSuccessResponse}
+                                  onFailure={this.processGoogleFailureResponse}
+                                />
+                              </div>
+                            )}
+                          </Fragment>
+                        )}
                       />
                       <form onSubmit={this.handleSubmit}>
                         {clubInviteAndGiftCardDetials === 'SloohCard' ?
