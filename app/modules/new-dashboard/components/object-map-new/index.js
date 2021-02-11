@@ -911,11 +911,10 @@ export class ObjectMap extends Component{
     handleExpandMap = () => {
       const { mapExpanded, map } = this.state;      
       var elem = document.getElementById('object-Map');  
-      debugger;    
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
-        if (element === ( null || undefined)) 
+        if (element === null || element === undefined) 
         {               
             self.setState({mapExpanded: false});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
