@@ -169,9 +169,9 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
     newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
     newAccountFormData.displayName.label =
-      result.formFieldLabels.displayname.label;
+      result.formFieldLabels.displayName.label;
     newAccountFormData.loginEmailAddress.label =
-      result.formFieldLabels.loginemailaddress.label;
+      result.formFieldLabels.loginEmailaddress.label;
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label =
       result.formFieldLabels.passwordverification.label;
