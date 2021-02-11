@@ -915,7 +915,7 @@ export class ObjectMap extends Component{
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
-        if (element === null) 
+        if (element === ( null || undefined)) 
         {               
             self.setState({mapExpanded: false});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
