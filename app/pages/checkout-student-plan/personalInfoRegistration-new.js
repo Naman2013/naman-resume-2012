@@ -303,8 +303,10 @@ class personalInfoRegistrationNew extends Component {
                 };
 
                 if (pendingCustomerResult.status === 'success') {
+		    console.log("after create pending customer.....");
+		    console.log(formData);
                     window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
-                    window.localStorage.setItem('username',  formData.loginemailaddress.currentValue );
+                    window.localStorage.setItem('username',  formData.loginEmailAddress.currentValue );
                     window.localStorage.setItem('password', formData.password.currentValue );
 
                         /*  this.setState( () =>({
