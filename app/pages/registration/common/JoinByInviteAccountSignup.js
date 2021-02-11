@@ -179,13 +179,13 @@ class JoinByInviteAccountSignup extends Component {
       result.formFieldLabels.astronomyClubName.label;
 
     newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstname.hintText;
+      result.formFieldLabels.firstName.hintText;
     newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastname.hintText;
+      result.formFieldLabels.lastName.hintText;
     newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayname.hintText;
+      result.formFieldLabels.displayName.hintText;
     newAccountFormData.loginEmailAddress.hintText =
-      result.formFieldLabels.loginemailaddress.hintText;
+      result.formFieldLabels.loginEmailaddress.hintText;
     newAccountFormData.password.hintText =
       result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText =
