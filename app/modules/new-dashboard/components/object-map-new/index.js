@@ -915,11 +915,9 @@ export class ObjectMap extends Component{
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
-        const { mapExpanded } = this.state;
         if (element === null) 
-        {      
-            // Run code on exit            
-            self.setState({mapExpanded: !mapExpanded});
+        {               
+            self.setState({mapExpanded: false});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
             setTimeout( ()=> { self.state.map.updateSize(); self.state.map.getView().setZoom(0)}, 100);
         }
@@ -940,11 +938,12 @@ export class ObjectMap extends Component{
             document.addEventListener("mozfullscreenchange", exitHandlerFun,false);
         }
         else if(elem.webkitRequestFullscreen){
-            elem.webkitRequestFullscreen().catch(err=>{
-              self.setState({mapExpanded: false});    
-              document.removeEventListener("fullscreenchange", exitHandlerFun);
-             });             
+            elem.webkitRequestFullscreen()
             document.addEventListener("webkitfullscreenchange", exitHandlerFun,false);
+            setTimeout(()=>{
+              self.setState({mapExpanded: true});
+              self.state.map.updateSize();
+            },100)
         }
         else if(elem.msRequestFullscreen){
             elem.msRequestFullscreen().catch(err=>{
@@ -954,7 +953,7 @@ export class ObjectMap extends Component{
             document.addEventListener("msfullscreenchange", exitHandlerFun,false);
         }      
         
-        this.setState({mapExpanded: !mapExpanded}, ()=>setTimeout(()=>self.state.map.updateSize(),400));
+        this.setState({mapExpanded: true}, ()=>setTimeout(()=>self.state.map.updateSize(),400));
       
     }
 
