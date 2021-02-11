@@ -77,14 +77,15 @@ class JoinByInviteCodeStep1 extends Component {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
     newAccountFormData.loginEmailAddress.label =
-      result.formFieldLabels.loginemailaddress.label;
+      result.formFieldLabels.loginEmailAddress.label;
     newAccountFormData.invitationCode.label =
-      result.formFieldLabels.invitationcode.label;
+      result.formFieldLabels.invitationCode.label;
 
     newAccountFormData.loginEmailAddress.hintText =
-      result.formFieldLabels.loginemailaddress.hintText;
+      result.formFieldLabels.loginEmailAddress.hintText;
+
     newAccountFormData.invitationCode.hintText =
-      result.formFieldLabels.invitationcode.hintText;
+      result.formFieldLabels.invitationCode.hintText;
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({

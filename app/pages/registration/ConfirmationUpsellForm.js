@@ -108,10 +108,10 @@ class ConfirmationUpsellForm extends Component {
   handleJoinPageServiceResponse = result => {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+    newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
+    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
     newAccountFormData.displayName.label =
-      result.formFieldLabels.displayname.label;   
+      result.formFieldLabels.displayName.label;   
     newAccountFormData.is13YearsAndOlder.label =
       result.formFieldLabels.is13YearsAndOlder.label;
     newAccountFormData.not13YearsOldLegalGuardianOk.label =
@@ -120,11 +120,11 @@ class ConfirmationUpsellForm extends Component {
       result.formFieldLabels.parentEmailAddress.label;
       
     newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstname.hintText;
+      result.formFieldLabels.firstName.hintText;
     newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastname.hintText;
+      result.formFieldLabels.lastName.hintText;
     newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayname.hintText;   
+      result.formFieldLabels.displayName.hintText;   
     newAccountFormData.is13YearsAndOlder.hintText =
       result.formFieldLabels.is13YearsAndOlder.hintText;
     newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
@@ -132,10 +132,10 @@ class ConfirmationUpsellForm extends Component {
     newAccountFormData.parentEmailAddress.hintText =
       result.formFieldLabels.parentEmailAddress.hintText;
 
-      newAccountFormData.givenName.value = result.formFieldLabels.firstname.currentValue;
-      newAccountFormData.familyName.value = result.formFieldLabels.lastname.currentValue;
+      newAccountFormData.givenName.value = result.formFieldLabels.firstName.currentValue;
+      newAccountFormData.familyName.value = result.formFieldLabels.lastName.currentValue;
       newAccountFormData.displayName.value =
-        result.formFieldLabels.displayname.currentValue;   
+        result.formFieldLabels.displayName.currentValue;   
       newAccountFormData.is13YearsAndOlder.value =
         result.formFieldLabels.is13YearsAndOlder.currentValue;
       newAccountFormData.not13YearsOldLegalGuardianOk.value =
@@ -145,11 +145,11 @@ class ConfirmationUpsellForm extends Component {
 
         this.props.change(
           'givenName',
-          result.formFieldLabels.firstname.currentValue
+          result.formFieldLabels.firstName.currentValue
         );
         this.props.change(
           'familyName',
-          result.formFieldLabels.lastname.currentValue
+          result.formFieldLabels.lastName.currentValue
         );
         this.props.change(
           'parentEmailAddress',
@@ -157,7 +157,7 @@ class ConfirmationUpsellForm extends Component {
         );       
         this.props.change(
           'displayName',
-          result.formFieldLabels.displayname.currentValue
+          result.formFieldLabels.displayName.currentValue
         );
 
 

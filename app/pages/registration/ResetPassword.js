@@ -90,20 +90,20 @@ class ResetPassword extends Component {
     const passwordFormData = cloneDeep(this.state.passwordFormDetails);
 
     passwordFormData.loginemailaddress.label =
-      result.formFieldLabels.loginemailaddress.label;
+      result.formFieldLabels.loginEmailAddress.label;
     passwordFormData.password.label = result.formFieldLabels.password.label;
     passwordFormData.passwordverification.label =
       result.formFieldLabels.passwordverification.label;
 
     passwordFormData.loginemailaddress.hintText =
-      result.formFieldLabels.loginemailaddress.hintText;
+      result.formFieldLabels.loginEmailAddress.hintText;
     passwordFormData.password.hintText =
       result.formFieldLabels.password.hintText;
     passwordFormData.passwordverification.hintText =
       result.formFieldLabels.passwordverification.hintText;
 
     passwordFormData.loginemailaddress.value =
-      result.formFieldLabels.loginemailaddress.value;
+      result.formFieldLabels.loginEmailAddress.value;
 
     /* update the password form details state so the correct hinText will show on each form field */
     this.setState(() => ({
