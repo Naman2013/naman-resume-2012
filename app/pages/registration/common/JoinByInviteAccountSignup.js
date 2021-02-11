@@ -166,8 +166,8 @@ class JoinByInviteAccountSignup extends Component {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     const { clubInviteAndGiftCardDetials } = this.props;
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+    newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
+    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
     newAccountFormData.displayName.label =
       result.formFieldLabels.displayname.label;
     newAccountFormData.loginEmailAddress.label =
