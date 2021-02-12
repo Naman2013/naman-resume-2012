@@ -39,7 +39,6 @@ import { getGalleryList } from '../../dashboardApi';
 import MissionDetailsNew from 'app/modules/mission-details/containers/mission-details-new';
 import GalleryDetailsNew from 'app/modules/gallery-details/containers/gallery-details-new';
 
-
 const mapTypeToRequest = {
     observations: 'fetchPhotoRollAndCounts',
     photoroll: 'fetchPhotoRollAndCounts',
@@ -220,6 +219,8 @@ class PhotoHub extends Component{
             if(!res.apiError){
                 this.setState({tagsData: {isFetching: false, tagList: res.tagList}});
             }
+            else  
+                this.props.validateResponseAccess(res)
         });
     }
 
@@ -234,6 +235,8 @@ class PhotoHub extends Component{
             if(!res.apiError){
                 this.setState({tagsData: {isFetching: false, tagList: res.tagList, data: res}});
             }
+            else  
+                this.props.validateResponseAccess(res)
         });
     }
 
@@ -248,6 +251,8 @@ class PhotoHub extends Component{
             if(!res.apiError){
                 this.setState({tagsData: {isFetching: false, tagList: res.tagList, data: res}});
             }
+            else  
+                this.props.validateResponseAccess(res)
         });
     }
 
@@ -258,6 +263,8 @@ class PhotoHub extends Component{
             if(!res.apiError){
                 this.setState({fitsData: {isFetching: false, isLoaded: true, data: res}});
             }
+            else
+                this.props.validateResponseAccess(res);
         })
     }
 

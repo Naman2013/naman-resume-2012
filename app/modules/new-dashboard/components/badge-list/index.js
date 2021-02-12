@@ -7,6 +7,7 @@ import { getObjectCard } from '../../dashboardApi';
 import ObjectCard from '../object-card';
 import { getUserInfo } from 'app/modules/User';
 import { Spinner } from 'app/components/spinner/index';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 export class BadgeList extends Component{
 
@@ -35,8 +36,11 @@ export class BadgeList extends Component{
                       const res=response.data;
                       if(!res.apiError)
                         self.setState({showBadge: true, currentBadge: item, objectBadge: res, loading: false});
-                      else
+                      else{
                         self.setState({loading: false});
+                        validateResponseAccess(res)
+                      }
+                        
                   });  
                 break;
             case "quest":

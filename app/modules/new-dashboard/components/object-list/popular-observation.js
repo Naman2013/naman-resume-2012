@@ -35,6 +35,8 @@ export class PopularObservation extends Component{
                 this.timerId=setTimeout(this.getPopularObservationtAction,duration );
                 this.setState({userPopularObservation: res});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

@@ -29,6 +29,8 @@ export class DomainGP extends Component{
                 this.timerId=setTimeout(this.getDomainGPAction,duration );
                 this.setState({domaingpList: res});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 
