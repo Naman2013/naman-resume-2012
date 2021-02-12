@@ -200,14 +200,14 @@ class JoinStep2 extends Component {
   handleJoinPageServiceResponse = result => {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+    newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
+    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
     newAccountFormData.displayName.label =
-      result.formFieldLabels.displayname.label;
+      result.formFieldLabels.displayName.label;
     newAccountFormData.loginEmailAddress.label =
-      result.formFieldLabels.loginemailaddress.label;
+      result.formFieldLabels.loginEmailAddress.label;
     newAccountFormData.loginEmailAddressVerification.label =
-      result.formFieldLabels.loginemailaddressverification.label;
+      result.formFieldLabels.loginEmailAddressVerification.label;
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label =
       result.formFieldLabels.passwordverification.label;
@@ -221,15 +221,15 @@ class JoinStep2 extends Component {
       result.formFieldLabels.parentEmailAddress.label;
       
     newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstname.hintText;
+      result.formFieldLabels.firstName.hintText;
     newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastname.hintText;
+      result.formFieldLabels.lastName.hintText;
     newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayname.hintText;
+      result.formFieldLabels.displayName.hintText;
     newAccountFormData.loginEmailAddress.hintText =
-      result.formFieldLabels.loginemailaddress.hintText;
+      result.formFieldLabels.loginEmailAddress.hintText;
     newAccountFormData.loginEmailAddressVerification.hintText =
-      result.formFieldLabels.loginemailaddressverification.hintText;
+      result.formFieldLabels.loginEmailAddressVerification.hintText;
     newAccountFormData.password.hintText =
       result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText =
