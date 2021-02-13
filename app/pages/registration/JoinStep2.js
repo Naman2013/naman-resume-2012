@@ -55,24 +55,24 @@ class JoinStep2 extends Component {
   maxLength = (max, fieldName) => (value, previousValue, allValues) => {
     let v;
     let result = value.length > max;
-    if(result === false) {
-      if(!(value && /[^a-zA-Z0-9 ]/i.test(value))){
+    if (result === false) {
+      if (!(value && /[^a-zA-Z0-9 ]/i.test(value))) {
         v = value;
         this.handleFieldChange({
           field: fieldName,
           value: v,
         });
       }
-    }      
+    }
     return v;
   };
 
-  handleLiscenceText1=(text)=>{
-    if(text.length==5)
+  handleLiscenceText1 = (text) => {
+    if (text.length == 5)
       ReactDOM.findDOMNode(inputs['codeB']).focus();
   }
 
-    
+
   constructor(props) {
     super(props);
     window.localStorage.setItem('accountCreationType', 'userpass');
@@ -101,15 +101,15 @@ class JoinStep2 extends Component {
       },
       formIsComplete: null,
       captchaCode: null,
-      captchaVerified: false,      
+      captchaVerified: false,
       accountFormDetails: {
-        givenName: {
+        firstName: {
           label: '',
           value: '',
           hintText: '',
           errorText: '',
         },
-        familyName: {
+        lastName: {
           label: '',
           value: '',
           hintText: '',
@@ -171,87 +171,113 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
-        discussionGroupCode:{
+        discussionGroupCode: {
           label: '',
           visible: true,
           value: '',
           hintText: '',
           errorText: '',
         },
-        codeA: {
+        discussionGroupCodeA: {
           label: '',
           visible: true,
           value: '',
           hintText: '',
           errorText: '',
         },
-        codeB: {
+        discussionGroupCodeB: {
           label: '',
           visible: true,
           value: '',
           hintText: '',
           errorText: '',
-        },        
+        },
       },
     };
   }
 
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
+
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    //console.log('newAccountFormData', newAccountFormData);
+    result.formFieldLabels.map((field) => {
+      var keyval = field.key;
+      if (newAccountFormData[keyval]) {
+        let keyval = field.key;
+        newAccountFormData[keyval].hintText = field.hintText ? field.hintText : '';
+        newAccountFormData[keyval].label = field.label ? field.label : '';
+        newAccountFormData[keyval].value = field.value ? field.value : '';
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
-    newAccountFormData.displayName.label =
-      result.formFieldLabels.displayName.label;
-    newAccountFormData.loginEmailAddress.label =
-      result.formFieldLabels.loginEmailAddress.label;
-    newAccountFormData.loginEmailAddressVerification.label =
-      result.formFieldLabels.loginEmailAddressVerification.label;
-    newAccountFormData.password.label = result.formFieldLabels.password.label;
-    newAccountFormData.passwordVerification.label =
-      result.formFieldLabels.passwordverification.label;
-    newAccountFormData.discussionGroupCode.label =
-      result.formFieldLabels.discussionGroupCode.label;
-    newAccountFormData.is13YearsAndOlder.label =
-      result.formFieldLabels.is13YearsAndOlder.label;
-    newAccountFormData.not13YearsOldLegalGuardianOk.label =
-      result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
-    newAccountFormData.parentEmailAddress.label =
-      result.formFieldLabels.parentEmailAddress.label;
-      
-    newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstName.hintText;
-    newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastName.hintText;
-    newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayName.hintText;
-    newAccountFormData.loginEmailAddress.hintText =
-      result.formFieldLabels.loginEmailAddress.hintText;
-    newAccountFormData.loginEmailAddressVerification.hintText =
-      result.formFieldLabels.loginEmailAddressVerification.hintText;
-    newAccountFormData.password.hintText =
-      result.formFieldLabels.password.hintText;
-    newAccountFormData.passwordVerification.hintText =
-      result.formFieldLabels.passwordverification.hintText;
-    newAccountFormData.discussionGroupCode.hintText =
-      result.formFieldLabels.discussionGroupCode.hintText;
-    newAccountFormData.is13YearsAndOlder.hintText =
-      result.formFieldLabels.is13YearsAndOlder.hintText;
-    newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
-      result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
-    newAccountFormData.parentEmailAddress.hintText =
-      result.formFieldLabels.parentEmailAddress.hintText;
+      }
+    })
 
-    newAccountFormData.codeA.value =
-      result.formFieldLabels.discussionGroupCodeA.currentValue;
-    newAccountFormData.codeB.value =
-      result.formFieldLabels.discussionGroupCodeB.currentValue;
 
-      this.props.change('codeA',result.formFieldLabels.discussionGroupCodeA.currentValue);
-      this.props.change('codeB',result.formFieldLabels.discussionGroupCodeB.currentValue);
-    /* update the account form details state so the correct hinText will show on each form field */
+    /*     newAccountFormData.firstName.label = result.formFieldLabels.firstName.label;
+
+        newAccountFormData.lastName.label = result.formFieldLabels.lastName.label;
+
+        newAccountFormData.displayName.label =
+          result.formFieldLabels.displayName.label;
+
+        newAccountFormData.loginEmailAddress.label =
+          result.formFieldLabels.loginEmailAddress.label;
+
+        newAccountFormData.loginEmailAddressVerification.label =
+          result.formFieldLabels.loginEmailAddressVerification.label;
+
+        newAccountFormData.password.label = result.formFieldLabels.password.label;
+
+        newAccountFormData.passwordVerification.label =
+          result.formFieldLabels.passwordverification.label;
+
+        newAccountFormData.discussionGroupCode.label =
+          result.formFieldLabels.discussionGroupCode.label;
+
+        newAccountFormData.is13YearsAndOlder.label =
+          result.formFieldLabels.is13YearsAndOlder.label;
+
+        newAccountFormData.not13YearsOldLegalGuardianOk.label =
+          result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
+
+        newAccountFormData.parentEmailAddress.label =
+          result.formFieldLabels.parentEmailAddress.label;
+          
+
+
+          
+        newAccountFormData.firstName.hintText =
+          result.formFieldLabels.firstName.hintText;
+        newAccountFormData.lastName.hintText =
+          result.formFieldLabels.lastName.hintText;
+        newAccountFormData.displayName.hintText =
+          result.formFieldLabels.displayName.hintText;
+        newAccountFormData.loginEmailAddress.hintText =
+          result.formFieldLabels.loginEmailAddress.hintText;
+        newAccountFormData.loginEmailAddressVerification.hintText =
+          result.formFieldLabels.loginEmailAddressVerification.hintText;
+        newAccountFormData.password.hintText =
+          result.formFieldLabels.password.hintText;
+        newAccountFormData.passwordVerification.hintText =
+          result.formFieldLabels.passwordverification.hintText;
+        newAccountFormData.discussionGroupCode.hintText =
+          result.formFieldLabels.discussionGroupCode.hintText;
+        newAccountFormData.is13YearsAndOlder.hintText =
+          result.formFieldLabels.is13YearsAndOlder.hintText;
+        newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
+          result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
+        newAccountFormData.parentEmailAddress.hintText =
+          result.formFieldLabels.parentEmailAddress.hintText;
     
+        newAccountFormData.discussionGroupCodeA.value =
+          result.formFieldLabels.discussionGroupCodeA.currentValue;
+        newAccountFormData.discussionGroupCodeB.value =
+          result.formFieldLabels.discussionGroupCodeB.currentValue; */
+
+    // this.props.change('discussionGroupCodeA',result.formFieldLabels.discussionGroupCodeA.currentValue);
+    // this.props.change('discussionGroupCodeB',result.formFieldLabels.discussionGroupCodeB.currentValue);
+    /* update the account form details state so the correct hinText will show on each form field */
+
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
       isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
@@ -268,66 +294,66 @@ class JoinStep2 extends Component {
       accountFormDetails: newAccountFormData,
     }));
   };
-    
-  handleCaptchaCode=(token)=>{   
-    const { _sloohsstkn } = getUserInfo();    
-    if(token !==null){
+
+  handleCaptchaCode = (token) => {
+    const { _sloohsstkn } = getUserInfo();
+    if (token !== null) {
       API.post(VERIFY_CAPTCHA_CODE_URL,
         {
           siteSessionToken: _sloohsstkn,
           recaptchaResponse: token
-  
-        }).then( response => {            
-            const res=response.data;
-            if(!res.apiError){
-              if(res.status === "success")
-                this.setState({captchaVerified: true});
-              
-            }
-            
+
+        }).then(response => {
+          const res = response.data;
+          if (!res.apiError) {
+            if (res.status === "success")
+              this.setState({ captchaVerified: true });
+
+          }
+
         });
     }
-    else{
-      this.setState({captchaVerified: false});
+    else {
+      this.setState({ captchaVerified: false });
     }
-    
+
   }
 
-  handleClubCode = formValues => {   
-    formValues.preventDefault();    
-    const{accountFormDetails, captchaVerified} = this.state;
-    const{codeA, codeB} = accountFormDetails;
-    
-    if(!captchaVerified){
-        return;
+  handleClubCode = formValues => {
+    formValues.preventDefault();
+    const { accountFormDetails, captchaVerified } = this.state;
+    const { discussionGroupCodeA, discussionGroupCodeB } = accountFormDetails;
+
+    if (!captchaVerified) {
+      return;
     }
 
-    if(codeA.value !== "" || codeB.value !== "" ){
+    if (discussionGroupCodeA.value !== "" || discussionGroupCodeB.value !== "") {
       API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
-      {
-        clubCodeA: codeA.value,
-        clubCodeB: codeB.value,
-        selectedPlanId: window.localStorage.selectedPlanId,
-      }
-    ).then(response => {
+        {
+          clubCodeA: discussionGroupCodeA.value,
+          clubCodeB: discussionGroupCodeB.value,
+          selectedPlanId: window.localStorage.selectedPlanId,
+        }
+      ).then(response => {
         const res = response.data;
         if (!res.apiError && res.status !== "failed") {
-          window.localStorage.setItem('clubCodeA', codeA.value);
-          window.localStorage.setItem('clubCodeB', codeB.value);
+          window.localStorage.setItem('clubCodeA', discussionGroupCodeA.value);
+          window.localStorage.setItem('clubCodeB', discussionGroupCodeB.value);
           this.handleSubmit(formValues);
         }
-        else{
-          accountFormDetails.discussionGroupCode.errorText='';
+        else {
+          accountFormDetails.discussionGroupCode.errorText = '';
           const accountFormDetailsData = cloneDeep(accountFormDetails);
           accountFormDetailsData.discussionGroupCode.errorText = res.statusMessage;
           this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
         }
       });
     }
-    else{
-      this.handleSubmit(formValues);      
+    else {
+      this.handleSubmit(formValues);
     }
-    
+
   }
 
   /* Submit the Join Form and perform any validations as needed */
@@ -344,8 +370,8 @@ class JoinStep2 extends Component {
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
     /* reset the error conditions */
-    accountFormDetailsData.givenName.errorText = '';
-    accountFormDetailsData.familyName.errorText = '';
+    accountFormDetailsData.firstName.errorText = '';
+    accountFormDetailsData.lastName.errorText = '';
     accountFormDetailsData.loginEmailAddress.errorText = '';
     accountFormDetailsData.loginEmailAddressVerification.errorText = '';
     accountFormDetailsData.password.errorText = '';
@@ -364,15 +390,15 @@ class JoinStep2 extends Component {
             Password and matches password verification field
         */
 
-      if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = t(
+      if (accountFormDetailsData.firstName.value === '') {
+        accountFormDetailsData.firstName.errorText = t(
           'Ecommerce.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = t(
+      if (accountFormDetailsData.lastName.value === '') {
+        accountFormDetailsData.lastName.errorText = t(
           'Ecommerce.LastNameRequierMessage'
         );
         formIsComplete = false;
@@ -404,15 +430,15 @@ class JoinStep2 extends Component {
         Lastname
       */
 
-      if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = t(
+      if (accountFormDetailsData.firstName.value === '') {
+        accountFormDetailsData.firstName.errorText = t(
           'Ecommerce.FirstNameRequireMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = t(
+      if (accountFormDetailsData.lastName.value === '') {
+        accountFormDetailsData.lastName.errorText = t(
           'Ecommerce.LastNameRequireMessage'
         );
         formIsComplete = false;
@@ -481,8 +507,8 @@ class JoinStep2 extends Component {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
-            clubCodeA: this.state.accountFormDetails.codeA.value,
-            clubCodeB: this.state.accountFormDetails.codeB.value,
+          clubCodeA: this.state.accountFormDetails.discussionGroupCodeA.value,
+          clubCodeB: this.state.accountFormDetails.discussionGroupCodeB.value,
           selectedPlanId: window.localStorage.selectedPlanId,
         }
       )
@@ -622,17 +648,17 @@ class JoinStep2 extends Component {
           accountFormDetailsData.passwordVerification.visible = true;
 
           /* Set the customer's information that we got from google as a starting place for the user */
-          accountFormDetailsData.givenName.value =
+          accountFormDetailsData.firstName.value =
             googleProfileResult.googleProfileGivenName;
           this.props.change(
-            'givenName',
+            'firstName',
             googleProfileResult.googleProfileGivenName
           );
 
-          accountFormDetailsData.familyName.value =
+          accountFormDetailsData.lastName.value =
             googleProfileResult.googleProfileFamilyName;
           this.props.change(
-            'familyName',
+            'lastName',
             googleProfileResult.googleProfileFamilyName
           );
 
@@ -689,7 +715,7 @@ class JoinStep2 extends Component {
     } = this.state;
     const { _sloohatid } = getUserInfo();
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
-    
+    console.log('accountFormDetails', accountFormDetails);
     return (
       <div>
         <Request
@@ -717,14 +743,14 @@ class JoinStep2 extends Component {
                         backgroundImage={
                           isMobile
                             ? joinPageRes.selectedSubscriptionPlan
-                                ?.planSelectedBackgroundImageUrl_Mobile
+                              ?.planSelectedBackgroundImageUrl_Mobile
                             : isDesktop
-                            ? joinPageRes.selectedSubscriptionPlan
+                              ? joinPageRes.selectedSubscriptionPlan
                                 ?.planSelectedBackgroundImageUrl_Desktop
-                            : isTablet
-                            ? joinPageRes.selectedSubscriptionPlan
-                                ?.planSelectedBackgroundImageUrl_Tablet
-                            : ''
+                              : isTablet
+                                ? joinPageRes.selectedSubscriptionPlan
+                                  ?.planSelectedBackgroundImageUrl_Tablet
+                                : ''
                         }
                       />
                       <div className="step-root">
@@ -809,8 +835,8 @@ class JoinStep2 extends Component {
                                           .label,
                                     }}
                                   />
-                                  :
-                                  <span
+                                    :
+                                    <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
@@ -860,91 +886,91 @@ class JoinStep2 extends Component {
                                 <br />
                                 {accountFormDetails.is13YearsAndOlder.value ===
                                   false && (
-                                  <div>
-                                    <div className="form-field-container">
-                                      <span
+                                    <div>
+                                      <div className="form-field-container">
+                                        <span
+                                          className="form-label"
+                                          dangerouslySetInnerHTML={{
+                                            __html:
+                                              accountFormDetails
+                                                .not13YearsOldLegalGuardianOk
+                                                .label,
+                                          }}
+                                        />
+                                          :
+                                          <span
+                                          className="form-error"
+                                          dangerouslySetInnerHTML={{
+                                            __html:
+                                              accountFormDetails
+                                                .not13YearsOldLegalGuardianOk
+                                                .errorText,
+                                          }}
+                                        />
+                                      </div>
+                                      <Field
+                                        name="not13YearsOldLegalGuardianOk"
+                                        type="checkbox"
+                                        className="form-field"
+                                        label={
+                                          accountFormDetails
+                                            .not13YearsOldLegalGuardianOk.hintText
+                                        }
+                                        component="input"
+                                        value={
+                                          accountFormDetails
+                                            .not13YearsOldLegalGuardianOk.value
+                                        }
+                                        onClick={event => {
+                                          this.handleFieldChange({
+                                            field: 'not13YearsOldLegalGuardianOk',
+                                            value: !accountFormDetails
+                                              .not13YearsOldLegalGuardianOk.value,
+                                          });
+                                        }}
+                                      />
+                                      <br />
+                                      <br />
+                                      {/*  <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails
-                                              .not13YearsOldLegalGuardianOk
+                                            accountFormDetails.parentEmailAddress
                                               .label,
                                         }}
                                       />
-                                      :
+        :
                                       <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails
-                                              .not13YearsOldLegalGuardianOk
+                                            accountFormDetails.parentEmailAddress
                                               .errorText,
                                         }}
                                       />
+                                      <Field
+                                        name="parentEmailAddress"
+                                        type="name"
+                                        className="form-field"
+                                        label={
+                                          accountFormDetails.parentEmailAddress
+                                            .hintText
+                                        }
+                                        component={InputField}
+                                        onChange={event => {
+                                          this.handleFieldChange({
+                                            field: 'parentEmailAddress',
+                                            value: event.target.value,
+                                          });
+                                        }}
+                                        value={
+                                          accountFormDetails.parentEmailAddress
+                                            .value
+                                        }
+                                      /> */}
+                                      <br />
                                     </div>
-                                    <Field
-                                      name="not13YearsOldLegalGuardianOk"
-                                      type="checkbox"
-                                      className="form-field"
-                                      label={
-                                        accountFormDetails
-                                          .not13YearsOldLegalGuardianOk.hintText
-                                      }
-                                      component="input"
-                                      value={
-                                        accountFormDetails
-                                          .not13YearsOldLegalGuardianOk.value
-                                      }
-                                      onClick={event => {
-                                        this.handleFieldChange({
-                                          field: 'not13YearsOldLegalGuardianOk',
-                                          value: !accountFormDetails
-                                            .not13YearsOldLegalGuardianOk.value,
-                                        });
-                                      }}
-                                    />
-                                    <br />
-                                    <br />
-                                    <span
-                                      className="form-label"
-                                      dangerouslySetInnerHTML={{
-                                        __html:
-                                          accountFormDetails.parentEmailAddress
-                                            .label,
-                                      }}
-                                    />
-                                    :
-                                    <span
-                                      className="form-error"
-                                      dangerouslySetInnerHTML={{
-                                        __html:
-                                          accountFormDetails.parentEmailAddress
-                                            .errorText,
-                                      }}
-                                    />
-                                    <Field
-                                      name="parentEmailAddress"
-                                      type="name"
-                                      className="form-field"
-                                      label={
-                                        accountFormDetails.parentEmailAddress
-                                          .hintText
-                                      }
-                                      component={InputField}
-                                      onChange={event => {
-                                        this.handleFieldChange({
-                                          field: 'parentEmailAddress',
-                                          value: event.target.value,
-                                        });
-                                      }}
-                                      value={
-                                        accountFormDetails.parentEmailAddress
-                                          .value
-                                      }
-                                    />
-                                    <br />
-                                  </div>
-                                )}
+                                  )}
                               </div>
                             )}
                             <div className="form-section split">
@@ -952,30 +978,30 @@ class JoinStep2 extends Component {
                                 <span
                                   className="form-label"
                                   dangerouslySetInnerHTML={{
-                                    __html: accountFormDetails.givenName.label,
+                                    __html: accountFormDetails.firstName.label,
                                   }}
                                 />
-                                :
-                                <span
+                                  :
+                                  <span
                                   className="form-error"
                                   dangerouslySetInnerHTML={{
                                     __html:
-                                      accountFormDetails.givenName.errorText,
+                                      accountFormDetails.firstName.errorText,
                                   }}
                                 />
                                 <Field
-                                  name="givenName"
+                                  name="firstName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.givenName.hintText}
+                                  label={accountFormDetails.firstName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'givenName',
+                                      field: 'firstName',
                                       value: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.givenName.value}
+                                  value={accountFormDetails.firstName.value}
                                 />
                               </div>
 
@@ -983,30 +1009,30 @@ class JoinStep2 extends Component {
                                 <span
                                   className="form-label"
                                   dangerouslySetInnerHTML={{
-                                    __html: accountFormDetails.familyName.label,
+                                    __html: accountFormDetails.lastName.label,
                                   }}
                                 />
-                                :
-                                <span
+                                   :
+                                  <span
                                   className="form-error"
                                   dangerouslySetInnerHTML={{
                                     __html:
-                                      accountFormDetails.familyName.errorText,
+                                      accountFormDetails.lastName.errorText,
                                   }}
                                 />
                                 <Field
-                                  name="familyName"
+                                  name="lastName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.familyName.hintText}
+                                  label={accountFormDetails.lastName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'familyName',
+                                      field: 'lastName',
                                       value: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.familyName.value}
+                                  value={accountFormDetails.lastName.value}
                                 />
                               </div>
                             </div>
@@ -1020,8 +1046,8 @@ class JoinStep2 extends Component {
                                       accountFormDetails.displayName.label,
                                   }}
                                 />
-                                :
-                              </div>
+                                  :
+                                </div>
                               <Field
                                 name="displayName"
                                 type="name"
@@ -1048,8 +1074,8 @@ class JoinStep2 extends Component {
                                           .label,
                                     }}
                                   />
-                                  :
-                                  <span
+                                    :
+                                    <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
@@ -1107,7 +1133,7 @@ class JoinStep2 extends Component {
                               </div>
                             ) : null}
 
-                            {accountFormDetails.loginEmailAddressVerification
+                            {/*    {accountFormDetails.loginEmailAddressVerification
                               .visible ? (
                               <div className="form-section">
                                 <div className="form-field-container">
@@ -1120,7 +1146,7 @@ class JoinStep2 extends Component {
                                     }}
                                   />
                                   :
-                                  <span
+                                    <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
@@ -1151,7 +1177,7 @@ class JoinStep2 extends Component {
                                   }
                                 />
                               </div>
-                            ) : null}
+                            ) : null} */}
 
                             {accountFormDetails.password.visible ? (
                               <div className="form-section">
@@ -1186,7 +1212,7 @@ class JoinStep2 extends Component {
                                 />
                               </div>
                             ) : null}
-
+                            {/* 
                             {accountFormDetails.passwordVerification.visible ? (
                               <div className="form-section">
                                 <div className="form-field-container">
@@ -1198,8 +1224,8 @@ class JoinStep2 extends Component {
                                           .passwordverification.label,
                                     }}
                                   />
-                                  :
-                                  <span
+                                     :
+                                    <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
@@ -1225,9 +1251,9 @@ class JoinStep2 extends Component {
                                   }}
                                 />
                               </div>
-                            ) : null}
+                            ) : null} */}
 
-                            {accountFormDetails.codeA.visible ? (
+                     {/*        {accountFormDetails.discussionGroupCodeA.visible ? (
                               <div className="form-section">
                                 <div className="form-field-container">
                                   <span
@@ -1238,19 +1264,19 @@ class JoinStep2 extends Component {
                                           .discussionGroupCode.label,
                                     }}
                                   />
-                                  : {joinPageRes.formFieldLabels.discussionGroupCode.hintText}
-                                  {/* <span
+                                    : {joinPageRes.formFieldLabels.discussionGroupCode.hintText}
+                                  <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         accountFormDetails.discussionGroupCode
                                           .errorText,
                                     }}
-                                  /> */}
+                                  />
                                 </div>
                                 <div className="flex-container">
                                   <div className="form-field-quater">
-                                    <Field
+                                     <Field
                                       ref={input => { inputs['codeA'] = input }}
                                       name="codeA"
                                       type="text"
@@ -1261,16 +1287,16 @@ class JoinStep2 extends Component {
                                         //   .hintText
                                       }
                                       component={InputField}
-                                      onChange={event => {this.handleLiscenceText1(event.target.value);}}
-                                      normalize={this.maxLength(5,'codeA')}
+                                      onChange={event => { this.handleLiscenceText1(event.target.value); }}
+                                      normalize={this.maxLength(5, 'codeA')}
                                     />
-                                    </div>
-                                    <h1>-</h1>
-                                    <div className="form-field-quater">
+                                  </div>
+                                  <h1>-</h1>
+                                  <div className="form-field-quater">
                                     <Field
                                       name="codeB"
                                       type="text"
-                                      className="form-field"                                      
+                                      className="form-field"
                                       disabled={joinPageRes.formFieldLabels.discussionGroupCodeB.currentValue && joinPageRes.formFieldLabels.discussionGroupCodeB.currentValue !== ""}                              // input={{disabled:  accountFormDetails.codeB.value && accountFormDetails.codeB.value !== ""}}
                                       label={''
                                         // accountFormDetails.discussionGroupCode
@@ -1281,31 +1307,32 @@ class JoinStep2 extends Component {
                                         this.handleFieldChange({
                                           field: 'codeB',
                                           value: event.target.value,
-                                        });}}
+                                        });
+                                      }}
                                       normalize={this.maxLength(5, 'codeB')}
                                       ref={input => { inputs['codeB'] = input }}
                                     />
                                   </div>
                                 </div>
                                 <span
-                                    className="form-error"
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        accountFormDetails.discussionGroupCode
-                                          .errorText,
-                                    }}
-                                  />
+                                  className="form-error"
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      accountFormDetails.discussionGroupCode
+                                        .errorText,
+                                  }}
+                                />
                               </div>
-                            ) : null}
+                            ) : null} */}
                             <div className="form-section">
-                                <div className="form-field-container">
+                              <div className="form-field-container">
                                 <ReCAPTCHA
                                   sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
                                   onChange={this.handleCaptchaCode}
                                 />
-                                 
-                                </div>
+
                               </div>
+                            </div>
 
                             <div className="button-container">
                               <Button
@@ -1315,12 +1342,15 @@ class JoinStep2 extends Component {
                                   browserHistory.push('/join/step1');
                                 }}
                               />
-			                      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
+                              {formIsComplete === false && <span style={{ color: "red", fontWeight: "bold" }}>Please complete the missing fields above.</span>}
                               <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
                                 {t('Ecommerce.GoToPayment')}
-                              </button>			  
+                              </button>
                             </div>
                           </form>
+
+
+
                         </div>
                       </div>
                     </Fragment>
