@@ -129,12 +129,18 @@ export class ObjectMap extends Component{
                 objectVersion: 1.1,
                 layerId: layer.get('title'),              
               }).then(response=>{
-                self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
-                map.getInteractions().forEach(function(interaction) {
-                  if (interaction instanceof MouseWheelZoom) {
-                    interaction.setActive(false);
-                  }
-                }, this); 
+                const res=response.data;
+                if(res.apiError){
+                  self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
+                  map.getInteractions().forEach(function(interaction) {
+                    if (interaction instanceof MouseWheelZoom) {
+                      interaction.setActive(false);
+                    }
+                  }, this);
+                }
+                else
+                  self.props.validateResponseAccess(res);
+                 
               });
               }
             
@@ -315,7 +321,8 @@ export class ObjectMap extends Component{
             }            
           });
         }
-        
+        else
+          self.props.validateResponseAccess(res);
       });
     }
 
@@ -357,6 +364,8 @@ export class ObjectMap extends Component{
            
           });
         }
+        else
+          self.props.validateResponseAccess(res);
         
       });
     }
@@ -885,6 +894,8 @@ export class ObjectMap extends Component{
             });
           }
         }
+        else
+          self.props.validateResponseAccess(res);
       })
     }
 
@@ -1052,6 +1063,8 @@ export class ObjectMap extends Component{
               }              
             });   
         }
+        else
+          self.props.validateResponseAccess(res);
         
       });
     }

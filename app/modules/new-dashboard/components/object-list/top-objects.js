@@ -32,6 +32,8 @@ export class TopCommunityObjects extends Component{
                 this.timerId=setTimeout(()=>this.getTopCommunityObjects(data),duration );
                 this.setState({topCommunityObjects: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
 

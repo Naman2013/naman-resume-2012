@@ -52,6 +52,8 @@ export class Observatories extends Component{
                         this.statusTimerId=setTimeout(()=>this.getObsStatusAction(obsId), duration);
                     this.setState({obsStatus: res, loading: false});                        
                 }
+                else
+                    this.props.validateResponseAccess(res);
         });
     }
 
@@ -69,6 +71,8 @@ export class Observatories extends Component{
                         this.newDashTimerId=setTimeout(()=>this.getNewDahObsAction(token, at, cid, obsId, DayNightBarWidgetId, MoonlightBarWidgetId, SeeingConditionsWidgetId), duration);
                     this.setState({obsWidgetData: res, loading: false});                       
                 }
+                else
+                    this.props.validateResponseAccess(res);
         })
     }
 
@@ -83,6 +87,8 @@ export class Observatories extends Component{
                         this.wxTimerId=setTimeout(()=>this.getWxDataAction(token, at, cid, obsId), duration);
                 this.setState({wxList: res.wxList, loading: false});                    
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
 

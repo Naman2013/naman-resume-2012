@@ -30,6 +30,8 @@ export class ActiveObject extends Component{
                 this.timerId=setTimeout(this.getActiveObjectAction,duration );
                 this.setState({userActiveObject: res});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

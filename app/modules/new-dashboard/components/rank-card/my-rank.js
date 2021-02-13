@@ -32,6 +32,8 @@ export class MyRank extends Component{
                 this.timerId=setTimeout(()=>this.getMyRankAction(data),duration );
                 this.setState({myRank: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
     
