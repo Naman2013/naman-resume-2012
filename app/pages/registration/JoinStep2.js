@@ -156,7 +156,7 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
-        not13YearsOldLegalGuardianOk: {
+        legalGuardianApproves: {
           label: '',
           visible: true,
           value: false,
@@ -164,7 +164,7 @@ class JoinStep2 extends Component {
           errorText: '',
         },
 
-        parentEmailAddress: {
+        legalGuardianEmailAddress: {
           label: '',
           visible: true,
           value: '',
@@ -201,13 +201,41 @@ class JoinStep2 extends Component {
 
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     //console.log('newAccountFormData', newAccountFormData);
+    console.log('result::::', result);
     result.formFieldLabels.map((field) => {
+
       var keyval = field.key;
       if (newAccountFormData[keyval]) {
-        let keyval = field.key;
+
         newAccountFormData[keyval].hintText = field.hintText ? field.hintText : '';
         newAccountFormData[keyval].label = field.label ? field.label : '';
         newAccountFormData[keyval].value = field.value ? field.value : '';
+
+        if (field.fieldOptions) {
+
+          field.fieldOptions.map((fieldOptionData) => {
+
+            if (fieldOptionData.key == 'Under13') {
+
+              fieldOptionData.nestedFields.map((nestedFieldsData) => {
+
+                console.log('nestedFieldsData:::', nestedFieldsData);
+                let keyValueOfNested = nestedFieldsData.key;
+
+                
+                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label ? nestedFieldsData.label : '';
+
+                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText ? nestedFieldsData.hintText : '';
+
+
+              })
+
+            } else {
+
+            }
+
+          })
+        }
 
       }
     })
@@ -360,7 +388,7 @@ class JoinStep2 extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
-
+    console.log('formValues::',formValues);
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -378,8 +406,10 @@ class JoinStep2 extends Component {
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.discussionGroupCode.errorText = '';
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
-    accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
-    accountFormDetailsData.parentEmailAddress.errorText = '';
+    accountFormDetailsData.legalGuardianApproves.errorText = '';
+    accountFormDetailsData.legalGuardianEmailAddress.errorText = '';
+
+    console.log('accountCreationType',accountCreationType);
 
     if (accountCreationType === 'userpass') {
       /* Verify that the user has provided:
@@ -411,7 +441,7 @@ class JoinStep2 extends Component {
         formIsComplete = false;
       } else {
         /* verify the email address and the verification email address fields match */
-        accountFormDetailsData.loginEmailAddress.errorText = '';
+       /*  accountFormDetailsData.loginEmailAddress.errorText = '';
         if (
           accountFormDetailsData.loginEmailAddress.value !==
           accountFormDetailsData.loginEmailAddressVerification.value
@@ -420,7 +450,7 @@ class JoinStep2 extends Component {
             'Ecommerce.EmailsDontMatchMessage'
           );
           formIsComplete = false;
-        }
+        } */
       }
 
       /* need to verify that the password meets the Slooh requirements */
@@ -455,17 +485,17 @@ class JoinStep2 extends Component {
       } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
         //make sure the user has certified that they have their Legal Guardian's permission to sign up.
         if (
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
+          accountFormDetailsData.legalGuardianApproves.value === false
         ) {
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
+          accountFormDetailsData.legalGuardianApproves.errorText = t(
             'Ecommerce.MinAgeErrorMessage'
           );
           formIsComplete = false;
         }
 
         //make sure the parent email address field is filled in.
-        if (accountFormDetailsData.parentEmailAddress.value === '') {
-          accountFormDetailsData.parentEmailAddress.errorText = t(
+        if (accountFormDetailsData.legalGuardianEmailAddress.value === '') {
+          accountFormDetailsData.legalGuardianEmailAddress.errorText = t(
             'Ecommerce.ParentEmailRequierMessage'
           );
           formIsComplete = false;
@@ -481,7 +511,7 @@ class JoinStep2 extends Component {
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
-      accountFormDetailsData.password.errorText = '';
+      /* accountFormDetailsData.password.errorText = '';
       if (
         accountFormDetailsData.password.value !==
         accountFormDetailsData.passwordVerification.value
@@ -490,7 +520,7 @@ class JoinStep2 extends Component {
           'Ecommerce.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
-      }
+      } */
     }
 
     this.setState(() => ({ formIsComplete: formIsComplete }));
@@ -514,6 +544,7 @@ class JoinStep2 extends Component {
       )
         .then(response => {
           const res = response.data;
+          console.log('resssss::',res);
           if (res.apiError == false) {
             const validationResults = {
               passwordAcceptable: res.passwordAcceptable,
@@ -591,7 +622,7 @@ class JoinStep2 extends Component {
             status: res.status,
             customerId: res.customerId,
           };
-
+          console.log('res2::',res);
           if (pendingCustomerResult.status === 'success') {
             window.localStorage.setItem(
               'pending_cid',
@@ -893,7 +924,7 @@ class JoinStep2 extends Component {
                                           dangerouslySetInnerHTML={{
                                             __html:
                                               accountFormDetails
-                                                .not13YearsOldLegalGuardianOk
+                                                .legalGuardianApproves
                                                 .label,
                                           }}
                                         />
@@ -903,39 +934,39 @@ class JoinStep2 extends Component {
                                           dangerouslySetInnerHTML={{
                                             __html:
                                               accountFormDetails
-                                                .not13YearsOldLegalGuardianOk
+                                                .legalGuardianApproves
                                                 .errorText,
                                           }}
                                         />
                                       </div>
                                       <Field
-                                        name="not13YearsOldLegalGuardianOk"
+                                        name="legalGuardianApproves"
                                         type="checkbox"
                                         className="form-field"
                                         label={
                                           accountFormDetails
-                                            .not13YearsOldLegalGuardianOk.hintText
+                                            .legalGuardianApproves.hintText
                                         }
                                         component="input"
                                         value={
                                           accountFormDetails
-                                            .not13YearsOldLegalGuardianOk.value
+                                            .legalGuardianApproves.value
                                         }
                                         onClick={event => {
                                           this.handleFieldChange({
-                                            field: 'not13YearsOldLegalGuardianOk',
+                                            field: 'legalGuardianApproves',
                                             value: !accountFormDetails
-                                              .not13YearsOldLegalGuardianOk.value,
+                                              .legalGuardianApproves.value,
                                           });
                                         }}
                                       />
                                       <br />
                                       <br />
-                                      {/*  <span
+                                       <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails.parentEmailAddress
+                                            accountFormDetails.legalGuardianEmailAddress
                                               .label,
                                         }}
                                       />
@@ -944,30 +975,30 @@ class JoinStep2 extends Component {
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails.parentEmailAddress
+                                            accountFormDetails.legalGuardianEmailAddress
                                               .errorText,
                                         }}
                                       />
                                       <Field
-                                        name="parentEmailAddress"
+                                        name="legalGuardianEmailAddress"
                                         type="name"
                                         className="form-field"
                                         label={
-                                          accountFormDetails.parentEmailAddress
+                                          accountFormDetails.legalGuardianEmailAddress
                                             .hintText
                                         }
                                         component={InputField}
                                         onChange={event => {
                                           this.handleFieldChange({
-                                            field: 'parentEmailAddress',
+                                            field: 'legalGuardianEmailAddress',
                                             value: event.target.value,
                                           });
                                         }}
                                         value={
-                                          accountFormDetails.parentEmailAddress
+                                          accountFormDetails.legalGuardianEmailAddress
                                             .value
                                         }
-                                      /> */}
+                                      />
                                       <br />
                                     </div>
                                   )}
@@ -1253,7 +1284,7 @@ class JoinStep2 extends Component {
                               </div>
                             ) : null} */}
 
-                     {/*        {accountFormDetails.discussionGroupCodeA.visible ? (
+                            {/*        {accountFormDetails.discussionGroupCodeA.visible ? (
                               <div className="form-section">
                                 <div className="form-field-container">
                                   <span
