@@ -52,15 +52,15 @@ class JoinStep2 extends Component {
     change: noop,
   };
 
-  maxLength = (max, fieldName) => (value, previousValue, allValues) => {
+  maxLength = (max, fieldName) => (currentValue, previousValue, allValues) => {
     let v;
-    let result = value.length > max;
+    let result = currentValue.length > max;
     if (result === false) {
-      if (!(value && /[^a-zA-Z0-9 ]/i.test(value))) {
-        v = value;
+      if (!(currentValue && /[^a-zA-Z0-9 ]/i.test(currentValue))) {
+        v = currentValue;
         this.handleFieldChange({
           field: fieldName,
-          value: v,
+          currentValue: v,
         });
       }
     }
@@ -105,92 +105,105 @@ class JoinStep2 extends Component {
       accountFormDetails: {
         firstName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         lastName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         displayName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         loginEmailAddress: {
           label: '',
           editable: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         loginEmailAddressVerification: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         password: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         passwordVerification: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         is13YearsAndOlder: {
           label: '',
           visible: true,
-          value: null,
+          currentValue: null,
           hintText: '',
           errorText: '',
+          required: ''
         },
         legalGuardianApproves: {
           label: '',
           visible: true,
-          value: false,
+          currentValue: false,
           hintText: '',
           errorText: '',
+          required: ''
         },
 
         legalGuardianEmailAddress: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         discussionGroupCode: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         discussionGroupCodeA: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
         discussionGroupCodeB: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
+          required: ''
         },
       },
     };
@@ -200,8 +213,7 @@ class JoinStep2 extends Component {
   handleJoinPageServiceResponse = result => {
 
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    //console.log('newAccountFormData', newAccountFormData);
-    console.log('result::::', result);
+
     result.formFieldLabels.map((field) => {
 
       var keyval = field.key;
@@ -209,7 +221,9 @@ class JoinStep2 extends Component {
 
         newAccountFormData[keyval].hintText = field.hintText ? field.hintText : '';
         newAccountFormData[keyval].label = field.label ? field.label : '';
-        newAccountFormData[keyval].value = field.value ? field.value : '';
+        newAccountFormData[keyval].currentValue = field.currentValue ? field.currentValue : '';
+        newAccountFormData[keyval].required = field.required ? field.required : '';
+
 
         if (field.fieldOptions) {
 
@@ -222,10 +236,12 @@ class JoinStep2 extends Component {
                 console.log('nestedFieldsData:::', nestedFieldsData);
                 let keyValueOfNested = nestedFieldsData.key;
 
-                
+
                 newAccountFormData[keyValueOfNested].label = nestedFieldsData.label ? nestedFieldsData.label : '';
 
                 newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText ? nestedFieldsData.hintText : '';
+                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required ? nestedFieldsData.required : '';
+
 
 
               })
@@ -313,10 +329,15 @@ class JoinStep2 extends Component {
   };
 
   /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ field, value }) => {
+  handleFieldChange = ({ field, currentValue }) => {
+
+    console.log('currentValue', currentValue);
+    console.log('field', field);
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    newAccountFormData[field].value = value;
+    newAccountFormData[field].currentValue = currentValue;
+
+    console.log('newAccountFormData', newAccountFormData);
 
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -356,18 +377,18 @@ class JoinStep2 extends Component {
       return;
     }
 
-    if (discussionGroupCodeA.value !== "" || discussionGroupCodeB.value !== "") {
+    if (discussionGroupCodeA.currentValue !== "" || discussionGroupCodeB.currentValue !== "") {
       API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
         {
-          clubCodeA: discussionGroupCodeA.value,
-          clubCodeB: discussionGroupCodeB.value,
+          clubCodeA: discussionGroupCodeA.currentValue,
+          clubCodeB: discussionGroupCodeB.currentValue,
           selectedPlanId: window.localStorage.selectedPlanId,
         }
       ).then(response => {
         const res = response.data;
         if (!res.apiError && res.status !== "failed") {
-          window.localStorage.setItem('clubCodeA', discussionGroupCodeA.value);
-          window.localStorage.setItem('clubCodeB', discussionGroupCodeB.value);
+          window.localStorage.setItem('clubCodeA', discussionGroupCodeA.currentValue);
+          window.localStorage.setItem('clubCodeB', discussionGroupCodeB.currentValue);
           this.handleSubmit(formValues);
         }
         else {
@@ -388,7 +409,7 @@ class JoinStep2 extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
-    console.log('formValues::',formValues);
+    console.log('formValues::', formValues);
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -409,7 +430,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.legalGuardianApproves.errorText = '';
     accountFormDetailsData.legalGuardianEmailAddress.errorText = '';
 
-    console.log('accountCreationType',accountCreationType);
+    console.log('accountCreationType', accountCreationType);
 
     if (accountCreationType === 'userpass') {
       /* Verify that the user has provided:
@@ -420,37 +441,37 @@ class JoinStep2 extends Component {
             Password and matches password verification field
         */
 
-      if (accountFormDetailsData.firstName.value === '') {
+      if (accountFormDetailsData.firstName.currentValue === '') {
         accountFormDetailsData.firstName.errorText = t(
           'Ecommerce.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.lastName.value === '') {
+      if (accountFormDetailsData.lastName.currentValue === '') {
         accountFormDetailsData.lastName.errorText = t(
           'Ecommerce.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.loginEmailAddress.value === '') {
+      if (accountFormDetailsData.loginEmailAddress.currentValue === '') {
         accountFormDetailsData.loginEmailAddress.errorText = t(
           'Ecommerce.EmailRequierMessage'
         );
         formIsComplete = false;
       } else {
         /* verify the email address and the verification email address fields match */
-       /*  accountFormDetailsData.loginEmailAddress.errorText = '';
-        if (
-          accountFormDetailsData.loginEmailAddress.value !==
-          accountFormDetailsData.loginEmailAddressVerification.value
-        ) {
-          accountFormDetailsData.loginEmailAddressVerification.errorText = t(
-            'Ecommerce.EmailsDontMatchMessage'
-          );
-          formIsComplete = false;
-        } */
+        /*  accountFormDetailsData.loginEmailAddress.errorText = '';
+         if (
+           accountFormDetailsData.loginEmailAddress.value !==
+           accountFormDetailsData.loginEmailAddressVerification.value
+         ) {
+           accountFormDetailsData.loginEmailAddressVerification.errorText = t(
+             'Ecommerce.EmailsDontMatchMessage'
+           );
+           formIsComplete = false;
+         } */
       }
 
       /* need to verify that the password meets the Slooh requirements */
@@ -460,14 +481,14 @@ class JoinStep2 extends Component {
         Lastname
       */
 
-      if (accountFormDetailsData.firstName.value === '') {
+      if (accountFormDetailsData.firstName.currentValue === '') {
         accountFormDetailsData.firstName.errorText = t(
           'Ecommerce.FirstNameRequireMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.lastName.value === '') {
+      if (accountFormDetailsData.lastName.currentValue === '') {
         accountFormDetailsData.lastName.errorText = t(
           'Ecommerce.LastNameRequireMessage'
         );
@@ -476,16 +497,16 @@ class JoinStep2 extends Component {
     }
 
     if (this.state.isAgeRestricted === true) {
-      /* Make sure that the 13/Older indicator is selected with a value */
-      if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+      /* Make sure that the 13/Older indicator is selected with a currentValue */
+      if (accountFormDetailsData.is13YearsAndOlder.currentValue === null) {
         accountFormDetailsData.is13YearsAndOlder.errorText = t(
           'Ecommerce.AgeRequierMessage'
         );
         formIsComplete = false;
-      } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+      } else if (accountFormDetailsData.is13YearsAndOlder.currentValue === false) {
         //make sure the user has certified that they have their Legal Guardian's permission to sign up.
         if (
-          accountFormDetailsData.legalGuardianApproves.value === false
+          accountFormDetailsData.legalGuardianApproves.currentValue === false
         ) {
           accountFormDetailsData.legalGuardianApproves.errorText = t(
             'Ecommerce.MinAgeErrorMessage'
@@ -494,7 +515,7 @@ class JoinStep2 extends Component {
         }
 
         //make sure the parent email address field is filled in.
-        if (accountFormDetailsData.legalGuardianEmailAddress.value === '') {
+        if (accountFormDetailsData.legalGuardianEmailAddress.currentValue === '') {
           accountFormDetailsData.legalGuardianEmailAddress.errorText = t(
             'Ecommerce.ParentEmailRequierMessage'
           );
@@ -504,7 +525,7 @@ class JoinStep2 extends Component {
     }
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
-    if (accountFormDetailsData.password.value === '') {
+    if (accountFormDetailsData.password.currentValue === '') {
       accountFormDetailsData.password.errorText = t(
         'Ecommerce.PasswordRequierMessage'
       );
@@ -534,17 +555,17 @@ class JoinStep2 extends Component {
       const customerDetailsMeetsRequirementsResult = API.post(
         VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
         {
-          userEnteredPassword: this.state.accountFormDetails.password.value,
+          userEnteredPassword: this.state.accountFormDetails.password.currentValue,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
-            .loginEmailAddress.value,
-          clubCodeA: this.state.accountFormDetails.discussionGroupCodeA.value,
-          clubCodeB: this.state.accountFormDetails.discussionGroupCodeB.value,
+            .loginEmailAddress.currentValue,
+          clubCodeA: this.state.accountFormDetails.discussionGroupCodeA.currentValue,
+          clubCodeB: this.state.accountFormDetails.discussionGroupCodeB.currentValue,
           selectedPlanId: window.localStorage.selectedPlanId,
         }
       )
         .then(response => {
           const res = response.data;
-          console.log('resssss::',res);
+          console.log('resssss::', res);
           if (res.apiError == false) {
             const validationResults = {
               passwordAcceptable: res.passwordAcceptable,
@@ -622,7 +643,7 @@ class JoinStep2 extends Component {
             status: res.status,
             customerId: res.customerId,
           };
-          console.log('res2::',res);
+          console.log('res2::', res);
           if (pendingCustomerResult.status === 'success') {
             window.localStorage.setItem(
               'pending_cid',
@@ -630,11 +651,11 @@ class JoinStep2 extends Component {
             );
             window.localStorage.setItem(
               'username',
-              this.state.accountFormDetails.loginEmailAddress.value
+              this.state.accountFormDetails.loginEmailAddress.currentValue
             );
             window.localStorage.setItem(
               'password',
-              this.state.accountFormDetails.password.value
+              this.state.accountFormDetails.password.currentValue
             );
             // console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
@@ -679,14 +700,14 @@ class JoinStep2 extends Component {
           accountFormDetailsData.passwordVerification.visible = true;
 
           /* Set the customer's information that we got from google as a starting place for the user */
-          accountFormDetailsData.firstName.value =
+          accountFormDetailsData.firstName.currentValue =
             googleProfileResult.googleProfileGivenName;
           this.props.change(
             'firstName',
             googleProfileResult.googleProfileGivenName
           );
 
-          accountFormDetailsData.lastName.value =
+          accountFormDetailsData.lastName.currentValue =
             googleProfileResult.googleProfileFamilyName;
           this.props.change(
             'lastName',
@@ -697,7 +718,7 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddress.errorText =
             ''; /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
           accountFormDetailsData.loginEmailAddress.editable = false;
-          accountFormDetailsData.loginEmailAddress.value =
+          accountFormDetailsData.loginEmailAddress.currentValue =
             googleProfileResult.googleProfileEmail;
           this.props.change(
             'loginEmailAddress',
@@ -888,7 +909,7 @@ class JoinStep2 extends Component {
                                         onClick={event => {
                                           this.handleFieldChange({
                                             field: 'is13YearsAndOlder',
-                                            value: true,
+                                            currentValue: true,
                                           });
                                         }}
                                       />{' '}
@@ -905,7 +926,7 @@ class JoinStep2 extends Component {
                                           onClick={event => {
                                             this.handleFieldChange({
                                               field: 'is13YearsAndOlder',
-                                              value: false,
+                                              currentValue: false,
                                             });
                                           }}
                                         />
@@ -915,7 +936,7 @@ class JoinStep2 extends Component {
                                   </fieldset>
                                 </div>
                                 <br />
-                                {accountFormDetails.is13YearsAndOlder.value ===
+                                {accountFormDetails.is13YearsAndOlder.currentValue ===
                                   false && (
                                     <div>
                                       <div className="form-field-container">
@@ -948,21 +969,21 @@ class JoinStep2 extends Component {
                                             .legalGuardianApproves.hintText
                                         }
                                         component="input"
-                                        value={
+                                        currentValue={
                                           accountFormDetails
-                                            .legalGuardianApproves.value
+                                            .legalGuardianApproves.currentValue
                                         }
                                         onClick={event => {
                                           this.handleFieldChange({
                                             field: 'legalGuardianApproves',
-                                            value: !accountFormDetails
-                                              .legalGuardianApproves.value,
+                                            currentValue: !accountFormDetails
+                                              .legalGuardianApproves.currentValue,
                                           });
                                         }}
                                       />
                                       <br />
                                       <br />
-                                       <span
+                                      <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
                                           __html:
@@ -970,7 +991,7 @@ class JoinStep2 extends Component {
                                               .label,
                                         }}
                                       />
-        :
+                                      :
                                       <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
@@ -991,12 +1012,12 @@ class JoinStep2 extends Component {
                                         onChange={event => {
                                           this.handleFieldChange({
                                             field: 'legalGuardianEmailAddress',
-                                            value: event.target.value,
+                                            currentValue: event.target.value,
                                           });
                                         }}
                                         value={
                                           accountFormDetails.legalGuardianEmailAddress
-                                            .value
+                                            .currentValue
                                         }
                                       />
                                       <br />
@@ -1029,10 +1050,10 @@ class JoinStep2 extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'firstName',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.firstName.value}
+                                  value={accountFormDetails.firstName.currentValue}
                                 />
                               </div>
 
@@ -1060,10 +1081,10 @@ class JoinStep2 extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'lastName',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.lastName.value}
+                                  value={accountFormDetails.lastName.currentValue}
                                 />
                               </div>
                             </div>
@@ -1088,7 +1109,7 @@ class JoinStep2 extends Component {
                                 onChange={event => {
                                   this.handleFieldChange({
                                     field: 'displayName',
-                                    value: event.target.value,
+                                    currentValue: event.target.value,
                                   });
                                 }}
                               />
@@ -1127,11 +1148,11 @@ class JoinStep2 extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'loginEmailAddress',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
                                   value={
-                                    accountFormDetails.loginEmailAddress.value
+                                    accountFormDetails.loginEmailAddress.currentValue
                                   }
                                 />
                               </div>
@@ -1159,7 +1180,7 @@ class JoinStep2 extends Component {
                                   />
                                 </div>
                                 <span className="google-field">
-                                  {accountFormDetails.loginEmailAddress.value}
+                                  {accountFormDetails.loginEmailAddress.currentValue}
                                 </span>
                               </div>
                             ) : null}
@@ -1237,7 +1258,7 @@ class JoinStep2 extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'password',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
                                 />
@@ -1379,9 +1400,6 @@ class JoinStep2 extends Component {
                               </button>
                             </div>
                           </form>
-
-
-
                         </div>
                       </div>
                     </Fragment>

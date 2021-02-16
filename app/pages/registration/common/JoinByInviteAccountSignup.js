@@ -89,65 +89,65 @@ class JoinByInviteAccountSignup extends Component {
       accountFormDetails: {
         AgeGroup: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         ParentEmail: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         legalGuardianCheckbox: {
           label: '',
-          value: false,
+          currentValue: false,
           hintText: '',
           errorText: '',
         },
-        givenName: {
+        firstName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
-        familyName: {
+        lastName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         displayName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         loginEmailAddress: {
           label: '',
           editable: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         password: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         passwordVerification: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         astronomyClubName: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
@@ -165,35 +165,47 @@ class JoinByInviteAccountSignup extends Component {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     const { clubInviteAndGiftCardDetials } = this.props;
+    console.log('result::', result);
+    result.formFieldLabels.map((formFieldData) => {
+      let keyValue = formFieldData.key;
+      if (newAccountFormData[keyValue]) {
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
-    newAccountFormData.displayName.label =
-      result.formFieldLabels.displayName.label;
+        newAccountFormData[keyValue].label = formFieldData.label;
 
-    newAccountFormData.loginEmailAddress.label =
-      result.formFieldLabels.loginEmailAddress.label;  
-    
-    newAccountFormData.password.label = result.formFieldLabels.password.label;
-    newAccountFormData.passwordVerification.label =
-      result.formFieldLabels.passwordverification.label;
-    newAccountFormData.astronomyClubName.label =
-      result.formFieldLabels.astronomyClubName.label;
+        newAccountFormData[keyValue].hintText = formFieldData.hintText;
 
-    newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstName.hintText;
-    newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastName.hintText;
-    newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayName.hintText;
-    newAccountFormData.loginEmailAddress.hintText =
-      result.formFieldLabels.loginEmailaddress.hintText;
-    newAccountFormData.password.hintText =
-      result.formFieldLabels.password.hintText;
-    newAccountFormData.passwordVerification.hintText =
-      result.formFieldLabels.passwordverification.hintText;
-    newAccountFormData.astronomyClubName.hintText =
-      result.formFieldLabels.astronomyClubName.hintText;
+      }
+
+    })
+
+    /*  newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
+     newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
+     newAccountFormData.displayName.label =
+       result.formFieldLabels.displayName.label;
+ 
+     newAccountFormData.loginEmailAddress.label =
+       result.formFieldLabels.loginEmailAddress.label;
+ 
+     newAccountFormData.password.label = result.formFieldLabels.password.label;
+     newAccountFormData.passwordVerification.label =
+       result.formFieldLabels.passwordverification.label;
+     newAccountFormData.astronomyClubName.label =
+       result.formFieldLabels.astronomyClubName.label;
+ 
+     newAccountFormData.givenName.hintText =
+       result.formFieldLabels.firstName.hintText;
+     newAccountFormData.familyName.hintText =
+       result.formFieldLabels.lastName.hintText;
+     newAccountFormData.displayName.hintText =
+       result.formFieldLabels.displayName.hintText;
+     newAccountFormData.loginEmailAddress.hintText =
+       result.formFieldLabels.loginEmailaddress.hintText;
+     newAccountFormData.password.hintText =
+       result.formFieldLabels.password.hintText;
+     newAccountFormData.passwordVerification.hintText =
+       result.formFieldLabels.passwordverification.hintText;
+     newAccountFormData.astronomyClubName.hintText =
+       result.formFieldLabels.astronomyClubName.hintText; */
 
 
     if (clubInviteAndGiftCardDetials === 'SloohCard') {
@@ -210,13 +222,13 @@ class JoinByInviteAccountSignup extends Component {
 
 
 
-    newAccountFormData.givenName.value = result.invitee.firstName;
-    this.props.change('givenName', result.invitee.firstName);
+    newAccountFormData.firstName.currentValue = result.invitee.firstName;
+    this.props.change('firstName', result.invitee.firstName);
 
-    newAccountFormData.familyName.value = result.invitee.lastName;
-    this.props.change('familyName', result.invitee.lastName);
+    newAccountFormData.lastName.currentValue = result.invitee.lastName;
+    this.props.change('lastName', result.invitee.lastName);
 
-    newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
+    newAccountFormData.loginEmailAddress.currentValue = result.invitee.emailAddress;
 
     newInviteDetails.parentCustomerId = result.invitedBy.customerId;
     newInviteDetails.parentCustomerRole = result.invitedBy.role;
@@ -245,13 +257,13 @@ class JoinByInviteAccountSignup extends Component {
   };
 
   /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ field, value }) => {
+  handleFieldChange = ({ field, currentValue }) => {
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     if (field === 'legalGuardianCheckbox') {
-      newAccountFormData[field].value = !newAccountFormData[field].value;
+      newAccountFormData[field].currentValue = !newAccountFormData[field].currentValue;
     } else {
-      newAccountFormData[field].value = value;
+      newAccountFormData[field].currentValue = currentValue;
     }
 
     this.setState(() => ({
@@ -269,10 +281,10 @@ class JoinByInviteAccountSignup extends Component {
     const { accountFormDetails, accountCreationType } = this.state;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
-
+    console.log('test1')
     /* reset the error conditions */
-    accountFormDetailsData.givenName.errorText = '';
-    accountFormDetailsData.familyName.errorText = '';
+    accountFormDetailsData.firstName.errorText = '';
+    accountFormDetailsData.lastName.errorText = '';
     accountFormDetailsData.loginEmailAddress.errorText = '';
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
@@ -287,43 +299,45 @@ class JoinByInviteAccountSignup extends Component {
             Password and matches password verification field
         */
 
-      if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText =
+      if (accountFormDetailsData.firstName.currentValue === '') {
+        accountFormDetailsData.firstName.errorText =
           'Please enter in your first name.';
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText =
+      if (accountFormDetailsData.lastName.currentValue === '') {
+        accountFormDetailsData.lastName.errorText =
           'Please enter in your last name.';
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.loginEmailAddress.value === '') {
+      if (accountFormDetailsData.loginEmailAddress.currentValue === '') {
         accountFormDetailsData.loginEmailAddress.errorText =
           'Please enter in your email address.';
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.password.value === '') {
+      if (accountFormDetailsData.password.currentValue === '') {
         accountFormDetailsData.password.errorText =
           'Please enter in a password.';
         formIsComplete = false;
       } else {
         /* verify the password and the verification password fields match */
-        accountFormDetailsData.password.errorText = '';
-        if (
-          accountFormDetailsData.password.value !==
-          accountFormDetailsData.passwordVerification.value
-        ) {
-          accountFormDetailsData.passwordVerification.errorText =
-            'Your password and the password you entered into the verification field must match.';
-          formIsComplete = false;
-        }
+        /*  accountFormDetailsData.password.errorText = '';
+         if (
+           accountFormDetailsData.password.value !==
+           accountFormDetailsData.passwordVerification.value
+         ) {
+           accountFormDetailsData.passwordVerification.errorText =
+             'Your password and the password you entered into the verification field must match.';
+           formIsComplete = false;
+         } */
       }
       //AgeGroup Validation
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
-        if (accountFormDetailsData.AgeGroup.value === '') {
+        console.log('test3')
+
+        if (accountFormDetailsData.AgeGroup.currentValue === '') {
           accountFormDetailsData.AgeGroup.errorText =
             'You must certify that you are 13 years or older.';
           formIsComplete = false;
@@ -331,9 +345,9 @@ class JoinByInviteAccountSignup extends Component {
           accountFormDetailsData.AgeGroup.errorText = '';
           formIsComplete = true;
         }
-        if (accountFormDetailsData.AgeGroup.value === 'Under13') {
+        if (accountFormDetailsData.AgeGroup.currentValue === 'Under13') {
 
-          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value === '') {
+          if (accountFormDetailsData.AgeGroup.currentValue === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.currentValue === false && accountFormDetailsData.ParentEmail.currentValue === '') {
             accountFormDetailsData.legalGuardianCheckbox.errorText =
               'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
             accountFormDetailsData.ParentEmail.errorText =
@@ -341,19 +355,19 @@ class JoinByInviteAccountSignup extends Component {
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.AgeGroup.value === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.value === true) {
+          if (accountFormDetailsData.AgeGroup.currentValue === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.currentValue === true) {
             accountFormDetailsData.legalGuardianCheckbox.errorText = "";
             accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.legalGuardianCheckbox.value === false && accountFormDetailsData.ParentEmail.value) {
+          if (accountFormDetailsData.legalGuardianCheckbox.currentValue === false && accountFormDetailsData.ParentEmail.currentValue) {
             accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
             accountFormDetailsData.ParentEmail.errorText = "";
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.legalGuardianCheckbox.value === true && accountFormDetailsData.ParentEmail.value) {
+          if (accountFormDetailsData.legalGuardianCheckbox.currentValue === true && accountFormDetailsData.ParentEmail.currentValue) {
             accountFormDetailsData.legalGuardianCheckbox.errorText = "";
             accountFormDetailsData.ParentEmail.errorText = "";
             formIsComplete = true;
@@ -371,24 +385,29 @@ class JoinByInviteAccountSignup extends Component {
         Lastname
       */
 
-      if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText =
+      if (accountFormDetailsData.firstName.currentValue === '') {
+        accountFormDetailsData.firstName.errorText =
           'Please enter in your first name.';
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText =
+      if (accountFormDetailsData.lastName.currentValue === '') {
+        accountFormDetailsData.lastName.errorText =
           'Please enter in your last name.';
         formIsComplete = false;
       }
     }
+    console.log('test3')
+
     if (formIsComplete === true) {
+      console.log('test4')
+
       /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
+        console.log('test5')
 
         if (formIsComplete) {
 
@@ -396,23 +415,25 @@ class JoinByInviteAccountSignup extends Component {
           const customerDetailsMeetsRequirementsResult = API
             .post(CHECK_ACTIVE_GIFT_CARD_SUBSCRIPTION, {
               loginEmailAddress: this.state.accountFormDetails
-                .loginEmailAddress.value,
-              loginPassword: this.state.accountFormDetails.password.value,
+                .loginEmailAddress.currentValue,
+              loginPassword: this.state.accountFormDetails.password.currentValue,
               giftCardCode: joinByInviteParams.invitationCodeAlt,
               accountType: 'Confluence',
               type: clubInviteAndGiftCardDetials,
               selectedPlanId: 14,
-              givenName: this.state.accountFormDetails.givenName.value,
-              familyName: this.state.accountFormDetails.familyName.value,
-              displayName: this.state.accountFormDetails.displayName.value,
+              givenName: this.state.accountFormDetails.firstName.currentValue,
+              familyName: this.state.accountFormDetails.lastName.currentValue,
+              displayName: this.state.accountFormDetails.displayName.currentValue,
               '2018AccountType': AccountType,
-              ageGroup: this.state.accountFormDetails.AgeGroup.value,
-              parentEmail: this.state.accountFormDetails.ParentEmail.value,
+              ageGroup: this.state.accountFormDetails.AgeGroup.currentValue,
+              parentEmail: this.state.accountFormDetails.ParentEmail.currentValue,
 
 
             })
             .then(response => {
               const res = response.data;
+              console.log('test5')
+
               formIsComplete === true;
               if (res.apiError == false) {
                 const validationResults = {
@@ -428,13 +449,16 @@ class JoinByInviteAccountSignup extends Component {
                   this.setState({ accountFormDetails: accountFormDetailsData });
                   formIsComplete = false;
                 }
+                console.log('test6')
 
                 if (formIsComplete === true) {
 
                   const loginDataPayload = {
-                    username: this.state.accountFormDetails.loginEmailAddress.value,
-                    pwd: this.state.accountFormDetails.password.value,
+                    username: this.state.accountFormDetails.loginEmailAddress.currentValue,
+                    pwd: this.state.accountFormDetails.password.currentValue,
                   };
+                  console.log('test7')
+
                   actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
                 }
               }
@@ -449,12 +473,13 @@ class JoinByInviteAccountSignup extends Component {
 
 
       } else {
+        console.log('test6')
 
         const customerDetailsMeetsRequirementsResult = API
           .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
-            userEnteredPassword: this.state.accountFormDetails.password.value,
+            userEnteredPassword: this.state.accountFormDetails.password.currentValue,
             userEnteredLoginEmailAddress: this.state.accountFormDetails
-              .loginEmailAddress.value,
+              .loginEmailAddress.currentValue,
             selectedPlanId: window.localStorage.selectedPlanId,
           })
           .then(response => {
@@ -489,6 +514,7 @@ class JoinByInviteAccountSignup extends Component {
 
                 formIsComplete = false;
               }
+              console.log('test7')
 
               if (formIsComplete === true) {
                 /* create the customer result */
@@ -510,6 +536,9 @@ class JoinByInviteAccountSignup extends Component {
 
   createCustomerRecordAndNextScreen = () => {
 
+    console.log('test8')
+
+
     /*
      * Set up a Customer Account
      */
@@ -520,7 +549,7 @@ class JoinByInviteAccountSignup extends Component {
       selectedPlanId: this.state.selectedPlanId,
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
-      selectedSchoolId: this.state.selectedSchoolId,
+      //selectedSchoolId: this.state.selectedSchoolId,
       isAstronomyClub: this.state.isAstronomyClub,
       isClassroom: this.state.isClassroom,
       inviteDetails: this.state.inviteDetails,
@@ -531,6 +560,7 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.loginEmailAddress
       .errorText = '';
 
+      console.log('test9')
 
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
     API
@@ -544,15 +574,17 @@ class JoinByInviteAccountSignup extends Component {
             customerId: res.customerId,
             statusMessage: res.statusMessage
           };
+          console.log('test10')
 
           if (createCustomerResult.status === 'success') {
             if (this.state.accountCreationType === 'userpass') {
               const loginDataPayload = {
-                username: this.state.accountFormDetails.loginEmailAddress.value,
-                pwd: this.state.accountFormDetails.password.value,
+                username: this.state.accountFormDetails.loginEmailAddress.currentValue,
+                pwd: this.state.accountFormDetails.password.currentValue,
               };
 
               /* Log the user in */
+              console.log('test11')
 
               actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
@@ -594,7 +626,7 @@ class JoinByInviteAccountSignup extends Component {
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
-            googleProfileFamilyName: res.googleProfileInfo.familyName,
+            googleProfileFamilyName: res.googleProfileInfo.lastName,
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
@@ -603,7 +635,7 @@ class JoinByInviteAccountSignup extends Component {
 
           if (
             googleProfileResult.googleProfileEmail !=
-            this.state.accountFormDetails.loginEmailAddress.value
+            this.state.accountFormDetails.loginEmailAddress.currentValue
           ) {
             const accountFormDetailsData = cloneDeep(
               this.state.accountFormDetails
@@ -627,23 +659,23 @@ class JoinByInviteAccountSignup extends Component {
             accountFormDetailsData.passwordVerification.visible = false;
 
             /* Set the customer's information that we got from google as a starting place for the user */
-            accountFormDetailsData.givenName.value =
+            accountFormDetailsData.firstName.currentValue =
               googleProfileResult.googleProfileGivenName;
             this.props.change(
-              'givenName',
+              'firstName',
               googleProfileResult.googleProfileGivenName
             );
 
-            accountFormDetailsData.familyName.value =
+            accountFormDetailsData.lastName.currentValue =
               googleProfileResult.googleProfileFamilyName;
             this.props.change(
-              'familyName',
+              'lastName',
               googleProfileResult.googleProfileFamilyName
             );
 
             /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
             accountFormDetailsData.loginEmailAddress.editable = false;
-            accountFormDetailsData.loginEmailAddress.value =
+            accountFormDetailsData.loginEmailAddress.currentValue =
               googleProfileResult.googleProfileEmail;
             this.props.change(
               'loginEmailAddress',
@@ -688,9 +720,9 @@ class JoinByInviteAccountSignup extends Component {
       isClassroom,
     } = this.state;
 
-
+    console.log('accountFormDetails', accountFormDetails);
     //console.log('accountFormDetails',accountFormDetails);
-    /*   accountFormDetails.loginEmailAddress.value = joinByInviteParams.inviteeEmailAddress; */
+    /*   accountFormDetails.loginEmailAddress.currentValue = joinByInviteParams.inviteeEmailAddress; */
 
     /*  this.setState({
        accountFormDetails:accountFormDetails
@@ -796,7 +828,7 @@ class JoinByInviteAccountSignup extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'AgeGroup',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
                                 />
@@ -813,7 +845,7 @@ class JoinByInviteAccountSignup extends Component {
                                     onChange={event => {
                                       this.handleFieldChange({
                                         field: 'AgeGroup',
-                                        value: event.target.value,
+                                        currentValue: event.target.value,
                                       });
                                     }}
                                   />
@@ -823,7 +855,7 @@ class JoinByInviteAccountSignup extends Component {
                               </span>
                               <br />
 
-                              {accountFormDetails.AgeGroup.value === "Under13" ?
+                              {accountFormDetails.AgeGroup.currentValue === "Under13" ?
                                 <>
                                   <div className="">
                                     <div className="form-field-container">
@@ -850,7 +882,7 @@ class JoinByInviteAccountSignup extends Component {
                                       onChange={event => {
                                         this.handleFieldChange({
                                           field: 'legalGuardianCheckbox',
-                                          value: event.target.value,
+                                          currentValue: event.target.value,
                                         });
                                       }}
                                     />
@@ -881,7 +913,7 @@ class JoinByInviteAccountSignup extends Component {
                                       onChange={event => {
                                         this.handleFieldChange({
                                           field: 'ParentEmail',
-                                          value: event.target.value,
+                                          currentValue: event.target.value,
                                         });
                                       }}
                                     />
@@ -923,29 +955,29 @@ class JoinByInviteAccountSignup extends Component {
                             <span
                               className="form-label"
                               dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.givenName.label,
+                                __html: accountFormDetails.firstName.label,
                               }}
                             />
                             :
                             <span
                               className="form-error"
                               dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.givenName.errorText,
+                                __html: accountFormDetails.firstName.errorText,
                               }}
                             />
                             <Field
-                              name="givenName"
+                              name="firstName"
                               type="name"
                               className="form-field"
-                              label={accountFormDetails.givenName.hintText}
+                              label={accountFormDetails.firstName.hintText}
                               component={InputField}
                               onChange={event => {
                                 this.handleFieldChange({
-                                  field: 'givenName',
-                                  value: event.target.value,
+                                  field: 'firstName',
+                                  currentValue: event.target.value,
                                 });
                               }}
-                              value={accountFormDetails.givenName.value}
+                              value={accountFormDetails.firstName.currentValue}
                             />
                           </div>
 
@@ -953,29 +985,29 @@ class JoinByInviteAccountSignup extends Component {
                             <span
                               className="form-label"
                               dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.familyName.label,
+                                __html: accountFormDetails.lastName.label,
                               }}
                             />
                             :
                             <span
                               className="form-error"
                               dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.familyName.errorText,
+                                __html: accountFormDetails.lastName.errorText,
                               }}
                             />
                             <Field
-                              name="familyName"
+                              name="lastName"
                               type="name"
                               className="form-field"
-                              label={accountFormDetails.familyName.hintText}
+                              label={accountFormDetails.lastName.hintText}
                               component={InputField}
                               onChange={event => {
                                 this.handleFieldChange({
-                                  field: 'familyName',
-                                  value: event.target.value,
+                                  field: 'lastName',
+                                  currentValue: event.target.value,
                                 });
                               }}
-                              value={accountFormDetails.familyName.value}
+                              value={accountFormDetails.lastName.currentValue}
                             />
                           </div>
                         </div>
@@ -999,7 +1031,7 @@ class JoinByInviteAccountSignup extends Component {
                             onChange={event => {
                               this.handleFieldChange({
                                 field: 'displayName',
-                                value: event.target.value,
+                                currentValue: event.target.value,
                               });
                             }}
                           />
@@ -1025,7 +1057,7 @@ class JoinByInviteAccountSignup extends Component {
                             />
                           </div>
                           <span className="google-field">
-                            {accountFormDetails.loginEmailAddress.value}
+                            {accountFormDetails.loginEmailAddress.currentValue}
                           </span>
                         </div>
 
@@ -1055,14 +1087,14 @@ class JoinByInviteAccountSignup extends Component {
                               onChange={event => {
                                 this.handleFieldChange({
                                   field: 'password',
-                                  value: event.target.value,
+                                  currentValue: event.target.value,
                                 });
                               }}
                             />
                           </div>
                         ) : null}
 
-                        {accountFormDetails.passwordVerification.visible ? (
+                        {/*   {accountFormDetails.passwordVerification.visible ? (
                           <div className="form-section">
                             <div className="form-field-container">
                               <span
@@ -1099,7 +1131,7 @@ class JoinByInviteAccountSignup extends Component {
                               }}
                             />
                           </div>
-                        ) : null}
+                        ) : null} */}
                         <div className="button-container">
                           <Button
                             type="button"

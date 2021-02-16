@@ -75,8 +75,16 @@ class JoinByInviteCodeStep1 extends Component {
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    let formFieldData = result.formFieldLabels;
+    result.formFieldLabels.map((formFieldData) => {
 
-    newAccountFormData.loginEmailAddress.label =
+      newAccountFormData[formFieldData.key].label = formFieldData.label ? formFieldData.label : '';
+
+      newAccountFormData[formFieldData.key].hintText = formFieldData.hintText ? formFieldData.label : '';
+
+    })
+
+   /*  newAccountFormData.loginEmailAddress.label =
       result.formFieldLabels.loginEmailAddress.label;
     newAccountFormData.invitationCode.label =
       result.formFieldLabels.invitationCode.label;
@@ -85,7 +93,7 @@ class JoinByInviteCodeStep1 extends Component {
       result.formFieldLabels.loginEmailAddress.hintText;
 
     newAccountFormData.invitationCode.hintText =
-      result.formFieldLabels.invitationCode.hintText;
+      result.formFieldLabels.invitationCode.hintText; */
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
@@ -156,7 +164,7 @@ class JoinByInviteCodeStep1 extends Component {
             AccountType: res.AccountType,
           };
           if (giftCardTypeResult.apiStatus === "failed") {
-           
+
 
             accountFormDetailsData.loginEmailAddress.errorText = giftCardTypeResult.apiStatusMessage;
             formIsComplete = false;
@@ -166,7 +174,7 @@ class JoinByInviteCodeStep1 extends Component {
           }
           if (!giftCardTypeResult.checkGiftCodeValid) {
             /* Invitation Validation failed */
-            
+
             accountFormDetailsData.invitationCode.errorText = giftCardTypeResult.giftCodeMessage;
             formIsComplete = false;
             accountFormDetailsData.isFetching = false;
@@ -175,7 +183,7 @@ class JoinByInviteCodeStep1 extends Component {
           }
           /* need to force evaulation of "true"/"false" vs. true/false. */
           if (formIsComplete) {
-            
+
             /* Gift Code Apply */
             accountFormDetailsData.invitationCode.applyGiftCode = giftCardTypeResult.giftCodeMessage;
             accountFormDetailsData.clubInviteAndGiftCard.value = giftCardTypeResult.invitationCodeType
@@ -187,7 +195,7 @@ class JoinByInviteCodeStep1 extends Component {
             this.setState({ accountFormDetails: accountFormDetailsData });
 
           } else {
-            
+
             accountFormDetailsData.isFetching = false;
             this.setState({ accountFormDetails: accountFormDetailsData });
 
@@ -214,7 +222,7 @@ class JoinByInviteCodeStep1 extends Component {
             )
               .then(response => {
                 const res = response.data;
-                console.log('data2',res);
+                console.log('data2', res);
                 if (res.apiError == false) {
                   const giftCodeResult = {
                     invitationNotValidMessage: res.invitationNotValidMessage,
