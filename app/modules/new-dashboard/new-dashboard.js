@@ -54,6 +54,7 @@ import {
     getGravityByDomainAction,
     getDashboardMissionListAction,
     getPhotoHubHeadingAction,
+    errorHandling,
   } from './actions';
 
 import { 
@@ -194,7 +195,7 @@ const mapDispatchToProps = {
     getPhotoHubHeadingAction,  
     // actions: bindActionCreators(
     //   {        
-        validateResponseAccess,
+        errorHandling,
     //   },
     //   dispatch
     // ), 
