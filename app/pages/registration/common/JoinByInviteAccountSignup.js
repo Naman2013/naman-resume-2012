@@ -165,7 +165,7 @@ class JoinByInviteAccountSignup extends Component {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     const { clubInviteAndGiftCardDetials } = this.props;
-    console.log('result::', result);
+    
     result.formFieldLabels.map((formFieldData) => {
       let keyValue = formFieldData.key;
       if (newAccountFormData[keyValue]) {
@@ -281,7 +281,7 @@ class JoinByInviteAccountSignup extends Component {
     const { accountFormDetails, accountCreationType } = this.state;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
-    console.log('test1')
+    
     /* reset the error conditions */
     accountFormDetailsData.firstName.errorText = '';
     accountFormDetailsData.lastName.errorText = '';
@@ -335,7 +335,7 @@ class JoinByInviteAccountSignup extends Component {
       }
       //AgeGroup Validation
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
-        console.log('test3')
+        
 
         if (accountFormDetailsData.AgeGroup.currentValue === '') {
           accountFormDetailsData.AgeGroup.errorText =
@@ -397,17 +397,17 @@ class JoinByInviteAccountSignup extends Component {
         formIsComplete = false;
       }
     }
-    console.log('test3')
+    
 
     if (formIsComplete === true) {
-      console.log('test4')
+      
 
       /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
-        console.log('test5')
+      
 
         if (formIsComplete) {
 
@@ -432,7 +432,7 @@ class JoinByInviteAccountSignup extends Component {
             })
             .then(response => {
               const res = response.data;
-              console.log('test5')
+              
 
               formIsComplete === true;
               if (res.apiError == false) {
@@ -449,7 +449,7 @@ class JoinByInviteAccountSignup extends Component {
                   this.setState({ accountFormDetails: accountFormDetailsData });
                   formIsComplete = false;
                 }
-                console.log('test6')
+                
 
                 if (formIsComplete === true) {
 
@@ -457,7 +457,7 @@ class JoinByInviteAccountSignup extends Component {
                     username: this.state.accountFormDetails.loginEmailAddress.currentValue,
                     pwd: this.state.accountFormDetails.password.currentValue,
                   };
-                  console.log('test7')
+                  
 
                   actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
                 }
@@ -473,7 +473,7 @@ class JoinByInviteAccountSignup extends Component {
 
 
       } else {
-        console.log('test6')
+       
 
         const customerDetailsMeetsRequirementsResult = API
           .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
@@ -514,7 +514,7 @@ class JoinByInviteAccountSignup extends Component {
 
                 formIsComplete = false;
               }
-              console.log('test7')
+             
 
               if (formIsComplete === true) {
                 /* create the customer result */
@@ -536,7 +536,7 @@ class JoinByInviteAccountSignup extends Component {
 
   createCustomerRecordAndNextScreen = () => {
 
-    console.log('test8')
+    
 
 
     /*
@@ -560,7 +560,7 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.loginEmailAddress
       .errorText = '';
 
-      console.log('test9')
+     
 
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
     API
@@ -574,7 +574,7 @@ class JoinByInviteAccountSignup extends Component {
             customerId: res.customerId,
             statusMessage: res.statusMessage
           };
-          console.log('test10')
+          
 
           if (createCustomerResult.status === 'success') {
             if (this.state.accountCreationType === 'userpass') {
@@ -584,7 +584,7 @@ class JoinByInviteAccountSignup extends Component {
               };
 
               /* Log the user in */
-              console.log('test11')
+             
 
               actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
@@ -841,6 +841,7 @@ class JoinByInviteAccountSignup extends Component {
                                     name="Age"
                                     component="input"
                                     type="radio"
+                                    //checked={accountFormDetails.is13YearsAndOlder.currentValue !== '' ? !accountFormDetails.is13YearsAndOlder.currentValue : false}
                                     value="Under13"
                                     onChange={event => {
                                       this.handleFieldChange({
@@ -908,7 +909,7 @@ class JoinByInviteAccountSignup extends Component {
                                       name="displayEmail"
                                       type="name"
                                       className="form-field"
-                                      label={accountFormDetails.ParentEmail.hintText}
+                                      label={accountFormDetails.ParentEmail.currentValue ? accountFormDetails.ParentEmail.currentValue : accountFormDetails.ParentEmail.hintText}
                                       component={InputField}
                                       onChange={event => {
                                         this.handleFieldChange({

@@ -565,7 +565,7 @@ class JoinStep2 extends Component {
       )
         .then(response => {
           const res = response.data;
-          console.log('resssss::', res);
+          
           if (res.apiError == false) {
             const validationResults = {
               passwordAcceptable: res.passwordAcceptable,
@@ -904,6 +904,7 @@ class JoinStep2 extends Component {
                                         name="13andOlder"
                                         label="Yes"
                                         component="input"
+                                        checked={accountFormDetails.is13YearsAndOlder.currentValue}
                                         type="radio"
                                         value="13andolder"
                                         onClick={event => {
@@ -921,6 +922,7 @@ class JoinStep2 extends Component {
                                           name="13andOlder"
                                           label="No"
                                           component="input"
+                                          checked={accountFormDetails.is13YearsAndOlder.currentValue !== '' ? !accountFormDetails.is13YearsAndOlder.currentValue : false}
                                           type="radio"
                                           value="under13"
                                           onClick={event => {
