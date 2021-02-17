@@ -128,7 +128,7 @@ class ConfirmationUpsellForm extends Component {
 
               fieldOptionData.nestedFields.map((nestedFieldsData) => {
 
-                
+
                 let keyValueOfNested = nestedFieldsData.key;
                 newAccountFormData[keyValueOfNested].label = nestedFieldsData.label ? nestedFieldsData.label : '';
 
@@ -271,10 +271,11 @@ class ConfirmationUpsellForm extends Component {
       /* need to verify that the password meets the Slooh requirements */
     }
 
-
+    console.log('stateee::', this.state.isAgeRestricted);
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
-      if (accountFormDetailsData.is13YearsAndOlder.currentValue === null) {
+      console.log('step1');
+      if (accountFormDetailsData.is13YearsAndOlder.currentValue === '') {
         accountFormDetailsData.is13YearsAndOlder.errorText = t(
           'Ecommerce.AgeRequierMessage'
         );
@@ -342,7 +343,7 @@ class ConfirmationUpsellForm extends Component {
       accountFormDetails,
       formIsComplete,
     } = this.state;
-    
+
     console.log('accountFormDetails', accountFormDetails);
     return (
       <div>
@@ -549,14 +550,17 @@ class ConfirmationUpsellForm extends Component {
                                   name="firstName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.firstName.currentValue ? accountFormDetails.firstName.currentValue : accountFormDetails.firstName.hintText}
+                                  label={accountFormDetails.firstName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'firstName',
-                                      currentValue: event.target.value,
+                                      value: event.target.value,
                                     });
                                   }}
+                                  defaultValue={
+                                    accountFormDetails.firstName.currentValue
+                                  }
                                 />
                               </div>
 
@@ -579,14 +583,17 @@ class ConfirmationUpsellForm extends Component {
                                   name="lastName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.lastName.currentValue ? accountFormDetails.lastName.currentValue : accountFormDetails.lastName.hintText}
+                                  label={accountFormDetails.lastName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'lastName',
-                                      currentValue: event.target.value,
+                                      value: event.target.value,
                                     });
                                   }}
+                                  value={accountFormDetails.lastName.currentValue }
+                                    
+                                  
                                 />
                               </div>
                             </div>
@@ -606,12 +613,13 @@ class ConfirmationUpsellForm extends Component {
                                 name="displayName"
                                 type="name"
                                 className="form-field"
-                                label={accountFormDetails.displayName.currentValue ? accountFormDetails.displayName.currentValue : accountFormDetails.displayName.hintText}
+                                //label={accountFormDetails.displayName.hintText}
                                 component={InputField}
+                                value={accountFormDetails.displayName.currentValue }
                                 onChange={event => {
                                   this.handleFieldChange({
                                     field: 'displayName',
-                                    currentValue: event.target.value,
+                                    value: event.target.value,
                                   });
                                 }}
                               />
