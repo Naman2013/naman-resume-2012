@@ -184,22 +184,7 @@ class ConfirmationUpsellForm extends Component {
 
 
 
-    /* this.props.change(
-      'givenName',
-      result.formFieldLabels.firstName.currentValue
-    );
-    this.props.change(
-      'familyName',
-      result.formFieldLabels.lastName.currentValue
-    );
-    this.props.change(
-      'parentEmailAddress',
-      result.formFieldLabels.parentEmailAddress.currentValue
-    );
-    this.props.change(
-      'displayName',
-      result.formFieldLabels.displayName.currentValue
-    ); */
+     
 
 
     /* update the account form details state so the correct hinText will show on each form field */
@@ -207,6 +192,29 @@ class ConfirmationUpsellForm extends Component {
       accountFormDetails: newAccountFormData,
       isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
     }));
+
+    const { accountFormDetails} = this.state;
+
+    this.props.change(
+      'firstName',
+      accountFormDetails.firstName.currentValue
+    );
+    this.props.change(
+      'lastName',
+      accountFormDetails.lastName.currentValue
+    );
+    this.props.change(
+      'parentEmailAddress',
+      accountFormDetails.parentEmailAddress.currentValue
+    );
+    this.props.change(
+      'displayName',
+      accountFormDetails.displayName.currentValue
+    );
+
+
+
+
   };
 
   /* This function handles a field change in the form and sets the state accordingly */
@@ -343,6 +351,8 @@ class ConfirmationUpsellForm extends Component {
       accountFormDetails,
       formIsComplete,
     } = this.state;
+
+
 
     console.log('accountFormDetails', accountFormDetails);
     return (
@@ -555,12 +565,9 @@ class ConfirmationUpsellForm extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'firstName',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
-                                  defaultValue={
-                                    accountFormDetails.firstName.currentValue
-                                  }
                                 />
                               </div>
 
@@ -588,11 +595,10 @@ class ConfirmationUpsellForm extends Component {
                                   onChange={event => {
                                     this.handleFieldChange({
                                       field: 'lastName',
-                                      value: event.target.value,
+                                      currentValue: event.target.value,
                                     });
                                   }}
-                                  value={accountFormDetails.lastName.currentValue }
-                                    
+                            
                                   
                                 />
                               </div>
@@ -613,13 +619,12 @@ class ConfirmationUpsellForm extends Component {
                                 name="displayName"
                                 type="name"
                                 className="form-field"
-                                //label={accountFormDetails.displayName.hintText}
+                                label={accountFormDetails.displayName.hintText}
                                 component={InputField}
-                                value={accountFormDetails.displayName.currentValue }
                                 onChange={event => {
                                   this.handleFieldChange({
                                     field: 'displayName',
-                                    value: event.target.value,
+                                    currentValue: event.target.value,
                                   });
                                 }}
                               />
