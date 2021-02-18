@@ -762,7 +762,7 @@ class JoinByInviteAccountSignup extends Component {
       googleSSOButtonDescription,
     } = this.state;
 
-    /console.log('accountFormDetails', accountFormDetails);
+    //console.log('accountFormDetails', accountFormDetails);
     //console.log('accountFormDetails',accountFormDetails);
     /*   accountFormDetails.loginEmailAddress.currentValue = joinByInviteParams.inviteeEmailAddress; */
 
