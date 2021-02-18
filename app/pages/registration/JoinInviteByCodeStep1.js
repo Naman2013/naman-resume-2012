@@ -78,9 +78,9 @@ class JoinByInviteCodeStep1 extends Component {
     let formFieldData = result.formFieldLabels;
     result.formFieldLabels.map((formFieldData) => {
 
-      newAccountFormData[formFieldData.key].label = formFieldData.label ? formFieldData.label : '';
+      newAccountFormData[formFieldData.key].label = formFieldData.label;
 
-      newAccountFormData[formFieldData.key].hintText = formFieldData.hintText ? formFieldData.label : '';
+      newAccountFormData[formFieldData.key].hintText = formFieldData.hintText;
 
     })
 

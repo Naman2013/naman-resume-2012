@@ -87,19 +87,19 @@ class JoinByInviteAccountSignup extends Component {
         childCustomerRole: '',
       },
       accountFormDetails: {
-        AgeGroup: {
+        is13YearsAndOlder: {
           label: '',
           currentValue: '',
           hintText: '',
           errorText: '',
         },
-        ParentEmail: {
+        parentEmailAddress: {
           label: '',
           currentValue: '',
           hintText: '',
           errorText: '',
         },
-        legalGuardianCheckbox: {
+        not13YearsOldLegalGuardianOk: {
           label: '',
           currentValue: false,
           hintText: '',
@@ -166,7 +166,7 @@ class JoinByInviteAccountSignup extends Component {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     const { clubInviteAndGiftCardDetials } = this.props;
     
-    result.formFieldLabels.map((formFieldData) => {
+   /*  result.formFieldLabels.map((formFieldData) => {
       let keyValue = formFieldData.key;
       if (newAccountFormData[keyValue]) {
 
@@ -176,6 +176,46 @@ class JoinByInviteAccountSignup extends Component {
 
       }
 
+    }) */
+
+
+    result.formFieldLabels.map((field) => {
+
+      var keyval = field.key;
+      if (newAccountFormData[keyval]) {
+
+        newAccountFormData[keyval].hintText = field.hintText;
+        newAccountFormData[keyval].label = field.label;
+
+        newAccountFormData[keyval].currentValue = field.currentValue;
+        newAccountFormData[keyval].required = field.required;
+
+        if (field.fieldOptions) {
+
+          field.fieldOptions.map((fieldOptionData) => {
+
+            if (fieldOptionData.key == 'Under13') {
+
+              fieldOptionData.nestedFields.map((nestedFieldsData) => {
+
+
+                let keyValueOfNested = nestedFieldsData.key;
+                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label;
+                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText;
+                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required;
+                newAccountFormData[keyValueOfNested].currentValue = nestedFieldsData.currentValue;
+
+
+              })
+
+            } else {
+
+            }
+
+          })
+        }
+
+      }
     })
 
     /*  newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
@@ -208,31 +248,37 @@ class JoinByInviteAccountSignup extends Component {
        result.formFieldLabels.astronomyClubName.hintText; */
 
 
-    if (clubInviteAndGiftCardDetials === 'SloohCard') {
+   /*  if (clubInviteAndGiftCardDetials === 'SloohCard') {
       newAccountFormData.AgeGroup.label =
         result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
 
-      newAccountFormData.legalGuardianCheckbox.label =
+      newAccountFormData.not13YearsOldLegalGuardianOk.label =
         result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
 
       newAccountFormData.ParentEmail.label =
         result.formFieldLabels.AgeGroupParentEmailLabel.label;
+    } */
+
+
+    if (clubInviteAndGiftCardDetials === 'SloohCard') {
+
+    }else{ 
+
+      newAccountFormData.firstName.currentValue = result.invitee.firstName;
+      this.props.change('firstName', result.invitee.firstName);
+  
+      newAccountFormData.lastName.currentValue = result.invitee.lastName;
+      this.props.change('lastName', result.invitee.lastName);
+  
+      newAccountFormData.loginEmailAddress.currentValue = result.invitee.emailAddress;
+  
+      newInviteDetails.parentCustomerId = result.invitedBy.customerId;
+      newInviteDetails.parentCustomerRole = result.invitedBy.role;
+      newInviteDetails.childCustomerRole = result.invitee.role;
+
     }
 
 
-
-
-    newAccountFormData.firstName.currentValue = result.invitee.firstName;
-    this.props.change('firstName', result.invitee.firstName);
-
-    newAccountFormData.lastName.currentValue = result.invitee.lastName;
-    this.props.change('lastName', result.invitee.lastName);
-
-    newAccountFormData.loginEmailAddress.currentValue = result.invitee.emailAddress;
-
-    newInviteDetails.parentCustomerId = result.invitedBy.customerId;
-    newInviteDetails.parentCustomerRole = result.invitedBy.role;
-    newInviteDetails.childCustomerRole = result.invitee.role;
 
 
 
@@ -260,7 +306,7 @@ class JoinByInviteAccountSignup extends Component {
   handleFieldChange = ({ field, currentValue }) => {
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    if (field === 'legalGuardianCheckbox') {
+    if (field === 'not13YearsOldLegalGuardianOk') {
       newAccountFormData[field].currentValue = !newAccountFormData[field].currentValue;
     } else {
       newAccountFormData[field].currentValue = currentValue;
@@ -337,39 +383,39 @@ class JoinByInviteAccountSignup extends Component {
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
         
 
-        if (accountFormDetailsData.AgeGroup.currentValue === '') {
-          accountFormDetailsData.AgeGroup.errorText =
+        if (accountFormDetailsData.is13YearsAndOlder.currentValue === '') {
+          accountFormDetailsData.is13YearsAndOlder.errorText =
             'You must certify that you are 13 years or older.';
           formIsComplete = false;
         } else {
-          accountFormDetailsData.AgeGroup.errorText = '';
+          accountFormDetailsData.is13YearsAndOlder.errorText = '';
           formIsComplete = true;
         }
-        if (accountFormDetailsData.AgeGroup.currentValue === 'Under13') {
+        if (accountFormDetailsData.is13YearsAndOlder.currentValue === false) {
 
-          if (accountFormDetailsData.AgeGroup.currentValue === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.currentValue === false && accountFormDetailsData.ParentEmail.currentValue === '') {
-            accountFormDetailsData.legalGuardianCheckbox.errorText =
+          if (accountFormDetailsData.is13YearsAndOlder.currentValue === false && accountFormDetailsData.not13YearsOldLegalGuardianOk.currentValue === false && accountFormDetailsData.parentEmailAddress.currentValue === '') {
+            accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText =
               'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
-            accountFormDetailsData.ParentEmail.errorText =
+            accountFormDetailsData.parentEmailAddress.errorText =
               'You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.';
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.AgeGroup.currentValue === 'Under13' && accountFormDetailsData.legalGuardianCheckbox.currentValue === true) {
-            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
-            accountFormDetailsData.ParentEmail.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
+          if (accountFormDetailsData.is13YearsAndOlder.currentValue === false && accountFormDetailsData.not13YearsOldLegalGuardianOk.currentValue === true) {
+            accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = "";
+            accountFormDetailsData.parentEmailAddress.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.legalGuardianCheckbox.currentValue === false && accountFormDetailsData.ParentEmail.currentValue) {
-            accountFormDetailsData.legalGuardianCheckbox.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
-            accountFormDetailsData.ParentEmail.errorText = "";
+          if (accountFormDetailsData.not13YearsOldLegalGuardianOk.currentValue === false && accountFormDetailsData.parentEmailAddress.currentValue) {
+            accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = "You have indicated you are under 13 years old , please certify that your Legal Guardian has signed you up for this service.";
+            accountFormDetailsData.parentEmailAddress.errorText = "";
             formIsComplete = false;
           }
 
-          if (accountFormDetailsData.legalGuardianCheckbox.currentValue === true && accountFormDetailsData.ParentEmail.currentValue) {
-            accountFormDetailsData.legalGuardianCheckbox.errorText = "";
-            accountFormDetailsData.ParentEmail.errorText = "";
+          if (accountFormDetailsData.not13YearsOldLegalGuardianOk.currentValue === true && accountFormDetailsData.parentEmailAddress.currentValue) {
+            accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = "";
+            accountFormDetailsData.parentEmailAddress.errorText = "";
             formIsComplete = true;
           }
 
@@ -425,8 +471,8 @@ class JoinByInviteAccountSignup extends Component {
               familyName: this.state.accountFormDetails.lastName.currentValue,
               displayName: this.state.accountFormDetails.displayName.currentValue,
               '2018AccountType': AccountType,
-              ageGroup: this.state.accountFormDetails.AgeGroup.currentValue,
-              parentEmail: this.state.accountFormDetails.ParentEmail.currentValue,
+              ageGroup: this.state.accountFormDetails.is13YearsAndOlder.currentValue,
+              parentEmail: this.state.accountFormDetails.parentEmailAddress.currentValue,
 
 
             })
@@ -805,14 +851,14 @@ class JoinByInviteAccountSignup extends Component {
                                   <span
                                     className="form-label"
                                     dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.AgeGroup.label,
+                                      __html: accountFormDetails.is13YearsAndOlder.label,
                                     }}
                                   />
                                   :
                                   <span
                                     className="form-error"
                                     dangerouslySetInnerHTML={{
-                                      __html: accountFormDetails.AgeGroup.errorText,
+                                      __html: accountFormDetails.is13YearsAndOlder.errorText,
                                     }}
                                   />
                                 </div>
@@ -823,12 +869,12 @@ class JoinByInviteAccountSignup extends Component {
                                   name="Age"
                                   component="input"
                                   type="radio"
-                                  // checked={accountFormDetails.clubInviteAndGiftCard.value == "clubInvite"}
-                                  value="13andOlder"
+                                  checked={accountFormDetails.is13YearsAndOlder.currentValue}
+                                  //value="13andOlder"
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'AgeGroup',
-                                      currentValue: event.target.value,
+                                      field: 'is13YearsAndOlder',
+                                      currentValue: true,
                                     });
                                   }}
                                 />
@@ -841,12 +887,12 @@ class JoinByInviteAccountSignup extends Component {
                                     name="Age"
                                     component="input"
                                     type="radio"
-                                    //checked={accountFormDetails.is13YearsAndOlder.currentValue !== '' ? !accountFormDetails.is13YearsAndOlder.currentValue : false}
-                                    value="Under13"
+                                    checked={accountFormDetails.is13YearsAndOlder.currentValue !== '' ? !accountFormDetails.is13YearsAndOlder.currentValue : false}
+                                    //value="Under13"
                                     onChange={event => {
                                       this.handleFieldChange({
-                                        field: 'AgeGroup',
-                                        currentValue: event.target.value,
+                                        field: 'is13YearsAndOlder',
+                                        currentValue:false,
                                       });
                                     }}
                                   />
@@ -856,33 +902,33 @@ class JoinByInviteAccountSignup extends Component {
                               </span>
                               <br />
 
-                              {accountFormDetails.AgeGroup.currentValue === "Under13" ?
+                              {accountFormDetails.is13YearsAndOlder.currentValue === false ?
                                 <>
                                   <div className="">
                                     <div className="form-field-container">
                                       <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
-                                          __html: accountFormDetails.legalGuardianCheckbox.label,
+                                          __html: accountFormDetails.not13YearsOldLegalGuardianOk.label,
                                         }}
                                       />
                                   :
                                   <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                          __html: accountFormDetails.legalGuardianCheckbox.errorText,
+                                          __html: accountFormDetails.not13YearsOldLegalGuardianOk.errorText,
                                         }}
                                       />
 
                                     </div>
                                     <Field
-                                      name="legalGuardianCheckbox"
+                                      name="not13YearsOldLegalGuardianOk"
                                       component="input"
                                       type="Checkbox"
-                                      checked={accountFormDetails.legalGuardianCheckbox.value}
+                                      checked={accountFormDetails.not13YearsOldLegalGuardianOk.value}
                                       onChange={event => {
                                         this.handleFieldChange({
-                                          field: 'legalGuardianCheckbox',
+                                          field: 'not13YearsOldLegalGuardianOk',
                                           currentValue: event.target.value,
                                         });
                                       }}
@@ -893,14 +939,14 @@ class JoinByInviteAccountSignup extends Component {
                                       <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
-                                          __html: accountFormDetails.ParentEmail.label,
+                                          __html: accountFormDetails.parentEmailAddress.label,
                                         }}
                                       />
                                   :
                                   <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
-                                          __html: accountFormDetails.ParentEmail.errorText,
+                                          __html: accountFormDetails.parentEmailAddress.errorText,
                                         }}
                                       />
 
@@ -909,11 +955,11 @@ class JoinByInviteAccountSignup extends Component {
                                       name="displayEmail"
                                       type="name"
                                       className="form-field"
-                                      label={accountFormDetails.ParentEmail.currentValue ? accountFormDetails.ParentEmail.currentValue : accountFormDetails.ParentEmail.hintText}
+                                      label={accountFormDetails.parentEmailAddress.currentValue ? accountFormDetails.parentEmailAddress.currentValue : accountFormDetails.parentEmailAddress.hintText}
                                       component={InputField}
                                       onChange={event => {
                                         this.handleFieldChange({
-                                          field: 'ParentEmail',
+                                          field: 'parentEmailAddress',
                                           currentValue: event.target.value,
                                         });
                                       }}

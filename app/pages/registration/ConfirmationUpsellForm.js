@@ -81,7 +81,7 @@ class ConfirmationUpsellForm extends Component {
         is13YearsAndOlder: {
           label: '',
           visible: true,
-          currentValue: null,
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
@@ -113,12 +113,11 @@ class ConfirmationUpsellForm extends Component {
 
       var keyval = field.key;
       if (newAccountFormData[keyval]) {
-
-        newAccountFormData[keyval].hintText = field.hintText ? field.hintText : '';
-        newAccountFormData[keyval].label = field.label ? field.label : '';
-
-        newAccountFormData[keyval].currentValue = field.currentValue ? field.currentValue : '';
-        newAccountFormData[keyval].required = field.required ? field.required : '';
+        console.log('keyval',keyval);
+        newAccountFormData[keyval].hintText = field.hintText;
+        newAccountFormData[keyval].label = field.label;
+        newAccountFormData[keyval].currentValue = field.currentValue;
+        newAccountFormData[keyval].required = field.required;
 
         if (field.fieldOptions) {
 
@@ -130,10 +129,11 @@ class ConfirmationUpsellForm extends Component {
 
 
                 let keyValueOfNested = nestedFieldsData.key;
-                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label ? nestedFieldsData.label : '';
+                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label;
+                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText;
+                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required;
+                newAccountFormData[keyValueOfNested].currentValue = nestedFieldsData.currentValue;
 
-                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText ? nestedFieldsData.hintText : '';
-                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required ? nestedFieldsData.required : '';
 
               })
 
@@ -146,6 +146,8 @@ class ConfirmationUpsellForm extends Component {
 
       }
     })
+
+    console.log('newAccountFormData::::',newAccountFormData);
 
     /* newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
     newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
@@ -354,7 +356,7 @@ class ConfirmationUpsellForm extends Component {
 
 
 
-    console.log('accountFormDetails', accountFormDetails);
+    console.log('accountFormDetails::::', accountFormDetails);
     return (
       <div>
         <Request

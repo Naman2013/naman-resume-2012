@@ -921,13 +921,16 @@ class personalInfoRegistrationNew extends Component {
                 
             case "hidden":
                 return (
+                    <div style={{display:'none'}}>
                     <Field
                         value={value}
-                        className="form-field"
+                        className=""
                         component={InputFieldNew}
                         name={keyName}
-                        type="hidden"                        
+                        type="hidden"
                     />
+
+                </div>
                 );   
             case "password":
             case "name":

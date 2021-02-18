@@ -219,10 +219,10 @@ class JoinStep2 extends Component {
       var keyval = field.key;
       if (newAccountFormData[keyval]) {
 
-        newAccountFormData[keyval].hintText = field.hintText ? field.hintText : '';
-        newAccountFormData[keyval].label = field.label ? field.label : '';
-        newAccountFormData[keyval].currentValue = field.currentValue ? field.currentValue : '';
-        newAccountFormData[keyval].required = field.required ? field.required : '';
+        newAccountFormData[keyval].hintText = field.hintText;
+        newAccountFormData[keyval].label = field.label;
+        newAccountFormData[keyval].currentValue = field.currentValue ;
+        newAccountFormData[keyval].required = field.required;
 
 
         if (field.fieldOptions) {
@@ -235,15 +235,10 @@ class JoinStep2 extends Component {
 
                 console.log('nestedFieldsData:::', nestedFieldsData);
                 let keyValueOfNested = nestedFieldsData.key;
-
-
-                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label ? nestedFieldsData.label : '';
-
-                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText ? nestedFieldsData.hintText : '';
-                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required ? nestedFieldsData.required : '';
-
-
-
+                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label;
+                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText;
+                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required;
+                newAccountFormData[keyValueOfNested].currentValue = nestedFieldsData.currentValue;
               })
 
             } else {
