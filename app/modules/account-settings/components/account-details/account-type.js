@@ -29,6 +29,7 @@ const AccountType = props => {
     priceDisplayLabel,
     startDateText,
     upgradeButtonLabel,
+    showPricingInformation,
   } = currentSubscriptionPlan;
   const styleBg = {
     backgroundImage: `url(${imageUrl})`,
@@ -96,14 +97,17 @@ const AccountType = props => {
                       </h2>
                       <hr className="hr" />
                       <ul className="list-with-params">
-                        <li>
-                          <h5
-                            className="h-5 font-weight-normal"
-                            dangerouslySetInnerHTML={{
-                              __html: priceDisplayLabel,
-                            }}
-                          />
-                        </li>
+                        {showPricingInformation && (
+                          <li>
+                            <h5
+                              className="h-5 font-weight-normal"
+                              dangerouslySetInnerHTML={{
+                                __html: priceDisplayLabel,
+                              }}
+                            />
+                          </li>
+                        )}
+                        
                         <li>
                           <h5 className="h-5 font-weight-normal">
                             {startDateText}
