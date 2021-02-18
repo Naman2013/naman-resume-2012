@@ -29,6 +29,8 @@ class personalInfoRegistrationNew extends Component {
 
         this.state = {
             accountCreationType: 'userpass',
+            showGoogleSSOButtonDescription: '',
+            googleSSOButtonDescription: '',
             isAgeRestricted: true,
             captchaVerified: false,
             googleProfileData: {
@@ -107,14 +109,14 @@ class personalInfoRegistrationNew extends Component {
                     value: '',
                     hintText: '',
                     errorText: '',
-                  },
-                  codeB: {
+                },
+                codeB: {
                     label: '',
                     visible: true,
                     value: '',
                     hintText: '',
                     errorText: '',
-                  },    
+                },
 
             }
 
@@ -154,16 +156,16 @@ class personalInfoRegistrationNew extends Component {
     handleFieldChange = ({ field, value }) => {
         var { formFields } = this.state;
         formFields.forEach((element, index) => {
-            if(element.key === field){
-                formFields[index].currentValue=value;
+            if (element.key === field) {
+                formFields[index].currentValue = value;
                 return;
             }
-            if(element.fieldOptions){
-                element.fieldOptions.forEach((innerElement, innerIndex)=>{                    
-                    if(innerElement.nestedFields && innerElement.key === formFields[index].currentValue){
-                        innerElement.nestedFields.forEach((nestedelement, nestedindex)=>{
-                            if(nestedelement.key === field){
-                                formFields[index].fieldOptions[innerIndex].nestedFields[nestedindex].currentValue=value;
+            if (element.fieldOptions) {
+                element.fieldOptions.forEach((innerElement, innerIndex) => {
+                    if (innerElement.nestedFields && innerElement.key === formFields[index].currentValue) {
+                        innerElement.nestedFields.forEach((nestedelement, nestedindex) => {
+                            if (nestedelement.key === field) {
+                                formFields[index].fieldOptions[innerIndex].nestedFields[nestedindex].currentValue = value;
                                 return;
                             }
                         })
@@ -171,7 +173,7 @@ class personalInfoRegistrationNew extends Component {
                 })
             }
         });
-        this.setState({formFields})
+        this.setState({ formFields })
         /* Get the existing state of the signup form, modify it and re-set the state */
         // const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
@@ -182,21 +184,21 @@ class personalInfoRegistrationNew extends Component {
         // }));
     };
 
-    formValidationSuccess=true;
+    formValidationSuccess = true;
 
     checkFormValues = (arrayOfFields) => {
-        arrayOfFields.forEach((element, index)=>{
-            if(element.required && ( element.currentValue === false || (typeof element.currentValue === 'string' && element.currentValue.trim() === ""))){
-                Object.assign(arrayOfFields[index], {showError: true});
-                this.formValidationSuccess=false;
+        arrayOfFields.forEach((element, index) => {
+            if (element.required && (element.currentValue === false || (typeof element.currentValue === 'string' && element.currentValue.trim() === ""))) {
+                Object.assign(arrayOfFields[index], { showError: true });
+                this.formValidationSuccess = false;
             }
-            else{
-                Object.assign(arrayOfFields[index], {showError: false});
+            else {
+                Object.assign(arrayOfFields[index], { showError: false });
             }
-            if(element.fieldOptions){
-                element.fieldOptions.forEach((innerElement, innerIndex)=>{
-                    if(innerElement.nestedFields && innerElement.key === arrayOfFields[index].currentValue){
-                       arrayOfFields[index].fieldOptions[innerIndex].nestedFields=this.checkFormValues(innerElement.nestedFields);                       
+            if (element.fieldOptions) {
+                element.fieldOptions.forEach((innerElement, innerIndex) => {
+                    if (innerElement.nestedFields && innerElement.key === arrayOfFields[index].currentValue) {
+                        arrayOfFields[index].fieldOptions[innerIndex].nestedFields = this.checkFormValues(innerElement.nestedFields);
                     }
                 })
             }
@@ -205,25 +207,25 @@ class personalInfoRegistrationNew extends Component {
     }
 
     handleValidation = formValues => {
-        formValues.preventDefault();        
+        formValues.preventDefault();
         let { formFields } = this.state;
-        this.formValidationSuccess=true;
-        const validatedData = this.checkFormValues(formFields); 
-        if(this.formValidationSuccess){
+        this.formValidationSuccess = true;
+        const validatedData = this.checkFormValues(formFields);
+        if (this.formValidationSuccess) {
             this.handleApiValidation();
         }
         else
-            this.setState({formFields: validatedData});
+            this.setState({ formFields: validatedData });
     }
 
     handleFormatdataConversion = (array) => {
         let formData = {};
-        array.forEach((element, index)=>{
-            formData[element.key] = {"currentValue" : element.currentValue, "required" : element.required};
-            if(element.fieldOptions){
-                element.fieldOptions.forEach((innerElement, innerIndex)=>{
-                    if(innerElement.nestedFields && innerElement.key === array[index].currentValue){
-                        formData={...formData, ...this.handleFormatdataConversion(innerElement.nestedFields)}                                              
+        array.forEach((element, index) => {
+            formData[element.key] = { "currentValue": element.currentValue, "required": element.required };
+            if (element.fieldOptions) {
+                element.fieldOptions.forEach((innerElement, innerIndex) => {
+                    if (innerElement.nestedFields && innerElement.key === array[index].currentValue) {
+                        formData = { ...formData, ...this.handleFormatdataConversion(innerElement.nestedFields) }
                     }
                 })
             }
@@ -231,34 +233,34 @@ class personalInfoRegistrationNew extends Component {
         return formData;
     }
 
-    handleErrorFormatdata = (array, errorArray) => {        
-        array.forEach((element, index)=>{
+    handleErrorFormatdata = (array, errorArray) => {
+        array.forEach((element, index) => {
             console.log(errorArray[element.key]);
-            if(errorArray[element.key]){
-                Object.assign(array[index], {showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
+            if (errorArray[element.key]) {
+                Object.assign(array[index], { showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
             }
-            if(element.fieldOptions){
-                element.fieldOptions.forEach((innerElement, innerIndex)=>{
-                    if(innerElement.nestedFields && innerElement.key === array[index].currentValue){
-                        innerElement.nestedFields.forEach((nestedElement, nestedIndex)=>{
-                            if(errorArray[nestedElement.key]){
-                                Object.assign(array[index].formFields[innerIndex].nestedFields[nestedIndex], {showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
+            if (element.fieldOptions) {
+                element.fieldOptions.forEach((innerElement, innerIndex) => {
+                    if (innerElement.nestedFields && innerElement.key === array[index].currentValue) {
+                        innerElement.nestedFields.forEach((nestedElement, nestedIndex) => {
+                            if (errorArray[nestedElement.key]) {
+                                Object.assign(array[index].formFields[innerIndex].nestedFields[nestedIndex], { showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
                             }
                         })
                     }
-                    
+
                 })
-            }            
+            }
         });
         return array;
     }
 
     handleApiValidation = () => {
         let { formFields } = this.state;
-        let formData = this.handleFormatdataConversion(formFields);        
-        API.post( VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+        let formData = this.handleFormatdataConversion(formFields);
+        API.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
             {
-                accountFormFields: formData,   
+                accountFormFields: formData,
                 conditionType: getUserInfo()._sloohatid ? 'join' : 'joinbyguestlanding',
                 selectedPlanId: window.localStorage.selectedPlanId,
                 sloohMarketingTrackingId: getUserInfo()._sloohatid,
@@ -266,11 +268,11 @@ class personalInfoRegistrationNew extends Component {
         ).then(response => {
             const res = response.data;
             if (res.apiError == false) {
-                if(res.accountFormHasErrors){
-                    const errorFormData = this.handleErrorFormatdata(formFields, res.accountFormFields);                    
-                    this.setState({formFields: errorFormData});
+                if (res.accountFormHasErrors) {
+                    const errorFormData = this.handleErrorFormatdata(formFields, res.accountFormFields);
+                    this.setState({ formFields: errorFormData });
                 }
-                else{
+                else {
                     //create pending customer
                     window.localStorage.setItem('clubCodeA', formData.discussionGroupCodeA.currentValue);
                     window.localStorage.setItem('clubCodeB', formData.discussionGroupCodeB.currentValue);
@@ -293,7 +295,7 @@ class personalInfoRegistrationNew extends Component {
             sloohMarketingTrackingId: getUserInfo()._sloohatid,
         };
 
-        API.post( JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, createPendingCustomerData).then(response => {
+        API.post(JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, createPendingCustomerData).then(response => {
             const res = response.data;
             if (!res.apiError) {
                 const pendingCustomerResult = {
@@ -303,32 +305,32 @@ class personalInfoRegistrationNew extends Component {
                 };
 
                 if (pendingCustomerResult.status === 'success') {
-		    console.log("after create pending customer.....");
-		    console.log(formData);
+                    console.log("after create pending customer.....");
+                    console.log(formData);
                     window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
-                    window.localStorage.setItem('username',  formData.loginEmailAddress.currentValue );
-                    window.localStorage.setItem('password', formData.password.currentValue );
+                    window.localStorage.setItem('username', formData.loginEmailAddress.currentValue);
+                    window.localStorage.setItem('password', formData.password.currentValue);
 
-                        /*  this.setState( () =>({
-                             accoridianActiveKey:"1"
-                         })) */
+                    /*  this.setState( () =>({
+                         accoridianActiveKey:"1"
+                     })) */
 
-                        const { onStepOneComplete } = this.props;
+                    const { onStepOneComplete } = this.props;
 
-                        onStepOneComplete("1");
-                        //  .log('Proceeding to create the customers pending account');
-                        // browserHistory.push('/join/step3');
-                    } else {
-                        // accountFormDetailsData.loginEmailAddress.errorText =
-                        //     pendingCustomerResult.message;
+                    onStepOneComplete("1");
+                    //  .log('Proceeding to create the customers pending account');
+                    // browserHistory.push('/join/step3');
+                } else {
+                    // accountFormDetailsData.loginEmailAddress.errorText =
+                    //     pendingCustomerResult.message;
 
-                        // this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+                    // this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
 
-                        //show custom error dialog
+                    //show custom error dialog
 
-                    }
                 }
-            })
+            }
+        })
             .catch(err => {
                 throw ('Error: ', err);
             });
@@ -336,28 +338,28 @@ class personalInfoRegistrationNew extends Component {
     }
 
 
-    handleClubCode = (codeA, codeB) => {  
-        if(codeA !== "" || codeB !== "" ){
-          API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
-          {
-            clubCodeA: codeA,
-            clubCodeB: codeB,
-            selectedPlanId: window.localStorage.selectedPlanId,
-          }
-        ).then(response => {
-            const res = response.data;
-            if (!res.apiError && res.status !== "failed") {
-              window.localStorage.setItem('clubCodeA', codeA);
-              window.localStorage.setItem('clubCodeB', codeB);              
-            }
-            // this.handleSubmit();
-          });
+    handleClubCode = (codeA, codeB) => {
+        if (codeA !== "" || codeB !== "") {
+            API.post(VERIFY_CLUB_CODE_ENDPOINT_URL,
+                {
+                    clubCodeA: codeA,
+                    clubCodeB: codeB,
+                    selectedPlanId: window.localStorage.selectedPlanId,
+                }
+            ).then(response => {
+                const res = response.data;
+                if (!res.apiError && res.status !== "failed") {
+                    window.localStorage.setItem('clubCodeA', codeA);
+                    window.localStorage.setItem('clubCodeB', codeB);
+                }
+                // this.handleSubmit();
+            });
         }
-        else{
-        //   this.handleSubmit();      
+        else {
+            //   this.handleSubmit();      
         }
-        
-      }
+
+    }
 
     handleSubmit = formValues => {
         formValues.preventDefault();
@@ -655,11 +657,11 @@ class personalInfoRegistrationNew extends Component {
         // console.log("Processing Google Signin: " + googleTokenData);
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-        
+
         API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
             authenticationCode: googleTokenData.code,
         })
-            .then(response => {                
+            .then(response => {
                 const res = response.data;
                 if (!res.apiError) {
                     const googleProfileResult = {
@@ -671,17 +673,17 @@ class personalInfoRegistrationNew extends Component {
                     };
 
                     let { formFields } = this.state;
-                    formFields.forEach((element, index)=>{
-                        if(res.googleProfileInfo[element.key]){
-                            Object.assign(formFields[index], {editable: true, currentValue: res.googleProfileInfo[element.key]});                            
-                        }                        
-                        if(element.fieldOptions){
-                            element.fieldOptions.forEach((innerElement, innerIndex)=>{
-                                if(innerElement.nestedFields && innerElement.key === formFields[index].currentValue){
-                                    innerElement.forEach((nestedElement, nestedIndex)=>{
-                                        if(res.googleProfileInfo[nestedElement.key])
-                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], {editable: true, currentValue: res.googleProfileInfo[nestedElement.key]});                                             
-                                    })                                                                            
+                    formFields.forEach((element, index) => {
+                        if (res.googleProfileInfo[element.key]) {
+                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key] });
+                        }
+                        if (element.fieldOptions) {
+                            element.fieldOptions.forEach((innerElement, innerIndex) => {
+                                if (innerElement.nestedFields && innerElement.key === formFields[index].currentValue) {
+                                    innerElement.forEach((nestedElement, nestedIndex) => {
+                                        if (res.googleProfileInfo[nestedElement.key])
+                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], { editable: true, currentValue: res.googleProfileInfo[nestedElement.key] });
+                                    })
                                 }
                             })
                         }
@@ -715,7 +717,7 @@ class personalInfoRegistrationNew extends Component {
 
                     /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
                     // accountFormDetailsData.loginEmailAddress.errorText =''; 
-                        /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
+                    /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
                     // accountFormDetailsData.loginEmailAddress.editable = false;
                     // accountFormDetailsData.loginEmailAddress.value =
                     //     googleProfileResult.googleProfileEmail;
@@ -725,7 +727,7 @@ class personalInfoRegistrationNew extends Component {
                     // );
 
                     /* No need to verify the email address as its Google and it was already provided */
-                   // accountFormDetailsData.loginEmailAddressVerification.visible = false;
+                    // accountFormDetailsData.loginEmailAddressVerification.visible = false;
 
                     // this.setState(() => ({
                     //     accountFormDetails: accountFormDetailsData,
@@ -747,7 +749,7 @@ class personalInfoRegistrationNew extends Component {
             })
             .catch(err => {
                 throw ('Error: ', err);
-                
+
             });
     };
 
@@ -757,7 +759,11 @@ class personalInfoRegistrationNew extends Component {
 
     handleJoinPageServiceResponse = result => {
         // console.log('result', result)
-        this.setState({formFields: result.formFieldLabels})
+        this.setState({
+            formFields: result.formFieldLabels,
+            showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,
+            googleSSOButtonDescription: result.googleSSOButtonDescription
+        })
         // let test = Object.keys(result.formFieldLabels).sort(function(a, b) {            
         //     return (result.formFieldLabels[a].displayOrder - result.formFieldLabels[b].displayOrder)
         // }).reduce(function (sortedList, key) {
@@ -825,50 +831,50 @@ class personalInfoRegistrationNew extends Component {
 
 
     getFormField = (fieldType, label, hintText, keyName, onChange, errorText, fieldOptions, value, showError, required, fieldSize, editable) => {
-        switch(fieldType){
+        switch (fieldType) {
             case "select":
-                return (<div className={"form-section "+ fieldSize}>
-                <div className="form-field-container">
-                    <span className="form-label"
-                        dangerouslySetInnerHTML={{ __html: label}} />
-                    
-                    <span className="form-error"
-                        dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
-                </div>
-                <Field
-                    name={keyName}
-                    type="select"
-                    className="field-input"
-                    label={hintText}
-                    component={"select"}
-                    onChange={event => { onChange({ field: keyName, value: event.target.value }); }} >
-                        {fieldOptions.map(field=>(
+                return (<div className={"form-section " + fieldSize}>
+                    <div className="form-field-container">
+                        <span className="form-label"
+                            dangerouslySetInnerHTML={{ __html: label }} />
+
+                        <span className="form-error"
+                            dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                    </div>
+                    <Field
+                        name={keyName}
+                        type="select"
+                        className="field-input"
+                        label={hintText}
+                        component={"select"}
+                        onChange={event => { onChange({ field: keyName, value: event.target.value }); }} >
+                        {fieldOptions.map(field => (
                             <option value={field.key} selected={field.key === value}>{field.label}</option>
-                        ))}                        
-                </Field>
-                <br/>
-                {fieldOptions.map(field=>(
-                    field.key === value && field.nestedFields && (
-                        field.nestedFields.map(nestItem => (
-                            <fieldset style={{paddingLeft: '25px' }}>
-                                {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
-                            </fieldset>
-                        )
-                    )
-                )))} 
-                 
-            </div>);  
+                        ))}
+                    </Field>
+                    <br />
+                    {fieldOptions.map(field => (
+                        field.key === value && field.nestedFields && (
+                            field.nestedFields.map(nestItem => (
+                                <fieldset style={{ paddingLeft: '25px' }}>
+                                    {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
+                                </fieldset>
+                            )
+                            )
+                        )))}
+
+                </div>);
                 break;
             case "radio":
-                return (<div className={"form-section "+ fieldSize}>
+                return (<div className={"form-section " + fieldSize}>
                     <span className="form-label"
                         dangerouslySetInnerHTML={{ __html: label }} />
-                    
+
                     <span className="form-error"
-                        dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />                    
+                        dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
                     <br />
-                    <fieldset className="row">                        
-                        {fieldOptions.map(item=>(
+                    <fieldset className="row">
+                        {fieldOptions.map(item => (
                             <div>
                                 <label className="ageGroupStyle" style={{ paddingLeft: '25px' }}>
                                     <Field
@@ -877,84 +883,84 @@ class personalInfoRegistrationNew extends Component {
                                         component="input"
                                         type="radio"
                                         value={item.key}
-                                        checked={value===item.key}
-                                        onClick={event => { onChange({ field: keyName, value: item.key }); }}                                       
+                                        checked={value === item.key}
+                                        onClick={event => { onChange({ field: keyName, value: item.key }); }}
                                     />
-                                    {" "+item.label}
+                                    {" " + item.label}
                                 </label>
-                                <br/>
-                                {value===item.key && item.nestedFields && (
+                                <br />
+                                {value === item.key && item.nestedFields && (
                                     item.nestedFields.map(nestItem => (
-                                        <fieldset style={{paddingLeft: '25px' }}>
+                                        <fieldset style={{ paddingLeft: '25px' }}>
                                             {this.getFormField(nestItem.fieldType, nestItem.label, nestItem.hintText, nestItem.key, onChange, nestItem.errorText, nestItem.fieldOptions, nestItem.value, nestItem.showError, nestItem.required, nestItem.fieldSize, nestItem.editable)}
                                         </fieldset>
-                                        
+
                                     ))
-                                )}                                
+                                )}
                             </div>
                         ))}
                     </fieldset>
                     {/* <br/> */}
                 </div>);
-               
+
             case "checkbox":
                 return (<div>
-                        <div className={"form-section "+ fieldSize}>
-                            <Field
-                                name={keyName}
-                                type="checkbox"
-                                className="form-field"
-                                label={label}
-                                component="input"
-                                value={value}
-                                onClick={event => { onChange({ field: keyName, value: !value }); }} />
-                            <div className="form-field-container inline">
-                                <span className="form-label" 
-                                    dangerouslySetInnerHTML={{ __html: label }} />
-                                
-                                <span className="form-error"
-                                    dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
-                            </div> 
-                        </div>                         
-                        <br/>
-                    </div>)
-                
+                    <div className={"form-section " + fieldSize}>
+                        <Field
+                            name={keyName}
+                            type="checkbox"
+                            className="form-field"
+                            label={label}
+                            component="input"
+                            value={value}
+                            onClick={event => { onChange({ field: keyName, value: !value }); }} />
+                        <div className="form-field-container inline">
+                            <span className="form-label"
+                                dangerouslySetInnerHTML={{ __html: label }} />
+
+                            <span className="form-error"
+                                dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                        </div>
+                    </div>
+                    <br />
+                </div>)
+
             case "hidden":
                 return (
-                    <div style={{display:'none'}}>
-                    <Field
-                        value={value}
-                        className=""
-                        component={InputFieldNew}
-                        name={keyName}
-                        type="hidden"
-                    />
+                    <div style={{ display: 'none' }}>
+                        <Field
+                            value={value}
+                            className=""
+                            component={InputFieldNew}
+                            name={keyName}
+                            type="hidden"
+                        />
 
-                </div>
-                );   
+                    </div>
+                );
             case "password":
             case "name":
             case "email":
             case "number":
             case "text":
-                return (<div className={"form-section "+ fieldSize}>
-                            <div className="form-field-container">
-                                <span className="form-label"
-                                    dangerouslySetInnerHTML={{ __html: label}} />
-                                
-                                <span className="form-error"
-                                    dangerouslySetInnerHTML={{ __html: showError ? errorText : ''}} />
-                            </div>
-                            <Field
-                                editable={editable}
-                                name={keyName}
-                                currentValue={value}
-                                type={fieldType}
-                                className="form-field"
-                                label={hintText}
-                                component={InputFieldNew}                                
-                                onChange={event => { onChange({ field: keyName, value: event.target.value }); }} />
-                        </div>);            
+                return (<div className={"form-section " + fieldSize}>
+                    <div className="form-field-container">
+                        <span className="form-label"
+                            dangerouslySetInnerHTML={{ __html: label }} />
+
+                        <span className="form-error"
+                            dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                    </div>
+                    <Field
+                        editable={editable}
+                        name={keyName}
+                        currentValue={value}
+                        type={fieldType}
+                        className="form-field"
+                        label={hintText}
+                        component={InputFieldNew}
+                        onChange={event => { onChange({ field: keyName, value: event.target.value }); }} />
+                </div>);
         }
     }
 
@@ -965,12 +971,15 @@ class personalInfoRegistrationNew extends Component {
         const {
             accountFormDetails,
             captchaVerified,
-            accountCreationType
+            accountCreationType,
+            googleSSOButtonDescription,
+            showGoogleSSOButtonDescription
+
         } = this.state;
-        console.log('accountFormDetails',accountFormDetails);
+        console.log('accountFormDetails', accountFormDetails);
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
-        
+
         return (
             <div>
                 <Request
@@ -1026,34 +1035,38 @@ class personalInfoRegistrationNew extends Component {
                                                                         onFailure={this.processGoogleFailureResponse
                                                                         }
                                                                     />
+                                                                    {showGoogleSSOButtonDescription && (
+                                                                        <div style={{ padding: '10px' }}>{googleSSOButtonDescription}</div>
+                                                                    )
+                                                                    }
 
                                                                 </div>
                                                             )}
                                                         </Fragment>
                                                     )}
                                                 />
-                                                <br/>
+                                                <br />
                                                 <form className="row ml-0 mr-0" onSubmit={this.handleValidation}>
 
-                                                    {this.state.formFields.map(field=>(
+                                                    {this.state.formFields.map(field => (
                                                         this.getFormField(field.fieldType, field.label, field.hintText, field.key, this.handleFieldChange, field.errorText, field.fieldOptions, field.currentValue, field.showError, field.required, field.fieldSize, field.editable)
                                                     ))}
 
 
-                                                    
 
-                                                        <div className="form-section mb-4">
-                                                            <div className="form-field-container">
-                                                                <ReCAPTCHA
-                                                                    sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
-                                                                    onChange={this.handleCaptchaCode}
-                                                                />
 
-                                                            </div>
+                                                    <div className="form-section mb-4">
+                                                        <div className="form-field-container">
+                                                            <ReCAPTCHA
+                                                                sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
+                                                                onChange={this.handleCaptchaCode}
+                                                            />
+
                                                         </div>
-                                                        <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
-                                                            {joinPageRes.continueBtnTxt}
-                                                        </button>
+                                                    </div>
+                                                    <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
+                                                        {joinPageRes.continueBtnTxt}
+                                                    </button>
                                                 </form>
 
                                             </div>

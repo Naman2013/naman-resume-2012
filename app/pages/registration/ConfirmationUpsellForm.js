@@ -106,6 +106,8 @@ class ConfirmationUpsellForm extends Component {
 
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
+
+    console.log('result',result);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
 
@@ -113,7 +115,6 @@ class ConfirmationUpsellForm extends Component {
 
       var keyval = field.key;
       if (newAccountFormData[keyval]) {
-        console.log('keyval',keyval);
         newAccountFormData[keyval].hintText = field.hintText;
         newAccountFormData[keyval].label = field.label;
         newAccountFormData[keyval].currentValue = field.currentValue;
@@ -147,7 +148,7 @@ class ConfirmationUpsellForm extends Component {
       }
     })
 
-    console.log('newAccountFormData::::',newAccountFormData);
+    
 
     /* newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
     newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;

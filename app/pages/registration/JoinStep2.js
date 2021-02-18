@@ -89,6 +89,8 @@ class JoinStep2 extends Component {
     */
     this.state = {
       accountCreationType: 'userpass',
+      showGoogleSSOButtonDescription: '',
+      googleSSOButtonDescription: '',
       isAstronomyClub:
         window.localStorage.getItem('isAstronomyClub') === 'true',
       isAgeRestricted: true,
@@ -212,6 +214,7 @@ class JoinStep2 extends Component {
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
 
+    
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
     result.formFieldLabels.map((field) => {
@@ -221,7 +224,7 @@ class JoinStep2 extends Component {
 
         newAccountFormData[keyval].hintText = field.hintText;
         newAccountFormData[keyval].label = field.label;
-        newAccountFormData[keyval].currentValue = field.currentValue ;
+        newAccountFormData[keyval].currentValue = field.currentValue;
         newAccountFormData[keyval].required = field.required;
 
 
@@ -233,7 +236,7 @@ class JoinStep2 extends Component {
 
               fieldOptionData.nestedFields.map((nestedFieldsData) => {
 
-                console.log('nestedFieldsData:::', nestedFieldsData);
+
                 let keyValueOfNested = nestedFieldsData.key;
                 newAccountFormData[keyValueOfNested].label = nestedFieldsData.label;
                 newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText;
@@ -250,6 +253,10 @@ class JoinStep2 extends Component {
 
       }
     })
+
+
+
+
 
 
     /*     newAccountFormData.firstName.label = result.formFieldLabels.firstName.label;
@@ -313,21 +320,23 @@ class JoinStep2 extends Component {
         newAccountFormData.discussionGroupCodeB.value =
           result.formFieldLabels.discussionGroupCodeB.currentValue; */
 
-    // this.props.change('discussionGroupCodeA',result.formFieldLabels.discussionGroupCodeA.currentValue);
-    // this.props.change('discussionGroupCodeB',result.formFieldLabels.discussionGroupCodeB.currentValue);
-    /* update the account form details state so the correct hinText will show on each form field */
-
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
       isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
+      showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,
+      googleSSOButtonDescription: result.googleSSOButtonDescription
     }));
+
+    let { accountFormDetails } = this.state;
+    this.props.change('discussionGroupCodeA', accountFormDetails.discussionGroupCodeA.currentValue);
+    this.props.change('discussionGroupCodeB', accountFormDetails.discussionGroupCodeB.currentValue);
+
   };
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, currentValue }) => {
 
-    console.log('currentValue', currentValue);
-    console.log('field', field);
+    
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     newAccountFormData[field].currentValue = currentValue;
@@ -404,7 +413,7 @@ class JoinStep2 extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
-    console.log('formValues::', formValues);
+  
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
@@ -425,7 +434,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.legalGuardianApproves.errorText = '';
     accountFormDetailsData.legalGuardianEmailAddress.errorText = '';
 
-    console.log('accountCreationType', accountCreationType);
+ 
 
     if (accountCreationType === 'userpass') {
       /* Verify that the user has provided:
@@ -560,7 +569,7 @@ class JoinStep2 extends Component {
       )
         .then(response => {
           const res = response.data;
-          
+
           if (res.apiError == false) {
             const validationResults = {
               passwordAcceptable: res.passwordAcceptable,
@@ -638,7 +647,7 @@ class JoinStep2 extends Component {
             status: res.status,
             customerId: res.customerId,
           };
-          console.log('res2::', res);
+         
           if (pendingCustomerResult.status === 'success') {
             window.localStorage.setItem(
               'pending_cid',
@@ -752,6 +761,7 @@ class JoinStep2 extends Component {
 
   render() {
     const { pathname, t } = this.props;
+
     const {
       // googleProfileData,
       accountFormDetails,
@@ -759,6 +769,8 @@ class JoinStep2 extends Component {
       isAstronomyClub,
       formIsComplete,
       captchaVerified,
+      googleSSOButtonDescription,
+      showGoogleSSOButtonDescription
     } = this.state;
     const { _sloohatid } = getUserInfo();
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
@@ -865,8 +877,13 @@ class JoinStep2 extends Component {
                                         this.processGoogleFailureResponse
                                       }
                                     />
+                                    {showGoogleSSOButtonDescription && (
+                                      <div style={{padding:'10px'}}>{googleSSOButtonDescription}</div>
+                                    )
+                                    }
                                   </div>
                                 )}
+
                               </Fragment>
                             )}
                           />

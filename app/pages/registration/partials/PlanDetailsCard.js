@@ -35,6 +35,8 @@ const PlanDetailsCard = props => {
     planIsDiscounted,
     originalPlanCost,
   } = props;
+
+  console.log('originalPlanCost',originalPlanCost);
   
   return (
     <div className="root">

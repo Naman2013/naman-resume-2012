@@ -72,6 +72,9 @@ class JoinByInviteAccountSignup extends Component {
       accountCreationType: 'userpass',
       isAstronomyClub: false,
       isClassroom: false,
+      showGoogleSSOButtonDescription: '',
+      googleSSOButtonDescription: '',
+
       selectedSchoolId: '',
       selectedPlanId: '',
       googleProfileData: {
@@ -165,18 +168,7 @@ class JoinByInviteAccountSignup extends Component {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     const { clubInviteAndGiftCardDetials } = this.props;
-    
-   /*  result.formFieldLabels.map((formFieldData) => {
-      let keyValue = formFieldData.key;
-      if (newAccountFormData[keyValue]) {
 
-        newAccountFormData[keyValue].label = formFieldData.label;
-
-        newAccountFormData[keyValue].hintText = formFieldData.hintText;
-
-      }
-
-    }) */
 
 
     result.formFieldLabels.map((field) => {
@@ -248,30 +240,30 @@ class JoinByInviteAccountSignup extends Component {
        result.formFieldLabels.astronomyClubName.hintText; */
 
 
-   /*  if (clubInviteAndGiftCardDetials === 'SloohCard') {
-      newAccountFormData.AgeGroup.label =
-        result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
-
-      newAccountFormData.not13YearsOldLegalGuardianOk.label =
-        result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
-
-      newAccountFormData.ParentEmail.label =
-        result.formFieldLabels.AgeGroupParentEmailLabel.label;
-    } */
+    /*  if (clubInviteAndGiftCardDetials === 'SloohCard') {
+       newAccountFormData.AgeGroup.label =
+         result.formFieldLabels.AgeGroupUnderandOlderLabel.label;
+ 
+       newAccountFormData.not13YearsOldLegalGuardianOk.label =
+         result.formFieldLabels.AgeGroupCertifyCheckBoxLabel.label;
+ 
+       newAccountFormData.ParentEmail.label =
+         result.formFieldLabels.AgeGroupParentEmailLabel.label;
+     } */
 
 
     if (clubInviteAndGiftCardDetials === 'SloohCard') {
 
-    }else{ 
+    } else {
 
       newAccountFormData.firstName.currentValue = result.invitee.firstName;
       this.props.change('firstName', result.invitee.firstName);
-  
+
       newAccountFormData.lastName.currentValue = result.invitee.lastName;
       this.props.change('lastName', result.invitee.lastName);
-  
+
       newAccountFormData.loginEmailAddress.currentValue = result.invitee.emailAddress;
-  
+
       newInviteDetails.parentCustomerId = result.invitedBy.customerId;
       newInviteDetails.parentCustomerRole = result.invitedBy.role;
       newInviteDetails.childCustomerRole = result.invitee.role;
@@ -285,6 +277,8 @@ class JoinByInviteAccountSignup extends Component {
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
+      showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,
+      googleSSOButtonDescription: result.googleSSOButtonDescription,
       inviteDetails: newInviteDetails,
       /* was the selected plan a classroom? */
       isAstronomyClub: has(result, 'selectedSubscriptionPlan')
@@ -327,7 +321,7 @@ class JoinByInviteAccountSignup extends Component {
     const { accountFormDetails, accountCreationType } = this.state;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
-    
+
     /* reset the error conditions */
     accountFormDetailsData.firstName.errorText = '';
     accountFormDetailsData.lastName.errorText = '';
@@ -381,7 +375,7 @@ class JoinByInviteAccountSignup extends Component {
       }
       //AgeGroup Validation
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
-        
+
 
         if (accountFormDetailsData.is13YearsAndOlder.currentValue === '') {
           accountFormDetailsData.is13YearsAndOlder.errorText =
@@ -443,17 +437,17 @@ class JoinByInviteAccountSignup extends Component {
         formIsComplete = false;
       }
     }
-    
+
 
     if (formIsComplete === true) {
-      
+
 
       /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
       if (clubInviteAndGiftCardDetials === 'SloohCard') {
-      
+
 
         if (formIsComplete) {
 
@@ -478,7 +472,7 @@ class JoinByInviteAccountSignup extends Component {
             })
             .then(response => {
               const res = response.data;
-              
+
 
               formIsComplete === true;
               if (res.apiError == false) {
@@ -495,7 +489,7 @@ class JoinByInviteAccountSignup extends Component {
                   this.setState({ accountFormDetails: accountFormDetailsData });
                   formIsComplete = false;
                 }
-                
+
 
                 if (formIsComplete === true) {
 
@@ -503,7 +497,7 @@ class JoinByInviteAccountSignup extends Component {
                     username: this.state.accountFormDetails.loginEmailAddress.currentValue,
                     pwd: this.state.accountFormDetails.password.currentValue,
                   };
-                  
+
 
                   actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
                 }
@@ -519,7 +513,7 @@ class JoinByInviteAccountSignup extends Component {
 
 
       } else {
-       
+
 
         const customerDetailsMeetsRequirementsResult = API
           .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
@@ -560,7 +554,7 @@ class JoinByInviteAccountSignup extends Component {
 
                 formIsComplete = false;
               }
-             
+
 
               if (formIsComplete === true) {
                 /* create the customer result */
@@ -582,7 +576,7 @@ class JoinByInviteAccountSignup extends Component {
 
   createCustomerRecordAndNextScreen = () => {
 
-    
+
 
 
     /*
@@ -606,7 +600,7 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.loginEmailAddress
       .errorText = '';
 
-     
+
 
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
     API
@@ -620,7 +614,7 @@ class JoinByInviteAccountSignup extends Component {
             customerId: res.customerId,
             statusMessage: res.statusMessage
           };
-          
+
 
           if (createCustomerResult.status === 'success') {
             if (this.state.accountCreationType === 'userpass') {
@@ -630,7 +624,7 @@ class JoinByInviteAccountSignup extends Component {
               };
 
               /* Log the user in */
-             
+
 
               actions.logUserIn(loginDataPayload);
               browserHistory.push('/');
@@ -837,6 +831,10 @@ class JoinByInviteAccountSignup extends Component {
                                   onSuccess={this.processGoogleSuccessResponse}
                                   onFailure={this.processGoogleFailureResponse}
                                 />
+                                {showGoogleSSOButtonDescription && (
+                                  <div style={{ padding: '10px' }}>{googleSSOButtonDescription}</div>
+                                )
+                                }
                               </div>
                             )}
                           </Fragment>
@@ -892,7 +890,7 @@ class JoinByInviteAccountSignup extends Component {
                                     onChange={event => {
                                       this.handleFieldChange({
                                         field: 'is13YearsAndOlder',
-                                        currentValue:false,
+                                        currentValue: false,
                                       });
                                     }}
                                   />

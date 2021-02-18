@@ -25,6 +25,8 @@ export class PurchaseConfirmation extends React.PureComponent<
 > {
   componentDidMount(): void {
     const { getPurchaseConfirmation} = this.props;
+    console.log('getPurchaseConfirmation',this.props);
+    
     let conditionType=this.props.conditionType === undefined ? this.props.routeParams === undefined ? '' : this.props.routeParams.tab : this.props.conditionType;
     // const conditionType=this.props.conditionType || ((this.props.routeParams !== undefined) ? this.props.routeParams.tab : '');
     getPurchaseConfirmation(conditionType);
