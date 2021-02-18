@@ -21,6 +21,8 @@ export class BadgeList extends Component{
         const self=this;
         switch(item.itemType){
             case "object":
+                if(this.props.publicProfile)
+                    return;
                 this.setState({loading: true});
                 const { token, at, cid } = getUserInfo();
                 getObjectCard({
@@ -53,7 +55,7 @@ export class BadgeList extends Component{
     
     render() {
 
-        const { badgeLists, totalBadgeCount, currentBadgeCount, scrollToRef, refreshPhotoHub } = this.props;
+        const { badgeLists, totalBadgeCount, currentBadgeCount, scrollToRef, refreshPhotoHub, publicProfile } = this.props;
         const { showBadge, currentBadge, objectBadge, loading } = this.state;
         // const heading = "Badges(" +badgeLists.length + "/"+ totalBadgeCount + ")";        
         const heading = "Badges";
@@ -65,7 +67,7 @@ export class BadgeList extends Component{
                 <h2 className="badge-heading">{heading}</h2>
                 <div className="badgelist">   
                     {[...Array(badgeCount)].map((e,index)=>(
-                        <div className={ index < badgeLists.length ? badgeLists[index].itemType === "badge" ? "quest-badge-present" : "badge-present" : "badge-empty"}>
+                        <div className={ index < badgeLists.length ? badgeLists[index].itemType === "badge" ? "quest-badge-present" : publicProfile ? "badge-present-no-cursor" : "badge-present" : "badge-empty"}>
                             {badgeLists[index] && (
                                 <img src={badgeLists[index].badgeIconURL} className={badgeLists[index].itemType === "badge" ? "badge-icon-quest" : "badge-icon"} onClick={()=>this.handleBadgeClick(badgeLists[index])}/>
                             )}
