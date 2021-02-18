@@ -32,6 +32,8 @@ export class TopStudents extends Component{
                 this.timerId=setTimeout(()=>this.getTopStudentsAction(data),duration );
                 this.setState({topStudents: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
 

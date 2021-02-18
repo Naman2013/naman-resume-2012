@@ -8,7 +8,6 @@ import { getCommunityFame } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
 import { TitleHeader } from '../title-header';
 
-
 export class CommunityFame extends Component{
 
     constructor(props){
@@ -35,6 +34,8 @@ export class CommunityFame extends Component{
                 this.timerId=setTimeout(this.getCommunityStatsAction,duration );
                 
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

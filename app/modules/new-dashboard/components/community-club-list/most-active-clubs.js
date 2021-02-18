@@ -32,6 +32,8 @@ export class ActiveClub extends Component{
                 this.timerId=setTimeout(()=>this.getActiveClubAction(data),duration );
                 this.setState({mostActiveClubs: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
 

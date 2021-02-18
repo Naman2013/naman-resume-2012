@@ -5,7 +5,6 @@ import React, { Component, cloneElement, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Accordion, Card, Button, useAccordionToggle, } from 'react-bootstrap';
 import './accordion.scss';
-import PersonalInfoRegistration from '../personalInfoRegistration';
 import PaymentDetails from '../paymentDetails';
 import { API } from 'app/api';
 import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL } from 'app/services/registration/registration';

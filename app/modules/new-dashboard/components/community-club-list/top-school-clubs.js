@@ -32,6 +32,8 @@ export class SchoolClub extends Component{
                 this.timerId=setTimeout(()=>this.getActiveClubAction(data),duration );
                 this.setState({topSchoolClubs: res, loading: false});
             }
+            else
+                this.props.validateResponseAccess(res)
         });
     }
 

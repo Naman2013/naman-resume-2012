@@ -143,7 +143,6 @@ export const fetchErrors = () => (dispatch, getState) => {
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
   const user = getUserInfo();
-  debugger;
 
   /*****************************************
    * POSSIBLE HTTP RESPONSE CODES....
@@ -163,8 +162,8 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const FORCED_SLOOH_CREW_STATUS_CODE = 419;
   const UPSELL_STATUS_CODE = 420;
 
-  const { apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
-
+  const { newDash, apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
+  console.log("api response: "+ newDash);
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 

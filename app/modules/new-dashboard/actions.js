@@ -336,6 +336,15 @@ const getPhotoHubHeadingSuccess = (payload) => ({
   payload    
 });
 
+var error = false;
+
+export const errorHandling = (data) => (dispatch) => {
+  if(!error){
+    error=true;
+    dispatch(validateResponseAccess(data));
+  }
+}
+
 export const fetchStarPartyDataAction = () => (dispatch) => {
     dispatch(fetchStartPartyListStart());
     return fetchStartPartyList({}).then(
@@ -356,7 +365,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => { 
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else{
           const duration = (res.expires - res.timestamp) * 1000;
           if(profileTimer !== null)
@@ -381,9 +390,9 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       ...data
     }).then(
       result => { 
-        const res= result.data;
+        const res= result.data;        
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getMyPicturesSuccess(result.data));
       }
@@ -402,7 +411,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getDashboardFeaturedObjectsSuccess(result.data));
       }
@@ -421,7 +430,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getMyClubListSuccess(result.data));
       }
@@ -440,7 +449,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getBookmarkListSuccess(result.data));
       }
@@ -458,7 +467,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getPrivateProfileSuccess(result.data));
       }
@@ -476,7 +485,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getPrivateProfileMissionSuccess(result.data));
       }
@@ -494,7 +503,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getUserActiveObjectSuccess(result.data));
       }
@@ -512,7 +521,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getUserPopularObservationSuccess(result.data));
       }
@@ -533,7 +542,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getMissionImagesSuccess(result.data));
       }
@@ -554,7 +563,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getGalleryListSuccess(result.data));
       }
@@ -573,7 +582,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getRecentGravityActionsSuccess(result.data));
       }
@@ -592,7 +601,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getWeatherSuccess(result.data));
       }
@@ -605,7 +614,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
     return getSkyRating({token, at, cid, ...data}).then(result=>{
       const res= result.data;
       if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
         dispatch(getSkyConditionsSuccess(result.data));
     })    
@@ -623,7 +632,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getObservatoryListSuccess(result.data));
       }
@@ -642,7 +651,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {  
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else      
           dispatch(getQuestMapControlSuccess(result.data));
       }
@@ -661,7 +670,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getObjectMapControlSuccess(result.data));
       }
@@ -680,7 +689,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {     
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getNewDashObsSuccess(result.data));
       }
@@ -694,7 +703,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getObsStatusSuccess(result.data));
       }
@@ -713,7 +722,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getCommunityExplorationSuccess(result.data));
       }
@@ -732,7 +741,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getCommunityFameSuccess(result.data));
       }
@@ -751,7 +760,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {      
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getMyRankSuccess(result.data));        
       }
@@ -770,7 +779,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {   
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getTopMembersSuccess(result.data));        
       }
@@ -789,7 +798,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {       
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getTopStudentsSuccess(result.data));        
       }
@@ -808,7 +817,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getMostActiveClubsSuccess(result.data));        
       }
@@ -827,7 +836,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {    
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getTopSchoolClubsSuccess(result.data));        
       }
@@ -846,7 +855,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {       
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else  
           dispatch(getGravityByDomainSuccess(result.data));
       }
@@ -865,7 +874,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {        
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else        
           dispatch(getDashboardMissionListSuccess(result.data));
       }
@@ -884,7 +893,7 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       result => {     
         const res= result.data;
         if(res.apiError)
-          dispatch(validateResponseAccess(res));
+          dispatch(errorHandling(res));
         else         
           dispatch(getPhotoHubHeadingSuccess(result.data));
       }

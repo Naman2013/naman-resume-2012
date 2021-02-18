@@ -17,13 +17,13 @@ import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
-  JOIN_PAGE_ENDPOINT_URL,  
+  JOIN_PAGE_ENDPOINT_URL,
   UPDATE_ACCOUNT_DETAILS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import styles from './JoinStep2.style';
-import { getUserInfo} from 'app/modules/User';
+import { getUserInfo } from 'app/modules/User';
 
 const { string, func } = PropTypes;
 
@@ -38,9 +38,9 @@ class ConfirmationUpsellForm extends Component {
   static defaultProps = {
     change: noop,
   };
- 
+
   constructor(props) {
-    super(props);    
+    super(props);
     window.localStorage.setItem('accountCreationType', 'userpass');
 
     /* Configure the default state for:
@@ -57,38 +57,38 @@ class ConfirmationUpsellForm extends Component {
       accountCreationType: 'userpass',
       isAstronomyClub:
         window.localStorage.getItem('isAstronomyClub') === 'true',
-      isAgeRestricted: true,     
+      isAgeRestricted: true,
       formIsComplete: null,
       accountFormDetails: {
-        givenName: {
+        firstName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
-        familyName: {
+        lastName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         displayName: {
           label: '',
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
-        },       
+        },
         is13YearsAndOlder: {
           label: '',
           visible: true,
-          value: null,
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
         not13YearsOldLegalGuardianOk: {
           label: '',
           visible: true,
-          value: false,
+          currentValue: false,
           hintText: '',
           errorText: '',
         },
@@ -96,7 +96,7 @@ class ConfirmationUpsellForm extends Component {
         parentEmailAddress: {
           label: '',
           visible: true,
-          value: '',
+          currentValue: '',
           hintText: '',
           errorText: '',
         },
@@ -106,25 +106,67 @@ class ConfirmationUpsellForm extends Component {
 
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
+
+    console.log('result',result);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-    newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-    newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+
+    result.formFieldLabels.map((field) => {
+
+      var keyval = field.key;
+      if (newAccountFormData[keyval]) {
+        newAccountFormData[keyval].hintText = field.hintText;
+        newAccountFormData[keyval].label = field.label;
+        newAccountFormData[keyval].currentValue = field.currentValue;
+        newAccountFormData[keyval].required = field.required;
+
+        if (field.fieldOptions) {
+
+          field.fieldOptions.map((fieldOptionData) => {
+
+            if (fieldOptionData.key == 'Under13') {
+
+              fieldOptionData.nestedFields.map((nestedFieldsData) => {
+
+
+                let keyValueOfNested = nestedFieldsData.key;
+                newAccountFormData[keyValueOfNested].label = nestedFieldsData.label;
+                newAccountFormData[keyValueOfNested].hintText = nestedFieldsData.hintText;
+                newAccountFormData[keyValueOfNested].required = nestedFieldsData.required;
+                newAccountFormData[keyValueOfNested].currentValue = nestedFieldsData.currentValue;
+
+
+              })
+
+            } else {
+
+            }
+
+          })
+        }
+
+      }
+    })
+
+    
+
+    /* newAccountFormData.givenName.label = result.formFieldLabels.firstName.label;
+    newAccountFormData.familyName.label = result.formFieldLabels.lastName.label;
     newAccountFormData.displayName.label =
-      result.formFieldLabels.displayname.label;   
+      result.formFieldLabels.displayName.label;
     newAccountFormData.is13YearsAndOlder.label =
       result.formFieldLabels.is13YearsAndOlder.label;
     newAccountFormData.not13YearsOldLegalGuardianOk.label =
       result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
     newAccountFormData.parentEmailAddress.label =
       result.formFieldLabels.parentEmailAddress.label;
-      
+
     newAccountFormData.givenName.hintText =
-      result.formFieldLabels.firstname.hintText;
+      result.formFieldLabels.firstName.hintText;
     newAccountFormData.familyName.hintText =
-      result.formFieldLabels.lastname.hintText;
+      result.formFieldLabels.lastName.hintText;
     newAccountFormData.displayName.hintText =
-      result.formFieldLabels.displayname.hintText;   
+      result.formFieldLabels.displayName.hintText;
     newAccountFormData.is13YearsAndOlder.hintText =
       result.formFieldLabels.is13YearsAndOlder.hintText;
     newAccountFormData.not13YearsOldLegalGuardianOk.hintText =
@@ -132,33 +174,20 @@ class ConfirmationUpsellForm extends Component {
     newAccountFormData.parentEmailAddress.hintText =
       result.formFieldLabels.parentEmailAddress.hintText;
 
-      newAccountFormData.givenName.value = result.formFieldLabels.firstname.currentValue;
-      newAccountFormData.familyName.value = result.formFieldLabels.lastname.currentValue;
-      newAccountFormData.displayName.value =
-        result.formFieldLabels.displayname.currentValue;   
-      newAccountFormData.is13YearsAndOlder.value =
-        result.formFieldLabels.is13YearsAndOlder.currentValue;
-      newAccountFormData.not13YearsOldLegalGuardianOk.value =
-        result.formFieldLabels.not13YearsOldLegalGuardianOk.currentValue;
-      newAccountFormData.parentEmailAddress.value =
-        result.formFieldLabels.parentEmailAddress.currentValue;
+    newAccountFormData.givenName.value = result.formFieldLabels.firstName.currentValue;
+    newAccountFormData.familyName.value = result.formFieldLabels.lastName.currentValue;
+    newAccountFormData.displayName.value =
+      result.formFieldLabels.displayName.currentValue;
+    newAccountFormData.is13YearsAndOlder.value =
+      result.formFieldLabels.is13YearsAndOlder.currentValue;
+    newAccountFormData.not13YearsOldLegalGuardianOk.value =
+      result.formFieldLabels.not13YearsOldLegalGuardianOk.currentValue;
+    newAccountFormData.parentEmailAddress.value =
+      result.formFieldLabels.parentEmailAddress.currentValue; */
 
-        this.props.change(
-          'givenName',
-          result.formFieldLabels.firstname.currentValue
-        );
-        this.props.change(
-          'familyName',
-          result.formFieldLabels.lastname.currentValue
-        );
-        this.props.change(
-          'parentEmailAddress',
-          result.formFieldLabels.parentEmailAddress.currentValue
-        );       
-        this.props.change(
-          'displayName',
-          result.formFieldLabels.displayname.currentValue
-        );
+
+
+     
 
 
     /* update the account form details state so the correct hinText will show on each form field */
@@ -166,13 +195,38 @@ class ConfirmationUpsellForm extends Component {
       accountFormDetails: newAccountFormData,
       isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
     }));
+
+    const { accountFormDetails} = this.state;
+
+    this.props.change(
+      'firstName',
+      accountFormDetails.firstName.currentValue
+    );
+    this.props.change(
+      'lastName',
+      accountFormDetails.lastName.currentValue
+    );
+    this.props.change(
+      'parentEmailAddress',
+      accountFormDetails.parentEmailAddress.currentValue
+    );
+    this.props.change(
+      'displayName',
+      accountFormDetails.displayName.currentValue
+    );
+
+
+
+
   };
 
   /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ field, value }) => {
+  handleFieldChange = ({ field, currentValue }) => {
+
+
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
-    newAccountFormData[field].value = value;
+    newAccountFormData[field].currentValue = currentValue;
 
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
@@ -194,9 +248,9 @@ class ConfirmationUpsellForm extends Component {
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
     /* reset the error conditions */
-    accountFormDetailsData.givenName.errorText = '';
-    accountFormDetailsData.familyName.errorText = '';
-   
+    accountFormDetailsData.firstName.errorText = '';
+    accountFormDetailsData.lastName.errorText = '';
+
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
     accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
@@ -210,15 +264,15 @@ class ConfirmationUpsellForm extends Component {
             Password and matches password verification field
         */
 
-      if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = t(
+      if (accountFormDetailsData.firstName.currentValue === '') {
+        accountFormDetailsData.firstName.errorText = t(
           'Ecommerce.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
-      if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = t(
+      if (accountFormDetailsData.lastName.currentValue === '') {
+        accountFormDetailsData.lastName.errorText = t(
           'Ecommerce.LastNameRequierMessage'
         );
         formIsComplete = false;
@@ -226,20 +280,21 @@ class ConfirmationUpsellForm extends Component {
 
 
       /* need to verify that the password meets the Slooh requirements */
-    } 
-  
+    }
 
+    console.log('stateee::', this.state.isAgeRestricted);
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
-      if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+      console.log('step1');
+      if (accountFormDetailsData.is13YearsAndOlder.currentValue === '') {
         accountFormDetailsData.is13YearsAndOlder.errorText = t(
           'Ecommerce.AgeRequierMessage'
         );
         formIsComplete = false;
-      } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+      } else if (accountFormDetailsData.is13YearsAndOlder.currentValue === false) {
         //make sure the user has certified that they have their Legal Guardian's permission to sign up.
         if (
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.currentValue === false
         ) {
           accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
             'Ecommerce.MinAgeErrorMessage'
@@ -248,14 +303,14 @@ class ConfirmationUpsellForm extends Component {
         }
 
         //make sure the parent email address field is filled in.
-        if (accountFormDetailsData.parentEmailAddress.value === '') {
+        if (accountFormDetailsData.parentEmailAddress.currentValue === '') {
           accountFormDetailsData.parentEmailAddress.errorText = t(
             'Ecommerce.ParentEmailRequierMessage'
           );
           formIsComplete = false;
         }
       }
-    }   
+    }
 
     this.setState(() => ({ formIsComplete: formIsComplete }));
 
@@ -264,8 +319,8 @@ class ConfirmationUpsellForm extends Component {
 
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
-      
-      const updateAccountDetailsData={
+
+      const updateAccountDetailsData = {
         cid: getUserInfo().cid,
         at: getUserInfo().at,
         token: getUserInfo().token,
@@ -274,12 +329,12 @@ class ConfirmationUpsellForm extends Component {
       };
 
       API.post(UPDATE_ACCOUNT_DETAILS_ENDPOINT_URL, updateAccountDetailsData)
-        .then(response=>{
-          const res=response.data;
-          if(!res.apiError && res.status !== "failed"){
-              onContinueClick();
+        .then(response => {
+          const res = response.data;
+          if (!res.apiError && res.status !== "failed") {
+            onContinueClick();
           }
-          else{
+          else {
             onError(res);
           }
 
@@ -291,14 +346,18 @@ class ConfirmationUpsellForm extends Component {
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
     }
   };
-  
+
   render() {
     const { t, selectedPlanId, onCancelClick, conditionType } = this.props;
     const {
       // googleProfileData,
-      accountFormDetails,      
-      formIsComplete,      
-    } = this.state;    
+      accountFormDetails,
+      formIsComplete,
+    } = this.state;
+
+
+
+    console.log('accountFormDetails::::', accountFormDetails);
     return (
       <div>
         <Request
@@ -312,14 +371,14 @@ class ConfirmationUpsellForm extends Component {
             ),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
-          render={({ fetchingContent, serviceResponse: joinPageRes }) => (           
+          render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
-              {!fetchingContent && selectedPlanId && (                              
+              {!fetchingContent && selectedPlanId && (
                 <DeviceContext.Consumer>
                   {({ isMobile, isDesktop, isTablet }) => (
                     <Fragment>
                       <h1 className="modal-h left-align">{joinPageRes.pageHeading1}</h1>
-        	            <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
+                      <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
                       <div className="step-root-upsell">
                         <DisplayAtBreakpoint
                           screenMedium
@@ -333,7 +392,7 @@ class ConfirmationUpsellForm extends Component {
                         <div className="inner-container">
                           <div className="section-heading">
                             {joinPageRes.sectionHeading}
-                          </div>                          
+                          </div>
                           <form onSubmit={this.handleSubmit}>
                             {this.state.isAgeRestricted && (
                               <div className="form-section">
@@ -362,19 +421,21 @@ class ConfirmationUpsellForm extends Component {
                                       <Field
                                         name="13andOlder"
                                         label="Yes"
-                                        checked={accountFormDetails.is13YearsAndOlder.value}
+                                        checked={accountFormDetails.is13YearsAndOlder.currentValue}
                                         component="input"
                                         type="radio"
                                         value="13andolder"
                                         onClick={event => {
                                           this.handleFieldChange({
                                             field: 'is13YearsAndOlder',
-                                            value: true,
+                                            currentValue: true,
                                           });
                                         }}
                                       />{' '}
                                       {t('Ecommerce.Yes')}
                                     </label>
+
+
                                     <span style={{ paddingLeft: '15px' }}>
                                       <label>
                                         <Field
@@ -383,11 +444,12 @@ class ConfirmationUpsellForm extends Component {
                                           component="input"
                                           type="radio"
                                           value="under13"
-                                          checked={accountFormDetails.is13YearsAndOlder.value !== null ? !accountFormDetails.is13YearsAndOlder.value : false}
+                                          checked={accountFormDetails.is13YearsAndOlder.currentValue !== '' ? !accountFormDetails.is13YearsAndOlder.currentValue : false}
+
                                           onClick={event => {
                                             this.handleFieldChange({
                                               field: 'is13YearsAndOlder',
-                                              value: false,
+                                              currentValue: false,
                                             });
                                           }}
                                         />
@@ -397,89 +459,88 @@ class ConfirmationUpsellForm extends Component {
                                   </fieldset>
                                 </div>
                                 <br />
-                                {accountFormDetails.is13YearsAndOlder.value ===
+                                {accountFormDetails.is13YearsAndOlder.currentValue ===
                                   false && (
-                                  <div>
-                                    <div className="form-field-container">
+                                    <div>
+                                      <div className="form-field-container">
+                                        <span
+                                          className="form-label"
+                                          dangerouslySetInnerHTML={{
+                                            __html:
+                                              accountFormDetails
+                                                .not13YearsOldLegalGuardianOk
+                                                .label,
+                                          }}
+                                        />
+                                      :
+                                      <span
+                                          className="form-error"
+                                          dangerouslySetInnerHTML={{
+                                            __html:
+                                              accountFormDetails
+                                                .not13YearsOldLegalGuardianOk
+                                                .errorText,
+                                          }}
+                                        />
+                                      </div>
+                                      <Field
+                                        name="not13YearsOldLegalGuardianOk"
+                                        type="checkbox"
+                                        className="form-field"
+                                        label={
+                                          accountFormDetails
+                                            .not13YearsOldLegalGuardianOk.hintText
+                                        }
+                                        component="input"
+                                        checked={
+                                          accountFormDetails
+                                            .not13YearsOldLegalGuardianOk.currentValue
+                                        }
+                                        onClick={event => {
+                                          this.handleFieldChange({
+                                            field: 'not13YearsOldLegalGuardianOk',
+                                            currentValue: !accountFormDetails
+                                              .not13YearsOldLegalGuardianOk.value,
+                                          });
+                                        }}
+                                      />
+                                      <br />
+                                      <br />
                                       <span
                                         className="form-label"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails
-                                              .not13YearsOldLegalGuardianOk
+                                            accountFormDetails.parentEmailAddress
                                               .label,
                                         }}
                                       />
-                                      :
+                                    :
                                       <span
                                         className="form-error"
                                         dangerouslySetInnerHTML={{
                                           __html:
-                                            accountFormDetails
-                                              .not13YearsOldLegalGuardianOk
+                                            accountFormDetails.parentEmailAddress
                                               .errorText,
                                         }}
                                       />
+                                      <Field
+                                        name="parentEmailAddress"
+                                        type="name"
+                                        className="form-field"
+                                        label={accountFormDetails.parentEmailAddress.currentValue ?
+                                          accountFormDetails.parentEmailAddress.currentValue : accountFormDetails.parentEmailAddress.hintText
+                                        }
+                                        component={InputField}
+                                        onChange={event => {
+                                          this.handleFieldChange({
+                                            field: 'parentEmailAddress',
+                                            currentValue: event.target.value,
+                                          });
+                                        }}
+                                      />
+                                      <br />
                                     </div>
-                                    <Field
-                                      name="not13YearsOldLegalGuardianOk"
-                                      type="checkbox"
-                                      className="form-field"
-                                      label={
-                                        accountFormDetails
-                                          .not13YearsOldLegalGuardianOk.hintText
-                                      }
-                                      component="input"
-                                      checked={
-                                        accountFormDetails
-                                          .not13YearsOldLegalGuardianOk.value
-                                      }
-                                      onClick={event => {
-                                        this.handleFieldChange({
-                                          field: 'not13YearsOldLegalGuardianOk',
-                                          value: !accountFormDetails
-                                            .not13YearsOldLegalGuardianOk.value,
-                                        });
-                                      }}
-                                    />
-                                    <br />
-                                    <br />
-                                    <span
-                                      className="form-label"
-                                      dangerouslySetInnerHTML={{
-                                        __html:
-                                          accountFormDetails.parentEmailAddress
-                                            .label,
-                                      }}
-                                    />
-                                    :
-                                    <span
-                                      className="form-error"
-                                      dangerouslySetInnerHTML={{
-                                        __html:
-                                          accountFormDetails.parentEmailAddress
-                                            .errorText,
-                                      }}
-                                    />
-                                    <Field
-                                      name="parentEmailAddress"
-                                      type="name"
-                                      className="form-field"
-                                      label={
-                                        accountFormDetails.parentEmailAddress
-                                          .hintText
-                                      }
-                                      component={InputField}
-                                      onChange={event => {
-                                        this.handleFieldChange({
-                                          field: 'parentEmailAddress',
-                                          value: event.target.value,
-                                        });
-                                      }}
-                                    />
-                                    <br />
-                                  </div>
-                                )}
+                                  )}
                               </div>
                             )}
                             <div className="form-section split">
@@ -487,7 +548,7 @@ class ConfirmationUpsellForm extends Component {
                                 <span
                                   className="form-label"
                                   dangerouslySetInnerHTML={{
-                                    __html: accountFormDetails.givenName.label,
+                                    __html: accountFormDetails.firstName.label,
                                   }}
                                 />
                                 :
@@ -495,19 +556,19 @@ class ConfirmationUpsellForm extends Component {
                                   className="form-error"
                                   dangerouslySetInnerHTML={{
                                     __html:
-                                      accountFormDetails.givenName.errorText,
+                                      accountFormDetails.firstName.errorText,
                                   }}
                                 />
                                 <Field
-                                  name="givenName"
+                                  name="firstName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.givenName.hintText}
+                                  label={accountFormDetails.firstName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'givenName',
-                                      value: event.target.value,
+                                      field: 'firstName',
+                                      currentValue: event.target.value,
                                     });
                                   }}
                                 />
@@ -517,7 +578,7 @@ class ConfirmationUpsellForm extends Component {
                                 <span
                                   className="form-label"
                                   dangerouslySetInnerHTML={{
-                                    __html: accountFormDetails.familyName.label,
+                                    __html: accountFormDetails.lastName.label,
                                   }}
                                 />
                                 :
@@ -525,21 +586,23 @@ class ConfirmationUpsellForm extends Component {
                                   className="form-error"
                                   dangerouslySetInnerHTML={{
                                     __html:
-                                      accountFormDetails.familyName.errorText,
+                                      accountFormDetails.lastName.errorText,
                                   }}
                                 />
                                 <Field
-                                  name="familyName"
+                                  name="lastName"
                                   type="name"
                                   className="form-field"
-                                  label={accountFormDetails.familyName.hintText}
+                                  label={accountFormDetails.lastName.hintText}
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'familyName',
-                                      value: event.target.value,
+                                      field: 'lastName',
+                                      currentValue: event.target.value,
                                     });
-                                  }}                                  
+                                  }}
+                            
+                                  
                                 />
                               </div>
                             </div>
@@ -560,17 +623,17 @@ class ConfirmationUpsellForm extends Component {
                                 type="name"
                                 className="form-field"
                                 label={accountFormDetails.displayName.hintText}
-                                component={InputField}                                
+                                component={InputField}
                                 onChange={event => {
                                   this.handleFieldChange({
                                     field: 'displayName',
-                                    value: event.target.value,
+                                    currentValue: event.target.value,
                                   });
-                                }}                                
+                                }}
                               />
                             </div>
 
-                            
+
 
                             <div className="button-container">
                               <Button
@@ -578,10 +641,10 @@ class ConfirmationUpsellForm extends Component {
                                 text={joinPageRes.cancelBtnTxt}
                                 onClickEvent={onCancelClick}
                               />
-			                      {formIsComplete === false && <span style={{color: "red", fontWeight: "bold"}}>Please complete the missing fields above.</span>}
+                              {formIsComplete === false && <span style={{ color: "red", fontWeight: "bold" }}>Please complete the missing fields above.</span>}
                               <button className="submit-button" type="submit">
                                 {joinPageRes.continueBtnTxt}
-                              </button>			  
+                              </button>
                             </div>
                           </form>
                         </div>
@@ -600,7 +663,7 @@ class ConfirmationUpsellForm extends Component {
 }
 
 const mapStateToProps = ({ updateAccountDetailsForm }) => ({
-  updateAccountDetailsForm, 
+  updateAccountDetailsForm,
 });
 
 const ConfirmationUpsellFormValidation = createValidator({
@@ -609,11 +672,11 @@ const ConfirmationUpsellFormValidation = createValidator({
 
 export default connect(
   mapStateToProps,
-  null 
+  null
 )(
   reduxForm({
     form: 'updateAccountDetailsForm',
     validate: ConfirmationUpsellFormValidation,
-    enableReinitialize: true,    
+    enableReinitialize: true,
   })(ConfirmationUpsellForm)
 );

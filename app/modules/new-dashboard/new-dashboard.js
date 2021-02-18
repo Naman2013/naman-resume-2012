@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import {
   cancelReservation,
@@ -54,6 +54,7 @@ import {
     getGravityByDomainAction,
     getDashboardMissionListAction,
     getPhotoHubHeadingAction,
+    errorHandling,
   } from './actions';
 
 import { 
@@ -104,7 +105,7 @@ import { makeStarPartyListSelector,
 import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
 
 import { NewDashboard } from './index';
-
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 const mapStateToProps = createStructuredSelector({
     upcomingStarPartyList: makeStarPartyListSelector(),
@@ -191,7 +192,13 @@ const mapDispatchToProps = {
     setMemberChatState,
     getDashboardMissionListAction,
     setPublicCardStatusAction,
-    getPhotoHubHeadingAction,   
+    getPhotoHubHeadingAction,  
+    // actions: bindActionCreators(
+    //   {        
+        errorHandling,
+    //   },
+    //   dispatch
+    // ), 
 };
 
 export default compose(

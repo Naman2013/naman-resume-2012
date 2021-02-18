@@ -97,7 +97,7 @@ class JoinStep1 extends Component {
                           <Request
                             serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
                             requestBody={{
-                              callSource: 'join',
+                              callSource: 'paywall',
                               enableHiddenPlanHashCode: window.localStorage.getItem(
                                 'enableHiddenPlanHashCode'
                               ),

@@ -7,7 +7,6 @@ import { getUserInfo } from 'app/modules/User';
 import { RecentCommunityActivities } from '../recent-community-activities';
 import { SectionDivider } from '../section-divider';
 
-
 export class CommunityExploration extends PureComponent{
 
     constructor(props){
@@ -33,6 +32,8 @@ export class CommunityExploration extends PureComponent{
                 this.timerId=setTimeout(this.getCommunityObservationAction,duration );
                 this.setState({communityExploration: res});
             }
+            else
+                this.props.validateResponseAccess(res);
         });
     }
 
@@ -52,7 +53,7 @@ export class CommunityExploration extends PureComponent{
 
     render() {
         const { communityExploration } = this.state;
-        const { onClickItem, scrollToRef } = this.props;
+        const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
        
         return (
             <div className="explore-main">  
@@ -72,6 +73,7 @@ export class CommunityExploration extends PureComponent{
                             scrollToRef={scrollToRef}
                             startTimer={this.startTimer}
                             stopTimer={this.stopTimer}
+                            validateResponseAccess={validateResponseAccess}
                         />
                         <SectionDivider />
                         <RecentCommunityActivities
