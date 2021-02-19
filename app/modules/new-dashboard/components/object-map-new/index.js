@@ -130,7 +130,7 @@ export class ObjectMap extends Component{
                 layerId: layer.get('title'),              
               }).then(response=>{
                 const res=response.data;
-                if(res.apiError){
+                if(!res.apiError){
                   self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
                   map.getInteractions().forEach(function(interaction) {
                     if (interaction instanceof MouseWheelZoom) {
@@ -1176,6 +1176,7 @@ export class ObjectMap extends Component{
       const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor, showDownPan, showLeftPan, showRightPan, showUpPan } = this.state
       const { scrollToRef, refreshPhotoHub } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
+      debugger;
         return (
           <div id="object-Map" allowfullscreen>
              <Spinner
