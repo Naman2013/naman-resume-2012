@@ -162,8 +162,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const FORCED_SLOOH_CREW_STATUS_CODE = 419;
   const UPSELL_STATUS_CODE = 420;
 
-  const { newDash, apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
-  console.log("api response: "+ newDash);
+  const { apiError, errorCode, statusCode, loginError, upsellCallSource, upsellReturnLinkLabel, upsellReturnLinkType, upsellReturnLinkUrl } = apiResponse;
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
