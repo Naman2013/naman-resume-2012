@@ -43,7 +43,12 @@ export class PurchaseConfirmation extends React.PureComponent<
       firstExplanationText,
       secondExplanationText,     
       welcomeVideoStreamURL,
+      
     } = purchaseConfirmationData;
+
+    console.log('currentSubscriptionPlan',purchaseConfirmationData);
+    
+
     if (isLoading) return <Spinner loading={isLoading} />;
     return (
       <>        
