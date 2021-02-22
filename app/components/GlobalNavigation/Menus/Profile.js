@@ -15,7 +15,7 @@ const Profile = ({ user, userMenu, mainMenu }) => {
         />
       )}
 
-      {!user.isAuthorized && mainMenu && <Login loginMenuLinks={mainMenu.loginMenuLinks} avatarURL={user.avatarURL} />}
+      {!user.isAuthorized && mainMenu && <Login loginMenuLinks={mainMenu.loginMenuLinks} giftCardLinks={mainMenu.giftCardLinks} avatarURL={user.avatarURL} />}
     </div>
   );
 };

@@ -34,6 +34,7 @@ import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
+import SloohGiftCard from 'app/components/GlobalNavigation/Menus/SloohGiftCard/SloohGiftCard';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -223,8 +224,7 @@ class Login extends Component {
       loginFormDetails,
     } = this.state;
 
-    const { handleSubmit, loginMenuLinks } = this.props;
-
+    const { handleSubmit, loginMenuLinks, giftCardLinks } = this.props;
     return (
       <div className="root">
         {inForgotPasswordMode === true && (
@@ -408,13 +408,13 @@ class Login extends Component {
                 />
               </Link>
             </div>
-            <div className="register-container slooh-gift-card">
-              <div className="slooh-gift-card-heading">Get your Slooh gift cards here!</div>
-              <div className="slooh-gift-card-sub-heading">Click the link below</div>
-              <a href="https://www.amazon.com/Slooh-Apprentice-Membership/dp/B01MDNJXIR/ref=sr_1_1?dchild=1&keywords=slooh+apprentice+membership&qid=1606755292&sr=8-1" target="_blank">
-                <img src="https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/gift-of-the-universe.jpg" alt="" />
-              </a>
-            </div>
+            {giftCardLinks && (
+                <SloohGiftCard
+                  giftCardLinks={giftCardLinks}
+                />
+            )}
+
+            
           </form>
 
         )}

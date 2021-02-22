@@ -30,6 +30,9 @@ const mainMenuModel = {
     loginMenuLinks: has(resp, 'mainMenu.loginMenuLinks')
       ? resp.mainMenu.loginMenuLinks
       : [],
+    giftCardLinks: has(resp, 'mainMenu.getGiftCardLinks')
+      ? resp.mainMenu.getGiftCardLinks
+      : [],
   }),
 };
 
