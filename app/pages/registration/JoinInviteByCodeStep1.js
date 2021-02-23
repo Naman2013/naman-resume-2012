@@ -153,7 +153,7 @@ class JoinByInviteCodeStep1 extends Component {
         }
       ).then(response => {
         const res = response.data;
-        console.log('dtata', response.data);
+       
         if (res.apiError == false) {
           const giftCardTypeResult = {
             apiStatusMessage: res.statusMessage,
@@ -222,7 +222,7 @@ class JoinByInviteCodeStep1 extends Component {
             )
               .then(response => {
                 const res = response.data;
-                console.log('data2', res);
+               
                 if (res.apiError == false) {
                   const giftCodeResult = {
                     invitationNotValidMessage: res.invitationNotValidMessage,

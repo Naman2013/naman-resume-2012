@@ -107,7 +107,6 @@ class ConfirmationUpsellForm extends Component {
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = result => {
 
-    console.log('result',result);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
 
@@ -282,10 +281,9 @@ class ConfirmationUpsellForm extends Component {
       /* need to verify that the password meets the Slooh requirements */
     }
 
-    console.log('stateee::', this.state.isAgeRestricted);
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
-      console.log('step1');
+      
       if (accountFormDetailsData.is13YearsAndOlder.currentValue === '') {
         accountFormDetailsData.is13YearsAndOlder.errorText = t(
           'Ecommerce.AgeRequierMessage'
@@ -355,9 +353,6 @@ class ConfirmationUpsellForm extends Component {
       formIsComplete,
     } = this.state;
 
-
-
-    console.log('accountFormDetails::::', accountFormDetails);
     return (
       <div>
         <Request

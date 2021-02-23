@@ -13,6 +13,7 @@ type TGroupsContainerProps = {
   discussionsContent: any;
   membersContent: any;
   observationsContent: any;
+  newMember: any;
   context: IGroupScreenContext;
   toggleNavigationTab: Function;
   params: {
@@ -26,6 +27,7 @@ const groupsNavigationTabs: { [key: string]: string } = {
   Discussions: 'DISCUSSIONS',
   Observations: 'OBSERVATIONS',
   Members: 'MEMBERS',
+  NewMembers: 'NEWMEMBERS'
 };
 
 export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
@@ -36,10 +38,21 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       discussionsContent,
       observationsContent,
       membersContent,
+      newMember,
       params: { tabId, threadId },
     } = props;
+
+
+    let tempMenu = [...subMenus, {
+      name: "Members",
+      link: "/community-groups/211/newMember",
+    }];
+
+
     const { t } = useTranslation();
     const [currentTab, setCurrentTab] = useState(tabId.toUpperCase());
+
+
 
     useEffect(() => {
       if (currentTab === groupsNavigationTabs.Members && isDesktop) {
@@ -50,7 +63,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
     return (
       <div className="groups-container">
         <div className="groups-container__navigation">
-          {subMenus.map((item, i) => (
+          {tempMenu.map((item, i) => (
             <Link
               to={item.link}
               activeClassName={cx({
@@ -94,14 +107,19 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
             )}
             {((isDesktop && currentTab === groupsNavigationTabs.Discussions) ||
               currentTab === groupsNavigationTabs.Members) && (
-              <div className="groups-container__tabs-member">
-                {membersContent}
-              </div>
-            )}
+                <div className="groups-container__tabs-member">
+                  {membersContent}
+                </div>
+              )}
           </div>
           {currentTab === groupsNavigationTabs.Observations && (
             <div className="groups-container__tabs-observation">
               {observationsContent}
+            </div>
+          )}
+          {currentTab === groupsNavigationTabs.NewMembers && (
+            <div className="groups-container__tabs-observation">
+              {newMember}
             </div>
           )}
         </div>

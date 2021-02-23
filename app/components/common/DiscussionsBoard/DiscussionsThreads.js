@@ -321,6 +321,7 @@ class DiscussionsThreads extends Component {
       showSearchTermResultHeading,
       searchTermResultHeading,
     } = this.state;
+
     const { threadsCount } = discussions;
    
     return (

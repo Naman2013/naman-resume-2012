@@ -26,6 +26,8 @@ import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetai
 /* import { SetScrollRefs } from 'app/components/object-details/ObjectDetailsSectionTitle/ObjectDetailsSectionTitle'; */
 import CenterColumn from 'app/components/common/CenterColumn';
 import { ObservationCard } from 'app/modules/observations/components/observation-card';
+
+
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
@@ -197,11 +199,11 @@ class Observations extends Component {
               widths={['645px', '965px', '965px']}
               customClass={customClass}
             >
-              {hideTitleSection ?  <div
+              {hideTitleSection ? <div
                 className="sroll-action"
                 ref={this.node}
-              ></div>:null }
-             
+              ></div> : null}
+
               <div className="root">
                 {imageList.map(image => (
                   <Request
@@ -256,6 +258,8 @@ class Observations extends Component {
               onHide={this.closeWriteObservationModal}
             />
           )}
+
+
 
           <style jsx>{styles}</style>
         </>

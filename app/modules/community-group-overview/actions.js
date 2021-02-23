@@ -163,11 +163,12 @@ const fetchGroupMembersFail = payload => ({
 });
 
 export const fetchGroupMembers = ({
-  discussionGroupId,
   sortBy,
   lang,
   page,
   ver,
+  discussionGroupId='',
+  callSource='',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());
@@ -180,6 +181,7 @@ export const fetchGroupMembers = ({
     page,
     token,
     ver,
+    callSource,
   })
     .then(result =>
       dispatch(fetchGroupMembersSuccess(Object.assign({ sortBy }, result.data)))

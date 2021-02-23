@@ -341,8 +341,7 @@ class JoinStep2 extends Component {
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     newAccountFormData[field].currentValue = currentValue;
 
-    console.log('newAccountFormData', newAccountFormData);
-
+   
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
     }));

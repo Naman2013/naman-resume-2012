@@ -36,7 +36,6 @@ const PlanDetailsCard = props => {
     originalPlanCost,
   } = props;
 
-  console.log('originalPlanCost',originalPlanCost);
   
   return (
     <div className="root">
