@@ -33,6 +33,7 @@ import { TopCommunityObservations } from './components/object-list/top-observati
 import classnames from 'classnames';
 import { Button } from "./components/button";
 import { ProfileCard } from "./components/profile-card";
+import SloohGiftCard from "app/components/GlobalNavigation/Menus/SloohGiftCard/SloohGiftCard";
 
 
 export class NewDashboard extends PureComponent{
@@ -203,6 +204,7 @@ export class NewDashboard extends PureComponent{
                 photoHubHeadings,
                 userGravityStatus,      
                 errorHandling,
+                topNav,
               } =this.props;
 
               const { showRightbar } = this.state;            
@@ -511,6 +513,13 @@ export class NewDashboard extends PureComponent{
                                     validateResponseAccess={errorHandling}
                                 />
 
+                                {topNav && (
+                                    <SloohGiftCard
+                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks}
+                                        showButton
+                                        theme={"dark"}
+                                    />
+                                )}
                                 {/* <ObjectList
                                     heading={"Community Top Object"}
                                     showTab={true}

@@ -408,13 +408,11 @@ class Login extends Component {
                 />
               </Link>
             </div>
-            {giftCardLinks && (
+            {giftCardLinks && (               
                 <SloohGiftCard
                   giftCardLinks={giftCardLinks}
-                />
-            )}
-
-            
+                />                
+            )}            
           </form>
 
         )}

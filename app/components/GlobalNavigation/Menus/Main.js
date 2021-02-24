@@ -25,6 +25,7 @@ const Main = ({ mainMenu }) => {
       {mainMenu.giftCardLinks && (
         <SloohGiftCard
           giftCardLinks={mainMenu.giftCardLinks}
+          borderTop
         />
       )}
       
