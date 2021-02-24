@@ -144,7 +144,7 @@ class FullInformationOverview extends Component {
       activePage,
     } = this.state;
 
-    const totalMemberCount = membersList.length ? membersList.length : null;
+    console.log('membersList',membersList);
     const createThreadFormParams = {
       canPost: pageMeta.canPost,
       forumId: pageMeta.forumId,
@@ -230,15 +230,20 @@ class FullInformationOverview extends Component {
                   this.membersContainer = node;
                 }}
               ></div>
-              <MembersListSort
+              <Members 
+                  list={membersList}
+                  discussionGroupId={discussionGroupId}
+                  onPageChange={actions.fetchGroupMembers}
+                   />
+              {/* <MembersListSort
                 membersSort={membersSort}
                 discussionGroupId={discussionGroupId}
                 renderList={() => (
-                  <Members list={membersList} />
+                  
                 )}
                 fetchGroupMembers={actions.fetchGroupMembers}
-              />
-              {totalMemberCount && activePage ? (
+              /> */}
+              {membersCount && activePage ? (
                 <div
                   className="members-pagination"
                 //key={`discussion-pagination-${topicId}-${jumpToThreadId}`}
@@ -247,7 +252,7 @@ class FullInformationOverview extends Component {
                     pagesPerPage={4}
                     activePage={activePage}
                     onPageChange={this.handlePageChange}
-                    totalPageCount={Math.ceil(totalMemberCount / 10)}
+                    totalPageCount={Math.ceil(membersCount / 10)}
                   />
                 </div>
               ) : null}

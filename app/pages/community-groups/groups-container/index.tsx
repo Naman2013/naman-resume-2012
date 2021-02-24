@@ -27,7 +27,7 @@ const groupsNavigationTabs: { [key: string]: string } = {
   Discussions: 'DISCUSSIONS',
   Observations: 'OBSERVATIONS',
   Members: 'MEMBERS',
-  NewMembers: 'NEWMEMBERS'
+  Member: 'MEMBER'
 };
 
 export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
@@ -44,8 +44,8 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
 
 
     let tempMenu = [...subMenus, {
-      name: "Members",
-      link: "/community-groups/211/newMember",
+      name: "Member",
+      link: "/community-groups/22/Members",
     }];
 
 
@@ -117,7 +117,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               {observationsContent}
             </div>
           )}
-          {currentTab === groupsNavigationTabs.NewMembers && (
+          {currentTab === groupsNavigationTabs.Member && (
             <div className="groups-container__tabs-observation">
               {newMember}
             </div>
