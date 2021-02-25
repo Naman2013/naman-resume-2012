@@ -23,10 +23,15 @@ const Main = ({ mainMenu }) => {
       <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
       <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
       {mainMenu.giftCardLinks && (
-        <SloohGiftCard
-          giftCardLinks={mainMenu.giftCardLinks}
-          borderTop
-        />
+        <div>
+          <SloohGiftCard
+            giftCardLinks={mainMenu.giftCardLinks}
+            borderTop
+          />
+          <br/>
+          <br/>
+          <br/>
+        </div>
       )}
       
     </Fragment>

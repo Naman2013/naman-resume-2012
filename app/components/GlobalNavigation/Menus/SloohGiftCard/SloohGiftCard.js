@@ -12,7 +12,7 @@ const SloohGiftCard = ({giftCardLinks, showButton, borderTop, theme}) => (
         <center>
           {/* <a href={card.sloohDynamicAdsLink} target={card.sloohDynamicAdsLink ? "_blank" : null}> */}
             {card.showAdImage && (
-                <img onClick={()=>window.open(card.sloohDynamicAdsLink, card.sloohDynamicAdsLink ? "_blank" : null)} className="adImg" src={card.sloohDynamicAdsImages} alt="" />
+                <img onClick={()=>window.open(card.sloohDynamicAdsLink, card.openInNewWindowFlag ? "_blank" : null)} className="adImg" src={card.sloohDynamicAdsImages} alt="" />
             )}            
             <br/>
             {showButton && (
