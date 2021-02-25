@@ -42,10 +42,12 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       params: { tabId, threadId },
     } = props;
 
+    console.log('subMenus::',subMenus);
+    
 
     let tempMenu = [...subMenus, {
       name: "Member",
-      link: "/community-groups/22/Members",
+      link: "/community-groups/22/Member",
     }];
 
 

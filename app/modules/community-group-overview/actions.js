@@ -48,6 +48,10 @@ export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
 export const SORT_DATE = 'date';
+export const RANK_ASC = 'rankASC';
+export const RANK_DESC = 'rankDESC';
+
+
 
 const fetchGoogleClassroomStudentsPanelStart = payload => ({
   type: FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START,

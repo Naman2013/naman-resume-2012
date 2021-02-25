@@ -104,16 +104,28 @@ class FullInformationOverview extends Component {
 
   state = {
     activePage: 1,
+    sortBy: ''
   };
 
   handlePageChange = ({ activePage }) => {
+    console.log('activePage::::', activePage);
     const { discussionGroupId, actions } = this.props;
-    actions.fetchGroupMembers({ discussionGroupId, callSource: 'clubLeaders', page: activePage });
+    const { sortBy } = this.state;
+    actions.fetchGroupMembers({ discussionGroupId, callSource: 'clubLeaders', page: activePage, sortBy: sortBy });
     this.setState({
       activePage: activePage
     })
     this.membersContainer.scrollIntoView();
   };
+
+  test = (value) => {
+    const { actions } = this.props;
+    actions.fetchGroupMembers(value);
+    this.setState({
+      sortBy: value.sortBy
+    })
+
+  }
 
   render() {
     const {
@@ -144,7 +156,7 @@ class FullInformationOverview extends Component {
       activePage,
     } = this.state;
 
-    console.log('membersList',membersList);
+
     const createThreadFormParams = {
       canPost: pageMeta.canPost,
       forumId: pageMeta.forumId,
@@ -230,19 +242,11 @@ class FullInformationOverview extends Component {
                   this.membersContainer = node;
                 }}
               ></div>
-              <Members 
-                  list={membersList}
-                  discussionGroupId={discussionGroupId}
-                  onPageChange={actions.fetchGroupMembers}
-                   />
-              {/* <MembersListSort
-                membersSort={membersSort}
+              <Members
+                list={membersList}
                 discussionGroupId={discussionGroupId}
-                renderList={() => (
-                  
-                )}
-                fetchGroupMembers={actions.fetchGroupMembers}
-              /> */}
+                onPageChange={this.test}
+              />
               {membersCount && activePage ? (
                 <div
                   className="members-pagination"
@@ -255,7 +259,9 @@ class FullInformationOverview extends Component {
                     totalPageCount={Math.ceil(membersCount / 10)}
                   />
                 </div>
+                
               ) : null}
+              <div></div>
             </>
           }
 
