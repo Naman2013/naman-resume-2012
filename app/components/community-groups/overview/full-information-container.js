@@ -249,6 +249,10 @@ class FullInformationOverview extends Component {
                 list={membersList}
                 discussionGroupId={discussionGroupId}
                 onPageChange={this.getDataTroughSortBy}
+                context={context}
+                leadersList={leadersList}
+                theme={{ marginLeft: 0 }}
+
               />
               {membersCount && activePage ? (
                 <div

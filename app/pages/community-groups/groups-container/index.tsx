@@ -42,7 +42,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       params: { tabId, threadId },
     } = props;
 
-    console.log('subMenus::', subMenus);
+    
 
 
     let tempMenu = [...subMenus, {
@@ -83,22 +83,22 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               />
             </Link>
           ))}
-          {!isDesktop && (
+         {/*  {!isDesktop && (
             <div
               className={cx('groups-container__navigation-tab', {
                 active: currentTab === groupsNavigationTabs.Leaders,
               })}
               onClick={() => setCurrentTab(groupsNavigationTabs.Leaders)}
             >
-              {/* {t('Clubs.NavThirdTitle')} */}
-              {t('Leaders')}
+              {t('Clubs.NavThirdTitle')}
+             
               <img
                 src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
                 alt=""
                 className="arrow"
               />
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="groups-container__tabs">

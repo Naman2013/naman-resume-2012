@@ -12,9 +12,8 @@ import Popup from 'react-modal';
 
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
-
-
-
+import MemberListCard from 'app/components/community-groups/overview/members-list-card';
+import styles from 'app/components/community-groups/overview/members-list.style'
 
 
 
@@ -29,6 +28,8 @@ class Members extends Component {
       customerUUID: ''
     }
   }
+
+
 
 
 
@@ -62,7 +63,10 @@ class Members extends Component {
 
 
   render() {
-    const { list } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme } = this.props;
+
+    console.log('leadersList', leadersList);
+
     const { sortValue, popupVal, popUpListData, customerUUID } = this.state;
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
@@ -72,11 +76,22 @@ class Members extends Component {
       tableRowPadding: {
         padding: 15,
         width: '50%',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize:14
       },
     }
     return (
       <>
+        {!isDesktop && (
+          <div className="members-list" style={theme}>
+            <div className="members-container">
+              <div>
+                {leadersList && leadersList.map(x => <MemberListCard {...x} />)}
+              </div>
+            </div>
+            <style jsx>{styles}</style>
+          </div>
+        )}
         <Table striped bordered hover>
           <thead>
             <tr style={style.tableRowPadding}>
