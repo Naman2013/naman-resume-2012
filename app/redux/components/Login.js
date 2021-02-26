@@ -410,7 +410,7 @@ class Login extends Component {
             </div>
             {giftCardLinks && (               
                 <SloohGiftCard
-                  giftCardLinks={giftCardLinks}
+                  giftCardLinks={giftCardLinks.loginMenu}
                 />                
             )}            
           </form>

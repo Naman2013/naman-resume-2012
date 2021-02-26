@@ -25,7 +25,7 @@ const Main = ({ mainMenu }) => {
       {mainMenu.giftCardLinks && (
         <div>
           <SloohGiftCard
-            giftCardLinks={mainMenu.giftCardLinks}
+            giftCardLinks={mainMenu.giftCardLinks.hamburgerMenu}
             borderTop
           />
           <br/>

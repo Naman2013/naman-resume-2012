@@ -515,8 +515,7 @@ export class NewDashboard extends PureComponent{
 
                                 {topNav && (
                                     <SloohGiftCard
-                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks}
-                                        showButton
+                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks.dashboardRightPanelMiddle}                                        
                                         theme={"dark"}
                                     />
                                 )}
@@ -628,7 +627,12 @@ export class NewDashboard extends PureComponent{
                                         showRowCount={3}    
                                     />
                                 )} */}
-                                
+                                {topNav && (
+                                    <SloohGiftCard
+                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks.dashboardRightPanelBottom}                                        
+                                        theme={"dark"}
+                                    />
+                                )}
                             </div>                    
                         </div>
                     </div>
