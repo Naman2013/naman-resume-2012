@@ -26,8 +26,8 @@ type TGroupsContainerProps = {
 const groupsNavigationTabs: { [key: string]: string } = {
   Discussions: 'DISCUSSIONS',
   Observations: 'OBSERVATIONS',
-  Members: 'MEMBERS',
-  Member: 'MEMBER'
+  Leaders: 'LEADERS',
+  Members: 'MEMBERS'
 };
 
 export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
@@ -42,12 +42,12 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       params: { tabId, threadId },
     } = props;
 
-    console.log('subMenus::',subMenus);
-    
+    console.log('subMenus::', subMenus);
+
 
     let tempMenu = [...subMenus, {
-      name: "Member",
-      link: "/community-groups/22/Member",
+      name: "Members",
+      link: "/community-groups/22/Members",
     }];
 
 
@@ -57,7 +57,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
 
 
     useEffect(() => {
-      if (currentTab === groupsNavigationTabs.Members && isDesktop) {
+      if (currentTab === groupsNavigationTabs.Leaders && isDesktop) {
         setCurrentTab(tabId.toUpperCase());
       }
     }, [isDesktop]);
@@ -86,11 +86,12 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
           {!isDesktop && (
             <div
               className={cx('groups-container__navigation-tab', {
-                active: currentTab === groupsNavigationTabs.Members,
+                active: currentTab === groupsNavigationTabs.Leaders,
               })}
-              onClick={() => setCurrentTab(groupsNavigationTabs.Members)}
+              onClick={() => setCurrentTab(groupsNavigationTabs.Leaders)}
             >
-              {t('Clubs.NavThirdTitle')}
+              {/* {t('Clubs.NavThirdTitle')} */}
+              {t('Leaders')}
               <img
                 src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
                 alt=""
@@ -108,7 +109,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               </div>
             )}
             {((isDesktop && currentTab === groupsNavigationTabs.Discussions) ||
-              currentTab === groupsNavigationTabs.Members) && (
+              currentTab === groupsNavigationTabs.Leaders) && (
                 <div className="groups-container__tabs-member">
                   {membersContent}
                 </div>
@@ -119,7 +120,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               {observationsContent}
             </div>
           )}
-          {currentTab === groupsNavigationTabs.Member && (
+          {currentTab === groupsNavigationTabs.Members && (
             <div className="groups-container__tabs-observation">
               {newMember}
             </div>

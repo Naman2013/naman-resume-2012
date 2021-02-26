@@ -224,7 +224,7 @@ export const fetchGroupOverviewPageMeta = ({
     discussionGroupId,
   })
     .then(result => {
-      const { membersSort } = getState().communityGroupOverview;
+      const  membersSort  = 'rankDESC' ;//getState().communityGroupOverview;
       const informationMap = {
         showGroupInformation: 'full',
         showGroupOverview: 'short',

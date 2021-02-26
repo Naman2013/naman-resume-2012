@@ -7,24 +7,36 @@ import {
   RANK_ASC,
   RANK_DESC
 } from 'app/modules/community-group-overview/actions';
-import Popup from './pop-up'
+import Popup from 'react-modal';
+
+
+import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
+import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+
+
+
+
+
 
 class Members extends Component {
 
-  state = {
-    sortValue: 'rankASC',
-    popupVal: false,
-    popUpListData: '',
-    sort: {
-      order: '',
-      orderColumn: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      sortValue: 'rankDESC',
+      popupVal: false,
+      popUpListData: '',
+      customerUUID: ''
     }
   }
+
+
 
   sortByValue = (sortValue) => {
 
     const { onPageChange, discussionGroupId } = this.props;
-    onPageChange({ discussionGroupId, sortBy: sortValue.sortBy })
+
+    onPageChange({ discussionGroupId, sortBy: sortValue.sortBy, activePage: 1 })
 
     this.setState({
       sortValue: sortValue.sortBy
@@ -33,10 +45,10 @@ class Members extends Component {
   }
 
   openPopup = (PopupValue) => {
-
     this.setState({
       popupVal: true,
-      popUpListData: PopupValue
+      popUpListData: PopupValue,
+      customerUUID: PopupValue.data.customerUUID
 
     })
   }
@@ -49,13 +61,12 @@ class Members extends Component {
   }
 
 
-
   render() {
     const { list } = this.props;
-    const { sortValue, popupVal, popUpListData } = this.state;
-    let sortIcon = 'https://img.icons8.com/fluent-systems-filled/15/000000/sort.png';
-    let sortUp = 'https://img.icons8.com/material/15/000000/sort-up--v2.png';
-    let sortDownp = 'https://img.icons8.com/material/15/000000/sort-down--v2.png';
+    const { sortValue, popupVal, popUpListData, customerUUID } = this.state;
+    let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
+    let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
+    let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
 
     const style = {
       tableRowPadding: {
@@ -76,7 +87,7 @@ class Members extends Component {
 
               </th>
               <th onClick={() => {
-                this.sortByValue({ sortBy: sortValue == 'rankASC' ? RANK_DESC : RANK_ASC })
+                this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
               }}>GP
               {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
               </th>
@@ -95,19 +106,30 @@ class Members extends Component {
             })}
           </tbody>
         </Table>
-        {popupVal == true &&
-          <>
-            <Popup
-              popupValue={popupVal}
-              close={this.closePopup}
-              popUpListData={popUpListData}
 
+        {popupVal && (
+          <Popup
+            ariaHideApp={false}
+            isOpen={true}
+            style={customModalStylesPublicProfileCardBlueOverlay}
+            contentLabel="Public Profile"
+            shouldCloseOnOverlayClick={false}
+            onRequestClose={this.closePopup}
+          >
+            <PublicProfileCard
+              customerUUID={customerUUID}
+              onClose={this.closePopup}
             />
-          </>
-        }
+          </Popup>
+        )}
       </>
 
     );
   }
 }
 export default Members;
+
+
+
+
+

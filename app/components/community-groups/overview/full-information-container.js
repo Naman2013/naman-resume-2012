@@ -104,13 +104,15 @@ class FullInformationOverview extends Component {
 
   state = {
     activePage: 1,
-    sortBy: ''
+    sortBy: 'rankDESC'
   };
 
   handlePageChange = ({ activePage }) => {
-    console.log('activePage::::', activePage);
+
     const { discussionGroupId, actions } = this.props;
     const { sortBy } = this.state;
+
+
     actions.fetchGroupMembers({ discussionGroupId, callSource: 'clubLeaders', page: activePage, sortBy: sortBy });
     this.setState({
       activePage: activePage
@@ -118,11 +120,12 @@ class FullInformationOverview extends Component {
     this.membersContainer.scrollIntoView();
   };
 
-  test = (value) => {
+  getDataTroughSortBy = (value) => {
     const { actions } = this.props;
     actions.fetchGroupMembers(value);
     this.setState({
-      sortBy: value.sortBy
+      sortBy: value.sortBy,
+      activePage: value.activePage
     })
 
   }
@@ -245,7 +248,7 @@ class FullInformationOverview extends Component {
               <Members
                 list={membersList}
                 discussionGroupId={discussionGroupId}
-                onPageChange={this.test}
+                onPageChange={this.getDataTroughSortBy}
               />
               {membersCount && activePage ? (
                 <div
@@ -259,7 +262,7 @@ class FullInformationOverview extends Component {
                     totalPageCount={Math.ceil(membersCount / 10)}
                   />
                 </div>
-                
+
               ) : null}
               <div></div>
             </>
