@@ -189,7 +189,8 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GROUP_MEMBERS_SUCCESS](state, { payload }) {
-    const { membersList, membersCount, sortBy, leadersList } = payload;
+    const { membersList, membersCount, sortBy, clubLeaders } = payload;
+    let leadersList = clubLeaders;
     return {
       ...state,
       membersList,

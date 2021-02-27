@@ -172,7 +172,7 @@ export const fetchGroupMembers = ({
   page,
   ver,
   discussionGroupId='',
-  callSource='',
+  callSource='clubLeaders',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());

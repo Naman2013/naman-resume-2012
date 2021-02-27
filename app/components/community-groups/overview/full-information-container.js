@@ -112,7 +112,6 @@ class FullInformationOverview extends Component {
     const { discussionGroupId, actions } = this.props;
     const { sortBy } = this.state;
 
-
     actions.fetchGroupMembers({ discussionGroupId, callSource: 'clubLeaders', page: activePage, sortBy: sortBy });
     this.setState({
       activePage: activePage
@@ -159,7 +158,7 @@ class FullInformationOverview extends Component {
       activePage,
     } = this.state;
 
-
+    console.log('membersList:::', membersList);
     const createThreadFormParams = {
       canPost: pageMeta.canPost,
       forumId: pageMeta.forumId,
