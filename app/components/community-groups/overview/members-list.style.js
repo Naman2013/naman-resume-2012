@@ -35,6 +35,9 @@ export default css`
     flex-direction: column;
     width: 100%;
   }
+  @media(max-width:767px){
+    .members-container {padding:1em;}
+  }
 
   .img-container {
     display: flex;
@@ -75,8 +78,8 @@ export default css`
   }
 
   .members-list-card {
-    margin: 15px 5px;
-    padding: 25px;
+    // margin: 15px 5px;
+    padding: 30px;
     background-color: ${romance};
     font-family: ${primaryFont};
     ${dropShadowContainer}

@@ -43,8 +43,11 @@ const GroupMemberListSort = ({
   customerUUID
 }) => (
   <div className="members-list-card" key={uniqueId()} style={theme}>
+      <p className="leader-label">Club Leader</p>
+      <div className="pic" style={profilePicLeader(iconUrl)} />
     {clubLeaderLabel ? (
       <div>
+       
         <p className="leader-label"> {clubLeaderLabel}</p>
         <div className="pic" style={profilePicLeader(iconUrl)} />
         {/* <Link  to={linkUrl}> */}
@@ -71,10 +74,10 @@ const GroupMemberListSort = ({
     ) : (
       <>
         <div className="header">
-          <div className="pic" style={profilePicSmall(iconUrl)} />
+          {/* <div className="pic" style={profilePicSmall(iconUrl)} /> */}
           <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
             <div
-              className="user-title"
+              className="title"
               dangerouslySetInnerHTML={{ __html: displayName }}
             />
           </Link>

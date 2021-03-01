@@ -13,7 +13,8 @@ import Popup from 'react-modal';
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import MemberListCard from 'app/components/community-groups/overview/members-list-card';
-import styles from 'app/components/community-groups/overview/members-list.style'
+import styles from 'app/components/community-groups/overview/members-list.style';
+
 
 
 
