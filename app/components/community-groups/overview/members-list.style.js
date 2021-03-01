@@ -78,7 +78,7 @@ export default css`
   }
 
   .members-list-card {
-    // margin: 15px 5px;
+    margin-bottom: 0.75em;
     padding: 30px;
     background-color: ${romance};
     font-family: ${primaryFont};
