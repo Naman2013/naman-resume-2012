@@ -29,6 +29,16 @@
       color: $astronaut;
     }
   }
+  .members-flexbox{
+    display: flex; flex-wrap: wrap;
+    @media(max-width:767px){
+      flex-direction: column;
+    }
+    .members-list{
+      @media(max-width:767px){margin-left: 0;}
+    }
+    .popular-discussion-wrapper{display: none;}
+  }
 
   .groups-container__tabs {
     .groups-container__tabs-desktop {

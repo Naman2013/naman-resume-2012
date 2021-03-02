@@ -82,6 +82,7 @@ export default css`
     padding: 30px;
     background-color: ${romance};
     font-family: ${primaryFont};
+    cursor:pointer;
     ${dropShadowContainer}
   }
 

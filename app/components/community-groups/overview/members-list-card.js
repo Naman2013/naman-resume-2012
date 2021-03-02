@@ -42,6 +42,7 @@ const GroupMemberListSort = ({
   setPublicCardStatusAction,
   customerUUID
 }) => (
+  <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
   <div className="members-list-card" key={uniqueId()} style={theme}>
       <p className="leader-label">Club Leader</p>
       <div className="pic" style={profilePicLeader(iconUrl)} />
@@ -75,12 +76,10 @@ const GroupMemberListSort = ({
       <>
         <div className="header">
           {/* <div className="pic" style={profilePicSmall(iconUrl)} /> */}
-          <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
             <div
               className="title"
               dangerouslySetInnerHTML={{ __html: displayName }}
             />
-          </Link>
         </div>
         <div className="member-info">
           <span
@@ -99,7 +98,9 @@ const GroupMemberListSort = ({
     )}
 
     <style jsx>{styles}</style>
-  </div>
+    </div>
+    </Link>
+  
 );
 
 GroupMemberListSort.propTypes = {

@@ -120,11 +120,50 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               {observationsContent}
             </div>
           )}
+         <div className="members-flexbox">
+         {currentTab === groupsNavigationTabs.Members && (
+              <div className="groups-container__tabs-members">
+                {membersContent}
+                
+              </div>
+              
+            )}
+             
+            {((isDesktop && currentTab === groupsNavigationTabs.Members) ||
+              currentTab === groupsNavigationTabs.Leaders) && (
+                <div className="groups-container__tabs-members">
+                  {membersContent}
+                </div>
+              )}
+               {currentTab === groupsNavigationTabs.Members && (
+              <div className="groups-container__tabs-members">
+                {membersContent}
+                
+              </div>
+              
+            )}
+             {currentTab === groupsNavigationTabs.Members && (
+              <div className="groups-container__tabs-members">
+                {membersContent}
+                
+              </div>
+              
+            )}
+             {currentTab === groupsNavigationTabs.Members && (
+              <div className="groups-container__tabs-members">
+                {membersContent}
+                
+                
+              </div>
+              
+            )}
+         </div>
           {currentTab === groupsNavigationTabs.Members && (
             <div className="groups-container__tabs-observation">
               {newMember}
             </div>
           )}
+             
         </div>
       </div>
     );
