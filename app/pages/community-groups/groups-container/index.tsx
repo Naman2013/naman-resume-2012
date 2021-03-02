@@ -122,7 +122,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               {observationsContent}
             </div>
           )}
-         <div className="members-flexbox">
+         <div className="members-flexbox member-mobile">
          {currentTab === groupsNavigationTabs.Members && (
               <div className="groups-container__tabs-members">
                 {membersContent}

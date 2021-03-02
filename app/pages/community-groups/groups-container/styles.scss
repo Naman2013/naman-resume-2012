@@ -34,6 +34,7 @@
     .groups-container__tabs-members {
       width: 100%;
   }
+  
     @media(max-width:767px){
       flex-direction: column;
     }
@@ -108,5 +109,11 @@
         }
       }
     }
+  }
+}
+
+@media(max-width:767px){
+  .member-mobile{
+  display: none !important;
   }
 }
