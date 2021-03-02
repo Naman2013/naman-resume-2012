@@ -82,8 +82,13 @@ export default css`
 }
 
   .members-list-card {
-    margin-bottom: 0.75em;
-    padding: 30px;
+    margin: 0 0 0.5em 0.5em;
+    padding: 25px;
+    min-width: 220px;
+    max-width: 220px;
+    oveflow: hidden;
+    min-height: 200px;
+    height: auto;
     background-color: ${romance};
     font-family: ${primaryFont};
     cursor:pointer;
@@ -99,6 +104,14 @@ export default css`
     color: #1e1e1e;
     cursor: pointer;
   }
+  .header {
+    width: 100%;
+    height:25px;
+}
+  .title{
+    border-bottom: 1px solid #253446;
+    width:100%;
+  }
 
   .member-info {
     display: flex;
@@ -107,7 +120,6 @@ export default css`
     font-weight: bold;
     font-size: 10px;
     justify-content: space-between;
-    border-top: 1px solid ${astronaut};
     height: 35px;
     align-items: center;
   }
@@ -126,9 +138,8 @@ export default css`
   }
 
   .gravity-label {
-    flex: 0 100%;
+    flex: 1 1 50%;
     display: block;
-    border-right: 1px solid ${astronaut};
     text-transform: uppercase;
     line-spacing: 1px;
   }

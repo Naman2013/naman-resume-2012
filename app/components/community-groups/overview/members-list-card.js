@@ -62,14 +62,14 @@ const GroupMemberListSort = ({
           <span
             className="gravity-label"
             dangerouslySetInnerHTML={{ __html: gravityLabel }}
-          />
-          <div className="gravity-container">
-            <img
+          /> &nbsp; &nbsp;|
+          <span className="gravity-container">
+           <span> <img
               className="star"
               src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
-            />
+            /></span>
             <span dangerouslySetInnerHTML={{ __html: gravity }} />
-          </div>
+          </span>
         </div>
       </div>
     ) : (
@@ -85,14 +85,14 @@ const GroupMemberListSort = ({
           <span
             className="gravity-label"
             dangerouslySetInnerHTML={{ __html: gravityLabel }}
-          />
-          <div className="gravity-container">
-            <img
+          />  &nbsp;&nbsp;| 
+          <span className="gravity-container">
+           <span> <img
               className="star"
               src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
-            />
+            /></span>
             <span dangerouslySetInnerHTML={{ __html: gravity }} />
-          </div>
+          </span>
         </div>
       </>
     )}
