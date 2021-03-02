@@ -27,7 +27,6 @@ GroupMembersCardList.propTypes = {
   discussionGroupId: string.isRequired,
   fetchGroupMembers: func.isRequired,
   renderList: func.isRequired,
-  membersSort: string.isRequired,
 };
 
 export default GroupMembersCardList;

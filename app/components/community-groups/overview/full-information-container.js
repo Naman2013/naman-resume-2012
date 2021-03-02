@@ -12,16 +12,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
+
 
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
 import { GroupsContainer } from 'app/pages/community-groups/groups-container';
 import ObjectDetailsObservations from 'app/containers/object-details/ObjectDetailsObservations';
+import Members from 'app/containers/members';
+//import GroupMemberListSort  from 'app/components/community-groups/overview/members-list-sort'
+import MembersListSort from './members-list-sort';
+
 import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import './full-information-style.scss';
+
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
@@ -95,6 +102,33 @@ class FullInformationOverview extends Component {
     subMenus: [],
   };
 
+  state = {
+    activePage: 1,
+    sortBy: 'rankDESC'
+  };
+
+  handlePageChange = ({ activePage }) => {
+
+    const { discussionGroupId, actions } = this.props;
+    const { sortBy } = this.state;
+
+    actions.fetchGroupMembers({ discussionGroupId, callSource: 'clubLeaders', page: activePage, sortBy: sortBy });
+    this.setState({
+      activePage: activePage
+    })
+    this.membersContainer.scrollIntoView();
+  };
+
+  getDataTroughSortBy = (value) => {
+    const { actions } = this.props;
+    actions.fetchGroupMembers(value);
+    this.setState({
+      sortBy: value.sortBy,
+      activePage: value.activePage
+    })
+
+  }
+
   render() {
     const {
       actions,
@@ -117,9 +151,14 @@ class FullInformationOverview extends Component {
       params,
       hideTitleSection,
       location
-    
+
     } = this.props;
 
+    const {
+      activePage,
+    } = this.state;
+
+    console.log('membersList:::', membersList);
     const createThreadFormParams = {
       canPost: pageMeta.canPost,
       forumId: pageMeta.forumId,
@@ -129,7 +168,7 @@ class FullInformationOverview extends Component {
       canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
-    
+
     return (
       <div className="root">
         {pageMeta.canEditGroup &&
@@ -172,13 +211,6 @@ class FullInformationOverview extends Component {
           }
           membersContent={
             <div>
-              <div className="popular-discussion-wrapper">
-                <TopThreads
-                  topicId={pageMeta.topicId}
-                  isDesktop={context.isDesktop}
-                  discussionGroupId={discussionGroupId}
-                />
-              </div>
               <MembersList
                 membersSort={membersSort}
                 membersList={membersList}
@@ -188,6 +220,13 @@ class FullInformationOverview extends Component {
                 fetchGroupMembers={actions.fetchGroupMembers}
                 isDesktop={context.isDesktop}
               />
+              <div className="popular-discussion-wrapper">
+                <TopThreads
+                  topicId={pageMeta.topicId}
+                  isDesktop={context.isDesktop}
+                  discussionGroupId={discussionGroupId}
+                />
+              </div>
             </div>
           }
           observationsContent={
@@ -197,6 +236,41 @@ class FullInformationOverview extends Component {
               customClass={observationsTabCustomClass}
             />
           }
+          newMember={
+            <>
+              <div
+                className="sorting-bar"
+                ref={node => {
+                  this.membersContainer = node;
+                }}
+              ></div>
+              <Members
+                list={membersList}
+                discussionGroupId={discussionGroupId}
+                onPageChange={this.getDataTroughSortBy}
+                context={context}
+                leadersList={leadersList}
+                theme={{ marginLeft: 0 }}
+
+              />
+              {membersCount && activePage ? (
+                <div
+                  className="members-pagination"
+                //key={`discussion-pagination-${topicId}-${jumpToThreadId}`}
+                >
+                  <Pagination
+                    pagesPerPage={4}
+                    activePage={activePage}
+                    onPageChange={this.handlePageChange}
+                    totalPageCount={Math.ceil(membersCount / 10)}
+                  />
+                </div>
+
+              ) : null}
+              <div></div>
+            </>
+          }
+
         />
       </div>
     );

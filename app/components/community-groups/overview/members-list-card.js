@@ -42,9 +42,13 @@ const GroupMemberListSort = ({
   setPublicCardStatusAction,
   customerUUID
 }) => (
+  <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
   <div className="members-list-card" key={uniqueId()} style={theme}>
+      <p className="leader-label">Club Leader</p>
+      <div className="pic" style={profilePicLeader(iconUrl)} />
     {clubLeaderLabel ? (
       <div>
+       
         <p className="leader-label"> {clubLeaderLabel}</p>
         <div className="pic" style={profilePicLeader(iconUrl)} />
         {/* <Link  to={linkUrl}> */}
@@ -58,45 +62,45 @@ const GroupMemberListSort = ({
           <span
             className="gravity-label"
             dangerouslySetInnerHTML={{ __html: gravityLabel }}
-          />
-          <div className="gravity-container">
-            <img
+          /> &nbsp; &nbsp;|
+          <span className="gravity-container">
+           <span> <img
               className="star"
               src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
-            />
+            /></span>
             <span dangerouslySetInnerHTML={{ __html: gravity }} />
-          </div>
+          </span>
         </div>
       </div>
     ) : (
       <>
         <div className="header">
-          <div className="pic" style={profilePicSmall(iconUrl)} />
-          <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
+          {/* <div className="pic" style={profilePicSmall(iconUrl)} /> */}
             <div
-              className="user-title"
+              className="title"
               dangerouslySetInnerHTML={{ __html: displayName }}
             />
-          </Link>
         </div>
         <div className="member-info">
           <span
             className="gravity-label"
             dangerouslySetInnerHTML={{ __html: gravityLabel }}
-          />
-          <div className="gravity-container">
-            <img
+          />  &nbsp;&nbsp;| 
+          <span className="gravity-container">
+           <span> <img
               className="star"
               src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
-            />
+            /></span>
             <span dangerouslySetInnerHTML={{ __html: gravity }} />
-          </div>
+          </span>
         </div>
       </>
     )}
 
     <style jsx>{styles}</style>
-  </div>
+    </div>
+    </Link>
+  
 );
 
 GroupMemberListSort.propTypes = {

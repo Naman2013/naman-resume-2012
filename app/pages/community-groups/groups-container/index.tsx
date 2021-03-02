@@ -13,6 +13,7 @@ type TGroupsContainerProps = {
   discussionsContent: any;
   membersContent: any;
   observationsContent: any;
+  newMember: any;
   context: IGroupScreenContext;
   toggleNavigationTab: Function;
   params: {
@@ -25,7 +26,8 @@ type TGroupsContainerProps = {
 const groupsNavigationTabs: { [key: string]: string } = {
   Discussions: 'DISCUSSIONS',
   Observations: 'OBSERVATIONS',
-  Members: 'MEMBERS',
+  Leaders: 'LEADERS',
+  Members: 'MEMBERS'
 };
 
 export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
@@ -36,13 +38,28 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
       discussionsContent,
       observationsContent,
       membersContent,
+      newMember,
       params: { tabId, threadId },
     } = props;
+
+    
+
+
+    // let tempMenu = [...subMenus, {
+    //   name: "Members",
+    //   link: "/community-groups/22/Members",
+    // }];
+
+    let tempMenu = subMenus;
+
+  
     const { t } = useTranslation();
     const [currentTab, setCurrentTab] = useState(tabId.toUpperCase());
 
+
+
     useEffect(() => {
-      if (currentTab === groupsNavigationTabs.Members && isDesktop) {
+      if (currentTab === groupsNavigationTabs.Leaders && isDesktop) {
         setCurrentTab(tabId.toUpperCase());
       }
     }, [isDesktop]);
@@ -50,7 +67,7 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
     return (
       <div className="groups-container">
         <div className="groups-container__navigation">
-          {subMenus.map((item, i) => (
+          {tempMenu.map((item, i) => (
             <Link
               to={item.link}
               activeClassName={cx({
@@ -68,21 +85,22 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               />
             </Link>
           ))}
-          {!isDesktop && (
+         {/*  {!isDesktop && (
             <div
               className={cx('groups-container__navigation-tab', {
-                active: currentTab === groupsNavigationTabs.Members,
+                active: currentTab === groupsNavigationTabs.Leaders,
               })}
-              onClick={() => setCurrentTab(groupsNavigationTabs.Members)}
+              onClick={() => setCurrentTab(groupsNavigationTabs.Leaders)}
             >
               {t('Clubs.NavThirdTitle')}
+             
               <img
                 src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
                 alt=""
                 className="arrow"
               />
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="groups-container__tabs">
@@ -93,17 +111,36 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               </div>
             )}
             {((isDesktop && currentTab === groupsNavigationTabs.Discussions) ||
-              currentTab === groupsNavigationTabs.Members) && (
-              <div className="groups-container__tabs-member">
-                {membersContent}
-              </div>
-            )}
+              currentTab === groupsNavigationTabs.Leaders) && (
+                <div className="groups-container__tabs-member">
+                  {membersContent}
+                </div>
+              )}
           </div>
           {currentTab === groupsNavigationTabs.Observations && (
             <div className="groups-container__tabs-observation">
               {observationsContent}
             </div>
           )}
+         <div className="members-flexbox member-mobile">
+         {currentTab === groupsNavigationTabs.Members && (
+              <div className="groups-container__tabs-members">
+                {membersContent}
+                
+              </div>
+              
+            )}
+             
+           
+             
+           
+         </div>
+          {currentTab === groupsNavigationTabs.Members && (
+            <div className="groups-container__tabs-observation">
+              {newMember}
+            </div>
+          )}
+             
         </div>
       </div>
     );

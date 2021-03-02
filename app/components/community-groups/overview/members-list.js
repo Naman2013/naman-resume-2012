@@ -100,14 +100,18 @@ class GroupMemberList extends Component {
 
     return (
       <div className="members-list" style={theme}>
-        <BlueLineDrop
-          title={t('Clubs.GroupMembers', { membersCount })}
+        <div className="members-container">
+          <div>
+            {leadersList && leadersList.map(x => <MemberListCard {...x} />)}
+
+          </div>
+        </div>
+        {/*  <BlueLineDrop
+          //title={t('Clubs.GroupMembers', { membersCount })}
+          title={t('Club Leaders')}
           isDesktop={isDesktop}
           render={() => (
-            <div className="members-container">
-              <div>
-                {leadersList && leadersList.map(x => <MemberListCard {...x} />)}
-              </div>
+            <>
               <MembersListSort
                 membersSort={membersSort}
                 discussionGroupId={discussionGroupId}
@@ -130,9 +134,9 @@ class GroupMemberList extends Component {
                 )}
                 {renderToggle ? renderToggle() : null}
               </div>
-            </div>
+            </>
           )}
-        />
+        /> */}
 
         <style jsx>{styles}</style>
       </div>

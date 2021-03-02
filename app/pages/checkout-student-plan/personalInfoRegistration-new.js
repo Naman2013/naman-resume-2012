@@ -235,7 +235,7 @@ class personalInfoRegistrationNew extends Component {
 
     handleErrorFormatdata = (array, errorArray) => {
         array.forEach((element, index) => {
-            console.log(errorArray[element.key]);
+            
             if (errorArray[element.key]) {
                 Object.assign(array[index], { showError: errorArray[element.key].showError, errorText: errorArray[element.key].errorText });
             }
@@ -305,8 +305,7 @@ class personalInfoRegistrationNew extends Component {
                 };
 
                 if (pendingCustomerResult.status === 'success') {
-                    console.log("after create pending customer.....");
-                    console.log(formData);
+                    
                     window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
                     window.localStorage.setItem('username', formData.loginEmailAddress.currentValue);
                     window.localStorage.setItem('password', formData.password.currentValue);
@@ -976,7 +975,7 @@ class personalInfoRegistrationNew extends Component {
             showGoogleSSOButtonDescription
 
         } = this.state;
-        console.log('accountFormDetails', accountFormDetails);
+      
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
         const { _sloohatid } = getUserInfo();
 

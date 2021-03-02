@@ -43,6 +43,7 @@ const mapStateToProps = ({ communityGroupOverview }) => ({
   pageMeta: communityGroupOverview.pageMeta,
 });
 
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
@@ -150,6 +151,7 @@ class CommunityGroupOverview extends Component {
       routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
+
     const { subMenus } = pageMeta;
     const { showPopup, showPrompt, promptText } = this.state;
 
@@ -158,7 +160,7 @@ class CommunityGroupOverview extends Component {
     modalStyles.content = Object.assign(modalStyleFullPage.content, {
       backgroundColor: seashell,
     });
-    
+
     return (
       <div className="root">
         <DeviceContext.Consumer>
@@ -168,30 +170,30 @@ class CommunityGroupOverview extends Component {
                 widths={['768px', '940px', '940px']}
                 theme={{ paddingTop: '25px' }}
               >
-                {pageMeta.useCustomLogoLayout ? 
-                <CustomGroupsHeader
-                isEditMode={edit}
-                condensed={false}
-                showInformation={this.showInformation}
-                joinOrLeaveGroup={this.joinLeaveGroup}
-                discussionGroupId={groupId}
-                updatePrompt={this.updatePrompt}
-                {...context}
-                {...communityGroupOverview}
-                {...pageMeta}
-              />
-                :
-                <Header
-                  isEditMode={edit}
-                  condensed={false}
-                  showInformation={this.showInformation}
-                  joinOrLeaveGroup={this.joinLeaveGroup}
-                  discussionGroupId={groupId}
-                  updatePrompt={this.updatePrompt}
-                  {...context}
-                  {...communityGroupOverview}
-                  {...pageMeta} 
-                />
+                {pageMeta.useCustomLogoLayout ?
+                  <CustomGroupsHeader
+                    isEditMode={edit}
+                    condensed={false}
+                    showInformation={this.showInformation}
+                    joinOrLeaveGroup={this.joinLeaveGroup}
+                    discussionGroupId={groupId}
+                    updatePrompt={this.updatePrompt}
+                    {...context}
+                    {...communityGroupOverview}
+                    {...pageMeta}
+                  />
+                  :
+                  <Header
+                    isEditMode={edit}
+                    condensed={false}
+                    showInformation={this.showInformation}
+                    joinOrLeaveGroup={this.joinLeaveGroup}
+                    discussionGroupId={groupId}
+                    updatePrompt={this.updatePrompt}
+                    {...context}
+                    {...communityGroupOverview}
+                    {...pageMeta}
+                  />
                 }
                 <FullInformationOverview
                   refreshHeader={this.refreshHeader}

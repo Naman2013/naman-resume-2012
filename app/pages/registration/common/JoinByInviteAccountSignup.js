@@ -759,10 +759,10 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
       showGoogleSSOButtonDescription,
-      googleSSOButtonDescription,
+      googleSSOButtonDescription
     } = this.state;
 
-    //console.log('accountFormDetails', accountFormDetails);
+    
     //console.log('accountFormDetails',accountFormDetails);
     /*   accountFormDetails.loginEmailAddress.currentValue = joinByInviteParams.inviteeEmailAddress; */
 

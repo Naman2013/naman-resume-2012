@@ -48,6 +48,10 @@ export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
 export const SORT_DATE = 'date';
+export const RANK_ASC = 'rankASC';
+export const RANK_DESC = 'rankDESC';
+
+
 
 const fetchGoogleClassroomStudentsPanelStart = payload => ({
   type: FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START,
@@ -163,11 +167,12 @@ const fetchGroupMembersFail = payload => ({
 });
 
 export const fetchGroupMembers = ({
-  discussionGroupId,
   sortBy,
   lang,
   page,
   ver,
+  discussionGroupId='',
+  callSource='clubLeaders',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());
@@ -180,6 +185,7 @@ export const fetchGroupMembers = ({
     page,
     token,
     ver,
+    callSource,
   })
     .then(result =>
       dispatch(fetchGroupMembersSuccess(Object.assign({ sortBy }, result.data)))
@@ -218,7 +224,7 @@ export const fetchGroupOverviewPageMeta = ({
     discussionGroupId,
   })
     .then(result => {
-      const { membersSort } = getState().communityGroupOverview;
+      const  membersSort  = 'rankDESC' ;//getState().communityGroupOverview;
       const informationMap = {
         showGroupInformation: 'full',
         showGroupOverview: 'short',

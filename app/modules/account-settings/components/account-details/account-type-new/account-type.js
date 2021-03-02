@@ -104,15 +104,14 @@ const AccountType = props => {
                       <ul className="list-with-params">
                         {showPricingInformation && (
                           <li>
-                            <h5
-                              className="h-5 font-weight-normal"
-                              dangerouslySetInnerHTML={{
-                                __html: priceDisplayLabel,
-                              }}
-                            />
+                          <h5
+                            className="h-5 font-weight-normal"
+                            dangerouslySetInnerHTML={{
+                              __html: priceDisplayLabel,
+                            }}
+                          />
                         </li>
                         )}
-                        
                         <li>
                           <h5 className="h-5 font-weight-normal">
                             {startDateText}
