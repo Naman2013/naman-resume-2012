@@ -84,8 +84,8 @@ export default css`
   .members-list-card {
     margin: 0 0 0.5em 0.5em;
     padding: 25px;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 280px;
+    max-width: 280px;
     oveflow: hidden;
     min-height: 200px;
     height: auto;
