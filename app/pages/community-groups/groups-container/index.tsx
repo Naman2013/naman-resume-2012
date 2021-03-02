@@ -45,12 +45,14 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
     
 
 
-    let tempMenu = [...subMenus, {
-      name: "Members",
-      link: "/community-groups/22/Members",
-    }];
+    // let tempMenu = [...subMenus, {
+    //   name: "Members",
+    //   link: "/community-groups/22/Members",
+    // }];
 
+    let tempMenu = subMenus;
 
+  
     const { t } = useTranslation();
     const [currentTab, setCurrentTab] = useState(tabId.toUpperCase());
 
@@ -129,34 +131,9 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               
             )}
              
-            {((isDesktop && currentTab === groupsNavigationTabs.Members) ||
-              currentTab === groupsNavigationTabs.Leaders) && (
-                <div className="groups-container__tabs-members">
-                  {membersContent}
-                </div>
-              )}
-               {currentTab === groupsNavigationTabs.Members && (
-              <div className="groups-container__tabs-members">
-                {membersContent}
-                
-              </div>
-              
-            )}
-             {currentTab === groupsNavigationTabs.Members && (
-              <div className="groups-container__tabs-members">
-                {membersContent}
-                
-              </div>
-              
-            )}
-             {currentTab === groupsNavigationTabs.Members && (
-              <div className="groups-container__tabs-members">
-                {membersContent}
-                
-                
-              </div>
-              
-            )}
+           
+             
+           
          </div>
           {currentTab === groupsNavigationTabs.Members && (
             <div className="groups-container__tabs-observation">

@@ -31,6 +31,9 @@
   }
   .members-flexbox{
     display: flex; flex-wrap: wrap;
+    .groups-container__tabs-members {
+      width: 100%;
+  }
     @media(max-width:767px){
       flex-direction: column;
     }

@@ -76,6 +76,10 @@ export default css`
   .pic {
     margin: 0 5px;
   }
+  .members-container div {
+    display: flex;
+    flex-wrap: wrap;
+}
 
   .members-list-card {
     margin-bottom: 0.75em;
@@ -84,6 +88,9 @@ export default css`
     font-family: ${primaryFont};
     cursor:pointer;
     ${dropShadowContainer}
+  }
+  @media(max-width:767px){
+    .members-list-card{width:100%; margin:0px 0px 10px;}
   }
 
   .user-title {
