@@ -157,6 +157,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
   const UNAUTHORIZED_CREDSREQD_STATUS_CODE = 402;
+  const UNAUTHORIZED_ACCESS_FORBIDDEN = 403;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
   const EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE = 421;
   const FORCED_SLOOH_CREW_STATUS_CODE = 419;
@@ -194,6 +195,8 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   } else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expiredrecently';
     triggerUserAccountIssueModal = true;
+  }else if (statusCode === UNAUTHORIZED_ACCESS_FORBIDDEN) {
+    dispatch(push('/'));
   }
 
   if (triggerUserAccountIssueModal == true) {
