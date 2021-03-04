@@ -37,6 +37,7 @@ import MapNavigation from '../../common/map-navigation';
 import Feature from 'ol/Feature';
 import  Point from 'ol/geom/Point';
 import { Tooltip } from 'react-tippy';
+import { setPublicCardStatusAction } from 'app/modules/upcoming-events/upcoming-events-actions';
 
 export class ObjectMap extends Component{
   // state={
@@ -1174,9 +1175,9 @@ export class ObjectMap extends Component{
     
     render() {          
       const { showObjectCard, objectCardDetails, isloading1, currentZoom, maxZoomLevel, titleBackgoundColor, navigationBackgroundColor, showDownPan, showLeftPan, showRightPan, showUpPan } = this.state
-      const { scrollToRef, refreshPhotoHub } = this.props;      
+      const { scrollToRef, refreshPhotoHub, customerUUID, setPublicCardStatusAction } = this.props;      
       const { hideMap, mapExpanded, explanationText, objectMapControls, mapTitle, mapSubtitle } = this.state;
-      debugger;
+      
         return (
           <div id="object-Map" allowfullscreen>
              <Spinner
@@ -1218,6 +1219,7 @@ export class ObjectMap extends Component{
                       refreshPhotoHub={refreshPhotoHub}
                       fullScreenMode={mapExpanded}
                       exixFullScreenMode={this.handleContractMap}
+                      setPublicCardStatusAction={setPublicCardStatusAction}
                     />
                 </div> 
               )}

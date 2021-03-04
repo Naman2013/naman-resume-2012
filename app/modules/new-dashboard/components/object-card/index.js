@@ -6,6 +6,9 @@ import { Button } from '../button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setFilters } from 'app/modules/my-pictures-filters/actions';
+import MVPAstronomerCard from 'app/components/common/MVPAstronomer/MVPAstronomerCard';
+import { Link } from 'react-router';
+import MVPAstronomer from 'app/components/common/MVPAstronomer/MVPAstronomer';
 
 class ObjectCard extends Component{
     
@@ -36,8 +39,8 @@ class ObjectCard extends Component{
 
     render() {
                
-        const { onHide, objectCardDetails } = this.props;
-        const { seeMore } = this.state;        
+        const { onHide, objectCardDetails, setPublicCardStatusAction, } = this.props;
+        const { seeMore } = this.state;   
         return (
             <div id="object-card" className="object-card-main" style={{background: objectCardDetails.cardBackgroundColor}}>
                 <img className="object-close-icon" onClick={onHide} src={objectCardDetails.imageArray.showImage ? "https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg" : "https://vega.slooh.com/assets/v4/dashboard-new/close_white.svg"} />
@@ -78,7 +81,19 @@ class ObjectCard extends Component{
                         <h6 className="object-features">{feature.title} <b>{feature.data}</b></h6>
                     ))}
                     
-                    
+                    {objectCardDetails?.showMVPSection && objectCardDetails?.specialistsList?.length > 0 && (
+                        <div>
+                            <br/>
+                            <br/>
+                            <h3 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h3>
+                            <div className="mvp-card-container">
+                                {objectCardDetails?.specialistsList.map(card=>(
+                                    <MVPAstronomer {...card} cardClass="contents-mvp-card" />                                    
+                                ))}
+                            </div>
+                        </div>
+                        
+                    )}
                 </div>
                 <hr className="horizontalline"/>
                 <div className="object-button-controls">
@@ -107,7 +122,10 @@ class ObjectCard extends Component{
                         />
                     )}
                     
-                </div>
+                </div>               
+                    
+                   
+               
                 {/* <div className="quest-badge-container">                    
                     <img src={objectCardDetails.badgeIconURL} className="quest-badge-icon"/>
                 </div>                

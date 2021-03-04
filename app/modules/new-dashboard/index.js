@@ -247,6 +247,7 @@ export class NewDashboard extends PureComponent{
                                     scrollToRef={this.scrollToRef}
                                     refreshPhotoHub={this.refreshPhotoHub}
                                     validateResponseAccess={errorHandling}
+                                    setPublicCardStatusAction={setPublicCardStatusAction}
                                 />                          
                                 
                                
