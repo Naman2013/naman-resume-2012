@@ -6,9 +6,8 @@ import { Button } from '../button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setFilters } from 'app/modules/my-pictures-filters/actions';
-import MVPAstronomerCard from 'app/components/common/MVPAstronomer/MVPAstronomerCard';
-import { Link } from 'react-router';
-import MVPAstronomer from 'app/components/common/MVPAstronomer/MVPAstronomer';
+import MVPAstronomerNew from 'app/components/common/MVPAstronomer/MVPAstronomerNew';
+
 
 class ObjectCard extends Component{
     
@@ -79,16 +78,16 @@ class ObjectCard extends Component{
 
                     {objectCardDetails.featuresArray.map(feature =>(
                         <h6 className="object-features">{feature.title} <b>{feature.data}</b></h6>
-                    ))}
-                    
+                    ))}                    
                     {objectCardDetails?.showMVPSection && objectCardDetails?.specialistsList?.length > 0 && (
                         <div>
                             <br/>
                             <br/>
-                            <h3 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h3>
+                            <hr className="horizontalline"/>
+                            <h5 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h5>
                             <div className="mvp-card-container">
                                 {objectCardDetails?.specialistsList.map(card=>(
-                                    <MVPAstronomer {...card} cardClass="contents-mvp-card" />                                    
+                                    <MVPAstronomerNew {...card} cardClass="contents-mvp-card" />                                    
                                 ))}
                             </div>
                         </div>
