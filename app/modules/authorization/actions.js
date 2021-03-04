@@ -196,7 +196,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     subscriptionPlansCallSource = 'expiredrecently';
     triggerUserAccountIssueModal = true;
   }else if (statusCode === UNAUTHORIZED_ACCESS_FORBIDDEN) {
-
+    dispatch(push('/'));
   }
 
   if (triggerUserAccountIssueModal == true) {
