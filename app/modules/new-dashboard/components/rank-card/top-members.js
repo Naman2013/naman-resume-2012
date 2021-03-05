@@ -4,9 +4,6 @@ import './style.scss';
 import { getTopMembers } from '../../dashboardApi';
 import { getUserInfo } from 'app/modules/User';
 import { RankCard } from './index';
-import { PublicProfileCard } from '../public-card';
-import Popup from 'react-modal';
-import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 
 export class TopMembers extends Component{
 

@@ -82,9 +82,9 @@ class ObjectCard extends Component{
                     {objectCardDetails?.showMVPSection && objectCardDetails?.specialistsList?.length > 0 && (
                         <div>
                             <br/>
-                            <br/>
                             <hr className="horizontalline"/>
                             <h5 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h5>
+                            <br/>
                             <div className="mvp-card-container">
                                 {objectCardDetails?.specialistsList.map(card=>(
                                     <MVPAstronomerNew {...card} cardClass="contents-mvp-card" />                                    

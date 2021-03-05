@@ -13,13 +13,15 @@ const MVPAstronomerCardNew = ({
   iconUrl,
   gravity,
   cardClass,
+  hasLinkFlag,
+  onClick,
 }) => (
   <div className={`mvp-card ${cardClass}`} key={uniqueId()}>
     <div className="mvp-icon">
       <div className="mvp-icon-container">
         <img className="mvp-icon-content" src={iconUrl} alt="" />        
       </div>
-      <h5 className="mvp-name">{displayName}</h5>
+      <h5 onClick={hasLinkFlag ? onClick : null} className="mvp-name">{displayName}</h5>
     </div>    
     <div className="mvp-gravity">
       <div className="mvp-gravity-label">{gravityRankLabel}</div>
@@ -42,6 +44,8 @@ MVPAstronomerCardNew.propTypes = {
   iconUrl: PropTypes.string.isRequired,
   gravity: PropTypes.string.isRequired,
   cardClass: PropTypes.string.isRequired,
+  hasLinkFlag: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default MVPAstronomerCardNew;

@@ -16,12 +16,13 @@ export default css`
   .mvp-card {
     background-color: ${romance};
     width: 100%;
-    padding: 25px;
+    padding: 5px;
     margin: 0 0 15px;
     min-width: 28%;
     box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
     text-decoration: none;
+    min-width: 160px;
   }
 
   .mvp-name{
@@ -32,7 +33,7 @@ export default css`
   .mvp-card h5 {
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};
-    font-size: 16px;
+    font-size: 12px;
     // border-bottom: 1px solid ${hawkesBlue};
     padding: 8px 0;
     margin-bottom: 0;
@@ -51,7 +52,7 @@ export default css`
   }
 
   .mvp-gravity-rank {
-    padding: 10px 0 10px 12px;
+    padding: 0px 0 0px 12px;
     border-left: 1px solid ${hawkesBlue};
     display: flex;
     align-items: center;
@@ -68,7 +69,7 @@ export default css`
   }
 
   .mvp-gravity-label {
-    padding: 10px 0;
+    padding: 0px 5px 0px 0px;
   }
 
   .mvp-icon{
@@ -77,8 +78,8 @@ export default css`
   }
 
   .mvp-icon-container {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
     background-size: cover;

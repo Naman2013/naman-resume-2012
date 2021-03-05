@@ -6,7 +6,6 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import style from './MVPAstronomer.style';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setPublicCardStatusAction } from '../../../modules/upcoming-events/upcoming-events-actions';
@@ -24,16 +23,19 @@ const MVPAstronomerNew = ({
   setPublicCardStatusAction,
 }) => (
   <Fragment>
-    {hasLinkFlag ? (
-      <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} >
+    <div style={{marginRight: '10px'}}>
+    {/* {hasLinkFlag ? (
+      <Link onClick={()=>setPublicCardStatusAction(customerUUID, true)} > */}
         <MVPAstronomerCardNew
           gravityRankLabel={gravityRankLabel}
           displayName={displayName}
           iconUrl={iconUrl}
           gravity={gravity}
           cardClass={cardClass}
+          hasLinkFlag={hasLinkFlag}
+          onClick={()=>setPublicCardStatusAction(customerUUID, true)}
         />
-      </Link>
+      {/* </Link>
     ) : (
       <MVPAstronomerCardNew
         gravityRankLabel={gravityRankLabel}
@@ -42,8 +44,9 @@ const MVPAstronomerNew = ({
         gravity={gravity}
         cardClass={cardClass}
       />
-    )}
+    )} */}
     {/* <style jsx>{style}</style> */}
+    </div>
   </Fragment>
 );
 
