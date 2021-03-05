@@ -79,17 +79,20 @@ class ObjectCard extends Component{
                     {objectCardDetails.featuresArray.map(feature =>(
                         <h6 className="object-features">{feature.title} <b>{feature.data}</b></h6>
                     ))}                    
-                    {objectCardDetails?.showMVPSection && objectCardDetails?.specialistsList?.length > 0 && (
+                    {objectCardDetails?.showMVPSection && (
                         <div>
                             <br/>
                             <hr className="horizontalline"/>
                             <h5 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h5>
-                            <br/>
-                            <div className="mvp-card-container">
-                                {objectCardDetails?.specialistsList.map(card=>(
-                                    <MVPAstronomerNew {...card} cardClass="contents-mvp-card" />                                    
-                                ))}
-                            </div>
+                            {objectCardDetails?.showNoMVPText ? (
+                                <h6 dangerouslySetInnerHTML={{__html: objectCardDetails?.noMVPText}} /> 
+                            ):(
+                                <div className="mvp-card-container">
+                                    {objectCardDetails?.specialistsList.map(card=>(
+                                        <MVPAstronomerNew {...card} cardClass="contents-mvp-card" />                                    
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         
                     )}
