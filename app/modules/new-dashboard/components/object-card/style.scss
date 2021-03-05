@@ -351,6 +351,30 @@
     text-align: center;
 }
 
+.new-dash .publicProfileModal{
+    position: fixed;
+    inset: 0px;
+    background-color: rgba(60, 70, 85, 0.9);
+    z-index: 9999;
+}
+
+.new-dash .publicProfileDiv{
+    position: absolute;
+    inset: 50% auto auto 50%;
+    border: 0px;
+    background: rgb(37, 52, 70);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px 25px;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    min-height: 300px;
+    min-width: 300px;
+    max-height: 80%;
+}
+
 @media (min-width: $screenXLarge) {
     .new-dash .object-header-container {
         height: 200px;

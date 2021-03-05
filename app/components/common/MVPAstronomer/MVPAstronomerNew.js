@@ -33,7 +33,7 @@ const MVPAstronomerNew = ({
           gravity={gravity}
           cardClass={cardClass}
           hasLinkFlag={hasLinkFlag}
-          onClick={()=>setPublicCardStatusAction(customerUUID, true)}
+          onClick={setPublicCardStatusAction}
         />
       {/* </Link>
     ) : (
@@ -59,10 +59,12 @@ MVPAstronomerNew.propTypes = {
   linkUrl: PropTypes.string.isRequired,
   cardClass: PropTypes.string.isRequired,
   customerUUID: PropTypes.string.isRequired,
+  setPublicCardStatusAction: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = {
-  setPublicCardStatusAction
-}
+// const mapDispatchToProps = {
+//   setPublicCardStatusAction
+// }
 
-export default compose(connect(null,mapDispatchToProps)) (MVPAstronomerNew);
+// export default compose(connect(null,mapDispatchToProps)) (MVPAstronomerNew);
+export default MVPAstronomerNew;
