@@ -140,6 +140,12 @@ export default css`
     text-transform: uppercase;
   }
 
+  .chart-div{
+    width: 100%;
+    height: 500px;
+    border: none;
+  }
+
   @media ${screenLarge} {
     .obs-visibility-root {
       // flex-direction: row;

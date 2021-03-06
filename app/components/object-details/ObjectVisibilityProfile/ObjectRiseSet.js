@@ -183,6 +183,11 @@ class ObjectRiseSet extends Component {
                     guideUrl={riseSet.guideUrl}
                     guideSubTitle={riseSet.guideSubTitle}
                   /> */}
+                  
+                    <iframe
+                      className="chart-div"
+                      src={serviceResponse.tonightChart.observatories[0].chartURL}
+                    />
                 </div>
               )}               
               <style jsx>{style}</style>
