@@ -62,7 +62,7 @@ const SloohGiftCard = ({giftCardLinks, borderTop, theme}) => (
         }
         .adImg{
           width: 80%;
-          margin-bottom: 10px;
+          margin: 30px 0px;
           cursor: pointer;
         }
         .borderTop{
