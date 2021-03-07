@@ -41,4 +41,16 @@ export default css`
     height: 450px;
     border: none;
   }
+
+  .enlarge-button{
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    border: 1px dashed #41566f;
+    padding: 5px;
+  }
+
+  .visibility-div{
+    position: relative;
+  }
 `;

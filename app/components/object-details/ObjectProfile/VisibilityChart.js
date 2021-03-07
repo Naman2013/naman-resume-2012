@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import style from './VisibilityChart.style';
+import Popup from 'react-modal';
+import { customModalStylesChartPopupBlueOverlay } from 'app/styles/mixins/utilities';
+import { Button } from 'app/modules/new-dashboard/components/button';
 
 const TELESCOPE_INDEX = 'data-telescope-index';
 
@@ -20,6 +23,7 @@ class VisibilityChart extends Component {
 
   state = {
     activeobservatory: 0,
+    showChartPopup: false,
   };
 
   updateActiveTelescope = event => {
@@ -28,20 +32,12 @@ class VisibilityChart extends Component {
     });
   };
 
-  onIframeLoad = () => {
-    debugger;
-    document.getElementById("chart-24").contentWindow.document.body.onclick = () => {
-      debugger;
-      console.log("Iframe Clicked");
-    }
-  }
-
   render() {
-    const { activeobservatory } = this.state;
+    const { activeobservatory, showChartPopup } = this.state;
     const { observatory } = this.props;
     const telescope = observatory[activeobservatory];
     return (
-      <div>
+      <div className="visibility-div">
         <ul className="navigation">
           {observatory.map((obs, index) => (
             <li key={`best-telescopes-${obs.buttonLabel}`}>
@@ -57,12 +53,43 @@ class VisibilityChart extends Component {
             </li>
           ))}
         </ul>
+        <img 
+          onClick={()=>this.setState({showChartPopup: true})}
+          className={"enlarge-button"}
+          src={"https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"} 
+        />
         <iframe
           className="chart-div"
           src={telescope.chartURL}
           id="chart-24"
-          onLoad={this.onIframeLoad}
         />        
+
+        <Popup
+          ariaHideApp={false}
+          isOpen={showChartPopup}
+          style={customModalStylesChartPopupBlueOverlay}
+          contentLabel="Chart Popup"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={()=>this.setState({showChartPopup: false})}
+        >   
+          <div className="new-dash">
+            <div className="profilecard-header">
+              <h2 className="title-heading"></h2> 
+              <Button
+                type={"button"}
+                onClickEvent={()=>this.setState({showChartPopup: false})} 
+                text={"Close"}                                             
+                style={"public-card-close-button"}
+                icon={"https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg"}
+              />
+            </div>
+            <br/>
+            <iframe
+              className="chart-div"
+              src={telescope.chartURL}
+            /> 
+          </div>          
+        </Popup>
         <style jsx>{style}</style>
       </div>
     );
