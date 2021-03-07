@@ -14,7 +14,7 @@ export default css`
     flex-direction: column;
     background-color: ${romance};
     margin: 20px 0 0;
-    padding: 25px;
-    ${faintShadow}
+    // padding: 25px;
+    // ${faintShadow}
   }
 `;
