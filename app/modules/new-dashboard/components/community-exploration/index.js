@@ -2,68 +2,128 @@ import { Component, PureComponent } from 'react';
 import React from "react";
 import './style.css';
 import { ImageSlider } from '../image-slider';
-import { getCommunityExploration } from '../../dashboardApi';
+import { getCommunityExploration, getActivityFeed, getObservations } from '../../dashboardApi';
+
 import { getUserInfo } from 'app/modules/User';
 import { RecentCommunityActivities } from '../recent-community-activities';
 import { SectionDivider } from '../section-divider';
+import { TabHeader } from '../tab-header';
 
-export class CommunityExploration extends PureComponent{
 
-    constructor(props){
+
+
+
+export class CommunityExploration extends PureComponent {
+
+    constructor(props) {
         super(props);
-        this.state={
-            communityExploration: undefined
+        this.state = {
+            communityExploration: undefined,
+            activeHeading: "Objects",
+            ActivitiesFeed: ''
+
         }
-        this.getCommunityObservationAction();
+        // this.getCommunityObservationAction();
+
     }
 
-    timerId=null;
+    componentDidMount() {
+        this.getObservationsList('featured');
+        this.getActivityFeedList();
+    }
 
-    getCommunityObservationAction = () =>{
+
+
+    timerId = null;
+
+    getCommunityObservationAction = () => {
         const { at, cid, token } = getUserInfo();
-        getCommunityExploration({at, cid, token}).then(response=>{
-            const res=response.data;
-            if(!res.apiError){
+        getCommunityExploration({ at, cid, token, }).then(response => {
+            const res = response.data;
+            if (!res.apiError) {
                 const { timestamp, expires } = res;
-                const duration=(expires-timestamp)*1000;
-                console.log("Community Exploration Duration"+duration);
-                if(this.timerId !== null)
-                    clearTimeout(this.timerId);                
-                this.timerId=setTimeout(this.getCommunityObservationAction,duration );
-                this.setState({communityExploration: res});
+                const duration = (expires - timestamp) * 1000;
+                console.log("Community Exploration Duration" + duration);
+                if (this.timerId !== null)
+                    clearTimeout(this.timerId);
+                this.timerId = setTimeout(this.getCommunityObservationAction, duration);
+                this.setState({ communityExploration: res });
             }
             else
                 this.props.validateResponseAccess(res);
         });
     }
 
-    componentWillUnmount(){
-        if(this.timerId !== null)
+
+    getObservationsList = (viewType) => {
+
+        const { at, cid, token } = getUserInfo();
+        getObservations({ at, cid, token, viewType }).then(response => {
+            const res = response.data;
+            if (!res.apiError) {
+                this.setState({ communityExploration: res });
+            }
+            this.props.validateResponseAccess(res);
+
+        })
+    }
+
+    getActivityFeedList = () => {
+
+        const { at, cid, token } = getUserInfo();
+        getActivityFeed({ at, cid, token }).then(response => {
+            const res = response.data;
+            if (!res.apiError) {
+                this.setState({ ActivitiesFeed: res });
+            }
+            this.props.validateResponseAccess(res);
+        })
+    }
+
+    componentWillUnmount() {
+        if (this.timerId !== null)
             clearTimeout(this.timerId);
     }
 
-    startTimer=()=>{
+    startTimer = () => {
         this.getCommunityObservationAction();
     }
 
-    stopTimer=()=>{
-        if(this.timerId !== null)
-            clearTimeout(this.timerId);    
+    stopTimer = () => {
+        if (this.timerId !== null)
+            clearTimeout(this.timerId);
     }
 
+    onTabChange = (title) => {
+        console.log('title', title)
+        const { at, cid, token } = getUserInfo();
+        let viewType = title == 'All' ? 'alltime' : 'featured';
+        this.getObservationsList(viewType);
+        this.setState({ activeHeading: title });
+    };
+
     render() {
-        const { communityExploration } = this.state;
+        const { communityExploration, activeHeading, ActivitiesFeed } = this.state;
         const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
-       
+        console.log('ggg', communityExploration);
+        console.log('aaaaa', ActivitiesFeed);
+
         return (
-            <div className="explore-main">  
-                <h2 className="photo-hub-heading">{"Community"}</h2>                
+            <div className="explore-main">
+                <h2 className="photo-hub-heading">{"Community"}</h2>
                 {communityExploration && (
                     <div>
                         {/* <br/> */}
                         {communityExploration.featuredObservations.sectionHeading && (
                             <h2 className="recent-heading">{communityExploration.featuredObservations.sectionHeading}</h2>
                         )}
+                        <TabHeader
+                            headings={["Featured", "All"]}
+                            activeHeading={activeHeading}
+                            spaceequally={false}
+                            theme={"dark"}
+                            onTabChange={this.onTabChange}
+                        />
                         {communityExploration.featuredObservations.sectionSubHeading && (
                             <h4 className="title-subHeading">{communityExploration.featuredObservations.sectionSubHeading}</h4>
                         )}
@@ -76,14 +136,14 @@ export class CommunityExploration extends PureComponent{
                             validateResponseAccess={validateResponseAccess}
                         />
                         <SectionDivider />
-                        <RecentCommunityActivities
+                        {ActivitiesFeed.activities && <RecentCommunityActivities
                             heading={"Recent Community Activities"}
-                            activities={communityExploration.activities}
+                            activities={ActivitiesFeed.activities}
                             onClickItem={onClickItem}
-                        />
+                        />}
                     </div>
-                )}                                
-            </div>   
+                )}
+            </div>
         );
     }
 
