@@ -28,6 +28,14 @@ class VisibilityChart extends Component {
     });
   };
 
+  onIframeLoad = () => {
+    debugger;
+    document.getElementById("chart-24").contentWindow.document.body.onclick = () => {
+      debugger;
+      console.log("Iframe Clicked");
+    }
+  }
+
   render() {
     const { activeobservatory } = this.state;
     const { observatory } = this.props;
@@ -52,6 +60,8 @@ class VisibilityChart extends Component {
         <iframe
           className="chart-div"
           src={telescope.chartURL}
+          id="chart-24"
+          onLoad={this.onIframeLoad}
         />        
         <style jsx>{style}</style>
       </div>
