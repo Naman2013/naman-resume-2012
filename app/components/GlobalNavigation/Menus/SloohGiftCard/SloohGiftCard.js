@@ -7,9 +7,14 @@ const SloohGiftCard = ({giftCardLinks, borderTop, theme}) => (
   <div className="root">
     {giftCardLinks && giftCardLinks.length > 0 && giftCardLinks.map(card => (
       <div className={classnames("register-container slooh-gift-card", { "borderTop" : borderTop}, {[`${theme}`] : theme})}>
-        <div className="slooh-gift-card-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsHeading}}/>
-        <div className="slooh-gift-card-sub-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsSubHeading}}/>
-        <div className="slooh-gift-card-description" dangerouslySetInnerHTML={{__html: card.description}}/>
+        {card.showAdTitle && (
+            <div className="slooh-gift-card-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsHeading}}/>
+        )}
+        {card.showAdSubtitle && (
+            <div className="slooh-gift-card-sub-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsSubHeading}}/> 
+        )}
+        
+        {/* <div className="slooh-gift-card-description" dangerouslySetInnerHTML={{__html: card.description}}/> */}
         <center>
           {/* <a href={card.sloohDynamicAdsLink} target={card.sloohDynamicAdsLink ? "_blank" : null}> */}
             {card.showAdImage && (
