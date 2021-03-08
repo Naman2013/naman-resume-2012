@@ -1,12 +1,13 @@
 import { Button } from 'app/modules/new-dashboard/components/button';
 import React from 'react';
 import classnames from 'classnames';
-
+import './styles.scss';
 
 const SloohGiftCard = ({giftCardLinks, borderTop, theme}) => (
   <div className="root">
     {giftCardLinks && giftCardLinks.length > 0 && giftCardLinks.map(card => (
       <div className={classnames("register-container slooh-gift-card", { "borderTop" : borderTop}, {[`${theme}`] : theme})}>
+        <br/>
         {card.showAdTitle && (
             <div className="slooh-gift-card-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsHeading}}/>
         )}
@@ -36,56 +37,10 @@ const SloohGiftCard = ({giftCardLinks, borderTop, theme}) => (
         
         
       </div>
-    ))}
+    ))} 
+
+
     
-
-
-    <style jsx>
-      {`
-        .register-container {          
-          // padding: 15px;
-          margin: 15px;
-        }
-        .slooh-gift-card{
-          text-align:center;
-          margin-bottom: 10px;
-        }
-        .slooh-gift-card-heading{
-          font-size:20px;
-          padding:5px;
-
-        }
-        .slooh-gift-card-sub-heading{
-          font-size:16px;
-          padding:5px;
-          
-        }
-        .slooh-gift-card-description{
-          font-size:14px;
-          padding:5px;
-          
-        }
-        .adImg{
-          width: 80%;
-          margin: 30px 0px;
-          cursor: pointer;
-        }
-        .borderTop{
-          border-top: 4px solid #304B76;
-        }
-
-        .dark .slooh-gift-card-heading{
-          font-size:20px;
-          padding:5px;
-          color: #FFFFFF;
-        }
-        .dark .slooh-gift-card-sub-heading{
-          font-size:16px;
-          padding:5px;
-          color: #FFFFFF;
-        }
-      `}
-    </style>
   </div>
 );
 
