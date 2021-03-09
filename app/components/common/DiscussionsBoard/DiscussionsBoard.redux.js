@@ -268,6 +268,7 @@ class DiscussionsBoard extends PureComponent {
                   isClub={isClub}
                   jumpToThreadId={jumpToThreadId}
                   canSubmitReplies={this.props.canSubmitReplies}
+                  canPost={this.props.canPost}
                 />
               ) : (
                 <DiscussionComments
@@ -289,6 +290,7 @@ class DiscussionsBoard extends PureComponent {
                   flagParams={flagParams}
                   canSubmitReplies={this.props.canSubmitReplies}
                   toggleComment={toggleComment}
+                  canPost={this.props.canPost}
                 />
               )}
             </Fragment>

@@ -167,7 +167,8 @@ class FullInformationOverview extends Component {
               jumpToThreadId={jumpToThreadId}
               canSeeGroupContent={pageMeta.canSeeGroupContent}
               isClub
-              canSubmitReplies={pageMeta.canPost}
+              canSubmitReplies={pageMeta.canSubmitReplies}
+              canPost={pageMeta.canPost}
             />
           }
           membersContent={
