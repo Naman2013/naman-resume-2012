@@ -75,6 +75,19 @@
     cursor: pointer;
 }
 
+.new-dash .badge-present-no-cursor{
+    background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    cursor: default;
+}
+
 .new-dash .quest-badge-present{
     // background: url("https://vega.slooh.com/assets/v4/dashboard-new/burnhams_labyrinth_badge.svg") no-repeat;
     // background-size: contain;

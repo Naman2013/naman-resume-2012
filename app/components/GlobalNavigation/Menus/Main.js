@@ -22,7 +22,18 @@ const Main = ({ mainMenu }) => {
       />
       <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
       <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
-      <SloohGiftCard></SloohGiftCard>
+      {mainMenu.giftCardLinks && (
+        <div>
+          <SloohGiftCard
+            giftCardLinks={mainMenu.giftCardLinks.hamburgerMenu}
+            borderTop
+          />
+          <br/>
+          <br/>
+          <br/>
+        </div>
+      )}
+      
     </Fragment>
   );
 };

@@ -207,6 +207,7 @@ class FullInformationOverview extends Component {
               canSeeGroupContent={pageMeta.canSeeGroupContent}
               isClub
               canSubmitReplies={pageMeta.canSubmitReplies}
+              canPost={pageMeta.canPost}
             />
           }
           membersContent={

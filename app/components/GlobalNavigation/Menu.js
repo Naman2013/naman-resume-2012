@@ -73,6 +73,7 @@ const Menu = props => {
 
           .menu-list {
             margin-bottom: 500px;
+            padding-bottom: 60px;
           }
         `}
       </style>

@@ -63,6 +63,7 @@ export const GET_DASHBOARD_MISSION_LIST_START = "GET_DASHBOARD_MISSION_LIST_STAR
 export const GET_DASHBOARD_MISSION_LIST_SUCCESS = "GET_DASHBOARD_MISSION_LIST_SUCCESS";
 export const GET_PHOTO_HUB_HEADING_START = "GET_PHOTO_HUB_HEADING_START";
 export const GET_PHOTO_HUB_HEADING_SUCCESS = "GET_PHOTO_HUB_HEADING_SUCCESS";
+export const STORE_TOP_NAV_RESPONSE = "STORE_TOP_NAV_RESPONSE";
 
 let profileTimer = null;
 
@@ -899,3 +900,10 @@ export const fetchStarPartyDataAction = () => (dispatch) => {
       }
     )
   };
+
+  export const storeTopNavResponse = (data) => (dispatch) => {
+    dispatch({
+      type: STORE_TOP_NAV_RESPONSE,
+      data    
+    });
+  }

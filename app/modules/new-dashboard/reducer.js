@@ -59,6 +59,7 @@ import { FETCH_STAR_PARTY_LIST_START,
          GET_DASHBOARD_MISSION_LIST_SUCCESS,
          GET_PHOTO_HUB_HEADING_START,
          GET_PHOTO_HUB_HEADING_SUCCESS,
+         STORE_TOP_NAV_RESPONSE,
         } from './actions';
 
 const initialState = {
@@ -456,7 +457,13 @@ export default createReducer(initialState, {
           ...state,
           isFetching: true,
         };
-      }
+      },
+      [STORE_TOP_NAV_RESPONSE](state, { data }) {    
+        return {
+          ...state,
+          topNav: data,
+        };
+      },
 });
 
 

@@ -314,6 +314,7 @@ class DiscussionsThreads extends Component {
       jumpToThreadId,
       t,
       canSubmitReplies,
+      canPost
     } = this.props;
     const {
       fetching,
@@ -368,7 +369,7 @@ class DiscussionsThreads extends Component {
             className="popular-discussion"
           />
         </div>
-        {canSubmitReplies ? (CREATE_THREAD_FORM[callSource].render({
+        {canPost ? (CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,
           createThread: this.createThread,
           isDesktop,

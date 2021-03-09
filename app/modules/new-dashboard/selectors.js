@@ -207,3 +207,9 @@ export const makeObservatoryListSelector = () =>
     newDashList,
     state => state.photoHubHeadings
   );
+
+  export const makeTopNavSelector = () =>
+  createSelector(
+    newDashList,
+    state => state.topNav
+  );

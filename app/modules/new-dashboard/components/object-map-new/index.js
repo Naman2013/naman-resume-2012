@@ -130,7 +130,7 @@ export class ObjectMap extends Component{
                 layerId: layer.get('title'),              
               }).then(response=>{
                 const res=response.data;
-                if(res.apiError){
+                if(!res.apiError){
                   self.setState({isloading1: false, objectCardDetails: response.data, showObjectCard: true});
                   map.getInteractions().forEach(function(interaction) {
                     if (interaction instanceof MouseWheelZoom) {
@@ -921,15 +921,13 @@ export class ObjectMap extends Component{
 
     handleExpandMap = () => {
       const { mapExpanded, map } = this.state;      
-      var elem = document.getElementById('object-Map');      
+      var elem = document.getElementById('object-Map');  
       const self=this;
       const exitHandlerFun = () => {
         const element = document.fullscreenElement;
-        const { mapExpanded } = this.state;
-        if (element === null) 
-        {      
-            // Run code on exit            
-            self.setState({mapExpanded: !mapExpanded});
+        if (element === null || element === undefined) 
+        {               
+            self.setState({mapExpanded: false});
             document.removeEventListener("fullscreenchange", exitHandlerFun);
             setTimeout( ()=> { self.state.map.updateSize(); self.state.map.getView().setZoom(0)}, 100);
         }
@@ -950,11 +948,12 @@ export class ObjectMap extends Component{
             document.addEventListener("mozfullscreenchange", exitHandlerFun,false);
         }
         else if(elem.webkitRequestFullscreen){
-            elem.webkitRequestFullscreen().catch(err=>{
-              self.setState({mapExpanded: false});    
-              document.removeEventListener("fullscreenchange", exitHandlerFun);
-             });             
+            elem.webkitRequestFullscreen()
             document.addEventListener("webkitfullscreenchange", exitHandlerFun,false);
+            setTimeout(()=>{
+              self.setState({mapExpanded: true});
+              self.state.map.updateSize();
+            },100)
         }
         else if(elem.msRequestFullscreen){
             elem.msRequestFullscreen().catch(err=>{
@@ -963,7 +962,8 @@ export class ObjectMap extends Component{
              });             
             document.addEventListener("msfullscreenchange", exitHandlerFun,false);
         }      
-        this.setState({mapExpanded: !mapExpanded});
+        
+        this.setState({mapExpanded: true}, ()=>setTimeout(()=>self.state.map.updateSize(),400));
       
     }
 
@@ -1215,6 +1215,8 @@ export class ObjectMap extends Component{
                       objectCardDetails={objectCardDetails}
                       scrollToRef={scrollToRef}
                       refreshPhotoHub={refreshPhotoHub}
+                      fullScreenMode={mapExpanded}
+                      exixFullScreenMode={this.handleContractMap}
                     />
                 </div> 
               )}
@@ -1321,7 +1323,7 @@ export class ObjectMap extends Component{
                       </Tooltip>
                    )}
    
-                   {controlArray.controlList[3].show && !hideMap &&(
+                   {/* {controlArray.controlList[3].show && !hideMap &&(
                      <Tooltip title={controlArray.controlList[3].showTooltip ? controlArray.controlList[3].tooltipText : ""}>
                       <img className="setting-icons" 
                         src={controlArray.controlList[3].iconURL}
@@ -1337,7 +1339,7 @@ export class ObjectMap extends Component{
                         onClick={()=>this.setState({hideMap: !hideMap})}
                         />
                      </Tooltip>
-                   )}
+                   )} */}
 
                       {/* <img className={classnames('setting-icons', {'disabled-control': !(currentZoom > 0)})}
                        src="https://vega.slooh.com/assets/v4/dashboard-new/minus.svg"

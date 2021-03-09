@@ -4,6 +4,7 @@ import './style.scss';
 import { TabHeader } from '../tab-header';
 import { browserHistory } from 'react-router';
 import { Spinner } from '../../common/spinner';
+import classnames from 'classnames';
 
 export class CommunityClubList extends Component{
 
@@ -45,12 +46,12 @@ export class CommunityClubList extends Component{
                         {clubList.slice(0, showRowCount === 0 ? clubList.length : showRowCount).map(club=>(
                             <tr>
                                 <td>
-                                    <div className="community-club-id-div" onClick={()=>browserHistory.push(club.linkURL)}>
+                                    <div className={classnames("community-club-id-div", {"pointer": club.linkURL !== false})} onClick={club.linkURL !== false ? ()=>browserHistory.push(club.linkURL) : null}>
                                         <h2 className="community-club-id">{club.rank}</h2>
                                     </div>
                                 </td>
                                 <td className="community-clubs-div-pad-left-10">
-                                    <h3 className="community-club-name" onClick={()=>browserHistory.push(club.linkURL)} >{club.name}</h3>
+                                    <h3 className={classnames("community-club-name", {"pointer": club.linkURL !== false})} onClick={club.linkURL !== false ? ()=>browserHistory.push(club.linkURL) : null}>{club.name}</h3>
                                     <h3 className="community-club-gp">{club.gp}</h3>
                                     <h3 className="community-club-admin">{club.descriptiveText}</h3>
                                 </td>                                

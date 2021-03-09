@@ -5,6 +5,9 @@ import Request from 'app/components/common/network/Request';
 import { DeviceContext } from 'providers/DeviceProvider';
 import BootstrappedGlobalNavigation from './BootstrappedGlobalNavigation';
 import { GET_MAIN_NAVIGATION } from 'app/services/navigation';
+import { storeTopNavResponse } from 'app/modules/new-dashboard/actions';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
 
@@ -30,15 +33,19 @@ const mainMenuModel = {
     loginMenuLinks: has(resp, 'mainMenu.loginMenuLinks')
       ? resp.mainMenu.loginMenuLinks
       : [],
+    giftCardLinks: has(resp, 'mainMenu.getDynamicAdsLinks')
+      ? resp.mainMenu.getDynamicAdsLinks
+      : [],
   }),
 };
 
-const GlobalNavigation = ({fetchEvents}) => (
+const GlobalNavigation = ({fetchEvents, storeTopNavResponse}) => (
   <Request
     serviceURL={GET_MAIN_NAVIGATION}
     method="POST"
     serviceExpiresFieldName="expires"
     models={[userMenuModel, mainMenuModel]}
+    serviceResponseHandler={(res)=> storeTopNavResponse(res)}
     render={({
       fetchingContent,
       // serviceResponse,
@@ -60,4 +67,4 @@ const GlobalNavigation = ({fetchEvents}) => (
   />
 );
 
-export default GlobalNavigation;
+export default compose(connect(null, {storeTopNavResponse} )) (GlobalNavigation);

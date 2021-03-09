@@ -61,6 +61,7 @@ export class ProfileStatusNew extends Component{
                             changeStatus={changeStatus}
                         />
                         <BadgeList
+                            publicProfile={true}
                             badgeLists={userGravityStatus.userBadgeList}
                             totalBadgeCount={userGravityStatus.totalBadgeCount}
                             currentBadgeCount={userGravityStatus.currentBadgeCount}
