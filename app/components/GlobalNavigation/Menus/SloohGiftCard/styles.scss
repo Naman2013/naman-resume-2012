@@ -1,0 +1,53 @@
+@import "app/styles/variables/fonts.scss";
+
+.register-container {          
+    // padding: 15px;
+    margin: 10px 15px 25px 15px;
+  }
+  .slooh-gift-card{
+    text-align:center;
+    margin-bottom: 10px;
+  }
+  .slooh-gift-card-heading{
+    font-size:20px;
+    padding:5px;
+
+  }
+  .slooh-gift-card-sub-heading{
+    font-size:16px;
+    padding:5px;
+    
+  }
+  .slooh-gift-card-description{
+    font-size:14px;
+    padding:5px;
+    
+  }
+  .adImg{
+    width: 80%;
+    margin: 30px 0px;
+    cursor: pointer;
+  }
+  .borderTop{
+    border-top: 4px solid #304B76;
+  }
+
+  .dark .slooh-gift-card-heading{
+    font-size:20px;
+    padding:5px;
+    color: #FFFFFF;
+  }
+  .dark .slooh-gift-card-sub-heading{
+    font-size:16px;
+    padding:5px;
+    color: #FFFFFF;
+  }
+  .button-border{
+    color: #648282;
+    box-sizing: border-box;
+    letter-spacing: .03em;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: $primary-font;
+  }

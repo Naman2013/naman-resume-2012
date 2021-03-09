@@ -100,6 +100,7 @@ import { makeStarPartyListSelector,
     makeGetDashboardMissionListSelector,
     makePhotoHubHeadingSelector,
     makePublicProfileCardSelector,
+    makeTopNavSelector,
   } from './selectors';
 
 import { setPublicCardStatusAction } from '../../modules/upcoming-events/upcoming-events-actions';
@@ -147,6 +148,7 @@ const mapStateToProps = createStructuredSelector({
     dashboardMissionList: makeGetDashboardMissionListSelector(),
     photoHubHeadings: makePhotoHubHeadingSelector(),
     showPublicCard: makePublicProfileCardSelector(),
+    topNav: makeTopNavSelector(),
 });
 
 const mapDispatchToProps = {

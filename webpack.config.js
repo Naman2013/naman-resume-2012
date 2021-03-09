@@ -139,22 +139,22 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-        target: 'https://gonogo.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

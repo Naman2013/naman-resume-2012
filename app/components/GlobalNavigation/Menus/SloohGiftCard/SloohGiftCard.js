@@ -1,41 +1,46 @@
+import { Button } from 'app/modules/new-dashboard/components/button';
 import React from 'react';
+import classnames from 'classnames';
+import './styles.scss';
 
-
-
-const SloohGiftCard = () => (
+const SloohGiftCard = ({giftCardLinks, borderTop, theme}) => (
   <div className="root">
-    <div className="register-container slooh-gift-card">
-      <div className="slooh-gift-card-heading">Slooh gift cards are now<br></br>available!</div>
-      <div className="slooh-gift-card-sub-heading">Click the link below and give the gift <br></br> of the universe</div>
-      <a href="https://www.amazon.com/Slooh-Apprentice-Membership/dp/B01MDNJXIR/ref=sr_1_1?dchild=1&keywords=slooh+apprentice+membership&qid=1606755292&sr=8-1" target="_blank">
-        <img src="https://vega.slooh.com/assets/v4/dashboard-new/guest-dashboard/gift-of-the-universe.jpg" alt="" />
-      </a>
-    </div>
+    {giftCardLinks && giftCardLinks.length > 0 && giftCardLinks.map(card => (
+      <div className={classnames("register-container slooh-gift-card", { "borderTop" : borderTop}, {[`${theme}`] : theme})}>
+        <br/>
+        {card.showAdTitle && (
+            <div className="slooh-gift-card-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsHeading}}/>
+        )}
+        {card.showAdSubtitle && (
+            <div className="slooh-gift-card-sub-heading" dangerouslySetInnerHTML={{__html: card.sloohDynamicAdsSubHeading}}/> 
+        )}
+        
+        {/* <div className="slooh-gift-card-description" dangerouslySetInnerHTML={{__html: card.description}}/> */}
+        <center>
+          {/* <a href={card.sloohDynamicAdsLink} target={card.sloohDynamicAdsLink ? "_blank" : null}> */}
+            {card.showAdImage && (
+                <img onClick={()=>window.open(card.sloohDynamicAdsLink, card.openInNewWindowFlag ? "_blank" : null)} className="adImg" src={card.sloohDynamicAdsImages} alt="" />
+            )}            
+            <br/>
+            {card.showAdButton && (
+              <Button
+                type={"button"}
+                onClickEvent={()=>window.open(card.sloohDynamicAdsLink, card.openInNewWindowFlag ? "_blank" : null)} 
+                text={card.buttonLabelText}                                             
+                style={"button-border"}
+                icon={null}
+              />
+            )}            
+          {/* </a> */}
+        </center>
+        
+        
+        
+      </div>
+    ))} 
 
 
-    <style jsx>
-      {`
-        .register-container {
-          border-top: 4px solid #304B76;
-          padding: 15px;
-          margin: 15px;
-        }
-        .slooh-gift-card{
-          text-align:center;
-          margin-bottom: 140px;
-        }
-        .slooh-gift-card-heading{
-          font-size:20px;
-          padding:5px;
-
-        }
-        .slooh-gift-card-sub-heading{
-          font-size:16px;
-          padding:5px;
-          
-        }
-      `}
-    </style>
+    
   </div>
 );
 
