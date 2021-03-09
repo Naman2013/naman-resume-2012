@@ -19,7 +19,7 @@ export class CommunityExploration extends PureComponent {
         super(props);
         this.state = {
             communityExploration: undefined,
-            activeHeading: "Objects",
+            activeHeading: "Featured",
             ActivitiesFeed: ''
 
         }
@@ -36,7 +36,7 @@ export class CommunityExploration extends PureComponent {
 
     timerId = null;
 
-    getCommunityObservationAction = () => {
+   /*  getCommunityObservationAction = () => {
         const { at, cid, token } = getUserInfo();
         getCommunityExploration({ at, cid, token, }).then(response => {
             const res = response.data;
@@ -52,7 +52,7 @@ export class CommunityExploration extends PureComponent {
             else
                 this.props.validateResponseAccess(res);
         });
-    }
+    } */
 
 
     getObservationsList = (viewType) => {
@@ -61,6 +61,11 @@ export class CommunityExploration extends PureComponent {
         getObservations({ at, cid, token, viewType }).then(response => {
             const res = response.data;
             if (!res.apiError) {
+                const { timestamp, expires } = res;
+                const duration = (expires - timestamp) * 1000;
+                console.log("Community Exploration Duration" + duration);
+                if (this.timerId !== null)
+                    clearTimeout(this.timerId);
                 this.setState({ communityExploration: res });
             }
             this.props.validateResponseAccess(res);
@@ -95,8 +100,7 @@ export class CommunityExploration extends PureComponent {
     }
 
     onTabChange = (title) => {
-        console.log('title', title)
-        const { at, cid, token } = getUserInfo();
+
         let viewType = title == 'All' ? 'alltime' : 'featured';
         this.getObservationsList(viewType);
         this.setState({ activeHeading: title });
@@ -105,8 +109,6 @@ export class CommunityExploration extends PureComponent {
     render() {
         const { communityExploration, activeHeading, ActivitiesFeed } = this.state;
         const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
-        console.log('ggg', communityExploration);
-        console.log('aaaaa', ActivitiesFeed);
 
         return (
             <div className="explore-main">
