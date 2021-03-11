@@ -114,7 +114,7 @@ class DiscussionsThreads extends Component {
 
     const searchValue = this.searchInput.value.trim();
     const searchData = searchValue ? { searchTerms: searchValue } : {};
-    if(topicId!==undefined)
+    if(topicId !== (undefined||null))
       API.post(THREAD_LIST, {
         callSource,
         count,
