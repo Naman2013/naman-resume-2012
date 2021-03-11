@@ -21,8 +21,8 @@ export class CommunityExploration extends PureComponent {
             communityExploration: undefined,
             activeHeading: "Featured",
             ActivitiesFeed: ''
-
         }
+        this.getActivityFeedList()
         // this.getCommunityObservationAction();
 
     }
@@ -78,6 +78,7 @@ export class CommunityExploration extends PureComponent {
         const { at, cid, token } = getUserInfo();
         getActivityFeed({ at, cid, token }).then(response => {
             const res = response.data;
+            console.log('req', res.activitiesList);
             if (!res.apiError) {
                 this.setState({ ActivitiesFeed: res });
             }
@@ -109,7 +110,11 @@ export class CommunityExploration extends PureComponent {
     render() {
         const { communityExploration, activeHeading, ActivitiesFeed } = this.state;
         const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
+        let feedList = ActivitiesFeed.activitiesList ? ActivitiesFeed.activitiesList: '';
 
+        console.log('kkkkkkk', ActivitiesFeed.activitiesList)
+        console.log('qqqqqq',ActivitiesFeed)     
+        
         return (
             <div className="explore-main">
                 <h2 className="photo-hub-heading">{"Community"}</h2>
@@ -129,6 +134,7 @@ export class CommunityExploration extends PureComponent {
                         {communityExploration.featuredObservations.sectionSubHeading && (
                             <h4 className="title-subHeading">{communityExploration.featuredObservations.sectionSubHeading}</h4>
                         )}
+                        { communityExploration &&
                         <ImageSlider
                             communityExploration={communityExploration}
                             onClickItem={onClickItem}
@@ -137,10 +143,11 @@ export class CommunityExploration extends PureComponent {
                             stopTimer={this.stopTimer}
                             validateResponseAccess={validateResponseAccess}
                         />
+                        }
                         <SectionDivider />
-                        {ActivitiesFeed.activities && <RecentCommunityActivities
+                        {ActivitiesFeed.activitiesList && <RecentCommunityActivities
                             heading={"Recent Community Activities"}
-                            activities={ActivitiesFeed.activities}
+                            activities={ActivitiesFeed}
                             onClickItem={onClickItem}
                         />}
                     </div>
