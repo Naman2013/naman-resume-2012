@@ -8,6 +8,8 @@ import { getUserInfo } from 'app/modules/User';
 import { RecentCommunityActivities } from '../recent-community-activities';
 import { SectionDivider } from '../section-divider';
 import { TabHeader } from '../tab-header';
+import { Spinner } from 'app/components/spinner/index';
+
 
 
 
@@ -20,17 +22,26 @@ export class CommunityExploration extends PureComponent {
         this.state = {
             communityExploration: undefined,
             activeHeading: "Featured",
-            ActivitiesFeed: ''
+            ActivitiesFeed: '',
+            isFetching: false,
+            observationData:''
         }
-        this.getActivityFeedList()
+        this.getActivityFeedList();
+        this.getObservationsList('featured');
         // this.getCommunityObservationAction();
 
     }
 
-    componentDidMount() {
+    componentWillMount() {
+
+         this.getActivityFeedList();
+        this.getObservationsList('featured');
+    }
+
+  /*   componentDidMount() {
         this.getObservationsList('featured');
         this.getActivityFeedList();
-    }
+    } */
 
 
 
@@ -56,7 +67,7 @@ export class CommunityExploration extends PureComponent {
 
 
     getObservationsList = (viewType) => {
-
+        this.setState({ isFetching:true })
         const { at, cid, token } = getUserInfo();
         getObservations({ at, cid, token, viewType }).then(response => {
             const res = response.data;
@@ -66,7 +77,7 @@ export class CommunityExploration extends PureComponent {
                 console.log("Community Exploration Duration" + duration);
                 if (this.timerId !== null)
                     clearTimeout(this.timerId);
-                this.setState({ communityExploration: res });
+                this.setState({ communityExploration: res,isFetching:false });
             }
             this.props.validateResponseAccess(res);
 
@@ -74,13 +85,13 @@ export class CommunityExploration extends PureComponent {
     }
 
     getActivityFeedList = () => {
-
+        this.setState({ isFetching:true })
         const { at, cid, token } = getUserInfo();
         getActivityFeed({ at, cid, token }).then(response => {
             const res = response.data;
-            console.log('req', res.activitiesList);
             if (!res.apiError) {
-                this.setState({ ActivitiesFeed: res });
+                
+                this.setState({ ActivitiesFeed: res, isFetching:false });
             }
             this.props.validateResponseAccess(res);
         })
@@ -100,6 +111,10 @@ export class CommunityExploration extends PureComponent {
             clearTimeout(this.timerId);
     }
 
+
+
+
+
     onTabChange = (title) => {
 
         let viewType = title == 'All' ? 'alltime' : 'featured';
@@ -108,12 +123,11 @@ export class CommunityExploration extends PureComponent {
     };
 
     render() {
-        const { communityExploration, activeHeading, ActivitiesFeed } = this.state;
+        const { communityExploration, activeHeading, ActivitiesFeed,isFetching} = this.state;
         const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
         let feedList = ActivitiesFeed.activitiesList ? ActivitiesFeed.activitiesList: '';
 
-        console.log('kkkkkkk', ActivitiesFeed.activitiesList)
-        console.log('qqqqqq',ActivitiesFeed)     
+        
         
         return (
             <div className="explore-main">
@@ -130,10 +144,16 @@ export class CommunityExploration extends PureComponent {
                             spaceequally={false}
                             theme={"dark"}
                             onTabChange={this.onTabChange}
+                            
+
                         />
                         {communityExploration.featuredObservations.sectionSubHeading && (
                             <h4 className="title-subHeading">{communityExploration.featuredObservations.sectionSubHeading}</h4>
                         )}
+                        <Spinner
+                                loading={isFetching}
+                                text="Please wait...loading discussions"
+                        />
                         { communityExploration &&
                         <ImageSlider
                             communityExploration={communityExploration}
@@ -155,5 +175,4 @@ export class CommunityExploration extends PureComponent {
             </div>
         );
     }
-
 }
