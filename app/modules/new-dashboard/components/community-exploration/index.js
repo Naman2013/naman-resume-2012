@@ -139,7 +139,7 @@ export class CommunityExploration extends PureComponent {
     // console.log('nnnnnnn', activeHeading);
     return (
       <div className="explore-main">
-        <h2 className="photo-hub-heading">Community</h2>
+        <h2 className="photo-hub-heading">Observations</h2>
         {communityExploration && (
           <div>
             {/* <br/> */}
