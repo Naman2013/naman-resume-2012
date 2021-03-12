@@ -23,6 +23,13 @@ export class SliderItem extends Component{
         const { at, token, cid } = getUserInfo();
         getImageDetails(index, {at, cid, token, callSource: "sharedpictures", customerImageId: slideElement.customerImageId, useShareToken: 'n'});
     }
+
+    componentDidUpdate(prevProps){
+        const { index, slideElement, getImageDetails } = this.props;
+        const { at, token, cid } = getUserInfo();
+        if(prevProps.slideElement.customerImageId !== slideElement.customerImageId)
+            getImageDetails(index, {at, cid, token, callSource: "sharedpictures", customerImageId: slideElement.customerImageId, useShareToken: 'n'});
+    }
     
     render() {
         const { imageDetails, onClickItem, onImageClick } = this.props;

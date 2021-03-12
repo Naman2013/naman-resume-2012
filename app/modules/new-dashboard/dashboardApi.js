@@ -97,67 +97,78 @@ export function getNewDahObs(data) {
 }
 
 export function getObsStatus(obsId) {
-  return API.get('/api/obs/getObservatoryStatus?obsId='+obsId);
+  return API.get('/api/obs/getObservatoryStatus?obsId=' + obsId);
 }
 
 export function getImageDetails(data) {
-  return API.post('/api/images/getImageDetails',data);
+  return API.post('/api/images/getImageDetails', data);
 }
 
 export function getCommunityExploration(data) {
-  return API.post('/api/newdashboard/getFeaturedObservationsAndActivities',data);
+  return API.post('/api/newdashboard/getFeaturedObservationsAndActivities', data);
+}
+
+export function getObservations(data) {
+  
+  return API.post('/api/newdashboard/getObservations', data)
+
+}
+
+export function getActivityFeed(data) {
+  return API.post('/api/newdashboard/getActivityFeed', data)
+
 }
 
 export function handleLikeReq(data) {
-  return API.post('/api/images/like',data);
+  return API.post('/api/images/like', data);
 }
 
 export function getCommunityFame(data) {
-  return API.post('/api/newdashboard/getCommunityStats',data);
+  return API.post('/api/newdashboard/getCommunityStats', data);
 }
 
 export function getMyRank(data) {
-  return API.post('/api/leaderboards/myRank',data);
+  return API.post('/api/leaderboards/myRank', data);
 }
 
 export function getTopMembers(data) {
-  return API.post('/api/leaderboards/topMembers',data);
+  return API.post('/api/leaderboards/topMembers', data);
 }
 
 export function getTopStudents(data) {
-  return API.post('/api/leaderboards/topStudents',data);
+  return API.post('/api/leaderboards/topStudents', data);
 }
 
 export function getMostActiveClubs(data) {
-  return API.post('/api/leaderboards/mostActiveClubs',data);
+  return API.post('/api/leaderboards/mostActiveClubs', data);
 }
 
 export function getTopSchoolClubs(data) {
-  return API.post('/api/leaderboards/topSchoolClubs',data);
+  return API.post('/api/leaderboards/topSchoolClubs', data);
 }
 
 export function getGravityByDomain(data) {
-  return API.post('/api/newdashboard/getGravityByDomain',data);
+  return API.post('/api/newdashboard/getGravityByDomain', data);
 }
 
 export function getDashboardMissionList(data) {
-  return API.post('/api/reservation/getDashboardMissionList',data);
+  return API.post('/api/reservation/getDashboardMissionList', data);
 }
 
 export function getTopCommunityObjects(data) {
-  return API.post('/api/leaderboards/topCommunityObjects',data);
+  return API.post('/api/leaderboards/topCommunityObjects', data);
 }
 
 export function getTopCommunityObservations(data) {
-  return API.post('/api/leaderboards/topCommunityObservations',data);
+  return API.post('/api/leaderboards/topCommunityObservations', data);
 }
 
 export function getPhotoHubHeadings(data) {
-  return API.post('/api/images/newDashboardPhotoHubSection',data);
+  return API.post('/api/images/newDashboardPhotoHubSection', data);
 }
 
 export function setObjectMap(data) {
-  return API.post('/api/images/setObjectMap',data);
+  return API.post('/api/images/setObjectMap', data);
 }
 
 
