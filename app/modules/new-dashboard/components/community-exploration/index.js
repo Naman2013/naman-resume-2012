@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 
 import './style.css';
 import { getUserInfo } from 'app/modules/User';
-import { Spinner } from 'app/components/spinner/index';
 import { ImageSlider } from '../image-slider';
 import {
   getCommunityExploration,
@@ -13,6 +12,7 @@ import {
 import { RecentCommunityActivities } from '../recent-community-activities';
 import { SectionDivider } from '../section-divider';
 import { TabHeader } from '../tab-header';
+import { Spinner } from '../../common/spinner';
 
 export class CommunityExploration extends PureComponent {
   constructor(props) {
@@ -22,10 +22,10 @@ export class CommunityExploration extends PureComponent {
       activeHeading: 'Featured',
       ActivitiesFeed: '',
       isFetching: false,
-      communityExplorationAll: '',
+      // communityExplorationAll: '',
     };
     this.getActivityFeedList();
-    this.getObservationsList('alltime');
+    // this.getObservationsList('alltime');
     this.getObservationsList('featured');
 
     // this.getCommunityObservationAction();
@@ -37,6 +37,7 @@ export class CommunityExploration extends PureComponent {
         } */
 
   timerId = null;
+  activityFeedTimerId = null;
 
   /*  getCommunityObservationAction = () => {
            const { at, cid, token } = getUserInfo();
@@ -61,40 +62,38 @@ export class CommunityExploration extends PureComponent {
     const { at, cid, token } = getUserInfo();
     getObservations({ at, cid, token, viewType }).then(response => {
       const res = response.data;
+      const { validateResponseAccess } = this.props;
+      validateResponseAccess(res);
       if (!res.apiError) {
         const { timestamp, expires } = res;
         const duration = (expires - timestamp) * 1000;
-        console.log(`Community Exploration Duration${duration}`);
+        // console.log(`Community Exploration Duration${duration}`);
         if (this.timerId !== null) {
           clearTimeout(this.timerId);
-        }
-        if (viewType === 'alltime') {
-          this.setState({ communityExploration: res, isFetching: false });
-        } else {
-          this.setState({ isFetching: false, communityExplorationAll: res });
-        }
+        }        
+        this.timerId = setTimeout(()=>this.getObservationsList(viewType), duration);
+        this.setState({ communityExploration: res, isFetching: false });       
       }
-      const { validateResponseAccess } = this.props;
-      validateResponseAccess(res);
+      
     });
   };
 
-  getActivityFeedList = () => {
-    this.setState({ isFetching: true });
+  getActivityFeedList = () => {    
     const { at, cid, token } = getUserInfo();
+    const { validateResponseAccess } = this.props;
     getActivityFeed({ at, cid, token }).then(response => {
       const res = response.data;
+      validateResponseAccess(res);
       if (!res.apiError) {
         const { timestamp, expires } = res;
         const duration = (expires - timestamp) * 1000;
-        console.log(`CommunityFeed Exploration Duration${duration}`);
-        if (this.timerId !== null) {
-          clearTimeout(this.timerId);
+        // console.log(`CommunityFeed Exploration Duration${duration}`);
+        if (this.activityFeedTimerId !== null) {
+          clearTimeout(this.activityFeedTimerId);
         }
-        this.setState({ ActivitiesFeed: res, isFetching: false });
+        this.activityFeedTimerId=setTimeout(this.getActivityFeedList, duration);
+        this.setState({ ActivitiesFeed: res});
       }
-      const { validateResponseAccess } = this.props;
-      validateResponseAccess(res);
     });
   };
 
@@ -102,10 +101,14 @@ export class CommunityExploration extends PureComponent {
     if (this.timerId !== null) {
       clearTimeout(this.timerId);
     }
+    if (this.activityFeedTimerId !== null) {
+      clearTimeout(this.activityFeedTimerId);
+    }
   }
 
   startTimer = () => {
-    this.getCommunityObservationAction();
+    let viewType = this.state.viewType === 'All' ? 'alltime' : 'featured';
+    this.getCommunityObservationAction(viewType);
   };
 
   stopTimer = () => {
@@ -126,15 +129,14 @@ export class CommunityExploration extends PureComponent {
       activeHeading,
       ActivitiesFeed,
       isFetching,
-      communityExplorationAll,
+      // communityExplorationAll,
     } = this.state;
     const { onClickItem, scrollToRef, validateResponseAccess } = this.props;
-    let feedList = ActivitiesFeed.activitiesList
-      ? ActivitiesFeed.activitiesList
-      : '';
+    // let feedList = ActivitiesFeed.activitiesList
+    //   ? ActivitiesFeed.activitiesList
+    //   : '';
 
-    console.log('nnnnnnn', activeHeading);
-
+    // console.log('nnnnnnn', activeHeading);
     return (
       <div className="explore-main">
         <h2 className="photo-hub-heading">Community</h2>
@@ -144,6 +146,10 @@ export class CommunityExploration extends PureComponent {
             {communityExploration.featuredObservations.sectionHeading && (
               <h2 className="recent-heading">
                 {communityExploration.featuredObservations.sectionHeading}
+                <Spinner
+                  loading={isFetching}
+                  text="Loading..."
+                /> 
               </h2>
             )}
             <TabHeader
@@ -155,14 +161,26 @@ export class CommunityExploration extends PureComponent {
             />
             {communityExploration.featuredObservations.sectionSubHeading && (
               <h4 className="title-subHeading">
-                {communityExploration.featuredObservations.sectionSubHeading}
+                {communityExploration.featuredObservations.sectionSubHeading}                
               </h4>
             )}
-            <Spinner
+            {/* <Spinner
               loading={isFetching}
               text="Please wait...loading discussions"
-            />
-            {communityExplorationAll && activeHeading === 'Featured' ? (
+            /> */}
+
+            {communityExploration && (
+              <ImageSlider
+                communityExploration={communityExploration}
+                onClickItem={onClickItem}
+                scrollToRef={scrollToRef}
+                startTimer={this.startTimer}
+                stopTimer={this.stopTimer}
+                validateResponseAccess={validateResponseAccess}
+              />
+            )}
+
+            {/* {communityExplorationAll && activeHeading === 'Featured' ? (
               <ImageSlider
                 communityExploration={communityExplorationAll}
                 onClickItem={onClickItem}
@@ -185,7 +203,7 @@ export class CommunityExploration extends PureComponent {
               />
             ) : (
               ''
-            )}
+            )} */}
             <SectionDivider />
             {ActivitiesFeed.activitiesList && (
               <RecentCommunityActivities
