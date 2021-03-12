@@ -248,6 +248,7 @@ class Overview extends Component {
               //   buttonCaption: modeledResult.bestTelescope.visitTelescopeLabel,
               // }}
               midnight12MonthChart={modeledResult.midnight12MonthChart}
+              showMidnight12MonthChart={modeledResult.showMidnight12MonthChart}
             />
 
             <ObjectVisibilityProfile

@@ -12,6 +12,7 @@ const ObjectProfile = ({
   bestTelescope,
   midnightCulmination,
   midnight12MonthChart,
+  showMidnight12MonthChart,
 }) => (
   <GridContainer>
     <Row>
@@ -113,9 +114,11 @@ const ObjectProfile = ({
           theme={{ alignSelf: 'flex-start' }}
           hasBottomBorder={false}
         >
-          <VisibilityChart            
-            observatory={midnight12MonthChart.observatories}
-          />
+          {showMidnight12MonthChart && (
+            <VisibilityChart            
+              observatory={midnight12MonthChart.observatories}
+            />
+          )}          
         </StaticCell>
     </Row>
 

@@ -190,17 +190,19 @@ class ObjectRiseSet extends Component {
                     guideUrl={riseSet.guideUrl}
                     guideSubTitle={riseSet.guideSubTitle}
                   /> */}
-                  <div className={"visibility-div"}>
-                    <img 
-                      onClick={()=>this.setState({showChartPopup: true})}
-                      className={"enlarge-button"}
-                      src={"https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"} 
-                    />  
-                    <iframe
-                      className="chart-div"
-                      src={serviceResponse.tonightChart.observatories[0].chartURL}
-                    />
-                  </div>
+                  {serviceResponse.showTonightChart && (
+                    <div className={"visibility-div"}>
+                      <img 
+                        onClick={()=>this.setState({showChartPopup: true})}
+                        className={"enlarge-button"}
+                        src={"https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"} 
+                      />  
+                      <iframe
+                        className="chart-div"
+                        src={serviceResponse.tonightChart.observatories[0].chartURL}
+                      />
+                    </div>
+                  )}                  
                   <Popup
                     ariaHideApp={false}
                     isOpen={showChartPopup}
