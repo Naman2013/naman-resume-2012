@@ -20,6 +20,7 @@ import { getUserInfo } from 'app/modules/User';
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 import Popup from 'react-modal';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+import publicProfile from 'app/modules/profile/containers/public-profile';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -138,6 +139,7 @@ class App extends Component {
 
             {showPublicCard && (
               <Popup
+                id={"publicProfile"}
                 ariaHideApp={false}
                 isOpen={true}
                 style={customModalStylesPublicProfileCardBlueOverlay}

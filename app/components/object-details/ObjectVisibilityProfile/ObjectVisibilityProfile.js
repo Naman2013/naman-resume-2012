@@ -10,6 +10,7 @@ import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfile.style';
 
 import { DEFAULT_OBSID } from './constants';
+import BestTelescope from '../ObjectProfile/BestTelescope';
 
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
@@ -58,7 +59,7 @@ class ObjectVisibilityProfile extends Component {
   render() {
     const { dateString, obsId, activeDateIndex } = this.state;
 
-    const { objectId, t, visibilityGuide } = this.props;
+    const { objectId, t, visibilityGuide, bestTelescope } = this.props;
     
     // return (
     //   <Request
@@ -215,14 +216,44 @@ class ObjectVisibilityProfile extends Component {
     return (
       <div>
         {visibilityGuide && (
-          <div className="obs-visibility-root">
-            <ViewOurGuide
+          <GridContainer>
+            <Row wrap>             
+                <StaticCell
+                  flexScale={['100%', '100%', '20%']}
+                  hasBorderScale={[true]}
+                  displayAtBreakpoints={{
+                    screenSmall: false,
+                    screenMedium: false,
+                    screenLarge: true,
+                    screenXLarge: true,
+                  }}
+                >
+                  <ViewOurGuide
                     guideHeader={visibilityGuide.linkHeader}
                     guideTitle={visibilityGuide.linkLabel}
                     guideUrl={visibilityGuide.linkUrl}
                     guideSubTitle={visibilityGuide.linkTitle}
                   />
-          </div>
+                </StaticCell>
+             
+
+              {bestTelescope.list.length > 0 && (
+                <StaticCell
+                  flexScale={['100%', '100%', '40%']}
+                  title={bestTelescope.label}
+                  theme={{ alignSelf: 'flex-start' }}
+                  hasBottomBorder={false}
+                >
+                  <BestTelescope
+                    visitLabel={bestTelescope.buttonCaption}
+                    telescopes={bestTelescope.list}
+                  />
+                </StaticCell>
+              )}
+
+            </Row>
+            
+          </GridContainer>
         )}
         <style jsx>{style}</style>
       </div>

@@ -28,7 +28,7 @@ export class ExploreObject extends Component{
 
 
     render() {
-        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub, validateResponseAccess } = this.props;
+        const { questMapControls, objectMapControls, scrollToRef, refreshPhotoHub, validateResponseAccess, setPublicCardStatusAction } = this.props;
         const { activeHeading } = this.state;
 
         return (
@@ -54,6 +54,7 @@ export class ExploreObject extends Component{
                         scrollToRef={scrollToRef}
                         refreshPhotoHub={refreshPhotoHub}
                         validateResponseAccess={validateResponseAccess}
+                        setPublicCardStatusAction={setPublicCardStatusAction}
                         // objectMapControls={objectMapControls.mapControls}
                     /> 
                     // <h2 className="comming-soon">Coming Soon...</h2>

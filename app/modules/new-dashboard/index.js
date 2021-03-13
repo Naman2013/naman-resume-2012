@@ -25,9 +25,6 @@ import { ProfileStatus } from "./components/profile-card/profile-status";
 import { CommunityFame } from "./components/community-fame";
 import { TitleHeaderNew } from "./components/title-header-new";
 import { LiveChat } from "./components/live-chat";
-import { PublicProfileCard } from "./components/public-card";
-import Popup from 'react-modal';
-import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import { TopCommunityObjects } from './components/object-list/top-objects';
 import { TopCommunityObservations } from './components/object-list/top-observations';
 import classnames from 'classnames';
@@ -249,6 +246,7 @@ export class NewDashboard extends PureComponent{
                                     scrollToRef={this.scrollToRef}
                                     refreshPhotoHub={this.refreshPhotoHub}
                                     validateResponseAccess={errorHandling}
+                                    setPublicCardStatusAction={setPublicCardStatusAction}
                                 />                          
                                 
                                

@@ -115,6 +115,9 @@ const modelData = resp => ({
       </p>
     )),
   },
+  midnight12MonthChart:{
+    observatories: resp.midnight12MonthChart.observatories
+  },
   midnightCulmination: {
     show: resp.showMidnightCulmination,
     label: resp.midnightCulmination.label,
@@ -239,17 +242,24 @@ class Overview extends Component {
                 description: modeledResult.midnightCulmination.description,
                 showMidnightCulmination: modeledResult.showMidnightCulmination,
               }}
-              bestTelescope={{
-                label: modeledResult.bestTelescope.label,
-                list: modeledResult.bestTelescope.list,
-                buttonCaption: modeledResult.bestTelescope.visitTelescopeLabel,
-              }}
+              // bestTelescope={{
+              //   label: modeledResult.bestTelescope.label,
+              //   list: modeledResult.bestTelescope.list,
+              //   buttonCaption: modeledResult.bestTelescope.visitTelescopeLabel,
+              // }}
+              midnight12MonthChart={modeledResult.midnight12MonthChart}
+              showMidnight12MonthChart={modeledResult.showMidnight12MonthChart}
             />
 
             <ObjectVisibilityProfile
               defaultObsId={objectData.obsIdDefault}
               objectId={objectId}
               visibilityGuide={objectData.visibilityGuide}
+              bestTelescope={{
+                label: modeledResult.bestTelescope.label,
+                list: modeledResult.bestTelescope.list,
+                buttonCaption: modeledResult.bestTelescope.visitTelescopeLabel,
+              }}
             />
 
             {modeledResult.hasHowBigData && (

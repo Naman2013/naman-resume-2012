@@ -59,7 +59,7 @@ import { Spinner } from 'app/modules/new-dashboard/common/spinner';
                 loading={isLoading}
                 text="Loading..."
               /> 
-              {topThreadsList && (
+              {topThreadsList?.tabOptions?.length > 0 && (
                 <div className="members-list">
                     <ClubTabHeader
                       headings={topThreadsList?.tabOptions}

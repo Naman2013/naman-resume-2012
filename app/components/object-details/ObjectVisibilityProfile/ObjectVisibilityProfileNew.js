@@ -174,6 +174,57 @@ class ObjectVisibilityProfileNew extends Component {
                                   __html: joinMissionData.dateSelectorDescription,
                                 }}
                               />
+
+                          {readMore && (
+                            <div>
+                              <br/>
+                                {/* <Row>
+                            <StaticCell                             
+                              hasBorderScale={[true]}
+                            >
+                             
+
+                              <div
+                                className="rise-set-subtitle"
+                                dangerouslySetInnerHTML={{
+                                  __html: joinMissionData.tzSelectorDescription,
+                                }}
+                              />
+                            </StaticCell>
+                            
+                            {joinMissionData.showAstronomicalTimeGuide && (
+                              <StaticCell
+                                flexScale={['100%', '25%']}
+                              >
+                                <div className="obs-visibility-root">
+                                  <ViewOurGuideNew
+                                    guideHeader={joinMissionData.astronomicalTimeGuide.linkHeader}
+                                    guideTitle={joinMissionData.astronomicalTimeGuide.linkLabel}
+                                    guideUrl={joinMissionData.astronomicalTimeGuide.linkUrl}
+                                    guideSubTitle={joinMissionData.astronomicalTimeGuide.linkTitle}
+                                  />
+                                </div>
+                              </StaticCell>
+                            )}
+                           
+                          </Row>  */}
+                          {joinMissionData.showRiseSetTransitSection && (
+                            // <Row>
+                            //   <StaticCell
+                            //     title={joinMissionData.riseSetTransitTitle}
+                            //     flexScale={['100%', '30%']}
+                            //   >
+                                <p dangerouslySetInnerHTML={{__html: joinMissionData.riseSetTransitText}} />
+                                
+                            //   </StaticCell>
+                            // </Row>
+                          )}
+                            </div>
+                          )} 
+                          <br/>
+                          <div className="read-more" onClick={()=>this.setState({readMore: !readMore})}>
+                            <h4>{readMore ? "Read Less" : "Read More..."}</h4>
+                          </div>  
                             </StaticCell>
                             <StaticCell
                               title={joinMissionData.obsPrompt}
@@ -224,54 +275,7 @@ class ObjectVisibilityProfileNew extends Component {
                               </div> */}
                             </StaticCell>
                           </Row>
-                          {readMore && (
-                            <div>
-                                {/* <Row>
-                            <StaticCell                             
-                              hasBorderScale={[true]}
-                            >
-                             
-
-                              <div
-                                className="rise-set-subtitle"
-                                dangerouslySetInnerHTML={{
-                                  __html: joinMissionData.tzSelectorDescription,
-                                }}
-                              />
-                            </StaticCell>
-                            
-                            {joinMissionData.showAstronomicalTimeGuide && (
-                              <StaticCell
-                                flexScale={['100%', '25%']}
-                              >
-                                <div className="obs-visibility-root">
-                                  <ViewOurGuideNew
-                                    guideHeader={joinMissionData.astronomicalTimeGuide.linkHeader}
-                                    guideTitle={joinMissionData.astronomicalTimeGuide.linkLabel}
-                                    guideUrl={joinMissionData.astronomicalTimeGuide.linkUrl}
-                                    guideSubTitle={joinMissionData.astronomicalTimeGuide.linkTitle}
-                                  />
-                                </div>
-                              </StaticCell>
-                            )}
-                           
-                          </Row>  */}
-                          {joinMissionData.showRiseSetTransitSection && (
-                            <Row>
-                              <StaticCell
-                                title={joinMissionData.riseSetTransitTitle}
-                                flexScale={['100%', '30%']}
-                              >
-                                <p dangerouslySetInnerHTML={{__html: joinMissionData.riseSetTransitText}} />
-                                
-                              </StaticCell>
-                            </Row>
-                          )}
-                            </div>
-                          )} 
-                          <div className="read-more" onClick={()=>this.setState({readMore: !readMore})}>
-                            <h4>{readMore ? "Read Less" : "Read More..."}</h4>
-                          </div>                        
+                                                
                           
                         </GridContainer>
                         {joinMissionData.obsList.map(obs=>(

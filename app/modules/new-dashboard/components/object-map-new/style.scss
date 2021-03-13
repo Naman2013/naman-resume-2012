@@ -258,7 +258,7 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    height: 100%;
+    height: fit-content;
     z-index: 9;
 }
 
@@ -307,7 +307,7 @@
     }
     .new-dash .object-card-popup{
         width: 60%;
-        height: 100%;
+        height: fit-content;
     }
     .new-dash .Object-map-fullscreen{       
         height: calc(95vh);        
@@ -345,7 +345,7 @@
 
     .new-dash .object-card-popup{
         width: 95%;
-        height: 95%;
+        height: fit-content;
     }
     .new-dash .object-map-title{
         font-size: 18px;
@@ -369,7 +369,7 @@
 
     .new-dash .object-card-popup{
         width: 95%;
-        height: 95%;
+        height: fit-content;
     }
 
     .new-dash .object-map-title{
