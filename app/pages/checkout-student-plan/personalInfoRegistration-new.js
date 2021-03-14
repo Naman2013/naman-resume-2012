@@ -674,6 +674,7 @@ class personalInfoRegistrationNew extends Component {
                     let { formFields } = this.state;
                     formFields.forEach((element, index) => {
                         console.log("test" + res.googleProfileInfo[element.key])
+                        console.log("test object" + res.googleProfileInfo)
                         if (res.googleProfileInfo[element.key]) {
                             console.log("entered");
                             Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key] });
