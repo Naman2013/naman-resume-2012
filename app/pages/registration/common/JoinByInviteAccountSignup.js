@@ -498,8 +498,12 @@ class JoinByInviteAccountSignup extends Component {
                     pwd: this.state.accountFormDetails.password.currentValue,
                   };
 
-
-                  actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  const { accountCreationType } = window.localStorage;
+                  if (accountCreationType === 'userpass') 
+                    actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  else if (accountCreationType === 'googleaccount') 
+                    actions.logGoogleUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  
                 }
               }
             })
