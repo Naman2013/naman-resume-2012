@@ -666,7 +666,7 @@ class JoinByInviteAccountSignup extends Component {
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
-            googleProfileFamilyName: res.googleProfileInfo.lastName,
+            googleProfileFamilyName: res.googleProfileInfo.familyName,
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
