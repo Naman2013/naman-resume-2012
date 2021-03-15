@@ -583,7 +583,6 @@ class personalInfoRegistrationNew extends Component {
     createPendingCustomerRecordAndNextScreen = () => {
         const { accountFormDetails, } = this.state;
 
-
         const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
         const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -674,7 +673,7 @@ class personalInfoRegistrationNew extends Component {
                     let { formFields } = this.state;
                     formFields.forEach((element, index) => {
                         if (res.googleProfileInfo[element.key]) {
-                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key].currentValue });
+                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key].currentValue, fieldType: res.googleProfileInfo[element.key].fieldType });
                         }
                         if (element.fieldOptions) {
                             element.fieldOptions.forEach((innerElement, innerIndex) => {
