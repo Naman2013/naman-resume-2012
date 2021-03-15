@@ -493,16 +493,29 @@ class JoinByInviteAccountSignup extends Component {
 
                 if (formIsComplete === true) {
 
-                  const loginDataPayload = {
-                    username: this.state.accountFormDetails.loginEmailAddress.currentValue,
-                    pwd: this.state.accountFormDetails.password.currentValue,
-                  };
+                  
 
                   const { accountCreationType } = window.localStorage;
-                  if (accountCreationType === 'userpass') 
+                  if (accountCreationType === 'userpass')
+                  {
+                    const loginDataPayload = {
+                      username: this.state.accountFormDetails.loginEmailAddress.currentValue,
+                      pwd: this.state.accountFormDetails.password.currentValue,
+                    };
+
+                    window.localStorage.removeItem('accountCreationType');
                     actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
-                  else if (accountCreationType === 'googleaccount') 
+                  }                     
+                  else if (accountCreationType === 'googleaccount')
+                  {
+                    const loginDataPayload = {
+                      googleProfileId: window.localStorage.googleProfileId,
+                      googleProfileEmail: window.localStorage.username,
+                    };
+                    window.localStorage.removeItem('accountCreationType');
                     actions.logGoogleUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  } 
+                    
                   
                 }
               }
