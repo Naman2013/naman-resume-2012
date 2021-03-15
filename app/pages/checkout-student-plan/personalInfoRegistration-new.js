@@ -942,6 +942,7 @@ class personalInfoRegistrationNew extends Component {
             case "email":
             case "number":
             case "text":
+            case "label":
                 return (<div className={"form-section " + fieldSize}>
                     <div className="form-field-container">
                         <span className="form-label"
