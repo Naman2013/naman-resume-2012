@@ -673,18 +673,15 @@ class personalInfoRegistrationNew extends Component {
 
                     let { formFields } = this.state;
                     formFields.forEach((element, index) => {
-                        console.log("test" + res.googleProfileInfo[element.key])
-                        console.log("test object" + res.googleProfileInfo)
                         if (res.googleProfileInfo[element.key]) {
-                            console.log("entered");
-                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key] });
+                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key].currentValue });
                         }
                         if (element.fieldOptions) {
                             element.fieldOptions.forEach((innerElement, innerIndex) => {
                                 if (innerElement.nestedFields && innerElement.key === formFields[index].currentValue) {
                                     innerElement.forEach((nestedElement, nestedIndex) => {
                                         if (res.googleProfileInfo[nestedElement.key])
-                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], { editable: true, currentValue: res.googleProfileInfo[nestedElement.key] });
+                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], { editable: true, currentValue: res.googleProfileInfo[nestedElement.key].currentValue });
                                     })
                                 }
                             })
