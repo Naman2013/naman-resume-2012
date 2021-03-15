@@ -940,8 +940,7 @@ class personalInfoRegistrationNew extends Component {
             case "name":
             case "email":
             case "number":
-            case "text":
-            case "label":
+            case "text":            
                 return (<div className={"form-section " + fieldSize}>
                     <div className="form-field-container">
                         <span className="form-label"
@@ -960,6 +959,28 @@ class personalInfoRegistrationNew extends Component {
                         component={InputFieldNew}
                         onChange={event => { onChange({ field: keyName, value: event.target.value }); }} />
                 </div>);
+            
+            case "label":
+                return (<div className={"form-section " + fieldSize}>
+                    <div className="form-field-container">
+                        <span className="form-label"
+                            dangerouslySetInnerHTML={{ __html: label }} />
+
+                        <span className="form-error"
+                            dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                    </div>
+                    <span name={keyName} className="form-field" >{value}</span>
+                    {/* <Field
+                        editable={editable}
+                        name={keyName}
+                        currentValue={value}
+                        type={fieldType}
+                        className="form-field"
+                        label={hintText}
+                        component={InputFieldNew}
+                        onChange={event => { onChange({ field: keyName, value: event.target.value }); }} /> */}
+                </div>);
+            
         }
     }
 
