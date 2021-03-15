@@ -970,15 +970,8 @@ class personalInfoRegistrationNew extends Component {
                             dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
                     </div>
                     <span name={keyName} className="form-field" >{value}</span>
-                    {/* <Field
-                        editable={editable}
-                        name={keyName}
-                        currentValue={value}
-                        type={fieldType}
-                        className="form-field"
-                        label={hintText}
-                        component={InputFieldNew}
-                        onChange={event => { onChange({ field: keyName, value: event.target.value }); }} /> */}
+                    <br/>
+                    <br/>                    
                 </div>);
             
         }
