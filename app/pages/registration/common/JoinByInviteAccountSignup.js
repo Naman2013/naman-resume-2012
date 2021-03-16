@@ -510,7 +510,7 @@ class JoinByInviteAccountSignup extends Component {
                   {
                     const loginDataPayload = {
                       googleProfileId: window.localStorage.googleProfileId,
-                      googleProfileEmail: window.localStorage.username,
+                      googleProfileEmail: window.localStorage.googleProfileEmail,
                     };
                     window.localStorage.removeItem('accountCreationType');
                     actions.logGoogleUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
