@@ -649,7 +649,7 @@ class JoinByInviteAccountSignup extends Component {
             } else if (this.state.accountCreationType === 'googleaccount') {
               const loginDataPayload = {
                 googleProfileId: window.localStorage.googleProfileId,
-                googleProfileEmail: window.localStorage.username,
+                googleProfileEmail: window.localStorage.googleProfileEmail,
               };
               actions.logGoogleUserIn(loginDataPayload);
               browserHistory.push('/');
