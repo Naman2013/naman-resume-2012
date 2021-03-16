@@ -228,16 +228,12 @@ class GroupImportGoogleClassrooms extends Component {
     this.clearPendingPromises();
   }
 
+  progress = false;
 
   handleSubmit = formValues => {
     formValues.preventDefault();
-    
-    const waitForClick = cancellablePromise(delay(1000));
-    this.appendPendingPromise(waitForClick);
-
-    return waitForClick.promise
-    .then(() => {
-
+    if(!this.progress){
+      this.progress=true;
       const { user } = this.props;
 
       let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
@@ -267,18 +263,60 @@ class GroupImportGoogleClassrooms extends Component {
             } else {
               //display an error message on the screen....
             }
+            this.progress=false;
           }
         })
         .catch(err => {
           throw ('Error: ', err);
         });
+    }
+    // const waitForClick = cancellablePromise(delay(1000));
+    // this.appendPendingPromise(waitForClick);
 
-    }).catch(errorInfo => {
-      this.removePendingPromise(waitForClick);
-      if (!errorInfo.isCanceled) {
-        throw errorInfo.error;
-      }
-    });
+    // return waitForClick.promise
+    // .then(() => {
+
+    //   const { user } = this.props;
+
+    //   let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
+    //   forceReloadStrData = Math.floor(Math.random() * 100000);
+
+    //   const importGoogleClassroomsResult = API.post(
+    //     GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
+    //     {
+    //       googleClassrooms: this.state.googleClassrooms,
+    //       cid: user.cid,
+    //       at: user.at,
+    //       token: user.token,
+    //     }
+    //   ).then(response => {
+    //       const res = response.data;
+    //       if (res.apiError == false) {
+    //         const importResult = {
+    //           status: res.status,
+    //           statusMessage: res.statusMessage,
+    //         };
+
+    //         if (importResult.status === 'success') {
+    //           //force reload the import google classes list....
+    //           this.setState(() => ({
+    //             forceReloadStr: forceReloadStrData,
+    //           }));
+    //         } else {
+    //           //display an error message on the screen....
+    //         }
+    //       }
+    //     })
+    //     .catch(err => {
+    //       throw ('Error: ', err);
+    //     });
+
+    // }).catch(errorInfo => {
+    //   this.removePendingPromise(waitForClick);
+    //   if (!errorInfo.isCanceled) {
+    //     throw errorInfo.error;
+    //   }
+    // });
   };
 
   render() {
