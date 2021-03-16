@@ -157,8 +157,7 @@ class FullInformationOverview extends Component {
     const {
       activePage,
     } = this.state;
-
-    console.log('membersList:::', membersList);
+    
     const createThreadFormParams = {
       canPost: pageMeta.canPost,
       forumId: pageMeta.forumId,
