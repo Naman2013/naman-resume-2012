@@ -20,7 +20,8 @@ import { Spinner } from 'app/modules/new-dashboard/common/spinner';
 
   const [shouldReload, setShouldReload] = useState(false);
   useEffect(() => {
-    if (props.topicId !== undefined) {
+    if (props.topicId !== undefined && props.topicId !== null) {
+      
       stopTopThreadsExpireTimer();
       props
         .getTopThreadList({
