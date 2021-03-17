@@ -760,7 +760,9 @@ class personalInfoRegistrationNew extends Component {
         this.setState({
             formFields: result.formFieldLabels,
             showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,
-            googleSSOButtonDescription: result.googleSSOButtonDescription
+            googleSSOButtonDescription: result.googleSSOButtonDescription,
+            sloohBypassCaptcha: result.sloohBypassCaptcha,
+            captchaVerified: result.sloohBypassCaptcha === true,
         })
         // let test = Object.keys(result.formFieldLabels).sort(function(a, b) {            
         //     return (result.formFieldLabels[a].displayOrder - result.formFieldLabels[b].displayOrder)
@@ -986,8 +988,8 @@ class personalInfoRegistrationNew extends Component {
             captchaVerified,
             accountCreationType,
             googleSSOButtonDescription,
-            showGoogleSSOButtonDescription
-
+            showGoogleSSOButtonDescription,
+            sloohBypassCaptcha,
         } = this.state;
       
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
@@ -1067,16 +1069,18 @@ class personalInfoRegistrationNew extends Component {
 
 
 
+                                                    {!sloohBypassCaptcha && (
+                                                        <div className="form-section mb-4">
+                                                            <div className="form-field-container">
+                                                                <ReCAPTCHA
+                                                                    sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
+                                                                    onChange={this.handleCaptchaCode}
+                                                                />
 
-                                                    <div className="form-section mb-4">
-                                                        <div className="form-field-container">
-                                                            <ReCAPTCHA
-                                                                sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
-                                                                onChange={this.handleCaptchaCode}
-                                                            />
-
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    )}
+                                                    
                                                     <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
                                                         {joinPageRes.continueBtnTxt}
                                                     </button>
