@@ -207,6 +207,8 @@ export class NewDashboard extends PureComponent{
                 topNav,
               } =this.props;
 
+              let topNavMenu = topNav?topNav:'';
+
               const { showRightbar } = this.state;            
             
         return(
@@ -513,9 +515,9 @@ export class NewDashboard extends PureComponent{
                                     validateResponseAccess={errorHandling}
                                 />
 
-                                {topNav && (
+                                {topNavMenu.mainMenu && (
                                     <SloohGiftCard
-                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks.dashboardRightPanelMiddle}                                        
+                                        giftCardLinks={topNavMenu.mainMenu.getDynamicAdsLinks.dashboardRightPanelMiddle}                                        
                                         theme={"dark"}
                                     />
                                 )}
@@ -627,9 +629,9 @@ export class NewDashboard extends PureComponent{
                                         showRowCount={3}    
                                     />
                                 )} */}
-                                {topNav && (
+                                {topNavMenu.mainMenu && (
                                     <SloohGiftCard
-                                        giftCardLinks={topNav.mainMenu.getDynamicAdsLinks.dashboardRightPanelBottom}                                        
+                                        giftCardLinks={topNavMenu.mainMenu.getDynamicAdsLinks.dashboardRightPanelBottom}                                        
                                         theme={"dark"}
                                     />
                                 )}
