@@ -140,6 +140,25 @@ export default css`
     text-transform: uppercase;
   }
 
+  .chart-div{
+    width: 100%;
+    height: 500px;
+    border: none;
+    box-shadow: 0px 0px 3px 3px rgb(0 0 0 / 10%);
+  }
+
+  .enlarge-button{
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    border: 1px dashed #41566f;
+    padding: 5px;
+  }
+
+  .visibility-div{
+    position: relative;
+  }
+
   @media ${screenLarge} {
     .obs-visibility-root {
       // flex-direction: row;

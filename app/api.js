@@ -28,7 +28,7 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
-      const { _sloohatid, _sloohsstkn } = getUserInfo();
+      const { _sloohatid, _sloohsstkn, SLOOH_CUSTOM_TESTING_AUTH } = getUserInfo();      
       const finalData = {
         ...data,
         ...commonData,
@@ -36,6 +36,7 @@ export const API = axios.create({
         productId: projectProductId,
         sloohMarketingTrackingId: _sloohatid,
         sloohSiteSessionToken: _sloohsstkn,
+        sloohCustomTestingAuth: SLOOH_CUSTOM_TESTING_AUTH
       };
       return JSON.stringify(finalData);
     },

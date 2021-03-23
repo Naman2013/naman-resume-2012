@@ -10,8 +10,7 @@ export class RecentCommunityActivities extends Component{
     
     render() {
         const { activities, onClickItem } = this.props;
-        const { activitiesList } = activities;
-        console.log('activitiesList1',activitiesList)
+        const { activitiesList } = activities;        
         
         return (
             <div className="recent-main">

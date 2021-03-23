@@ -44,6 +44,8 @@ import style2 from 'pages/registration/partials/JoinHeader.style';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style3 from './GroupCreate.style';
 import './group-import-google-classrooms.scss';
+import { cancellablePromise } from 'app/utils/cancellablePromise';
+import { delay } from 'app/utils/utils';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -110,6 +112,16 @@ class GroupImportGoogleClassrooms extends Component {
       };
     });
   };
+
+  pendingPromises = [];
+
+  appendPendingPromise = promise =>
+    (this.pendingPromises = [...this.pendingPromises, promise]);
+
+  removePendingPromise = promise =>
+    (this.pendingPromises = this.pendingPromises.filter(p => p !== promise));
+
+  clearPendingPromises = () => this.pendingPromises.map(p => p.cancel());
 
   submitRequestForm = ({
     requestFormTitle,
@@ -212,44 +224,99 @@ class GroupImportGoogleClassrooms extends Component {
     }));
   };
 
+  componentWillUnmount(){
+    this.clearPendingPromises();
+  }
+
+  progress = false;
+
   handleSubmit = formValues => {
     formValues.preventDefault();
+    if(!this.progress){
+      this.progress=true;
+      const { user } = this.props;
 
-    const { user } = this.props;
+      let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
+      forceReloadStrData = Math.floor(Math.random() * 100000);
 
-    let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
-    forceReloadStrData = Math.floor(Math.random() * 100000);
-
-    const importGoogleClassroomsResult = API.post(
-      GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
-      {
-        googleClassrooms: this.state.googleClassrooms,
-        cid: user.cid,
-        at: user.at,
-        token: user.token,
-      }
-    )
-      .then(response => {
-        const res = response.data;
-        if (res.apiError == false) {
-          const importResult = {
-            status: res.status,
-            statusMessage: res.statusMessage,
-          };
-
-          if (importResult.status === 'success') {
-            //force reload the import google classes list....
-            this.setState(() => ({
-              forceReloadStr: forceReloadStrData,
-            }));
-          } else {
-            //display an error message on the screen....
-          }
+      const importGoogleClassroomsResult = API.post(
+        GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
+        {
+          googleClassrooms: this.state.googleClassrooms,
+          cid: user.cid,
+          at: user.at,
+          token: user.token,
         }
-      })
-      .catch(err => {
-        throw ('Error: ', err);
-      });
+      ).then(response => {
+          const res = response.data;
+          if (res.apiError == false) {
+            const importResult = {
+              status: res.status,
+              statusMessage: res.statusMessage,
+            };
+
+            if (importResult.status === 'success') {
+              //force reload the import google classes list....
+              this.setState(() => ({
+                forceReloadStr: forceReloadStrData,
+              }));
+            } else {
+              //display an error message on the screen....
+            }
+            this.progress=false;
+          }
+        })
+        .catch(err => {
+          throw ('Error: ', err);
+        });
+    }
+    // const waitForClick = cancellablePromise(delay(1000));
+    // this.appendPendingPromise(waitForClick);
+
+    // return waitForClick.promise
+    // .then(() => {
+
+    //   const { user } = this.props;
+
+    //   let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
+    //   forceReloadStrData = Math.floor(Math.random() * 100000);
+
+    //   const importGoogleClassroomsResult = API.post(
+    //     GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
+    //     {
+    //       googleClassrooms: this.state.googleClassrooms,
+    //       cid: user.cid,
+    //       at: user.at,
+    //       token: user.token,
+    //     }
+    //   ).then(response => {
+    //       const res = response.data;
+    //       if (res.apiError == false) {
+    //         const importResult = {
+    //           status: res.status,
+    //           statusMessage: res.statusMessage,
+    //         };
+
+    //         if (importResult.status === 'success') {
+    //           //force reload the import google classes list....
+    //           this.setState(() => ({
+    //             forceReloadStr: forceReloadStrData,
+    //           }));
+    //         } else {
+    //           //display an error message on the screen....
+    //         }
+    //       }
+    //     })
+    //     .catch(err => {
+    //       throw ('Error: ', err);
+    //     });
+
+    // }).catch(errorInfo => {
+    //   this.removePendingPromise(waitForClick);
+    //   if (!errorInfo.isCanceled) {
+    //     throw errorInfo.error;
+    //   }
+    // });
   };
 
   render() {

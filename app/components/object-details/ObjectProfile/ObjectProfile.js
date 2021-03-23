@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
 import style from './ObjectProfile.style';
+import VisibilityChart from './VisibilityChart';
 
 const ObjectProfile = ({
   scienceName,
@@ -10,6 +11,8 @@ const ObjectProfile = ({
   visibilitySeason,
   bestTelescope,
   midnightCulmination,
+  midnight12MonthChart,
+  showMidnight12MonthChart,
 }) => (
   <GridContainer>
     <Row>
@@ -91,7 +94,7 @@ const ObjectProfile = ({
         </StaticCell>
       )}
 
-      {bestTelescope.list.length > 0 && (
+      {/* {bestTelescope.list.length > 0 && (
         <StaticCell
           flexScale={['100%', '100%', '40%']}
           title={bestTelescope.label}
@@ -103,7 +106,20 @@ const ObjectProfile = ({
             telescopes={bestTelescope.list}
           />
         </StaticCell>
-      )}
+      )} */}
+
+        <StaticCell
+          flexScale={['100%', '100%', '40%']}
+          title={""}
+          theme={{ alignSelf: 'flex-start' }}
+          hasBottomBorder={false}
+        >
+          {showMidnight12MonthChart && (
+            <VisibilityChart            
+              observatory={midnight12MonthChart.observatories}
+            />
+          )}          
+        </StaticCell>
     </Row>
 
     <style jsx>{style}</style>

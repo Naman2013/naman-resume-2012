@@ -6,12 +6,16 @@ import { Button } from '../button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setFilters } from 'app/modules/my-pictures-filters/actions';
+import MVPAstronomerNew from 'app/components/common/MVPAstronomer/MVPAstronomerNew';
+import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 
 class ObjectCard extends Component{
     
     state={
-        seeMore: false
-    }
+        seeMore: false,
+        showPublicCard: false,
+        customerUUID: undefined,
+    }   
 
     handleViewImageClick = () => {
         const { actions, objectCardDetails, scrollToRef, refreshPhotoHub,onHide, fullScreenMode, exixFullScreenMode } = this.props;
@@ -36,8 +40,8 @@ class ObjectCard extends Component{
 
     render() {
                
-        const { onHide, objectCardDetails } = this.props;
-        const { seeMore } = this.state;        
+        const { onHide, objectCardDetails, setPublicCardStatusAction, } = this.props;
+        const { seeMore, showPublicCard, customerUUID } = this.state;   
         return (
             <div id="object-card" className="object-card-main" style={{background: objectCardDetails.cardBackgroundColor}}>
                 <img className="object-close-icon" onClick={onHide} src={objectCardDetails.imageArray.showImage ? "https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg" : "https://vega.slooh.com/assets/v4/dashboard-new/close_white.svg"} />
@@ -76,9 +80,28 @@ class ObjectCard extends Component{
 
                     {objectCardDetails.featuresArray.map(feature =>(
                         <h6 className="object-features">{feature.title} <b>{feature.data}</b></h6>
-                    ))}
-                    
-                    
+                    ))}                    
+                    {objectCardDetails?.showMVPSection && (
+                        <div>
+                            <br/>
+                            <hr className="horizontalline"/>
+                            <h5 className="mvp-title"><b>{objectCardDetails?.specialistsListTitle}</b> {objectCardDetails?.mvpObjectTitle}</h5>
+                            {objectCardDetails?.showNoMVPText ? (
+                                <h6 dangerouslySetInnerHTML={{__html: objectCardDetails?.noMVPText}} /> 
+                            ):(
+                                <div className="mvp-card-container">
+                                    {objectCardDetails?.specialistsList.map(card=>(
+                                        <MVPAstronomerNew 
+                                            {...card} 
+                                            cardClass="contents-mvp-card" 
+                                            setPublicCardStatusAction={()=>this.setState({showPublicCard: true, customerUUID: card.customerUUID})}
+                                        />                                    
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        
+                    )}
                 </div>
                 <hr className="horizontalline"/>
                 <div className="object-button-controls">
@@ -107,7 +130,10 @@ class ObjectCard extends Component{
                         />
                     )}
                     
-                </div>
+                </div>               
+                    
+                   
+               
                 {/* <div className="quest-badge-container">                    
                     <img src={objectCardDetails.badgeIconURL} className="quest-badge-icon"/>
                 </div>                
@@ -173,7 +199,16 @@ class ObjectCard extends Component{
                 </div> */}
                 <br/>
                 {/* Quest Progress */}
-                                        
+                {showPublicCard && (
+                    <div className="publicProfileModal">
+                        <div className="publicProfileDiv">
+                            <PublicProfileCard
+                                customerUUID={customerUUID}
+                                onClose={()=>this.setState({showPublicCard: false, customerUUID: undefined})}
+                            />
+                        </div>
+                    </div>
+                )}                       
             </div>   
         );
     }

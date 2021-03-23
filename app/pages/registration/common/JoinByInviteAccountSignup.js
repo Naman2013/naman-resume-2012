@@ -493,13 +493,30 @@ class JoinByInviteAccountSignup extends Component {
 
                 if (formIsComplete === true) {
 
-                  const loginDataPayload = {
-                    username: this.state.accountFormDetails.loginEmailAddress.currentValue,
-                    pwd: this.state.accountFormDetails.password.currentValue,
-                  };
+                  
 
+                  const { accountCreationType } = window.localStorage;
+                  if (accountCreationType === 'userpass')
+                  {
+                    const loginDataPayload = {
+                      username: this.state.accountFormDetails.loginEmailAddress.currentValue,
+                      pwd: this.state.accountFormDetails.password.currentValue,
+                    };
 
-                  actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                    window.localStorage.removeItem('accountCreationType');
+                    actions.logUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  }                     
+                  else if (accountCreationType === 'googleaccount')
+                  {
+                    const loginDataPayload = {
+                      googleProfileId: window.localStorage.googleProfileId,
+                      googleProfileEmail: window.localStorage.googleProfileEmail,
+                    };
+                    window.localStorage.removeItem('accountCreationType');
+                    actions.logGoogleUserIn(loginDataPayload, { reload: false, redirectUrl: '/join/purchaseConfirmation/join' });
+                  } 
+                    
+                  
                 }
               }
             })
@@ -632,7 +649,7 @@ class JoinByInviteAccountSignup extends Component {
             } else if (this.state.accountCreationType === 'googleaccount') {
               const loginDataPayload = {
                 googleProfileId: window.localStorage.googleProfileId,
-                googleProfileEmail: window.localStorage.username,
+                googleProfileEmail: window.localStorage.googleProfileEmail,
               };
               actions.logGoogleUserIn(loginDataPayload);
               browserHistory.push('/');
@@ -666,7 +683,7 @@ class JoinByInviteAccountSignup extends Component {
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
-            googleProfileFamilyName: res.googleProfileInfo.lastName,
+            googleProfileFamilyName: res.googleProfileInfo.familyName,
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
