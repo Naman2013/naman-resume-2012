@@ -583,7 +583,6 @@ class personalInfoRegistrationNew extends Component {
     createPendingCustomerRecordAndNextScreen = () => {
         const { accountFormDetails, } = this.state;
 
-
         const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
         const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -674,14 +673,14 @@ class personalInfoRegistrationNew extends Component {
                     let { formFields } = this.state;
                     formFields.forEach((element, index) => {
                         if (res.googleProfileInfo[element.key]) {
-                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key] });
+                            Object.assign(formFields[index], { editable: true, currentValue: res.googleProfileInfo[element.key].currentValue, fieldType: res.googleProfileInfo[element.key].fieldType });
                         }
                         if (element.fieldOptions) {
                             element.fieldOptions.forEach((innerElement, innerIndex) => {
                                 if (innerElement.nestedFields && innerElement.key === formFields[index].currentValue) {
                                     innerElement.forEach((nestedElement, nestedIndex) => {
                                         if (res.googleProfileInfo[nestedElement.key])
-                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], { editable: true, currentValue: res.googleProfileInfo[nestedElement.key] });
+                                            Object.assign(formFields[index].fieldOptions[innerIndex].nestedFields[nestedIndex], { editable: true, currentValue: res.googleProfileInfo[nestedElement.key].currentValue });
                                     })
                                 }
                             })
@@ -761,7 +760,9 @@ class personalInfoRegistrationNew extends Component {
         this.setState({
             formFields: result.formFieldLabels,
             showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,
-            googleSSOButtonDescription: result.googleSSOButtonDescription
+            googleSSOButtonDescription: result.googleSSOButtonDescription,
+            sloohBypassCaptcha: result.sloohBypassCaptcha,
+            captchaVerified: result.sloohBypassCaptcha === true,
         })
         // let test = Object.keys(result.formFieldLabels).sort(function(a, b) {            
         //     return (result.formFieldLabels[a].displayOrder - result.formFieldLabels[b].displayOrder)
@@ -941,7 +942,7 @@ class personalInfoRegistrationNew extends Component {
             case "name":
             case "email":
             case "number":
-            case "text":
+            case "text":            
                 return (<div className={"form-section " + fieldSize}>
                     <div className="form-field-container">
                         <span className="form-label"
@@ -960,6 +961,21 @@ class personalInfoRegistrationNew extends Component {
                         component={InputFieldNew}
                         onChange={event => { onChange({ field: keyName, value: event.target.value }); }} />
                 </div>);
+            
+            case "label":
+                return (<div className={"form-section " + fieldSize}>
+                    <div className="form-field-container">
+                        <span className="form-label"
+                            dangerouslySetInnerHTML={{ __html: label }} />
+
+                        <span className="form-error"
+                            dangerouslySetInnerHTML={{ __html: showError ? errorText : '' }} />
+                    </div>
+                    <span name={keyName} className="form-field" >{value}</span>
+                    <br/>
+                    <br/>                    
+                </div>);
+            
         }
     }
 
@@ -972,8 +988,8 @@ class personalInfoRegistrationNew extends Component {
             captchaVerified,
             accountCreationType,
             googleSSOButtonDescription,
-            showGoogleSSOButtonDescription
-
+            showGoogleSSOButtonDescription,
+            sloohBypassCaptcha,
         } = this.state;
       
         const selectedPlanId = window.localStorage.getItem('selectedPlanId');
@@ -1053,16 +1069,18 @@ class personalInfoRegistrationNew extends Component {
 
 
 
+                                                    {!sloohBypassCaptcha && (
+                                                        <div className="form-section mb-4">
+                                                            <div className="form-field-container">
+                                                                <ReCAPTCHA
+                                                                    sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
+                                                                    onChange={this.handleCaptchaCode}
+                                                                />
 
-                                                    <div className="form-section mb-4">
-                                                        <div className="form-field-container">
-                                                            <ReCAPTCHA
-                                                                sitekey={googleRecaptchaConfig.CAPTCHA_KEY_V2}
-                                                                onChange={this.handleCaptchaCode}
-                                                            />
-
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    )}
+                                                    
                                                     <button className={"submit-button " + (!captchaVerified ? "disabled" : "")} type="submit" disabled={!captchaVerified}>
                                                         {joinPageRes.continueBtnTxt}
                                                     </button>

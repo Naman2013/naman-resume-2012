@@ -8,7 +8,9 @@ import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import ViewOurGuide from '../view-our-guide';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfileNew.style';
-
+import Popup from 'react-modal';
+import { customModalStylesChartPopupBlueOverlay } from 'app/styles/mixins/utilities';
+import { Button } from 'app/modules/new-dashboard/components/button';
 import { DEFAULT_OBSID } from './constants';
 
 const riseSetModel = {
@@ -40,10 +42,15 @@ const riseSetModel = {
 @withTranslation()
 class ObjectRiseSet extends Component {
  
+  state = {
+    showChartPopup: false,
+  }
+
   render() {   
 
     const { dateString, objectId, obsId, readMore, tzId, t,  visibilityGuide, obsName } = this.props;
-    
+    const { showChartPopup } = this.state;
+
     return (
       <Request
         // serviceURL={RISE_SET_TIMES}
@@ -183,6 +190,45 @@ class ObjectRiseSet extends Component {
                     guideUrl={riseSet.guideUrl}
                     guideSubTitle={riseSet.guideSubTitle}
                   /> */}
+                  {serviceResponse.showTonightChart && (
+                    <div className={"visibility-div"}>
+                      <img 
+                        onClick={()=>this.setState({showChartPopup: true})}
+                        className={"enlarge-button"}
+                        src={"https://vega.slooh.com/assets/v4/dashboard-new/dock_undock.svg"} 
+                      />  
+                      <iframe
+                        className="chart-div"
+                        src={serviceResponse.tonightChart.observatories[0].chartURL}
+                      />
+                    </div>
+                  )}                  
+                  <Popup
+                    ariaHideApp={false}
+                    isOpen={showChartPopup}
+                    style={customModalStylesChartPopupBlueOverlay}
+                    contentLabel="Chart Popup"
+                    shouldCloseOnOverlayClick={false}
+                    onRequestClose={()=>this.setState({showChartPopup: false})}
+                  >   
+                    <div className="new-dash">
+                      <div className="profilecard-header">
+                        <h2 className="title-heading"></h2> 
+                        <Button
+                          type={"button"}
+                          onClickEvent={()=>this.setState({showChartPopup: false})} 
+                          text={"Close"}                                             
+                          style={"public-card-close-button"}
+                          icon={"https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg"}
+                        />
+                      </div>
+                      <br/>
+                      <iframe
+                        className="chart-div"
+                        src={serviceResponse.tonightChart.observatories[0].chartURL}
+                      />
+                    </div>          
+                  </Popup>
                 </div>
               )}               
               <style jsx>{style}</style>

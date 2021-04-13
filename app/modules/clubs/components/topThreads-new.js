@@ -20,7 +20,8 @@ import { Spinner } from 'app/modules/new-dashboard/common/spinner';
 
   const [shouldReload, setShouldReload] = useState(false);
   useEffect(() => {
-    if (props.topicId !== undefined) {
+    if (props.topicId !== undefined && props.topicId !== null) {
+      
       stopTopThreadsExpireTimer();
       props
         .getTopThreadList({
@@ -59,7 +60,7 @@ import { Spinner } from 'app/modules/new-dashboard/common/spinner';
                 loading={isLoading}
                 text="Loading..."
               /> 
-              {topThreadsList && (
+              {topThreadsList?.tabOptions?.length > 0 && (
                 <div className="members-list">
                     <ClubTabHeader
                       headings={topThreadsList?.tabOptions}

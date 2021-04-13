@@ -108,7 +108,7 @@ export class CommunityExploration extends PureComponent {
 
   startTimer = () => {
     let viewType = this.state.viewType === 'All' ? 'alltime' : 'featured';
-    this.getCommunityObservationAction(viewType);
+    this.getObservationsList(viewType);
   };
 
   stopTimer = () => {

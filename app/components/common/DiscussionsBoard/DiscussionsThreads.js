@@ -114,42 +114,44 @@ class DiscussionsThreads extends Component {
 
     const searchValue = this.searchInput.value.trim();
     const searchData = searchValue ? { searchTerms: searchValue } : {};
-
-    API.post(THREAD_LIST, {
-      callSource,
-      count,
-      page,
-      topicId,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      ...searchData,
-      ...jumpThreadData,
-    }).then(res => {
-      validateResponseAccess(res);
-      this.setState({
-        fetching: false,
-        activePage: res.data.page || page,
-        showSearchTermResultHeading: res.data.showSearchTermResultHeading,
-        searchTermResultHeading: res.data.searchTermResultHeading,
-      });
-
-      if (!res.data.apiError) {
-        const { threads, threadCount } = res.data;
-        let newThreads = [].concat(threads);
-        newThreads = newThreads.map(thread => {
-          const currentThread = Object.assign({}, thread);
-          currentThread.showComments = false;
-          currentThread.page = 1;
-          currentThread.key = currentThread.threadId;
-          return currentThread;
+    if(topicId !== undefined && topicId !== null){
+      API.post(THREAD_LIST, {
+        callSource,
+        count,
+        page,
+        topicId,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+        ...searchData,
+        ...jumpThreadData,
+      }).then(res => {
+        validateResponseAccess(res);
+        this.setState({
+          fetching: false,
+          activePage: res.data.page || page,
+          showSearchTermResultHeading: res.data.showSearchTermResultHeading,
+          searchTermResultHeading: res.data.searchTermResultHeading,
         });
-        updateThreadsProps(newThreads, threadCount);
 
-        if (jumpToThreadId && !paging) {
+        if (!res.data.apiError) {
+          const { threads, threadCount } = res.data;
+          let newThreads = [].concat(threads);
+          newThreads = newThreads.map(thread => {
+            const currentThread = Object.assign({}, thread);
+            currentThread.showComments = false;
+            currentThread.page = 1;
+            currentThread.key = currentThread.threadId;
+            return currentThread;
+          });
+          updateThreadsProps(newThreads, threadCount);
+
+          if (jumpToThreadId && !paging) {
+          }
         }
-      }
-    });
+      });
+    }
+      
   };
 
   getReplies = (threadId, replyTo) => {
