@@ -16,7 +16,7 @@ class Join extends Component {
     const { router, user } = props;
     if (user.isAuthorized) {
       // router.push('/profile/private');
-      router.push('/NewDashboard');
+     //router.push('/NewDashboard');
     }
   }
 
