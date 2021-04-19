@@ -19,7 +19,10 @@ import {
 
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
-  model: resp => ({
+  model: resp => (
+    console.log('resp::',resp),
+    {
+    
     tiaraTitleProps: {
       preTitle: resp.guideHeader,
       title: resp.guideReferenceTitle,
@@ -69,10 +72,10 @@ const guidePageModel = {
       })),
     },
     navigationProps: {
-      title: resp.chapterNavigationInfo.parentInfo.guideTitle,
+      title: resp.chapterNavigationInfo.parentInfo? resp.chapterNavigationInfo.parentInfo.guideTitle:null,
       contextMenuTitle: resp.topicHeading1,
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
-      backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
+      backLinkURL: resp.chapterNavigationInfo.parentInfo ? resp.chapterNavigationInfo.parentInfo.link :null,
     },
   }),
 };
