@@ -36,7 +36,7 @@ class Pagination extends Component {
     totalPageCount: 10,
     pages: createPages(DEFAULT_ACTIVE_PAGE, DEFAULT_PAGES_PER_PAGE, 10),
     onPageChange: () => {
-      // console.log('page changed');
+      
     },
   };
 

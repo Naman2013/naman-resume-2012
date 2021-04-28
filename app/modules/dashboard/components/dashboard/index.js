@@ -19,8 +19,7 @@ export class Dashboard extends Component {
     }
     if (!user.isAuthorized) {
       if (params.marketingTrackingId) {
-	//console.log("Pushing to guest dashboard with the marketing tracking id: " + params.marketingTrackingId);
-
+	
 	//capture any marketing tracking info
 	fireSloohMarketingTrackingStartEvent(params.marketingTrackingId);
 

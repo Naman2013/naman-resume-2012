@@ -88,7 +88,7 @@ class DiscussionsThreads extends Component {
       topicId !== nextProps.topicId ||
       jumpToThreadId !== nextProps.jumpToThreadId
     ) {
-      //console.log('aaaa', activePage);
+      
       this.getThreads(nextProps, activePage);
     }
   }

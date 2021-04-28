@@ -6,7 +6,7 @@ import { findLastIndex } from 'lodash';
 export class QuestCustomer extends PureComponent {
   componentDidMount() {
     const { getCustomerQuests, viewType, } = this.props;
-    console.log('prppps',this.props);
+    
     getCustomerQuests({ viewType });
   }
   

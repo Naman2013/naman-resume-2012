@@ -7,7 +7,7 @@ export class ConversationLayout extends Component{
 
     test=(e)=>{   
         const el = e.target.closest("a");
-        // console.log("Customer UUID: "+ el.id);
+       
         if (el && e.currentTarget.contains(el) && el.id !== "") {
             e.preventDefault();
             this.props.onClickItem(el.id, true);

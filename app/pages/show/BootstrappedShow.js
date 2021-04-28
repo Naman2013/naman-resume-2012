@@ -49,7 +49,7 @@ class BootstrappedShow extends Component {
     };
 
     if (props.inProgressFlag) {
-      // console.log("here");
+      
       this.configureTimer({
         expires: props.endDate,
         timestamp: props.startDate,
@@ -57,7 +57,7 @@ class BootstrappedShow extends Component {
     }
 
     if (props.upcomingFlag) {
-      // console.log("here2");
+     
       this.configureTimer({
         expires: props.startDate,
         timestamp: props.serverTime,
@@ -72,7 +72,7 @@ class BootstrappedShow extends Component {
       });
 
       if (nextProps.inProgressFlag) {
-        // console.log("here3");
+        
         this.configureTimer({
           expires: nextProps.endDate,
           timestamp: nextProps.startDate,

@@ -29,7 +29,7 @@ class HowBigModule extends Component {
   };
 
   handleAnimationComplete = () => {
-    // console.log('Anim complete,...');
+    
     this.setState({ isStarted: false });
   };
 

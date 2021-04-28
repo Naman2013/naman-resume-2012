@@ -28,7 +28,7 @@ const MoonlightConditions = () => (
         theme={{ width: '100%' }}
         text="View our guide"
         onClickEvent={() => {
-          // console.log('Click');
+         
         }}
       />
     </div>

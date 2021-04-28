@@ -59,7 +59,7 @@ export class RichTextInput extends React.PureComponent<RichTextInputProps> {
       if (refreshStep) {
         refreshQuestStep();
       } else if (refreshModule) {
-        // console.log('refresh module!!!!');
+        
         // getQaFreeForm({ questId, moduleId });
       }
     });

@@ -25,8 +25,7 @@ export class TopCommunityObjects extends Component{
             const res=response.data;
             if(!res.apiError){
                 const { timestamp, expires } = res;
-                const duration=(expires-timestamp)*1000;
-                // console.log("Top Community Objects Duration"+duration);                
+                const duration=(expires-timestamp)*1000;               
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getTopCommunityObjects(data),duration );

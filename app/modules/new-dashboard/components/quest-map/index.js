@@ -98,8 +98,7 @@ export class QuestMap extends Component{
         }
         else{     
           map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-            // console.log("object name: "+feature.get('name'));
-            // console.log("object id: "+feature.getId());
+           
                 popup.innerHTML = '';
                 popup.hidden = true;
                 self.setState({isloading1: true});
@@ -126,8 +125,7 @@ export class QuestMap extends Component{
          
         //   var feature = features.length ? features[0] : undefined; 
         //   if (features.length) {  
-        //     console.log("object name: "+feature.get('name'));
-        //     console.log("object id: "+feature.getId());
+      
         //     if(showQuestCard)
         //       self.setState({showQuestCard: false, questCardDetails: []});
         //     else{
@@ -353,7 +351,7 @@ export class QuestMap extends Component{
       const { token, at, cid } = getUserInfo();
       const self = this;
       
-      // console.log(filterList);
+     
       getQuestMap({token, cid, at, ...data}).then(response=>{       
         const res=response.data;
         if(!res.apiError){
@@ -393,7 +391,7 @@ export class QuestMap extends Component{
       const { token, at, cid } = getUserInfo();
       const self = this;
       
-      // console.log(filterList);
+     
       getQuestMap({token, cid, at, default: true}).then(response=>{
         const res=response.data;
         if(!res.apiError){
@@ -767,7 +765,7 @@ export class QuestMap extends Component{
       controlList.map((control,i)=>{
         filterList.push({"controlId": control.controlId, "key": control.list[selectedControls[i]].key});
       });
-      // console.log(filterList);
+     
       getQuestMap({token, cid, at, filterList, layerList: layers}).then(response=>{
        
         const res=response.data;

@@ -41,7 +41,7 @@ export default createReducer(initialState, {
     };
   },
   [CANCEL_MYPIGGYBACK_SUCCESS](state, { payload }) {
-    // console.log("here");
+   
     dispatch(payload.refreshAction());
     const { apiError } = payload;
     return {
@@ -51,7 +51,7 @@ export default createReducer(initialState, {
     };
   },
   [CANCEL_MYPIGGYBACK_FAIL](state, { payload }) {
-    // console.log("here");
+    
     dispatch(payload.refreshAction());
     return {
       ...state,

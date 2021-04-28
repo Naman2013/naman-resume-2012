@@ -5,15 +5,14 @@ import { storeSessionToken } from 'app/modules/User';
 const GENERATE_SESSION_API_URL = '/api/app/generateSessionToken';
 
 const generateSessionToken = async () => {
-  //console.log('generateSessionToken');
+  
   let res = await API.post(GENERATE_SESSION_API_URL);  
   storeSessionToken(res.data.sloohSessionToken);
   return true;
 };
 
 export const initSessionToken = async ({ isAuthorized }, props) => {
-  //console.log('initSessionToken');
-  //console.log('isAuthorized', isAuthorized);
+ 
   if (isAuthorized) {
     return true;
   }

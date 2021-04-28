@@ -5,6 +5,9 @@ import pick from 'lodash/pick';
 import { connect } from 'react-redux';
 import ToggleJoinGroupButton from 'app/components/common/style/buttons/ToggleJoinGroupButton';
 import { toggleJoinGroup } from 'app/services/community-groups/toggle-join-group';
+import { ConfirmationPopUp } from './common/ConfirmationPopUp'
+import { browserHistory } from 'react-router';
+
 
 const { bool, func, shape, number, oneOfType, string } = PropTypes;
 
@@ -39,42 +42,75 @@ class ToggleJoinGroup extends Component {
   state = {
     icon: this.props.joinPromptIconUrl,
     text: this.props.joinPrompt,
+    showModal: false
   };
 
-  toggleGroup = () => {
-    const {
-      filterType,
-      user,
-      discussionGroupId,
-      joinPrompt,
-      updateGroupItemInfo,
-    } = this.props;
-    toggleJoinGroup({
-      groupSet: filterType,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      discussionGroupId,
-    }).then(res => {
-      if (!res.data.apiError) {
-        updateGroupItemInfo(discussionGroupId, pick(res.data, RESPONSE_FIELDS));
-        this.setState(() => ({
-          icon: res.data.joinPromptIconUrl,
-          text: joinPrompt ? res.data.joinPrompt : null,
-        }));
-      }
-    });
+  toggleGroup = (value) => {
+    if (value) {
+      this.setState(() => ({
+        showModal: false
+      }));
+      const {
+        filterType,
+        user,
+        discussionGroupId,
+        joinPrompt,
+        updateGroupItemInfo,
+      } = this.props;
+      toggleJoinGroup({
+        groupSet: filterType,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+        discussionGroupId,
+      }).then(res => {
+        if (!res.data.apiError) {
+          updateGroupItemInfo(discussionGroupId, pick(res.data, RESPONSE_FIELDS));
+          this.setState(() => ({
+            icon: res.data.joinPromptIconUrl,
+            text: joinPrompt ? res.data.joinPrompt : null,
+          }));
+          if(this.state.text==='Leave Club'){
+            browserHistory.push('/')
+          }
+        }
+      });
+    } else {
+      this.setState(() => ({
+        showModal: false
+      }));
+
+    }
   };
+
+  openModal = (value) => {
+    if(value==='Leave Club'){
+      this.setState(() => ({
+        showModal: true
+      }));
+    }else{
+      this.toggleGroup(true)
+    }
+  }
+
   render() {
-    const { icon, text } = this.state;
+    const { icon, text, showModal } = this.state;
+
+    console.log('text::',text);
+
     return (
-      <Fragment>
-        <ToggleJoinGroupButton
-          icon={icon}
-          text={text}
-          onClickEvent={this.toggleGroup}
-        />
-      </Fragment>
+      <>
+        {showModal && text ==='Leave Club' && (
+          <ConfirmationPopUp showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+        )}
+        <Fragment>
+          <ToggleJoinGroupButton
+            icon={icon}
+            text={text}
+            onClickEvent={() => this.openModal(text)}
+          />
+        </Fragment>
+      </>
     );
   }
 }

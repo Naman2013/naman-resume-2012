@@ -27,7 +27,7 @@ export class CommunityFame extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                // console.log("community stats Duration"+duration);  
+    
                 this.setState({communityFame: res});
                 if(this.timerId !== null)              
                     clearTimeout(this.timerId);

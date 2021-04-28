@@ -411,7 +411,7 @@ class JoinStep2 extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
-    //console.log(this.state.accountFormDetails);
+    
   
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
@@ -660,7 +660,7 @@ class JoinStep2 extends Component {
               'password',
               this.state.accountFormDetails.password.currentValue
             );
-            // console.log('Proceeding to create the customers pending account');
+          
             browserHistory.push('/join/step3');
           } else {
             /* process / display error to user */
@@ -674,7 +674,7 @@ class JoinStep2 extends Component {
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = googleTokenData => {
-    // console.log("Processing Google Signin: " + googleTokenData);
+    
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
     API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
@@ -755,7 +755,7 @@ class JoinStep2 extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    // console.log(googleMessageData);
+    
   };
 
   render() {
@@ -773,7 +773,7 @@ class JoinStep2 extends Component {
     } = this.state;
     const { _sloohatid } = getUserInfo();
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
-    console.log('accountFormDetails', accountFormDetails);
+    
     return (
       <div>
         <Request

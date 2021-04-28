@@ -365,7 +365,7 @@ class personalInfoRegistrationNew extends Component {
 
         const { accountFormDetails, accountCreationType, captchaVerified } = this.state;
         const { t } = this.props;
-        // console.log('accountCreationType', accountCreationType);
+        
 
         if (!captchaVerified) {
             return;
@@ -652,7 +652,7 @@ class personalInfoRegistrationNew extends Component {
 
     /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
     processGoogleSuccessResponse = googleTokenData => {
-        // console.log("Processing Google Signin: " + googleTokenData);
+        
 
         /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
 
@@ -756,7 +756,7 @@ class personalInfoRegistrationNew extends Component {
     };
 
     handleJoinPageServiceResponse = result => {
-        // console.log('result', result)
+        
         this.setState({
             formFields: result.formFieldLabels,
             showGoogleSSOButtonDescription: result.showGoogleSSOButtonDescription,

@@ -111,7 +111,7 @@ class Quests extends Component {
     let accessorCustomerId = this.props.user.cid;
     let requestedCustomerId = this.props.user.cid;
     const { actions } = this.props;
-    console.log('quest hub actions', actions, questId);
+    
     actions.downloadQuestReport({questId,accessorCustomerId,requestedCustomerId}).then(this.onDownloadPDF);
   }
 

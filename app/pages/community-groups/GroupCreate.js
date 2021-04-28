@@ -251,8 +251,7 @@ class GroupCreate extends Component {
     }));
 
     if (formIsComplete) {
-      //console.log('submit the new group form and redirect to the new group page');
-
+      
       const createNewGroupResults = API.post(
         CLASSROOM_CREATENEWGROUP_ENDPOINT_URL,
         {

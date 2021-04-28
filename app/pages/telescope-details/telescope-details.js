@@ -366,7 +366,7 @@ class TelescopeDetails extends Component {
       instrCameraSourceType,
     } = activeInstrument;
 
-    // console.log(objectData);
+   
 
     return (
       <div>

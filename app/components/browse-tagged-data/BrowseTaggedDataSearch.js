@@ -87,9 +87,7 @@ class BrowseTaggedDataSearch extends Component {
     if (
       equal(this.props.browseTaggedData, nextProps.browseTaggedData) == false
     ) {
-      //console.log('Browse Tagged Data has changed...');
-      //console.log(this.props.browseTaggedData);
-      //console.log(nextProps.browseTaggedData);
+      
 
       //set the default rendered state (search results data feed to the render data feed)
       this.setState({
@@ -114,13 +112,12 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   handleClick(searchData) {
-    //console.log("Click: " + searchData.value)
+   
 
     const { browseTaggedDataEnabled } = this.state;
     /* only fetch the browse tagged data if the search has not already been iniated,
         this will prevent multiple data calls when a user clicks in the text box when the results are already active. */
-    //console.log(topNavSearchEnabled);
-    //console.log(this.props.browseTaggedData);
+   
 
     if (browseTaggedDataEnabled != true) {
       this.setState({
@@ -260,8 +257,7 @@ class BrowseTaggedDataSearch extends Component {
   renderTaggedDataDisplay_BrowseList() {
     const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
 
-    //console.log(grandParentNodeID);
-    //console.log(parentNodeID);
+    
 
     /***************************************************************************************
       noSearchTerm Use Cases:
@@ -657,8 +653,7 @@ class BrowseTaggedDataSearch extends Component {
     const { browseTaggedData, browseFindData, isOpen } = this.props;
     const { browseTaggedDataEnabled, renderTaggedData } = this.state;
 
-    //console.log('Rendering...');
-    //console.log(renderTaggedData.taggedData);
+   
 
     return (
       <div className="root">

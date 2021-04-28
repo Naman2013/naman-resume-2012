@@ -33,7 +33,7 @@ StarShareCamera.propTypes = {
 
 StarShareCamera.defaultProps = {
   snapImage: () => {
-    // console.log('WARNING: No snap method provided');
+  
   },
 };
 

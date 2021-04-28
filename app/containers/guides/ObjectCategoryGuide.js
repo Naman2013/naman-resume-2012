@@ -20,7 +20,7 @@ import {
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
   model: resp => (
-    console.log('resp::',resp),
+    
     {
     
     tiaraTitleProps: {

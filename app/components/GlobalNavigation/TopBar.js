@@ -95,7 +95,7 @@ const TopBar = ({
     countdown = nextShow.eventStart-now;
     // const { timestamp, expires } = upcomingStarPartyList;
     // const duration=(expires-timestamp)*1000; 
-    // console.log("Upcoming Star Parties Duration"+duration);      
+        
     // if (timerId !== null )
     //   clearTimeout(timerId);
     // timerId=setTimeout(()=>fetchEvents(),duration );

@@ -23,7 +23,7 @@ const logPageVisit = (pagePath) => {
 	  finalRequestData = requestData;
 
 	//the session token and marketing tracking id will only get logged on the purchase confirmation page visit once.
-	//console.log(pagePath.pagePath);
+	
 
 	if (pagePath.pagePath == "/join/purchaseConfirmation/join") {
 		//cleanup the slooh site session token and slooh marketing tracking id on a successful purchase.
@@ -36,7 +36,7 @@ const logPageVisit = (pagePath) => {
   }
   else {
  	//guest
-	//console.log(_sloohatid);
+	
 
 	const requestData = {
 		// siteSessionToken: _sloohsstkn,
@@ -51,8 +51,7 @@ const logPageVisit = (pagePath) => {
   }
 
   API.post(LOG_PAGE_VISIT_API_URL, finalRequestData).then(response => {
-    //console.log('logPageVisit');
-    //console.log(response);
+   
   });
 };
 

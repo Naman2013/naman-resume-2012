@@ -33,11 +33,10 @@ class GuideDetails extends Component {
     } = nextProps;
 
     if (this.props.guideData.guideId != nextProps.guideData.guideId) {
-      //console.log('Guide has been loaded.....gather more data....');
+      
     }
 
-    //console.log(this.props.params.guideId);
-    //console.log(nextProps.objectData.guideId);
+  
 
     //fetch the object data, the object page has been changed.
     if (this.props.params.guideId != nextProps.params.guideId) {

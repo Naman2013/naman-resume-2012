@@ -157,7 +157,7 @@ export const finalizeTelescopeSlot = ({
     finalizeReservation: true,
   })
     .then(result => {
-      // console.log(result)
+    
     })
     .catch(error => {
       // console.log(error)

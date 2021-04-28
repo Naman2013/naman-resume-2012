@@ -328,16 +328,11 @@ class TelescopeImageLoader extends Component {
     //   return null;
     // }
 
-    //console.log(`Current Image Width: ${currW}`);
-    //console.log(`Current Image Height: ${currH}`);
-    //console.log(`Previous Image Width: ${prevW}`);
-    //console.log(`Previous Image Height: ${prevH}`);
 
     const isPreviousImageSquare = prevW == prevH;
     const isCurrentImageSquare = currW == currH;
 
-    //console.log(`Is the Previous Image Square?: ${isPreviousImageSquare}`);
-    //console.log(`Is the Current Image Square?: ${isCurrentImageSquare}`);
+  
 
     if (loadThumbnails) {
       return (
@@ -350,10 +345,7 @@ class TelescopeImageLoader extends Component {
       );
     }
 
-    //console.log(currentImageUrl);
-    //console.log("CurrH: " + currH);
-    //console.log("CurrW: " + currW);
-    //console.log("Viewport Height: " + viewportHeight);
+  
 
     const imageStyle = {
       minHeight: viewportHeight,

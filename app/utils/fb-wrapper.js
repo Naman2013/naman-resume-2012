@@ -4,7 +4,7 @@
 
 export function fireSloohFBPurchaseEvent(myprops) {
   if (typeof fbq === 'undefined') {
-	//console.log('Facebook pixel fbq function not found.....');
+	
 	//ideally send a Sentry error...
  	return; 
   }

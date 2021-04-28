@@ -41,7 +41,7 @@ class QAFillBlanks extends Component {
       correctText,
       incorrectText,
     } = this.props;
-    // console.log('PROPS', this.props);
+   
     return (
       <div className="root">
         <IntroText title={activityTitle} desc={activityInstructions} />

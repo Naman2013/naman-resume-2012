@@ -147,7 +147,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 		}
 
 		this.setState({	nbrLivecastsInProgress: numLivecasts });
-		//console.log(numLivecasts);
+	
    	}
   }
 

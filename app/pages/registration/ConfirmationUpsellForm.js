@@ -236,7 +236,7 @@ class ConfirmationUpsellForm extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = formValues => {
     formValues.preventDefault();
-    //console.log(this.state.accountFormDetails);
+   
 
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;

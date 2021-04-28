@@ -25,7 +25,7 @@ import styles from 'app/pages/registration/JoinStep3.style';
 const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
   if (completed) {
     // Render a completed state
-    //console.log('The countdown has completed.....');
+   
     return <div></div>;
   }
   // Render a countdown
@@ -52,7 +52,7 @@ const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
 };
 
 const CountdownExpiredComplete = (props) => {
-  // console.log('Redirecting the user away from this page....');
+  
   props.closeModal();
   /* reset all browser localstorage data points for the Join flow */
   // window.localStorage.removeItem('selectedPlanId');
@@ -71,12 +71,12 @@ const handleIframeTaskUpgrade = (e, props) => {
 
     let paymentMethod = 'creditcard';
     let paymentNonceTokenData = null;
-    //console.log(paymentMessageData);
+  
     let paymentDataString = paymentMessageData.split(
       '!952bccf9afe8e4c04306f70f7bed6610'
     );
 
-    //console.log(paymentDataString);
+   
     /* make sure the data message we received is an ECommerce Payment Token */
     if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
       //Check to see if the payment token is a credit card payment token or a paypal payment token
@@ -102,9 +102,7 @@ const handleIframeTaskUpgrade = (e, props) => {
 
         paymentMethod = 'paypal';
       }
-      //console.log('Payment Token:' + paymentNonceTokenData);
-
-      //console.log('Payment Token!! ' + paymentNonceTokenData);
+    
 
       //determine if there is a sslooh marketing tracking id
       const { _sloohatid } = getUserInfo();

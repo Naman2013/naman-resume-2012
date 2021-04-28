@@ -111,7 +111,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
     /* Get the existing state of the signup form, modify it and re-set the state */
     if (value !== '') {
       //get a list of schools for this school district.
-      //console.log("Get a list of schools for this district." + value);
+      
 
       API.post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
         districtExternalId: value,
@@ -141,14 +141,14 @@ class JoinStep1SchoolSelectionGeneral extends Component {
 
   handleSubmit = values => {
     //formValues.preventDefault();
-    // console.log(values);
+    
 
     if (!values.isNewSchool) {
       if (values.school) {
         window.localStorage.setItem('selectedSchoolId', values.school);
         browserHistory.push('/join/step2');
       } else {
-        // console.log("nothing is selected, can't continue...");
+        
       }
     } else {
       const {
@@ -302,7 +302,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                               name="isNewSchool"
                               type="checkbox"
                               component="input"
-                              // onChange = {()=>console.log(this)}
+                              
                             />
                             <span className="form-label">
                               {formFieldLabels.isSchoolInMarketList.label}

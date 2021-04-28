@@ -226,7 +226,7 @@ class GlobalNavigation extends Component {
       if( timestamp === undefined || expires === undefined)
         return;
       const duration=(expires-timestamp)*1000; 
-      // console.log("Upcoming Star Parties Duration"+duration); 
+      
       if(this.timerId !== null)
         clearTimeout(this.timerId);
       this.timerId=setTimeout(()=>fetchEvents(), duration);

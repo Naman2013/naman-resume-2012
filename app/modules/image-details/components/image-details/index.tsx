@@ -69,7 +69,7 @@ export class ImageDetails extends Component<TProfileActivityProps, TProfileActiv
     
     if(newProps.imageDetailsData!==undefined && this.props.imageDetailsData !== newProps.imageDetailsData && newProps.imageDetailsData.markImageAsViewed)
     {
-      // console.log("entered");      
+          
       const {at, cid, token} = getUserInfo();
       API.post("/api/images/markCustomerImageAsViewed", {at, cid, token, customerImageId: newProps.imageDetailsData.customerImageId}).then(response=>{
         const res=response.data;        

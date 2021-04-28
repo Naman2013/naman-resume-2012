@@ -52,8 +52,7 @@ export class ObjectMap extends Component{
         vectorLayer.getFeatures(pixel).then(function(features) {
           var feature = features.length ? features[0] : undefined; 
           if (features.length) {         
-            // console.log("object name: "+feature.get('name'));
-            // console.log("object id: "+feature.getId());
+            
           }
         });
       

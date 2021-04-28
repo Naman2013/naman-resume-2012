@@ -14,7 +14,7 @@ const TabTelescope = props => {
     currentObservatory: { obsShortName, obsHeroURL },
     allObservatoryTelescopeStatus: { clockList },
   } = props;
-  // console.log(props);
+  
 
   return (
     <Fragment>

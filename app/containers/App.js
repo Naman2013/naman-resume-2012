@@ -97,8 +97,7 @@ class App extends Component {
     const routeChanged = pathname !== currentPathname;
 
     if (routeChanged) {
-      //console.log(pathname);
-      //console.log(currentPathname);
+      
 
      // Slooh page view tracker when route changes
      fireSloohPageView({ pagePath: currentPathname, referringPageURL: pathname });    

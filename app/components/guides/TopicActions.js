@@ -13,7 +13,7 @@ const TopicActions = ({
   objectId,
   user,
 }) => {
-  // console.log(readingListType);
+  
   return (
     <ul className="button-container">
       <li>

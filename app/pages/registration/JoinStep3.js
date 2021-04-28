@@ -81,12 +81,12 @@ class JoinStep3 extends Component {
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
-      //console.log(paymentMessageData);
+    
       let paymentDataString = paymentMessageData.split(
         '!952bccf9afe8e4c04306f70f7bed6610'
       );
 
-      //console.log(paymentDataString);
+    
       /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
@@ -113,8 +113,7 @@ class JoinStep3 extends Component {
           paymentMethod = 'paypal';
         }
 
-        //console.log(`Payment Token:${paymentNonceTokenData}`);
-        //console.log('Payment Token!! ' + paymentNonceTokenData);
+        
 
         /* Process the Customer's Activation and Sign the User into the website */
         const activatePendingCustomerData = {
@@ -206,7 +205,7 @@ class JoinStep3 extends Component {
     const { t } = this.props;
     if (completed) {
       // Render a completed state
-      //console.log('The countdown has completed.....');
+     
       return <div></div>;
     }
 
@@ -231,7 +230,7 @@ class JoinStep3 extends Component {
   };
 
   CountdownExpiredComplete = () => {
-    // console.log('Redirecting the user away from this page....');
+   
 
     /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('selectedPlanId');

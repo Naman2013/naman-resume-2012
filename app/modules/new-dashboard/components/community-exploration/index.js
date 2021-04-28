@@ -46,7 +46,7 @@ export class CommunityExploration extends PureComponent {
                if (!res.apiError) {
                    const { timestamp, expires } = res;
                    const duration = (expires - timestamp) * 1000;
-                   console.log("Community Exploration Duration" + duration);
+                  
                    if (this.timerId !== null)
                        clearTimeout(this.timerId);
                    this.timerId = setTimeout(this.getCommunityObservationAction, duration);
@@ -67,7 +67,7 @@ export class CommunityExploration extends PureComponent {
       if (!res.apiError) {
         const { timestamp, expires } = res;
         const duration = (expires - timestamp) * 1000;
-        // console.log(`Community Exploration Duration${duration}`);
+        
         if (this.timerId !== null) {
           clearTimeout(this.timerId);
         }        
@@ -87,7 +87,6 @@ export class CommunityExploration extends PureComponent {
       if (!res.apiError) {
         const { timestamp, expires } = res;
         const duration = (expires - timestamp) * 1000;
-        // console.log(`CommunityFeed Exploration Duration${duration}`);
         if (this.activityFeedTimerId !== null) {
           clearTimeout(this.activityFeedTimerId);
         }
@@ -136,7 +135,7 @@ export class CommunityExploration extends PureComponent {
     //   ? ActivitiesFeed.activitiesList
     //   : '';
 
-    // console.log('nnnnnnn', activeHeading);
+    
     return (
       <div className="explore-main">
         <h2 className="photo-hub-heading">Observations</h2>

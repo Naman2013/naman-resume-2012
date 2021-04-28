@@ -92,7 +92,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
       params,
     } = this.props;
 
-    // console.log(params);
+    
 
     const { abTestCallSource } = params;
     getGuestDashboard(abTestCallSource).then(() => {
@@ -150,7 +150,7 @@ class GuestDashboard extends Component<TGuestDashboardProps> {
     const { imageList } = MissionPhotosData;
     const { subscriptionPlans } = subscriptionPlansData;
     const { guestDashboardGoogleExperienceId } = projectGoogleOptimizeExpirianceId || {} 
-	//console.log("hello:" + guestDashboardGoogleExperienceId);
+
 	
     switch (section) {
       case SECTION_TYPE.Telescopes: {

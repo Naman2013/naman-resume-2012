@@ -780,7 +780,7 @@ class JoinByInviteAccountSignup extends Component {
     } = this.state;
 
     
-    //console.log('accountFormDetails',accountFormDetails);
+    
     /*   accountFormDetails.loginEmailAddress.currentValue = joinByInviteParams.inviteeEmailAddress; */
 
     /*  this.setState({

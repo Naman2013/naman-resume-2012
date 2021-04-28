@@ -161,11 +161,11 @@ class Login extends Component {
   };
 
   processGoogleFailureResponse = googleMessageData => {
-    // console.log(googleMessageData);
+    
   };
 
   processGoogleSuccessResponse = googleTokenData => {
-    //console.log("Processing Google Signin: " + googleTokenData);
+   
 
     /* Process the token and get back information about this user, etc. */
     const googleSSOResult = API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {

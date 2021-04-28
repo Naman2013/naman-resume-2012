@@ -38,6 +38,10 @@ import {
 } from 'app/modules/community-group-overview/actions';
 import CustomGroupsHeader from 'app/components/community-groups/overview/custom-header';
 
+
+
+import {ConfirmationPopUp} from '../../components/common/ToggleJoinGroup/common/ConfirmationPopUp'
+
 const mapStateToProps = ({ communityGroupOverview }) => ({
   communityGroupOverview,
   pageMeta: communityGroupOverview.pageMeta,
@@ -68,6 +72,7 @@ class CommunityGroupOverview extends Component {
     showPopup: false,
     showAskPrompt: false,
     promptText: '',
+    showModal:false
   };
 
   componentWillMount() {
@@ -100,19 +105,44 @@ class CommunityGroupOverview extends Component {
     });
   };
 
-  joinLeaveGroup = () => {
+  joinLeaveGroup = (value) => {
+    
     const {
       routeParams: { groupId },
-      actions,
+      actions,pageMeta
     } = this.props;
 
-    actions
+    if(value===true){
+      this.setState(() => ({
+        showModal: false
+      }));
+
+      if(pageMeta.joinPrompt=='Leave Club'){
+        actions
+      .joinOrLeaveGroup({
+        discussionGroupId: groupId,
+      })
+      .then(() => {
+        this.refreshHeader();
+        browserHistory.push('/')
+      });
+      }else{
+        actions
       .joinOrLeaveGroup({
         discussionGroupId: groupId,
       })
       .then(() => {
         this.refreshHeader();
       });
+        
+      }
+    }else{
+      this.setState(() => ({
+        showModal: false
+      }));
+    }
+
+   
   };
 
   showInformation = e => {
@@ -142,6 +172,17 @@ class CommunityGroupOverview extends Component {
     });
   };
 
+  openModal = (value) => {
+    console.log('value::',value);
+    if(value==='Leave Club'){
+      this.setState(() => ({
+        showModal: true
+      }));
+    }else{
+      this.joinLeaveGroup(true)
+    }
+  }
+
   render() {
     const {
       communityGroupOverview,
@@ -153,7 +194,7 @@ class CommunityGroupOverview extends Component {
     } = this.props;
 
     const { subMenus } = pageMeta;
-    const { showPopup, showPrompt, promptText } = this.state;
+    const { showPopup, showPrompt, promptText ,showModal} = this.state;
 
     const modalStyles = modalStyleFullPage;
 
@@ -161,8 +202,13 @@ class CommunityGroupOverview extends Component {
       backgroundColor: seashell,
     });
 
+    console.log('pageMeta::',pageMeta.joinPrompt);
+
     return (
       <div className="root">
+         {showModal && pageMeta.joinPrompt ==='Leave Club' && (
+          <ConfirmationPopUp showModal={showModal} closeModal={this.joinLeaveGroup} ></ConfirmationPopUp>
+        )}
         <DeviceContext.Consumer>
           {context => (
             <Fragment>
@@ -175,7 +221,7 @@ class CommunityGroupOverview extends Component {
                     isEditMode={edit}
                     condensed={false}
                     showInformation={this.showInformation}
-                    joinOrLeaveGroup={this.joinLeaveGroup}
+                    joinOrLeaveGroup={()=>this.openModal(pageMeta.joinPrompt)}
                     discussionGroupId={groupId}
                     updatePrompt={this.updatePrompt}
                     {...context}
@@ -187,7 +233,7 @@ class CommunityGroupOverview extends Component {
                     isEditMode={edit}
                     condensed={false}
                     showInformation={this.showInformation}
-                    joinOrLeaveGroup={this.joinLeaveGroup}
+                    joinOrLeaveGroup={()=>this.openModal(pageMeta.joinPrompt)}
                     discussionGroupId={groupId}
                     updatePrompt={this.updatePrompt}
                     {...context}

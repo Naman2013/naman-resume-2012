@@ -39,9 +39,7 @@ class UsersReservations extends Component {
     event.preventDefault();
 
     //dispatch a cancel mission event
-    //console.log(selectedReservation);
-
-    //console.log(cancelMyMission);
+   
 
     this.props.actions.cancelMyMission({
           scheduledMissionId: selectedReservation.scheduledMissionId,
@@ -52,7 +50,7 @@ class UsersReservations extends Component {
     event.preventDefault();
 
     //dispatch a cancel mission piggyback event
-    //console.log(selectedReservation);
+    
 
     this.props.actions.cancelMyPiggyback({
       scheduledMissionId: selectedReservation.scheduledMissionId,

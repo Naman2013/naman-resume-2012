@@ -26,7 +26,7 @@ export class TopStudents extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                // console.log("Top Students Duration"+duration);                
+                              
                 if (this.timerId !== null )
                     clearTimeout(this.timerId);
                 this.timerId=setTimeout(()=>this.getTopStudentsAction(data),duration );

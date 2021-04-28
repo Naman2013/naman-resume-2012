@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Placeholder extends Component {
 
   componentDidMount() {
-    // console.log('A page will be displayed here in the future')
+    
   }
 
   render() {

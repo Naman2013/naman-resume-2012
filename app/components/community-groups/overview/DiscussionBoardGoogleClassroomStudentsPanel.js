@@ -62,8 +62,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
     emailAddress,
     googleProfileId
   ) => {
-    //console.log(firstName + " : " + lastName + " : " + emailAddress + " : " + googleProfileId);
-
+  
     const { user, discussionGroupId, refreshHeader, t } = this.props;
 
     const studentAccountDetails = {

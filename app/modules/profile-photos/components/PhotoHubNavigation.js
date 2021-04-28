@@ -110,7 +110,7 @@ class PhotoHubNavigation extends Component {
   };
 
   handleFilterChange = filter => {
-    console.log('handleFilterChange', filter);
+   
   };
 
   render() {

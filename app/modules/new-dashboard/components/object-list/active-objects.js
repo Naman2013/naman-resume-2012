@@ -24,7 +24,7 @@ export class ActiveObject extends Component{
             if(!res.apiError){
                 const { timestamp, expires } = res;
                 const duration=(expires-timestamp)*1000;
-                // console.log("Active Object Duration"+duration); 
+               
                 if(this.timerId !== null)
                     clearTimeout(this.timerId);               
                 this.timerId=setTimeout(this.getActiveObjectAction,duration );

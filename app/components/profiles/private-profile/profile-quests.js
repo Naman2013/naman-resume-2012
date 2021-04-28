@@ -8,7 +8,7 @@ type TProfileQuests = {};
 
 export const ProfileQuests = (props: TProfileQuests) => {
   const { params } = props;
-  console.log('qqqq',props);
+  
   const profileQuestTab = [
     {
       title: 'In progress',

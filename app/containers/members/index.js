@@ -66,7 +66,7 @@ class Members extends Component {
   render() {
     const { list, context: { isDesktop }, leadersList, theme } = this.props;
 
-    console.log('leadersList', leadersList);
+   
 
     const { sortValue, popupVal, popUpListData, customerUUID } = this.state;
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
