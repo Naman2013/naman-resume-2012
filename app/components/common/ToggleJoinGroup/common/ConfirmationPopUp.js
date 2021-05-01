@@ -22,7 +22,7 @@ export function ConfirmationPopUp(props) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '30%',
-            height: '25%',
+           // height: '25%',
             textAlign:'center',
             backgroundColor:'#1C354A',
             color:'#ffff',
