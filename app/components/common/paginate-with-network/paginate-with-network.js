@@ -31,12 +31,14 @@ class PaginateWithNetwork extends Component {
   };
 
   render() {
-    const { apiURL, activePageNumber, filterOptions, hubActions } = this.props;
+    const { apiURL, activePageNumber, filterOptions, hubActions,leaveClub } = this.props;
+
 
     return (
       <Request
         withoutUser
         serviceURL={apiURL}
+        leaveClub={leaveClub}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}
         serviceFetchStartHandler={this.serviceFetchStartHandler}

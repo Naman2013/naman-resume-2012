@@ -124,7 +124,7 @@ class CommunityGroupOverview extends Component {
       })
       .then(() => {
         this.refreshHeader();
-        //browserHistory.push('/')
+        browserHistory.push('/')
       });
       }else{
         actions

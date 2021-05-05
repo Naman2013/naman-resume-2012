@@ -26,6 +26,7 @@ const GroupExcerptTile = ({
   updatePrompt,
   updateGroupItemInfo,
   canEditGroup,
+  updateList,
 }) => (
   <div className="group-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
@@ -56,6 +57,7 @@ const GroupExcerptTile = ({
       {showJoinPrompt ? (
         <ToggleJoinGroup
           filterType={filterType}
+          updateList={updateList}
           updateGroupItemInfo={updateGroupItemInfo}
           discussionGroupId={discussionGroupId}
           joinPrompt={joinPrompt}

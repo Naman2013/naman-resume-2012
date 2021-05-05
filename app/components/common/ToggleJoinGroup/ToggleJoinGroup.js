@@ -56,7 +56,10 @@ class ToggleJoinGroup extends Component {
         discussionGroupId,
         joinPrompt,
         updateGroupItemInfo,
+        updateList
       } = this.props;
+      
+     
       toggleJoinGroup({
         groupSet: filterType,
         at: user.at,
@@ -71,7 +74,7 @@ class ToggleJoinGroup extends Component {
             text: joinPrompt ? res.data.joinPrompt : null,
           }));
           if(this.state.text==='Leave Club'){
-            browserHistory.push('/')
+            updateList(discussionGroupId);
           }
         }
       });
@@ -96,7 +99,6 @@ class ToggleJoinGroup extends Component {
   render() {
     const { icon, text, showModal } = this.state;
 
-    console.log('text::',text);
 
     return (
       <>
@@ -108,6 +110,7 @@ class ToggleJoinGroup extends Component {
             icon={icon}
             text={text}
             onClickEvent={() => this.openModal(text)}
+            
           />
         </Fragment>
       </>

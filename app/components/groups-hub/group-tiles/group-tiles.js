@@ -65,6 +65,9 @@ class GroupTiles extends Component {
     });
   };
 
+
+  
+
   render() {
     const {
       groups,
@@ -72,6 +75,7 @@ class GroupTiles extends Component {
       filterType,
       updateGroupItemInfo,
       updatePrompt,
+      updateList,
       t,
     } = this.props;
     const { activeId } = this.state;
@@ -99,6 +103,7 @@ class GroupTiles extends Component {
                   <GroupExcerptTile
                     {...group}
                     filterType={filterType}
+                    updateList={updateList}
                     updateGroupItemInfo={updateGroupItemInfo}
                     updatePrompt={updatePrompt}
                   />

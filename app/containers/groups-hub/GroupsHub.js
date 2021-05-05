@@ -68,9 +68,18 @@ class Groups extends Component {
     groups: [],
     showPrompt: false,
     promptText: '',
+    leaveClub:''
   };
 
+  refreshClubOnLeave = (value) => {
+    this.setState(() => ({
+      leaveClub: value,
+    }));
+  }
+
   updateGroupsList = resData => {
+  
+    
     this.setState(() => ({
       groups: resData.groups,
     }));
@@ -186,9 +195,9 @@ class Groups extends Component {
   render() {
     const { user, actions, t, isFetching } = this.props;
 
-    const { groups, showPrompt, promptText } = this.state;
-
+    const { groups, showPrompt, promptText,leaveClub } = this.state; 
     return (
+       
       <div>
         <Request
           serviceURL={GROUPS_PAGE_ENDPOINT_URL}
@@ -209,6 +218,7 @@ class Groups extends Component {
                       {...context}
                       hubName="groups"
                       paginateURL={GET_GROUPS}
+                      leaveClub={leaveClub}
                       page={DEFAULT_PAGE}
                       count={COUNT}
                       user={user}
@@ -245,6 +255,7 @@ class Groups extends Component {
                           {!isFetching && (
                             <GroupTiles
                               filterType={this.props.params.filterType}
+                              updateList={this.refreshClubOnLeave}
                               closeModal={this.closeModal}
                               updateGroupItemInfo={this.updateGroupItemInfo}
                               updatePrompt={this.updatePrompt}

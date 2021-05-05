@@ -224,8 +224,9 @@ class HubContainer extends Component {
       hubActions,
       profile,
       isFetching,
+      leaveClub
     } = this.props;
-
+   
     const { defaultSortIndex, sort, page, toggleMobileSort } = this.state;
 
     return (
@@ -264,6 +265,7 @@ class HubContainer extends Component {
               {!isMobile ? (
                 <PaginateWithNetwork
                   apiURL={paginateURL}
+                  leaveClub={leaveClub}
                   activePageNumber={Number(page)}
                   onServiceResponse={this.handlePaginationResponse}
                   onPaginationChange={this.handlePaginationChange}

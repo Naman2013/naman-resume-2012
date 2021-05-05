@@ -112,6 +112,7 @@ class Request extends Component {
 
     //call even the props value is not matched for telecscope call
     callLink: PropTypes.bool,
+    leaveClub:PropTypes.string
   };
 
   static defaultProps = {
@@ -129,7 +130,8 @@ class Request extends Component {
     serviceFetchStartHandler: null,
     requestBody: {},
     withoutUser: false,
-    userParams: [],    
+    userParams: [],  
+    leaveClub:''  
   };
 
   state = {
@@ -141,19 +143,23 @@ class Request extends Component {
   componentDidMount() {
     const { serviceURL } = this.props;
     if (serviceURL) {
+      
       this.fetchServiceContent();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { user, requestBody, serviceURL } = this.props;
+    
+    const { user, requestBody, serviceURL,leaveClub } = this.props;
+   
     if (
       (!isMatch(requestBody, nextProps.requestBody) ||
-        !isMatch(user, nextProps.user) || nextProps.callLink) &&
-      serviceURL
+        !isMatch(user, nextProps.user) || nextProps.callLink || !isMatch(leaveClub,nextProps.leaveClub)) 
+      
     ) {
       this.fetchServiceContent(nextProps.requestBody, nextProps.user);
     }
+    
   }
 
   componentWillUnmount() {
@@ -250,7 +256,7 @@ class Request extends Component {
     if (serviceFetchStartHandler) {
       serviceFetchStartHandler();
     }
-
+    
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
