@@ -14,6 +14,8 @@ import TextareaField from 'app/components/form/TextareaField';
 import Button from 'app/components/common/style/buttons/Button';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'app/services/classroom/classroom';
+import Btn from '../../../atoms/Btn'
+
 
 const { any, bool, func, number, shape, string } = PropTypes;
 @withTranslation()
@@ -67,6 +69,7 @@ class DiscussionBoardDescription extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleGroupDescriptionFieldChange = ({ value }) => {
+   
     this.setState(() => ({
       groupDescription: value,
     }));
@@ -76,6 +79,8 @@ class DiscussionBoardDescription extends Component {
   handleSubmit = formValues => {
     const { groupId, user } = this.props;
     const { groupDescription } = this.state;
+
+  
 
     formValues.preventDefault();
 
@@ -104,15 +109,26 @@ class DiscussionBoardDescription extends Component {
   };
 
   render() {
-    const { canEdit, t } = this.props;
-
+    const { canEdit, t,canEditGroup } = this.props;
     const { inEditMode, groupDescription } = this.state;
-
+    
     return (
       <div className="groups-header-information">
         {!this.state.inEditMode && (
-          <div dangerouslySetInnerHTML={{ __html: groupDescription }} />
+          <div className='d-inline-flex'>
+          <div className='p-3' dangerouslySetInnerHTML={{ __html: groupDescription }} />
+        </div>
         )}
+        {canEditGroup&& (
+             <Btn
+             onClick={() =>
+               this.setState({ inEditMode: true })
+             }
+             mod="circle"
+           >
+             <i className="fa fa-pencil" />
+           </Btn>
+            )}
         {this.state.inEditMode && (
           <div>
             <form onSubmit={this.handleSubmit}>
@@ -127,7 +143,7 @@ class DiscussionBoardDescription extends Component {
                 }}
               />
 
-              {inEditMode && canEdit && (
+              {inEditMode && (
                 <div className="button-actions">
                   <Button
                     type="button"

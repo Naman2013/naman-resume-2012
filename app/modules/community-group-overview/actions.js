@@ -168,6 +168,7 @@ const fetchGroupMembersFail = payload => ({
 
 export const fetchGroupMembers = ({
   sortBy,
+  customerStatus,
   lang,
   page,
   ver,
@@ -181,6 +182,7 @@ export const fetchGroupMembers = ({
     cid,
     discussionGroupId,
     sortBy,
+    customerStatus,
     lang,
     page,
     token,

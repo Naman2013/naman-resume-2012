@@ -103,6 +103,7 @@ const GroupsHeader = ({
               groupId={discussionGroupId}
               description={description}
               canEdit={canEditGroup && isEditMode}
+              canEditGroup={canEditGroup}
             />
           ) : null}
 
@@ -148,6 +149,7 @@ const GroupsHeader = ({
               groupId={discussionGroupId}
               description={description}
               canEdit={canEditGroup && isEditMode}
+              canEditGroup={canEditGroup}
             />
           </div>
         </div>

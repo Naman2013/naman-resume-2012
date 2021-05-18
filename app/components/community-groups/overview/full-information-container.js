@@ -28,12 +28,15 @@ import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import './full-information-style.scss';
-
+//import {fetchInvitePopupContent} from '../../../app/modules/community-group-overview/actions';
+import {fetchInvitePopupContent,} from '../../../../app/modules/community-group-overview/actions';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
   ...communityGroupOverview,
   user,
+  invitePopupContent: communityGroupOverview.invitePopupContent,
+  isInvitePopupFetching:communityGroupOverview.invitePopupContentFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
       createActivity,
       fetchGroupMembers,
       validateResponseAccess,
+      fetchInvitePopupContent
     },
     dispatch
   ),
@@ -70,6 +74,7 @@ class FullInformationOverview extends Component {
       topicId: number,
     }),
     joinOrLeaveGroup: func.isRequired,
+    fetchInvitePopupContent:func.isRequired,
     joinPrompt: string,
     membersCount: number,
     membersSort: string.isRequired,
@@ -150,7 +155,9 @@ class FullInformationOverview extends Component {
       observationsTabCustomClass,
       params,
       hideTitleSection,
-      location
+      location,
+      invitePopupContent,
+      isInvitePopupFetching
 
     } = this.props;
 
@@ -187,6 +194,7 @@ class FullInformationOverview extends Component {
             />
           )}
 
+
         <GroupsContainer
           subMenus={subMenus}
           context={context}
@@ -219,6 +227,9 @@ class FullInformationOverview extends Component {
                 discussionGroupId={discussionGroupId}
                 fetchGroupMembers={actions.fetchGroupMembers}
                 isDesktop={context.isDesktop}
+                fetchInvitePopupContent={actions.fetchInvitePopupContent}
+                invitePopupContent={invitePopupContent}
+                isInvitePopupFetching={isInvitePopupFetching}
               />
               <div className="popular-discussion-wrapper">
                 <TopThreads
@@ -251,6 +262,9 @@ class FullInformationOverview extends Component {
                 context={context}
                 leadersList={leadersList}
                 theme={{ marginLeft: 0 }}
+                fetchInvitePopupContent={actions.fetchInvitePopupContent}
+                invitePopupContent={invitePopupContent}
+                isInvitePopupFetching={isInvitePopupFetching}
 
               />
               {membersCount && activePage ? (

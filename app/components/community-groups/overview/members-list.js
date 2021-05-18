@@ -19,6 +19,9 @@ import MemberListCard from './members-list-card';
 import { profPic } from '../styles';
 import styles from './members-list.style';
 
+
+
+
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 @withTranslation()
 class GroupMemberList extends Component {
@@ -81,6 +84,8 @@ class GroupMemberList extends Component {
     });
   };
 
+ 
+
   render() {
     const {
       isDesktop,
@@ -93,20 +98,23 @@ class GroupMemberList extends Component {
       fetchGroupMembers,
       renderToggle,
       theme,
+      invitePopupContent,
+      isInvitePopupFetching,
       t,
     } = this.props;
-
-    const { members, displayedMembers, page } = this.state;
+    
+    const { members, displayedMembers, page,isInviteOn } = this.state;
 
     return (
-      <div className="members-list" style={theme}>
-        <div className="members-container">
-          <div>
-            {leadersList && leadersList.map(x => <MemberListCard {...x} />)}
+      <div>
+        <div className="members-list" style={theme}>
+          <div className="members-container">
+            <div>
+              {leadersList && leadersList.map(x => <MemberListCard {...x} />)}
 
+            </div>
           </div>
-        </div>
-        {/*  <BlueLineDrop
+          {/*  <BlueLineDrop
           //title={t('Clubs.GroupMembers', { membersCount })}
           title={t('Club Leaders')}
           isDesktop={isDesktop}
@@ -137,9 +145,10 @@ class GroupMemberList extends Component {
             </>
           )}
         /> */}
-
+        </div>
         <style jsx>{styles}</style>
       </div>
+
     );
   }
 }

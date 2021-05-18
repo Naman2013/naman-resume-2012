@@ -131,9 +131,6 @@ export const GroupsContainer: React.FC<TGroupsContainerProps> = React.memo(
               
             )}
              
-           
-             
-           
          </div>
           {currentTab === groupsNavigationTabs.Members && (
             <div className="groups-container__tabs-observation">

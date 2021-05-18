@@ -202,7 +202,7 @@ class CommunityGroupOverview extends Component {
       backgroundColor: seashell,
     });
 
-    console.log('pageMeta::',pageMeta.joinPrompt);
+    console.log('pageMeta::',pageMeta);
 
     return (
       <div className="root">
