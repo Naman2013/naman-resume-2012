@@ -253,6 +253,7 @@ class CommunityGroupOverview extends Component {
                   location={location}
                   hideTitleSection
                   observationsTabCustomClass="groups-observations-container"
+                  canEditGroup={pageMeta.canEditGroup}
                 />
               </CenterColumn>
               <Modal

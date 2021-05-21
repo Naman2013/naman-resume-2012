@@ -91,7 +91,7 @@ class Members extends Component {
   };
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup } = this.props;
 
 
 
@@ -154,74 +154,77 @@ class Members extends Component {
 
         <Row>
           <Col>
-          <div className="community-group-edit-header i-box i-box-white mb-3">
-          <Row noGutters>
-            <Col lg={7} md={7} sm={7}>
-              <div className="flex-row justify-content-between align-items-center pad-20-40">
-                <h2 className="community-group-edit-title">
-                  Your Members
-                      </h2>
-                {/*  <p className="community-group-edit-hero-unit">
-                        {groupInformation &&
-                          groupInformation.customerLinksData &&
-                          groupInformation.customerLinksData
-                            .sectionHeading_LicenseInfo}
-                      </p> */}
-              </div>
-            </Col>
-            <Col
-              lg={5}
-              md={5}
-              sm={5}
-              className="flex-row justify-content-between border-left"
-            >
-              <Btn
-                onClick={this.onInviteClick}
-                className="margin-auto width-140 justify-content-between"
-              >
-                Invite
-                      <i className="fa fa-plus" />
-              </Btn>
-            </Col>
-          </Row>
-            </div>
+              <div className="community-group-edit-header i-box i-box-white mb-3">
+              <Row noGutters>
+                <Col lg={7} md={7} sm={7}>
+                  <div className="flex-row justify-content-between align-items-center pad-20-40">
+                    <h2 className="community-group-edit-title">
+                      Your Members
+                          </h2>
+                    {/*  <p className="community-group-edit-hero-unit">
+                            {groupInformation &&
+                              groupInformation.customerLinksData &&
+                              groupInformation.customerLinksData
+                                .sectionHeading_LicenseInfo}
+                          </p> */}
+                  </div>
+                </Col>
+                <Col
+                  lg={5}
+                  md={5}
+                  sm={5}
+                  className="flex-row justify-content-between border-left"
+                >
+                  <Btn
+                    onClick={this.onInviteClick}
+                    className="margin-auto width-140 justify-content-between"
+                  >
+                    Invite
+                          <i className="fa fa-plus" />
+                  </Btn>
+                </Col>
+              </Row>
+                </div>
           </Col>
           <Col>
-        <div  style={style.commentsBar}>
-          <Row>
-            <Col>
-            <h4 className='pt-3'>Members</h4>
-            </Col>
-            <div>
-            <input
-              placeholder="Search"
-              style={style.commentSearch}
-              ref={node => {
-                this.searchInput = node;
-              }}
-             // onKeyUp={this.handleSearchEnterPress}
-            />
-            {showSearchTermResultHeading ? (
-              <Button onClick={this.resetSearch}>
-              {/*  {t('AskAnAstronomer.Reset')} */}
-              </Button>
-            ) : (
-              <Button onClick={() => this.getThreads(this.props)}>
-                Search
-              {/*   {t('Clubs.Search')} */}
-              </Button>
+          {canEditGroup &&(
+               <div  style={style.commentsBar}>
+                <Row>
+                  <Col>
+                  <h4 className='pt-3'>Members</h4>
+                  </Col>
+                  <div>
+                  <input
+                    placeholder="Search"
+                    style={style.commentSearch}
+                    ref={node => {
+                      this.searchInput = node;
+                    }}
+                  // onKeyUp={this.handleSearchEnterPress}
+                  />
+                  {showSearchTermResultHeading ? (
+                    <Button onClick={this.resetSearch}>
+                    {/*  {t('AskAnAstronomer.Reset')} */}
+                    </Button>
+                  ) : (
+                    <Button onClick={() => this.getThreads(this.props)}>
+                      Search
+                    {/*   {t('Clubs.Search')} */}
+                    </Button>
+                  )}
+                </div>
+                
+                </Row>
+              </div>
             )}
-          </div>
-          
-          </Row>
-        </div>
           </Col>
+
+         
+         
         </Row>
        
        
-       
-
-
+      
         <Modal
           show={isInviteOn}
           onHide={() => this.setState({ isInviteOn: false })}

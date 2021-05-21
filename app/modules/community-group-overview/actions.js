@@ -101,7 +101,7 @@ const fetchGroupInvitationPanelFail = payload => ({
   payload,
 });
 
-export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
+/* export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupInvitationPanelStart());
   return API.post('/api/classroom/getGroupInvitationPanel', {
@@ -112,7 +112,43 @@ export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
   })
     .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
     .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
+}; */
+
+
+
+export const fetchGroupInvitationPanel = ({
+  sortBy,
+  customerStatus,
+  lang,
+  page,
+  ver,
+  discussionGroupId,
+  groupId=discussionGroupId,
+  callSource='clubLeaders',
+}) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchGroupInvitationPanelStart());
+  return API.post('/api/classroom/getGroupInvitationPanel', {
+    at,
+    cid,
+    groupId,
+    sortBy,
+    discussionGroupId,
+    customerStatus,
+    lang,
+    page,
+    token,
+    ver,
+    callSource,
+  })
+  .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
+  .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
 };
+
+
+
+
+
 
 const fetchGroupOverviewStart = payload => ({
   type: FETCH_GROUP_OVERVIEW_START,

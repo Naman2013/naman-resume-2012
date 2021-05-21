@@ -29,10 +29,12 @@ import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import './full-information-style.scss';
 //import {fetchInvitePopupContent} from '../../../app/modules/community-group-overview/actions';
-import {fetchInvitePopupContent,} from '../../../../app/modules/community-group-overview/actions';
+import {fetchInvitePopupContent,fetchGroupInvitationPanel} from '../../../../app/modules/community-group-overview/actions';
+import validateUser from 'app/route-functions/validateUser';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
-const mapStateToProps = ({ communityGroupOverview, user }) => ({
+const mapStateToProps = ({ communityGroupOverview, user }) => (
+  {
   ...communityGroupOverview,
   user,
   invitePopupContent: communityGroupOverview.invitePopupContent,
@@ -45,7 +47,8 @@ const mapDispatchToProps = dispatch => ({
       createActivity,
       fetchGroupMembers,
       validateResponseAccess,
-      fetchInvitePopupContent
+      fetchInvitePopupContent,
+      fetchGroupInvitationPanel
     },
     dispatch
   ),
@@ -125,12 +128,28 @@ class FullInformationOverview extends Component {
   };
 
   getDataTroughSortBy = (value) => {
-    const { actions } = this.props;
-    actions.fetchGroupMembers(value);
+    const { actions ,canEditGroup} = this.props;
+    if(canEditGroup){
+      actions.fetchGroupInvitationPanel(value)
+    }else{
+      actions.fetchGroupMembers(value);
+    }
     this.setState({
       sortBy: value.sortBy,
       activePage: value.activePage
     })
+
+  }
+
+  componentDidMount(){
+    console.log('ppppddpdpdpddpdpdpppd');
+    const { canEditGroup,discussionGroupId ,actions} = this.props;
+    if(!canEditGroup){
+
+    actions.fetchGroupInvitationPanel({discussionGroupId})
+
+    }
+
 
   }
 
@@ -157,9 +176,19 @@ class FullInformationOverview extends Component {
       hideTitleSection,
       location,
       invitePopupContent,
-      isInvitePopupFetching
+      isInvitePopupFetching,
+      canEditGroup,
+      groupInformation
 
     } = this.props;
+
+    if(groupInformation){
+      if(groupInformation.customerLinksData){
+        var {customerLinks} = groupInformation.customerLinksData;
+      }
+      groupInformation.customerLinksData
+    }
+ 
 
     const {
       activePage,
@@ -230,6 +259,7 @@ class FullInformationOverview extends Component {
                 fetchInvitePopupContent={actions.fetchInvitePopupContent}
                 invitePopupContent={invitePopupContent}
                 isInvitePopupFetching={isInvitePopupFetching}
+                canEditGroup={canEditGroup}
               />
               <div className="popular-discussion-wrapper">
                 <TopThreads
@@ -256,7 +286,7 @@ class FullInformationOverview extends Component {
                 }}
               ></div>
               <Members
-                list={membersList}
+                list={canEditGroup ? customerLinks :membersList}
                 discussionGroupId={discussionGroupId}
                 onPageChange={this.getDataTroughSortBy}
                 context={context}
@@ -265,6 +295,8 @@ class FullInformationOverview extends Component {
                 fetchInvitePopupContent={actions.fetchInvitePopupContent}
                 invitePopupContent={invitePopupContent}
                 isInvitePopupFetching={isInvitePopupFetching}
+                canEditGroup={canEditGroup}
+
 
               />
               {membersCount && activePage ? (
