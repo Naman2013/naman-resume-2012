@@ -32,19 +32,55 @@ class Members extends Component {
       popUpListData: '',
       customerUUID: '',
       isInviteOn: false,
-      filterValue:''
+      filterValue:'',
+      searchIteam:'',
+      setReset:false
     }
   }
 
+  handleSearchEnterPress = e => {
+    
+    this.setState({
+      searchIteam:e.target.value.trim(),
+      setReset:false
+    })
+    if (e.keyCode == 13) {
+      this.searchByValue();
+      
+    }
+  };
+
+
+  searchByValue = () =>{
+    const { onPageChange, discussionGroupId } = this.props;
+    const {filterValue,sortValue,searchIteam}=this.state;
+    if(searchIteam){
+      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue,searchTerms:searchIteam})
+     this.setState({
+      setReset:true
+    })
+    } 
+  }
+
+  resetSearch = () =>{
+    this.searchInput.value = '';
+  
+    const { onPageChange, discussionGroupId } = this.props;
+    const {filterValue,sortValue,searchIteam}=this.state;
+      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue,searchTerms:''})
+
+      this.setState({
+        setReset:false,
+        searchIteam:'',
+      })
+    
+  }
 
   sortByValue = (sortValues) => {
-
-   
-
     const { onPageChange, discussionGroupId } = this.props;
-    const {filterValue}=this.state;
+    const {filterValue,searchIteam}=this.state;
 
-    onPageChange({ discussionGroupId, sortBy:sortValues.sortBy, activePage: 1,customerStatus:filterValue})
+    onPageChange({ discussionGroupId, sortBy:sortValues.sortBy, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
 
     this.setState({
       sortValue: sortValues.sortBy,
@@ -56,9 +92,9 @@ class Members extends Component {
   sortByFilter = (filterValue) => {
 
     const { onPageChange, discussionGroupId } = this.props;
-    const {sortValue}=this.state;
+    const {sortValue,searchIteam}=this.state;
 
-    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue.filterBy})
+    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue.filterBy,searchTerms:searchIteam})
 
     this.setState({
       filterValue: filterValue.filterBy
@@ -91,11 +127,13 @@ class Members extends Component {
   };
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t} = this.props;
 
 
 
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn } = this.state;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn,setReset,searchIteam } = this.state;
+
+    console.log('setReset--',this.state);
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
     let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
@@ -200,16 +238,17 @@ class Members extends Component {
                     ref={node => {
                       this.searchInput = node;
                     }}
-                  // onKeyUp={this.handleSearchEnterPress}
+                  onKeyUp={this.handleSearchEnterPress}
                   />
-                  {showSearchTermResultHeading ? (
-                    <Button onClick={this.resetSearch}>
-                    {/*  {t('AskAnAstronomer.Reset')} */}
+                  {/* showSearchTermResultHeading */ setReset ? (
+                    <Button onClick={()=>this.resetSearch()}>
+                      
+                     {t('AskAnAstronomer.Reset')}
                     </Button>
                   ) : (
-                    <Button onClick={() => this.getThreads(this.props)}>
-                      Search
-                    {/*   {t('Clubs.Search')} */}
+                    <Button onClick={() =>this.searchByValue()}>
+                      
+                      {t('Clubs.Search')}
                     </Button>
                   )}
                 </div>

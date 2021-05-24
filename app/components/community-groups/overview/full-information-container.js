@@ -142,7 +142,7 @@ class FullInformationOverview extends Component {
   }
 
   componentDidMount(){
-    console.log('ppppddpdpdpddpdpdpppd');
+    
     const { canEditGroup,discussionGroupId ,actions} = this.props;
     if(!canEditGroup){
 
@@ -296,6 +296,7 @@ class FullInformationOverview extends Component {
                 invitePopupContent={invitePopupContent}
                 isInvitePopupFetching={isInvitePopupFetching}
                 canEditGroup={canEditGroup}
+                t={t}
 
 
               />

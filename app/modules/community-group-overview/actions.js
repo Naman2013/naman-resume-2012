@@ -124,6 +124,7 @@ export const fetchGroupInvitationPanel = ({
   ver,
   discussionGroupId,
   groupId=discussionGroupId,
+  searchTerms,
   callSource='clubLeaders',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
@@ -135,6 +136,7 @@ export const fetchGroupInvitationPanel = ({
     sortBy,
     discussionGroupId,
     customerStatus,
+    searchTerms,
     lang,
     page,
     token,
