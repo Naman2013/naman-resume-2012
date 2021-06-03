@@ -127,9 +127,9 @@ class Members extends Component {
   };
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t} = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t,groupInformation:{customerLinksData}} = this.props;
 
-
+   // console.log('kkkkkkkkkkkkk',customerLinksData.sectionHeading_LicenseInfo);
 
     const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn,setReset,searchIteam } = this.state;
 
@@ -152,13 +152,14 @@ class Members extends Component {
       },
       commentsBar:{
        
-        textTransform: 'uppercase',
+        //textTransform: 'uppercase',
         color: '#415671',
         backgroundColor:' #ffffff',
         fontWeight: '500',
         padding: '15px',
         boxShadow: '0px 0px 5px 0px rgb(88 88 88 / 50%)',
-        display:'flex'
+        display:'flex',
+        margin:'5px'
       },
       commentSearch:{
         marginRight: '15px',
@@ -168,8 +169,8 @@ class Members extends Component {
         boxShadow: 'inset 0 0 7px 0 #ced2d8',
         fontFamily: 'adobe-garamond-pro, serif',
         fontSize: '16px',
-        padding:'10px'
-
+        padding:'10px',
+        width:'100%'
 
       }
 
@@ -190,48 +191,55 @@ class Members extends Component {
           </div>
         )}
 
-        <Row>
-          <Col>
-              <div className="community-group-edit-header i-box i-box-white mb-3">
-              <Row noGutters>
-                <Col lg={7} md={7} sm={7}>
-                  <div className="flex-row justify-content-between align-items-center pad-20-40">
-                    <h2 className="community-group-edit-title">
+        <Row style={style.commentsBar} className='mb-3'>
+        <Col lg={5} md={5} sm={5}>
+        <h4 className='pt-3'>Your Members</h4>
+          {/*  <div className="">
+                    <h2 className="">
                       Your Members
                           </h2>
-                    {/*  <p className="community-group-edit-hero-unit">
-                            {groupInformation &&
+                    <p className="community-group-edit-hero-unit">
+                            {customerLinksData &&
                               groupInformation.customerLinksData &&
                               groupInformation.customerLinksData
                                 .sectionHeading_LicenseInfo}
-                          </p> */}
-                  </div>
+                          </p> 
+                  </div> */}
+
+                </Col>
+                <Col lg={4} md={4} sm={4} className='mt-3'>
+                <p className="community-group-edit-hero-unit">
+                   { customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
+                    customerLinksData.sectionHeading_LicenseInfo
+                  )
+                  }
+                </p>
                 </Col>
                 <Col
-                  lg={5}
-                  md={5}
-                  sm={5}
-                  className="flex-row justify-content-between border-left"
+                  lg={3}
+                  md={3}
+                  sm={3}
                 >
-                  <Btn
+                   <Button onClick={() =>this.onInviteClick()}>
+                   Invite <i className="fa fa-plus" />
+                   </Button>
+                  {/* <Btn
                     onClick={this.onInviteClick}
-                    className="margin-auto width-140 justify-content-between"
+                    className=""
                   >
                     Invite
                           <i className="fa fa-plus" />
-                  </Btn>
-                </Col>
-              </Row>
-                </div>
-          </Col>
-          <Col>
-          {canEditGroup &&(
-               <div  style={style.commentsBar}>
-                <Row>
-                  <Col>
+                  </Btn> */}
+                  </Col>
+        </Row>
+
+
+        {canEditGroup &&(
+        <Row style={style.commentsBar}>
+                  <Col  md={3} >
                   <h4 className='pt-3'>Members</h4>
                   </Col>
-                  <div>
+                  <Col md={6}>
                   <input
                     placeholder="Search"
                     style={style.commentSearch}
@@ -240,27 +248,23 @@ class Members extends Component {
                     }}
                   onKeyUp={this.handleSearchEnterPress}
                   />
-                  {/* showSearchTermResultHeading */ setReset ? (
+                  </Col>
+                  <Col md={3} >
+
+                    {/* showSearchTermResultHeading */ setReset ? (
                     <Button onClick={()=>this.resetSearch()}>
                       
-                     {t('AskAnAstronomer.Reset')}
-                    </Button>
-                  ) : (
-                    <Button onClick={() =>this.searchByValue()}>
-                      
-                      {t('Clubs.Search')}
-                    </Button>
-                  )}
-                </div>
-                
-                </Row>
-              </div>
-            )}
-          </Col>
-
-         
-         
+                    {t('AskAnAstronomer.Reset')}
+                   </Button>
+                 ) : (
+                   <Button onClick={() =>this.searchByValue()}>
+                     
+                     {t('Clubs.Search')}
+                   </Button>
+                 )}
+                  </Col>
         </Row>
+        )}
        
        
       

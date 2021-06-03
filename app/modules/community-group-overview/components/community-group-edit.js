@@ -14,6 +14,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import { CommunityGroupEditHeader } from './community-group-edit-header';
 import { MemberCard } from './member-card';
 
+
 class CommunityGroupEdit extends Component {
   state = { groupId: null, isDescriptionEditOn: false, isInviteOn: false };
 
@@ -42,7 +43,7 @@ class CommunityGroupEdit extends Component {
       if (isGoogleClassroom) {
         fetchGoogleClassroomStudentsPanel(groupId);
       } else {
-        fetchGroupInvitationPanel(groupId);
+        fetchGroupInvitationPanel({discussionGroupId:groupId});
       }
     });
   }
@@ -80,7 +81,7 @@ class CommunityGroupEdit extends Component {
       if (isGoogleClassroom) {
         fetchGoogleClassroomStudentsPanel(groupId);
       } else {
-        fetchGroupInvitationPanel(groupId);
+        fetchGroupInvitationPanel({discussionGroupId:groupId});
       }
     });
   };
@@ -105,6 +106,7 @@ class CommunityGroupEdit extends Component {
   };
 
   renderMembers = data => {
+    console.log('data',data);
     const {
       addExistingUser,
       addGoogleUser,
@@ -157,6 +159,10 @@ class CommunityGroupEdit extends Component {
         pageMeta: { title, canEditGroup, subMenus },
       },
     } = this.props;
+
+    
+    console.log('kkkkkkkkkkkkkk',this.props);
+    console.log('groupInformation',groupInformation);
     const { isDescriptionEditOn, isInviteOn } = this.state;
     if (fetching) return <Spinner loading={fetching} />;
     return (
@@ -268,6 +274,7 @@ class CommunityGroupEdit extends Component {
                   </Col>
                 </Row>
               </div>
+
 
               {renderMembers(groupInformation.customerLinksData)}
             </div>

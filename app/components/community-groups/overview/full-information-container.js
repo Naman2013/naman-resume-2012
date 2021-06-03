@@ -296,6 +296,7 @@ class FullInformationOverview extends Component {
                 invitePopupContent={invitePopupContent}
                 isInvitePopupFetching={isInvitePopupFetching}
                 canEditGroup={canEditGroup}
+                groupInformation={groupInformation}
                 t={t}
 
 
