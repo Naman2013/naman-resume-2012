@@ -146,9 +146,11 @@ class Members extends Component {
         fontSize: 14
       },
       filterDesign:{
-        display:'flex',
-        justifyContent:'space-around',
-        padding:'1rem'
+        display: 'inline-flex',
+        paddingTop: '25px',
+        flexWrap: 'wrap',
+        gap: '8rem',
+        paddingLeft: '15px'
       },
       commentsBar:{
        
@@ -171,7 +173,9 @@ class Members extends Component {
         fontSize: '16px',
         padding:'10px',
         width:'100%'
-
+      },
+      radioButtonDesign:{
+        transform: 'scale(1.4)'
       }
 
       
@@ -263,6 +267,22 @@ class Members extends Component {
                    </Button>
                  )}
                   </Col>
+
+                  <div style={style.filterDesign}>
+          <div className='h4'>Filter By:</div>
+          <div>
+            <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'ALL'})}></input><span className='p-3 h4'>All</span>
+            </div>
+            <div>
+          <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Accepted'})}></input> <span className='p-3 h4'>Active</span>
+            </div>
+          <div>
+          <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Sent'})}></input> <span className='p-3 h4'>Invited</span>
+            </div>
+          <div>
+          <input style={style.radioButtonDesign} name='memberFilter'  type='radio' onClick={()=>this.sortByFilter({filterBy:'Archived'})}></input> <span className='p-3 h4'>Archived</span>
+          </div>
+        </div>
         </Row>
         )}
        
@@ -292,26 +312,7 @@ class Members extends Component {
           />
         </Modal>
 
-        <div style={style.filterDesign}>
-          <div>Filter By:</div>
-          <div>
-            <input name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'ALL'})}></input>
-            All
-            </div>
-            <div>
-          <input name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Accepted'})}></input>
-            Active
-            </div>
-          <div>
-          <input name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Sent'})}></input>
-            Invited
-            </div>
-          <div>
-          <input name='memberFilter'  type='radio' onClick={()=>this.sortByFilter({filterBy:'Archived'})}></input>
-          Archived
-          </div>
-
-        </div>
+     
         <Table striped bordered hover>
           <thead>
             <tr style={style.tableRowPadding}>
