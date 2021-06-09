@@ -346,9 +346,9 @@ class Members extends Component {
                   this.openPopup({ data: listData })
                 }}  >
                   <td style={style.tableRowPadding}>{listData.displayName}</td>
-                  <td style={style.tableRowPadding}>jjjjjjj</td>
-                  <td style={style.tableRowPadding}>{listData.gravity}</td>
-                  <td style={style.tableRowPadding}>jjjjjjj</td>
+                  <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
+                  <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-':listData.gravity}</td>
+                  <td style={style.tableRowPadding}>{listData.lastactivity}</td>
 
 
                 </tr>
