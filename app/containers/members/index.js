@@ -67,13 +67,42 @@ class Members extends Component {
   
     const { onPageChange, discussionGroupId } = this.props;
     const {filterValue,sortValue,searchIteam}=this.state;
+
       onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue,searchTerms:''})
 
-      this.setState({
+      this.setState({ 
         setReset:false,
         searchIteam:'',
       })
     
+  }
+
+
+ 
+  refreshPage = (member) =>{
+    const { onPageChange, discussionGroupId,pageMeta,addExistingUser,addGoogleUser} = this.props;
+    const {filterValue,searchIteam,sortValue}=this.state;
+
+    let user = {
+      firstName: member.firstname,
+      lastName: member.lastname,
+      emailAddress: member.emailaddress,
+    };
+
+    if (!pageMeta.isGoogleClassroom) {
+      addExistingUser(user, discussionGroupId);
+    } else {
+      user = { ...user, googleProfileId: member.googleprofileid };
+      addGoogleUser(user, discussionGroupId);
+    }
+
+    onPageChange({ discussionGroupId, sortBy:sortValue, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
+
+    /* console.log('kkkkkkkkkkkkkbbbbb');
+    onAddClick(values).then(()=>
+      console.log('kkkkkkkkkkkkk'),
+      onPageChange({ discussionGroupId, sortBy:sortValue, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
+    ); */
   }
 
   sortByValue = (sortValues) => {
@@ -126,8 +155,9 @@ class Members extends Component {
     this.setState({ isInviteOn: true });
   };
 
+
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t,groupInformation:{customerLinksData}} = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t,groupInformation:{customerLinksData},onAddClick} = this.props;
 
    // console.log('kkkkkkkkkkkkk',customerLinksData.sectionHeading_LicenseInfo);
 
@@ -316,6 +346,8 @@ class Members extends Component {
         <Table striped bordered hover>
           <thead>
             <tr style={style.tableRowPadding}>
+            <th>ADD TO CLUB
+              </th>
               <th onClick={() => {
                 this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
               }}>NAME
@@ -342,9 +374,10 @@ class Members extends Component {
           <tbody>
             {list && list.map((listData) => {
               return (
-                <tr onClick={() => {
+                <tr /* onClick={() => {
                   this.openPopup({ data: listData })
-                }}  >
+                }} */  >
+                  <td style={style.tableRowPadding}>{listData.showAddButton ?<Button onClick={()=>this.refreshPage(listData)}>{listData.invitationPrompt}</Button>:null}</td>
                   <td style={style.tableRowPadding}>{listData.displayName}</td>
                   <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
                   <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-':listData.gravity}</td>

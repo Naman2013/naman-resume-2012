@@ -29,7 +29,7 @@ import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import './full-information-style.scss';
 //import {fetchInvitePopupContent} from '../../../app/modules/community-group-overview/actions';
-import {fetchInvitePopupContent,fetchGroupInvitationPanel} from '../../../../app/modules/community-group-overview/actions';
+import {fetchInvitePopupContent,fetchGroupInvitationPanel,addExistingUser,addGoogleUser} from '../../../../app/modules/community-group-overview/actions';
 import validateUser from 'app/route-functions/validateUser';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
@@ -39,6 +39,7 @@ const mapStateToProps = ({ communityGroupOverview, user }) => (
   user,
   invitePopupContent: communityGroupOverview.invitePopupContent,
   isInvitePopupFetching:communityGroupOverview.invitePopupContentFetching,
+  
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,7 +49,9 @@ const mapDispatchToProps = dispatch => ({
       fetchGroupMembers,
       validateResponseAccess,
       fetchInvitePopupContent,
-      fetchGroupInvitationPanel
+      fetchGroupInvitationPanel,
+      addExistingUser,
+      addGoogleUser
     },
     dispatch
   ),
@@ -128,6 +131,7 @@ class FullInformationOverview extends Component {
   };
 
   getDataTroughSortBy = (value) => {
+  
     const { actions ,canEditGroup} = this.props;
     if(canEditGroup){
       actions.fetchGroupInvitationPanel(value)
@@ -178,9 +182,13 @@ class FullInformationOverview extends Component {
       invitePopupContent,
       isInvitePopupFetching,
       canEditGroup,
-      groupInformation
+      groupInformation,
+      actions:{addExistingUser,addGoogleUser}
+      
 
     } = this.props;
+
+   
 
     if(groupInformation){
       if(groupInformation.customerLinksData){
@@ -297,8 +305,11 @@ class FullInformationOverview extends Component {
                 isInvitePopupFetching={isInvitePopupFetching}
                 canEditGroup={canEditGroup}
                 groupInformation={groupInformation}
+                pageMeta = {pageMeta}
+                addExistingUser={addExistingUser}
+                addGoogleUser={addGoogleUser}
                 t={t}
-
+              
 
               />
               {membersCount && activePage ? (
