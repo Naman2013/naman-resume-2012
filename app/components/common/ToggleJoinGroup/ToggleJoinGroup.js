@@ -103,7 +103,7 @@ class ToggleJoinGroup extends Component {
     return (
       <>
         {showModal && text ==='Leave Club' && (
-          <ConfirmationPopUp showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp content='Are you sure you want to leave the club?' showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
         <Fragment>
           <ToggleJoinGroupButton

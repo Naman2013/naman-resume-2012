@@ -21,6 +21,7 @@ import MemberListCard from 'app/components/community-groups/overview/members-lis
 import styles from 'app/components/community-groups/overview/members-list.style';
 import { Modal } from '../../../app/components/modal/index';
 import DiscussionBoardInviteNewMemberToSlooh from '../../../app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
+import {ConfirmationPopUp} from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
 
 class Members extends Component {
 
@@ -34,7 +35,8 @@ class Members extends Component {
       isInviteOn: false,
       filterValue:'',
       searchIteam:'',
-      setReset:false
+      setReset:false,
+      showModal: false
     }
   }
 
@@ -155,15 +157,31 @@ class Members extends Component {
     this.setState({ isInviteOn: true });
   };
 
+  toggleGroup = () =>{
+    this.setState(() => ({
+      showModal: false
+    }));
+  }
+
+  openModal = () => {
+
+    this.setState(() => ({
+      showModal: true
+    }));
+    /* if(value==='Leave Club'){
+
+      this.setState(() => ({
+        showModal: true
+      }));
+    }else{
+      this.toggleGroup(true)
+    } */
+  }
+
 
   render() {
     const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t,groupInformation:{customerLinksData},onAddClick} = this.props;
-
-   // console.log('kkkkkkkkkkkkk',customerLinksData.sectionHeading_LicenseInfo);
-
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn,setReset,searchIteam } = this.state;
-
-    console.log('setReset--',this.state);
+   const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn,setReset,searchIteam,showModal } = this.state;
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
     let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
@@ -377,7 +395,10 @@ class Members extends Component {
                 <tr /* onClick={() => {
                   this.openPopup({ data: listData })
                 }} */  >
-                  <td style={style.tableRowPadding}>{listData.showAddButton ?<Button onClick={()=>this.refreshPage(listData)}>{listData.invitationPrompt}</Button>:null}</td>
+
+
+
+                  <td style={style.tableRowPadding}>{listData.showAddButton ?<Button onClick={()=>this.refreshPage(listData)}>{listData.invitationPrompt}</Button>:null} {listData.showArchiveButton ? <Button onClick={()=>this.openModal()}>{listData.archiveButtonText}</Button>:null}</td>
                   <td style={style.tableRowPadding}>{listData.displayName}</td>
                   <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
                   <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-':listData.gravity}</td>
@@ -404,6 +425,9 @@ class Members extends Component {
               onClose={this.closePopup}
             />
           </Popup>
+        )}
+        {showModal /* && text ==='Leave Club' */ && (
+          <ConfirmationPopUp content='Are you want to archive' showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
       </>
 

@@ -62,12 +62,13 @@ export function ConfirmationPopUp(props) {
             <div>
                 <ReactModal
                     isOpen={props.showModal}
+                    ariaHideApp={false}
                     contentLabel="onRequestClose Example"
                     // onRequestClose={this.handleCloseModal}
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
                 >
-                    <p>Are you sure you want to leave the club? </p>
+                    <p>{props.content}</p>
                     <button  style={buttonStyle} onClick={LeaveTheClub}>YES</button>
                     <button  style={buttonStyle} onClick={notLeaveTheClub}>NO</button> 
                 </ReactModal>
