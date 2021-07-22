@@ -1,3 +1,5 @@
+
+
 import { API } from 'app/api';
 
 export const FETCH_GROUP_OVERVIEW_START = 'FETCH_GROUP_OVERVIEW_START';
@@ -43,6 +45,17 @@ export const ADD_EXISTING_USER_FAIL = 'ADD_EXISTING_USER_FAIL';
 export const ADD_GOOGLE_USER_START = 'ADD_GOOGLE_USER_START';
 export const ADD_GOOGLE_USER_SUCCESS = 'ADD_GOOGLE_USER_SUCCESS';
 export const ADD_GOOGLE_USER_FAIL = 'ADD_GOOGLE_USER_FAIL';
+
+export const FETCH_RESTORE_START = 'FETCH_RESTORE_START';
+export const FETCH_RESTORE_SUCCESS = 'FETCH_RESTORE_SUCCESS';
+export const FETCH_RESTORE_FAIL = 'FETCH_RESTORE_FAIL';
+
+
+
+export const FETCH_ARCHIVE_START = 'FETCH_ARCHIVE_START';
+export const FETCH_ARCHIVE_SUCCESS = 'FETCH_ARCHIVE_SUCCESS';
+export const FETCH_ARCHIVE_FAIL = 'FETCH_ARCHIVE_FAIL';
+
 
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
@@ -123,9 +136,9 @@ export const fetchGroupInvitationPanel = ({
   page,
   ver,
   discussionGroupId,
-  groupId=discussionGroupId,
+  groupId = discussionGroupId,
   searchTerms,
-  callSource='clubLeaders',
+  callSource = 'clubLeaders',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupInvitationPanelStart());
@@ -143,9 +156,78 @@ export const fetchGroupInvitationPanel = ({
     ver,
     callSource,
   })
-  .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
-  .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
+    .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
+    .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
 };
+
+
+export const fetchArchiveMember = ({ customerUUID }) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchArchiveStart());
+  return API.post('/api/classroom/archiveClubMember', {
+    cid,
+    token,
+    at,
+    customerUUID
+  })
+    .then(result => dispatch(fetchArchiveSuccess(result.data)))
+    .catch(error => dispatch(fetchArchiveFail(error)))
+
+}
+
+
+
+const fetchArchiveStart = payload => ({
+  type: FETCH_ARCHIVE_START,
+  payload,
+});
+
+const fetchArchiveSuccess = payload => ({
+  type: FETCH_ARCHIVE_SUCCESS,
+  payload,
+});
+
+const fetchArchiveFail = payload => ({
+  type: FETCH_ARCHIVE_FAIL,
+  payload,
+});
+
+
+export const fetechRestoreMember = ({
+  customerUUID
+}) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  console.log('aaaaaaaaaaaaaaaaaa',customerUUID);
+  dispatch(fetchRestorStart());
+  return API.post('/api/classroom/restoreMember', {
+    cid,
+    token,
+    at,
+    customerUUID
+  })
+    .then(result => dispatch(fetchRestorSuccess(result.data)))
+    .catch(error => dispatch(fetchRestorFail(error)))
+}
+
+
+
+const fetchRestorStart = payload => ({
+  type: FETCH_RESTORE_START,
+  payload,
+});
+
+const fetchRestorSuccess = payload => ({
+  type: FETCH_RESTORE_SUCCESS,
+  payload,
+});
+
+const fetchRestorFail = payload => ({
+  type: FETCH_RESTORE_FAIL,
+  payload,
+});
+
+
+
 
 
 
@@ -210,8 +292,8 @@ export const fetchGroupMembers = ({
   lang,
   page,
   ver,
-  discussionGroupId='',
-  callSource='clubLeaders',
+  discussionGroupId = '',
+  callSource = 'clubLeaders',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());
@@ -264,7 +346,7 @@ export const fetchGroupOverviewPageMeta = ({
     discussionGroupId,
   })
     .then(result => {
-      const  membersSort  = 'rankDESC' ;//getState().communityGroupOverview;
+      const membersSort = 'rankDESC';//getState().communityGroupOverview;
       const informationMap = {
         showGroupInformation: 'full',
         showGroupOverview: 'short',

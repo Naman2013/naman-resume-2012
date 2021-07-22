@@ -50,8 +50,10 @@ export function ConfirmationPopUp(props) {
     }
 
     const LeaveTheClub = () => {
+
         setShowModal(false)
         props.closeModal(true);
+        props.confirmArchive();
     }
     const notLeaveTheClub = () => {
         setShowModal(false)

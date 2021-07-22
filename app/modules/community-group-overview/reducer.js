@@ -31,6 +31,9 @@ import {
   SORT_ZA,
   SORT_RANK,
   SORT_DATE,
+  FETCH_RESTORE_START,
+  FETCH_RESTORE_SUCCESS,
+  FETCH_RESTORE_FAIL
 } from './actions';
 import { TOGGLE_JOIN_GROUP_SUCCESS } from '../community-groups/actions';
 
@@ -47,6 +50,7 @@ const initialState = {
   groupInformation: {},
   invitePopupContent: {},
   invitePopupContentFetching: false,
+  restoreMember:''
 };
 
 export default createReducer(initialState, {
@@ -114,6 +118,35 @@ export default createReducer(initialState, {
       fetching: false,
     };
   },
+ 
+
+  [FETCH_RESTORE_START] (state){
+    return {
+      ...state,
+      error: false,
+      fetching: true,
+    };
+  },
+
+  
+  [FETCH_RESTORE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      error: false,
+      fetching: false,
+      restoreMember: payload,
+    };
+  },
+
+  [FETCH_RESTORE_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
+
+
   [FETCH_GROUP_OVERVIEW_START](state) {
     return {
       ...state,

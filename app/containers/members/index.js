@@ -21,11 +21,12 @@ import MemberListCard from 'app/components/community-groups/overview/members-lis
 import styles from 'app/components/community-groups/overview/members-list.style';
 import { Modal } from '../../../app/components/modal/index';
 import DiscussionBoardInviteNewMemberToSlooh from '../../../app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import {ConfirmationPopUp} from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
+import { ConfirmationPopUp } from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
 
 class Members extends Component {
 
-  constructor(props) {  isInviteOn: false
+  constructor(props) {
+    isInviteOn: false
     super(props)
     this.state = {
       sortValue: 'rankDESC',
@@ -33,57 +34,76 @@ class Members extends Component {
       popUpListData: '',
       customerUUID: '',
       isInviteOn: false,
-      filterValue:'',
-      searchIteam:'',
-      setReset:false,
-      showModal: false
+      filterValue: '',
+      searchIteam: '',
+      setReset: false,
+      showModal: false,
+      showTextOnPopUp:'',
+      callApiArchiveOrActivate:'',
+      currentRowData:''
     }
   }
 
+  confirmArchive = () => {
+    console.log('confirmArchiveclikckl');
+    const {currentRowData:customerUUID}=this.state;
+    console.log('customerUUID',customerUUID);
+    const { fetchArchiveMember, discussionGroupId } = this.props;
+    fetchArchiveMember(customerUUID)
+  }
+
+  confirmActivate = ()=>{
+    console.log('activateclick');
+    const { fetechRestoreMember, discussionGroupId } = this.props;
+    const {currentRowData:customerUUID}=this.state;
+    console.log('customerUUID',customerUUID);
+    fetechRestoreMember(customerUUID);
+  }
+
   handleSearchEnterPress = e => {
-    
+
     this.setState({
-      searchIteam:e.target.value.trim(),
-      setReset:false
+      searchIteam: e.target.value.trim(),
+      setReset: false
     })
     if (e.keyCode == 13) {
       this.searchByValue();
-      
+
     }
   };
 
 
-  searchByValue = () =>{
+  searchByValue = () => {
     const { onPageChange, discussionGroupId } = this.props;
-    const {filterValue,sortValue,searchIteam}=this.state;
-    if(searchIteam){
-      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue,searchTerms:searchIteam})
-     this.setState({
-      setReset:true
-    })
-    } 
-  }
-
-  resetSearch = () =>{
-    this.searchInput.value = '';
-  
-    const { onPageChange, discussionGroupId } = this.props;
-    const {filterValue,sortValue,searchIteam}=this.state;
-
-      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue,searchTerms:''})
-
-      this.setState({ 
-        setReset:false,
-        searchIteam:'',
+    const { filterValue, sortValue, searchIteam } = this.state;
+    if (searchIteam) {
+      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
+      this.setState({
+        setReset: true
       })
-    
+    }
+  }
+
+  resetSearch = () => {
+    this.searchInput.value = '';
+
+    const { onPageChange, discussionGroupId } = this.props;
+    const { filterValue, sortValue, searchIteam } = this.state;
+
+    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: '' })
+
+    this.setState({
+      setReset: false,
+      searchIteam: '',
+    })
+
   }
 
 
- 
-  refreshPage = (member) =>{
-    const { onPageChange, discussionGroupId,pageMeta,addExistingUser,addGoogleUser} = this.props;
-    const {filterValue,searchIteam,sortValue}=this.state;
+
+  refreshPage = (member) => {
+    const { onPageChange, discussionGroupId, pageMeta, addExistingUser, addGoogleUser } = this.props;
+    const { filterValue, searchIteam, sortValue } = this.state;
 
     let user = {
       firstName: member.firstname,
@@ -98,7 +118,7 @@ class Members extends Component {
       addGoogleUser(user, discussionGroupId);
     }
 
-    onPageChange({ discussionGroupId, sortBy:sortValue, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
+    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
 
     /* console.log('kkkkkkkkkkkkkbbbbb');
     onAddClick(values).then(()=>
@@ -109,9 +129,9 @@ class Members extends Component {
 
   sortByValue = (sortValues) => {
     const { onPageChange, discussionGroupId } = this.props;
-    const {filterValue,searchIteam}=this.state;
+    const { filterValue, searchIteam } = this.state;
 
-    onPageChange({ discussionGroupId, sortBy:sortValues.sortBy, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
+    onPageChange({ discussionGroupId, sortBy: sortValues.sortBy, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
 
     this.setState({
       sortValue: sortValues.sortBy,
@@ -120,12 +140,13 @@ class Members extends Component {
 
   }
 
+
   sortByFilter = (filterValue) => {
 
     const { onPageChange, discussionGroupId } = this.props;
-    const {sortValue,searchIteam}=this.state;
+    const { sortValue, searchIteam } = this.state;
 
-    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1 ,customerStatus:filterValue.filterBy,searchTerms:searchIteam})
+    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue.filterBy, searchTerms: searchIteam })
 
     this.setState({
       filterValue: filterValue.filterBy
@@ -157,16 +178,19 @@ class Members extends Component {
     this.setState({ isInviteOn: true });
   };
 
-  toggleGroup = () =>{
+  toggleGroup = () => {
     this.setState(() => ({
       showModal: false
     }));
   }
 
-  openModal = () => {
+  archiveModal = (data) => {
 
     this.setState(() => ({
-      showModal: true
+      showModal: true,
+      showTextOnPopUp:'Are you want to archive',
+      callApiArchiveOrActivate:'archive',
+      currentRowData:data
     }));
     /* if(value==='Leave Club'){
 
@@ -178,10 +202,21 @@ class Members extends Component {
     } */
   }
 
+  activateModal = (data)=>{
+    this.setState(() => ({
+      showModal: true,
+      showTextOnPopUp:'Are you want to Activate',
+      callApiArchiveOrActivate:'activate',
+      currentRowData:data
+    }));
+  }
+
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId,canEditGroup ,t,groupInformation:{customerLinksData},onAddClick} = this.props;
-   const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn,setReset,searchIteam,showModal } = this.state;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick } = this.props;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal,showTextOnPopUp,callApiArchiveOrActivate } = this.state;
+
+    console.log('datatDAtat=>>',callApiArchiveOrActivate)
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
     let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
@@ -193,25 +228,25 @@ class Members extends Component {
         textAlign: 'center',
         fontSize: 14
       },
-      filterDesign:{
+      filterDesign: {
         display: 'inline-flex',
         paddingTop: '25px',
         flexWrap: 'wrap',
         gap: '8rem',
         paddingLeft: '15px'
       },
-      commentsBar:{
-       
+      commentsBar: {
+
         //textTransform: 'uppercase',
         color: '#415671',
-        backgroundColor:' #ffffff',
+        backgroundColor: ' #ffffff',
         fontWeight: '500',
         padding: '15px',
         boxShadow: '0px 0px 5px 0px rgb(88 88 88 / 50%)',
-        display:'flex',
-        margin:'5px'
+        display: 'flex',
+        margin: '5px'
       },
-      commentSearch:{
+      commentSearch: {
         marginRight: '15px',
         backgroundColor: '#f2f2f2',
         borderRadius: '4px',
@@ -219,17 +254,17 @@ class Members extends Component {
         boxShadow: 'inset 0 0 7px 0 #ced2d8',
         fontFamily: 'adobe-garamond-pro, serif',
         fontSize: '16px',
-        padding:'10px',
-        width:'100%'
+        padding: '10px',
+        width: '100%'
       },
-      radioButtonDesign:{
+      radioButtonDesign: {
         transform: 'scale(1.4)'
       }
 
-      
+
 
     }
-    const showSearchTermResultHeading =false;
+    const showSearchTermResultHeading = false;
     return (
       <>
         {!isDesktop && (
@@ -244,9 +279,9 @@ class Members extends Component {
         )}
 
         <Row style={style.commentsBar} className='mb-3'>
-        <Col lg={5} md={5} sm={5}>
-        <h4 className='pt-3'>Your Members</h4>
-          {/*  <div className="">
+          <Col lg={5} md={5} sm={5}>
+            <h4 className='pt-3'>Your Members</h4>
+            {/*  <div className="">
                     <h2 className="">
                       Your Members
                           </h2>
@@ -258,84 +293,84 @@ class Members extends Component {
                           </p> 
                   </div> */}
 
-                </Col>
-                <Col lg={4} md={4} sm={4} className='mt-3'>
-                <p className="community-group-edit-hero-unit">
-                   { customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
-                    customerLinksData.sectionHeading_LicenseInfo
-                  )
-                  }
-                </p>
-                </Col>
-                <Col
-                  lg={3}
-                  md={3}
-                  sm={3}
-                >
-                   <Button onClick={() =>this.onInviteClick()}>
-                   Invite <i className="fa fa-plus" />
-                   </Button>
-                  {/* <Btn
+          </Col>
+          <Col lg={4} md={4} sm={4} className='mt-3'>
+            <p className="community-group-edit-hero-unit">
+              {customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
+                customerLinksData.sectionHeading_LicenseInfo
+              )
+              }
+            </p>
+          </Col>
+          <Col
+            lg={3}
+            md={3}
+            sm={3}
+          >
+            <Button onClick={() => this.onInviteClick()}>
+              Invite <i className="fa fa-plus" />
+            </Button>
+            {/* <Btn
                     onClick={this.onInviteClick}
                     className=""
                   >
                     Invite
                           <i className="fa fa-plus" />
                   </Btn> */}
-                  </Col>
+          </Col>
         </Row>
 
 
-        {canEditGroup &&(
-        <Row style={style.commentsBar}>
-                  <Col  md={3} >
-                  <h4 className='pt-3'>Members</h4>
-                  </Col>
-                  <Col md={6}>
-                  <input
-                    placeholder="Search"
-                    style={style.commentSearch}
-                    ref={node => {
-                      this.searchInput = node;
-                    }}
-                  onKeyUp={this.handleSearchEnterPress}
-                  />
-                  </Col>
-                  <Col md={3} >
+        {canEditGroup && (
+          <Row style={style.commentsBar}>
+            <Col md={3} >
+              <h4 className='pt-3'>Members</h4>
+            </Col>
+            <Col md={6}>
+              <input
+                placeholder="Search"
+                style={style.commentSearch}
+                ref={node => {
+                  this.searchInput = node;
+                }}
+                onKeyUp={this.handleSearchEnterPress}
+              />
+            </Col>
+            <Col md={3} >
 
-                    {/* showSearchTermResultHeading */ setReset ? (
-                    <Button onClick={()=>this.resetSearch()}>
-                      
-                    {t('AskAnAstronomer.Reset')}
-                   </Button>
-                 ) : (
-                   <Button onClick={() =>this.searchByValue()}>
-                     
-                     {t('Clubs.Search')}
-                   </Button>
-                 )}
-                  </Col>
+              {/* showSearchTermResultHeading */ setReset ? (
+                <Button onClick={() => this.resetSearch()}>
 
-                  <div style={style.filterDesign}>
-          <div className='h4'>Filter By:</div>
-          <div>
-            <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'ALL'})}></input><span className='p-3 h4'>All</span>
+                  {t('AskAnAstronomer.Reset')}
+                </Button>
+              ) : (
+                <Button onClick={() => this.searchByValue()}>
+
+                  {t('Clubs.Search')}
+                </Button>
+              )}
+            </Col>
+
+            <div style={style.filterDesign}>
+              <div className='h4'>Filter By:</div>
+              <div>
+                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'ALL' })}></input><span className='p-3 h4'>All</span>
+              </div>
+              <div>
+                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Accepted' })}></input> <span className='p-3 h4'>Active</span>
+              </div>
+              <div>
+                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Sent' })}></input> <span className='p-3 h4'>Invited</span>
+              </div>
+              <div>
+                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Archived' })}></input> <span className='p-3 h4'>Archived</span>
+              </div>
             </div>
-            <div>
-          <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Accepted'})}></input> <span className='p-3 h4'>Active</span>
-            </div>
-          <div>
-          <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={()=>this.sortByFilter({filterBy:'Sent'})}></input> <span className='p-3 h4'>Invited</span>
-            </div>
-          <div>
-          <input style={style.radioButtonDesign} name='memberFilter'  type='radio' onClick={()=>this.sortByFilter({filterBy:'Archived'})}></input> <span className='p-3 h4'>Archived</span>
-          </div>
-        </div>
-        </Row>
+          </Row>
         )}
-       
-       
-      
+
+
+
         <Modal
           show={isInviteOn}
           onHide={() => this.setState({ isInviteOn: false })}
@@ -360,32 +395,32 @@ class Members extends Component {
           />
         </Modal>
 
-     
+
         <Table striped bordered hover>
           <thead>
             <tr style={style.tableRowPadding}>
-            <th>ADD TO CLUB
+              <th>ADD TO CLUB
               </th>
               <th onClick={() => {
                 this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
               }}>NAME
-              {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
+                {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
 
               </th>
               <th onClick={() => {
                 this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
               }}>Status
-             
+
               </th>
               <th onClick={() => {
                 this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
               }}>GP
-              {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
+                {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
               </th>
               <th onClick={() => {
                 this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
               }}>Last Action
-              
+
               </th>
             </tr>
           </thead>
@@ -396,12 +431,16 @@ class Members extends Component {
                   this.openPopup({ data: listData })
                 }} */  >
 
+                  <td style={style.tableRowPadding}>
 
+                    {listData.showAddButton ? <Button onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
-                  <td style={style.tableRowPadding}>{listData.showAddButton ?<Button onClick={()=>this.refreshPage(listData)}>{listData.invitationPrompt}</Button>:null} {listData.showArchiveButton ? <Button onClick={()=>this.openModal()}>{listData.archiveButtonText}</Button>:null}</td>
+                    {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText}</Button> : <Button onClick={() => this.activateModal(listData)}>Activate</Button>}
+
+                  </td>
                   <td style={style.tableRowPadding}>{listData.displayName}</td>
                   <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
-                  <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-':listData.gravity}</td>
+                  <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
                   <td style={style.tableRowPadding}>{listData.lastactivity}</td>
 
 
@@ -427,7 +466,7 @@ class Members extends Component {
           </Popup>
         )}
         {showModal /* && text ==='Leave Club' */ && (
-          <ConfirmationPopUp content='Are you want to archive' showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp  confirmArchive={() => callApiArchiveOrActivate=='archive'? this.confirmArchive(): this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
       </>
 
