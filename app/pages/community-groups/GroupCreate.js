@@ -266,15 +266,17 @@ class GroupCreate extends Component {
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
+            
             const createGroupResult = {
               status: res.status,
               discussionGroupLinkUrl: res.discussionGroupLinkUrl,
             };
 
             /* need to force evaulation of "true"/"false" vs. true/false. */
+            /* `${createGroupResult.discussionGroupLinkUrl}/edit=:edit` */
             if (createGroupResult.status === 'success') {
               browserHistory.push(
-                `${createGroupResult.discussionGroupLinkUrl}/edit=:edit`
+                `${createGroupResult.discussionGroupLinkUrl}/members`
               );
             } else {
               //error occured

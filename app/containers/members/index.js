@@ -33,31 +33,39 @@ class Members extends Component {
       popupVal: false,
       popUpListData: '',
       customerUUID: '',
+      customerEmail:'',
       isInviteOn: false,
-      filterValue: '',
+      filterValue: 'ALL',
       searchIteam: '',
       setReset: false,
       showModal: false,
-      showTextOnPopUp:'',
-      callApiArchiveOrActivate:'',
-      currentRowData:''
+      showTextOnPopUp: '',
+      callApiArchiveOrActivate: '',
+      currentRowData: ''
     }
   }
 
   confirmArchive = () => {
-    console.log('confirmArchiveclikckl');
-    const {currentRowData:customerUUID}=this.state;
-    console.log('customerUUID',customerUUID);
+
+    const { currentRowData: customerUUID } = this.state;
+    
     const { fetchArchiveMember, discussionGroupId } = this.props;
-    fetchArchiveMember(customerUUID)
+    fetchArchiveMember(customerUUID).then((data) => {
+      
+      if (data.type == 'FETCH_ARCHIVE_SUCCESS') {
+        this.resetSearch();
+      }
+    })
   }
 
-  confirmActivate = ()=>{
-    console.log('activateclick');
+  confirmActivate = () => {
     const { fetechRestoreMember, discussionGroupId } = this.props;
-    const {currentRowData:customerUUID}=this.state;
-    console.log('customerUUID',customerUUID);
-    fetechRestoreMember(customerUUID);
+    const { currentRowData:emailaddress} = this.state; 
+    fetechRestoreMember(emailaddress).then((data) => {
+      if (data.type == 'FETCH_RESTORE_SUCCESS') {
+        this.resetSearch();
+      }
+    })
   }
 
   handleSearchEnterPress = e => {
@@ -154,11 +162,12 @@ class Members extends Component {
   }
 
   openPopup = (PopupValue) => {
+   
     this.setState({
       popupVal: true,
       popUpListData: PopupValue,
-      customerUUID: PopupValue.data.customerUUID
-
+      customerUUID: PopupValue.data.customerUUID,
+      customerEmail:PopupValue.data.emailaddress
     })
   }
 
@@ -178,6 +187,15 @@ class Members extends Component {
     this.setState({ isInviteOn: true });
   };
 
+  /*  componentDidUpdate() {
+     console.log('componentdidupdate');
+     const { sortValue, searchIteam, filterValue } = this.state;
+     const {
+       discussionGroupId
+     } = this.props;
+     onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
+   } */
+
   toggleGroup = () => {
     this.setState(() => ({
       showModal: false
@@ -188,9 +206,9 @@ class Members extends Component {
 
     this.setState(() => ({
       showModal: true,
-      showTextOnPopUp:'Are you want to archive',
-      callApiArchiveOrActivate:'archive',
-      currentRowData:data
+      showTextOnPopUp: 'Are you want to archive',
+      callApiArchiveOrActivate: 'archive',
+      currentRowData: data
     }));
     /* if(value==='Leave Club'){
 
@@ -202,21 +220,23 @@ class Members extends Component {
     } */
   }
 
-  activateModal = (data)=>{
+  activateModal = (data) => {
     this.setState(() => ({
       showModal: true,
-      showTextOnPopUp:'Are you want to Activate',
-      callApiArchiveOrActivate:'activate',
-      currentRowData:data
+      showTextOnPopUp: 'Are you want to Activate',
+      callApiArchiveOrActivate: 'activate',
+      currentRowData: data
     }));
   }
 
 
+
+
   render() {
     const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick } = this.props;
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal,showTextOnPopUp,callApiArchiveOrActivate } = this.state;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue } = this.state;
+    let listOfIteam = list ? list.length : null;
 
-    console.log('datatDAtat=>>',callApiArchiveOrActivate)
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
     let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
@@ -354,16 +374,16 @@ class Members extends Component {
             <div style={style.filterDesign}>
               <div className='h4'>Filter By:</div>
               <div>
-                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'ALL' })}></input><span className='p-3 h4'>All</span>
+                <input style={style.radioButtonDesign} name='memberFilter' type='radio' checked={filterValue == 'ALL'} onClick={() => this.sortByFilter({ filterBy: 'ALL' })}></input><span className='p-3 h4'>All</span>
               </div>
               <div>
-                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Accepted' })}></input> <span className='p-3 h4'>Active</span>
+                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Accepted'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Accepted' })}></input> <span className='p-3 h4'>Active</span>
               </div>
               <div>
-                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Sent' })}></input> <span className='p-3 h4'>Invited</span>
+                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Sent'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Sent' })}></input> <span className='p-3 h4'>Invited</span>
               </div>
               <div>
-                <input style={style.radioButtonDesign} name='memberFilter' type='radio' onClick={() => this.sortByFilter({ filterBy: 'Archived' })}></input> <span className='p-3 h4'>Archived</span>
+                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Archived'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Archived' })}></input> <span className='p-3 h4'>Archived</span>
               </div>
             </div>
           </Row>
@@ -395,60 +415,65 @@ class Members extends Component {
           />
         </Modal>
 
+        {listOfIteam > -1 ?
+          <Table striped bordered hover>
+            <thead>
+              <tr style={style.tableRowPadding}>
+                <th>ADD TO CLUB
+                </th>
+                <th onClick={() => {
+                  this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
+                }}>NAME
+                  {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
 
-        <Table striped bordered hover>
-          <thead>
-            <tr style={style.tableRowPadding}>
-              <th>ADD TO CLUB
-              </th>
-              <th onClick={() => {
-                this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
-              }}>NAME
-                {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
+                </th>
+                <th onClick={() => {
+                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
+                }}>Status
 
-              </th>
-              <th onClick={() => {
-                this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-              }}>Status
+                </th>
+                <th onClick={() => {
+                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
+                }}>GP
+                  {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
+                </th>
+                <th onClick={() => {
+                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
+                }}>Last Action
 
-              </th>
-              <th onClick={() => {
-                this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-              }}>GP
-                {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
-              </th>
-              <th onClick={() => {
-                this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-              }}>Last Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {list && list.map((listData) => {
+                return (
+                  <tr /* onClick={() => {
+                this.openPopup({ data: listData })
+              }} */  >
 
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {list && list.map((listData) => {
-              return (
-                <tr /* onClick={() => {
-                  this.openPopup({ data: listData })
-                }} */  >
+                    <td style={style.tableRowPadding}>
 
-                  <td style={style.tableRowPadding}>
+                      {listData.showAddButton ? <Button onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
-                    {listData.showAddButton ? <Button onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+                      {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>Activate </Button>}
 
-                    {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText}</Button> : <Button onClick={() => this.activateModal(listData)}>Activate</Button>}
-
-                  </td>
-                  <td style={style.tableRowPadding}>{listData.displayName}</td>
-                  <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
-                  <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
-                  <td style={style.tableRowPadding}>{listData.lastactivity}</td>
+                    </td>
+                    <td style={style.tableRowPadding}>{listData.displayName}</td>
+                    <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
+                    <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
+                    <td style={style.tableRowPadding}>{listData.lastactivity}</td>
 
 
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
+          : <h3 style={{ textAlign: 'center' }}>
+            {filterValue == 'ALL' ? 'There are no  members to display' : filterValue == 'Accepted' ? 'There are no Active members to display' : filterValue == 'Sent' ? 'There are no pending invitations' : filterValue == 'Archived' ? 'There are no members that have been archived' : null}
+
+          </h3>}
+
 
         {popupVal && (
           <Popup
@@ -466,7 +491,7 @@ class Members extends Component {
           </Popup>
         )}
         {showModal /* && text ==='Leave Club' */ && (
-          <ConfirmationPopUp  confirmArchive={() => callApiArchiveOrActivate=='archive'? this.confirmArchive(): this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp confirmArchive={() => callApiArchiveOrActivate == 'archive' ? this.confirmArchive() : this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
       </>
 
@@ -474,6 +499,7 @@ class Members extends Component {
   }
 }
 export default Members;
+
 
 
 

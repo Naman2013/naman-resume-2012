@@ -154,8 +154,8 @@
      
      const { canEditGroup,discussionGroupId ,actions} = this.props;
      if(!canEditGroup){
- 
-     actions.fetchGroupInvitationPanel({discussionGroupId})
+      let customerStatus ='ALL'
+     actions.fetchGroupInvitationPanel({discussionGroupId,customerStatus})
  
      }
  

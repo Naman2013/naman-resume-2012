@@ -194,16 +194,16 @@ const fetchArchiveFail = payload => ({
 
 
 export const fetechRestoreMember = ({
-  customerUUID
+  emailaddress
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  console.log('aaaaaaaaaaaaaaaaaa',customerUUID);
+  
   dispatch(fetchRestorStart());
   return API.post('/api/classroom/restoreMember', {
     cid,
     token,
     at,
-    customerUUID
+    emailaddress
   })
     .then(result => dispatch(fetchRestorSuccess(result.data)))
     .catch(error => dispatch(fetchRestorFail(error)))
