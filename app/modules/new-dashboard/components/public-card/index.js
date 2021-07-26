@@ -12,10 +12,14 @@ export class PublicProfileCard extends Component{
     state={
         loading: true
     }
+    setSpinner =()=>{
+        this.setState({loading: false})
+    }
 
     render() {
         const { onClose, customerUUID } = this.props;
         const { loading } = this.state;
+        
         return (
             <div className="new-dash">
                 <Spinner loading={loading} />
@@ -36,12 +40,12 @@ export class PublicProfileCard extends Component{
                         changeStatus={null}
                         customerUUID={customerUUID}
                         publicProfile={true}
-                        onHide={()=>this.setState({loading: false})}
+                        onHide={()=>this.setSpinner()}
                     />
                     <PopularObservation 
                         customerUUID={customerUUID}
                         publicProfile={true}
-                        onHide={()=>this.setState({loading: false})}
+                        onHide={()=>this.setSpinner()}
                     />
                 </div>
             </div>   

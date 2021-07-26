@@ -162,10 +162,9 @@ export const fetchGroupInvitationPanel = ({
 
 
 export const fetchArchiveMember = ({ customerUUID }) => (dispatch, getState) => {
-  const { cid, at, token } = getState().user;
+  const {at, token } = getState().user;
   dispatch(fetchArchiveStart());
   return API.post('/api/classroom/archiveClubMember', {
-    cid,
     token,
     at,
     customerUUID

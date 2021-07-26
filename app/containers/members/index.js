@@ -33,7 +33,7 @@ class Members extends Component {
       popupVal: false,
       popUpListData: '',
       customerUUID: '',
-      customerEmail:'',
+      customerEmail: '',
       isInviteOn: false,
       filterValue: 'ALL',
       searchIteam: '',
@@ -48,10 +48,10 @@ class Members extends Component {
   confirmArchive = () => {
 
     const { currentRowData: customerUUID } = this.state;
-    
+
     const { fetchArchiveMember, discussionGroupId } = this.props;
     fetchArchiveMember(customerUUID).then((data) => {
-      
+
       if (data.type == 'FETCH_ARCHIVE_SUCCESS') {
         this.resetSearch();
       }
@@ -60,7 +60,7 @@ class Members extends Component {
 
   confirmActivate = () => {
     const { fetechRestoreMember, discussionGroupId } = this.props;
-    const { currentRowData:emailaddress} = this.state; 
+    const { currentRowData: emailaddress } = this.state;
     fetechRestoreMember(emailaddress).then((data) => {
       if (data.type == 'FETCH_RESTORE_SUCCESS') {
         this.resetSearch();
@@ -162,12 +162,12 @@ class Members extends Component {
   }
 
   openPopup = (PopupValue) => {
-   
+
     this.setState({
       popupVal: true,
       popUpListData: PopupValue,
       customerUUID: PopupValue.data.customerUUID,
-      customerEmail:PopupValue.data.emailaddress
+      customerEmail: PopupValue.data.emailaddress
     })
   }
 
@@ -447,9 +447,7 @@ class Members extends Component {
             <tbody>
               {list && list.map((listData) => {
                 return (
-                  <tr /* onClick={() => {
-                this.openPopup({ data: listData })
-              }} */  >
+                  <tr>
 
                     <td style={style.tableRowPadding}>
 
@@ -458,11 +456,12 @@ class Members extends Component {
                       {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>Activate </Button>}
 
                     </td>
-                    <td style={style.tableRowPadding}>{listData.displayName}</td>
+                    <td onClick={() => {
+                      this.openPopup({ data: listData })
+                    }} style={style.tableRowPadding}>{listData.displayName}</td>
                     <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
                     <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
                     <td style={style.tableRowPadding}>{listData.lastactivity}</td>
-
 
                   </tr>
                 )
@@ -478,7 +477,7 @@ class Members extends Component {
         {popupVal && (
           <Popup
             ariaHideApp={false}
-            isOpen={true}
+            isOpen={popupVal}
             style={customModalStylesPublicProfileCardBlueOverlay}
             contentLabel="Public Profile"
             shouldCloseOnOverlayClick={false}
