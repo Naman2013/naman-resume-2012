@@ -93,6 +93,7 @@ class Members extends Component {
   }
 
   resetSearch = () => {
+    
     this.searchInput.value = '';
 
     const { onPageChange, discussionGroupId } = this.props;
@@ -110,6 +111,7 @@ class Members extends Component {
 
 
   refreshPage = (member) => {
+    
     const { onPageChange, discussionGroupId, pageMeta, addExistingUser, addGoogleUser } = this.props;
     const { filterValue, searchIteam, sortValue } = this.state;
 
@@ -223,19 +225,33 @@ class Members extends Component {
   activateModal = (data) => {
     this.setState(() => ({
       showModal: true,
-      showTextOnPopUp: 'Are you want to Activate',
+      showTextOnPopUp: 'Are you want to View Invitation',
       callApiArchiveOrActivate: 'activate',
       currentRowData: data
     }));
   }
 
 
+  /* componentDidMount(){
+    console.log('here i am click');
+    const {customerLinkInvitation}=this.props;
+    {customerLinkInvitation &&(
+      alert(customerLinkInvitation.statusMessage)
+    )
+    }
+  }
+  componentDidUpdate(){
+    console.log('here i am updated');
+  } */
 
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation } = this.props;
     const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue } = this.state;
     let listOfIteam = list ? list.length : null;
+
+
+
 
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
@@ -284,6 +300,8 @@ class Members extends Component {
 
 
     }
+
+
     const showSearchTermResultHeading = false;
     return (
       <>
@@ -341,7 +359,7 @@ class Members extends Component {
         </Row>
 
 
-        {canEditGroup && (
+        {canEditGroup && listOfIteam && (
           <Row style={style.commentsBar}>
             <Col md={3} >
               <h4 className='pt-3'>Members</h4>
@@ -389,37 +407,12 @@ class Members extends Component {
           </Row>
         )}
 
+        {listOfIteam ?
 
-
-        <Modal
-          show={isInviteOn}
-          onHide={() => this.setState({ isInviteOn: false })}
-        >
-          <DiscussionBoardInviteNewMemberToSlooh
-            invitePopupContent={invitePopupContent}
-            isFetching={isInvitePopupFetching}
-            newInvitationComplete={() => {
-              this.setState({ isInviteOn: false });
-              const {
-                routeParams: { groupId },
-                fetchGroupInvitationPanel,
-                fetchGoogleClassroomStudentsPanel,
-                communityGroupOverview: {
-                  pageMeta: { isGoogleClassroom },
-                },
-              } = this.props;
-
-              this.refreshPage();
-            }}
-            discussionGroupId={discussionGroupId}
-          />
-        </Modal>
-
-        {listOfIteam > -1 ?
           <Table striped bordered hover>
             <thead>
               <tr style={style.tableRowPadding}>
-                <th>ADD TO CLUB
+                <th>
                 </th>
                 <th onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
@@ -451,9 +444,9 @@ class Members extends Component {
 
                     <td style={style.tableRowPadding}>
 
-                      {listData.showAddButton ? <Button onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+                      {listData.showAddButton ? <Button style={{margin:'5px'}} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
-                      {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>Activate </Button>}
+                      {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
 
                     </td>
                     <td onClick={() => {
@@ -468,10 +461,39 @@ class Members extends Component {
               })}
             </tbody>
           </Table>
+
           : <h3 style={{ textAlign: 'center' }}>
             {filterValue == 'ALL' ? 'There are no  members to display' : filterValue == 'Accepted' ? 'There are no Active members to display' : filterValue == 'Sent' ? 'There are no pending invitations' : filterValue == 'Archived' ? 'There are no members that have been archived' : null}
+          </h3>
+        }
 
-          </h3>}
+        
+
+        {isInviteOn && (
+          <Modal
+            show={isInviteOn}
+            onHide={() => this.setState({ isInviteOn: false })}
+          >
+            <DiscussionBoardInviteNewMemberToSlooh
+              invitePopupContent={invitePopupContent}
+              isFetching={isInvitePopupFetching}
+              newInvitationComplete={() => {
+                this.setState({ isInviteOn: false });
+                const {
+                  routeParams: { groupId },
+                  fetchGroupInvitationPanel,
+                  fetchGoogleClassroomStudentsPanel,
+                  communityGroupOverview: {
+                    pageMeta: { isGoogleClassroom },
+                  },
+                } = this.props;
+              }}
+              resetSearch={()=>this.resetSearch()} 
+              discussionGroupId={discussionGroupId}
+            />
+          </Modal>
+        )}
+
 
 
         {popupVal && (

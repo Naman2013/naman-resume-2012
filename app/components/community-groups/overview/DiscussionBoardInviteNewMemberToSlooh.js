@@ -52,7 +52,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
 
   /* Submit the Form and perform any validations as needed */
   handleSubmit = formValues => {
-    const { discussionGroupId, user, t } = this.props;
+    const { discussionGroupId, user, t ,resetSearch} = this.props;
 
     const inviteFormData = cloneDeep(this.state.inviteFormDetails);
 
@@ -112,8 +112,9 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
       )
         .then(({ data }) => {
           if (data.status !== 'failed') {
-            const { reset, newInvitationComplete } = this.props;
+            const { reset, newInvitationComplete,resetSearch } = this.props;
             reset();
+            resetSearch();
 
             inviteFormData.firstName.errorText = '';
             inviteFormData.emailAddress.errorText = '';

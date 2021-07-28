@@ -270,11 +270,12 @@ export default createReducer(initialState, {
       fetching: true,
     };
   },
-  [ADD_EXISTING_USER_SUCCESS](state) {
+  [ADD_EXISTING_USER_SUCCESS](state,{payload}) {
     return {
       ...state,
       error: false,
       fetching: false,
+      customerLinkInvitation:payload
     };
   },
   [ADD_EXISTING_USER_FAIL](state) {

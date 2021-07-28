@@ -40,6 +40,7 @@
    user,
    invitePopupContent: communityGroupOverview.invitePopupContent,
    isInvitePopupFetching:communityGroupOverview.invitePopupContentFetching,
+   customerLinkInvitation:communityGroupOverview.customerLinkInvitation,
    
  });
  
@@ -122,6 +123,8 @@
      activePage: 1,
      sortBy: 'rankDESC'
    };
+
+   
  
    handlePageChange = ({ activePage }) => {
  
@@ -188,13 +191,13 @@
        isInvitePopupFetching,
        canEditGroup,
        groupInformation,
+       customerLinkInvitation,
        actions:{addExistingUser,addGoogleUser}
        
  
      } = this.props;
  
-    
- 
+  
      if(groupInformation){
        if(groupInformation.customerLinksData){
          var {customerLinks} = groupInformation.customerLinksData;
@@ -202,9 +205,7 @@
        groupInformation.customerLinksData
      }
      
-     
-     console.log('customerLinks=>',customerLinks);
-     console.log('membersList=>',membersList);
+    
      const {
        activePage,
      } = this.state;
@@ -275,6 +276,7 @@
                  invitePopupContent={invitePopupContent}
                  isInvitePopupFetching={isInvitePopupFetching}
                  canEditGroup={canEditGroup}
+                 customerLinkInvitation={customerLinkInvitation}
                />
                <div className="popular-discussion-wrapper">
                  <TopThreads
@@ -317,6 +319,7 @@
                  pageMeta = {pageMeta}
                  addExistingUser={addExistingUser}
                  addGoogleUser={addGoogleUser}
+                 customerLinkInvitation={customerLinkInvitation}
                  t={t}
                
  
