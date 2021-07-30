@@ -93,7 +93,7 @@ class Members extends Component {
   }
 
   resetSearch = () => {
-    
+
     this.searchInput.value = '';
 
     const { onPageChange, discussionGroupId } = this.props;
@@ -111,7 +111,7 @@ class Members extends Component {
 
 
   refreshPage = (member) => {
-    
+
     const { onPageChange, discussionGroupId, pageMeta, addExistingUser, addGoogleUser } = this.props;
     const { filterValue, searchIteam, sortValue } = this.state;
 
@@ -246,10 +246,12 @@ class Members extends Component {
 
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation,customerLinksMemMessage } = this.props;
     const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue } = this.state;
+
     let listOfIteam = list ? list.length : null;
 
+   
 
 
 
@@ -359,7 +361,7 @@ class Members extends Component {
         </Row>
 
 
-        {canEditGroup && listOfIteam && (
+        {canEditGroup ? (listOfIteam || filterValue !== 'ALL') ?
           <Row style={style.commentsBar}>
             <Col md={3} >
               <h4 className='pt-3'>Members</h4>
@@ -405,7 +407,7 @@ class Members extends Component {
               </div>
             </div>
           </Row>
-        )}
+          : null : null}
 
         {listOfIteam ?
 
@@ -444,7 +446,7 @@ class Members extends Component {
 
                     <td style={style.tableRowPadding}>
 
-                      {listData.showAddButton ? <Button style={{margin:'5px'}} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+                      {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
                       {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
 
@@ -461,13 +463,12 @@ class Members extends Component {
               })}
             </tbody>
           </Table>
-
-          : <h3 style={{ textAlign: 'center' }}>
-            {filterValue == 'ALL' ? 'There are no  members to display' : filterValue == 'Accepted' ? 'There are no Active members to display' : filterValue == 'Sent' ? 'There are no pending invitations' : filterValue == 'Archived' ? 'There are no members that have been archived' : null}
-          </h3>
+          : customerLinksMemMessage? <h3 style={{ textAlign: 'center' }}>
+            {customerLinksMemMessage}
+          </h3>:null
         }
 
-        
+
 
         {isInviteOn && (
           <Modal
@@ -488,7 +489,7 @@ class Members extends Component {
                   },
                 } = this.props;
               }}
-              resetSearch={()=>this.resetSearch()} 
+              resetSearch={() => this.resetSearch()}
               discussionGroupId={discussionGroupId}
             />
           </Modal>

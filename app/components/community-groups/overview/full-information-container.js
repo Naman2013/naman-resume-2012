@@ -200,7 +200,7 @@
   
      if(groupInformation){
        if(groupInformation.customerLinksData){
-         var {customerLinks} = groupInformation.customerLinksData;
+         var {customerLinks,customerLinksMemMessage} = groupInformation.customerLinksData;
        }
        groupInformation.customerLinksData
      }
@@ -320,6 +320,7 @@
                  addExistingUser={addExistingUser}
                  addGoogleUser={addGoogleUser}
                  customerLinkInvitation={customerLinkInvitation}
+                 customerLinksMemMessage={customerLinksMemMessage}
                  t={t}
                
  
