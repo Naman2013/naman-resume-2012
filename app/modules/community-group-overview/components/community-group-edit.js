@@ -106,7 +106,7 @@ class CommunityGroupEdit extends Component {
   };
 
   renderMembers = data => {
-    console.log('data',data);
+    
     const {
       addExistingUser,
       addGoogleUser,
@@ -160,9 +160,7 @@ class CommunityGroupEdit extends Component {
       },
     } = this.props;
 
-    
-    console.log('kkkkkkkkkkkkkk',this.props);
-    console.log('groupInformation',groupInformation);
+
     const { isDescriptionEditOn, isInviteOn } = this.state;
     if (fetching) return <Spinner loading={fetching} />;
     return (

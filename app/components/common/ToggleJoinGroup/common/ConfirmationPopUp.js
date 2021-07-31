@@ -9,7 +9,7 @@ import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 
 
 export function ConfirmationPopUp(props) {
-    console.log('props', props);
+   
     const [showModal, setShowModal] = useState(true);
     
 

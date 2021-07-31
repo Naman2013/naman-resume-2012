@@ -173,7 +173,7 @@ class CommunityGroupOverview extends Component {
   };
 
   openModal = (value) => {
-    console.log('value::',value);
+    
     if(value==='Leave Club'){
       this.setState(() => ({
         showModal: true
@@ -202,7 +202,7 @@ class CommunityGroupOverview extends Component {
       backgroundColor: seashell,
     });
 
-    console.log('pageMeta::',pageMeta);
+    
 
     return (
       <div className="root">

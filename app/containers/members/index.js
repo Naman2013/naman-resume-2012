@@ -421,7 +421,7 @@ class Members extends Component {
                 </th>
                 )}
 
-                <th onClick={() => {
+                <th style={ { width: !canEditGroup ? '50%' : '' } }  onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
                 }}>NAME
                   {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
