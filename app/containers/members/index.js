@@ -104,6 +104,7 @@ class Members extends Component {
     this.setState({
       setReset: false,
       searchIteam: '',
+      isInviteOn: false
     })
 
   }
@@ -246,12 +247,10 @@ class Members extends Component {
 
 
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation,customerLinksMemMessage } = this.props;
+    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation, customerLinksMemMessage } = this.props;
     const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue } = this.state;
 
     let listOfIteam = list ? list.length : null;
-
-   
 
 
 
@@ -318,47 +317,50 @@ class Members extends Component {
           </div>
         )}
 
-        <Row style={style.commentsBar} className='mb-3'>
-          <Col lg={5} md={5} sm={5}>
-            <h4 className='pt-3'>Your Members</h4>
-            {/*  <div className="">
-                    <h2 className="">
-                      Your Members
-                          </h2>
-                    <p className="community-group-edit-hero-unit">
-                            {customerLinksData &&
-                              groupInformation.customerLinksData &&
-                              groupInformation.customerLinksData
-                                .sectionHeading_LicenseInfo}
-                          </p> 
-                  </div> */}
+        {canEditGroup && (
+          <Row style={style.commentsBar} className='mb-3'>
+            <Col lg={5} md={5} sm={5}>
+              <h4 className='pt-3'>Your Members</h4>
+              {/*  <div className="">
+                     <h2 className="">
+                       Your Members
+                           </h2>
+                     <p className="community-group-edit-hero-unit">
+                             {customerLinksData &&
+                               groupInformation.customerLinksData &&
+                               groupInformation.customerLinksData
+                                 .sectionHeading_LicenseInfo}
+                           </p> 
+                   </div> */}
 
-          </Col>
-          <Col lg={4} md={4} sm={4} className='mt-3'>
-            <p className="community-group-edit-hero-unit">
-              {customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
-                customerLinksData.sectionHeading_LicenseInfo
-              )
-              }
-            </p>
-          </Col>
-          <Col
-            lg={3}
-            md={3}
-            sm={3}
-          >
-            <Button onClick={() => this.onInviteClick()}>
-              Invite <i className="fa fa-plus" />
-            </Button>
-            {/* <Btn
-                    onClick={this.onInviteClick}
-                    className=""
-                  >
-                    Invite
-                          <i className="fa fa-plus" />
-                  </Btn> */}
-          </Col>
-        </Row>
+            </Col>
+            <Col lg={4} md={4} sm={4} className='mt-3'>
+              <p className="community-group-edit-hero-unit">
+                {customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
+                  customerLinksData.sectionHeading_LicenseInfo
+                )
+                }
+              </p>
+            </Col>
+            <Col
+              lg={3}
+              md={3}
+              sm={3}
+            >
+              <Button onClick={() => this.onInviteClick()}>
+                Invite <i className="fa fa-plus" />
+              </Button>
+              {/* <Btn
+                     onClick={this.onInviteClick}
+                     className=""
+                   >
+                     Invite
+                           <i className="fa fa-plus" />
+                   </Btn> */}
+            </Col>
+          </Row>
+        )}
+
 
 
         {canEditGroup ? (listOfIteam || filterValue !== 'ALL') ?
@@ -414,58 +416,76 @@ class Members extends Component {
           <Table striped bordered hover>
             <thead>
               <tr style={style.tableRowPadding}>
+                {canEditGroup &&(
                 <th>
                 </th>
+                )}
+
                 <th onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
                 }}>NAME
                   {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
 
                 </th>
+                {canEditGroup &&(
                 <th onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
                 }}>Status
 
                 </th>
+                )}
+
                 <th onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
                 }}>GP
                   {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
                 </th>
+                
+                {canEditGroup &&(
                 <th onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
                 }}>Last Action
 
                 </th>
+                )}
               </tr>
             </thead>
             <tbody>
               {list && list.map((listData) => {
                 return (
                   <tr>
+                    {canEditGroup &&(
+                       <td style={style.tableRowPadding}>
 
-                    <td style={style.tableRowPadding}>
-
-                      {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
-
-                      {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
-
-                    </td>
+                       {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+ 
+                       {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
+ 
+                     </td>
+                    )}
+                   
                     <td onClick={() => {
                       this.openPopup({ data: listData })
                     }} style={style.tableRowPadding}>{listData.displayName}</td>
+
+                    {canEditGroup &&(
                     <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
+                    )}
+
                     <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
+
+                    {canEditGroup &&(
                     <td style={style.tableRowPadding}>{listData.lastactivity}</td>
+                    )}
 
                   </tr>
                 )
               })}
             </tbody>
           </Table>
-          : customerLinksMemMessage? <h3 style={{ textAlign: 'center' }}>
+          : customerLinksMemMessage ? <h3 style={{ textAlign: 'center' }}>
             {customerLinksMemMessage}
-          </h3>:null
+          </h3> : null
         }
 
 
