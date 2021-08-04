@@ -41,7 +41,8 @@ class Members extends Component {
       showModal: false,
       showTextOnPopUp: '',
       callApiArchiveOrActivate: '',
-      currentRowData: ''
+      currentRowData: '',
+      showInvitePopUP: false,
     }
   }
 
@@ -182,12 +183,23 @@ class Members extends Component {
   }
 
   onInviteClick = () => {
-    const {
-      fetchInvitePopupContent,
-      discussionGroupId
-    } = this.props;
-    fetchInvitePopupContent(discussionGroupId);
-    this.setState({ isInviteOn: true });
+    const { fetchInvitePopupContent, discussionGroupId } = this.props;
+    let showMaxLicensUpsell = true;
+    if (showMaxLicensUpsell) {
+      this.setState({
+        showInvitePopUP: true,
+        showTextOnPopUp: {
+          mainText:
+            'You have reached the maximum number of member licenses for your account. ',
+          confirmButtonText: 'BUY',
+          cacelButtonText: 'CLOSE',
+          // maxLicensesUpsellConfirmationText:''
+        },
+      });
+    } else {
+      fetchInvitePopupContent(discussionGroupId);
+      this.setState({ isInviteOn: true });
+    }
   };
 
   /*  componentDidUpdate() {
@@ -201,7 +213,8 @@ class Members extends Component {
 
   toggleGroup = () => {
     this.setState(() => ({
-      showModal: false
+      showModal: false,
+      showInvitePopUP: false,
     }));
   }
 
@@ -209,7 +222,11 @@ class Members extends Component {
 
     this.setState(() => ({
       showModal: true,
-      showTextOnPopUp: 'Are you want to archive',
+      showTextOnPopUp: {
+        mainText: 'Are you want to archive',
+        confirmButtonText: 'YES',
+        cacelButtonText: 'NO',
+      },
       callApiArchiveOrActivate: 'archive',
       currentRowData: data
     }));
@@ -226,7 +243,11 @@ class Members extends Component {
   activateModal = (data) => {
     this.setState(() => ({
       showModal: true,
-      showTextOnPopUp: 'Are you want to View Invitation',
+      showTextOnPopUp: {
+        mainText: 'Are you want to View Invitation',
+        confirmButtonText: 'YES',
+        cacelButtonText: 'NO',
+      },
       callApiArchiveOrActivate: 'activate',
       currentRowData: data
     }));
@@ -248,7 +269,7 @@ class Members extends Component {
 
   render() {
     const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation, customerLinksMemMessage } = this.props;
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue } = this.state;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue,showInvitePopUP } = this.state;
 
     let listOfIteam = list ? list.length : null;
 
@@ -416,23 +437,23 @@ class Members extends Component {
           <Table striped bordered hover>
             <thead>
               <tr style={style.tableRowPadding}>
-                {canEditGroup &&(
-                <th>
-                </th>
+                {canEditGroup && (
+                  <th>
+                  </th>
                 )}
 
-                <th style={ { width: !canEditGroup ? '50%' : '' } }  onClick={() => {
+                <th style={{ width: !canEditGroup ? '50%' : '' }} onClick={() => {
                   this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
                 }}>NAME
                   {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
 
                 </th>
-                {canEditGroup &&(
-                <th onClick={() => {
-                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-                }}>Status
+                {canEditGroup && (
+                  <th onClick={() => {
+                    this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
+                  }}>Status
 
-                </th>
+                  </th>
                 )}
 
                 <th onClick={() => {
@@ -440,13 +461,13 @@ class Members extends Component {
                 }}>GP
                   {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
                 </th>
-                
-                {canEditGroup &&(
-                <th onClick={() => {
-                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-                }}>Last Action
 
-                </th>
+                {canEditGroup && (
+                  <th onClick={() => {
+                    this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
+                  }}>Last Action
+
+                  </th>
                 )}
               </tr>
             </thead>
@@ -454,28 +475,28 @@ class Members extends Component {
               {list && list.map((listData) => {
                 return (
                   <tr>
-                    {canEditGroup &&(
-                       <td style={style.tableRowPadding}>
+                    {canEditGroup && (
+                      <td style={style.tableRowPadding}>
 
-                       {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
- 
-                       {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
- 
-                     </td>
+                        {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+
+                        {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
+
+                      </td>
                     )}
-                   
+
                     <td onClick={() => {
                       this.openPopup({ data: listData })
                     }} style={style.tableRowPadding}>{listData.displayName}</td>
 
-                    {canEditGroup &&(
-                    <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
+                    {canEditGroup && (
+                      <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
                     )}
 
                     <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
 
-                    {canEditGroup &&(
-                    <td style={style.tableRowPadding}>{listData.lastactivity}</td>
+                    {canEditGroup && (
+                      <td style={style.tableRowPadding}>{listData.lastactivity}</td>
                     )}
 
                   </tr>
@@ -534,6 +555,14 @@ class Members extends Component {
         )}
         {showModal /* && text ==='Leave Club' */ && (
           <ConfirmationPopUp confirmArchive={() => callApiArchiveOrActivate == 'archive' ? this.confirmArchive() : this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+        )}
+        {showInvitePopUP && (
+          <ConfirmationPopUp
+            confirmArchive={() => this.testBuy()}
+            content={showTextOnPopUp}
+            showModal={showInvitePopUP}
+            closeModal={this.toggleGroup}
+          ></ConfirmationPopUp>
         )}
       </>
 

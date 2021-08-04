@@ -9,10 +9,10 @@ import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 
 
 export function ConfirmationPopUp(props) {
-   
-    const [showModal, setShowModal] = useState(true);
-    
 
+    const [showModal, setShowModal] = useState(true);
+
+    const { content } = props;
     const customStyles = {
         content: {
             top: '50%',
@@ -22,30 +22,30 @@ export function ConfirmationPopUp(props) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '30%',
-           // height: '25%',
-            textAlign:'center',
-            backgroundColor:'#1C354A',
-            color:'#ffff',
-            fontSize:'18px',
-            overflow:'hidden'
+            // height: '25%',
+            textAlign: 'center',
+            backgroundColor: '#1C354A',
+            color: '#ffff',
+            fontSize: '18px',
+            overflow: 'hidden'
         },
-       
+
     };
 
     const buttonStyle = {
-    
-            fontFamily: `${primaryFont}`,
-            position:'relative',
-            border:`1px dashed #fff`,
-            borderRadius:'100px',
-            height:'30px',
-            margin:'15px 4px',
-            fontSize:'11px',
-            fontWeight:'bold',
-            padding:'7px 15px',
-            texrTranform:'uppercase',
-            backgroundColor:'transparent',
-            color:'#ffff'
+
+        fontFamily: `${primaryFont}`,
+        position: 'relative',
+        border: `1px dashed #fff`,
+        borderRadius: '100px',
+        height: '30px',
+        margin: '15px 4px',
+        fontSize: '11px',
+        fontWeight: 'bold',
+        padding: '7px 15px',
+        texrTranform: 'uppercase',
+        backgroundColor: 'transparent',
+        color: '#ffff'
 
     }
 
@@ -70,9 +70,13 @@ export function ConfirmationPopUp(props) {
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
                 >
-                    <p>{props.content}</p>
-                    <button  style={buttonStyle} onClick={LeaveTheClub}>YES</button>
-                    <button  style={buttonStyle} onClick={notLeaveTheClub}>NO</button> 
+                    {content.mainText && <p>{content.mainText}</p>}
+                    <button style={buttonStyle} onClick={LeaveTheClub}>
+                        {content.confirmButtonText ? content.confirmButtonText : 'YES'}
+                    </button>
+                    <button style={buttonStyle} onClick={notLeaveTheClub}>
+                        {content.cacelButtonText ? content.cacelButtonText : 'NO'}
+                    </button>
                 </ReactModal>
             </div>
         </div>
