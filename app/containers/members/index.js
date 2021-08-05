@@ -21,7 +21,7 @@ import MemberListCard from 'app/components/community-groups/overview/members-lis
 import styles from 'app/components/community-groups/overview/members-list.style';
 import { Modal } from '../../../app/components/modal/index';
 import DiscussionBoardInviteNewMemberToSlooh from '../../../app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import { ConfirmationPopUp } from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
+import {ConfirmationPopUp}  from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
 
 class Members extends Component {
 
@@ -183,17 +183,14 @@ class Members extends Component {
   }
 
   onInviteClick = () => {
-    const { fetchInvitePopupContent, discussionGroupId } = this.props;
-    let showMaxLicensUpsell = true;
-    if (showMaxLicensUpsell) {
+    const { fetchInvitePopupContent, discussionGroupId,groupInformation: { customerLinksData } } = this.props;
+    if (customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
         showTextOnPopUp: {
-          mainText:
-            'You have reached the maximum number of member licenses for your account. ',
-          confirmButtonText: 'BUY',
+          mainText: customerLinksData.maxLicensesUpsellText,
+          confirmButtonText: customerLinksData.maxLicensesUpsellButtonText,
           cacelButtonText: 'CLOSE',
-          // maxLicensesUpsellConfirmationText:''
         },
       });
     } else {
@@ -253,6 +250,20 @@ class Members extends Component {
     }));
   }
 
+  buyNowButton = () => {
+    const { groupInformation: { customerLinksData } } = this.props;
+    this.setState({
+      showInvitePopUP: true,
+      showTextOnPopUp: {
+        mainText: customerLinksData.maxLicensesUpsellText,
+        confirmButtonText: customerLinksData.maxLicensesUpsellButtonText,
+        cacelButtonText: 'CLOSE',
+        confirmBuyNowText: customerLinksData.maxLicensesUpsellConfirmationText
+        // maxLicensesUpsellConfirmationText:''
+      },
+    });
+  }
+
 
   /* componentDidMount(){
     console.log('here i am click');
@@ -269,11 +280,11 @@ class Members extends Component {
 
   render() {
     const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation, customerLinksMemMessage } = this.props;
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue,showInvitePopUP } = this.state;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue, showInvitePopUP } = this.state;
 
     let listOfIteam = list ? list.length : null;
 
-
+  
 
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
@@ -558,7 +569,7 @@ class Members extends Component {
         )}
         {showInvitePopUP && (
           <ConfirmationPopUp
-            confirmArchive={() => this.testBuy()}
+            confirmArchive={() => this.buyNowButton()}
             content={showTextOnPopUp}
             showModal={showInvitePopUP}
             closeModal={this.toggleGroup}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,memo } from 'react'
 import ReactModal from 'react-modal';
 import classnames from 'classnames';
 import { primaryFont } from 'app/styles/variables/fonts';
@@ -77,6 +77,9 @@ export function ConfirmationPopUp(props) {
                     <button style={buttonStyle} onClick={notLeaveTheClub}>
                         {content.cacelButtonText ? content.cacelButtonText : 'NO'}
                     </button>
+                    {content.confirmBuyNowText &&(
+                        <p>{content.confirmBuyNowText}</p>
+                    )}
                 </ReactModal>
             </div>
         </div>
