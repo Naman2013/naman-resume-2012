@@ -13,15 +13,14 @@ import { Col, Row } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
 
-
-
+import { ClubProfileCard } from 'app/modules/new-dashboard/components/club-membar-card';
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import MemberListCard from 'app/components/community-groups/overview/members-list-card';
 import styles from 'app/components/community-groups/overview/members-list.style';
 import { Modal } from '../../../app/components/modal/index';
 import DiscussionBoardInviteNewMemberToSlooh from '../../../app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import {ConfirmationPopUp}  from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
+import { ConfirmationPopUp } from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
 
 class Members extends Component {
 
@@ -43,6 +42,9 @@ class Members extends Component {
       callApiArchiveOrActivate: '',
       currentRowData: '',
       showInvitePopUP: false,
+      showMembarCard: false,
+      DiscussionGroupId:'',
+      Emailaddress:''
     }
   }
 
@@ -178,12 +180,13 @@ class Members extends Component {
   closePopup = () => {
     this.setState({
       popupVal: false,
+      showMembarCard:false,
       popUpListData: ''
     })
   }
 
   onInviteClick = () => {
-    const { fetchInvitePopupContent, discussionGroupId,groupInformation: { customerLinksData } } = this.props;
+    const { fetchInvitePopupContent, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
     if (customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
@@ -250,6 +253,17 @@ class Members extends Component {
     }));
   }
 
+  showMembarCard = (data) => {
+    console.log('listData=>>>>',data);
+    this.setState(() => ({
+      showMembarCard: true,
+      DiscussionGroupId:data.DiscussionGroupId,
+      Emailaddress:data.emailaddress
+    }))
+  }
+
+
+
   buyNowButton = () => {
     const { groupInformation: { customerLinksData } } = this.props;
     this.setState({
@@ -280,11 +294,14 @@ class Members extends Component {
 
   render() {
     const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation, customerLinksMemMessage } = this.props;
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showTextOnPopUp, callApiArchiveOrActivate, filterValue, showInvitePopUP } = this.state;
+    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showMembarCard, showTextOnPopUp, callApiArchiveOrActivate, filterValue, showInvitePopUP,DiscussionGroupId,Emailaddress } = this.state;
 
     let listOfIteam = list ? list.length : null;
 
-  
+
+
+    console.log('Emailaddress',Emailaddress);
+
 
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
     let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
@@ -491,7 +508,7 @@ class Members extends Component {
 
                         {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
-                        {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.activateModal(listData)}>View Invitation </Button>}
+                        {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.showMembarCard(listData)}>View Invitation </Button>}
 
                       </td>
                     )}
@@ -564,9 +581,31 @@ class Members extends Component {
             />
           </Popup>
         )}
+
+        {showMembarCard && (
+          <Popup
+            ariaHideApp={false}
+            isOpen={showMembarCard}
+            style={customModalStylesPublicProfileCardBlueOverlay}
+            contentLabel="Club Membar Profile"
+            shouldCloseOnOverlayClick={false}
+            onRequestClose={this.closePopup}
+          >
+            <ClubProfileCard
+              customerUUID={customerUUID}
+              DiscussionGroupId={DiscussionGroupId}
+              Emailaddress={Emailaddress}
+              onClose={this.closePopup}
+            />
+          </Popup>
+        )}
+
+
         {showModal /* && text ==='Leave Club' */ && (
           <ConfirmationPopUp confirmArchive={() => callApiArchiveOrActivate == 'archive' ? this.confirmArchive() : this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
+
+
         {showInvitePopUP && (
           <ConfirmationPopUp
             confirmArchive={() => this.buyNowButton()}
@@ -575,6 +614,10 @@ class Members extends Component {
             closeModal={this.toggleGroup}
           ></ConfirmationPopUp>
         )}
+
+
+
+
       </>
 
     );

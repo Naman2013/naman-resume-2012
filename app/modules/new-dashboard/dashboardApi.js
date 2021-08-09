@@ -8,6 +8,11 @@ export function getUserGravityStatus(data) {
   return API.post('/api/newdashboard/getUserGravityStatus', data);
 }
 
+
+export function getMembarInvitation(data){
+  return API.post('/api/classroom/getInvitation ', data);
+}
+
 export function getMyPictures(data) {
   return API.post('/api/images/getMyPictures', data);
 }

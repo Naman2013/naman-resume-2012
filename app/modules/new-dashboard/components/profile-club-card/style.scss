@@ -1,0 +1,191 @@
+@import "../../breakpoints.scss";
+@import "../../../../../app/styles/variables/fonts.scss";
+
+.new-dash .profile-card-main{
+    padding: 24px 0px;
+    /* background: #FAFAFA; */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.new-dash .profile-card-left{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.new-dash .profile-card-right{
+    /* width: 70%; */
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.new-dash .profile-card-heading{
+    /* position: absolute; */
+    /* width: 114px;
+    height: 21px;
+    left: 795px;
+    top: 78px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    /* identical to box height */
+    
+
+    color: #FFFFFF;
+}
+
+.new-dash .imgContainer{
+    /* position: absolute; */
+    width: 65px;
+    height: 65px;   
+    display: flex;
+    justify-content: center;
+    border-radius: 35px;
+    background: #1C304E;
+}
+
+.new-dash .icon{
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+}
+
+.new-dash .profile-card-subHeading{
+    /* position: absolute; */
+    /* width: 86px;
+    height: 16px;
+    left: 795px;
+    top: 103px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+     
+}
+
+.new-dash .profile-card-value{  
+    font-family:  $primary-font;
+    font-style: bold;    
+    font-size: 18px;
+    line-height: 26px;
+
+    color: #FFFFFF; 
+    font-weight: 500;   
+}
+
+.new-dash .profile-gp{  
+    margin-top: 8px;  
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+// .new-dash .close-right-panel{
+//     display: none;
+//     background: rgba(255, 255, 255, 0.2);
+//     backdrop-filter: blur(16px);       
+//     border-radius: 4px;
+//     margin-bottom: 1rem;    
+//     height: fit-content;    
+// }
+
+.new-dash .right-arrow-btn{
+    display: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);       
+    border-radius: 4px;
+    margin-bottom: 1rem;    
+    height: fit-content;
+    float: right;
+    transform: rotate(180deg);
+}
+
+.new-dash .left-arrow-btn{
+    display: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);       
+    border-radius: 4px;
+    margin-bottom: 1rem;    
+    height: fit-content;
+    // float: left;
+}
+
+@media (min-width: $screenTab) and (max-width: $screenMedium){
+    .new-dash .profile-card-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .new-dash .profile-card-subHeading{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+    }
+    .new-dash .profile-card-value{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .new-dash .profile-gp{  
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+}
+
+@media (min-width: $screenMobile) and (max-width: $screenTab){
+    .new-dash .right-arrow-btn, .new-dash .left-arrow-btn{ 
+        display: block !important;      
+        padding: 4px;        
+        border: 1px;
+    }
+
+    .new-dash .right-arrow-btn .new-button-icon, .new-dash .left-arrow-btn .new-button-icon{
+        margin-right: 0px !important;
+        margin-top: -3px;
+    }
+
+    .new-dash .profile-card-main{
+        padding: 0px;        
+    }
+    .new-dash .profile-card-heading{        
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .new-dash .profile-card-subHeading {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .new-dash .profile-card-value, .new-dash .profile-gp {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .new-dash .profile-card-left {
+        width: 100%;
+    }
+    .new-dash .imgContainer {
+        width: 60px;
+        height: 60px;
+    }
+    .new-dash .icon {
+        width: 40px;
+        height: 40px;
+    }
+}
