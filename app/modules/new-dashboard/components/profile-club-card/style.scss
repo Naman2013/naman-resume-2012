@@ -70,7 +70,6 @@
     color: #FFFFFF;
      
 }
-
 .new-dash .profile-card-value{  
     font-family:  $primary-font;
     font-style: bold;    
@@ -121,6 +120,39 @@
     height: fit-content;
     // float: left;
 }
+.new-dash .club-profile-card-heading{
+    /* position: absolute; */
+    /* width: 114px;
+    height: 21px;
+    left: 795px;
+    top: 78px; */
+
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    /* identical to box height */
+    
+
+    color: #253446;
+}
+.new-dash .club-profile-card-subHeading{
+    /* position: absolute; */
+    /* width: 86px;
+    height: 16px;
+    left: 795px;
+    top: 103px; */
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #253446;
+     
+}
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .profile-card-heading{
@@ -146,6 +178,20 @@
         font-weight: bold;
         font-size: 14px;
         line-height: 20px;
+    }
+
+    .new-dash .club-profile-card-heading{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .new-dash .club-profile-card-subHeading{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
     }
     
 }
@@ -187,5 +233,13 @@
     .new-dash .icon {
         width: 40px;
         height: 40px;
+    }
+    .new-dash .club-profile-card-heading{
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .new-dash .club-profile-card-subHeading{
+        font-size: 12px;
+        line-height: 16px;
     }
 }

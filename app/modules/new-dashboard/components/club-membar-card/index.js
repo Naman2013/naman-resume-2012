@@ -24,7 +24,7 @@ export class ClubProfileCard extends Component{
             <div className="new-dash">
                  <Spinner loading={loading} />
                 <div className="profilecard-header">
-                    <h2 className="title-heading">{"Club Membar Invitation"}</h2> 
+                    <h2 className="club-title-heading">{"Club Member Invitation"}</h2> 
                     <Button
                         type={"button"}
                         onClickEvent={onClose} 

@@ -15,8 +15,8 @@ export class ProgressCard extends Component{
         return (
             <div className="progress-card-main">
                 <div class="info">
-                    <span className="currentProgress">{currentProgress}{totalProgress}</span>
-                    <span className="nextLevelName">{nextLevelName}</span>
+                    <span className="currentProgress"></span>
+                    <span className="clubnextLevelName">{nextLevelName}</span>
                 </div> 
                 <ProgressBar                    
                     now={progress} 

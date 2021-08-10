@@ -77,7 +77,25 @@
 //         line-height: 17px;
 //     }
 // }
+.new-dash .clubnextLevelName{
+    
+    /* position: absolute;
+    width: 78px;
+    height: 14px;
+    left: 922px;
+    top: 163px; */
 
+    font-family: $secondary-font;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #253446;
+}
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .nextLevelName, .new-dash .currentProgress{
         font-size: 12px;
@@ -109,5 +127,9 @@
     }
     .new-dash .progress {       
         height: 10px;
+    }
+    .new-dash .currentProgress, .new-dash .clubnextLevelName {
+        font-size: 12px;
+        line-height: 16px;
     }
 }

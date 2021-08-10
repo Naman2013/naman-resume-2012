@@ -227,3 +227,20 @@ export const smallProfPic = photoUrl =>
     width: '50px',
     backgroundSize: 'cover',
   });
+
+export const customModalStylesClubPublicProfileCardBlueOverlay = {
+  content: {
+    ...defaultModalContent,
+    width: window.innerWidth < 768 ? '90%' : '650px',
+    minHeight: '300px',
+    minWidth: '300px',
+    maxHeight: '80%',
+    border: 0,
+    padding: '20px 25px',
+    backgroundColor: '#ffffff',
+    // overflowY: 'scroll',
+  },
+  overlay: {
+    backgroundColor: 'rgba(60,70,85, 0.9)',
+  },
+};

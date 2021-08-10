@@ -13,17 +13,19 @@ export class ProfileClubCard extends Component {
         const { clubMembarInvitationData, userGravityStatus, changeStatus, showRightButton, showLeftBuuton } = this.props;
 
         if (clubMembarInvitationData) {
-            var { customerLinks } = clubMembarInvitationData.customerLinksData;
-            var { totalMemberSentViewedCount, totalMemberSent, memberViewedCount } = customerLinks;
-            var { firstname, lastname, gravityIconURL, gravityLabel, inviteeInvitationCode, inviteStatus } = customerLinks[0];
+            var { customerLinks,totalMemberSentViewedCount, totalMemberSent, memberViewedCount } = clubMembarInvitationData.customerLinksData;
+       
+            if (customerLinks[0]) {
+                var { firstname, lastname, inviteeEmailAddress, gravityIconURL, gravityLabel, inviteeInvitationCode, inviteStatus } = customerLinks[0];
+            }
         }
         // const { customerLinks } = clubMembarInvitationData.customerLinksData;
-        
+
 
 
         /*  const { memberName, currentTierName, avatarURL, gravityPoints, nextTierName, currentTierProgress, maxTierProgress, memberSince } = userGravityStatus;   */
         const subHeading = "Current Level";
-
+            console.log('totalMemberSentViewedCount',totalMemberSentViewedCount);
 
 
         return (
@@ -50,11 +52,15 @@ export class ProfileClubCard extends Component {
 
                     <div className="profile-card-right">
                         {firstname &&
-                            <h2 className="profile-card-heading">{firstname}{lastname}</h2>
+                            <h2 className="club-profile-card-heading">{firstname} {lastname}</h2>
+                        }
+
+                        {inviteeEmailAddress &&
+                            <h2 className="club-profile-card-heading">{inviteeEmailAddress}</h2>
                         }
 
                         {inviteeInvitationCode &&
-                            <h4 className="profile-card-subHeading">{inviteeInvitationCode} </h4>
+                            <h4 className="club-profile-card-subHeading">Invitation Code: {inviteeInvitationCode} </h4>
                         }
 
                         {/* <span className="profile-card-value">{currentTierName}</span>
@@ -62,23 +68,25 @@ export class ProfileClubCard extends Component {
                     </div>
 
                 </div>
+                {totalMemberSentViewedCount &&
+                    <div style={{ display: 'flex', columnGap: '2%' }}>
+                        <div style={{ width: '100%' }} >
+                            <ProgressCard
+                                currentProgress={totalMemberSent}
+                                totalProgress={totalMemberSentViewedCount}
+                                nextLevelName='Sent'
+                            />
+                        </div>
+                        <div style={{ width: '100%' }}>
+                            <ProgressCard
+                                currentProgress={memberViewedCount ? memberViewedCount:0}
+                                totalProgress={totalMemberSentViewedCount}
+                                nextLevelName='Viewed'
+                            />
+                        </div>
+                    </div>
+                }
 
-                <div style={{display:'flex',columnGap:'2%'}}>
-                    <div style={{width:'100%'}} >
-                        <ProgressCard
-                            currentProgress={totalMemberSent}
-                            totalProgress={totalMemberSentViewedCount}
-                            nextLevelName='Sent'
-                        />
-                    </div>
-                    <div style={{width:'100%'}}>
-                        <ProgressCard
-                            currentProgress={memberViewedCount}
-                            totalProgress={totalMemberSentViewedCount}
-                            nextLevelName='Viewed'
-                        />
-                    </div>
-                </div>
 
             </div>
         );

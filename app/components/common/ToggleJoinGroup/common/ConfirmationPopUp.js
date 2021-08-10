@@ -1,4 +1,4 @@
-import React, { useState, useEffect,memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import ReactModal from 'react-modal';
 import classnames from 'classnames';
 import { primaryFont } from 'app/styles/variables/fonts';
@@ -43,7 +43,7 @@ export function ConfirmationPopUp(props) {
         fontSize: '11px',
         fontWeight: 'bold',
         padding: '7px 15px',
-        texrTranform: 'uppercase',
+        textTransform: 'uppercase',
         backgroundColor: 'transparent',
         color: '#ffff'
 
@@ -71,13 +71,20 @@ export function ConfirmationPopUp(props) {
                     style={customStyles}
                 >
                     {content.mainText && <p>{content.mainText}</p>}
-                    <button style={buttonStyle} onClick={LeaveTheClub}>
-                        {content.confirmButtonText ? content.confirmButtonText : 'YES'}
-                    </button>
-                    <button style={buttonStyle} onClick={notLeaveTheClub}>
-                        {content.cacelButtonText ? content.cacelButtonText : 'NO'}
-                    </button>
-                    {content.confirmBuyNowText &&(
+
+
+                    {content.confirmButtonText &&
+                        <button style={buttonStyle} onClick={LeaveTheClub}>
+                            {content.confirmButtonText}
+                        </button>
+                    }
+
+                    {content.cacelButtonText &&
+                        <button style={buttonStyle} onClick={notLeaveTheClub}>
+                            {content.cacelButtonText}
+                        </button>
+                    }
+                    {content.confirmBuyNowText && (
                         <p>{content.confirmBuyNowText}</p>
                     )}
                 </ReactModal>

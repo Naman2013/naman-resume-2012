@@ -42,7 +42,8 @@ class ToggleJoinGroup extends Component {
   state = {
     icon: this.props.joinPromptIconUrl,
     text: this.props.joinPrompt,
-    showModal: false
+    showModal: false,
+    showTextOnPopUp:''
   };
 
   toggleGroup = (value) => {
@@ -89,7 +90,12 @@ class ToggleJoinGroup extends Component {
   openModal = (value) => {
     if(value==='Leave Club'){
       this.setState(() => ({
-        showModal: true
+        showModal: true,
+        showTextOnPopUp: {
+          mainText:'Are you sure you want to leave the club?',
+          confirmButtonText:'Yes',
+          cacelButtonText: 'No',
+        },
       }));
     }else{
       this.toggleGroup(true)
@@ -103,7 +109,7 @@ class ToggleJoinGroup extends Component {
     return (
       <>
         {showModal && text ==='Leave Club' && (
-          <ConfirmationPopUp content='Are you sure you want to leave the club?' showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
         )}
         <Fragment>
           <ToggleJoinGroupButton

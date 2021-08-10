@@ -72,7 +72,8 @@ class CommunityGroupOverview extends Component {
     showPopup: false,
     showAskPrompt: false,
     promptText: '',
-    showModal:false
+    showModal:false,
+    showTextOnPopUp: '',
   };
 
   componentWillMount() {
@@ -176,7 +177,12 @@ class CommunityGroupOverview extends Component {
     
     if(value==='Leave Club'){
       this.setState(() => ({
-        showModal: true
+        showModal: true,
+        showTextOnPopUp: {
+          mainText:null,
+          confirmButtonText:'Yes',
+          cacelButtonText: 'No',
+        },
       }));
     }else{
       this.joinLeaveGroup(true)
@@ -194,7 +200,7 @@ class CommunityGroupOverview extends Component {
     } = this.props;
 
     const { subMenus } = pageMeta;
-    const { showPopup, showPrompt, promptText ,showModal} = this.state;
+    const { showPopup, showPrompt, promptText ,showModal,showTextOnPopUp} = this.state;
 
     const modalStyles = modalStyleFullPage;
 
@@ -207,7 +213,7 @@ class CommunityGroupOverview extends Component {
     return (
       <div className="root">
          {showModal && pageMeta.joinPrompt ==='Leave Club' && (
-          <ConfirmationPopUp showModal={showModal} closeModal={this.joinLeaveGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp content={showTextOnPopUp} showModal={showModal} closeModal={this.joinLeaveGroup} ></ConfirmationPopUp>
         )}
         <DeviceContext.Consumer>
           {context => (

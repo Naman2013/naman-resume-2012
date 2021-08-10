@@ -16,6 +16,7 @@ import { Button } from 'react-bootstrap';
 import { ClubProfileCard } from 'app/modules/new-dashboard/components/club-membar-card';
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
 import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+import {customModalStylesClubPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
 import MemberListCard from 'app/components/community-groups/overview/members-list-card';
 import styles from 'app/components/community-groups/overview/members-list.style';
 import { Modal } from '../../../app/components/modal/index';
@@ -187,7 +188,7 @@ class Members extends Component {
 
   onInviteClick = () => {
     const { fetchInvitePopupContent, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
-    if (customerLinksData.showMaxLicensesUpsell) {
+    if (!customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
         showTextOnPopUp: {
@@ -196,7 +197,8 @@ class Members extends Component {
           cacelButtonText: 'CLOSE',
         },
       });
-    } else {
+    } 
+    else {
       fetchInvitePopupContent(discussionGroupId);
       this.setState({ isInviteOn: true });
     }
@@ -269,10 +271,10 @@ class Members extends Component {
     this.setState({
       showInvitePopUP: true,
       showTextOnPopUp: {
-        mainText: customerLinksData.maxLicensesUpsellText,
-        confirmButtonText: customerLinksData.maxLicensesUpsellButtonText,
-        cacelButtonText: 'CLOSE',
-        confirmBuyNowText: customerLinksData.maxLicensesUpsellConfirmationText
+        mainText: customerLinksData.maxLicensesUpsellConfirmationText,
+        confirmButtonText:'',
+        cacelButtonText: 'CLOSE'
+        
         // maxLicensesUpsellConfirmationText:''
       },
     });
@@ -345,6 +347,9 @@ class Members extends Component {
       },
       radioButtonDesign: {
         transform: 'scale(1.4)'
+      },
+      clubmember: {
+        fontSize: '14px'
       }
 
 
@@ -384,12 +389,12 @@ class Members extends Component {
 
             </Col>
             <Col lg={4} md={4} sm={4} className='mt-3'>
-              <p className="community-group-edit-hero-unit">
+              <h6 className="community-group-edit-hero-unit" style={style.clubmember}>
                 {customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
                   customerLinksData.sectionHeading_LicenseInfo
                 )
                 }
-              </p>
+              </h6>
             </Col>
             <Col
               lg={3}
@@ -508,7 +513,16 @@ class Members extends Component {
 
                         {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
 
-                        {listData.showArchiveButton ? <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> : <Button onClick={() => this.showMembarCard(listData)}>View Invitation </Button>}
+
+                        {listData.showArchiveButton ? 
+                        <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> 
+
+                        : <Button onClick={() => this.activateModal(listData)}>Restore</Button>}
+
+
+                        {listData.showViewInvitationButton &&
+                          <Button onClick={() => this.showMembarCard(listData)}>View Invitation</Button>
+                        }
 
                       </td>
                     )}
@@ -586,8 +600,8 @@ class Members extends Component {
           <Popup
             ariaHideApp={false}
             isOpen={showMembarCard}
-            style={customModalStylesPublicProfileCardBlueOverlay}
-            contentLabel="Club Membar Profile"
+            style={customModalStylesClubPublicProfileCardBlueOverlay}
+            contentLabel="Club Member Profile"
             shouldCloseOnOverlayClick={false}
             onRequestClose={this.closePopup}
           >
