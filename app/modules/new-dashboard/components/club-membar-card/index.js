@@ -27,9 +27,9 @@ export class ClubProfileCard extends Component{
                     <h2 className="club-title-heading">{"Club Member Invitation"}</h2> 
                     <Button
                         type={"button"}
-                        onClickEvent={onClose} 
+                        onClickEvent={onClose}
                         text={"Close"}                                             
-                        style={"public-card-close-button"}
+                        style={"club-member-card-close-button"}
                         icon={"https://vega.slooh.com/assets/v4/dashboard-new/close_slooh_blue.svg"}
                     />
                 </div>

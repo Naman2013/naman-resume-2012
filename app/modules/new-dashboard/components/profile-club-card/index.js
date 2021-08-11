@@ -56,8 +56,9 @@ export class ProfileClubCard extends Component {
                         }
 
                         {inviteeEmailAddress &&
-                            <h2 className="club-profile-card-heading">{inviteeEmailAddress}</h2>
+                            <h4 className="club-profile-card-email">{inviteeEmailAddress}</h4>
                         }
+
 
                         {inviteeInvitationCode &&
                             <h4 className="club-profile-card-subHeading">Invitation Code: {inviteeInvitationCode} </h4>

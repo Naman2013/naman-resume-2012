@@ -35,6 +35,30 @@
     height: fit-content;
   }
 
+  .new-dash .club-member-card-close-button{  
+    padding: 8px;
+  
+    background: #FFFFFF;
+    border-radius: 4px;  
+    border: none;
+  
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+    background-color: transparent;
+    text-align: center;
+    color: #253446;
+    display: flex;
+    /* Inside Auto Layout */  
+    
+    margin-right: 8px;
+    height: fit-content;
+    border: 1px solid #253446;
+  }  
+
 
 
 .new-dash .title-heading{

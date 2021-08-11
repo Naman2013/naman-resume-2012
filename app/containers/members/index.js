@@ -188,7 +188,7 @@ class Members extends Component {
 
   onInviteClick = () => {
     const { fetchInvitePopupContent, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
-    if (!customerLinksData.showMaxLicensesUpsell) {
+    if (customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
         showTextOnPopUp: {
@@ -350,9 +350,14 @@ class Members extends Component {
       },
       clubmember: {
         fontSize: '14px'
-      }
-
-
+      },
+      viewinvitation: {
+      marginLeft: '6px',
+      fontSize: '16px'
+      },
+      archive: {
+        fontSize: '16px',
+      },
 
     }
 
@@ -515,13 +520,13 @@ class Members extends Component {
 
 
                         {listData.showArchiveButton ? 
-                        <Button onClick={() => this.archiveModal(listData)}>{listData.archiveButtonText} </Button> 
+                        <Button style={style.archive} onClick={() => this.archiveModal(listData)}><i class="fa fa-trash" aria-hidden="true"></i></Button> 
 
                         : <Button onClick={() => this.activateModal(listData)}>Restore</Button>}
 
 
                         {listData.showViewInvitationButton &&
-                          <Button onClick={() => this.showMembarCard(listData)}>View Invitation</Button>
+                          <Button style={style.viewinvitation} onClick={() => this.showMembarCard(listData)}><img src="https://vega.slooh.com/assets/v4/common/info_icon.svg"/></Button>
                         }
 
                       </td>

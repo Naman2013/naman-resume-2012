@@ -153,6 +153,18 @@
     color: #253446;
      
 }
+.new-dash .club-profile-card-email{
+    
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    width: 500px;
+    color: #253446;
+    word-wrap: break-word;
+    padding-bottom: 10px;
+     
+}
 
 @media (min-width: $screenTab) and (max-width: $screenMedium){
     .new-dash .profile-card-heading{
@@ -188,6 +200,12 @@
     }
 
     .new-dash .club-profile-card-subHeading{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+    }
+    .new-dash .club-profile-card-email{
         font-style: normal;
         font-weight: normal;
         font-size: 12px;
@@ -239,6 +257,10 @@
         line-height: 20px;
     }
     .new-dash .club-profile-card-subHeading{
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .new-dash .club-profile-card-email{
         font-size: 12px;
         line-height: 16px;
     }
