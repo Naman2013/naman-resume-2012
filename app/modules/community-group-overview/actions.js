@@ -161,13 +161,15 @@ export const fetchGroupInvitationPanel = ({
 };
 
 
-export const fetchArchiveMember = ({ customerUUID }) => (dispatch, getState) => {
+export const fetchArchiveMember = ({ customerUUID,emailaddress }) => (dispatch, getState) => {
   const {at, token } = getState().user;
+  var  childCustomerEmailAddress = emailaddress;
   dispatch(fetchArchiveStart());
   return API.post('/api/classroom/archiveClubMember', {
     token,
     at,
-    customerUUID
+    customerUUID,
+    childCustomerEmailAddress
   })
     .then(result => dispatch(fetchArchiveSuccess(result.data)))
     .catch(error => dispatch(fetchArchiveFail(error)))

@@ -51,10 +51,10 @@ class Members extends Component {
 
   confirmArchive = () => {
 
-    const { currentRowData: customerUUID } = this.state;
+    const { currentRowData: customerUUID,emailaddress } = this.state;
 
     const { fetchArchiveMember, discussionGroupId } = this.props;
-    fetchArchiveMember(customerUUID).then((data) => {
+    fetchArchiveMember(customerUUID,emailaddress).then((data) => {
 
       if (data.type == 'FETCH_ARCHIVE_SUCCESS') {
         this.resetSearch();
@@ -358,7 +358,9 @@ class Members extends Component {
       archive: {
         fontSize: '16px',
       },
-
+      restorebutn:{
+        width:'22px'
+      }
     }
 
 
@@ -522,7 +524,7 @@ class Members extends Component {
                         {listData.showArchiveButton ? 
                         <Button style={style.archive} onClick={() => this.archiveModal(listData)}><i class="fa fa-trash" aria-hidden="true"></i></Button> 
 
-                        : <Button onClick={() => this.activateModal(listData)}>Restore</Button>}
+                        : <Button onClick={() => this.activateModal(listData)}><img style={style.restorebutn} src="https://vega.slooh.com/assets/v4/common/restore_gray.svg"/></Button>}
 
 
                         {listData.showViewInvitationButton &&
