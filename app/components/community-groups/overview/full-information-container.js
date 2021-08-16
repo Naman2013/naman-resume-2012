@@ -30,7 +30,7 @@
  import { createActivity } from '../../../modules/community-group-activity-list/actions';
  import './full-information-style.scss';
  //import {fetchInvitePopupContent} from '../../../app/modules/community-group-overview/actions';
- import {fetchInvitePopupContent,fetchGroupInvitationPanel,addExistingUser,addGoogleUser,fetechRestoreMember,fetchArchiveMember} from '../../../../app/modules/community-group-overview/actions';
+ import {fetchInvitePopupContent,fetchGroupInvitationPanel,addExistingUser,addGoogleUser,fetechRestoreMember,fetchArchiveMember,fetchBuyMember} from '../../../../app/modules/community-group-overview/actions';
  import validateUser from 'app/route-functions/validateUser';
  
  const { arrayOf, bool, func, number, shape, string } = PropTypes;
@@ -54,6 +54,7 @@
        fetchGroupInvitationPanel,
        fetechRestoreMember,
        fetchArchiveMember,
+       fetchBuyMember,
        addExistingUser,
        addGoogleUser
      },
@@ -87,6 +88,7 @@
      fetchInvitePopupContent:func.isRequired,
      fetechRestoreMember:func.isRequired,
      fetchArchiveMember:func.isRequired,
+     fetchBuyMember:func.isRequired,
      joinPrompt: string,
      membersCount: number,
      membersSort: string.isRequired,
@@ -312,6 +314,7 @@
                  fetchInvitePopupContent={actions.fetchInvitePopupContent}
                  fetechRestoreMember={actions.fetechRestoreMember}
                  fetchArchiveMember={actions.fetchArchiveMember}
+                 fetchBuyMember={actions.fetchBuyMember}
                  invitePopupContent={invitePopupContent}
                  isInvitePopupFetching={isInvitePopupFetching}
                  canEditGroup={canEditGroup}

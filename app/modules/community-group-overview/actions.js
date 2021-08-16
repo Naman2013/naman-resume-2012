@@ -56,6 +56,10 @@ export const FETCH_ARCHIVE_START = 'FETCH_ARCHIVE_START';
 export const FETCH_ARCHIVE_SUCCESS = 'FETCH_ARCHIVE_SUCCESS';
 export const FETCH_ARCHIVE_FAIL = 'FETCH_ARCHIVE_FAIL';
 
+export const FETCH_BUY_START = 'FETCH_BUY_START';
+export const FETCH_BUY_SUCCESS = 'FETCH_BUY_SUCCESS';
+export const FETCH_BUY_FAIL = 'FETCH_BUY_FAIL';
+
 
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
@@ -175,8 +179,6 @@ export const fetchArchiveMember = ({ customerUUID,emailaddress }) => (dispatch, 
     .catch(error => dispatch(fetchArchiveFail(error)))
 
 }
-
-
 
 const fetchArchiveStart = payload => ({
   type: FETCH_ARCHIVE_START,
@@ -490,3 +492,31 @@ export const addGoogleUser = (user, groupId) => (dispatch, getState) => {
     .then(res => dispatch(addGoogleUserSuccess(res.data)))
     .catch(error => dispatch(addGoogleUserFail(error)));
 };
+
+export const fetchBuyMember = discussionGroupId=> (dispatch, getState) => {
+  const {at, token, cid} = getState().user;
+  dispatch(fetchBuyStart());
+  return API.post('/api/app/customerUpsellInquiry', {
+    token,
+    at,
+    cid,
+    discussionGroupId
+  })
+    .then(result => dispatch(fetchBuySuccess(result.data)))
+    .catch(error => dispatch(fetchBuyFail(error)))
+
+}
+const fetchBuyStart = payload => ({
+  type: FETCH_BUY_START,
+  payload,
+});
+
+const fetchBuySuccess = payload => ({
+  type: FETCH_BUY_SUCCESS,
+  payload,
+});
+
+const fetchBuyFail = payload => ({
+  type: FETCH_BUY_FAIL,
+  payload,
+});

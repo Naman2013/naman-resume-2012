@@ -264,18 +264,16 @@ class Members extends Component {
     }))
   }
 
-
-
   buyNowButton = () => {
-    const { groupInformation: { customerLinksData } } = this.props;
+    const { fetchBuyMember, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
+    fetchBuyMember(discussionGroupId).then((data) => {
+    })
     this.setState({
       showInvitePopUP: true,
       showTextOnPopUp: {
         mainText: customerLinksData.maxLicensesUpsellConfirmationText,
-        confirmButtonText:'',
+        confirmButtonText: '',
         cacelButtonText: 'CLOSE'
-        
-        // maxLicensesUpsellConfirmationText:''
       },
     });
   }
