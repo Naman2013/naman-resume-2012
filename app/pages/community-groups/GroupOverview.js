@@ -42,9 +42,12 @@ import CustomGroupsHeader from 'app/components/community-groups/overview/custom-
 
 import {ConfirmationPopUp} from '../../components/common/ToggleJoinGroup/common/ConfirmationPopUp'
 
-const mapStateToProps = ({ communityGroupOverview }) => ({
+const mapStateToProps = ({ communityGroupOverview }) => (
+  {
   communityGroupOverview,
   pageMeta: communityGroupOverview.pageMeta,
+  
+
 });
 
 
@@ -207,9 +210,7 @@ class CommunityGroupOverview extends Component {
     modalStyles.content = Object.assign(modalStyleFullPage.content, {
       backgroundColor: seashell,
     });
-
-    
-
+    console.log('pageMeta',pageMeta);
     return (
       <div className="root">
          {showModal && pageMeta.joinPrompt ==='Leave Club' && (
@@ -260,6 +261,7 @@ class CommunityGroupOverview extends Component {
                   hideTitleSection
                   observationsTabCustomClass="groups-observations-container"
                   canEditGroup={pageMeta.canEditGroup}
+                  isGoogleClassroom={pageMeta.isGoogleClassroom}
                 />
               </CenterColumn>
               <Modal
