@@ -210,7 +210,7 @@ class CommunityGroupOverview extends Component {
     modalStyles.content = Object.assign(modalStyleFullPage.content, {
       backgroundColor: seashell,
     });
-    console.log('pageMeta',pageMeta);
+
     return (
       <div className="root">
          {showModal && pageMeta.joinPrompt ==='Leave Club' && (

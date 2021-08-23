@@ -246,7 +246,7 @@ class Members extends Component {
     this.setState(() => ({
       showModal: true,
       showTextOnPopUp: {
-        mainText: 'Are you want to View Invitation',
+        mainText: 'Are you want to restore ',
         confirmButtonText: 'YES',
         cacelButtonText: 'NO',
       },
@@ -256,7 +256,6 @@ class Members extends Component {
   }
 
   showMembarCard = (data) => {
-    console.log('listData=>>>>',data);
     this.setState(() => ({
       showMembarCard: true,
       DiscussionGroupId:data.DiscussionGroupId,
@@ -297,10 +296,6 @@ class Members extends Component {
     const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showMembarCard, showTextOnPopUp, callApiArchiveOrActivate, filterValue, showInvitePopUP,DiscussionGroupId,Emailaddress } = this.state;
 
     let listOfIteam = list ? list.length : null;
-
-
-
-    console.log('Emailaddress',Emailaddress);
 
 
     let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';

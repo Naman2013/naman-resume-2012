@@ -147,11 +147,14 @@ class FullInformationOverview extends Component {
 
   getDataTroughSortBy = (value) => {
 
-    const { actions, canEditGroup } = this.props;
+    const { actions, canEditGroup, isGoogleClassroom,discussionGroupId} = this.props;
 
-    if (canEditGroup) {
+    if (!canEditGroup) {
       actions.fetchGroupInvitationPanel(value)
-    } else {
+    } else if(isGoogleClassroom) {
+      actions.fetchGoogleClassroomStudentsPanel(discussionGroupId)
+    }
+    else {
       actions.fetchGroupMembers(value);
     }
     this.setState({
@@ -165,7 +168,8 @@ class FullInformationOverview extends Component {
 
     if (isGoogleClassroom ==true) {
       actions.fetchGoogleClassroomStudentsPanel({ discussionGroupId })
-    } else if (canEditGroup==true) {
+    } 
+    else if (canEditGroup==true) {
       let customerStatus = 'ALL'
        actions.fetchGroupInvitationPanel({discussionGroupId,customerStatus})
     }
@@ -182,7 +186,8 @@ class FullInformationOverview extends Component {
 
       if (isGoogleClassroom==true) {
         actions.fetchGoogleClassroomStudentsPanel(discussionGroupId);
-      } else if (canEditGroup==true) {
+      } 
+      else if (canEditGroup==true) {
         let customerStatus = 'ALL'
          actions.fetchGroupInvitationPanel({discussionGroupId,customerStatus})
       }
