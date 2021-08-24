@@ -149,7 +149,7 @@ class FullInformationOverview extends Component {
 
     const { actions, canEditGroup, isGoogleClassroom,discussionGroupId} = this.props;
 
-    if (!canEditGroup) {
+    if (canEditGroup) {
       actions.fetchGroupInvitationPanel(value)
     } else if(isGoogleClassroom) {
       actions.fetchGoogleClassroomStudentsPanel(discussionGroupId)

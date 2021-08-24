@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
 import {
   SORT_AZ,
   SORT_ZA,
   SORT_DATE,
   RANK_ASC,
-  RANK_DESC
+  RANK_DESC,
 } from 'app/modules/community-group-overview/actions';
 import Popup from 'react-modal';
 import Btn from 'app/atoms/Btn';
-import { Col, Row } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-
+import { Col, Row, Button } from 'react-bootstrap';
 
 import { ClubProfileCard } from 'app/modules/new-dashboard/components/club-membar-card';
 import { PublicProfileCard } from 'app/modules/new-dashboard/components/public-card';
-import { customModalStylesPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
-import {customModalStylesClubPublicProfileCardBlueOverlay } from 'app/styles/mixins/utilities';
+import {
+  customModalStylesPublicProfileCardBlueOverlay,
+  customModalStylesClubPublicProfileCardBlueOverlay,
+} from 'app/styles/mixins/utilities';
+
 import MemberListCard from 'app/components/community-groups/overview/members-list-card';
 import styles from 'app/components/community-groups/overview/members-list.style';
-import { Modal } from '../../../app/components/modal/index';
-import DiscussionBoardInviteNewMemberToSlooh from '../../../app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import { ConfirmationPopUp } from '../../../app/components/common/ToggleJoinGroup/common/ConfirmationPopUp'
+import { Modal } from '../../components/modal/index';
+import DiscussionBoardInviteNewMemberToSlooh from '../../components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
+import { ConfirmationPopUp } from '../../components/common/ToggleJoinGroup/common/ConfirmationPopUp';
 
 class Members extends Component {
-
   constructor(props) {
-    isInviteOn: false
-    super(props)
+    false;
+
+    super(props);
     this.state = {
       sortValue: 'rankDESC',
       popupVal: false,
@@ -44,80 +45,88 @@ class Members extends Component {
       currentRowData: '',
       showInvitePopUP: false,
       showMembarCard: false,
-      DiscussionGroupId:'',
-      Emailaddress:''
-    }
+      DiscussionGroupId: '',
+      Emailaddress: '',
+    };
   }
 
   confirmArchive = () => {
-
-    const { currentRowData: customerUUID,emailaddress } = this.state;
+    const { currentRowData: customerUUID, emailaddress } = this.state;
 
     const { fetchArchiveMember, discussionGroupId } = this.props;
-    fetchArchiveMember(customerUUID,emailaddress).then((data) => {
-
+    fetchArchiveMember(customerUUID, emailaddress).then(data => {
       if (data.type == 'FETCH_ARCHIVE_SUCCESS') {
         this.resetSearch();
       }
-    })
-  }
+    });
+  };
 
   confirmActivate = () => {
     const { fetechRestoreMember, discussionGroupId } = this.props;
     const { currentRowData: emailaddress } = this.state;
-    fetechRestoreMember(emailaddress).then((data) => {
+    fetechRestoreMember(emailaddress).then(data => {
       if (data.type == 'FETCH_RESTORE_SUCCESS') {
         this.resetSearch();
       }
-    })
-  }
-
-  handleSearchEnterPress = e => {
-
-    this.setState({
-      searchIteam: e.target.value.trim(),
-      setReset: false
-    })
-    if (e.keyCode == 13) {
-      this.searchByValue();
-
-    }
+    });
   };
 
+  handleSearchEnterPress = e => {
+    this.setState({
+      searchIteam: e.target.value.trim(),
+      setReset: false,
+    });
+    if (e.keyCode == 13) {
+      this.searchByValue();
+    }
+  };
 
   searchByValue = () => {
     const { onPageChange, discussionGroupId } = this.props;
     const { filterValue, sortValue, searchIteam } = this.state;
     if (searchIteam) {
-      onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
+      onPageChange({
+        discussionGroupId,
+        sortBy: sortValue,
+        activePage: 1,
+        customerStatus: filterValue,
+        searchTerms: searchIteam,
+      });
       this.setState({
-        setReset: true
-      })
+        setReset: true,
+      });
     }
-  }
+  };
 
   resetSearch = () => {
-
     this.searchInput.value = '';
 
     const { onPageChange, discussionGroupId } = this.props;
     const { filterValue, sortValue, searchIteam } = this.state;
 
-    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: '' })
+    onPageChange({
+      discussionGroupId,
+      sortBy: sortValue,
+      activePage: 1,
+      customerStatus: filterValue,
+      searchTerms: '',
+    });
 
     this.setState({
       setReset: false,
       searchIteam: '',
-      isInviteOn: false
-    })
+      isInviteOn: false,
+    });
+  };
 
-  }
-
-
-
-  refreshPage = (member) => {
-
-    const { onPageChange, discussionGroupId, pageMeta, addExistingUser, addGoogleUser } = this.props;
+  refreshPage = member => {
+    const {
+      onPageChange,
+      discussionGroupId,
+      pageMeta,
+      addExistingUser,
+      addGoogleUser,
+    } = this.props;
     const { filterValue, searchIteam, sortValue } = this.state;
 
     let user = {
@@ -133,62 +142,83 @@ class Members extends Component {
       addGoogleUser(user, discussionGroupId);
     }
 
-    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
+    onPageChange({
+      discussionGroupId,
+      sortBy: sortValue,
+      activePage: 1,
+      customerStatus: filterValue,
+      searchTerms: searchIteam,
+    });
 
     /* console.log('kkkkkkkkkkkkkbbbbb');
     onAddClick(values).then(()=>
       console.log('kkkkkkkkkkkkk'),
       onPageChange({ discussionGroupId, sortBy:sortValue, activePage: 1,customerStatus:filterValue,searchTerms:searchIteam})
     ); */
-  }
+  };
 
-  sortByValue = (sortValues) => {
+  sortByValue = sortValues => {
     const { onPageChange, discussionGroupId } = this.props;
     const { filterValue, searchIteam } = this.state;
 
-    onPageChange({ discussionGroupId, sortBy: sortValues.sortBy, activePage: 1, customerStatus: filterValue, searchTerms: searchIteam })
+    onPageChange({
+      discussionGroupId,
+      sortBy: sortValues.sortBy,
+      activePage: 1,
+      customerStatus: filterValue,
+      searchTerms: searchIteam,
+    });
 
     this.setState({
       sortValue: sortValues.sortBy,
       //filterValue:sortValues.filterBy
-    })
+    });
+  };
 
-  }
-
-
-  sortByFilter = (filterValue) => {
-
+  sortByFilter = filterValue => {
     const { onPageChange, discussionGroupId } = this.props;
     const { sortValue, searchIteam } = this.state;
 
-    onPageChange({ discussionGroupId, sortBy: sortValue, activePage: 1, customerStatus: filterValue.filterBy, searchTerms: searchIteam })
+    onPageChange({
+      discussionGroupId,
+      sortBy: sortValue,
+      activePage: 1,
+      customerStatus: filterValue.filterBy,
+      searchTerms: searchIteam,
+    });
 
     this.setState({
-      filterValue: filterValue.filterBy
-    })
-  }
+      filterValue: filterValue.filterBy,
+    });
+  };
 
-  openPopup = (PopupValue) => {
-
+  openPopup = PopupValue => {
     this.setState({
       popupVal: true,
       popUpListData: PopupValue,
       customerUUID: PopupValue.data.customerUUID,
-      customerEmail: PopupValue.data.emailaddress
-    })
-  }
+      customerEmail: PopupValue.data.emailaddress,
+    });
+  };
 
   closePopup = () => {
     this.setState({
       popupVal: false,
-      showMembarCard:false,
-      popUpListData: ''
-    })
-  }
+      showMembarCard: false,
+      popUpListData: '',
+    });
+  };
 
   onInviteClick = () => {
-    const { fetchInvitePopupContent, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
-    if (customerLinksData.showMaxLicensesUpsell) {
+    const {
+      fetchGoogleClassroomStudentPopupContent,
+      fetchInvitePopupContent,
+      isGoogleClassroom,
+      discussionGroupId,
+      groupInformation: { customerLinksData },
+    } = this.props;
+    //console.log('fetchGoogleClassroomStudentPopupContent',fetchGoogleClassroomStudentPopupContent);
+    if (!customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
         showTextOnPopUp: {
@@ -197,10 +227,15 @@ class Members extends Component {
           cacelButtonText: 'CLOSE',
         },
       });
-    } 
+    }
+    // else if(isGoogleClassroom){
+    //   fetchGoogleClassroomStudentPopupContent(discussionGroupId);
+    //   this.setState({ isInviteOn: true });
+    // }
     else {
       fetchInvitePopupContent(discussionGroupId);
       this.setState({ isInviteOn: true });
+      //console.log('discussionGroupId',discussionGroupId);
     }
   };
 
@@ -218,10 +253,9 @@ class Members extends Component {
       showModal: false,
       showInvitePopUP: false,
     }));
-  }
+  };
 
-  archiveModal = (data) => {
-
+  archiveModal = data => {
     this.setState(() => ({
       showModal: true,
       showTextOnPopUp: {
@@ -230,7 +264,7 @@ class Members extends Component {
         cacelButtonText: 'NO',
       },
       callApiArchiveOrActivate: 'archive',
-      currentRowData: data
+      currentRowData: data,
     }));
     /* if(value==='Leave Club'){
 
@@ -240,43 +274,45 @@ class Members extends Component {
     }else{
       this.toggleGroup(true)
     } */
-  }
+  };
 
-  activateModal = (data) => {
+  activateModal = data => {
     this.setState(() => ({
       showModal: true,
       showTextOnPopUp: {
-        mainText: 'Are you want to restore ',
+        mainText: 'Are you want to restore',
         confirmButtonText: 'YES',
         cacelButtonText: 'NO',
       },
       callApiArchiveOrActivate: 'activate',
-      currentRowData: data
+      currentRowData: data,
     }));
-  }
+  };
 
-  showMembarCard = (data) => {
+  showMembarCard = data => {
     this.setState(() => ({
       showMembarCard: true,
-      DiscussionGroupId:data.DiscussionGroupId,
-      Emailaddress:data.emailaddress
-    }))
-  }
+      DiscussionGroupId: data.DiscussionGroupId,
+      Emailaddress: data.emailaddress,
+    }));
+  };
 
   buyNowButton = () => {
-    const { fetchBuyMember, discussionGroupId, groupInformation: { customerLinksData } } = this.props;
-    fetchBuyMember(discussionGroupId).then((data) => {
-    })
+    const {
+      fetchBuyMember,
+      discussionGroupId,
+      groupInformation: { customerLinksData },
+    } = this.props;
+    fetchBuyMember(discussionGroupId).then(data => {});
     this.setState({
       showInvitePopUP: true,
       showTextOnPopUp: {
         mainText: customerLinksData.maxLicensesUpsellConfirmationText,
         confirmButtonText: '',
-        cacelButtonText: 'CLOSE'
+        cacelButtonText: 'CLOSE',
       },
     });
-  }
-
+  };
 
   /* componentDidMount(){
     console.log('here i am click');
@@ -290,34 +326,65 @@ class Members extends Component {
     console.log('here i am updated');
   } */
 
-
   render() {
-    const { list, context: { isDesktop }, leadersList, theme, invitePopupContent, isInvitePopupFetching, discussionGroupId, canEditGroup, t, groupInformation: { customerLinksData }, onAddClick, customerLinkInvitation, customerLinksMemMessage } = this.props;
-    const { sortValue, popupVal, popUpListData, customerUUID, isInviteOn, setReset, searchIteam, showModal, showMembarCard, showTextOnPopUp, callApiArchiveOrActivate, filterValue, showInvitePopUP,DiscussionGroupId,Emailaddress } = this.state;
+    const {
+      list,
+      context: { isDesktop },
+      leadersList,
+      theme,
+      invitePopupContent,
+      isGoogleClassroom,
+      isInvitePopupFetching,
+      discussionGroupId,
+      canEditGroup,
+      t,
+      groupInformation: { customerLinksData },
+      onAddClick,
+      customerLinkInvitation,
+      customerLinksMemMessage,
+    } = this.props;
+    const {
+      sortValue,
+      popupVal,
+      popUpListData,
+      customerUUID,
+      isInviteOn,
+      setReset,
+      searchIteam,
+      showModal,
+      showMembarCard,
+      showTextOnPopUp,
+      callApiArchiveOrActivate,
+      filterValue,
+      showInvitePopUP,
+      DiscussionGroupId,
+      Emailaddress,
+    } = this.state;
 
     let listOfIteam = list ? list.length : null;
 
-
-    let sortIcon = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
-    let sortUp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
-    let sortDownp = 'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
+    let sortIcon =
+      'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort.png';
+    let sortUp =
+      'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-up--v2.png';
+    let sortDownp =
+      'https://vega.slooh.com/assets/v4/dashboard-new/clubs/sort-down--v2.png';
 
     const style = {
       tableRowPadding: {
         padding: 15,
         width: 'auto',
         textAlign: 'center',
-        fontSize: 14
+        fontSize: 14,
       },
       filterDesign: {
         display: 'inline-flex',
         paddingTop: '25px',
         flexWrap: 'wrap',
         gap: '8rem',
-        paddingLeft: '15px'
+        paddingLeft: '15px',
       },
       commentsBar: {
-
         //textTransform: 'uppercase',
         color: '#415671',
         backgroundColor: ' #ffffff',
@@ -325,7 +392,7 @@ class Members extends Component {
         padding: '15px',
         boxShadow: '0px 0px 5px 0px rgb(88 88 88 / 50%)',
         display: 'flex',
-        margin: '5px'
+        margin: '5px',
       },
       commentSearch: {
         marginRight: '15px',
@@ -336,26 +403,25 @@ class Members extends Component {
         fontFamily: 'adobe-garamond-pro, serif',
         fontSize: '16px',
         padding: '10px',
-        width: '100%'
+        width: '100%',
       },
       radioButtonDesign: {
-        transform: 'scale(1.4)'
+        transform: 'scale(1.4)',
       },
       clubmember: {
-        fontSize: '14px'
+        fontSize: '14px',
       },
       viewinvitation: {
-      marginLeft: '6px',
-      fontSize: '16px'
+        marginLeft: '6px',
+        fontSize: '16px',
       },
       archive: {
         fontSize: '16px',
       },
-      restorebutn:{
-        width:'22px'
-      }
-    }
-
+      restorebutn: {
+        width: '22px',
+      },
+    };
 
     const showSearchTermResultHeading = false;
     return (
@@ -371,10 +437,10 @@ class Members extends Component {
           </div>
         )}
 
-        {canEditGroup && (
-          <Row style={style.commentsBar} className='mb-3'>
+        {(isGoogleClassroom || canEditGroup) && (
+          <Row style={style.commentsBar} className="mb-3">
             <Col lg={5} md={5} sm={5}>
-              <h4 className='pt-3'>Your Members</h4>
+              <h4 className="pt-3">Your Members</h4>
               {/*  <div className="">
                      <h2 className="">
                        Your Members
@@ -386,21 +452,18 @@ class Members extends Component {
                                  .sectionHeading_LicenseInfo}
                            </p> 
                    </div> */}
-
             </Col>
-            <Col lg={4} md={4} sm={4} className='mt-3'>
-              <h6 className="community-group-edit-hero-unit" style={style.clubmember}>
-                {customerLinksData && customerLinksData.sectionHeading_LicenseInfo && (
-                  customerLinksData.sectionHeading_LicenseInfo
-                )
-                }
+            <Col lg={4} md={4} sm={4} className="mt-3">
+              <h6
+                className="community-group-edit-hero-unit"
+                style={style.clubmember}
+              >
+                {customerLinksData &&
+                  customerLinksData.sectionHeading_LicenseInfo &&
+                  customerLinksData.sectionHeading_LicenseInfo}
               </h6>
             </Col>
-            <Col
-              lg={3}
-              md={3}
-              sm={3}
-            >
+            <Col lg={3} md={3} sm={3}>
               <Button onClick={() => this.onInviteClick()}>
                 Invite <i className="fa fa-plus" />
               </Button>
@@ -415,143 +478,232 @@ class Members extends Component {
           </Row>
         )}
 
+        {isGoogleClassroom || canEditGroup ? (
+          listOfIteam || filterValue !== 'ALL' ? (
+            <Row style={style.commentsBar}>
+              <Col md={3}>
+                <h4 className="pt-3">Members</h4>
+              </Col>
+              <Col md={6}>
+                <input
+                  placeholder="Search"
+                  style={style.commentSearch}
+                  ref={node => {
+                    this.searchInput = node;
+                  }}
+                  onKeyUp={this.handleSearchEnterPress}
+                />
+              </Col>
+              <Col md={3}>
+                {/* showSearchTermResultHeading */ setReset ? (
+                  <Button onClick={() => this.resetSearch()}>
+                    {t('AskAnAstronomer.Reset')}
+                  </Button>
+                ) : (
+                  <Button onClick={() => this.searchByValue()}>
+                    {t('Clubs.Search')}
+                  </Button>
+                )}
+              </Col>
 
-
-        {canEditGroup ? (listOfIteam || filterValue !== 'ALL') ?
-          <Row style={style.commentsBar}>
-            <Col md={3} >
-              <h4 className='pt-3'>Members</h4>
-            </Col>
-            <Col md={6}>
-              <input
-                placeholder="Search"
-                style={style.commentSearch}
-                ref={node => {
-                  this.searchInput = node;
-                }}
-                onKeyUp={this.handleSearchEnterPress}
-              />
-            </Col>
-            <Col md={3} >
-
-              {/* showSearchTermResultHeading */ setReset ? (
-                <Button onClick={() => this.resetSearch()}>
-
-                  {t('AskAnAstronomer.Reset')}
-                </Button>
-              ) : (
-                <Button onClick={() => this.searchByValue()}>
-
-                  {t('Clubs.Search')}
-                </Button>
-              )}
-            </Col>
-
-            <div style={style.filterDesign}>
-              <div className='h4'>Filter By:</div>
-              <div>
-                <input style={style.radioButtonDesign} name='memberFilter' type='radio' checked={filterValue == 'ALL'} onClick={() => this.sortByFilter({ filterBy: 'ALL' })}></input><span className='p-3 h4'>All</span>
+              <div style={style.filterDesign}>
+                <div className="h4">Filter By:</div>
+                <div>
+                  <input
+                    style={style.radioButtonDesign}
+                    name="memberFilter"
+                    type="radio"
+                    checked={filterValue == 'ALL'}
+                    onClick={() => this.sortByFilter({ filterBy: 'ALL' })}
+                  ></input>
+                  <span className="p-3 h4">All</span>
+                </div>
+                <div>
+                  <input
+                    style={style.radioButtonDesign}
+                    name="memberFilter"
+                    checked={filterValue == 'Accepted'}
+                    type="radio"
+                    onClick={() => this.sortByFilter({ filterBy: 'Accepted' })}
+                  ></input>{' '}
+                  <span className="p-3 h4">Active</span>
+                </div>
+                <div>
+                  <input
+                    style={style.radioButtonDesign}
+                    name="memberFilter"
+                    checked={filterValue == 'Sent'}
+                    type="radio"
+                    onClick={() => this.sortByFilter({ filterBy: 'Sent' })}
+                  ></input>{' '}
+                  <span className="p-3 h4">Invited</span>
+                </div>
+                <div>
+                  <input
+                    style={style.radioButtonDesign}
+                    name="memberFilter"
+                    checked={filterValue == 'Archived'}
+                    type="radio"
+                    onClick={() => this.sortByFilter({ filterBy: 'Archived' })}
+                  ></input>{' '}
+                  <span className="p-3 h4">Archived</span>
+                </div>
               </div>
-              <div>
-                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Accepted'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Accepted' })}></input> <span className='p-3 h4'>Active</span>
-              </div>
-              <div>
-                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Sent'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Sent' })}></input> <span className='p-3 h4'>Invited</span>
-              </div>
-              <div>
-                <input style={style.radioButtonDesign} name='memberFilter' checked={filterValue == 'Archived'} type='radio' onClick={() => this.sortByFilter({ filterBy: 'Archived' })}></input> <span className='p-3 h4'>Archived</span>
-              </div>
-            </div>
-          </Row>
-          : null : null}
+            </Row>
+          ) : null
+        ) : null}
 
-        {listOfIteam ?
-
+        {listOfIteam ? (
           <Table striped bordered hover>
             <thead>
               <tr style={style.tableRowPadding}>
-                {canEditGroup && (
-                  <th>
+                {(isGoogleClassroom || canEditGroup) && <th></th>}
+
+                <th
+                  style={{
+                    width: !isGoogleClassroom || !canEditGroup ? '30%' : '',
+                  }}
+                  onClick={() => {
+                    this.sortByValue({
+                      sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA,
+                    });
+                  }}
+                >
+                  NAME
+                  {sortValue == 'ztoa' || sortValue == 'atoz' ? (
+                    sortValue == 'ztoa' ? (
+                      <img src={sortDownp} />
+                    ) : (
+                      <img src={sortUp} />
+                    )
+                  ) : (
+                    <img src={sortIcon} />
+                  )}
+                </th>
+                {(isGoogleClassroom || canEditGroup) && (
+                  <th
+                    onClick={() => {
+                      this.sortByValue({
+                        sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC,
+                      });
+                    }}
+                  >
+                    Status
                   </th>
                 )}
 
-                <th style={{ width: !canEditGroup ? '50%' : '' }} onClick={() => {
-                  this.sortByValue({ sortBy: sortValue == 'ztoa' ? SORT_AZ : SORT_ZA })
-                }}>NAME
-                  {sortValue == 'ztoa' || sortValue == 'atoz' ? sortValue == 'ztoa' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
-
+                <th
+                  onClick={() => {
+                    this.sortByValue({
+                      sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC,
+                    });
+                  }}
+                >
+                  GP
+                  {sortValue == 'rankASC' || sortValue == 'rankDESC' ? (
+                    sortValue == 'rankDESC' ? (
+                      <img src={sortDownp} />
+                    ) : (
+                      <img src={sortUp} />
+                    )
+                  ) : (
+                    <img src={sortIcon} />
+                  )}
                 </th>
-                {canEditGroup && (
-                  <th onClick={() => {
-                    this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-                  }}>Status
 
-                  </th>
-                )}
-
-                <th onClick={() => {
-                  this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-                }}>GP
-                  {sortValue == 'rankASC' || sortValue == 'rankDESC' ? sortValue == 'rankDESC' ? <img src={sortDownp} /> : <img src={sortUp} /> : <img src={sortIcon} />}
-                </th>
-
-                {canEditGroup && (
-                  <th onClick={() => {
-                    this.sortByValue({ sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC })
-                  }}>Last Action
-
+                {(isGoogleClassroom || canEditGroup) && (
+                  <th
+                    onClick={() => {
+                      this.sortByValue({
+                        sortBy: sortValue == 'rankDESC' ? RANK_ASC : RANK_DESC,
+                      });
+                    }}
+                  >
+                    Last Action
                   </th>
                 )}
               </tr>
             </thead>
             <tbody>
-              {list && list.map((listData) => {
-                return (
-                  <tr>
-                    {canEditGroup && (
-                      <td style={style.tableRowPadding}>
+              {list &&
+                list.map(listData => {
+                  return (
+                    <tr>
+                      {(isGoogleClassroom || canEditGroup) && (
+                        <td style={style.tableRowPadding}>
+                          {listData.showAddButton ? (
+                            <Button
+                              style={{ margin: '5px' }}
+                              onClick={() => this.refreshPage(listData)}
+                            >
+                              {listData.invitationPrompt}
+                            </Button>
+                          ) : null}
 
-                        {listData.showAddButton ? <Button style={{ margin: '5px' }} onClick={() => this.refreshPage(listData)}>{listData.invitationPrompt}</Button> : null}
+                          {listData.showArchiveButton ? (
+                            <Button
+                              style={style.archive}
+                              onClick={() => this.archiveModal(listData)}
+                            >
+                              <i className="fa fa-trash" aria-hidden="true"></i>
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => this.activateModal(listData)}
+                            >
+                              <img
+                                style={style.restorebutn}
+                                src="https://vega.slooh.com/assets/v4/common/restore_gray.svg"
+                              />
+                            </Button>
+                          )}
 
+                          {listData.showViewInvitationButton && (
+                            <Button
+                              style={style.viewinvitation}
+                              onClick={() => this.showMembarCard(listData)}
+                            >
+                              <img src="https://vega.slooh.com/assets/v4/common/info_icon.svg" />
+                            </Button>
+                          )}
+                        </td>
+                      )}
 
-                        {listData.showArchiveButton ? 
-                        <Button style={style.archive} onClick={() => this.archiveModal(listData)}><i class="fa fa-trash" aria-hidden="true"></i></Button> 
-
-                        : <Button onClick={() => this.activateModal(listData)}><img style={style.restorebutn} src="https://vega.slooh.com/assets/v4/common/restore_gray.svg"/></Button>}
-
-
-                        {listData.showViewInvitationButton &&
-                          <Button style={style.viewinvitation} onClick={() => this.showMembarCard(listData)}><img src="https://vega.slooh.com/assets/v4/common/info_icon.svg"/></Button>
-                        }
-
+                      <td
+                        onClick={() => {
+                          this.openPopup({ data: listData });
+                        }}
+                        style={style.tableRowPadding}
+                      >
+                        {listData.displayName}
                       </td>
-                    )}
 
-                    <td onClick={() => {
-                      this.openPopup({ data: listData })
-                    }} style={style.tableRowPadding}>{listData.displayName}</td>
+                      {(isGoogleClassroom || canEditGroup) && (
+                        <td style={style.tableRowPadding}>
+                          {listData.InvitationStatus}
+                        </td>
+                      )}
 
-                    {canEditGroup && (
-                      <td style={style.tableRowPadding}>{listData.InvitationStatus}</td>
-                    )}
+                      <td style={style.tableRowPadding}>
+                        {listData.InvitationStatus == 'Sent' ||
+                        listData.InvitationStatus == 'Viewed'
+                          ? '-'
+                          : listData.gravity}
+                      </td>
 
-                    <td style={style.tableRowPadding}>{listData.InvitationStatus == 'Sent' || listData.InvitationStatus == 'Viewed' ? '-' : listData.gravity}</td>
-
-                    {canEditGroup && (
-                      <td style={style.tableRowPadding}>{listData.lastactivity}</td>
-                    )}
-
-                  </tr>
-                )
-              })}
+                      {(isGoogleClassroom || canEditGroup) && (
+                        <td style={style.tableRowPadding}>
+                          {listData.lastactivity}
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })}
             </tbody>
           </Table>
-          : customerLinksMemMessage ? <h3 style={{ textAlign: 'center' }}>
-            {customerLinksMemMessage}
-          </h3> : null
-        }
-
-
+        ) : customerLinksMemMessage ? (
+          <h3 style={{ textAlign: 'center' }}>{customerLinksMemMessage}</h3>
+        ) : null}
 
         {isInviteOn && (
           <Modal
@@ -577,8 +729,6 @@ class Members extends Component {
             />
           </Modal>
         )}
-
-
 
         {popupVal && (
           <Popup
@@ -614,11 +764,18 @@ class Members extends Component {
           </Popup>
         )}
 
-
         {showModal /* && text ==='Leave Club' */ && (
-          <ConfirmationPopUp confirmArchive={() => callApiArchiveOrActivate == 'archive' ? this.confirmArchive() : this.confirmActivate()} content={showTextOnPopUp} showModal={showModal} closeModal={this.toggleGroup} ></ConfirmationPopUp>
+          <ConfirmationPopUp
+            confirmArchive={() =>
+              callApiArchiveOrActivate == 'archive'
+                ? this.confirmArchive()
+                : this.confirmActivate()
+            }
+            content={showTextOnPopUp}
+            showModal={showModal}
+            closeModal={this.toggleGroup}
+          ></ConfirmationPopUp>
         )}
-
 
         {showInvitePopUP && (
           <ConfirmationPopUp
@@ -628,19 +785,8 @@ class Members extends Component {
             closeModal={this.toggleGroup}
           ></ConfirmationPopUp>
         )}
-
-
-
-
       </>
-
     );
   }
 }
 export default Members;
-
-
-
-
-
-
