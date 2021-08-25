@@ -218,7 +218,7 @@ class Members extends Component {
       groupInformation: { customerLinksData },
     } = this.props;
     //console.log('fetchGoogleClassroomStudentPopupContent',fetchGoogleClassroomStudentPopupContent);
-    if (!customerLinksData.showMaxLicensesUpsell) {
+    if (customerLinksData.showMaxLicensesUpsell) {
       this.setState({
         showInvitePopUP: true,
         showTextOnPopUp: {
