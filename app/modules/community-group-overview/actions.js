@@ -493,14 +493,15 @@ export const addGoogleUser = (user, groupId) => (dispatch, getState) => {
     .catch(error => dispatch(addGoogleUserFail(error)));
 };
 
-export const fetchBuyMember = discussionGroupId=> (dispatch, getState) => {
+export const fetchBuyMember = ({discussionGroupId,upsellOpportunity ="astronomyClubExceededSeatLimit"})=> (dispatch, getState) => {
   const {at, token, cid} = getState().user;
   dispatch(fetchBuyStart());
   return API.post('/api/app/customerUpsellInquiry', {
     token,
     at,
     cid,
-    discussionGroupId
+    discussionGroupId,
+    upsellOpportunity
   })
     .then(result => dispatch(fetchBuySuccess(result.data)))
     .catch(error => dispatch(fetchBuyFail(error)))
