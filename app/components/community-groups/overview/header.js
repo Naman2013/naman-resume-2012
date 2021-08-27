@@ -80,23 +80,24 @@ const GroupsHeader = ({
             theme={{ boxShadow: 'none' }}
           />
           {canEditGroup && (
-            <Button
-              theme={{
-                color: astronaut,
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: '10px',
-              }}
-              onClickEvent={() => {
-                browserHistory.push(
-                  `/community-groups/${discussionGroupId}/${
-                    isEditMode ? '' : 'edit=true'
-                  }`
-                );
-              }}
-            >
-              {editButtonText}
-            </Button>
+            <div></div>
+            // <Button
+            //   theme={{
+            //     color: astronaut,
+            //     marginLeft: 'auto',
+            //     marginRight: 'auto',
+            //     marginTop: '10px',
+            //   }}
+            //   onClickEvent={() => {
+            //     browserHistory.push(
+            //       `/community-groups/${discussionGroupId}/${
+            //         isEditMode ? '' : 'edit=true'
+            //       }`
+            //     );
+            //   }}
+            // >
+            //   {editButtonText}
+            // </Button>
           )}
           {condensed && canSeeGroupContent ? (
             <DiscussionBoardDescription

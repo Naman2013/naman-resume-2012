@@ -23,6 +23,7 @@ import styles from 'app/components/community-groups/overview/members-list.style'
 import { Modal } from '../../components/modal/index';
 import DiscussionBoardInviteNewMemberToSlooh from '../../components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { ConfirmationPopUp } from '../../components/common/ToggleJoinGroup/common/ConfirmationPopUp';
+import { Tooltip } from 'react-tippy';
 
 class Members extends Component {
   constructor(props) {
@@ -632,39 +633,39 @@ class Members extends Component {
                       {(isGoogleClassroom || canEditGroup) && (
                         <td style={style.tableRowPadding}>
                           {listData.showAddButton ? (
-                            <Button
+                           <Tooltip title="Add to Club"><Button
                               style={{ margin: '5px' }}
                               onClick={() => this.refreshPage(listData)}
                             >
                               {listData.invitationPrompt}
-                            </Button>
+                            </Button></Tooltip>
                           ) : null}
 
                           {listData.showArchiveButton ? (
-                            <Button
+                             <Tooltip title="Archive Club Member"><Button
                               style={style.archive}
                               onClick={() => this.archiveModal(listData)}
                             >
                               <i className="fa fa-trash" aria-hidden="true"></i>
-                            </Button>
+                            </Button></Tooltip>
                           ) : (
-                            <Button
+                            <Tooltip title="Restore Club Member"><Button
                               onClick={() => this.activateModal(listData)}
                             >
                               <img
                                 style={style.restorebutn}
                                 src="https://vega.slooh.com/assets/v4/common/restore_gray.svg"
                               />
-                            </Button>
+                            </Button></Tooltip>
                           )}
 
                           {listData.showViewInvitationButton && (
-                            <Button
+                            <Tooltip title="View Club Member Details"><Button
                               style={style.viewinvitation}
                               onClick={() => this.showMembarCard(listData)}
                             >
-                              <img src="https://vega.slooh.com/assets/v4/common/info_icon.svg" />
-                            </Button>
+                            <img src="https://vega.slooh.com/assets/v4/common/info_icon.svg" />
+                            </Button></Tooltip>
                           )}
                         </td>
                       )}
