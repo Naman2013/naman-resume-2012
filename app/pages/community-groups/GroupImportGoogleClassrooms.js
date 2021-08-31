@@ -234,7 +234,7 @@ class GroupImportGoogleClassrooms extends Component {
     formValues.preventDefault();
     if(!this.progress){
       this.progress=true;
-      const { user } = this.props;
+      const { user,getMyClubListDataAction } = this.props;
 
       let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
       forceReloadStrData = Math.floor(Math.random() * 100000);
@@ -265,6 +265,9 @@ class GroupImportGoogleClassrooms extends Component {
             }
             this.progress=false;
           }
+          getMyClubListDataAction({callSource: "profile",
+              paginationStartIndex: 1,
+              maxItemsPerPage: 9});
         })
         .catch(err => {
           throw ('Error: ', err);

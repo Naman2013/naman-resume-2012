@@ -33,7 +33,7 @@ export class ClubList extends PureComponent{
       };
     
     render() {
-        const { heading, showExploreClubs, clubList, totalClubsCount, data } = this.props;
+        const { heading, showExploreClubs, clubList, totalClubsCount, data, getMyClubListDataAction } = this.props;
         const { activePage } = this.state;
       
         return (
@@ -43,6 +43,7 @@ export class ClubList extends PureComponent{
                     <h2 className="club-list-heading">{heading}</h2>    
                     <ProfileGroups
                         data={data}
+                        getMyClubListDataAction={getMyClubListDataAction}
                     />
                 </div>
                                     

@@ -26,6 +26,8 @@ class ProfileGroups extends Component {
     profileGroupList: [],    
   };
 
+  
+
   componentWillReceiveProps(props) {
     this.setState({profileGroupList: props.profileGroupList});
 }
@@ -33,7 +35,7 @@ class ProfileGroups extends Component {
     const { getProfileGroupList } = this.props;
     getProfileGroupList({ callSource: 'profile' }); 
   }
-
+   
   updateGroupItemInfo = (id, resData) => {
     // const { getProfile, params } = this.props;
     // getProfile(params.customerUUID);
@@ -61,7 +63,7 @@ class ProfileGroups extends Component {
   };
 
   renderClubBtns = () => {
-    const { data } = this.props;
+    const { data} = this.props;
     const { groupControls = {} } = data;
 
     const {
@@ -82,7 +84,9 @@ class ProfileGroups extends Component {
               icon={null}
           />
 
-          // <button
+          // <buttongetMyClubListDataAction
+
+
           //   onClick={() => this.setState({ showCreatePopup: true })}
           //   className="btn btn-primary float-right club-btn"
           //   type="button"
@@ -121,6 +125,7 @@ class ProfileGroups extends Component {
       showCreatePopup,  
       // profileGroupList,
         } = this.state;
+    const {getMyClubListDataAction}=this.props;
     return (
       <div className="profile-groups">
         {/* <CenterColumn customClass="profile-groups-container" > */}
@@ -155,12 +160,11 @@ class ProfileGroups extends Component {
         >
           {promptText}
         </ReactModal>
-
         <Modal
           show={showImportPopup}
           onHide={() => this.setState({ showImportPopup: false })}
         >
-          <GroupImportGoogleClassrooms />
+          <GroupImportGoogleClassrooms getMyClubListDataAction={getMyClubListDataAction} />
         </Modal>
         <Modal
           show={showCreatePopup}

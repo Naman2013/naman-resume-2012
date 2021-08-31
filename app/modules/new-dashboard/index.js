@@ -365,6 +365,8 @@ export class NewDashboard extends PureComponent{
                                         totalClubsCount={myClubList.totalClubsCount}
                                         getClubList={getMyClubListDataAction}
                                         data={{groupControls: myClubList.groupControls}}
+                                        getMyClubListDataAction={getMyClubListDataAction}
+
 
                                     />
                                 )}
