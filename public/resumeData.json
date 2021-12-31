@@ -1,0 +1,132 @@
+{
+  "main": {
+    "name":"Naman Singh",
+    "description":"I am a full stack development engineer.",
+    "image":"namansingh.jpg",
+    "bio":"Hello, I am experience Software Engineer who constantly seeks out innovation solutions to everyday problems. In my 2 years in this industry. i've honed my analytical thinking and collaboration skill. and I love working witha team. i have also had the opportunity to serve as the Software Engineer lead for two project with fast technology. ",
+    "contactmessage":"Here is where you should write your message to readers to have them get in contact with you.",
+    "email": "kumarnaman242@gmail.com",
+    "phone": "+91-7566637594",
+    "github":"https://github.com/Naman2013/ReactjsFirstProject",
+    "project":"",
+    "address":{
+      "city":"Indore",
+      "state":"(M.P)",
+      "zip": "(4520001)"
+    },
+    "website": "",
+    "resumedownload":"",
+    "social":[
+      
+      {
+        "name":"twitter",
+        "url":"http://twitter.com",
+        "className":"fa fa-twitter"
+      },
+      {
+        "name":"linkedin",
+        "url":"https://www.linkedin.com/in/naman-singh-1ab93a18b",
+        "className":"fa fa-linkedin"
+      },
+      {
+        "name":"instagram",
+        "url":"http://instagram.com/n.am.an_b",
+        "className":"fa fa-instagram"
+      },
+      {
+        "name":"github",
+        "url":"https://github.com/Naman2013/ReactjsFirstProject",
+        "className":"fa fa-github"
+      }
+    ]
+  },
+  "resume":{
+    "skillmessage":"Here you can create a short write-up of your skills to show off to employers",
+    "education":[
+      {
+        "school":"DAVV University Indre",
+        "degree":"Masters Of Computer Application",
+        "Post-graduated":"April 2020",
+        "description":"Describe your experience at University, what you learned, what useful skills you have acquired etc."
+      },
+      {
+        "school":"MPBoard",
+        "degree":"10th and 12th",
+        "graduated":"2010-2012",
+        "description":"Describe your experience at school, what you learned, what useful skills you have acquired etc."
+      }
+    ],
+    "work":[
+      {
+        "company":"DigiPrima Technology",
+        "title":"Software Engineer",
+        "years":"Jun 2021 - Present",
+        "description":"Describe work, special projects, notable achievements, what technologies you have been working with, and anything else that would be useful for an employer to know."
+      },
+      {
+        "company":"Karabi Software ",
+        "title":"Junior software Engineer",
+        "years":"sept 2020 - April 2021",
+        "description":"Describe work, special projects, notable achievements, what technologies you have been working with, and anything else that would be useful for an employer to know."
+      }
+    ],
+    "skills":[
+      
+     
+      {
+        "name":"ReactJs",
+        "level":"80%"
+      },
+      {
+        "name":"JavaScript",
+        "level":"70%"
+      },
+      {
+        "name":"CSS",
+        "level":"50%"
+      },
+      {
+        "name":"HTML",
+        "level":"90%"
+      },     
+      {
+        "name":"JAVA",
+        "level":"80%"
+      }
+    ]
+  },
+  "portfolio":{
+    "projects": [
+      {
+        "title":"I-FPO Web Application",
+        "category":"My Travel Blog for my post-university travels",
+        "image":"01.jpg",
+        "url":"https://www.canadianwanderlust.com"
+      },
+      {
+        "title":"I-FPO Accounting Web Application",
+        "category":"(offline now) A fighting gear company I started",
+        "image":"02.jpg",
+        "url":"http://www.timbakerdev.com"
+      },
+      {
+        "title":"Explore The universe",
+        "category":"Website I built for a restaurant I like in Thailand",
+        "image":"03.jpg",
+        "url":"http://www.timbakerdev.com/originalthaifood.github.io"
+      },
+      {
+        "title":"Wedding Event Plannarse",
+        "category":"(MVP Only) A React and Meteor based chat University project.",
+        "image":"05.jpg",
+        "url":"http://www.smirkspace.com"
+      }  ,
+      {
+        "title":"House Rental",
+        "category":"A React based resume website template",
+        "image":"04.jpg",
+        "url":"http://www.timbakerdev.com"
+      }   
+    ]
+  }
+}
